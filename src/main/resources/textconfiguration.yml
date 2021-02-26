@@ -1,0 +1,9 @@
+# Item treatments
+item_treatments:
+  tempered: '&7Tempered'
+  quenched: '&7Quenched'
+  work_hardened: '&7Work-hardened'
+  polished: '&aPolished'
+  engraved: '&aEngraved'
+  leather_bound: '&6Leatherbound'
+  wax_coated: '&eWaxed'

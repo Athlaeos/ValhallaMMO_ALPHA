@@ -1,0 +1,6 @@
+name: MMOSkills
+version: 1.0_ALPHA
+main: me.athlaeos.mmoskills.MMOSkills
+api-version: 1.14
+authors: [Athlaeos]
+description: Adds in a number of interesting categories players can level up and improve ingame actions

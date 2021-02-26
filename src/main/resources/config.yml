@@ -1,0 +1,8 @@
+# If true, the item's treatments are hidden from the item. If false, the treatments are applied as lore on the item.
+hide_treatments: false
+# If true, the item's additional damage numbers are hidden from the item. If false, the extra damage is applied
+# as lore on the item.
+hide_damage: false
+# If true, the item's custom durability numbers are hidden from the item. If false, the extra durability is appled
+# as lore on the item.
+hide_durability: false
