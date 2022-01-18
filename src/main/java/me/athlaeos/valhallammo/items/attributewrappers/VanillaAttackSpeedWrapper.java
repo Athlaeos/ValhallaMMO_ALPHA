@@ -1,0 +1,19 @@
+package me.athlaeos.valhallammo.items.attributewrappers;
+
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
+
+public class VanillaAttackDamageWrapper extends AttributeWrapper{
+    public VanillaAttackDamageWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
+        super(amount, operation, slot);
+        this.attribute = "GENERIC_ATTACK_DAMAGE";
+        this.minValue = 0;
+        this.maxValue = 2048;
+    }
+
+    @Override
+    public boolean isCompatible(ItemStack i) {
+        return true;
+    }
+}

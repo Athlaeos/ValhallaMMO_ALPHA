@@ -1,0 +1,206 @@
+skill_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which skills players have
+              # That also means changing this identifier name will break the ones currently existing on players
+              # These identifiers must start with either "skill" or "rankedskill" to define how they level and behave.
+  name: '&7Novice Smithing' # Name of the icon within the skill tree
+  icon: LEATHER_CHESTPLATE # Icon itself within the skill tree
+  coords: '0,0' # Relative location on skilltree
+  hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
+  description: '&7You are able to craft items of &eTier I&7 materials of much higher quality, and you start gaining Smithing EXP for using these materials in crafting.'
+  required_lv: 0 # Required smithing level to unlock
+  perks: # Perks that execute when a player unlocks this skill
+    exp_tier1_gain: 100
+    crafting_tier1: 50
+skill_main_2:
+  name: '&7Apprentice Smithing'
+  icon: CHAINMAIL_CHESTPLATE
+  coords: '0,2'
+  hidden: false
+  description: '&7You are able to craft items of &eTier II&7 materials of much higher quality, and you start gaining Smithing EXP for using these materials. Unlocks &eLeatherworking&7(Apply leather on a crafting table to bind the next tool with leather).'
+  required_lv: 20
+  perks:
+    exp_tier2_gain: 100
+    exp_tier1_gain: -50
+    crafting_tier2: 50
+    unlock_skill:
+      - LEATHERWORKING
+      # To have a skill be unlockable, all conditions must be met:
+      # - The player must have the same or higher levels than is required
+      # - The player must have at least one skill unlocked of requireskill_one, or none if it is empty or doesn't exist
+      # - The player must have all skills unlocked of requireskill_all, or none if it is empty or doesn't exist
+    requireskill_one: # If a skill noted here does not exist, an error shows up in console and it is skipped
+      - skill_main_1
+    requireskill_all: []
+skill_main_3:
+  name: '&7Experienced Smithing'
+  icon: IRON_CHESTPLATE
+  coords: '0,4'
+  hidden: false
+  description: '&7You are able to craft items of &eTier III&7 materials of much higher quality, and you start gaining Smithing EXP for using these materials. Unlocks &eTempering&7(Heat item on campfire and let slowly cool) and &eQuenching&7(Heat item on campfire and cool on filled cauldron).'
+  required_lv: 40
+  perks:
+    exp_tier3_gain: 100
+    exp_tier2_gain: -50
+    exp_tier1_gain: -25
+    crafting_tier3: 50
+    unlock_skill:
+      - QUENCHING
+      - TEMPERING
+    requireskill_one:
+      - skill_main_2
+skill_main_4:
+  name: '&7Expert Smithing'
+  icon: DIAMOND_CHESTPLATE
+  coords: '0,6'
+  hidden: false
+  description: '&7You are able to craft items of &eTier IV&7 materials of much higher quality, and you start gaining Smithing EXP for using these materials. Unlocks &eCrystal Reformation&7(Apply blaze powder on anvil, next diamond item crafted is of much better quality).'
+  required_lv: 60
+  perks:
+    exp_tier4_gain: 100
+    exp_tier3_gain: -50
+    exp_tier2_gain: -25
+    exp_tier1_gain: -15
+    crafting_tier4: 50
+    unlock_skill:
+      - DIAMOND_CRAFTING
+    requireskill_one:
+      - skill_main_3
+skill_main_5:
+  name: '&7Master Smithing'
+  icon: NETHERITE_CHESTPLATE
+  coords: '0,8'
+  hidden: false
+  description: '&7You are able to craft items of &eTier V&7 materials of much higher quality, and you start gaining Smithing EXP for using these materials. Unlocks &eAncient Knowledge&7(Heat netherite on soul campfire, then apply on smithing bench. Next diamond item is converted to netherite with much better quality).'
+  required_lv: 80
+  perks:
+    exp_tier5_gain: 100
+    exp_tier4_gain: -50
+    exp_tier3_gain: -25
+    exp_tier2_gain: -15
+    crafting_tier5: 50
+    unlock_skill:
+      - NETHERITE_CRAFTING
+    requireskill_one:
+      - skill_main_4
+skill_main_final:
+  name: '&7Masterpiece'
+  icon: NETHER_STAR
+  coords: '0,10'
+  hidden: true
+  description: '&7You pour your heart and soul into your next creation, gaining +50 to crafting quality. You will not be able to repeat this feat.'
+  required_lv: 100
+  perks:
+    buff_next_item: 50
+  requireskill_one:
+    - skill_main_5
+skill_special:
+  name: '&6Aspect of Hephaestus'
+  icon: NETHER_STAR
+  coords: '0,12'
+  hidden: true
+  description: '&7Having truly mastered your craft, all your creations benefit from &e+25&7 crafting quality.'
+  required_lv: 100
+  perks:
+    buff_next_item: 50
+  requireskill_all:
+    - skill_main_5
+    - rankedskill_specialisation_bow:5
+    - skill_specialisation_waxing
+    - skill_specialisation_magic_stone
+    - skill_specialisation_fine_craftsmanship
+    - skill_specialisation_reinforcing
+skill_specialisation_waxing:
+  name: '&7Wood Treatment'
+  icon: HONEYCOMB
+  coords: '2,0'
+  hidden: true
+  description: '&7Unlocks Wax Treatment. Only applicable on wooden/leather items. Treat an item by heating some honeycomb on a campfire, then applying the melty wax on a cauldron. Then, click the item on the cauldron. Wax treated items benefit from improved durability'
+  required_lv: 10
+  perks:
+    unlock_skill:
+    - WAX_TREATMENT
+  requireskill_all:
+    - skill_main_1
+skill_specialisation_magic_stone:
+  name: '&7Blessing of Gaia'
+  icon: ENCHANTED_BOOK
+  coords: '-2,2'
+  hidden: true
+  description: '&7Stone tools you craft are far more potent when receiving enchantments. Tier II items also gain +10 to quality.'
+  required_lv: 30
+  perks:
+    enchant_potency_stone: 20
+    crafting_tier2: 10
+  requireskill_all:
+    - skill_main_2
+skill_specialisation_fine_craftsmanship:
+  name: '&7Fine Craftsmanship'
+  icon: 'GRINDSTONE'
+  coords: '2,4'
+  hidden: true
+  description: '&7Unlocks polishing and engraving. Engraving requires an item to be polished first. Engraving improves enchantment potency of the item'
+  required_lv: 50
+  perks:
+    unlock_skill:
+      - POLISHING
+      - ENGRAVING
+    requireskill_all:
+      - skill_main_3
+skill_specialisation_reinforcing:
+  name: '&7Tool Reinforcement'
+  icon: 'SMITHING_TABLE'
+  coords: '-2,6'
+  hidden: true
+  description: '&7Unlocks reinforcing. Reinforcing is done by clicking an ingot/material on a smithing bench, followed by the item you want to reinforce. Reinforcing improves durability and adds a quality of the material used.'
+  required_lv: 70
+  perks:
+    unlock_skill:
+      - REINFORCING
+    requireskill_all:
+      - skill_main_4
+rankedskill_specialisation_bow:
+  hidden: false
+  coords: '-2,0'
+  requireskill_one:
+    - skill_main_1
+  1:
+    name: '&7Fletcher I'
+      icon: BOW
+      description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+20&7 to their quality. Better quality bows shoot arrows with greater velocity and gain better durability.'
+      required_lv: 20
+      perks:
+        crafting_bows: 20
+        crafting_crossbows: 20
+  2:
+    name: '&7Fletcher II'
+    icon: BOW
+    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+40&7 to their quality. '
+    required_lv: 40
+    perks:
+      crafting_bows: 20
+      crafting_crossbows: 20
+  3:
+    name: '&7Fletcher III'
+    icon: BOW
+    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+60&7 to their quality. '
+    required_lv: 60
+    perks:
+      crafting_bows: 20
+      crafting_crossbows: 20
+  4:
+    name: '&7Fletcher IV'
+    icon: BOW
+    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+80&7 to their quality. '
+    required_lv: 80
+    perks:
+      crafting_bows: 20
+      crafting_crossbows: 20
+  5:
+    name: '&7Fletcher V'
+    icon: BOW
+    description: '&7You master crafting bows/crossbows. Bows you craft gain &e+100&7 to their quality. '
+    required_lv: 100
+    perks:
+      crafting_bows: 20
+      crafting_crossbows: 20
+
+

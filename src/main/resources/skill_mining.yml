@@ -1,0 +1,15 @@
+# Here you configure how smithing is displayed within its skill tree
+display_name: '&7Farming'
+icon: WOODEN_HOE
+description: '&8Practice Farming to increase your harvest''s bounty, to collect rare plants and ingredients, and to improve your fishing and livestock farming.'
+starting_coordinates: '4,9' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+levelbar_title: '&7Farming &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'
+levelbar_color: GREEN # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
+levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
+
+break_limit_ultra_harvesting: 128 # Maximum amount of blocks the Ultra Harvesting special ability is allowed to break
+instant_pickup_ultra_harvesting: true # If true, drops from ultra harvesting are transferred to the player immediately. If false, they drop normally.
+
+fishing_luck_of_the_sea_potency: 1.0 # The luck tiers added per level of Luck of the Sea. Higher levels result in better rewards
+fishing_luck_potency: 0.33 # The luck tiers added per level of Luck. Higher levels result in better rewards

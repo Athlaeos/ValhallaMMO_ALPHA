@@ -1,0 +1,66 @@
+ARMORER: # Armorers make use of the SMITHING skill
+  min_level: 50
+  max_level: 90
+  dialogue:
+    HETLMET|CHESTPLATE|LEGGINGS|BOOTS: # The dialogue the villager can react to holding either the equipment classes or materials
+      - '&7[&8Armorer&7] Try to improve the fit of your armor where you crafted it so there''s less gaps to get stabbed. Takes some extra material but it''s worth it'
+      - '&7[&8Armorer&7] You can''t really temper leather or anything, but you can coat them in wax or stud them with some iron nuggets.'
+      - '&7[&8Armorer&7] You can heat metal ingots and items on a campfire, but it''ll remove any tempering you did to it making it very soft.'
+      - '&7[&8Armorer&7] You have to make the diamond unstable to be able to shape them into objects, which some ender pearls and an anvil can do'
+      - '&7[&8Armorer&7] I''ve heard of an otherworldly metal so strong you can''t even use regular fire to forge it, there are other types of fire?'
+      - '&7[&8Armorer&7] You can temper diamond the same way you would metals, it makes the crystal structure much more solid'
+      - '&7[&8Armorer&7] You can improve the durability of most metal items by heating them and cooling them on a cauldron, definitely recommend.'
+    PICKAXE|AXE|SHOVEL|HOE:
+      - '&7[&8Armorer&7] I reckon you can temper tools the same way you can armor, but that''s not really my expertise'
+      - '&7[&8Armorer&7] I don''t really make tools, you should ask a tool smith for tips.'
+      - '&7[&8Armorer&7] I don''t know a lot about that, sorry'
+    AXE|SWORD:
+      - '&7[&8Armorer&7] You can probably sharpen weapons on a grindstone, you should probably ask the weapon smith'
+      - '&7[&8Armorer&7] Metal tends to be kind of soft when it''s not tempered, that might be why your weapons break quickly.'
+    NETHERITE_INGOT:
+      - '&7[&8Armorer&7] That''s an impressive find right there, but you can''t really do much with it unless you got a forge hot enough for it'
+      - '&7[&8Armorer&7] Very strange material. It''s not quite a metal and not quite crystalline, and regular fire doesn''t even seem to touch'
+    DIAMOND:
+      - '&7[&8Armorer&7] Diamonds aren''t metals, so you can''t really melt them. You can make them unstable with ender pearls, though'
+    IRON_INGOT|GOLD_INGOT:
+      - '&7[&8Armorer&7] Very versatile materials. You gotta heat them up on a campfire before you can start working it though, and an anvil will help you craft.'
+      - '&7[&8Armorer&7] Metal items tend to be kind of soft and weak when just forged, try tempering them first.'
+
+TOOLSMITH:
+  20:
+    - '&7[&8Tool Smith&7] If you can get your hands on some honeycomb, try melt it and coat your wooden stuff in it. Makes it last a bit longer'
+    - '&7[&8Tool Smith&7] I try to make tools out of stone, but they keep shattering when I use them. Why do people use stone anyway?'
+    - '&7[&8Tool Smith&7] Maybe some other smiths can give you some tips on how to craft, I''m pretty new at this.'
+  40:
+    - '&7[&8Tool Smith&7] You can''t really wax stone tools, but you can temper them to improve their durability. '
+    - '&7[&8Tool Smith&7] The better I get the less I learn from older materials, but whenever I try to craft with fancy expensive materials it just breaks and I don''t learn anything.'
+    - '&7[&8Tool Smith&7] Gold is soft and not very fitting for making tools and things, but I learn a lot from working with it.'
+  60:
+    - '&7[&8Tool Smith&7] Crafting tables aren''t really fit for forging with hot iron, so try using an anvil instead'
+    - '&7[&8Tool Smith&7] A smithing bench allows me to swap out the head of my tool to something else, so I don''t lose enchantments on an item I like'
+    - '&7[&8Tool Smith&7] Campfires are very useful in getting metals hot enough to for forging and preparing them for tempering'
+  80:
+    - '&7[&8Tool Smith&7] Diamond is a weird material, it doesn''t behave like metal. I''m trying to figure out how to shape it, I''m thinking you need something magical for it'
+    - '&7[&8Tool Smith&7] If you''re not very experienced in a more advanced material but want something that lasts longer, you''re better off using what you''re used to'
+    - '&7[&8Tool Smith&7] Smithing is a lot about gathering knowledge, try experimenting and discovering new techniques'
+  100:
+    - '&7[&8Tool Smith&7] To be able to shape diamonds you have to make them unstable with ender pearls, something about ender pearls makes diamond more fluid or something'
+    - '&7[&8Tool Smith&7] Diamond tools can be tempered much the same way as metal ones, by heating on a campfire and cooling on a cauldron'
+    - '&7[&8Tool Smith&7] Apperently there''s a metal from the Nether that doesn''t melt by normal means, would love to get my hands on some'
+WEAPONSMITH:
+  70:
+    - '&7[&8Weapon Smith&7] If you wanna make your weapons sharper, use a grindstone. Mind that it shaves off any coating you put on it though'
+    - '&7[&8Weapon Smith&7] You want your wood stuff to last longer? Eh, ask the leatherworker, he might have something for you.'
+    - '&7[&8Weapon Smith&7] My products feel uncomfortable and painful to swing? Sounds more like a you-problem.'
+    - '&7[&8Weapon Smith&7] Wrap those weapon handles in some leather on a crafting bench and they''ll feel a lot better to hold'
+    - '&7[&8Weapon Smith&7] Heard putting some fancy runes on your weapon makes enchantments stick better on them, wouldn''t know how but it sounds neat'
+    - '&7[&8Weapon Smith&7] Stone axes might be simple, but they hit almost twice as hard as swords.'
+    - '&7[&8Weapon Smith&7] The better you get at this things the more damage your weapons deal, maybe you''ll become a legendary smith like me one day'
+    - '&7[&8Weapon Smith&7] Get your hands on some polished andesite and make a whetstone out of it, get that razor sharp edge you''ve been looking for.'
+    - '&7[&8Weapon Smith&7] If you feel your weapons break too fast, they can be improved much the same way other tools can. Ask a toolsmith'
+  100:
+    - '&7[&8Weapon Smith&7] Make sure you temper a sword before trying to whetstone it, it''s too soft to properly sharpen otherwise'
+    - '&7[&8Weapon Smith&7] Did you know you can sharpen battleshields too? They can be pretty brutal when you''re skilled with them.'
+    - '&7[&8Weapon Smith&7] You can''t really forge a diamond sword the same way you do with metal, instead of heating you have to make the diamond unstable first'
+    - '&7[&8Weapon Smith&7] When you''re experienced enough at weaponmaking, anything you make is better than what an amateur could make. Be sure to capitalize off that'
+    - '&7[&8Weapon Smith&7] If you know how to engrave, your weapons can take much better enchantments from enchanting. You''d need to know a thing or two about enchanting though.'

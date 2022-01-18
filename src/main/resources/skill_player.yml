@@ -1,0 +1,141 @@
+# Here you configure how smithing is displayed within its skill tree
+display_name: '&7Smithing'
+icon: ANVIL
+description: '&8Practice Smithing to make tools and equipment of increasingly superior quality'
+starting_coordinates: '0,0' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+# If true, the item's custom durability numbers are hidden from the item. If false, the extra durability is applied
+# as lore on the item.
+hide_durability: false
+
+# Here you can fill in the formulas used for calculating durability values of items crafted using this custom system
+# The output will be a multiplier, which will be applied on the item's vanilla max durability and made into custom durability
+# "rating" refers to the quality points a player has or at which the item was made. Which will be general quality
+# points + material quality points. The item's rating can be improved ingame through methods like tempering and quenching.
+# General quality points apply to all materials, while material quality points only improve a specific crafting tier.
+# Tier 1 means wood and leather, Tier 2 stone and chainmail, Tier 3 Gold and Iron, Tier 4 Diamond, Tier 5 Netherite
+# Example: A wooden tool has a max durability of 60, if the outcome of the wood formula is 0.5 its custom durability
+#          will be 30. The x-axis of the resulting graph represents the player's smithing skill, the y-axis the
+#          durability multiplier.
+# The resulting multiplier will always be made positive, so keep in mind if the outcome of your formula is -5 it will be 0
+# If a person updates an item's quality rating through manual improvement, but the multiplier ends up being 0, they break the item.
+# Durability is updated right away after any tool improvement action
+scaling_durability:
+  wood: '(9.2/300) * %rating% + 0.8' # This default formula results in a durability multiplier of 0.8x-10x linearly from 0-300 pts.
+  bow: '(2.2/300) * %rating% + 0.8' # 0.8x-3x linearly from 0-300 pts.
+  crossbow: '(2.1/300) * %rating% + 0.9' # 0.9x-5x linearly from 0-300 pts.
+  leather: '(5.2/300) * %rating% + 0.8' # 0.8x-6x linearly from 0-300 pts.
+  stone: '(5.2/280) * (%rating% - 20) + 0.8' # 0.8x-6x linearly from 20-300 pts.
+  chainmail: '(3.2/280) * (%rating% - 20) + 0.8' # 0.8x-4x from 20-150 pts.
+  gold: '(7.7/260) * (%rating% - 40) + 0.3' # 0.3x-8x from 40-300 pts.
+  iron: '(3.2/260) * (%rating% - 40) + 0.8' # 0.8x-4x from 40-300 pts.
+  diamond: '(2.4/240) * (%rating% - 60) + 0.6' # 0.6x-3x from 60-300 pts.
+  netherite: '(2.4/220) * (%rating% - 80) + 0.6' # 0.6x-3x from 80-300 pts.
+  prismarine: '(3.2/260) * (%rating% - 40) + 0.8' # Pretty much just applies to tridents. 0.8x-4x from 40-300 pts.
+  membrane: '(1.7/240) * (%rating% - 60) + 0.8' # Pretty much just applies to elytras. 0.8x-2.5x from 60-300 pts.
+  other: '(1.7/300) * %rating% + 0.8' # Applies to any other damageable item. 0.8x-2.5x from 0-300 pts.
+
+# The same as durability, but for damage numbers.
+# Damage numbers are rounded to 1 decimal
+# Damage numbers are only updated once after crafting and again after sharpening
+# Keep in mind these damage values are further updated by the type of tool used to attack
+# Bows are an exception where instead it IS a multiplier translating to arrow velocity instead, which is more damage.
+scaling_damage:
+  wood: '(1.7/300) * %rating% + 0.8' # This default formula results in a damage multiplier of 0.8x-2.5x at 300 pts
+  stone: '(1.7/280) * (%rating% - 20) + 0.8' # 0.8x-2.5x damage from 20-300 pts
+  gold: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
+  iron: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
+  diamond: '(1.7/240) * (%rating% - 60) + 0.8' # 0.8x-2.5x damage from 60-300 pts
+  netherite: '(1.7/220) * (%rating% - 80) + 0.8' # 0.8x-2.5x damage from 80-300 pts
+  bow: '(1.2/300) * %rating% + 0.8' # 0.8x-2x arrow velocity from 0-300 pts
+  crossbow: '(1.2/300) * %rating% + 0.8' # 0.8x-2x arrow velocity from 0-300 pts
+  trident: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
+  other: '(1.7/300) * %rating% + 0.8' # Applies for any other item that has been given custom damage
+
+scaling_speed:
+  wood: '(1.2/300) * %rating% + 0.8' # This default formula results in an attack speed multiplier of 0.8x-2x at 300 pts
+  stone: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x damage from 20-300 pts
+  gold: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
+  iron: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
+  diamond: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x damage from 60-300 pts
+  netherite: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x damage from 80-300 pts
+  trident: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
+  other: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom attack speed
+
+# Stat value multipliers for armor.
+# These stats include knockback resistance (for netherite), toughness, and armor points
+# Updated once after crafting armor, and again after fitting armor.
+# The armor's armor values are multiplied by the outcome of each formula, and rounded to 1 decimal place.
+# Example: If the outcome of diamond armor is 2x, a diamond chestplate will give 16 armor points (8 bars)
+# instead of 8 (4 bars) and 8 toughness instead of 4
+scaling_armor:
+  leather: '(1.2/300) * %rating% + 0.8' # This default formula results in an armor multiplier of 0.8x-2x at 300 pts
+  chainmail: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x armor at 20-300 pts
+  gold: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-3x armor at 40-300 pts
+  iron: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x armor at 40-300 pts
+  diamond: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x armor at 60-300 pts
+  netherite: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x armor at 80-300 pts
+  other: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom armor
+
+scaling_armor_toughness:
+  leather: '(1.2/300) * %rating% + 0.8' # This default formula results in a toughness multiplier of 0.8x-2x at 300 pts
+  chainmail: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x toughness at 20-300 pts
+  gold: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-3x toughness at 40-300 pts
+  iron: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x toughness at 40-300 pts
+  diamond: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x toughness at 60-300 pts
+  netherite: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x toughness at 80-300 pts
+  other: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom armor toughness
+
+scaling_armor_knockbackresist:
+  leather: '(1.2/300) * %rating% + 0.8' # This default formula results in a knockback resistance multiplier of 0.8x-2x at 300 pts
+  chainmail: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x knockback resistance at 20-300 pts
+  gold: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x knockback resistance at 40-300 pts
+  iron: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x knockback resistance at 40-300 pts
+  diamond: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x knockback resistance at 60-300 pts
+  netherite: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x knockback resistance at 80-300 pts
+  other: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom knockback resistance
+
+scaling_health: '(1.2/300) * %rating% + 0.8' # Applies for any item that has been given custom health boost
+scaling_movement_speed: '(1.2/300) * %rating% + 0.8' # Applies for any item that has been given custom health boost
+scaling_knockback: '(1.2/300) * %rating% + 0.8' # Applies for any item that has been given custom health boost
+
+# The fraction of how much durability an item regains when repaired, can't exceed 1.0
+scaling_repair: '(0.7/300) * %rating% + 0.1' # This default formula results in 10%-80% of an item being repaired from 0-300 pts
+
+quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
+  # If left empty, they won't appear.
+  0: '&cPoor'
+  50: '&7Decent'
+  100: '&7Great'
+  150: '&eEpic'
+  200: '&eLegendary'
+  250: '&6&lDivine'
+  300: '&8&lIncomprehensible'
+
+# Treatments
+hide_treatment_lore: false # If true, treatment lore does not appear on items at all
+# These treatments include TEMPERING, SHARPENING_FINE, ENGRAVING, and LEATHER_BINDING. As well as ARMOR_FITTING for armor,
+# WAX_COATING for wooden and stone tools,
+treatment_lore: # The treatment lores displayed on the item if hide_treatment_lore is false. If one is left empty, it does not appear.
+  QUENCHING: '&cQuenched'
+  TEMPERING: '&7Tempered'
+  #SHARPENING_ROUGH: '&8Rough Sharpened'
+  SHARPENING_FINE: '&7Sharpened'
+  POLISHING: '&7Polished'
+  ENGRAVING: '&aEngraved'
+  LEATHER_BINDING: '&6Leather bound'
+  WAX_COATING: '&eWaxed'
+  ARMOR_FITTING: '&7Well-Fit'
+  HEATING: '&6Red-Hot'
+  SUPERHEATING: '&eWhite-Hot'
+  REINFORCING_WOOD: '&bOrganic'
+  REINFORCING_STONE: '&7Runic'
+  REINFORCING_GOLD: '&6Gilded'
+  REINFORCING_IRON: '&7Reinforced'
+  REINFORCING_DIAMOND: '&aJewelled'
+  REINFORCING_NETHERITE: '&8Ancient'
+
+durability: '&7Durability:' # How custom durability is shown on the item
+draw_strength: '&7Arrow Velocity:' # How a crossbow/bow's draw strength multiplier is shown on the item
+
+

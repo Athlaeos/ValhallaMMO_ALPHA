@@ -1,0 +1,36 @@
+# Here you configure how smithing is displayed within its skill tree
+display_name: '&7Player Level'
+icon: PLAYER_HEAD
+description: '&8Level other skills to get exp, get skill points to spend when leveling up'
+starting_coordinates: '0,0' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+# The fraction of how much durability an item regains when repaired, can't exceed 1.0
+scaling_repair: '(0.7/300) * %rating% + 0.1' # This default formula results in 10%-80% of an item being repaired from 0-300 pts
+
+# Treatments
+hide_treatment_lore: false # If true, treatment lore does not appear on items at all
+# These treatments include TEMPERING, SHARPENING_FINE, ENGRAVING, and LEATHER_BINDING. As well as ARMOR_FITTING for armor,
+# WAX_COATING for wooden and stone tools,
+treatment_lore: # The treatment lores displayed on the item if hide_treatment_lore is false. If one is left empty, it does not appear.
+  QUENCHING: '&cQuenched'
+  TEMPERING: '&7Tempered'
+  #SHARPENING_ROUGH: '&8Rough Sharpened'
+  SHARPENING_FINE: '&7Sharpened'
+  POLISHING: '&7Polished'
+  ENGRAVING: '&aEngraved'
+  LEATHER_BINDING: '&6Leather bound'
+  WAX_COATING: '&eWaxed'
+  ARMOR_FITTING: '&7Well-Fit'
+  HEATING: '&6Red-Hot'
+  SUPERHEATING: '&eWhite-Hot'
+  REINFORCING_WOOD: '&bOrganic'
+  REINFORCING_STONE: '&7Runic'
+  REINFORCING_GOLD: '&6Gilded'
+  REINFORCING_IRON: '&7Reinforced'
+  REINFORCING_DIAMOND: '&aJewelled'
+  REINFORCING_NETHERITE: '&8Ancient'
+
+durability: '&7Durability:' # How custom durability is shown on the item
+draw_strength: '&7Arrow Velocity:' # How a crossbow/bow's draw strength multiplier is shown on the item
+
+
