@@ -1,33 +1,25 @@
 package me.athlaeos.valhallammo.placeholder.placeholders;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.dom.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
-import me.athlaeos.valhallammo.materials.MaterialClass;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
-import me.athlaeos.valhallammo.skills.smithing.dom.SmithingProfile;
+import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import org.bukkit.entity.Player;
 
-public class SmithingSkill extends Placeholder {
-    private final MaterialClass materialClass;
+public class Skillpoints extends Placeholder {
 
-    public SmithingSkill(String placeholder, MaterialClass materialClass) {
+    public Skillpoints(String placeholder) {
         super(placeholder);
-        this.materialClass = materialClass;
     }
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileUtil.getProfile(p, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
         if (profile != null){
-            if (profile instanceof SmithingProfile){
-                int skill;
-                if (materialClass == null){
-                    skill = ((SmithingProfile) profile).getGeneralCraftingQuality();
-                } else {
-                    skill = ((SmithingProfile) profile).getCraftingQuality(materialClass);
-                }
-                return s.replace(this.placeholder, String.format("%,d", skill));
+            if (profile instanceof AccountProfile){
+                int points = ((AccountProfile) profile).getSpendableSkillPoints();
+
+                return s.replace(this.placeholder, String.format("%,d", points));
             }
         }
         return s;

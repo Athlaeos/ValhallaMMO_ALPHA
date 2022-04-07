@@ -6,7 +6,10 @@ import me.athlaeos.valhallammo.dom.Transmutation;
 import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
 import me.athlaeos.valhallammo.managers.PotionAttributesManager;
 import me.athlaeos.valhallammo.managers.PotionEffectManager;
+import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.managers.TransmutationManager;
+import me.athlaeos.valhallammo.skills.PotionEffectSkill;
+import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,12 +21,10 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
-import org.bukkit.event.entity.LingeringPotionSplashEvent;
-import org.bukkit.event.entity.PotionSplashEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
@@ -32,9 +33,22 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 
-public class PotionSplashListener implements Listener {
+public class PotionEffectListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority= EventPriority.LOWEST)
+    public void onPotionEffect(EntityPotionEffectEvent e){
+        if (!e.isCancelled()){
+            for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (skill != null){
+                    if (skill instanceof PotionEffectSkill){
+                        ((PotionEffectSkill) skill).onPotionEffect(e);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler(priority=EventPriority.LOWEST)
     public void onPotionSplash(PotionSplashEvent e){
         if (!e.isCancelled()){
             Collection<PotionEffectWrapper> storedPotionEffects = PotionAttributesManager.getInstance().getCurrentStats(e.getPotion().getItem());
@@ -48,10 +62,18 @@ public class PotionSplashListener implements Listener {
                     } // otherwise stored potion does not exist
                 }
             }
+
+            for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (skill != null){
+                    if (skill instanceof PotionEffectSkill){
+                        ((PotionEffectSkill) skill).onPotionSplash(e);
+                    }
+                }
+            }
         }
     }
 
-    @EventHandler
+    @EventHandler(priority=EventPriority.LOWEST)
     public void onProjectileHitBlock(ProjectileHitEvent e){
         if (e.getHitBlock() != null){
             if (e.getEntity() instanceof ThrownPotion){
@@ -86,39 +108,59 @@ public class PotionSplashListener implements Listener {
 
     private final NamespacedKey potionCloudKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_potion_cloud_custom_effects");
 
-    @EventHandler
+    @EventHandler(priority=EventPriority.LOWEST)
     public void onPotionLinger(LingeringPotionSplashEvent e){
         // Setting the potion effects to the cloud
 
-        ThrownPotion thrownPotion = e.getEntity();
-        ItemStack potion = thrownPotion.getItem();
-        if (potion.getItemMeta() == null) return;
-        if (potion.getItemMeta().getPersistentDataContainer().has(PotionAttributesManager.getInstance().getCustomPotionEffectsKey(), PersistentDataType.STRING)){
-            String encodedPotionEffects = potion.getItemMeta().getPersistentDataContainer().get(PotionAttributesManager.getInstance().getCustomPotionEffectsKey(), PersistentDataType.STRING);
-            if (encodedPotionEffects == null) {
-                return;
+        if (!e.isCancelled()){
+            ThrownPotion thrownPotion = e.getEntity();
+            ItemStack potion = thrownPotion.getItem();
+            if (potion.getItemMeta() == null) return;
+            if (potion.getItemMeta().getPersistentDataContainer().has(PotionAttributesManager.getInstance().getCustomPotionEffectsKey(), PersistentDataType.STRING)){
+                String encodedPotionEffects = potion.getItemMeta().getPersistentDataContainer().get(PotionAttributesManager.getInstance().getCustomPotionEffectsKey(), PersistentDataType.STRING);
+                if (encodedPotionEffects == null) {
+                    return;
+                }
+
+                e.getAreaEffectCloud().getPersistentDataContainer().set(potionCloudKey, PersistentDataType.STRING, encodedPotionEffects);
+                e.getAreaEffectCloud().addCustomEffect(new org.bukkit.potion.PotionEffect(PotionEffectType.BLINDNESS, 0, 0, false, false, false), false);
             }
 
-            e.getAreaEffectCloud().getPersistentDataContainer().set(potionCloudKey, PersistentDataType.STRING, encodedPotionEffects);
-            e.getAreaEffectCloud().addCustomEffect(new org.bukkit.potion.PotionEffect(PotionEffectType.BLINDNESS, 0, 0, false, false, false), false);
+            for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (skill != null){
+                    if (skill instanceof PotionEffectSkill){
+                        ((PotionEffectSkill) skill).onPotionLingering(e);
+                    }
+                }
+            }
         }
     }
 
-    @EventHandler
+    @EventHandler(priority=EventPriority.LOWEST)
     public void onLingeringCloudHit(AreaEffectCloudApplyEvent e){
-        AreaEffectCloud cloud = e.getEntity();
-        if (cloud.getPersistentDataContainer().has(potionCloudKey, PersistentDataType.STRING)){
-            String cloudString = cloud.getPersistentDataContainer().get(potionCloudKey, PersistentDataType.STRING);
-            if (cloudString == null) return;
-            Collection<PotionEffectWrapper> potionEffects = getCustomPotionEffectsFromString(cloudString);
+        if (!e.isCancelled()){
+            AreaEffectCloud cloud = e.getEntity();
+            if (cloud.getPersistentDataContainer().has(potionCloudKey, PersistentDataType.STRING)){
+                String cloudString = cloud.getPersistentDataContainer().get(potionCloudKey, PersistentDataType.STRING);
+                if (cloudString == null) return;
+                Collection<PotionEffectWrapper> potionEffects = getCustomPotionEffectsFromString(cloudString);
 
-            for (LivingEntity entity : e.getAffectedEntities()){
-                for (PotionEffectWrapper wrapper : potionEffects){
-                    PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(wrapper.getPotionEffect());
-                    if (basePotionEffect != null){
-                        // Potion effect is custom potion effect
-                        PotionEffectManager.getInstance().addPotionEffect(entity, new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + wrapper.getDuration(), wrapper.getAmplifier(), basePotionEffect.getType()), false);
-                    } // otherwise stored potion does not exist
+                for (LivingEntity entity : e.getAffectedEntities()){
+                    for (PotionEffectWrapper wrapper : potionEffects){
+                        PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(wrapper.getPotionEffect());
+                        if (basePotionEffect != null){
+                            // Potion effect is custom potion effect
+                            PotionEffectManager.getInstance().addPotionEffect(entity, new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + wrapper.getDuration(), wrapper.getAmplifier(), basePotionEffect.getType()), false);
+                        } // otherwise stored potion does not exist
+                    }
+                }
+            }
+
+            for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (skill != null){
+                    if (skill instanceof PotionEffectSkill){
+                        ((PotionEffectSkill) skill).onLingerApply(e);
+                    }
                 }
             }
         }

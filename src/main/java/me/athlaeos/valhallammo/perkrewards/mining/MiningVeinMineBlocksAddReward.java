@@ -1,42 +1,33 @@
-package me.athlaeos.valhallammo.perkrewards;
+package me.athlaeos.valhallammo.perkrewards.mining;
 
 import me.athlaeos.valhallammo.dom.ObjectType;
-import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.skills.mining.MiningProfile;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
-public class UnlockRecipesReward extends PerkReward {
-    private List<String> recipesToUnlock = new ArrayList<>();
-    /**
-     * Constructor for CraftingSkillAddReward, which adds a number of skill points (of a specific MaterialClass if desired)
-     * to the player's profile when execute() runs. If materialClass is null, the amount is added to the player's general
-     * crafting skill instead.
-     * @param name the name of the reward. Must be unique to others rewards, or it will override them.
-     *             This is also the name used to define the rewards in the configs.
-     * @param argument the amount of points to add to the player. Must be Integer or Double. If Double, it's cast to int.
-     */
-    public UnlockRecipesReward(String name, Object argument) {
+public class MiningVeinMineBlocksAddReward extends PerkReward {
+    private List<String> blocksToAdd = new ArrayList<>();
+    public MiningVeinMineBlocksAddReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ACCOUNT);
+        Profile profile = ProfileManager.getProfile(player, "MINING");
         if (profile == null) return;
-        if (profile instanceof AccountProfile){
-            AccountProfile accountProfile = (AccountProfile) profile;
-            Set<String> unlockedRecipes = accountProfile.getUnlockedRecipes();
-            unlockedRecipes.addAll(recipesToUnlock);
-            accountProfile.setUnlockedRecipes(unlockedRecipes);
-            ProfileUtil.setProfile(player, accountProfile, SkillType.ACCOUNT);
+        if (profile instanceof MiningProfile){
+            MiningProfile miningProfile = (MiningProfile) profile;
+            Collection<String> unlockedBlocks = miningProfile.getValidVeinMinerBlocks();
+            unlockedBlocks.addAll(blocksToAdd);
+            miningProfile.setValidVeinMinerBlocks(unlockedBlocks);
+            ProfileManager.setProfile(player, miningProfile, "MINING");
         }
     }
 
@@ -45,7 +36,7 @@ public class UnlockRecipesReward extends PerkReward {
         super.setArgument(argument);
         if (argument != null){
             if (argument instanceof Collection){
-                recipesToUnlock = new ArrayList<>(((Collection<String>) this.argument));
+                blocksToAdd = new ArrayList<>(((Collection<String>) this.argument));
             }
         }
     }

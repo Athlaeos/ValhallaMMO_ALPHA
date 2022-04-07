@@ -1,18 +1,17 @@
 package me.athlaeos.valhallammo.placeholder.placeholders.farming;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.farming.FarmingProfile;
 import org.bukkit.entity.Player;
 
-public class FarmingInstantHarvestingUnlocked extends Placeholder {
+public class FarmingBeeAggroImmune extends Placeholder {
     private final String unlocked;
     private final String locked;
 
-    public FarmingInstantHarvestingUnlocked(String placeholder) {
+    public FarmingBeeAggroImmune(String placeholder) {
         super(placeholder);
         this.unlocked = TranslationManager.getInstance().getTranslation("translation_true");
         this.locked = TranslationManager.getInstance().getTranslation("translation_false");
@@ -20,10 +19,10 @@ public class FarmingInstantHarvestingUnlocked extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileUtil.getProfile(p, SkillType.FARMING);
+        Profile profile = ProfileManager.getProfile(p, "FARMING");
         if (profile != null){
             if (profile instanceof FarmingProfile){
-                boolean unlocked = ((FarmingProfile) profile).isInstantHarvestingUnlocked();
+                boolean unlocked = ((FarmingProfile) profile).isHiveBeeAggroImmune();
                 if (unlocked){
                     return s.replace(this.placeholder, this.unlocked);
                 } else {

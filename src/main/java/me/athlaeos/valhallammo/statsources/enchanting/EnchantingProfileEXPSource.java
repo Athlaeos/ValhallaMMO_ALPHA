@@ -1,33 +1,28 @@
-package me.athlaeos.valhallammo.statsources.smithing;
+package me.athlaeos.valhallammo.statsources.enchanting;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.items.MaterialClass;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
+import me.athlaeos.valhallammo.items.EnchantmentType;
+import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class SmithingProfileEXPSource extends AccumulativeStatSource {
-    private final MaterialClass materialClass;
+public class EnchantingProfileEXPSource extends AccumulativeStatSource {
+    private final EnchantmentType enchantmentType;
 
-    public SmithingProfileEXPSource(MaterialClass m){
-        this.materialClass = m;
+    public EnchantingProfileEXPSource(EnchantmentType m){
+        this.enchantmentType = m;
     }
 
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileUtil.getProfile((Player) p, SkillType.SMITHING);
+            Profile profile = ProfileManager.getProfile((Player) p, "ENCHANTING");
             if (profile == null) return 0;
-            if (!(profile instanceof SmithingProfile)) return 0;
-            SmithingProfile smithingProfile = (SmithingProfile) profile;
-            if (materialClass == null){
-                return smithingProfile.getGeneralCraftingExpMultiplier();
-            } else {
-                return smithingProfile.getCraftingEXPMultiplier(materialClass);
-            }
+            if (!(profile instanceof EnchantingProfile)) return 0;
+            EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
+            return enchantingProfile.getEnchantingExpMultiplier(enchantmentType);
         }
         return 0;
     }

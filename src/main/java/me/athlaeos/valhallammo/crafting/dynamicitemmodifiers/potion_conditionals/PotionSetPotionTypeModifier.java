@@ -3,24 +3,22 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_conditional
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.items.PotionTreatment;
-import me.athlaeos.valhallammo.managers.PotionTreatmentManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
-import java.util.Collection;
+public class PotionSetPotionTypeModifier extends DynamicItemModifier {
+    private final PotionType type;
+    private final String typeString;
 
-public class PotionAddTreatmentModifier extends DynamicItemModifier {
-    private final PotionTreatment treatment;
-    private final String treatmentString;
-
-    public PotionAddTreatmentModifier(String name, double strength, ModifierPriority priority, PotionTreatment treatment, Material icon) {
+    public PotionSetPotionTypeModifier(String name, double strength, ModifierPriority priority, PotionType type, Material icon) {
         super(name, strength, priority);
-        this.treatment = treatment;
-        treatmentString = Utils.toPascalCase(treatment.toString().replace("_", " "));
+        this.type = type;
+        typeString = Utils.toPascalCase(type.toString().replace("_", " "));
 
         this.name = name;
 
@@ -32,28 +30,30 @@ public class PotionAddTreatmentModifier extends DynamicItemModifier {
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 0;
-        this.description = Utils.chat("&7Applies the treatment &e" + treatmentString + " &7to the potion. -nThe recipe is cancelled if" +
-                " the item already has this treatment. This can be used to add" +
+        this.description = Utils.chat("&7Sets the potion type to &e" + typeString + " &7. -nThe recipe is cancelled if" +
+                " the potion already has this type. This can be used to add" +
                 " conditions to following recipes.");
-        this.displayName = Utils.chat("&7&lApply treatment: &e&l" + treatmentString);
+        this.displayName = Utils.chat("&7&lSet Potion Type: &e&l" + typeString);
         this.icon = icon;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
-        ItemMeta meta = outputItem.getItemMeta();
-        if (meta == null) return null;
-        if (!this.use) return outputItem;
-        if (PotionTreatmentManager.getInstance().hasTreatment(outputItem, treatment)) return null;
-        Collection<PotionTreatment> itemTreatments = PotionTreatmentManager.getInstance().getPotionTreatments(outputItem);
-        itemTreatments.add(treatment);
-        PotionTreatmentManager.getInstance().setPotionTreatments(outputItem, itemTreatments);
+        if (outputItem.getItemMeta() == null) return null;
+        if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
+        if (!this.validate) return outputItem;
+        PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
+        if (meta.getBasePotionData().getType() == type) return null;
+
+        meta.setBasePotionData(new PotionData(type, meta.getBasePotionData().isExtended(), meta.getBasePotionData().isUpgraded()));
+        outputItem.setItemMeta(meta);
+
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Adds the &e" + treatmentString + " &7treatment to a potion. Recipe is cancelled if potion already has this property.");
+        return Utils.chat("&7Sets the potion type to &e" + typeString + "&7. Recipe is cancelled if potion already has this property.");
     }
 }

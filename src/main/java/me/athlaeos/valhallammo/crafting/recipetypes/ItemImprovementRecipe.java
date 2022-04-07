@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dom;
+package me.athlaeos.valhallammo.crafting.recipetypes;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import org.bukkit.Material;
@@ -28,6 +28,16 @@ public class ItemImprovementRecipe extends AbstractCustomCraftingRecipe implemen
 
     public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers);
+        this.requiredItemType = requiredItemType;
+    }
+
+    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta){
+        super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta);
+        this.requiredItemType = requiredItemType;
+    }
+
+    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta, int subsequentCrafts){
+        super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta, subsequentCrafts);
         this.requiredItemType = requiredItemType;
     }
 

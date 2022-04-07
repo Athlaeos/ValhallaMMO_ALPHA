@@ -1,47 +1,129 @@
-package me.athlaeos.valhallammo.core_listeners;
+package me.athlaeos.valhallammo.listeners;
 
-import me.athlaeos.valhallammo.Main;
-import me.athlaeos.valhallammo.configs.ConfigManager;
-import me.athlaeos.valhallammo.core_managers.CooldownManager;
-import me.athlaeos.valhallammo.recipes.dom.AbstractCraftingRecipe;
-import me.athlaeos.valhallammo.recipes.dom.ItemCraftingRecipe;
-import me.athlaeos.valhallammo.core_managers.MaterialCosmeticManager;
-import me.athlaeos.valhallammo.recipes.dom.ItemImprovementRecipe;
-import me.athlaeos.valhallammo.recipes.managers.PlayerCraftChoiceManager;
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.crafting.recipetypes.AbstractCustomCraftingRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.ItemClassImprovementRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.ItemCraftingRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.ItemImprovementRecipe;
+import me.athlaeos.valhallammo.dom.RequirementType;
+import me.athlaeos.valhallammo.events.PlayerCustomCraftEvent;
+import me.athlaeos.valhallammo.events.PlayerItemClassTinkerEvent;
+import me.athlaeos.valhallammo.events.PlayerItemTinkerEvent;
+import me.athlaeos.valhallammo.items.BlockCraftStateValidationManager;
+import me.athlaeos.valhallammo.items.EquipmentClass;
+import me.athlaeos.valhallammo.managers.*;
+import me.athlaeos.valhallammo.menus.CraftRecipeChoiceMenu;
 import me.athlaeos.valhallammo.menus.PlayerMenuUtilManager;
-import me.athlaeos.valhallammo.recipes.managers.CustomRecipeManager;
-import me.athlaeos.valhallammo.menus.SmithingRecipeMenu;
-import me.athlaeos.valhallammo.recipes.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.skills.InteractSkill;
+import me.athlaeos.valhallammo.skills.Skill;
+import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class InteractListener implements Listener {
     private final Map<UUID, Material> itemsHeld = new HashMap<>();
-    private final boolean spawnOnTopOfBlock;
+    private String errorNoIngredients;
+    private final Map<UUID, RecipeFrequencyDO> recipeFrequency = new HashMap<>();
+    private static InteractListener listener;
+
+    private boolean swap_crafting_table_functionality;
+
     public InteractListener(){
-        spawnOnTopOfBlock = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("craft_item_drop");
+        listener = this;
+        errorNoIngredients = TranslationManager.getInstance().getTranslation("error_crafting_no_ingredients");
+        swap_crafting_table_functionality = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("swap_crafting_table_functionality");
+    }
+
+    public void reload(){
+        errorNoIngredients = TranslationManager.getInstance().getTranslation("error_crafting_no_ingredients");
+        swap_crafting_table_functionality = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("swap_crafting_table_functionality");
+    }
+
+    public static InteractListener getListener() {
+        return listener;
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onInteract(PlayerInteractEvent e){
+        if (e.useItemInHand() == Event.Result.DENY && e.useInteractedBlock() == Event.Result.DENY) return; // event is cancelled
+        for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
+            if (s != null){
+                if (s instanceof InteractSkill){
+                    ((InteractSkill) s).onInteract(e);
+                }
+            }
+        }
     }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e){
-        trackRightClicksHeldDuration(e);
-    }
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK){
+            if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
+                if (e.getClickedBlock() != null){
+                    boolean open_custom = swap_crafting_table_functionality == !e.getPlayer().isSneaking();
+                    if (swap_crafting_table_functionality && PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer()) != null){
+                        open_custom = false;
+                    }
 
-    private void trackRightClicksHeldDuration(PlayerInteractEvent e){
+                    if (open_custom){
+                        // Opening a recipe picking menu
+                        CooldownManager.getInstance().startTimer(e.getPlayer().getUniqueId(), "benchmark");
+                        Material clickedBlockType = e.getClickedBlock().getType();
+                        Material baseVersion = ItemUtils.getBaseMaterial(clickedBlockType);
+                        if (baseVersion != null) {
+                            clickedBlockType = baseVersion;
+                        }
+                        int toolId = SmithingItemTreatmentManager.getInstance().getItemsToolId(e.getPlayer().getInventory().getItemInMainHand());
+                        if (Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()) || toolId >= 0){
+                            if (CustomRecipeManager.getInstance().getCraftingStationRecipes().containsKey(clickedBlockType)){
+                                Collection<AbstractCustomCraftingRecipe> availableRecipes = CustomRecipeManager.getInstance().getRecipesByCraftingStation(clickedBlockType);
+                                availableRecipes = availableRecipes.stream().filter(abstractCustomCraftingRecipe -> {
+                                    if (abstractCustomCraftingRecipe instanceof ItemCraftingRecipe){
+                                        return RequirementType.isRecipeCraftable((ItemCraftingRecipe) abstractCustomCraftingRecipe, toolId);
+                                    }
+                                    return true;
+                                }).collect(Collectors.toList());
+                                CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes);
+                                e.setCancelled(true);
+                                menu.open();
+                            }
+                        } else {
+                            if (CustomRecipeManager.getInstance().getItemImprovementRecipes().containsKey(clickedBlockType) || CustomRecipeManager.getInstance().getItemClassImprovementRecipes().containsKey(clickedBlockType)){
+                                Collection<AbstractCustomCraftingRecipe> availableRecipes = CustomRecipeManager.getInstance().getRecipesByCraftingStation(clickedBlockType, e.getPlayer().getInventory().getItemInMainHand().getType());
+                                CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes);
+                                e.setCancelled(true);
+                                menu.open();
+                            }
+                        }
+                    }
+                }
+            } else if (e.getAction() == Action.LEFT_CLICK_BLOCK){
+                if (PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer()) != null){
+                    e.setCancelled(false); // [CHANGE] from true to false, attempted fix to un-cancel block breaking if recipe selected
+                    PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
+                    resetFrequency(e.getPlayer());
+                }
+            }
+        }
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
             if (e.getClickedBlock() != null){
                 // Tracking how long players held a mouse button
@@ -66,208 +148,152 @@ public class InteractListener implements Listener {
                     }
                 }
 
-                // Opening a recipe picking menu
-                if (e.getPlayer().isSneaking()){
-                    if (CustomRecipeManager.getInstance().getCraftingStationRecipes().containsKey(e.getClickedBlock().getType())){
-                        if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.AIR
-                            && e.getPlayer().getInventory().getItemInOffHand().getType() == Material.AIR){
-                            // player is sneak right clicking a block that has recipes with empty hands
-                            SmithingRecipeMenu menu = new SmithingRecipeMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), e.getClickedBlock().getType());
-                            if (menu.getUnlockedRecipes().size() == 1){
-                                if (!e.getClickedBlock().getType().isInteractable()){
-                                    if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "craft_cooldown")){
-                                        ItemCraftingRecipe recipe = menu.getUnlockedRecipes().get(0);
-                                        PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), recipe);
-                                        e.getPlayer().sendMessage(Utils.chat("&aNow crafting " + recipe.getName()));
-                                        cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "craft_cooldown");
-                                    }
-                                } else {
-                                    e.setCancelled(true);
-                                    menu.open();
-                                }
-                            } else if (menu.getUnlockedRecipes().size() > 0){
-                                e.setCancelled(true);
-                                menu.open();
-                            }
-                        }
-                    }
-                }
                 // Cancelling block interactions if player is trying to craft something
-                ItemCraftingRecipe currentRecipe = PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer());
+                AbstractCustomCraftingRecipe currentRecipe = PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer());
                 if (currentRecipe != null){
-                    // Player is crafting an item
-                    if (e.getClickedBlock().getType() == currentRecipe.getCraftingBlock()){
-                        if (e.getClickedBlock().getType().isInteractable()){
-                            e.setCancelled(true);
-                        }
-                        // Checks if the player can craft the recipe once on first click, and once at the end.
-                        // If it's been more than 500ms since the players last right click, so if the player clicks a crafting
-                        // station, or their first click, the player is notified they dont have the materials.
-                        // If it has been shorter, so if the player has been right clicking the station for longer than 500ms,
-                        // then it checks if the required crafting time right clicking has been held before crafting.
-                        if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_since_right_click") > 500){
-                            if (!canCraft(currentRecipe, e.getPlayer())){
-                                e.getPlayer().sendMessage(Utils.chat("&cNope cant craft bucko"));
-                                cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
-                                PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
-                            } else {
-                                if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
-                                    if (sound != null){
-                                        e.getPlayer().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
-                                    }
-                                    e.getPlayer().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
-                                    cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
-                                }
-                            }
-                        } else if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_held_right_click") >= currentRecipe.getCraftingTime()){
-                            if (canCraft(currentRecipe, e.getPlayer())){
-                                boolean playerHasSpace = e.getPlayer().getInventory().firstEmpty() > -1;
-                                if (playerHasSpace || spawnOnTopOfBlock){
-                                    ItemStack result = currentRecipe.getResult().clone();
-                                    // Modify item based on the recipe's improvement modifiers
-                                    List<DynamicItemModifier> modifiers = new ArrayList<>(currentRecipe.getItemModifers());
-                                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                                    for (DynamicItemModifier modifier : modifiers){
-                                        if (result == null) break;
-                                        result = modifier.processItem(e.getPlayer(), result);
-                                    }
-                                    if (result != null){
-                                        if (currentRecipe.breakStation()){
-                                            BlockBreakEvent event = new BlockBreakEvent(e.getClickedBlock(), e.getPlayer());
-                                            Main.getPlugin().getServer().getPluginManager().callEvent(event);
-                                            if (event.isCancelled()){
-                                                return;
-                                            } else {
-                                                event.getBlock().breakNaturally();
-                                            }
-                                        }
-                                        // player has inventory space and crafting requirements are met, ingredients are removed and result is added
-                                        for (ItemStack ingredient : currentRecipe.getIngredients()){
-                                            e.getPlayer().getInventory().removeItem(ingredient);
-                                        }
-
-                                        if (spawnOnTopOfBlock){
-                                            Item itemDrop = (Item) e.getPlayer().getWorld().spawnEntity(e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), EntityType.DROPPED_ITEM);
-                                            itemDrop.setItemStack(result);
-                                            itemDrop.setPickupDelay(0);
-                                            itemDrop.setOwner(e.getPlayer().getUniqueId());
-                                            itemDrop.setThrower(e.getPlayer().getUniqueId());
-                                        } else {
-                                            e.getPlayer().getInventory().addItem(result);
-                                        }
-                                        Sound sound = MaterialCosmeticManager.getInstance().getCraftFinishSounds(e.getClickedBlock().getType());
-                                        if (sound != null){
-                                            e.getPlayer().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
-                                        }
-                                        e.getPlayer().spawnParticle(Particle.FIREWORKS_SPARK, e.getClickedBlock().getLocation().add(0.5, 1, 0.5), 15);
-                                        PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
-                                    } else {
-                                        // The recipe is cancelled
-                                        e.getPlayer().sendMessage(Utils.chat("&cCrafting failed"));
-                                    }
-                                    cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 750, "cancel_block_interactions");
-                                } else {
-                                    e.getPlayer().sendMessage(Utils.chat("&cNo inventory space!"));
-                                }
-                            } else {
-                                e.getPlayer().sendMessage(Utils.chat("&cNope cant craft bucko"));
-                                PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
-                            }
-                            cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
-                        } else {
-                            if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
-                                if (sound != null){
-                                    e.getPlayer().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
-                                }
-                                cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
-                                e.getPlayer().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
-                            }
-                        }
-                    } else {
-                        PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
-                    }
-                } else {
-                    // Check if player is trying to improve item
                     ItemStack heldItem = e.getPlayer().getInventory().getItemInMainHand();
-                    if (heldItem.getType() != Material.AIR){
-                        ItemImprovementRecipe improvementRecipe = CustomRecipeManager.getInstance().getItemImprovementRecipes().get(heldItem.getType());
-                        if (improvementRecipe != null){
-                            // Player might be trying to improve item
-                            if (improvementRecipe.getCraftingBlock() == e.getClickedBlock().getType()){
-                                if (e.getClickedBlock().getType().isInteractable()){
-                                    e.setCancelled(true);
-                                }
-                                if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_since_right_click") > 500){
-                                    if (!canCraft(improvementRecipe, e.getPlayer())){
-                                        e.setCancelled(false);
-                                        cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
-                                    } else {
-                                        if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                            Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
-                                            if (sound != null){
-                                                e.getPlayer().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
-                                            }
-                                            e.getPlayer().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
-                                            cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
+                    if (currentRecipe instanceof ItemCraftingRecipe) {
+                        int toolId = SmithingItemTreatmentManager.getInstance().getItemsToolId(e.getPlayer().getInventory().getItemInMainHand());
+                        boolean requires_tool = ((ItemCraftingRecipe) currentRecipe).getToolRequirementType() >= 0;
+                        boolean craftable = RequirementType.isRecipeCraftable((ItemCraftingRecipe) currentRecipe, toolId);
+                        boolean empty_hands = Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand());
+                        if ((requires_tool) ? craftable : empty_hands){
+                            if (BlockCraftStateValidationManager.getInstance().blockConditionsApply(e.getClickedBlock(), currentRecipe.getValidation())){
+                                if (canPlayerCraft(e, currentRecipe)){
+                                    // Player is crafting an item
+                                    if (ItemUtils.isSimilarTo(e.getClickedBlock().getType(), currentRecipe.getCraftingBlock())){
+                                        if (e.getClickedBlock().getType().isInteractable()){
+                                            e.setCancelled(true);
                                         }
-                                    }
-                                } else if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_held_right_click") >= improvementRecipe.getCraftingTime()){
-                                    if (canCraft(improvementRecipe, e.getPlayer())){
-
-                                        // Modify item based on the recipe's improvement modifiers
-                                        List<DynamicItemModifier> modifiers = new ArrayList<>(improvementRecipe.getItemModifers());
-                                        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                                        ItemStack newItem = e.getPlayer().getInventory().getItemInMainHand().clone();
-                                        for (DynamicItemModifier modifier : modifiers){
-                                            if (newItem == null) break;
-                                            newItem = modifier.processItem(e.getPlayer(), newItem);
-                                        }
-
-                                        if (newItem != null){
-                                            if (improvementRecipe.breakStation()){
-                                                BlockBreakEvent event = new BlockBreakEvent(e.getClickedBlock(), e.getPlayer());
-                                                Main.getPlugin().getServer().getPluginManager().callEvent(event);
-                                                if (event.isCancelled()){
-                                                    return;
-                                                } else {
-                                                    event.getBlock().breakNaturally();
+                                        // Checks if the player can craft the recipe once on first click, and once at the end.
+                                        // If it's been more than 500ms since the players last right click, so if the player clicks a crafting
+                                        // station, or their first click, the player is notified they dont have the materials.
+                                        // If it has been shorter, so if the player has been right clicking the station for longer than 500ms,
+                                        // then it checks if the required crafting time right clicking has been held before crafting.
+                                        if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_since_right_click") > 500){
+                                            if (!ItemUtils.canCraft(currentRecipe, e.getPlayer(), currentRecipe.requireExactMeta())){
+                                                if (!errorNoIngredients.equals("")){
+                                                    e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Utils.chat(errorNoIngredients)));
+                                                }
+                                                cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
+                                                PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
+                                            } else {
+                                                if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
+                                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                    if (sound != null){
+                                                        e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .4F, 1F);
+                                                    }
+                                                    e.getPlayer().getWorld().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
+                                                    cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
                                                 }
                                             }
-                                            // player has inventory space and crafting requirements are met, ingredients are removed and held item is updated
-                                            for (ItemStack ingredient : improvementRecipe.getIngredients()){
-                                                e.getPlayer().getInventory().removeItem(ingredient);
+                                        } else if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_held_right_click") >= currentRecipe.getCraftingTime()){
+                                            if (ItemUtils.canCraft(currentRecipe, e.getPlayer(), currentRecipe.requireExactMeta())){
+                                                PlayerCustomCraftEvent craftEvent = new PlayerCustomCraftEvent(e.getPlayer(), (ItemCraftingRecipe) currentRecipe, e.getClickedBlock(), true);
+                                                ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(craftEvent);
+                                                if (!craftEvent.isCancelled()){
+                                                    incrementPlayerCraftFrequency(e.getPlayer(), currentRecipe);
+                                                }
+                                            } else {
+                                                if (!errorNoIngredients.equals("")){
+                                                    e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Utils.chat(errorNoIngredients)));
+                                                }
+                                                PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
                                             }
-
-                                            Sound sound = MaterialCosmeticManager.getInstance().getCraftFinishSounds(e.getClickedBlock().getType());
-                                            if (sound != null){
-                                                e.getPlayer().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
-                                            }
-                                            e.getPlayer().spawnParticle(Particle.FIREWORKS_SPARK, e.getClickedBlock().getLocation().add(0.5, 1, 0.5), 15);
-                                            e.getPlayer().getInventory().setItemInMainHand(newItem);
+                                            cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
                                         } else {
-                                            e.getPlayer().sendMessage(Utils.chat("&cCrafting failed"));
+                                            if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
+                                                Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                if (sound != null){
+                                                    e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .4F, 1F);
+                                                }
+                                                cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
+                                                e.getPlayer().getWorld().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
+                                            }
                                         }
-                                        cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 750, "cancel_block_interactions");
                                     } else {
-                                        e.getPlayer().sendMessage(Utils.chat("&cNope cant improve bucko"));
+                                        PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
+                                        resetFrequency(e.getPlayer());
                                     }
-                                    cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
                                 } else {
-                                    if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                        Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
-                                        if (sound != null){
-                                            e.getPlayer().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
+                                    PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
+                                    resetFrequency(e.getPlayer());
+                                }
+                            } else {
+                                cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
+                                PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
+                            }
+                        }
+                    } else if (currentRecipe instanceof ItemImprovementRecipe || currentRecipe instanceof ItemClassImprovementRecipe) {
+                        if (heldItem.getType() != Material.AIR){
+                            if (SmithingItemTreatmentManager.getInstance().isItemCustom(heldItem)){
+                                boolean itemMatch = false;
+                                if (currentRecipe instanceof ItemImprovementRecipe){ // [CHANGE] attempted fix to prevent improvement recipes being applied on unintended item types
+                                    if (((ItemImprovementRecipe) currentRecipe).getRequiredItemType() == heldItem.getType()){
+                                        itemMatch = true;
+                                    }
+                                } else {
+                                    EquipmentClass equipmentClass = EquipmentClass.getClass(heldItem.getType());
+                                    if (equipmentClass != null){
+                                        if (((ItemClassImprovementRecipe) currentRecipe).getRequiredEquipmentClass() == equipmentClass){
+                                            itemMatch = true;
                                         }
-                                        cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
-                                        e.getPlayer().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
+                                    }
+                                }
+                                if (itemMatch){
+                                    // Player might be trying to improve item
+                                    if (BlockCraftStateValidationManager.getInstance().blockConditionsApply(e.getClickedBlock(), currentRecipe.getValidation())) {
+                                        if (ItemUtils.isSimilarTo(currentRecipe.getCraftingBlock(), e.getClickedBlock().getType())){
+                                            if (e.getClickedBlock().getType().isInteractable()){
+                                                e.setCancelled(true);
+                                            }
+                                            if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_since_right_click") > 500){
+                                                if (!ItemUtils.canCraft(currentRecipe, e.getPlayer(), currentRecipe.requireExactMeta())){
+                                                    e.setCancelled(false);
+                                                    cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
+                                                } else {
+                                                    if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
+                                                        Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                        if (sound != null){
+                                                            e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .4F, 1F);
+                                                        }
+                                                        e.getPlayer().getWorld().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
+                                                        cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
+                                                    }
+                                                }
+                                            } else if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_held_right_click") >= currentRecipe.getCraftingTime()){
+                                                if (ItemUtils.canCraft(currentRecipe, e.getPlayer(), currentRecipe.requireExactMeta())){
+                                                    if (currentRecipe instanceof ItemImprovementRecipe){
+                                                        PlayerItemTinkerEvent tinkerEvent = new PlayerItemTinkerEvent(e.getPlayer(), (ItemImprovementRecipe) currentRecipe, e.getClickedBlock(), true);
+                                                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(tinkerEvent);
+                                                    } else {
+                                                        PlayerItemClassTinkerEvent tinkerEvent = new PlayerItemClassTinkerEvent(e.getPlayer(), (ItemClassImprovementRecipe) currentRecipe, e.getClickedBlock(), true);
+                                                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(tinkerEvent);
+                                                    }
+                                                } else {
+                                                    if (!errorNoIngredients.equals("")){
+                                                        e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Utils.chat(errorNoIngredients)));
+                                                    }
+                                                }
+                                                cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
+                                            } else {
+                                                if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
+                                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                    if (sound != null){
+                                                        e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .4F, 1F);
+                                                    }
+                                                    cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
+                                                    e.getPlayer().getWorld().spawnParticle(Particle.BLOCK_DUST, e.getClickedBlock().getLocation().add(0.5, 1.2, 0.5), 3, e.getClickedBlock().getBlockData());
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
                     cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_since_right_click");
                 }
@@ -275,15 +301,62 @@ public class InteractListener implements Listener {
         }
     }
 
-    private boolean canCraft(AbstractCraftingRecipe recipe, Player p){
-        PlayerInventory inventory = p.getInventory();
-        boolean canCraft = true;
-        for (ItemStack i : recipe.getIngredients()){
-            if (!inventory.containsAtLeast(i, i.getAmount())){
-                canCraft = false;
-                break;
+    private void resetFrequency(Player p){
+        recipeFrequency.remove(p.getUniqueId());
+    }
+
+    private void incrementPlayerCraftFrequency(Player p, AbstractCustomCraftingRecipe recipe){
+        if (recipe == null) return;
+        if (recipe.getConsecutiveCrafts() == -1) return;
+        RecipeFrequencyDO frequencyDO = recipeFrequency.get(p.getUniqueId());
+        if (frequencyDO != null){
+            frequencyDO.setFrequency(frequencyDO.getFrequency() + 1);
+            recipeFrequency.put(p.getUniqueId(), frequencyDO);
+        }
+    }
+
+    private boolean canPlayerCraft(PlayerInteractEvent e, AbstractCustomCraftingRecipe recipe){
+        if (recipe == null) return true;
+        if (recipe.getConsecutiveCrafts() == -1) return true;
+        Player p = e.getPlayer();
+        RecipeFrequencyDO frequencyDO;
+        if (!recipeFrequency.containsKey(p.getUniqueId())) {
+            recipeFrequency.put(p.getUniqueId(), new RecipeFrequencyDO(0, recipe));
+        } else {
+            frequencyDO = recipeFrequency.get(p.getUniqueId());
+            if (!frequencyDO.getRecipe().getName().equals(recipe.getName())){
+                // player is trying to craft something else
+                recipeFrequency.put(p.getUniqueId(), new RecipeFrequencyDO(0, recipe));
             }
         }
-        return canCraft;
+        frequencyDO = recipeFrequency.get(p.getUniqueId());
+        return frequencyDO.getFrequency() < recipe.getConsecutiveCrafts();
     }
+
+    private static class RecipeFrequencyDO{
+        private int frequency;
+        private AbstractCustomCraftingRecipe recipe;
+
+        public RecipeFrequencyDO(int frequency, AbstractCustomCraftingRecipe recipe) {
+            this.frequency = frequency;
+            this.recipe = recipe;
+        }
+
+        public AbstractCustomCraftingRecipe getRecipe() {
+            return recipe;
+        }
+
+        public int getFrequency() {
+            return frequency;
+        }
+
+        public void setRecipe(AbstractCustomCraftingRecipe recipe) {
+            this.recipe = recipe;
+        }
+
+        public void setFrequency(int frequency) {
+            this.frequency = frequency;
+        }
+    }
+
 }

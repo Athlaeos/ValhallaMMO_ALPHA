@@ -1,23 +1,22 @@
-package me.athlaeos.valhallammo.statsources.farming;
+package me.athlaeos.valhallammo.statsources.mining;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.farming.FarmingProfile;
+import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.skills.mining.MiningProfile;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class FarmingProfileAnimalDropMultiplierSource extends AccumulativeStatSource {
+public class MiningProfileMiningRareDropChanceMultiplierSource extends AccumulativeStatSource {
 
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileUtil.getProfile((Player) p, SkillType.FARMING);
+            Profile profile = ProfileManager.getProfile((Player) p, "MINING");
             if (profile == null) return 0;
-            if (!(profile instanceof FarmingProfile)) return 0;
-            FarmingProfile farmingProfile = (FarmingProfile) profile;
-            return farmingProfile.getAnimalDropMultiplier();
+            if (!(profile instanceof MiningProfile)) return 0;
+            MiningProfile miningProfile = (MiningProfile) profile;
+            return miningProfile.getMiningRareDropRateMultiplier();
         }
         return 0;
     }

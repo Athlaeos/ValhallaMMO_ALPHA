@@ -1,13 +1,13 @@
 package me.athlaeos.valhallammo.perkrewards.alchemy;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.alchemy.AlchemyProfile;
 import org.bukkit.entity.Player;
 
-public class BrewTimeMultiplierSetReward extends PerkReward {
+public class AlchemyBrewTimeMultiplierSetReward extends PerkReward {
     private float multiplier = 0F;
     /**
      * Constructor for BrewTimeReductionSetReward, which sets the player's brewing time multiplier to a given amount when
@@ -17,21 +17,21 @@ public class BrewTimeMultiplierSetReward extends PerkReward {
      *             This is also the name used to define the rewards in the configs.
      * @param argument the amount additional brewtime reduction. Must be Float or Double. If Double, it's cast to float.
      */
-    public BrewTimeMultiplierSetReward(String name, Object argument) {
+    public AlchemyBrewTimeMultiplierSetReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ALCHEMY);
+        Profile profile = ProfileManager.getProfile(player, "ALCHEMY");
         if (profile == null) {
             return;
         }
         if (profile instanceof AlchemyProfile){
             AlchemyProfile alchemyProfile = (AlchemyProfile) profile;
             alchemyProfile.setBrewingTimeReduction(multiplier);
-            ProfileUtil.setProfile(player, alchemyProfile, SkillType.ALCHEMY);
+            ProfileManager.setProfile(player, alchemyProfile, "ALCHEMY");
         }
     }
 
@@ -50,5 +50,10 @@ public class BrewTimeMultiplierSetReward extends PerkReward {
                 multiplier = (float) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.DOUBLE;
     }
 }

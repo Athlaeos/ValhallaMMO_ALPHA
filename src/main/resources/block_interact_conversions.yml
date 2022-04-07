@@ -1,0 +1,200 @@
+conversions:
+  interact: # right clicking a block
+    mossify_cobble:
+      block: COBBLESTONE
+      to: MOSSY_COBBLESTONE
+      sound: ITEM_CROP_PLANT
+      with: # list of items block can be interacted with, where the value is the CustomModelData to be checked.
+            # if -1 CustomModelData is not used.
+            # If there's a 'c:' before the material, it's marked to be consumed on usage
+            # If the item is a damageable tool, it's instead damaged by 1
+        c:WHEAT_SEEDS: -1
+        c:BONE_MEAL: -1
+        c:KELP: -1
+    mossify_stone:
+      block: STONE
+      to: MOSS_BLOCK
+      sound: ITEM_CROP_PLANT
+      with:
+        c:WHEAT_SEEDS: -1
+        c:BONE_MEAL: -1
+        c:KELP: -1
+    grow_grass_block:
+      block: DIRT
+      to: GRASS_BLOCK
+      sound: ITEM_CROP_PLANT
+      with:
+        c:BONE_MEAL: -1
+        c:KELP: -1
+    mossify_bricks:
+      block: STONE_BRICKS
+      to: MOSSY_STONE_BRICKS
+      sound: ITEM_CROP_PLANT
+      with:
+        c:WHEAT_SEEDS: -1
+        c:BONE_MEAL: -1
+        c:KELP: -1
+    damage_bricks:
+      block: STONE_BRICKS
+      to: CRACKED_STONE_BRICKS
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_cracked_bricks:
+      block: CRACKED_STONE_BRICKS
+      to: COBBLESTONE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_stone:
+      block: STONE
+      to: COBBLESTONE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_cobble:
+      block: COBBLESTONE
+      to: GRAVEL
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_polished_andesite:
+      block: POLISHED_ANDESITE
+      to: ANDESITE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_polished_granite:
+      block: POLISHED_GRANITE
+      to: GRANITE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_polished_diorite:
+      block: POLISHED_DIORITE
+      to: DIORITE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_polished_blackstone:
+      block: POLISHED_BLACKSTONE
+      to: BLACKSTONE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_polished_basalt:
+      block: POLISHED_BASALT
+      to: BASALT
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_end_stone_bricks:
+      block: END_STONE_BRICKS
+      to: END_STONE
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    damage_blackstone_bricks:
+      block: POLISHED_BLACKSTONE_BRICKS
+      to: CRACKED_POLISHED_BLACKSTONE_BRICKS
+      sound: BLOCK_NETHER_BRICKS_HIT
+      with:
+        c:WOODEN_PICKAXE: -1
+        c:STONE_PICKAXE: -1
+        c:GOLDEN_PICKAXE: -1
+        c:IRON_PICKAXE: -1
+        c:DIAMOND_PICKAXE: -1
+        c:NETHERITE_PICKAXE: -1
+    melt_netherrack:
+      block: NETHERRACK
+      to: MAGMA_BLOCK
+      sound: ITEM_BUCKET_EMPTY_LAVA
+      with:
+        c:BLAZE_POWDER: -1
+    melt_sand:
+      block: SAND
+      to: GLASS
+      sound: BLOCK_FIRE_EXTINGUISH
+      with:
+        c:BLAZE_POWDER: -1
+    melt_raw_iron_block:
+      block: RAW_IRON_BLOCK
+      to: IRON_BLOCK
+      sound: BLOCK_FIRE_EXTINGUISH
+      with:
+        c:BLAZE_POWDER: -1
+    melt_raw_gold_block:
+      block: RAW_GOLD_BLOCK
+      to: GOLD_BLOCK
+      sound: BLOCK_FIRE_EXTINGUISH
+      with:
+        c:BLAZE_POWDER: -1
+    melt_raw_copper_block:
+      block: RAW_COPPER_BLOCK
+      to: COPPER_BLOCK
+      sound: BLOCK_FIRE_EXTINGUISH
+      with:
+        c:BLAZE_POWDER: -1
+    melt_quartz_block:
+      block: QUARTZ_BLOCK
+      to: SMOOTH_QUARTZ
+      sound: BLOCK_FIRE_EXTINGUISH
+      with:
+        c:BLAZE_POWDER: -1
+    melt_clay:
+      block: CLAY
+      to: TERRACOTTA
+      sound: BLOCK_FIRE_EXTINGUISH
+      with:
+        c:BLAZE_POWDER: -1
+  damage: # left clicking a block

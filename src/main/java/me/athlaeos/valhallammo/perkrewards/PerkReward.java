@@ -1,5 +1,6 @@
 package me.athlaeos.valhallammo.perkrewards;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import org.bukkit.entity.Player;
 
 public abstract class PerkReward implements Cloneable{
@@ -24,6 +25,8 @@ public abstract class PerkReward implements Cloneable{
     public Object getArgument() {
         return argument;
     }
+
+    public abstract ObjectType getType();
 
     @Override
     public PerkReward clone() throws CloneNotSupportedException {

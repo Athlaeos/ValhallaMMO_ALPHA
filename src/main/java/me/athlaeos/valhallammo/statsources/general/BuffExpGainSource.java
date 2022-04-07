@@ -1,7 +1,8 @@
-package me.athlaeos.valhallammo.statsources;
+package me.athlaeos.valhallammo.statsources.general;
 
 import me.athlaeos.valhallammo.dom.PotionEffect;
 import me.athlaeos.valhallammo.managers.PotionEffectManager;
+import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 

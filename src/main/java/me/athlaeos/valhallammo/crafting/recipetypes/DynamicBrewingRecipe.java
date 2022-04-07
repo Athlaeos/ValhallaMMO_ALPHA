@@ -4,16 +4,16 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
+import java.util.Collection;
 
-public class BrewingRecipe {
+public class DynamicBrewingRecipe implements Cloneable{
     private final String name;
-    private final ItemStack ingredient;
-    private final Material applyOn;
-    private final boolean perfectMeta;
-    private List<DynamicItemModifier> modifiers;
+    private ItemStack ingredient;
+    private Material applyOn;
+    private boolean perfectMeta;
+    private Collection<DynamicItemModifier> modifiers;
 
-    public BrewingRecipe(String name, ItemStack ingredient, Material applyOn, boolean perfect, List<DynamicItemModifier> modifiers) {
+    public DynamicBrewingRecipe(String name, ItemStack ingredient, Material applyOn, boolean perfect, Collection<DynamicItemModifier> modifiers) {
         this.name = name;
         this.ingredient = ingredient;
         this.applyOn = applyOn;
@@ -29,15 +29,43 @@ public class BrewingRecipe {
         return ingredient;
     }
 
-    public List<DynamicItemModifier> getItemModifiers() {
+    public Collection<DynamicItemModifier> getItemModifiers() {
         return modifiers;
     }
 
-    public Material getApplyOn() {
+    public Material getRequiredType() {
         return applyOn;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setApplyOn(Material applyOn) {
+        this.applyOn = applyOn;
+    }
+
+    public void setIngredient(ItemStack ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public void setModifiers(Collection<DynamicItemModifier> modifiers) {
+        this.modifiers = modifiers;
+    }
+
+    public void setPerfectMeta(boolean perfectMeta) {
+        this.perfectMeta = perfectMeta;
+    }
+
+    @Override
+    public DynamicBrewingRecipe clone() {
+        final DynamicBrewingRecipe clone;
+        try {
+            clone = (DynamicBrewingRecipe) super.clone();
+        }
+        catch (CloneNotSupportedException ex) {
+            throw new RuntimeException("Exception occurred calling DynamicShapedRecipe.clone()", ex);
+        }
+        return clone;
     }
 }

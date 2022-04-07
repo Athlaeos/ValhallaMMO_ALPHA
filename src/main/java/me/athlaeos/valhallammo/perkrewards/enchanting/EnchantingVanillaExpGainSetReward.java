@@ -1,28 +1,28 @@
 package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class EnchantingVanillaExpGainAddReward extends PerkReward {
+public class EnchantingVanillaExpGainSetReward extends PerkReward {
     private float multiplier = 0F;
 
-    public EnchantingVanillaExpGainAddReward(String name, Object argument) {
+    public EnchantingVanillaExpGainSetReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ENCHANTING);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
         if (profile instanceof EnchantingProfile){
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
-            enchantingProfile.setVanillaExpGainMultiplier(enchantingProfile.getVanillaExpGainMultiplier() + multiplier);
-            ProfileUtil.setProfile(player, enchantingProfile, SkillType.ENCHANTING);
+            enchantingProfile.setVanillaExpGainMultiplier(multiplier);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -41,5 +41,10 @@ public class EnchantingVanillaExpGainAddReward extends PerkReward {
                 multiplier = (float) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.DOUBLE;
     }
 }

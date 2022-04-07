@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dom;
+package me.athlaeos.valhallammo.crafting.recipetypes;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import org.bukkit.Material;
@@ -9,6 +9,8 @@ import java.util.Collection;
 public class ItemCraftingRecipe extends AbstractCustomCraftingRecipe implements Cloneable{
     // Crafts an item for the player if the player has the required ingredients
     protected ItemStack result;
+    protected int requiredToolId = -1;
+    protected int toolRequirementType = 0;
 
     public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients){
         super(name, displayName, craftingBlock, ingredients);
@@ -30,12 +32,38 @@ public class ItemCraftingRecipe extends AbstractCustomCraftingRecipe implements 
         this.result = result;
     }
 
+    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta){
+        super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta);
+        this.result = result;
+    }
+
+    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta, int subsequentCrafts){
+        super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta, subsequentCrafts);
+        this.result = result;
+    }
+
     public void setResult(ItemStack result) {
         this.result = result;
     }
 
     public ItemStack getResult() {
         return result;
+    }
+
+    public void setRequiredToolId(int requiredToolId) {
+        this.requiredToolId = requiredToolId;
+    }
+
+    public void setToolRequirementType(int toolRequirementType) {
+        this.toolRequirementType = toolRequirementType;
+    }
+
+    public int getRequiredToolId() {
+        return requiredToolId;
+    }
+
+    public int getToolRequirementType() {
+        return toolRequirementType;
     }
 
     @Override

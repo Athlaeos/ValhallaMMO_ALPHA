@@ -1,87 +1,118 @@
 starting_perks:
-  alchemy_expgain_set: 100
-  alchemy_speed_multiplier_set: 1
-  alchemy_throw_velocity_set: 1
-  lock_recipes_all_brewing: []
-  unlock_recipe:
-    - brew_awkward_potion
-    - brew_awkward_potion_splash
-    - brew_awkward_potion_lingering
-    - potion_amplify
-    - potion_amplify_splash
-    - potion_amplify_lingering
-    - potion_extend
-    - potion_extend_splash
-    - potion_extend_lingering
-    - potion_splash
-    - potion_lingering
-    - brew_potion_hunger
-    - brew_potion_hunger_splash
-    - brew_potion_hunger_lingering
-    - brew_potion_water_breathing
-    - brew_potion_water_breathing_splash
-    - brew_potion_water_breathing_lingering
-    - brew_potion_speed
-    - brew_potion_speed_splash
-    - brew_potion_speed_lingering
-    - brew_potion_poison
-    - brew_potion_poison_splash
-    - brew_potion_poison_lingering
-    - brew_potion_weakness_1
-    - brew_potion_weakness_1_splash
-    - brew_potion_weakness_1_lingering
-    - brew_potion_weakness_2
-    - brew_potion_weakness_2_splash
-    - brew_potion_weakness_2_lingering
-    - brew_potion_weakness_3
-    - brew_potion_weakness_3_splash
-    - brew_potion_weakness_3_lingering
-    - brew_potion_fire_resistance
-    - brew_potion_fire_resistance_splash
-    - brew_potion_fire_resistance_lingering
-    - brew_potion_jump_boost
-    - brew_potion_jump_boost_splash
-    - brew_potion_jump_boost_lingering
-    - potion_invert
-    - potion_invert_splash
-    - potion_invert_lingering
+  enchanting_amplify_chance_set: 0.8 # By default each vanilla enchantment has an 80% chance to be altered
+  enchanting_max_custom_allowed_set: 1
+  enchanting_vanilla_expgain_set: 0.67 # By default the player receives about a third less experience than normal
 
-experience: # Everything about leveling and experience progression for Smithing
-  exp_level_curve: '0.0004 * %level%^4 + 300' # Here the x-axis represents level and the y-axis is the exp required to
+experience: # Everything about leveling and experience progression for Enchanting
+  exp_level_curve: '0.25 * (%level% + 300 * 2^(%level%/7.6)) + 300' # Here the x-axis represents level and the y-axis is the exp required to
   # progress to that level.
   # The area under this graph from point a to point b represents the total amount of experience needed to get from level
   # a to b. You don't have to work with this, it's only for those who really want to make this progression their own.
-  # By default, it takes about 2250 exp to get from 0 to 20, 10000 to get from 20 to 40, 56000 from 40 to 60,
-  # 200,000 from 60 to 80, and 560,000 from 80 to 100- or 810,000 from 0 to 100.
-  # If you feel progressing is too slow with certain potion types, bump its potion_base value up. If you think these
+  # By default, it takes about 4300 exp to get from 0 to 20, 27,000 to get from 20 to 40, 164,000 from 40 to 60,
+  # 1,000,000 from 60 to 80, and 6,300,000 from 80 to 100- or 7,500,000 from 0 to 100.
+  # If you feel progressing is too slow with certain enchantment types, bump its enchantment_base value up. If you think these
   # default values are unbalanced, let me know so I can adjust them for those getting the plugin in the future!
 
-  # These values should probably be tweaked according to how rare/valuable its ingredients are
-  max_level: 100 # Max level for alchemy, players can still gain exp after reaching 100
-#  exp_gain:
-#    potion_base: # The base amount of experience you get for crafting with a certain material
-#      AWKWARD: 50
-#      WEAKNESS: 100
-#      SLOW: 100
-#      INVISIBILITY: 100
-#      HARM: 100
-#      SPEED: 100
-#      POISON: 150
-#      INCREASE_DAMAGE: 200
-#      HEAL: 200
-#      NIGHT_VISION: 250
-#      FIRE_RESISTANCE: 250
-#      WATER_BREATHING: 250
-#      SLOW_FALLING: 300
-#      JUMP: 400
-#      REGENERATION: 600
-#      TURTLE_MASTER: 1000
-#    potion_multiplier: # The original amount of EXP earned from the potion is further changed depending on what the player does after
-#      BREW: 1.0 # Multiplier when player originally brews a potion
-#      LINGERING: 0.8 # Multiplier when a player converts these potions to a lingering potion
-#      SPLASH: 0.5 # Multiplier when a player converts these potions to a splash potion
-#      AMPLIFY: 0.4 # Multiplier when a player amplifies these potions (glowstone dust)
-#      EXTEND: 0.3 # Multiplier when a player extends these potions (redstone dust)
+  # These values should probably be tweaked according to how rare/valuable the enchantments are
+  max_level: 100 # Max level for enchanting, players can still gain exp after reaching 100
+  exp_gain:
+    enchantment_base: # The base amount of experience you get per enchantment per level
+      # Default values are determined off of the enchantment's rarity and max level
+      power: 80
+      flame: 400
+      infinity: 500
+      punch: 275
+      channeling: 500
+      sharpness: 80
+      bane_of_arthropods: 140
+      smite: 140
+      depth_strider: 235
+      efficiency: 80
+      unbreaking: 170
+      fire_aspect: 275
+      frost_walker: 275
+      impaling: 180
+      knockback: 200
+      fortune: 235
+      looting: 235
+      loyalty: 170
+      luck_of_the_sea: 235
+      lure: 235
+      mending: 400
+      multishot: 400
+      respiration: 235
+      piercing: 80
+      protection: 90
+      blast_protection: 215
+      feather_falling: 150
+      fire_protection: 150
+      projectile_protection: 150
+      quick_charge: 170
+      riptide: 235
+      silk_touch: 500
+      soul_speed: 300
+      sweeping: 235
+      thorns: 300
+      aqua_affinity: 400
+    enchantment_level_multiplier: # The original amount of EXP earned from the potion is further changed depending on what the player does after
+      1: 1.0 # Multiplier of the base exp if the enchantment level is just I
+      2: 1.8 # Multiplier of the base exp if the enchantment level is II
+      3: 2.6 # Multiplier of the base exp if the enchantment level is III
+      4: 3.4 # etc.
+      5: 4.2
+      6: 5.0
+      7: 5.8
+      8: 6.6
+      9: 7.4
+      10: 8.2
+    enchantment_type_multiplier:
+      BOW: 1.0
+      CROSSBOW: 1.0
+      WOOD: 0.7
+      LEATHER: 0.9
+      STONE: 0.7
+      CHAINMAIL: 0.9
+      IRON: 1.0
+      GOLD: 1.1
+      DIAMOND: 1.1
+      NETHERITE: 1.2
+      PRISMARINE: 1.0
+      MEMBRANE: 1.0
+    enchantment_item_multiplier:
+      SWORD: 1.0
+      PICKAXE: 1.0
+      AXE: 1.0
+      SHOVEL: 0.90
+      HOE: 1.0
+      BOOTS: 1.0
+      LEGGINGS: 1.05
+      CHESTPLATE: 1.1
+      HELMET: 1.0
+      SHEARS: 1.0
+      TRIDENT: 1.1
+      CROSSBOW: 1.0
+      BOW: 1.0
+      FISHING_ROD: 1.0
+  diminishing_returns:
+    # Diminishing returns reduce the amount of enchanting experience you get depending on the amount of a specific
+    # mob you have killed. Each kill of a mob in the category "on" increases the player's tally counter by 1,
+    # if the tally counter value is more or equal than the amount specified in "amount" the amount of experience is
+    # multiplied by the value specified in "multiplier". After enchanting, the tally counter is reduced by the "amount"
+    # until the tally counter is below the "amount".
+    # Example: a player kills 55 endermen. The next 5 times the player enchants something, their skill experience rewarded
+    # is reduced to only 20% (multiplier of 0.2). Now their tally counter is 5 instead of 55, so their experience isn't reduced.
+    multiplier: 0.2
+    amount: 10
+    on:
+      - ENDERMAN
+      - ZOMBIFIED_PIGLIN
+    mob_experience: # Alternatively, you may also choose to directly reduce (or buff!) the enchanting experience rewarded from these
+      # entities. In case you want to nerf popular experience farms such as Endermen or Zombie Piglin grinders.
+      # By default these multipliers are 1.0 so they don't do anything, they are just there as examples.
+      ENDERMAN: 1.0
+      ZOMBIFIED_PIGLIN: 1.0
+
+
 
 special_perks: # Perks, commands, and messages executed when a player reaches a specific level
   # If you don't know how to format this, refer to other progression configs (such as smithing) for reference
@@ -93,450 +124,320 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&dAlchemy&7 leveled up to &d%level%'
+  - '&bEnchanting&7 leveled up to &b%level%'
 
 leveling_perks: # Perk rewards executed on the player every time they level
-  alchemy_quality_general_add: 2
+  enchanting_quality_general_add: 2
+
+###########
+#####8#####
+###7###6###
+#5#######4#
+###2###3###
+#####1#####
+
+starting_coordinates: '4,6' # The coordinates in the skill tree the player sees first when switching to the skill tree
 
 perks:
-  alchemy_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
+  enchanting_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Novice Alchemy' # Name of the icon within the skill tree
-    icon: POTION # Icon itself within the skill tree
-    coords: 3,8 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    name: '&7Novice Enchanting' # Name of the icon within the skill tree
+    icon: ENCHANTED_BOOK # Icon itself within the skill tree
+    coords: 4,6 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potions of &eLuck&7 and &eNight Vision&7'
-    required_lv: 20 # Required smithing level to unlock
+    description: '&7Your enchanting is &e10&7 points more potent'
+    required_lv: 0 # Required alchemy level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
-      alchemy_quality_general_add: 10
-      unlock_recipe:
-        - brew_potion_luck
-        - brew_potion_luck_splash
-        - brew_potion_luck_lingering
-        - brew_potion_night_vision
-        - brew_potion_night_vision_splash
-        - brew_potion_night_vision_lingering
+      enchanting_quality_general_add: 10
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eNovice Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality.'
+      - '&7You''ve unlocked &eNovice Enchanting'
+      - '&7Your enchantments are &e+10 points'
+      - '&7more potent'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eLuck &7(Clownfish)'
-      - '&7- &eNight Vision &7(Golden Carrot)'
-      - ' '
-  alchemy_perk_main_2:
+  enchanting_perk_main_2:
     hidden: true
     cost: 1
-    coords: 3,8
+    coords: 4,6
     requireperk_one:
-      - alchemy_perk_main_1
-    name: '&7Apprentice Alchemy'
-    icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potions of &eEfficient Brewing&7 and &eConduit Power'
+      - enchanting_perk_main_1
+    name: '&7Apprentice Enchanting'
+    icon: ENCHANTED_BOOK
+    description: '&7Your enchanting is &e10&7 points more potent'
+    required_lv: 20
+    perk_rewards:
+      enchanting_quality_general_add: 10
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eApprentice Enchanting'
+      - '&7Your enchantments are &e+10 points'
+      - '&7more potent'
+      - ' '
+  enchanting_perk_main_3:
+    hidden: true
+    cost: 1
+    coords: 4,6
+    requireperk_one:
+      - enchanting_perk_main_2
+    name: '&7Adept Enchanting'
+    icon: ENCHANTED_BOOK
+    description: '&7Your enchanting is &e10&7 points more potent, unlocks enchantment of &eFortify Alchemy'
     required_lv: 40
     perk_rewards:
-      alchemy_quality_general_add: 10
-      unlock_recipe:
-        - brew_potion_ingredient_save
-        - brew_potion_ingredient_save_splash
-        - brew_potion_ingredient_save_lingering
-        - brew_potion_conduit_power
-        - brew_potion_conduit_power_splash
-        - brew_potion_conduit_power_lingering
+      enchanting_quality_general_add: 10
+      unlock_recipes:
+        - enchantment_helmet_fortify_alchemy
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eApprentice Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
+      - '&7You''ve unlocked &eAdept Enchanting'
+      - '&7Your enchantments are &e+10 points'
+      - '&7more potent'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eEfficient Brewing &7(Chorus Fruit)'
-      - '&7- &eConduit Power &7(Nautilus Shell)'
+      - '&7Unlocks Enchantments:'
+      - '&7- &eFortify Alchemy'
       - ' '
-  alchemy_perk_main_3:
+  enchanting_perk_main_4:
     hidden: true
     cost: 1
-    coords: 3,8
+    coords: 4,6
     requireperk_one:
-      - alchemy_perk_main_2
-    name: '&7Adept Alchemy'
-    icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potions of &eRapid Brewing&7 and &eHaste'
+      - enchanting_perk_main_3
+    name: '&7Expert Enchanting'
+    icon: ENCHANTED_BOOK
+    description: '&7Your enchanting is &e10&7 points more potent, unlocks enchantment of &eFortify Smithing'
     required_lv: 60
     perk_rewards:
-      alchemy_quality_general_add: 10
-      unlock_recipe:
-        - brew_potion_brewing_speed
-        - brew_potion_brewing_speed_splash
-        - brew_potion_brewing_speed_lingering
-        - brew_potion_haste
-        - brew_potion_haste_splash
-        - brew_potion_haste_lingering
+      enchanting_quality_general_add: 10
+      unlock_recipes:
+        - enchantment_chestplate_fortify_smithing
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eAdept Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
+      - '&7You''ve unlocked &eExpert Enchanting'
+      - '&7Your enchantments are &e+10 points'
+      - '&7more potent'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eRapid Brewing &7(Blaze Rod)'
-      - '&7- &eHaste &7(Nether Quartz)'
+      - '&7Unlocks Enchantments:'
+      - '&7- &eFortify Smithing'
       - ' '
-  alchemy_perk_main_4:
+  enchanting_perk_main_5:
     hidden: true
     cost: 1
-    coords: 3,8
+    coords: 4,6
     requireperk_one:
-      - alchemy_perk_main_3
-    name: '&7Expert Alchemy'
-    icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potion of &eWisdom'
+      - enchanting_perk_main_4
+    name: '&7Master Enchanting'
+    icon: ENCHANTED_BOOK
+    description: '&7Your enchanting is &e10&7 points more potent, unlocks enchantments of &eDestruction'
     required_lv: 80
     perk_rewards:
-      alchemy_quality_general_add: 10
-      unlock_recipe:
-        - brew_potion_increase_exp
-        - brew_potion_increase_exp_splash
-        - brew_potion_increase_exp_lingering
+      enchanting_quality_general_add: 10
+      unlock_recipes:
+        - enchantment_pickaxe_mining_aoe
+        - enchantment_shovel_mining_aoe
+        - enchantment_axe_mining_aoe
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eExpert Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
+      - '&7You''ve unlocked &eMaster Enchanting'
+      - '&7Your enchantments are &e+10 points'
+      - '&7more potent'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eWisdom &7(Nether Star)'
+      - '&7Unlocks Enchantments:'
+      - '&7- &eDestruction <not yet implemented haha :)>'
       - ' '
-  alchemy_perk_main_5:
+  enchanting_perk_vanilla_1:
     hidden: true
     cost: 1
-    coords: 3,8
+    coords: 2,5
     requireperk_one:
-      - alchemy_perk_main_4
-    name: '&7Master Alchemy'
-    icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potion of &eHealth Boost'
-    required_lv: 100
-    perk_rewards:
-      alchemy_quality_general_add: 10
-      unlock_recipe:
-        - brew_potion_health_boost
-        - brew_potion_health_boost_splash
-        - brew_potion_health_boost_lingering
-    messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMaster Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eHealth Boost &7(Sweet Berries)'
-      - ' '
-  alchemy_perk_main_6:
-    hidden: true
-    cost: 1
-    coords: 3,8
-    requireperk_all:
-      - alchemy_perk_main_5
-      - alchemy_perk_transmutation_2
-      - alchemy_perk_debuff_3
-      - alchemy_perk_buff_3
-    name: '&7Ascended Alchemy'
-    icon: POTION
-    description: '&7All your brewed potions gain an extra &e+25&7 points to their quality. Unlocks Potion of &eWar.'
-    required_lv: 100
-    perk_rewards:
-      alchemy_quality_general_add: 25
-      unlock_recipe:
-        - brew_potion_bad_omen
-        - brew_potion_bad_omen_splash
-        - brew_potion_bad_omen_lingering
-    messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAscended Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+25 &7quality. '
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eWar &7(Totem of Undying)'
-      - ' '
-  alchemy_perk_debuff_1:
-    hidden: false
-    cost: 1
-    coords: 1,7
-    requireperk_one:
-      - alchemy_perk_main_1
-    name: '&7Beginner Poisoncraft'
-    icon: SPLASH_POTION
-    description: '&7All your brewed poisons gain an additional &e+10&7 points to their quality. Unlocks Potion of &eMining Fatigue &7and &eStrong Arm.'
+      - enchanting_perk_main_1
+    name: '&7Essence Extraction I'
+    icon: EXPERIENCE_BOTTLE
+    description: '&7You gain &e33% &7more (vanilla) experience from all sources. Increases your standard enchanting potency by &e+20'
     required_lv: 30
     perk_rewards:
-      alchemy_quality_debuff_add: 10
-      unlock_recipe:
-        - brew_potion_potion_velocity
-        - brew_potion_potion_velocity_splash
-        - brew_potion_potion_velocity_lingering
-        - brew_potion_mining_fatigue
-        - brew_potion_mining_fatigue_splash
-        - brew_potion_mining_fatigue_lingering
+      enchanting_quality_vanilla_add: 20
+      enchanting_vanilla_expgain_add: 0.33
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eBeginner Poisoncraft'
-      - '&7Your &epoisons &7benefit from an additional'
-      - '&e+10 &7quality.'
+      - '&7You''ve unlocked &eEssence Extraction I'
+      - '&7Your enchantments are &e+20 &7points more'
+      - '&7potent. Also, you gain &e33% &7more experience'
+      - '&7from monsters, ores, furnaces, etc.'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eStrong Arm &7(Egg)'
-      - '&7- &eMining Fatigue &7(Sponge)'
-      - ' '
-  alchemy_perk_debuff_2:
-    hidden: false
+  enchanting_perk_vanilla_2:
+    hidden: true
     cost: 1
-    coords: 0,5
+    coords: 0,4
     requireperk_one:
-      - alchemy_perk_debuff_1
-    name: '&7Witchcraft'
-    icon: CAULDRON
-    description: '&7You throw potions 50% further. Unlocks potions of &eWither &7and &eBlindness'
+      - enchanting_perk_vanilla_1
+    name: '&7Essence Extraction II'
+    icon: EMERALD
+    description: '&7You gain a &e25%&7 chance to be refunded &e50% &7of your experience when enchanting. You unlock enchantment of &eExperience.'
     required_lv: 50
     perk_rewards:
-      alchemy_throw_velocity_add: 0.5
-      unlock_recipe:
-        - brew_potion_blindness
-        - brew_potion_blindness_splash
-        - brew_potion_blindness_lingering
-        - brew_potion_wither
-        - brew_potion_wither_splash
-        - brew_potion_wither_lingering
+      enchanting_exprefund_chance_set: 0.25
+      enchanting_exprefund_amount_set: 0.50
+      unlock_recipes:
+        - enchantment_boots_vanilla_exp
+        - enchantment_helmet_vanilla_exp
+        - enchantment_chestplate_vanilla_exp
+        - enchantment_leggings_vanilla_exp
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eWitchcraft'
-      - '&7You can throw potions 50% further'
+      - '&7You''ve unlocked &eEssence Extraction II'
+      - '&7You gain a &e25% &7chance to be refunded'
+      - '&e50%&7 of your spent levels (average) upon'
+      - '&7enchanting'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eWither &7(Wither Rose)'
-      - '&7- &eBlindness &7(Ink Sac)'
+      - '&7Unlocks Enchantments:'
+      - '&7- &eExperience'
       - ' '
-  alchemy_perk_debuff_3:
-    hidden: false
+  enchanting_perk_vanilla_3:
+    hidden: true
     cost: 1
-    coords: 1,3
+    coords: 2,3
     requireperk_one:
-      - alchemy_perk_debuff_2
-    name: '&7Double Toil and Trouble'
-    icon: SPLASH_POTION
-    description: '&7All your brewed poisons gain an additional &e+15&7 points to their quality. You gain a &e33% &7chance to not consume an ingredient during brewing and a &e20% &7chance to re-use potions on throwing or drinking'
+      - enchanting_perk_vanilla_2
+    name: '&7Essence Extraction III'
+    icon: EMERALD_BLOCK
+    description: '&7You gain &e+50%&7 more (vanilla) experience. Increases your standard enchanting potency by &e+30'
     required_lv: 70
     perk_rewards:
-      alchemy_quality_debuff_add: 15
-      alchemy_ingredient_save_chance_add: 0.33
-      alchemy_potion_save_chance_add: 0.2
+      enchanting_quality_vanilla_add: 30
+      enchanting_vanilla_expgain_add: 0.50
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eDouble Toil and Trouble'
-      - '&7Your &epoisons &7benefit from an additional'
-      - '&e+15 &7quality. Whenever you brew, you have a'
-      - '&e33% &7chance to not consume the ingredient.'
-      - '&7You also have a &e20% &7chance to not use'
-      - '&7a thrown or drunk potion.'
-  alchemy_perk_buff_1:
-    hidden: false
-    cost: 1
-    coords: 5,7
-    requireperk_one:
-      - alchemy_perk_main_1
-    name: '&7Beginner Medicationcraft'
-    icon: LINGERING_POTION
-    description: '&7All your brewed beneficial potions gain an additional &e+10&7 points to their quality. Unlocks Potion of &eRegeneration &7and &eInstant Health.'
-    required_lv: 30
-    perk_rewards:
-      alchemy_quality_buff_add: 10
-      unlock_recipe:
-        - brew_potion_regeneration
-        - brew_potion_regeneration_splash
-        - brew_potion_regeneration_lingering
-        - brew_potion_instant_health
-        - brew_potion_instant_health_splash
-        - brew_potion_instant_health_lingering
-    messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBeginner Medicationcraft'
-      - '&7Your &epotions &7benefit from an additional'
-      - '&e+10 &7quality. '
+      - '&7You''ve unlocked &eEssence Extraction III'
+      - '&7Your enchantments are &e+30 &7points more'
+      - '&7potent. Also, you gain &e50% &7more experience'
+      - '&7from monsters, ores, furnaces, etc.'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eRegeneration &7(Ghast Tear)'
-      - '&7- &eInstant Health &7(Glistering Melon)'
-      - ' '
-  alchemy_perk_buff_2:
-    hidden: false
+  enchanting_perk_custom_1:
+    hidden: true
     cost: 1
     coords: 6,5
     requireperk_one:
-      - alchemy_perk_buff_1
-    name: '&7Efficient Alchemist'
-    icon: BREWING_STAND
-    description: '&7Your brewing stands brews &e+30%&7 faster. Unlocks potions of &eSaturation &7and &eStrength'
-    required_lv: 50
+      - enchanting_perk_main_1
+    name: '&7Learning I'
+    icon: BOOK
+    description: '&7All skills level &e+5%&7 faster. Increases your special enchanting potency by &e+20'
+    required_lv: 30
     perk_rewards:
-      alchemy_speed_multiplier_add: 0.3
-      unlock_recipe:
-        - brew_potion_saturation
-        - brew_potion_saturation_splash
-        - brew_potion_saturation_lingering
-        - brew_potion_strength
-        - brew_potion_strength_splash
-        - brew_potion_strength_lingering
+      enchanting_quality_custom_add: 20
+      expgain_add: 5
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eRapid Burn'
-      - '&7You brew all potions &e+30% &7faster'
+      - '&7You''ve unlocked &eLearning I'
+      - '&7Your special enchantments are &e+20 &7points'
+      - '&7stronger. Also, your skills level &e5%'
+      - '&7faster'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eStrength &7(Blaze Powder)'
-      - '&7- &eSaturation &7(Honey)'
-      - ' '
-  alchemy_perk_buff_3:
-    hidden: false
-    cost: 1
-    coords: 5,3
-    requireperk_one:
-      - alchemy_perk_buff_2
-    name: '&7Great Power'
-    icon: LINGERING_POTION
-    description: '&7All your brewed beneficial potions gain an additional &e+15&7 points to their quality. Unlocks all skill fortification potions.'
-    required_lv: 70
-    perk_rewards:
-      alchemy_quality_buff_add: 15
-      unlock_recipe:
-        - brew_potion_fortify_smithing
-        - brew_potion_fortify_smithing_splash
-        - brew_potion_fortify_smithing_lingering
-        - brew_potion_fortify_enchanting
-        - brew_potion_fortify_enchanting_splash
-        - brew_potion_fortify_enchanting_lingering
-        - brew_potion_fortify_farming
-        - brew_potion_fortify_farming_splash
-        - brew_potion_fortify_farming_lingering
-        - brew_potion_fortify_woodcutting
-        - brew_potion_fortify_woodcutting_splash
-        - brew_potion_fortify_woodcutting_lingering
-        - brew_potion_fortify_mining
-        - brew_potion_fortify_mining_splash
-        - brew_potion_fortify_mining_lingering
-        - brew_potion_archery_damage
-        - brew_potion_archery_damage_splash
-        - brew_potion_archery_damage_lingering
-        - brew_potion_archery_ammo
-        - brew_potion_archery_ammo_splash
-        - brew_potion_archery_ammo_lingering
-        - brew_potion_archery_accuracy
-        - brew_potion_archery_accuracy_splash
-        - brew_potion_archery_accuracy_lingering
-        - brew_potion_unarmed_damage
-        - brew_potion_unarmed_damage_splash
-        - brew_potion_unarmed_damage_lingering
-        - brew_potion_weapons_damage
-        - brew_potion_weapons_damage_splash
-        - brew_potion_weapons_damage_lingering
-        - brew_potion_fortify_trading
-        - brew_potion_fortify_trading_splash
-        - brew_potion_fortify_trading_lingering
-        - brew_potion_fortify_acrobatics
-        - brew_potion_fortify_acrobatics_splash
-        - brew_potion_fortify_acrobatics_lingering
-    messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdvanced Medicationcraft'
-      - '&7Your &epotions &7benefit from an additional'
-      - '&e+15 &7quality. '
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eFortify Smithing &7(Iron Ingot)'
-      - '&7- &eFortify Enchanting &7(Bottle ''o'' Enchanting)'
-      - '&7- &eFortify Farming &7(Beetroot)'
-      - '&7- &eFortify Woodcutting &7(Dark Oak Sapling)'
-      - '&7- &eFortify Mining &7(Brown Mushroom)'
-      - '&7- &eFortify Trading &7(Emerald)'
-      - '&7- &eFortify Acrobatics &7(Feather)'
-      - '&7- &eSharpshooting &7(Bone)'
-      - '&7- &ePhantom Arrows &7(Spectral Arrow)'
-      - '&7- &eEagle Eye &7(Carrot)'
-      - '&7- &eBrawling &7(Red Mushroom)'
-      - '&7- &eBerserk &7(Crimson Fungus)'
-      - ' '
-  alchemy_perk_transmutation_1:
-    hidden: false
-    cost: 1
-    coords: 3,2
-    requireperk_all:
-      - alchemy_perk_buff_3
-      - alchemy_perk_debuff_3
-    name: '&7The Secrets of Transmutation'
-    icon: GOLD_BLOCK
-    description: '&7Unlocks &eAlchemic Precursor &7that, when thrown on something, may transmute it to something else. Probably not good to drink though...'
-    required_lv: 90
-    perk_rewards:
-      unlock_recipe:
-        - potion_transmutation
-        - enchant_gold_block
-      alchemy_unlock_all_transmutations: []
-      alchemy_lock_transmutations:
-        - midas_1
-        - midas_2
-        - midas_3
-        - midas_4
-        - midas_5
-        - midas_6
-        - midas_7
-        - midas_8
-        - midas_9
-        - midas_10
-    messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eThe Secrets of Transmutation'
-      - '&7You unlock &eAlchemic Precursor'
-      - '&7which you can brew with Enchanted Gold Blocks.'
-      - '&7Alchemic Precursor can change blocks'
-      - '&7when thrown on top of.'
-      - '&7Blocks of gold may be enchanted by infusing them'
-      - '&7with &eBottle ''o'' Enchanting, and 25 Levels.'
-  alchemy_perk_transmutation_2:
+  enchanting_perk_custom_2:
     hidden: true
     cost: 1
-    coords: 3,0
+    coords: 8,4
     requireperk_one:
-      - alchemy_perk_transmutation_1
-    name: '&7Magnum Opus'
-    icon: ENCHANTED_GOLDEN_APPLE
-    description: '&7Your &eAlchemic Precursor&7 can transform copper to iron, iron to gold, and emerald to diamond. Unlocks Potion of Ambrosia'
-    required_lv: 100
+      - enchanting_perk_custom_1
+    name: '&7Learning II'
+    icon: WRITABLE_BOOK
+    description: '&7You gain &e25%&7 more special enchanting (skill) experience. You unlock enchantments of &eLearning.'
+    required_lv: 50
     perk_rewards:
-      unlock_recipe:
-        - brew_potion_resistance
-        - brew_potion_resistance_splash
-        - brew_potion_resistance_lingering
-      alchemy_unlock_transmutations:
-        - midas_1
-        - midas_2
-        - midas_3
-        - midas_4
-        - midas_5
-        - midas_6
-        - midas_7
-        - midas_8
-        - midas_9
-        - midas_10
+      enchanting_skill_expgain_custom_add: 0.25
+      unlock_recipes:
+        - enchantment_boots_skill_exp
+        - enchantment_helmet_skill_exp
+        - enchantment_chestplate_skill_exp
+        - enchantment_leggings_skill_exp
     messages:
       - '&8&m                           '
-      - '&7You''ve unlocked &eMagnum Opus'
-      - '&7Your &eAlchemic Precursor &7can'
-      - '&7now transmute copper to iron, iron to gold,'
-      - '&7and emerald to diamond.'
+      - '&7You''ve unlocked &eLearning II'
+      - '&7You gain a &e25% &7more special'
+      - '&7enchanting (skill) experience'
       - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eAmbrosia &7(Enchanted Golden Apple)'
+      - '&7Unlocks Enchantments:'
+      - '&7- &eLearning'
       - ' '
+  enchanting_perk_custom_3:
+    hidden: true
+    cost: 1
+    coords: 6,3
+    requireperk_one:
+      - enchanting_perk_custom_2
+    name: '&7Learning III'
+    icon: WRITTEN_BOOK
+    description: '&7All skills level &e+10%&7 faster. Increases your special enchanting potency by &e+30'
+    required_lv: 70
+    perk_rewards:
+      enchanting_quality_custom_add: 30
+      expgain_add: 10
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eLearning III'
+      - '&7Your special enchantments are &e+30 &7points'
+      - '&7stronger. Also, your skills level &e10%'
+      - '&7faster'
+      - ' '
+  enchanting_perk_spellbinder:
+    hidden: true
+    cost: 1
+    coords: 4,2
+    requireperk_all:
+      - enchanting_perk_custom_3
+      - enchanting_perk_vanilla_3
+    name: '&7Spellbinder'
+    icon: ENCHANTING_TABLE
+    description: '&7Enchantment table enchantments now have a &e100% &7chance to be amplified(or reduced) rather than &e80%&7. Your experience refund chance increases to &e50%, and you have a &e33% &7chance to be refunded lapis lazuli on enchanting'
+    required_lv: 90
+    perk_rewards:
+      enchanting_amplify_chance_set: 1.0
+      enchanting_lapis_refund_chance_set: 0.33
+      enchanting_exprefund_chance_set: 0.2
+    messages:
+      - '&8&m                           '
+      - '&7Your enchantments now have a &e100%'
+      - '&7chance to be amplified rather than'
+      - '&e80%&7. Your experience refund chance'
+      - '&7is increased to &e50%&7, and you get a'
+      - '&e33% &7chance to be refunded lapis lazuli'
+      - ' '
+  enchanting_perk_double:
+    hidden: true
+    cost: 1
+    coords: 4,0
+    requireperk_one:
+      - enchanting_perk_spellbinder
+    name: '&7Grand Magus'
+    icon: DRAGON_EGG
+    description: '&7You are now able to apply &e2 &7special enchantments on an item instead of &e1'
+    required_lv: 100
+    perk_rewards:
+      enchanting_max_custom_allowed_add: 1
+    messages:
+      - '&8&m                           '
+      - '&7You are now able to apply &e2'
+      - '&7special enchantments to an item'
+      - '&7instead of &e1'
+      - ' '
+  enchanting_perk_masterpiece:
+    hidden: true
+    cost: 1
+    coords: 4,4
+    requireperk_one:
+      - enchanting_perk_double
+    name: '&7Miracle'
+    icon: NETHER_STAR
+    description: '&7Your next special enchantment receives an additional potency of &e+50&7, this can only occur once.'
+    required_lv: 100
+    perk_rewards:
+      potion_effects_add:
+        - 'MASTERPIECE_ENCHANTING'
+        - '-1'
+        - '50'
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eMiracle'
+      - '&7Only your next special enchantment '
+      - '&7will benefit from an additional potency'
+      - '&7of &e+50&7.'

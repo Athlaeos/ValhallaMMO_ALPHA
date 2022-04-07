@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_conditionals;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
@@ -14,7 +14,7 @@ public class CustomModelDataRequirementModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_CONDITIONALS;
 
         this.bigStepDecrease = 25D;
         this.bigStepIncrease = 25D;

@@ -1,6 +1,7 @@
-package me.athlaeos.valhallammo.materials.blockstatevalidations;
+package me.athlaeos.valhallammo.items.blockstatevalidations;
 
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Waterlogged;
 
@@ -8,6 +9,7 @@ public class BlockNeedsWaterloggedValidation extends CraftValidation{
 
     public BlockNeedsWaterloggedValidation(){
         this.block = null;
+        this.icon = Material.WATER_BUCKET;
         this.name = "requirement_waterlogged";
         this.displayName = Utils.chat("&9Block requires waterlogging");
         this.description = Utils.chat("&7When crafting, the block needs to be waterlogged to be used");

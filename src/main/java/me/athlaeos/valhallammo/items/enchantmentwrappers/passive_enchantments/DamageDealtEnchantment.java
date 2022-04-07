@@ -8,14 +8,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class ArcheryDamageEnchantment extends EnchantmentWrapper {
-    private final String rangedDamageTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_archery_damage"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("enchantment_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("enchantment_positive_prefix");
+public class DamageDealtEnchantment extends EnchantmentWrapper {
+    private final String translation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_damage_dealt"));
 
-    public ArcheryDamageEnchantment(double amount) {
+    public DamageDealtEnchantment(double amount) {
         super(amount);
-        this.attribute = "ARCHERY_DAMAGE";
+        this.attribute = "DAMAGE_DEALT";
         this.minValue = Integer.MIN_VALUE;
         this.maxValue = Integer.MAX_VALUE;
     }
@@ -41,22 +39,22 @@ public class ArcheryDamageEnchantment extends EnchantmentWrapper {
             removeLore(meta);
             return;
         }
-        double bow_strength = amount;
+        double bow_strength = amplifier;
 
-        if (!rangedDamageTranslation.equals("")){
-            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength));
-            String prefix = ((bow_strength < 0) ? negativePrefix : positivePrefix);
+        if (!translation.equals("")){
+            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
+            String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
-                    ChatColor.stripColor(Utils.chat(rangedDamageTranslation)),
-                    String.format(prefix + "%s %s%%", rangedDamageTranslation, bowStrength));
+                    ChatColor.stripColor(Utils.chat(translation)),
+                    String.format(prefix + "%s %s%%", translation, bowStrength));
         }
     }
 
     private void removeLore(ItemMeta meta){
         if (meta == null) return;
-        if (!rangedDamageTranslation.equals("")){
+        if (!translation.equals("")){
             Utils.removeIfLoreContains(meta,
-                    ChatColor.stripColor(Utils.chat(rangedDamageTranslation)));
+                    ChatColor.stripColor(Utils.chat(translation)));
         }
     }
 }

@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantments;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;

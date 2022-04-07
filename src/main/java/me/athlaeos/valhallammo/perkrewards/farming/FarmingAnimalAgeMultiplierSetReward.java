@@ -1,28 +1,28 @@
 package me.athlaeos.valhallammo.perkrewards.farming;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.farming.FarmingProfile;
 import org.bukkit.entity.Player;
 
-public class FarmingAnimalAgeMultiplierAddReward extends PerkReward {
+public class FarmingAnimalAgeMultiplierSetReward extends PerkReward {
     private float multiplier = 0F;
 
-    public FarmingAnimalAgeMultiplierAddReward(String name, Object argument) {
+    public FarmingAnimalAgeMultiplierSetReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.FARMING);
+        Profile profile = ProfileManager.getProfile(player, "FARMING");
         if (profile == null) return;
         if (profile instanceof FarmingProfile){
             FarmingProfile farmingProfile = (FarmingProfile) profile;
-            farmingProfile.setBabyAnimalAgeMultiplier(farmingProfile.getBabyAnimalAgeMultiplier() + multiplier);
-            ProfileUtil.setProfile(player, farmingProfile, SkillType.FARMING);
+            farmingProfile.setBabyAnimalAgeMultiplier(multiplier);
+            ProfileManager.setProfile(player, farmingProfile, "FARMING");
         }
     }
 
@@ -38,5 +38,10 @@ public class FarmingAnimalAgeMultiplierAddReward extends PerkReward {
                 multiplier = (float) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.DOUBLE;
     }
 }

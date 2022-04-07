@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class FlagAddHideAttributeModifier extends DynamicItemModifier {
-    public FlagAddHideAttributeModifier(String name, double strength, ModifierPriority priority) {
+public class FlagRemoveHideAttributeModifier extends DynamicItemModifier {
+    public FlagRemoveHideAttributeModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -24,10 +24,9 @@ public class FlagAddHideAttributeModifier extends DynamicItemModifier {
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 0;
-        this.description = Utils.chat("&7Adds the HIDE_ATTRIBUTES flag to the item. HIDE_ATTRIBUTES hides " +
-                "attributes such as attack damage or armor, but also custom potion effects in addition" +
-                " to attributes.");
-        this.displayName = Utils.chat("&7&lAdd Flag: &e&lHide Attributes");
+        this.description = Utils.chat("&7Removes the HIDE_ATTRIBUTES flag from the item, making attribute " +
+                "modifiers and custom potion effects visible again.");
+        this.displayName = Utils.chat("&7&lRemove Flag: &e&lHide Attributes");
         this.icon = Material.PAPER;
     }
 
@@ -36,13 +35,13 @@ public class FlagAddHideAttributeModifier extends DynamicItemModifier {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.removeItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         outputItem.setItemMeta(meta);
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Adds the &eHIDE_ATTRIBUTES &7flag to the item. This hides attribute modifiers and custom potion effects.");
+        return Utils.chat("&7Removes the &eHIDE_ATTRIBUTES &7flag from the item.");
     }
 }

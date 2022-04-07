@@ -1,24 +1,22 @@
-package me.athlaeos.valhallammo.listeners;
+package me.athlaeos.valhallammo.crafting;
 
-import me.athlaeos.valhallammo.Main;
-import me.athlaeos.valhallammo.configs.ConfigManager;
-import me.athlaeos.valhallammo.domain.Skill;
-import me.athlaeos.valhallammo.domain.SkillType;
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.events.PlayerCustomCraftEvent;
 import me.athlaeos.valhallammo.managers.CooldownManager;
 import me.athlaeos.valhallammo.managers.MaterialCosmeticManager;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
+import me.athlaeos.valhallammo.managers.TranslationManager;
+import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.skills.smithing.SmithingSkill;
-import me.athlaeos.valhallammo.skills.smithing.materials.EquipmentClass;
-import me.athlaeos.valhallammo.skills.smithing.materials.MaterialClass;
-import me.athlaeos.valhallammo.skills.smithing.recipes.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.skills.smithing.recipes.managers.PlayerCraftChoiceManager;
+import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -38,8 +36,8 @@ public class PlayerCustomCraftListener implements Listener {
 
     public PlayerCustomCraftListener(){
         spawnOnTopOfBlock = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("craft_item_drop");
-        errorNoSpace = ConfigManager.getInstance().getConfig("messages.yml").get().getString("error_no_space");
-        errorTinkeringFailed = ConfigManager.getInstance().getConfig("messages.yml").get().getString("error_conditions_failed");
+        errorNoSpace = TranslationManager.getInstance().getTranslation("error_crafting_no_space");
+        errorTinkeringFailed = TranslationManager.getInstance().getTranslation("error_crafting_tinker_fail");
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -56,23 +54,23 @@ public class PlayerCustomCraftListener implements Listener {
                     result = modifier.processItem(e.getPlayer(), result);
                 }
                 if (result != null){
+                    if (e.getRecipe().getValidation() != null){
+                        e.getRecipe().getValidation().executeAfter(e.getCraftingStation());
+                    }
                     if (e.getRecipe().breakStation()){
                         BlockBreakEvent event = new BlockBreakEvent(e.getCraftingStation(), e.getPlayer());
-                        Main.getPlugin().getServer().getPluginManager().callEvent(event);
+                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
                         if (event.isCancelled()){
                             return;
                         } else {
-                            event.getBlock().breakNaturally();
+                            event.getBlock().setType(Material.AIR);
                         }
                     }
                     // player has inventory space and crafting requirements are met, ingredients are removed and result is added
-                    for (ItemStack ingredient : e.getRecipe().getIngredients()){
-                        e.getPlayer().getInventory().removeItem(ingredient);
-                    }
+                    ItemUtils.removeItems(e.getPlayer(), e.getRecipe().getIngredients(), e.getRecipe().requireExactMeta());
 
                     if (spawnOnTopOfBlock){
-                        Item itemDrop = (Item) e.getPlayer().getWorld().spawnEntity(e.getCraftingStation().getLocation().add(0.5, 1.2, 0.5), EntityType.DROPPED_ITEM);
-                        itemDrop.setItemStack(result);
+                        Item itemDrop = e.getPlayer().getWorld().dropItem(e.getCraftingStation().getLocation().add(0.5, 1.2, 0.5), result);
                         itemDrop.setPickupDelay(0);
                         itemDrop.setOwner(e.getPlayer().getUniqueId());
                         itemDrop.setThrower(e.getPlayer().getUniqueId());
@@ -84,19 +82,12 @@ public class PlayerCustomCraftListener implements Listener {
                         e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .7F, 1F);
                     }
                     e.getPlayer().getWorld().spawnParticle(Particle.FIREWORKS_SPARK, e.getCraftingStation().getLocation().add(0.5, 1, 0.5), 15);
-                    PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
-                    MaterialClass materialClass = MaterialClass.getMatchingClass(result.getType());
-                    EquipmentClass equipmentClass = EquipmentClass.getClass(result.getType());
-                    Skill skill = SkillProgressionManager.getInstance().getSkill(SkillType.SMITHING);
-                    if (skill != null && materialClass != null && equipmentClass != null){
+
+                    Skill skill = SkillProgressionManager.getInstance().getSkill("SMITHING");
+                    if (skill != null){
                         if (skill instanceof SmithingSkill){
-                            SmithingSkill smithingSkill = (SmithingSkill) skill;
-                            double materialClassBase = 0;
-                            if (smithingSkill.getBaseExperienceValues().get(materialClass) != null) materialClassBase = smithingSkill.getBaseExperienceValues().get(materialClass);
-                            double typeMultiplier = 0;
-                            if (smithingSkill.getExperienceMultipliers().get(equipmentClass) != null) typeMultiplier = smithingSkill.getExperienceMultipliers().get(equipmentClass);
-                            double expToAdd = materialClassBase * typeMultiplier;
-                            smithingSkill.addSmithingEXP(e.getPlayer(), expToAdd, materialClass);
+                            double expReward = ((SmithingSkill) skill).expForCraftedItem(e.getPlayer(), result);
+                            skill.addEXP(e.getPlayer(), expReward, false);
                         }
                     }
                 } else {

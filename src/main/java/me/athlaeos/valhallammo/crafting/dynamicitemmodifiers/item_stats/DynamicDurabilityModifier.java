@@ -1,19 +1,22 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
-import me.athlaeos.valhallammo.managers.ItemTreatmentManager;
+import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class DynamicDurabilityModifier extends DynamicItemModifier{
+public class DynamicDurabilityModifier extends DynamicItemModifier {
 
     public DynamicDurabilityModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;
@@ -33,7 +36,7 @@ public class DynamicDurabilityModifier extends DynamicItemModifier{
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
-        int quality = ItemTreatmentManager.getInstance().getItemsQuality(outputItem);
+        int quality = SmithingItemTreatmentManager.getInstance().getItemsQuality(outputItem);
         int finalQuality = (int) Math.round((strength / 100D) * quality);
         CustomDurabilityManager.getInstance().applyCustomDurability(outputItem, finalQuality);
         return outputItem;

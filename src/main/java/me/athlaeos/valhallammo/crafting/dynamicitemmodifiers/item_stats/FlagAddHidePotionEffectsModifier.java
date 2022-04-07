@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class FlagAddHideAttributeModifier extends DynamicItemModifier {
-    public FlagAddHideAttributeModifier(String name, double strength, ModifierPriority priority) {
+public class FlagAddHidePotionEffectsModifier extends DynamicItemModifier {
+    public FlagAddHidePotionEffectsModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -24,10 +24,10 @@ public class FlagAddHideAttributeModifier extends DynamicItemModifier {
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 0;
-        this.description = Utils.chat("&7Adds the HIDE_ATTRIBUTES flag to the item. HIDE_ATTRIBUTES hides " +
-                "attributes such as attack damage or armor, but also custom potion effects in addition" +
-                " to attributes.");
-        this.displayName = Utils.chat("&7&lAdd Flag: &e&lHide Attributes");
+        this.description = Utils.chat("&7Adds the HIDE_POTION_EFFECTS flag to the item. HIDE_POTION_EFFECTS hides " +
+                "vanilla potion effects only, custom potion effects are not touched. If you want to hide custom potion " +
+                "effects too, add a HIDE_ATTRIBUTES flag as well.");
+        this.displayName = Utils.chat("&7&lAdd Flag: &e&lHide Potion Effects");
         this.icon = Material.PAPER;
     }
 
@@ -36,13 +36,13 @@ public class FlagAddHideAttributeModifier extends DynamicItemModifier {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         outputItem.setItemMeta(meta);
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Adds the &eHIDE_ATTRIBUTES &7flag to the item. This hides attribute modifiers and custom potion effects.");
+        return Utils.chat("&7Adds the &eHIDE_POTION_EFFECTS &7flag to the item. This hides vanilla potion effects.");
     }
 }

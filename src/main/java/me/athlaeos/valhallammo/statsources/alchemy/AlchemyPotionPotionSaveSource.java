@@ -6,7 +6,7 @@ import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class AlchemyBuffPotionSaveSource extends AccumulativeStatSource {
+public class AlchemyPotionPotionSaveSource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){

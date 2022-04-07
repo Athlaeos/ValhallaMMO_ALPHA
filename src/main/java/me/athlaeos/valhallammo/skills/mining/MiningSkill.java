@@ -1,505 +1,610 @@
-package me.athlaeos.valhallammo.skills.farming;
+package me.athlaeos.valhallammo.skills.mining;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
-import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.dom.Offset;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
+import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
 import me.athlaeos.valhallammo.loottables.LootManager;
-import me.athlaeos.valhallammo.loottables.TieredLootTable;
-import me.athlaeos.valhallammo.loottables.chance_based_loot.ChancedFarmingLootTable;
-import me.athlaeos.valhallammo.loottables.tiered_loot_tables.TieredFishingLootTable;
+import me.athlaeos.valhallammo.loottables.chance_based_block_loot.ChancedBlastMiningLootTable;
+import me.athlaeos.valhallammo.loottables.chance_based_block_loot.ChancedMiningLootTable;
 import me.athlaeos.valhallammo.managers.*;
-import me.athlaeos.valhallammo.skills.GatheringSkill;
-import me.athlaeos.valhallammo.skills.OffensiveSkill;
-import me.athlaeos.valhallammo.skills.Skill;
-import me.athlaeos.valhallammo.skills.SkillType;
+import me.athlaeos.valhallammo.skills.*;
+import me.athlaeos.valhallammo.utility.EntityUtils;
 import me.athlaeos.valhallammo.utility.ItemUtils;
+import me.athlaeos.valhallammo.utility.ShapeUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Location;
+import org.bukkit.EntityEffect;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.Ageable;
-import org.bukkit.block.data.type.Beehive;
-import org.bukkit.block.data.type.CaveVines;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityBreedEvent;
+import org.bukkit.entity.TNTPrimed;
+import org.bukkit.event.Event;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 
-public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkill {
+public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill, OffensiveSkill, InteractSkill {
+    private final Map<UUID, PlayerModeData> quickModeData;
+
     private final Map<Material, Double> blockBreakEXPReward;
-    private final Map<Material, Double> blockInteractEXPReward;
-    private final Map<EntityType, Double> entityBreedEXPReward;
-    private final double fishingEXPReward;
-    private ChancedFarmingLootTable farmingLootTable = null;
-    private TieredFishingLootTable fishingLootTable = null;
-    private final int ultraBreakLimit;
-    private final boolean ultraBreakInstantPickup;
+    private final Map<Material, Integer> quickModeBlockWorth;
 
-    public FarmingSkill() {
-        ChancedBlockLootTable farming = LootManager.getInstance().getChancedLootTables().get("farming_farming");
-        if (farming != null){
-            if (farming instanceof ChancedFarmingLootTable){
-                farmingLootTable = (ChancedFarmingLootTable) farming;
+    private ChancedMiningLootTable miningLootTable = null;
+    private ChancedBlastMiningLootTable blastMiningLootTable = null;
+
+    private final String quickmode_toggle_on;
+    private final String quickmode_toggle_off;
+
+    private final double expMultiplierMine;
+    private final double expMultiplierBlast;
+
+    private final boolean vein_mining_instant;
+    private final int veinMineLimit;
+    private final boolean veinMineInstantPickup;
+
+    private final boolean forgivingMultipliers;
+    private final boolean remove_tnt_chaining;
+
+    private final boolean handleDropsSelf = ValhallaMMO.isSpigot();
+    private final boolean cosmetic_outline;
+    private final String outline_color;
+
+    public Map<Material, Double> getBlockBreakEXPReward() {
+        return blockBreakEXPReward;
+    }
+
+    public MiningSkill(String type) {
+        super(type);
+        ChancedBlockLootTable miningLootTable = LootManager.getInstance().getChancedBlockLootTables().get("mining_mining");
+        if (miningLootTable != null){
+            if (miningLootTable instanceof ChancedMiningLootTable){
+                this.miningLootTable = (ChancedMiningLootTable) miningLootTable;
             }
         }
-        TieredLootTable fishing = LootManager.getInstance().getTieredLootTables().get("farming_fishing");
-        if (fishing != null){
-            if (fishing instanceof TieredFishingLootTable){
-                this.fishingLootTable = (TieredFishingLootTable) fishing;
+        ChancedBlockLootTable blastMiningLootTable = LootManager.getInstance().getChancedBlockLootTables().get("mining_blast");
+        if (blastMiningLootTable != null){
+            if (blastMiningLootTable instanceof ChancedBlastMiningLootTable){
+                this.blastMiningLootTable = (ChancedBlastMiningLootTable) blastMiningLootTable;
             }
         }
 
+        this.quickModeData = new HashMap<>();
         this.blockBreakEXPReward = new HashMap<>();
-        this.blockInteractEXPReward = new HashMap<>();
-        this.entityBreedEXPReward = new HashMap<>();
-        YamlConfiguration farmingConfig = ConfigManager.getInstance().getConfig("skill_farming.yml").get();
-        YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_farming.yml").get();
+        this.quickModeBlockWorth = new HashMap<>();
+        YamlConfiguration miningConfig = ConfigManager.getInstance().getConfig("skill_mining.yml").get();
+        YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_mining.yml").get();
 
-        this.type = SkillType.FARMING;
-        this.loadCommonConfig(farmingConfig, progressionConfig);
+        this.loadCommonConfig(miningConfig, progressionConfig);
 
-        fishingEXPReward = progressionConfig.getDouble("experience.farming_fishing");
-        ultraBreakLimit = farmingConfig.getInt("break_limit_ultra_harvesting");
-        ultraBreakInstantPickup = farmingConfig.getBoolean("instant_pickup_ultra_harvesting");
+        expMultiplierMine = progressionConfig.getDouble("experience.exp_multiplier_mine");
+        expMultiplierBlast = progressionConfig.getDouble("experience.exp_multiplier_blast");
+        veinMineLimit = miningConfig.getInt("break_limit_vein_mining");
+        veinMineInstantPickup = miningConfig.getBoolean("instant_pickup_ultra_harvesting");
+        forgivingMultipliers = miningConfig.getBoolean("forgiving_multipliers");
+        remove_tnt_chaining = miningConfig.getBoolean("remove_tnt_chaining");
+        quickmode_toggle_on = miningConfig.getString("quickmode_toggle_on");
+        quickmode_toggle_off = miningConfig.getString("quickmode_toggle_off");
+        cosmetic_outline = miningConfig.getBoolean("cosmetic_outline");
+        outline_color = miningConfig.getString("outline_color");
+        vein_mining_instant = miningConfig.getBoolean("vein_mining_instant");
 
-        ConfigurationSection blockBreakSection = progressionConfig.getConfigurationSection("experience.farming_break");
+        ConfigurationSection blockBreakSection = progressionConfig.getConfigurationSection("experience.mining_break");
         if (blockBreakSection != null){
             for (String key : blockBreakSection.getKeys(false)){
                 try {
                     Material block = Material.valueOf(key);
                     if (!block.isBlock()) throw new IllegalArgumentException();
-                    double reward = progressionConfig.getDouble("experience.farming_break." + key);
+                    double reward = progressionConfig.getDouble("experience.mining_break." + key);
                     blockBreakEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block break rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block break rewards in progression_farming.yml, no reward set for this type until corrected.");
                 }
             }
         }
 
-        ConfigurationSection blockInteractSection = progressionConfig.getConfigurationSection("experience.farming_interact");
-        if (blockInteractSection != null){
-            for (String key : blockInteractSection.getKeys(false)){
+        ConfigurationSection quickBlockValueSection = miningConfig.getConfigurationSection("quickmode_block_values");
+        if (quickBlockValueSection != null){
+            for (String key : quickBlockValueSection.getKeys(false)){
                 try {
                     Material block = Material.valueOf(key);
                     if (!block.isBlock()) throw new IllegalArgumentException();
-                    double reward = progressionConfig.getDouble("experience.farming_interact." + key);
-                    blockInteractEXPReward.put(block, reward);
+                    int value = miningConfig.getInt("quickmode_block_values." + key);
+                    quickModeBlockWorth.put(block, value);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block interact rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block interact rewards in skill_mining.yml, no reward set for this type until corrected.");
                 }
-            }
-        }
-
-        ConfigurationSection entityBreedSection = progressionConfig.getConfigurationSection("experience.farming_breed");
-        if (entityBreedSection != null){
-            for (String key : entityBreedSection.getKeys(false)){
-                try {
-                    EntityType entity = EntityType.valueOf(key);
-                    double reward = progressionConfig.getDouble("experience.farming_breed." + key);
-                    entityBreedEXPReward.put(entity, reward);
-                } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid entity type given:" + key + " for the entity breed rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
-                }
-            }
-        }
-    }
-
-    public void onFishing(PlayerFishEvent event){
-        if (event.getState() == PlayerFishEvent.State.FISHING){
-            double fishingTimeMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_TIME_MULTIPLIER", event.getPlayer(), true);
-            event.getHook().setMinWaitTime(Utils.excessChance(fishingTimeMultiplier * event.getHook().getMinWaitTime()));
-            event.getHook().setMaxWaitTime(Utils.excessChance(fishingTimeMultiplier * event.getHook().getMaxWaitTime()));
-        } else if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH){
-            double fishingEXPMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_VANILLA_EXP_MULTIPLIER", event.getPlayer(), true);
-            event.setExpToDrop(Utils.excessChance(event.getExpToDrop() * fishingEXPMultiplier));
-            addEXP(event.getPlayer(), fishingEXPReward * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FISHING", event.getPlayer(), true) / 100D)), false);
-
-            if (fishingLootTable != null){
-                fishingLootTable.onFishEvent(event);
-            }
-        }
-    }
-
-    public void onAnimalBreeding(EntityBreedEvent event){
-        if (event.getBreeder() instanceof Player){
-            Player p = (Player) event.getBreeder();
-            if (entityBreedEXPReward.containsKey(event.getEntity().getType())){
-                double exp = entityBreedEXPReward.get(event.getEntity().getType()) * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_BREEDING", p, true) / 100D));
-                this.addEXP(p, exp, false);
-            }
-            int vanillaEXP = Utils.excessChance(event.getExperience() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
-            event.setExperience(vanillaEXP);
-            if (event.getEntity() instanceof org.bukkit.entity.Ageable){
-                org.bukkit.entity.Ageable animal = (org.bukkit.entity.Ageable) event.getEntity();
-                int newAge = Utils.excessChance(animal.getAge() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_AGE_REDUCTION", p, true)));
-                animal.setAge(newAge);
             }
         }
     }
 
     @Override
+    public NamespacedKey getKey() {
+        return new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_mining");
+    }
+
+    @Override
+    public Profile getCleanProfile() {
+        return new MiningProfile(null);
+    }
+
+    @Override
     public void addEXP(Player p, double amount, boolean silent) {
-        double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_GENERAL", p, true) / 100D));
+        double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_GENERAL", p, true) / 100D));
+        double finalAmount = amount * multiplier;
         super.addEXP(p, finalAmount, silent);
     }
 
     @Override
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
+        Profile p = ProfileManager.getProfile(event.getPlayer(), "MINING");
+        if (p != null){
+            if (p instanceof MiningProfile){
+                // If block is unbreakable, event gets cancelled and nothing else happens.
+                if (((MiningProfile) p).getUnbreakableBlocks().contains(b.getType().toString())){
+                    event.setCancelled(true);
+                    return;
+                }
+            }
+        }
         if (!blockBreakEXPReward.containsKey(b.getType())) return;
-        boolean reward = false;
-        if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_17) && b.getBlockData() instanceof CaveVines){
-            CaveVines vines = (CaveVines) b.getBlockData();
-            if (vines.isBerries()){
-                reward = true;
-            }
-        } else if (b.getBlockData() instanceof Ageable) {
-            Ageable data = (Ageable) b.getBlockData();
-            if (data.getAge() >= data.getMaximumAge()) {
-                // reward player farming exp if crop has finished growing
-                PlaceStore.setPlaced(b, false);
-                reward = true;
-            }
-        } else {
-            if (!PlaceStore.isPlaced(b)){
-                // reward player farming exp if block is broken and wasn't placed first
-                reward = true;
-            }
-        }
-        if (reward){
-            double amount = blockBreakEXPReward.get(b.getType());
-            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false);
-
-            double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
-            event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(vanillaExpReward));
-        }
-    }
-
-    private final List<Material> legalCrops = ItemUtils.getMaterialList(Arrays.asList(
-            "WHEAT", "POTATOES", "CARROTS",
-            "SWEET_BERRY_BUSH", "BEETROOTS", "MELON",
-            "PUMPKIN", "COCOA", "BROWN_MUSHROOM",
-            "RED_MUSHROOM", "CRIMSON_FUNGUS", "WARPED_FUNGUS",
-            "NETHER_WART", "GLOW_BERRIES", "SUGAR_CANE",
-            "CACTUS", "KELP", "SEA_PICKLE"
-    ));
-    @Override
-    public void onBlockInteract(PlayerInteractEvent event) {
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            Block b = event.getClickedBlock();
-            assert b != null;
-            if (b.getBlockData() instanceof Ageable){
-                if (!legalCrops.contains(b.getType())) return;
-                Ageable data = (Ageable) b.getBlockData();
-                if (data.getAge() >= data.getMaximumAge()){
-                    // crop fully grown
-                    if (Arrays.asList("SWEET_BERRY_BUSH", "GLOW_BERRIES").contains(b.getType().toString())){
-                        // clicked crop is of a type that isn't destroyed when harvested
-                        if (blockInteractEXPReward.containsKey(b.getType())){
-                            PlaceStore.setPlaced(b, false);
-                            // reward player farming exp
-                            double amount = blockInteractEXPReward.get(b.getType());
-                            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false);
-
-                            double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
-                            ExperienceOrb orb = (ExperienceOrb) b.getWorld().spawnEntity(b.getLocation().add(0.5, 0.5, 0.5), EntityType.EXPERIENCE_ORB);
-                            orb.setExperience(Utils.excessChance(vanillaExpReward));
-                        }
-                    } else {
-                        // clicked crop is of a type that needs to be destroyed to be harvested
-                        boolean unlockedInstantHarvest = false;
-                        boolean unlockedUltraHarvest = false;
-                        int ultraHarvestCooldown = 0;
-                        Profile p = ProfileUtil.getProfile(event.getPlayer(), SkillType.FARMING);
-                        if (p != null){
-                            if (p instanceof FarmingProfile){
-                                unlockedInstantHarvest = ((FarmingProfile) p).isInstantHarvestingUnlocked();
-                                ultraHarvestCooldown = ((FarmingProfile) p).getUltraHarvestingCooldown();
-                                unlockedUltraHarvest = ultraHarvestCooldown > 0;
-                            }
-                        }
-                        if (unlockedUltraHarvest){
-                            if (event.getPlayer().isSneaking()){
-                                if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest")){
-                                    // trigger ultra harvest special ability
-                                    List<Block> affectedBlocks = Utils.getBlockVein(
-                                            b.getLocation(),
-                                            new HashSet<>(legalCrops),
-                                            ultraBreakLimit,
-                                            block -> {
-                                                if (block.getBlockData() instanceof Ageable){
-                                                    Ageable d = (Ageable) block.getBlockData();
-                                                    return d.getAge() >= d.getMaximumAge();
-                                                }
-                                                return false;
-                                            },
-                                            new Offset(-1, 0, 0), new Offset(0, 0, 1),
-                                            new Offset(1, 0, 0), new Offset(0, 0, -1));
-
-                                    new BukkitRunnable(){
-                                        final Iterator<Block> iterator = affectedBlocks.iterator();
-                                        @Override
-                                        public void run() {
-                                            if (iterator.hasNext()){
-                                                Block b = iterator.next();
-                                                if (legalCrops.contains(b.getType())) {
-                                                    instantHarvest(event.getPlayer(), b, ultraBreakInstantPickup);
-                                                }
-                                            } else {
-                                                cancel();
-                                            }
-                                        }
-                                    }.runTaskTimer(ValhallaMMO.getPlugin(), 0L, 1L);
-                                    if (!event.getPlayer().hasPermission("valhalla.ignorecooldowns")){
-                                        CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), ultraHarvestCooldown, "cooldown_ultra_harvest");
-                                    }
-                                } else {
-                                    int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest");
-                                    event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                            new TextComponent(
-                                                    Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
-                                                    .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
-                                                    .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
-                                                    .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
-                                            ));
-                                }
-                                return;
-                            }
-                        }
-                        if (unlockedInstantHarvest){
-                            instantHarvest(event.getPlayer(), b, false);
-                        }
-                    }
-                }
-            }
-            if (b.getBlockData() instanceof Beehive){
-                Beehive hive = (Beehive) b.getBlockData();
-                if (hive.getHoneyLevel() >= hive.getMaximumHoneyLevel()){
-                    // hive full of honey
-                    double notConsumeChance = AccumulativeStatManager.getInstance().getStats("FARMING_HONEY_SAVE_CHANCE", event.getPlayer(), true);
-                    if (Utils.getRandom().nextDouble() <= notConsumeChance){
-                        // honey not consumed
-                        new BukkitRunnable(){
-                            @Override
-                            public void run() {
-                                hive.setHoneyLevel(hive.getMaximumHoneyLevel());
-                                b.setBlockData(hive);
-                            }
-                        }.runTaskLater(ValhallaMMO.getPlugin(), 1L);
-                    }
-                }
-            }
-        }
-    }
-
-    private void instantHarvest(Player p, Block b, boolean toInventory){
-        if (!(b.getBlockData() instanceof Ageable)){
+        // Nothing is going to happen if the player isn't using a pickaxe
+        ItemStack pickaxe = EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE);
+        if (pickaxe == null) {
             return;
         }
-        Ageable data = (Ageable) b.getBlockData();
-        if (data.getAge() < data.getMaximumAge()) return;
-        if (blockBreakEXPReward.containsKey(b.getType())) {
-            // trigger instant harvest/replant mechanic
-            EquipmentSlot usedSlot;
-            ItemStack tool;
-            Block blockUnderCrop = b.getWorld().getBlockAt(b.getLocation().add(0, -1, 0));
-            if (!Utils.isItemEmptyOrNull(p.getInventory().getItemInMainHand())) {
-                usedSlot = EquipmentSlot.HAND;
-                tool = p.getInventory().getItemInMainHand();
-            } else {
-                usedSlot = EquipmentSlot.OFF_HAND;
-                tool = p.getInventory().getItemInOffHand();
-            }
-            PlaceStore.setPlaced(b, false);
-            BlockBreakEvent breakEvent = new BlockBreakEvent(b, p);
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
+        BlockStore.setBreakReason(b, BlockStore.BreakReason.MINED);
 
-            BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(b, b.getState(), p, new ArrayList<>(b.getDrops(tool, p)));
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
-            if (toInventory){
-                Map<Integer, ItemStack> excessDrops = p.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
-                dropEvent.getItems().clear();
-                dropEvent.getItems().addAll(excessDrops.values());
-            }
-
-            data.setAge(0);
-            b.getWorld().spawnParticle(Particle.BLOCK_DUST, b.getLocation().add(0.5, 0.5, 0.5), 16, 0.5, 0.5, 0.5, b.getBlockData());
-            b.getWorld().playSound(b.getLocation().add(0.4, 0.4, 0.4), Sound.BLOCK_CROP_BREAK, 0.3F, 1F);
-            b.setBlockData(data);
-            BlockPlaceEvent placeEvent = new BlockPlaceEvent(b, b.getState(), blockUnderCrop, tool, p, true, usedSlot);
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(placeEvent);
-            if (!breakEvent.isCancelled()) {
-                if (placeEvent.isCancelled()) {
-                    b.setType(Material.AIR);
+        // punish player based on the blocks they mined with quickmine enabled
+        PlayerModeData data = getData(event.getPlayer());
+        if (data.isEnabled()){
+            double damageMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_QUICK_MINE_DURABILITY_MULTIPLIER", event.getPlayer(), true);
+            int damage = Math.max(0, Utils.excessChance(damageMultiplier) - 1);
+            if (damage > 0){
+                if (ItemUtils.damageItem(event.getPlayer(), pickaxe, damage, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+                    event.getPlayer().getInventory().setItemInMainHand(null);
                 }
+            }
+            int quickMineRate = (int) Utils.round(AccumulativeStatManager.getInstance().getStats("MINING_QUICK_MINE_DRAIN_RATE", event.getPlayer(), true), 3);
+            if (quickMineRate > 0) {
+                Material block = event.getBlock().getType();
+                int blockValue = quickModeBlockWorth.getOrDefault(block, 1);
+                if (blockValue / quickMineRate > maxPunishments(event.getPlayer())) {
+                    event.setCancelled(true);
+                    data.toggle(event.getPlayer());
+                    event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                            Utils.chat((data.isEnabled()) ? quickmode_toggle_on : quickmode_toggle_off)
+                    ));
+                    return;
+                }
+                data.increment(blockValue);
+                int i = data.getScore();
+                for (;i >= quickMineRate; i -= quickMineRate){
+                    if (!punish(event.getPlayer())){
+                        event.setCancelled(true);
+                        data.toggle(event.getPlayer());
+                        return;
+                    }
+                }
+                data.setScore(i);
+            }
+        }
+
+        if (!BlockStore.isPlaced(b)){
+            // reward player experience for mining a block
+            double amount = blockBreakEXPReward.get(b.getType());
+            double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", event.getPlayer(), true) / 100D));
+            addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false);
+
+            // multiply/add experience for the block broken
+            double expMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_ORE_EXPERIENCE_MULTIPLIER", event.getPlayer(), true);
+            if (event.getExpToDrop() > 0){
+                event.setExpToDrop(Utils.excessChance(event.getExpToDrop() * expMultiplier));
+            }
+            event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(AccumulativeStatManager.getInstance().getStats("MINING_VANILLA_EXP_REWARD", event.getPlayer(), true)));
+        }
+
+        if (!Utils.getBlockAlteringPlayers().getOrDefault("valhalla_vein_miner", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
+            boolean unlockedVeinMining = false;
+            int veinMiningCooldown = 0;
+            Collection<Material> allowedVeinMineBlocks;
+            if (p != null){
+                if (p instanceof MiningProfile){
+                    veinMiningCooldown = ((MiningProfile) p).getVeinMiningCooldown();
+                    allowedVeinMineBlocks = ItemUtils.getMaterialList(((MiningProfile) p).getValidVeinMinerBlocks());
+                    if (!allowedVeinMineBlocks.contains(event.getBlock().getType())) {
+                        return;
+                    }
+                    unlockedVeinMining = veinMiningCooldown > 0;
+                }
+            }
+
+            if (unlockedVeinMining){
+                if (event.getPlayer().isSneaking()){
+                    boolean dataWasEnabled = false;
+                    if (data.isEnabled()) {
+                        dataWasEnabled = true;
+                        data.toggle();
+                    }
+                    if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_vein_mining")){
+                        // trigger ultra harvest special ability
+                        List<Block> affectedBlocks = Utils.getBlockVein(
+                                b.getLocation(),
+                                new HashSet<>(Collections.singletonList(event.getBlock().getType())),
+                                veinMineLimit,
+                                block -> blockBreakEXPReward.containsKey(block.getType()),
+                                new Offset(-1, 1, -1), new Offset(-1, 1, 0), new Offset(-1, 1, 1),
+                                new Offset(0, 1, -1), new Offset(0, 1, 0), new Offset(0, 1, 1),
+                                new Offset(1, 1, -1), new Offset(1, 1, 0), new Offset(1, 1, 1),
+                                new Offset(-1, 0, -1), new Offset(-1, 0, 0), new Offset(-1, 0, 1),
+                                new Offset(0, 0, -1),                                       new Offset(0, 0, 1),
+                                new Offset(1, 0, -1), new Offset(1, 0, 0), new Offset(1, 0, 1),
+                                new Offset(-1, -1, -1), new Offset(-1, -1, 0), new Offset(-1, -1, 1),
+                                new Offset(0, -1, -1), new Offset(0, -1, 0), new Offset(0, -1, 1),
+                                new Offset(1, -1, -1), new Offset(1, -1, 0), new Offset(1, -1, 1));
+
+                        final Material blockBrokenType = event.getBlock().getType();
+                        final boolean dataWasEnabled1 = dataWasEnabled;
+
+                        if (vein_mining_instant){
+                            Utils.alterBlocksInstant(
+                                    "valhalla_vein_miner",
+                                    event.getPlayer(),
+                                    affectedBlocks,
+                                    block -> blockBrokenType == block.getType() && blockBreakEXPReward.containsKey(block.getType()),
+                                    EquipmentClass.PICKAXE,
+                                    block -> {
+                                        Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup);
+                                        if (cosmetic_outline) {
+                                            Color color = Utils.hexToRgb(outline_color);
+                                            ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
+                                        }
+                                    },
+                                    block -> {
+                                        if (dataWasEnabled1){
+                                            if (data.isEnabled()){
+                                                // to make sure quickmode is disabled while the vein mine is happening, but re-enabled after
+                                                data.toggle();
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Utils.alterBlocks(
+                                    "valhalla_vein_miner",
+                                    event.getPlayer(),
+                                    affectedBlocks,
+                                    block -> blockBrokenType == block.getType() && blockBreakEXPReward.containsKey(block.getType()),
+                                    EquipmentClass.PICKAXE,
+                                    block -> {
+                                        Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup);
+                                        if (cosmetic_outline) {
+                                            Color color = Utils.hexToRgb(outline_color);
+                                            ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
+                                        }
+                                    },
+                                    block -> {
+                                        if (dataWasEnabled1){
+                                            if (data.isEnabled()){
+                                                // to make sure quickmode is disabled while the vein mine is happening, but re-enabled after
+                                                data.toggle();
+                                            }
+                                        }
+                                    });
+                        }
+                        if (!event.getPlayer().hasPermission("valhalla.ignorecooldowns")){
+                            CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), veinMiningCooldown, "cooldown_ultra_harvest");
+                        }
+                    } else {
+                        int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest");
+                        event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                new TextComponent(
+                                        Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
+                                                .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
+                                                .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
+                                                .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
+                                ));
+                    }
+                }
+            }
+        }
+    }
+
+    private int maxPunishments(Player p){
+        return Math.max(0, (int) Math.floor(p.getSaturation() + p.getFoodLevel() + p.getHealth()) - 1);
+    }
+
+    private boolean punish(Player p){
+        if (p.getSaturation() > 0){
+            p.setSaturation(Math.max(0, p.getSaturation() - 1));
+            return true;
+        } else if (p.getFoodLevel() > 0){
+            p.setFoodLevel(p.getFoodLevel() - 1);
+            return true;
+        } else if (p.getHealth() > 1) {
+            p.setHealth(p.getHealth() - 1);
+            p.playEffect(EntityEffect.HURT);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBlockDamage(BlockDamageEvent event) {
+        if (!blockBreakEXPReward.containsKey(event.getBlock().getType())) return;
+        if (!event.isCancelled()){
+            if (event.getBlock().getType().getHardness() > 100000 || event.getBlock().getType().getHardness() < 0) return;
+            ItemStack pickaxe = EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE);
+            boolean canBreakBlock = pickaxe == null ? !event.getBlock().getDrops().isEmpty() : !event.getBlock().getDrops(pickaxe, event.getPlayer()).isEmpty();
+            if (!canBreakBlock) return;
+            PlayerModeData data = getData(event.getPlayer());
+            if (data.isEnabled()){
+                if (pickaxe == null) {
+                    data.toggle(event.getPlayer());
+                    return;
+                }
+                event.setInstaBreak(true);
             }
         }
     }
 
     @Override
     public void onBlockPlaced(BlockPlaceEvent event) {
-        Block b = event.getBlock();
-        if (b.getBlockData() instanceof Ageable){
-            double growthRate = AccumulativeStatManager.getInstance().getStats("FARMING_INSTANT_GROWTH_RATE", event.getPlayer(), true);
-            int stages = Utils.excessChance(growthRate);
-            Ageable crop = (Ageable) b.getBlockData();
-            crop.setAge(Math.min(crop.getAge() + stages, crop.getMaximumAge()));
-            b.setBlockData(crop);
-        }
+
     }
 
     @Override
     public void onItemsDropped(BlockDropItemEvent event) {
-        if (!PlaceStore.isPlaced(event.getBlock())) {
-            if (blockBreakEXPReward.containsKey(event.getBlockState().getType()) || blockInteractEXPReward.containsKey(event.getBlockState().getType())) {
+        if (!BlockStore.isPlaced(event.getBlock())) {
+            if (blockBreakEXPReward.containsKey(event.getBlockState().getType())) {
                 List<Item> newItems = new ArrayList<>();
-                Location dropLocation = null;
-                for (Item i : event.getItems()){
-                    if (dropLocation == null) dropLocation = i.getLocation();
-                    if (dropLocation.getWorld() == null) return;
-                    ItemStack item = i.getItemStack();
-                    double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_DROP_MULTIPLIER", event.getPlayer(), true);
-                    int newAmount = Utils.excessChance(item.getAmount() * dropMultiplier);
-                    if (newAmount > item.getMaxStackSize()){
-                        int limit = 4;
-                        while(newAmount > item.getMaxStackSize()){
-                            if (limit <= 0) break;
-                            ItemStack drop = item.clone();
-                            drop.setAmount(item.getMaxStackSize());
-                            newItems.add(
-                                    dropLocation.getWorld().dropItem(dropLocation, drop)
-                            );
-                            newAmount -= item.getMaxStackSize();
-                            limit--;
-                        }
-                    }
-                    item.setAmount(newAmount);
-                    i.setItemStack(item);
-                    newItems.add(i);
+                double dropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_MINING_DROP_MULTIPLIER", event.getPlayer(), true);
+
+                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+
+                if (!event.getItems().isEmpty()){
+                    double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_MINING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
+                    miningLootTable.onItemDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
                 }
                 event.getItems().clear();
-                event.getItems().addAll(newItems);
-            }
-            if (!event.getItems().isEmpty()){
-                farmingLootTable.onItemDrop(event);
+                if (!handleDropsSelf){
+                    event.getItems().addAll(newItems);
+                }
+                if (!handleDropsSelf){ // not spigot
+                    event.getItems().addAll(newItems);
+                } else {
+                    for (Item i : newItems){
+                        event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
+                    }
+                }
+                BlockStore.setPlaced(event.getBlock(), false);
             }
         }
     }
 
     @Override
     public void onItemStacksDropped(BlockDropItemStackEvent event) {
-        if (!PlaceStore.isPlaced(event.getBlock())) {
-            if (blockBreakEXPReward.containsKey(event.getBlockState().getType()) || blockInteractEXPReward.containsKey(event.getBlockState().getType())) {
+        // this method is exclusively triggered by exploded blocks dropping their items, so
+        // if a block is broken because of an explosion it should multiply the rewards, but otherwise not because
+        // this has been done in the onItemDropped() method
+        if (!BlockStore.isPlaced(event.getBlock())) {
+            if (blockBreakEXPReward.containsKey(event.getBlockState().getType())) {
                 List<ItemStack> newItems = new ArrayList<>();
-                for (ItemStack i : event.getItems()){
-                    double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_DROP_MULTIPLIER", event.getPlayer(), true);
-                    int newAmount = Utils.excessChance(i.getAmount() * dropMultiplier);
-                    if (newAmount > i.getMaxStackSize()){
-                        int limit = 4;
-                        while(newAmount > i.getMaxStackSize()){
-                            if (limit <= 0) break;
-                            ItemStack drop = i.clone();
-                            drop.setAmount(i.getMaxStackSize());
-                            newItems.add(drop);
-                            newAmount -= i.getMaxStackSize();
-                            limit--;
-                        }
-                    }
-                    i.setAmount(newAmount);
-                    newItems.add(i);
+                BlockStore.BreakReason reason = BlockStore.getBreakReason(event.getBlock());
+                if (reason == BlockStore.BreakReason.EXPLOSION){
+                    double dropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_BLAST_DROP_MULTIPLIER", event.getPlayer(), true);
+
+                    ItemUtils.multiplyItemStacks(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+
+                    event.getItems().clear();
+                    event.getItems().addAll(newItems);
                 }
-                event.getItems().clear();
-                event.getItems().addAll(newItems);
-            }
-            if (!event.getItems().isEmpty()){
-                farmingLootTable.onItemStackDrop(event);
             }
         }
+        BlockStore.setPlaced(event.getBlock(), false);
+    }
 
-//        if (!PlaceStore.isPlaced(event.getBlock())) {
-//            List<ItemStack> newItems = new ArrayList<>();
-//            for (ItemStack i : event.getItems()){
-//                double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_DROP_MULTIPLIER", event.getPlayer(), true);
-//                int newAmount = Utils.excessChance(i.getAmount() * dropMultiplier);
-//                if (newAmount > i.getMaxStackSize()){
-//                    int limit = 4;
-//                    while(newAmount > i.getMaxStackSize()){
-//                        if (limit <= 0) break;
-//                        ItemStack drop = i.clone();
-//                        drop.setAmount(i.getMaxStackSize());
-//                        newItems.add(drop);
-//                        newAmount -= i.getMaxStackSize();
-//                        limit--;
-//                    }
-//                }
-//                i.setAmount(newAmount);
-//                newItems.add(i);
-//            }
-//            event.getItems().clear();
-//            event.getItems().addAll(newItems);
-//
-//            if (!event.getItems().isEmpty()){
-//                System.out.println("on itemstack drop");
-//                farmingLootTable.onItemStackDrop(event);
-//            }
-//        }
+    private PlayerModeData getData(Player p){
+        if (!quickModeData.containsKey(p.getUniqueId())){
+            quickModeData.put(p.getUniqueId(), new PlayerModeData());
+        }
+        return quickModeData.get(p.getUniqueId());
+    }
+
+    @Override
+    public void onBlockExplode(BlockExplodeEvent event){
+        // do nothing
+    }
+
+    @Override
+    public void onEntityExplode(EntityExplodeEvent event) {
+        // increase blast radius of tnt
+        if (event.getEntity() instanceof TNTPrimed){
+            TNTPrimed tnt = (TNTPrimed) event.getEntity();
+
+            if (tnt.getSource() == null) return;
+
+            Player player = null;
+            if (tnt.getSource() instanceof Player){
+                player = (Player) tnt.getSource();
+            } else if (tnt.getSource() instanceof AbstractArrow){
+                AbstractArrow arrow = (AbstractArrow) tnt.getSource();
+                if (arrow.getShooter() instanceof Player){
+                    player = (Player) arrow.getShooter();
+                }
+            }
+
+            if (player != null){
+                double exp = 0;
+                double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_BLAST", player, true) / 100D));
+                for (Block b : event.blockList()){
+                    if (blockBreakEXPReward.containsKey(b.getType())){
+                        exp += expMultiplierBlast * blockBreakEXPReward.get(b.getType()) * multiplier;
+                    }
+                }
+                addEXP(player, exp, false);
+                int fortuneLevel = 0;
+                Profile p = ProfileManager.getProfile(player, "MINING");
+                if (p != null){
+                    if (p instanceof MiningProfile){
+                        fortuneLevel = ((MiningProfile) p).getExplosionFortuneLevel();
+                    }
+                }
+
+                for (Block b : new HashSet<>(event.blockList())){
+                    if (b.getType().isAir()) continue;
+                    if (!remove_tnt_chaining){
+                        if (b.getType() == Material.TNT) continue;
+                    }
+                    BlockStore.setBreakReason(b, BlockStore.BreakReason.EXPLOSION);
+                    // if the block was placed, it is treated as a regular explosion
+                    // if not, it's custom exploded
+                    if (!BlockStore.isPlaced(b)){
+                        event.blockList().remove(b);
+
+                        // if the custom loot table does not end up dropping anything custom, explode the block anyway
+                        if (!blastMiningLootTable.onBlockExplode(b, player, fortuneLevel)){
+                            Utils.explodeBlock(player, b, false, fortuneLevel);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onExplosionPrime(ExplosionPrimeEvent event) {
+        if (event.getEntity() instanceof TNTPrimed) {
+            TNTPrimed tnt = (TNTPrimed) event.getEntity();
+            if (tnt.getSource() == null) return;
+            Player player = null;
+            if (tnt.getSource() instanceof Player) {
+                player = (Player) tnt.getSource();
+            }
+
+            if (player != null){
+                double tntStrength = AccumulativeStatManager.getInstance().getStats("MINING_BLAST_RADIUS_MULTIPLIER", player, true);
+                event.setRadius(event.getRadius() * (float) tntStrength);
+            }
+        }
     }
 
     @Override
     public void onEntityDamage(EntityDamageByEntityEvent event) {
-
+        if (event.isCancelled()) return;
+        if (event.getDamager() instanceof TNTPrimed){
+            double multiplier = AccumulativeStatManager.getInstance().getStats("MINING_BLAST_EXPLOSION_DAMAGE_MULTIPLIER", event.getEntity(), true);
+            if (multiplier <= 0) {
+                event.setCancelled(true);
+            } else {
+                event.setDamage(event.getDamage() * multiplier);
+            }
+        }
     }
 
     @Override
     public void onEntityKilled(EntityDeathEvent event) {
-        if (event.getEntity().getKiller() != null){
-            Player killer = event.getEntity().getKiller();
-            if (entityBreedEXPReward.containsKey(event.getEntityType())){
-                List<ItemStack> newItems = new ArrayList<>();
-                for (ItemStack i : event.getDrops()){
-                    double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_ANIMAL_DROP_MULTIPLIER", killer, true);
-                    int newAmount = Utils.excessChance(i.getAmount() * dropMultiplier);
-                    if (newAmount > i.getMaxStackSize()){
-                        int limit = 4;
-                        while(newAmount > i.getMaxStackSize()){
-                            if (limit <= 0) break;
-                            ItemStack drop = i.clone();
-                            drop.setAmount(i.getMaxStackSize());
-                            newItems.add(drop);
-                            newAmount -= i.getMaxStackSize();
-                            limit--;
-                        }
+        // do nothing
+    }
+
+    @Override
+    public void onEntityInteract(PlayerInteractEntityEvent event) {
+
+    }
+
+    @Override
+    public void onAtEntityInteract(PlayerInteractAtEntityEvent event) {
+
+    }
+
+    @Override
+    public void onInteract(PlayerInteractEvent event) {
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.useItemInHand() != Event.Result.ALLOW){
+            if (event.getPlayer().getHealth() <= 1.0) return;
+            if ((int) Utils.round(AccumulativeStatManager.getInstance().getStats("MINING_QUICK_MINE_DRAIN_RATE", event.getPlayer(), true), 3) <= 0) return;
+            if (EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE) != null && event.getPlayer().isSneaking()){
+                PlayerModeData data = getData(event.getPlayer());
+                if (!data.isEnabled()) {
+                    if (!CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_mining_quickmine")) {
+                        int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_mining_quickmine");
+                        event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                new TextComponent(
+                                        Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
+                                                .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
+                                                .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
+                                                .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
+                                ));
+                        return;
                     }
-                    i.setAmount(newAmount);
-                    newItems.add(i);
                 }
-                event.getDrops().clear();
-                event.getDrops().addAll(newItems);
+                data.toggle(event.getPlayer());
+                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                        Utils.chat((data.isEnabled()) ? quickmode_toggle_on : quickmode_toggle_off)
+                ));
             }
         }
     }
+
+    private static class PlayerModeData {
+        private boolean enabled = false;
+        private int score = 0;
+
+        public void toggle(Player player){
+            enabled = !enabled;
+            if (!enabled){
+                if (!CooldownManager.getInstance().isCooldownPassed(player.getUniqueId(), "cooldown_mining_quickmine")) return;
+                Profile p = ProfileManager.getProfile(player, "MINING");
+                if (p != null){
+                    if (!(p instanceof MiningProfile)) return;
+                    MiningProfile profile = (MiningProfile) p;
+                    if (profile.getQuickMineCooldown() > 0){
+                        CooldownManager.getInstance().setCooldown(player.getUniqueId(), profile.getQuickMineCooldown() * 1000, "cooldown_mining_quickmine");
+                    }
+                }
+            }
+        }
+
+        public void toggle(){
+            this.enabled = !this.enabled;
+        }
+
+        public void increment(int score){
+            this.score += score;
+            if (this.score < 0) this.score = 0;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
+        }
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public int getScore() {
+            return score;
+        }
+    }
 }
+

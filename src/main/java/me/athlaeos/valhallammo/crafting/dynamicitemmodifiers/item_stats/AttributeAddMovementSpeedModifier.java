@@ -1,5 +1,8 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.items.attributewrappers.VanillaMovementSpeedWrapper;
 import me.athlaeos.valhallammo.utility.ItemUtils;
@@ -10,11 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class AttributeAddMovementSpeedModifier extends DynamicItemModifier{
+public class AttributeAddMovementSpeedModifier extends DynamicItemModifier {
     public AttributeAddMovementSpeedModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 0.1;
         this.bigStepIncrease = 0.1;

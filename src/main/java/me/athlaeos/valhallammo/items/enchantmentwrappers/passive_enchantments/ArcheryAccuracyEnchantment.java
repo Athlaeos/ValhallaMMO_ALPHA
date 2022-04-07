@@ -1,5 +1,6 @@
-package me.athlaeos.valhallammo.items.enchantmentwrappers;
+package me.athlaeos.valhallammo.items.enchantmentwrappers.passive_enchantments;
 
+import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
@@ -9,8 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ArcheryAccuracyEnchantment extends EnchantmentWrapper {
     private final String rangedDamageTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_archery_accuracy"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("enchantment_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("enchantment_positive_prefix");
 
     public ArcheryAccuracyEnchantment(double amount) {
         super(amount);
@@ -40,11 +39,11 @@ public class ArcheryAccuracyEnchantment extends EnchantmentWrapper {
             removeLore(meta);
             return;
         }
-        double bow_strength = amount;
+        double bow_strength = amplifier;
 
         if (!rangedDamageTranslation.equals("")){
-            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength));
-            String prefix = ((bow_strength < 0) ? negativePrefix : positivePrefix);
+            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
+            String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(rangedDamageTranslation)),
                     String.format(prefix + "%s %s%%", rangedDamageTranslation, bowStrength));

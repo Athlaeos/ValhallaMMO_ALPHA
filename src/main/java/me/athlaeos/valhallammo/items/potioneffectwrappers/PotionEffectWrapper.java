@@ -1,68 +1,51 @@
-package me.athlaeos.valhallammo.items.attributewrappers;
+package me.athlaeos.valhallammo.items.potioneffectwrappers;
 
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public abstract class AttributeWrapper implements Cloneable{
-    protected double minValue;
-    protected double maxValue;
-    protected String attribute;
-    protected double amount;
-    protected AttributeModifier.Operation operation;
-    protected EquipmentSlot slot;
+public abstract class PotionEffectWrapper implements Cloneable{
+    protected String potionEffect;
+    protected double amplifier;
+    protected int duration;
 
-    public AttributeWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot){
-        this.amount = amount;
-        this.operation = operation;
-        this.slot = slot;
+    public PotionEffectWrapper(String potionEffect, double amplifier, int duration){
+        this.amplifier = amplifier;
+        this.potionEffect = potionEffect;
+        this.duration = duration;
     }
+
+    public abstract void onApply(ItemMeta potion);
+
+    public abstract void onRemove(ItemMeta potion);
 
     public abstract boolean isCompatible(ItemStack i);
 
-    public abstract void onApply(ItemMeta i);
-
-    public abstract void onRemove(ItemMeta i);
-
-    public double getMinValue() {
-        return minValue;
+    public int getDuration() {
+        return duration;
     }
 
-    public double getMaxValue() {
-        return maxValue;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getAmplifier() {
+        return amplifier;
     }
 
-    public AttributeModifier.Operation getOperation() {
-        return operation;
+    public void setAmplifier(double amplifier) {
+        this.amplifier = amplifier;
     }
 
-    public EquipmentSlot getSlot() {
-        return slot;
+    public String getPotionEffect() {
+        return potionEffect;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public void setSlot(EquipmentSlot slot) {
-        this.slot = slot;
-    }
-
-    public void setOperation(AttributeModifier.Operation operation) {
-        this.operation = operation;
-    }
-
-    public String getAttribute() {
-        return attribute;
+    public void setPotionEffect(String potionEffect) {
+        this.potionEffect = potionEffect;
     }
 
     @Override
-    public AttributeWrapper clone() throws CloneNotSupportedException {
-        return (AttributeWrapper) super.clone();
+    public PotionEffectWrapper clone() throws CloneNotSupportedException {
+        return (PotionEffectWrapper) super.clone();
     }
 }

@@ -1,6 +1,5 @@
-package me.athlaeos.valhallammo.managers;
+package me.athlaeos.valhallammo.menus;
 
-import me.athlaeos.valhallammo.menus.PlayerMenuUtility;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;

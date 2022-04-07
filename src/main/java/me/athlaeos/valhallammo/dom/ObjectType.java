@@ -1,2 +1,10 @@
-package me.athlaeos.valhallammo.dom;public enum ObjectType {
+package me.athlaeos.valhallammo.dom;
+
+public enum ObjectType {
+    INTEGER,
+    DOUBLE,
+    STRING_LIST,
+    STRING,
+    BOOLEAN,
+    NONE
 }

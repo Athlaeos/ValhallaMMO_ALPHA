@@ -6,7 +6,7 @@ import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class SmithingBuffQualitySource extends AccumulativeStatSource {
+public class SmithingPotionQualitySource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){

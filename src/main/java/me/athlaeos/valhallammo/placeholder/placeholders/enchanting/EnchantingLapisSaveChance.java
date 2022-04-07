@@ -1,25 +1,24 @@
-package me.athlaeos.valhallammo.placeholder.placeholders;
+package me.athlaeos.valhallammo.placeholder.placeholders.enchanting;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.account.AccountProfile;
+import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class SkillEXPMultiplier extends Placeholder {
+public class EnchantingLapisSaveChance extends Placeholder {
 
-    public SkillEXPMultiplier(String placeholder) {
+    public EnchantingLapisSaveChance(String placeholder) {
         super(placeholder);
     }
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileUtil.getProfile(p, SkillType.ACCOUNT);
+        Profile profile = ProfileManager.getProfile(p, "ENCHANTING");
         if (profile != null){
-            if (profile instanceof AccountProfile){
-                double multiplier = ((AccountProfile) profile).getAllSkillEXPGain();
-                return s.replace(this.placeholder, String.format("%,.2f", multiplier));
+            if (profile instanceof EnchantingProfile){
+                double chance = ((EnchantingProfile) profile).getLapisSaveChance() * 100;
+                return s.replace(this.placeholder, String.format("%,.1f", chance));
             }
         }
         return s;

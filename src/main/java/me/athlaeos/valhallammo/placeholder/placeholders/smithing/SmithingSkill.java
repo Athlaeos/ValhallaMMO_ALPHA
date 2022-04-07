@@ -1,9 +1,8 @@
-package me.athlaeos.valhallammo.placeholder.placeholders;
+package me.athlaeos.valhallammo.placeholder.placeholders.smithing;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
 import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
 import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
 import org.bukkit.entity.Player;
@@ -18,7 +17,7 @@ public class SmithingSkill extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileUtil.getProfile(p, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(p, "SMITHING");
         if (profile != null){
             if (profile instanceof SmithingProfile){
                 int skill;

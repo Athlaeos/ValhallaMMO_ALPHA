@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dom;
+package me.athlaeos.valhallammo.crafting.recipetypes;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import org.bukkit.inventory.ItemStack;

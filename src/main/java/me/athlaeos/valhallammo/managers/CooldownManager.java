@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.core_managers;
+package me.athlaeos.valhallammo.managers;
 
 import java.util.HashMap;
 import java.util.Map;

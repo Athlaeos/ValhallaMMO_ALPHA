@@ -1,10 +1,10 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantments;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
-import me.athlaeos.valhallammo.managers.ItemEnchantmentManager;
+import me.athlaeos.valhallammo.managers.EnchantingItemEnchantmentsManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -41,7 +41,7 @@ public class VanillaEnchantAddModifier extends DuoArgDynamicItemModifier {
         this.maxStrength2 = 100000;
 
         this.enchantment = enchantment;
-        this.enchantName = enchantment.getKey().getNamespace();
+        this.enchantName = enchantment.getKey().getKey();
         this.description = Utils.chat("&7Adds the &e" + Utils.toPascalCase(enchantName.replace("_", " ")) + " &7enchantment to the item. " +
                 "Enchantment is cancelled if item already has this enchantment. If strength is 0, enchantment is " +
                 "removed instead. And if the item does not have the enchantment you want removed, the recipe is cancelled." +
@@ -61,8 +61,9 @@ public class VanillaEnchantAddModifier extends DuoArgDynamicItemModifier {
         } else {
             if (outputItem.getEnchantments().containsKey(enchantment)) return null;
             if (strength2 > 0){
-                int enchantingSkill = (int) ((strength2 / 100) * Math.floor(AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_VANILLA", crafter, this.use)));
-                Map<Enchantment, Integer> enchant = ItemEnchantmentManager.getInstance().applyEnchantmentScaling(outputItem, enchantingSkill, enchantment, (int) Math.floor(strength));
+                if (crafter == null) return null;
+                int enchantingSkill = (int) ((strength2 / 100) * Math.floor(AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_GENERAL", crafter, this.use) + AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_VANILLA", crafter, this.use)));
+                Map<Enchantment, Integer> enchant = EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(outputItem, enchantingSkill, enchantment, (int) Math.floor(strength));
                 Enchantment enchantment = null;
                 int level = 0;
                 for (Enchantment e : enchant.keySet()){

@@ -2,28 +2,27 @@ package me.athlaeos.valhallammo.perkrewards.mining;
 
 import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.mining.MiningProfile;
 import org.bukkit.entity.Player;
 
-public class MiningMiningDropMultiplierAddReward extends PerkReward {
+public class MiningMiningDropMultiplierSetReward extends PerkReward {
     private float exp = 0F;
 
-    public MiningMiningDropMultiplierAddReward(String name, Object argument) {
+    public MiningMiningDropMultiplierSetReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.MINING);
+        Profile profile = ProfileManager.getProfile(player, "MINING");
         if (profile == null) return;
         if (profile instanceof MiningProfile){
             MiningProfile miningProfile = (MiningProfile) profile;
-            miningProfile.setMiningDropMultiplier(miningProfile.getMiningDropMultiplier() + exp);
-            ProfileUtil.setProfile(player, miningProfile, SkillType.MINING);
+            miningProfile.setMiningDropMultiplier(exp);
+            ProfileManager.setProfile(player, miningProfile, "MINING");
         }
     }
 

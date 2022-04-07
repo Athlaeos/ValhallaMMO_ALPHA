@@ -1,11 +1,10 @@
-package me.athlaeos.valhallammo.dom;
+package me.athlaeos.valhallammo.skills.account;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.account.AccountSkill;
 import me.athlaeos.valhallammo.skills.Skill;
-import me.athlaeos.valhallammo.skills.SkillType;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
@@ -18,6 +17,7 @@ public class AccountProfile extends Profile implements Serializable{
     private static final NamespacedKey accountProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_account");
 
     private int spendableSkillPoints = 0;
+    private double allSkillEXPGain = 100;
     private Set<String> unlockedPerks = new HashSet<>();
     private Set<String> unlockedRecipes = new HashSet<>();
 
@@ -29,11 +29,11 @@ public class AccountProfile extends Profile implements Serializable{
 
     @Override
     public void setDefaultStats(Player player) {
-        Skill skill = SkillProgressionManager.getInstance().getSkill(SkillType.ACCOUNT);
+        Skill skill = SkillProgressionManager.getInstance().getSkill("ACCOUNT");
         if (skill != null){
             if (skill instanceof AccountSkill){
-                AccountSkill smithingSkill = (AccountSkill) skill;
-                for (PerkReward startingPerk : smithingSkill.getStartingPerks()){
+                AccountSkill accountSkill = (AccountSkill) skill;
+                for (PerkReward startingPerk : accountSkill.getStartingPerks()){
                     startingPerk.execute(player);
                 }
             }
@@ -64,8 +64,21 @@ public class AccountProfile extends Profile implements Serializable{
         return unlockedRecipes;
     }
 
+    public double getAllSkillEXPGain() {
+        return allSkillEXPGain;
+    }
+
+    public void setAllSkillEXPGain(double allSkillEXPGain) {
+        this.allSkillEXPGain = allSkillEXPGain;
+    }
+
     @Override
     public NamespacedKey getKey() {
         return accountProfileKey;
+    }
+
+    @Override
+    public AccountProfile clone() throws CloneNotSupportedException {
+        return (AccountProfile) super.clone();
     }
 }

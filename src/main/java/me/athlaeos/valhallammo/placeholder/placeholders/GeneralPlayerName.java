@@ -1,8 +1,9 @@
-package me.athlaeos.valhallammo.placeholders;
+package me.athlaeos.valhallammo.placeholder.placeholders;
 
+import me.athlaeos.valhallammo.placeholder.Placeholder;
 import org.bukkit.entity.Player;
 
-public class GeneralPlayerName extends Placeholder{
+public class GeneralPlayerName extends Placeholder {
     public GeneralPlayerName(String placeholder) {
         super(placeholder);
     }

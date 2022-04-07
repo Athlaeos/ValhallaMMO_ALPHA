@@ -1,9 +1,10 @@
-package me.athlaeos.valhallammo.core_listeners;
+package me.athlaeos.valhallammo.listeners;
 
-import me.athlaeos.valhallammo.domain.Menu;
+import me.athlaeos.valhallammo.menus.Menu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 public class MenuListener implements Listener {
@@ -13,7 +14,20 @@ public class MenuListener implements Listener {
         if (e.getView().getTopInventory().getHolder() instanceof Menu && e.getView().getBottomInventory() instanceof PlayerInventory){
             Menu m = (Menu) e.getView().getTopInventory().getHolder();
 
+            if (m == null) return;
             m.handleMenu(e);
+        }
+    }
+
+    @EventHandler
+    public void onMenuDrag(InventoryDragEvent e){
+        if (e.getView().getTopInventory().getHolder() instanceof Menu && e.getView().getBottomInventory() instanceof PlayerInventory){
+            if (e.getCursor() != null){
+                Menu m = (Menu) e.getView().getTopInventory().getHolder();
+
+                if (m == null) return;
+                m.handleMenu(e);
+            }
         }
     }
 }

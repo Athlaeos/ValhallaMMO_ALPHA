@@ -1,0 +1,21 @@
+# The sounds made when a custom crafting recipe is finished, depending on the crafting station used
+# A list of all sounds can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+# A list of all materials/blocks can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+# You can also google "spigot (material/sound) (your version)" to see all available sounds and materials for your version
+# The keyword "DEFAULT" may also be used to specify a sound in case it has not been defined here
+# A value can be left empty in case you do not want a specific crafting station to make a sound at all
+craft_finish:
+  CRAFTING_TABLE: ENTITY_VILLAGER_WORK_FISHERMAN
+  ANVIL: ENTITY_VILLAGER_WORK_TOOLSMITH
+  GRINDSTONE: ENTITY_VILLAGER_WORK_WEAPONSMITH
+  DEFAULT: ENTITY_VILLAGER_WORK_FISHERMAN
+  CAULDRON: BLOCK_LAVA_EXTINGUISH
+  BLUE_ICE: BLOCK_LAVA_EXTINGUISH
+
+craft_work:
+  CRAFTING_TABLE: ITEM_AXE_STRIP
+  ANVIL: BLOCK_ANVIL_PLACE
+  GRINDSTONE: ENTITY_VILLAGER_WORK_WEAPONSMITH
+  DEFAULT: ITEM_AXE_STRIP
+  CAULDRON: BLOCK_LAVA_EXTINGUISH
+  BLUE_ICE: BLOCK_LAVA_EXTINGUISH

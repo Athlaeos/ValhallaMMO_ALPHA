@@ -1,24 +1,24 @@
 package me.athlaeos.valhallammo.placeholder.placeholders.farming;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.farming.FarmingProfile;
 import org.bukkit.entity.Player;
 
-public class FarmingBabyAnimalAgeMultiplier extends Placeholder {
-    public FarmingBabyAnimalAgeMultiplier(String placeholder) {
+public class FarmingHiveHoneySaveChance extends Placeholder {
+    public FarmingHiveHoneySaveChance(String placeholder) {
         super(placeholder);
     }
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileUtil.getProfile(p, SkillType.FARMING);
+        Profile profile = ProfileManager.getProfile(p, "FARMING");
         if (profile != null){
             if (profile instanceof FarmingProfile){
-                float multiplier = ((FarmingProfile) profile).getBabyAnimalAgeMultiplier();
-                return s.replace(this.placeholder, String.format("%,.1f", multiplier));
+                float multiplier = ((FarmingProfile) profile).getHiveHoneySaveChance();
+                double chance = multiplier * 100D;
+                return s.replace(this.placeholder, String.format("%,.1f", chance));
             }
         }
         return s;

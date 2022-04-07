@@ -5,7 +5,7 @@ import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 
-public class SmithingBuffQualitySingleUseSource extends AccumulativeStatSource {
+public class SmithingPotionQualitySingleUseSource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         PotionEffect potionEffect = PotionEffectManager.getInstance().getPotionEffect(p, "MASTERPIECE_SMITHING");

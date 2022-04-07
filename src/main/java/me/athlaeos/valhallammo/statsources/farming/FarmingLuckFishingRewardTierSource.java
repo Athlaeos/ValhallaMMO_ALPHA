@@ -1,20 +1,17 @@
 package me.athlaeos.valhallammo.statsources.farming;
 
-import me.athlaeos.valhallammo.configutils.ConfigManager;
+import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
-import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class FarmingLOTSFishingRewardTierSource extends AccumulativeStatSource {
-    private double fishingLOTSPotency;
-    private double fishing_luck_potency;
-    public FarmingLOTSFishingRewardTierSource(){
+public class FarmingLuckFishingRewardTierSource extends AccumulativeStatSource {
+    private final double fishing_luck_potency;
+    public FarmingLuckFishingRewardTierSource(){
         YamlConfiguration farmingConfig = ConfigManager.getInstance().getConfig("skill_farming.yml").get();
-        fishingLOTSPotency = farmingConfig.getDouble("fishing_luck_of_the_sea_potency");
         fishing_luck_potency = farmingConfig.getDouble("fishing_luck_potency");
     }
 
@@ -22,17 +19,9 @@ public class FarmingLOTSFishingRewardTierSource extends AccumulativeStatSource {
     public double add(Entity p, boolean use) {
         if (p instanceof LivingEntity){
             LivingEntity e = (LivingEntity) p;
-            if (e.getEquipment() != null) {
-                ItemStack rod;
-                if (!Utils.isItemEmptyOrNull(e.getEquipment().getItemInMainHand())){
-                    rod = e.getEquipment().getItemInMainHand();
-                } else {
-                    rod = e.getEquipment().getItemInOffHand();
-                }
-                if (!Utils.isItemEmptyOrNull(rod)){
-                    int level = rod.getEnchantmentLevel(Enchantment.LUCK);
-                    return level * fishingLOTSPotency;
-                }
+            PotionEffect level = e.getPotionEffect(PotionEffectType.LUCK);
+            if (level != null){
+                return fishing_luck_potency * (level.getAmplifier() + 1);
             }
         }
         return 0;

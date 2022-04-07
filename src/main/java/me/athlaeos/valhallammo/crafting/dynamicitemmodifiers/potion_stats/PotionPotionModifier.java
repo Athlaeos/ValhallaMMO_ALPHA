@@ -3,13 +3,14 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class PotionSplashModifier extends DynamicItemModifier {
-    public PotionSplashModifier(String name, double strength, ModifierPriority priority) {
+public class PotionPotionModifier extends DynamicItemModifier {
+    public PotionPotionModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -23,24 +24,25 @@ public class PotionSplashModifier extends DynamicItemModifier {
         this.minStrength = 0;
         this.maxStrength = 0;
 
-        this.description = Utils.chat("&7Converts the item into a splash potion. Recipe is cancelled if item " +
-                "already is a splash potion");
-        this.displayName = Utils.chat("&7&lSplash Potion");
-        this.icon = Material.SPLASH_POTION;
+        this.description = Utils.chat("&7Converts the item into a potion. Recipe is cancelled if item " +
+                "already is a potion");
+        this.displayName = Utils.chat("&7&lPotion");
+        this.icon = Material.POTION;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
 
-        if (outputItem.getType() == Material.SPLASH_POTION) return null;
-        outputItem.setType(Material.SPLASH_POTION);
+        if (outputItem.getType() == Material.POTION) return null;
+        outputItem.setType(Material.POTION);
+        PotionEffectManager.renamePotion(outputItem, true);
 
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Converts the item into a splash potion. Recipe is cancelled if already a splash potion.");
+        return Utils.chat("&7Converts the item into a potion. Recipe is cancelled if already a potion.");
     }
 }

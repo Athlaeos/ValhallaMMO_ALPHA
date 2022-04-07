@@ -1,13 +1,11 @@
-package me.athlaeos.valhallammo.skills.smithing.dom;
+package me.athlaeos.valhallammo.skills.smithing;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.dom.Skill;
-import me.athlaeos.valhallammo.dom.SkillType;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
-import me.athlaeos.valhallammo.materials.MaterialClass;
+import me.athlaeos.valhallammo.items.MaterialClass;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.smithing.SmithingSkill;
+import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
@@ -29,19 +27,19 @@ public class SmithingProfile extends Profile implements Serializable {
     private int craftingquality_netherite = 0;
     private int craftingquality_prismarine = 0;
     private int craftingquality_membrane = 0;
-    private double craftingexpmultiplier_all = 0D;
-    private double craftingexpmultiplier_bow = 0D;
-    private double craftingexpmultiplier_crossbow = 0D;
-    private double craftingexpmultiplier_wood = 0D;
-    private double craftingexpmultiplier_leather = 0D;
-    private double craftingexpmultiplier_stone = 0D;
-    private double craftingexpmultiplier_chain = 0D;
-    private double craftingexpmultiplier_gold = 0D;
-    private double craftingexpmultiplier_iron = 0D;
-    private double craftingexpmultiplier_diamond = 0D;
-    private double craftingexpmultiplier_netherite = 0D;
-    private double craftingexpmultiplier_prismarine = 0D;
-    private double craftingexpmultiplier_membrane = 0D;
+    private double craftingexpmultiplier_all = 100D;
+    private double craftingexpmultiplier_bow = 100D;
+    private double craftingexpmultiplier_crossbow = 100D;
+    private double craftingexpmultiplier_wood = 100D;
+    private double craftingexpmultiplier_leather = 100D;
+    private double craftingexpmultiplier_stone = 100D;
+    private double craftingexpmultiplier_chain = 100D;
+    private double craftingexpmultiplier_gold = 100D;
+    private double craftingexpmultiplier_iron = 100D;
+    private double craftingexpmultiplier_diamond = 100D;
+    private double craftingexpmultiplier_netherite = 100D;
+    private double craftingexpmultiplier_prismarine = 100D;
+    private double craftingexpmultiplier_membrane = 100D;
 
     public SmithingProfile(Player owner){
         super(owner);
@@ -51,7 +49,7 @@ public class SmithingProfile extends Profile implements Serializable {
 
     @Override
     public void setDefaultStats(Player player) {
-        Skill skill = SkillProgressionManager.getInstance().getSkill(SkillType.SMITHING);
+        Skill skill = SkillProgressionManager.getInstance().getSkill("SMITHING");
         if (skill != null){
             if (skill instanceof SmithingSkill){
                 SmithingSkill smithingSkill = (SmithingSkill) skill;

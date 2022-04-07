@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.dom;
+package me.athlaeos.valhallammo.items;
 
 public enum ItemTreatment {
     SHARPENING_ROUGH,
@@ -19,5 +19,6 @@ public enum ItemTreatment {
     HEATING,
     SUPERHEATING,
     STUDDING,
-    GENERIC_IMPROVEMENT;
+    GENERIC_IMPROVEMENT,
+    UNENCHANTABLE
 }

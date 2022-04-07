@@ -1,6 +1,7 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
 
 import me.athlaeos.valhallammo.managers.TranslationManager;
+import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,6 +15,7 @@ public abstract class DynamicItemModifier implements Cloneable{
     protected String displayName; // Display name of its button
     protected String description; // Description displayed on its button
     protected String craftDescription; // Description displayed of modifier on crafting recipe
+    protected boolean validate = true;
     protected boolean use = true;
     protected Material icon; // Icon of its button
     protected double minStrength; // Minimum range of strength
@@ -37,12 +39,12 @@ public abstract class DynamicItemModifier implements Cloneable{
 
     public abstract ItemStack processItem(Player crafter, ItemStack outputItem);
 
-    public void setUse(boolean use) {
-        this.use = use;
+    public void setValidate(boolean validate) {
+        this.validate = validate;
     }
 
-    public boolean use() {
-        return use;
+    public boolean validate() {
+        return validate;
     }
 
     public abstract String toString();
@@ -64,7 +66,7 @@ public abstract class DynamicItemModifier implements Cloneable{
     }
 
     public void setStrength(double strength) {
-        this.strength = strength;
+        this.strength = Utils.round(strength, 6);
     }
 
     public String getDisplayName() {
@@ -109,6 +111,18 @@ public abstract class DynamicItemModifier implements Cloneable{
 
     public ModifierPriority getPriority() {
         return priority;
+    }
+
+    public ModifierCategory getCategory() {
+        return category;
+    }
+
+    public boolean use() {
+        return use;
+    }
+
+    public void setUse(boolean use) {
+        this.use = use;
     }
 
     public void setPriority(ModifierPriority priority) {

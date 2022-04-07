@@ -1,23 +1,474 @@
-package me.athlaeos.mmoskills.utility;
+package me.athlaeos.valhallammo.utility;
 
-import me.athlaeos.mmoskills.managers.MinecraftVersionManager;
-import me.athlaeos.mmoskills.domain.MinecraftVersion;
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.dom.Action;
+import me.athlaeos.valhallammo.dom.MinecraftVersion;
+import me.athlaeos.valhallammo.dom.Offset;
+import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
+import me.athlaeos.valhallammo.items.EquipmentClass;
+import me.athlaeos.valhallammo.managers.MinecraftVersionManager;
+import me.athlaeos.valhallammo.managers.TranslationManager;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.Color;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Utils {
 
+    private static Random random = null;
+
+    public static Random getRandom(){
+        if (random == null){
+            random = new Random();
+        }
+        return random;
+    }
+
+    private final static TreeMap<Integer, String> map = new TreeMap<>();
+
+    private static void populateRomanMap(){
+        map.put(1000, "M");
+        map.put(900, "CM");
+        map.put(500, "D");
+        map.put(400, "CD");
+        map.put(100, "C");
+        map.put(90, "XC");
+        map.put(50, "L");
+        map.put(40, "XL");
+        map.put(10, "X");
+        map.put(9, "IX");
+        map.put(5, "V");
+        map.put(4, "IV");
+        map.put(1, "I");
+    }
+
+    public static String toRoman(int number) {
+        if (number == 0) return "0";
+        if (number == 1) return "I";
+        if (map.isEmpty()) {
+            populateRomanMap();
+        }
+        int l =  map.floorKey(number);
+        if ( number == l ) {
+            return map.get(number);
+        }
+        return map.get(l) + toRoman(number-l);
+    }
+
+    public static void breakBlock(Player player, Block block, boolean instantPickup){
+        // try to break a block and call the appropriate events
+        ItemStack tool;
+        if (!Utils.isItemEmptyOrNull(player.getInventory().getItemInMainHand())) {
+            tool = player.getInventory().getItemInMainHand();
+        } else {
+            tool = player.getInventory().getItemInOffHand();
+            if (Utils.isItemEmptyOrNull(tool)) tool = null;
+        }
+        BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
+        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
+        if (breakEvent.isCancelled()) return;
+
+        List<ItemStack> drops = new ArrayList<>((tool == null) ? block.getDrops() : block.getDrops(tool, player));
+        if (!drops.isEmpty()){
+            BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(block, block.getState(), player, drops);
+            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
+            if (instantPickup){
+                Map<Integer, ItemStack> excessDrops = player.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
+                dropEvent.getItems().clear();
+                dropEvent.getItems().addAll(excessDrops.values());
+            }
+        }
+
+        if (!breakEvent.isCancelled()) {
+            block.getWorld().spawnParticle(Particle.BLOCK_DUST, block.getLocation().add(0.5, 0.5, 0.5), 16, 0.5, 0.5, 0.5, block.getBlockData());
+            block.setType(Material.AIR);
+        }
+    }
+
+    private static final Map<String, Collection<UUID>> blockAlteringPlayers = new HashMap<>();
+
+    public static Map<String, Collection<UUID>> getBlockAlteringPlayers() {
+        return blockAlteringPlayers;
+    }
+
+    /**
+     * does something to the given collection of blocks, where each action is delayed by 1 tick per block
+     * @param type the unique ID under which the chain altering is being done, this is to prevent this ability from spamming too much
+     * @param who the player responsible for altering these blocks
+     * @param blocks the blocks to alter
+     * @param blockValidator additional checkup to see if the blocks in the collection are still valid for alteration
+     * @param toolType optional tool in main hand used to alter these blocks, if null no tool is used and no durability is taken
+     * @param alteration what happens to the block
+     * @param onFinish what happens at the end of the iteration, where the block represents the final block
+     */
+    public static void alterBlocks(String type, Player who, List<Block> blocks, Predicate<Block> blockValidator, EquipmentClass toolType, Action<Block> alteration, Action<Block> onFinish){
+        if (alteration == null) return;
+        blockAlteringPlayers.putIfAbsent(type, new HashSet<>());
+        Collection<UUID> players = blockAlteringPlayers.get(type);
+        players.add(who.getUniqueId());
+        blockAlteringPlayers.put(type, players);
+        boolean requireTool = toolType != null;
+
+        new BukkitRunnable(){
+            final Iterator<Block> iterator = blocks.iterator();
+            @Override
+            public void run() {
+                if (iterator.hasNext()){
+                    Block b = iterator.next();
+                    boolean valid = blockValidator == null || blockValidator.test(b);
+                    if (valid){
+                        if (requireTool){
+                            ItemStack holdingItem = EntityUtils.getHoldingItem(who, toolType);
+                            if (holdingItem == null) {
+                                stop();
+                            } else {
+                                if (who.getGameMode() != GameMode.CREATIVE){
+                                    if (ItemUtils.damageItem(who, holdingItem, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+                                        who.getInventory().setItemInMainHand(null);
+                                        stop();
+                                    }
+                                }
+                            }
+                        }
+                        alteration.act(b);
+                    }
+                } else {
+                    stop();
+                }
+            }
+
+            private void stop(){
+                Collection<UUID> players = blockAlteringPlayers.get(type);
+                players.remove(who.getUniqueId());
+                blockAlteringPlayers.put(type, players);
+                if (onFinish != null) onFinish.act(blocks.get(blocks.size() - 1));
+                cancel();
+            }
+        }.runTaskTimer(ValhallaMMO.getPlugin(), 0L, 1L);
+    }
+
+    /**
+     * does something to the given collection of blocks
+     * @param type the unique ID under which the chain altering is being done, this is to prevent this ability from spamming too much
+     * @param who the player responsible for altering these blocks
+     * @param blocks the blocks to alter
+     * @param blockValidator additional checkup to see if the blocks in the collection are still valid for alteration
+     * @param toolType optional tool in main hand used to alter these blocks, if null no tool is used and no durability is taken
+     * @param alteration what happens to the block
+     * @param onFinish what happens at the end of the iteration, where the block represents the final block
+     */
+    public static void alterBlocksInstant(String type, Player who, List<Block> blocks, Predicate<Block> blockValidator, EquipmentClass toolType, Action<Block> alteration, Action<Block> onFinish){
+        if (alteration == null) return;
+        blockAlteringPlayers.putIfAbsent(type, new HashSet<>());
+        Collection<UUID> players = blockAlteringPlayers.get(type);
+        players.add(who.getUniqueId());
+        blockAlteringPlayers.put(type, players);
+        boolean requireTool = toolType != null;
+
+        for (Block b : blocks){
+            boolean valid = blockValidator == null || blockValidator.test(b);
+            if (valid){
+                if (requireTool){
+                    ItemStack holdingItem = EntityUtils.getHoldingItem(who, toolType);
+                    if (holdingItem == null) {
+                        break;
+                    } else {
+                        if (who.getGameMode() != GameMode.CREATIVE){
+                            if (ItemUtils.damageItem(who, holdingItem, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+                                who.getInventory().setItemInMainHand(null);
+                                break;
+                            }
+                        }
+                    }
+                }
+                alteration.act(b);
+            }
+        }
+        if (onFinish != null) onFinish.act(blocks.get(blocks.size() - 1));
+        Collection<UUID> ps = blockAlteringPlayers.get(type);
+        ps.remove(who.getUniqueId());
+        blockAlteringPlayers.put(type, ps);
+    }
+
+    /**
+     * Decays a block as if it were a leaf block
+     * should probably only be used on leaf blocks as to not confuse other plugins
+     * @param block the block to decay
+     */
+    public static void decayBlock(Block block){
+        LeavesDecayEvent decayEvent = new LeavesDecayEvent(block);
+        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(decayEvent);
+        if (decayEvent.isCancelled()) return;
+
+        block.breakNaturally();
+    }
+
+    public static void explodeBlock(Player player, Block block, boolean instantPickup, int fortuneLevel){
+        // try to break a block and call the appropriate events
+        ItemStack tool = new ItemStack(Material.IRON_PICKAXE);
+        if (fortuneLevel > 0){
+            tool.addEnchantment(Enchantment.LOOT_BONUS_BLOCKS, fortuneLevel);
+        } else if (fortuneLevel < 0){
+            tool.addEnchantment(Enchantment.SILK_TOUCH, 1);
+        }
+
+        BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(block, block.getState(), player, new ArrayList<>(block.getDrops(tool, player)));
+        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
+        if (instantPickup){
+            Map<Integer, ItemStack> excessDrops = player.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
+            dropEvent.getItems().clear();
+            dropEvent.getItems().addAll(excessDrops.values());
+        }
+
+        block.getWorld().spawnParticle(Particle.BLOCK_DUST, block.getLocation().add(0.5, 0.5, 0.5), 16, 0.5, 0.5, 0.5, block.getBlockData());
+        block.setType(Material.AIR);
+    }
+
+    /**
+     * Returns a collection of players from the given selector and sends the appropriate warnings to the sender if
+     * anything goes wrong. Returns a collection with a single player if no selector was used. Returns an empty
+     * collection if anything went wrong.
+     * @param source the command sender that attempts the selector
+     * @param selector the selector string
+     * @return a collection of matching players, or single player if player name was used for selector
+     */
+    public static Collection<Player> selectPlayers(CommandSender source, String selector){
+        Collection<Player> targets = new HashSet<>();
+        if (selector.startsWith("@")){
+            try {
+                for (Entity part : Bukkit.selectEntities(source, selector)){
+                    if (part instanceof Player){
+                        targets.add((Player) part);
+                    }
+                }
+            } catch (IllegalArgumentException e){
+                String invalidSelector = TranslationManager.getInstance().getTranslation("error_command_invalid_selector");
+                Utils.sendMessage(source, Utils.chat(invalidSelector.replace("%error%", e.getMessage())));
+                return targets;
+            }
+        } else {
+            Player target = ValhallaMMO.getPlugin().getServer().getPlayer(selector);
+            if (target == null){
+                String playerNotFound = TranslationManager.getInstance().getTranslation("error_command_player_offline");
+                Utils.sendMessage(source, Utils.chat(playerNotFound));
+                return targets;
+            }
+            targets.add(target);
+        }
+        return targets;
+    }
+
+    public static boolean doesPathExist(YamlConfiguration config, String root, String key){
+        ConfigurationSection section = config.getConfigurationSection(root);
+        if (section != null){
+            return section.getKeys(false).contains(key);
+        }
+        return false;
+    }
+
+    /**
+     * returns a timestamp based on the base amount of x in a second
+     * @param ticks ticks
+     * @param base base to represent a second (example, if 20 is 1 second give a base of 20, if 1 is 1 second give 1.)
+     * @return a timestamp in a hh:mm:ss format (or mm:ss if not enough ticks for an hour are given), or ∞ if ticks is < 0
+     */
+    public static String toTimeStamp(int ticks, int base){
+        if (ticks == 0) return "0:00";
+        if (ticks < 0) return "∞";
+        int hours = (int) Math.floor(ticks / (3600D * base));
+        ticks %= (base * 3600);
+        int minutes = (int) Math.floor(ticks / (60D * base));
+        ticks %= (base * 60);
+        int seconds = (int) Math.floor(ticks / (double) base);
+        if (hours > 0){
+            if (seconds < 10){
+                if (minutes < 10){
+                    return String.format("%d:0%d:0%d", hours, minutes, seconds);
+                } else {
+                    return String.format("%d:%d:0%d", hours, minutes, seconds);
+                }
+            } else {
+                if (minutes < 10){
+                    return String.format("%d:0%d:%d", hours, minutes, seconds);
+                } else {
+                    return String.format("%d:%d:%d", hours, minutes, seconds);
+                }
+            }
+        } else {
+            if (seconds < 10){
+                return String.format("%d:0%d", minutes, seconds);
+            } else {
+                return String.format("%d:%d", minutes, seconds);
+            }
+        }
+    }
+
+    public static String toPascalCase(String s){
+        if (s == null) return null;
+        if (s.length() == 0) return s;
+        String allLowercase = s.toLowerCase();
+        char c = allLowercase.charAt(0);
+        return allLowercase.replaceFirst("" + c, "" + Character.toUpperCase(c));
+    }
+
+    /**
+     * Returns a HashSet of blocks containing all the blocks matching the filter surrounding the origin location.
+     * The blocks it can expand to are defined in scanArea, expressed in offsets.
+     * The method stops once the amount of blocks hits the limit.
+     * @param origin the block of origin
+     * @param filter the block filter. If a scanned block type is not in this filter, it is ignored.
+     * @param limit the max amount of blocks this method is allowed to scan
+     * @param predicate additional conditions the block has to meet to be included
+     * @param scanArea the offset blocks relative to the scanned block
+     * @return the blocks found
+     */
+    public static List<Block> getBlockVein(Location origin, HashSet<Material> filter, int limit, Predicate<Block> predicate, Offset... scanArea){
+        HashSet<Block> vein = new HashSet<>();
+        List<Block> orderedVein = new ArrayList<>();
+        if (limit == 0 || filter.isEmpty() || scanArea.length == 0) return orderedVein;
+        vein.add(origin.getBlock());
+        orderedVein.add(origin.getBlock());
+        HashSet<Block> scanBlocks = new HashSet<>();
+        scanBlocks.add(origin.getBlock());
+
+        getSurroundingBlocks(orderedVein, scanBlocks, vein, limit, filter, predicate, scanArea);
+
+        return orderedVein;
+    }
+
+    /**
+     * Returns a HashSet of blocks containing all the blocks matching the filter surrounding the origin location.
+     * The blocks it can expand to are defined in scanArea, expressed in offsets.
+     * The method stops once the amount of blocks hits the limit.
+     * @param origin the block of origin
+     * @param filter the block filter. If a scanned block type is not in this filter, it is ignored.
+     * @param limit the max amount of blocks this method is allowed to scan
+     * @param scanArea the offset blocks relative to the scanned block
+     * @return the blocks found
+     */
+    public static List<Block> getBlockVein(Location origin, HashSet<Material> filter, int limit, Offset... scanArea){
+        Predicate<Block> p = o -> true;
+        return getBlockVein(origin, filter, limit, p, scanArea);
+    }
+
+    private static void getSurroundingBlocks(List<Block> orderedVein, HashSet<Block> scanBlocks, HashSet<Block> currentVein, int limit, HashSet<Material> filter, Predicate<Block> predicate, Offset... scanArea){
+        HashSet<Block> newScanBlocks = new HashSet<>();
+        if (currentVein.size() >= limit) return;
+
+        for (Block b : scanBlocks){
+            for (Offset o : scanArea){
+                Location offset = b.getLocation().clone().add(o.getOffX(), o.getOffY(), o.getOffZ());
+                if (!predicate.test(offset.getBlock())) continue;
+                if (filter.contains(offset.getBlock().getType())){
+                    if (currentVein.contains(offset.getBlock())) continue;
+                    currentVein.add(offset.getBlock());
+                    orderedVein.add(offset.getBlock());
+                    if (currentVein.size() >= limit) return;
+                    newScanBlocks.add(offset.getBlock());
+                }
+            }
+        }
+
+        if (newScanBlocks.isEmpty()) return;
+        getSurroundingBlocks(orderedVein, newScanBlocks, currentVein, limit, filter, predicate, scanArea);
+    }
+
+    /**
+     * Checks if the item contains lore 'find' anywhere, if it does, it is replaced by 'replace'. If not found, it is
+     * appended on the end of the lore.
+     * @param meta the item meta to check the lore from
+     * @param find the string to find in the lore
+     * @param replace the string to replace that line with
+     */
+    public static void findAndReplaceLore(ItemMeta meta, String find, String replace){
+        if (meta == null) return;
+
+        List<String> lore = meta.getLore();
+        if (lore == null) lore = new ArrayList<>();
+        int strengthLoreIndex = -1;
+        for (String l : lore){
+            if (l.contains(find)){
+                strengthLoreIndex = lore.indexOf(l);
+                break;
+            }
+        }
+
+        if (strengthLoreIndex != -1) {
+            lore.remove(strengthLoreIndex);
+        }
+        if (!replace.equals("")){
+            lore.add(Utils.chat(replace));
+        }
+        meta.setLore(lore);
+    }
+
+    public static void removeIfLoreContains(ItemMeta meta, String find){
+        if (meta == null) return;
+
+        List<String> lore = meta.getLore();
+        if (lore == null) lore = new ArrayList<>();
+        int strengthLoreIndex = -1;
+        for (String l : lore){
+            if (l.contains(find)){
+                strengthLoreIndex = lore.indexOf(l);
+                break;
+            }
+        }
+
+        if (strengthLoreIndex != -1) {
+            lore.remove(strengthLoreIndex);
+        }
+        meta.setLore(lore);
+    }
+
+    public static boolean isItemEmptyOrNull(ItemStack i){
+        if (i == null) return true;
+        return i.getType().isAir();
+    }
+
+    public static void sendMessage(CommandSender whomst, String message){
+        if (message != null){
+            if (!message.equals("")){
+                whomst.sendMessage(chat(message));
+            }
+        }
+    }
+
+    public static String getItemName(ItemStack i){
+        String name;
+        assert i.getItemMeta() != null;
+        if (i.getItemMeta().hasDisplayName()){
+            name = Utils.chat(i.getItemMeta().getDisplayName());
+        } else if (i.getItemMeta().hasLocalizedName()){
+            name = Utils.chat(i.getItemMeta().getLocalizedName());
+        } else {
+            name = i.getType().toString().toLowerCase().replace("_", " ");
+        }
+        return name;
+    }
+
     public static String chat (String s) {
+        if (s == null) return "";
         if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_16)){
             return newChat(s);
         } else {
@@ -25,26 +476,56 @@ public class Utils {
         }
     }
 
+    public static Map<Integer, ArrayList<String>> paginateTextList(int pageSize, List<String> allEntries) {
+        Map<Integer, ArrayList<String>> pages = new HashMap<>();
+        int stepper = 0;
+
+        for (int pageNumber = 0; pageNumber < Math.ceil((double)allEntries.size()/(double)pageSize); pageNumber++) {
+            ArrayList<String> pageEntries = new ArrayList<>();
+            for (int pageEntry = 0; pageEntry < pageSize && stepper < allEntries.size(); pageEntry++, stepper++) {
+                pageEntries.add(allEntries.get(stepper));
+            }
+            pages.put(pageNumber, pageEntries);
+        }
+        return pages;
+    }
+
     public static String oldChat(String message) {
         return ChatColor.translateAlternateColorCodes('&', message + "");
     }
-
-    private static final Pattern HEX_PATTERN = Pattern.compile("&(#\\w{6})");
+    static final Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]{6})");
 
     public static String newChat(String message) {
+        char COLOR_CHAR = ChatColor.COLOR_CHAR;
+        Matcher matcher = hexPattern.matcher(message);
+        StringBuffer buffer = new StringBuffer(message.length() + 4 * 8);
+        while (matcher.find())
         {
-            Matcher matcher = HEX_PATTERN.matcher(message);
-            StringBuffer buffer = new StringBuffer(message.length() + 4 * 8);
-            while (matcher.find()) {
-                String group = matcher.group(1);
-                matcher.appendReplacement(buffer, ChatColor.COLOR_CHAR + "x"
-                        + ChatColor.COLOR_CHAR + group.charAt(0) + ChatColor.COLOR_CHAR + group.charAt(1)
-                        + ChatColor.COLOR_CHAR + group.charAt(2) + ChatColor.COLOR_CHAR + group.charAt(3)
-                        + ChatColor.COLOR_CHAR + group.charAt(4) + ChatColor.COLOR_CHAR + group.charAt(5)
-                );
-            }
-            return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());
+            String group = matcher.group(1);
+            matcher.appendReplacement(buffer, COLOR_CHAR + "x"
+                    + COLOR_CHAR + group.charAt(0) + COLOR_CHAR + group.charAt(1)
+                    + COLOR_CHAR + group.charAt(2) + COLOR_CHAR + group.charAt(3)
+                    + COLOR_CHAR + group.charAt(4) + COLOR_CHAR + group.charAt(5)
+            );
         }
+        return Utils.oldChat(matcher.appendTail(buffer).toString());
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) places = 2;
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public static ItemStack setCustomModelData(ItemStack i, int data){
+        if (i == null) return null;
+        ItemMeta meta = i.getItemMeta();
+        assert meta != null;
+        meta.setCustomModelData(data);
+        i.setItemMeta(meta);
+        return i;
     }
 
     public static double eval(final String str) {
@@ -127,114 +608,25 @@ public class Utils {
         }.parse();
     }
 
-    public static List<Location> getCubeWithLines(Location center, int lineDensity, double radius){
-        List<Location> square = new ArrayList<>();
-
-        Location p1 = new Location(center.getWorld(), center.getX()-radius, center.getY()-radius, center.getZ()-radius);
-        Location p2 = new Location(center.getWorld(), center.getX()-radius, center.getY()-radius, center.getZ()+radius);
-        Location p3 = new Location(center.getWorld(), center.getX()-radius, center.getY()+radius, center.getZ()-radius);
-        Location p4 = new Location(center.getWorld(), center.getX()-radius, center.getY()+radius, center.getZ()+radius);
-        Location p5 = new Location(center.getWorld(), center.getX()+radius, center.getY()-radius, center.getZ()-radius);
-        Location p6 = new Location(center.getWorld(), center.getX()+radius, center.getY()-radius, center.getZ()+radius);
-        Location p7 = new Location(center.getWorld(), center.getX()+radius, center.getY()+radius, center.getZ()-radius);
-        Location p8 = new Location(center.getWorld(), center.getX()+radius, center.getY()+radius, center.getZ()+radius);
-
-        square.addAll(Utils.getPointsInLine(p1, p2, lineDensity));
-        square.addAll(Utils.getPointsInLine(p1, p3, lineDensity));
-        square.addAll(Utils.getPointsInLine(p2, p4, lineDensity));
-        square.addAll(Utils.getPointsInLine(p3, p4, lineDensity));
-        square.addAll(Utils.getPointsInLine(p5, p6, lineDensity));
-        square.addAll(Utils.getPointsInLine(p5, p7, lineDensity));
-        square.addAll(Utils.getPointsInLine(p6, p8, lineDensity));
-        square.addAll(Utils.getPointsInLine(p7, p8, lineDensity));
-        square.addAll(Utils.getPointsInLine(p1, p5, lineDensity));
-        square.addAll(Utils.getPointsInLine(p2, p6, lineDensity));
-        square.addAll(Utils.getPointsInLine(p3, p7, lineDensity));
-        square.addAll(Utils.getPointsInLine(p4, p8, lineDensity));
-
-        return square;
-    }
-
-    public static List<Location> getSquareWithLines(Location center, int lineDensity, double radius){
-        List<Location> square = new ArrayList<>();
-
-        Location p1 = new Location(center.getWorld(), center.getX()-radius, center.getY(), center.getZ()-radius);
-        Location p2 = new Location(center.getWorld(), center.getX()-radius, center.getY(), center.getZ()+radius);
-        Location p3 = new Location(center.getWorld(), center.getX()+radius, center.getY(), center.getZ()-radius);
-        Location p4 = new Location(center.getWorld(), center.getX()+radius, center.getY(), center.getZ()+radius);
-
-        square.addAll(Utils.getPointsInLine(p1, p2, lineDensity));
-        square.addAll(Utils.getPointsInLine(p1, p3, lineDensity));
-        square.addAll(Utils.getPointsInLine(p2, p4, lineDensity));
-        square.addAll(Utils.getPointsInLine(p3, p4, lineDensity));
-
-        return square;
-    }
-
-    public static List<Location> getPointsInLine(Location point1, Location point2, int amount){
-        double xStep = (point1.getX() - point2.getX()) / amount;
-        double yStep = (point1.getY() - point2.getY()) / amount;
-        double zStep = (point1.getZ() - point2.getZ()) / amount;
-        List<Location> points = new ArrayList<>();
-        for (int i = 0; i < amount + 1; i++){
-            points.add(new Location(
-                    point1.getWorld(),
-                    point1.getX() - xStep * i,
-                    point1.getY() - yStep * i,
-                    point1.getZ() - zStep * i));
-        }
-        return points;
-    }
-
-    public static List<Location> transformPoints(Location center, List<Location> points, double yaw, double pitch, double roll, double scale) {
-        // Convert to radians
-        yaw = Math.toRadians(yaw);
-        pitch = Math.toRadians(pitch);
-        roll = Math.toRadians(roll);
-        List<Location> list = new ArrayList<>();
-
-        // Store the values so we don't have to calculate them again for every single point.
-        double cp = Math.cos(pitch);
-        double sp = Math.sin(pitch);
-        double cy = Math.cos(yaw);
-        double sy = Math.sin(yaw);
-        double cr = Math.cos(roll);
-        double sr = Math.sin(roll);
-        double x, bx, y, by, z, bz;
-        for (Location point : points) {
-            x = point.getX() - center.getX();
-            bx = x;
-            y = point.getY() - center.getY();
-            by = y;
-            z = point.getZ() - center.getZ();
-            bz = z;
-            x = ((x*cy-bz*sy)*cr+by*sr)*scale;
-            y = ((y*cp+bz*sp)*cr-bx*sr)*scale;
-            z = ((z*cp-by*sp)*cy+bx*sy)*scale;
-            list.add(new Location(point.getWorld(), (center.getX()+x), (center.getY()+y), (center.getZ()+z)));
-        }
-        return list;
-    }
-
-    public static List<String> seperateStringIntoLines(String string, int maxLength, String linePrefix){
+    public static List<String> separateStringIntoLines(String string, int maxLength){
         List<String> lines = new ArrayList<>();
         String[] words = string.split(" ");
         if (words.length == 0) return lines;
-        StringBuilder word = new StringBuilder();
+        StringBuilder sentence = new StringBuilder();
         for (String s : words){
-            if (word.length() + s.length() > maxLength || s.contains("\n")){
-                lines.add(word.toString());
-                word = new StringBuilder();
-                word.append(Utils.chat(linePrefix)).append(s);
+            if (sentence.length() + s.length() > maxLength || s.contains("-n")){
+                s = s.replace("-n", "");
+                lines.add(sentence.toString());
+                String previousSentence = sentence.toString();
+                sentence = new StringBuilder();
+                sentence.append(Utils.chat(org.bukkit.ChatColor.getLastColors(Utils.chat(previousSentence)))).append(s);
             } else if (words[0].equals(s)){
-                word.append(s);
+                sentence.append(s);
             } else {
-                word.append(" ").append(s);
-            }
-            if (words[words.length - 1].equals(s)){
-                lines.add(word.toString());
+                sentence.append(" ").append(s);
             }
         }
+        lines.add(sentence.toString());
         return lines;
     }
 
@@ -266,5 +658,113 @@ public class Utils {
         }
         item.setItemMeta(meta);
         return item;
+    }
+
+    public static Color hexToRgb(String colorStr) {
+        return new Color(
+                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
+                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
+                Integer.valueOf( colorStr.substring( 5, 7 ), 16 ));
+    }
+
+    public static String rgbToHex(int r, int g, int b){
+        return String.format("#%02x%02x%02x", r, g, b);
+    }
+
+    /**
+     * Returns an integer based on the chance given, but always between this chance rounded down and the chance rounded
+     * up. Example:
+     * a chance of 3.4 will always return at least 3, with a 40% chance to return 4 instead.
+     * a chance of 0.9 will have a 90% chance to return 1
+     * a chance of 7.5 will always return at least 7, with a 50% chance to return 8 instead.
+     * @param chance the chance to calculate from
+     * @return an integer returning at least the chance rounded down, with the remaining chance to return 1 extra
+     */
+    public static int excessChance(double chance){
+        boolean negative = chance < 0;
+        int atLeast = (negative) ? (int) Math.ceil(chance) : (int) Math.floor(chance);
+        double remainingChance = chance - atLeast;
+        if (getRandom().nextDouble() <= Math.abs(remainingChance)) {
+            if(negative) {
+                atLeast--;
+            } else{
+                atLeast++;
+            }
+        }
+        return atLeast;
+    }
+
+    private static final int[][] offsets = new int[][]{
+            {1, 0, 0},
+            {-1, 0, 0},
+            {0, 1, 0},
+            {0, -1, 0},
+            {0, 0, 1},
+            {0, 0, -1}
+    };
+
+    public static Collection<Block> getBlocks(Block start, int radiusX, int radiusY, int radiusZ, Material... touching){
+        Collection<Block> blocks = new HashSet<>();
+        for(double x = start.getLocation().getX() - radiusX; x <= start.getLocation().getX() + radiusX; x++){
+            for(double y = start.getLocation().getY() - radiusY; y <= start.getLocation().getY() + radiusY; y++){
+                for(double z = start.getLocation().getZ() - radiusZ; z <= start.getLocation().getZ() + radiusZ; z++){
+                    Location loc = new Location(start.getWorld(), x, y, z);
+                    blocks.add(loc.getBlock());
+                }
+            }
+        }
+        if (touching == null) return blocks;
+        return blocks.stream().filter(block -> {
+            for (int[] offset : offsets){
+                Location l = block.getLocation().add(offset[0], offset[1], offset[2]);
+                if (Arrays.asList(touching).contains(l.getBlock().getType())){
+                    return true;
+                }
+            }
+            return false;
+        }).collect(Collectors.toList());
+    }
+
+    public static int getTotalExperience(int level) {
+        int xp = 0;
+
+        if (level >= 0 && level <= 15) {
+            xp = (int) Math.round(Math.pow(level, 2) + 6 * level);
+        } else if (level > 15 && level <= 30) {
+            xp = (int) Math.round((2.5 * Math.pow(level, 2) - 40.5 * level + 360));
+        } else if (level > 30) {
+            xp = (int) Math.round(((4.5 * Math.pow(level, 2) - 162.5 * level + 2220)));
+        }
+        return xp;
+    }
+
+    public static int getTotalExperience(Player player) {
+        return Math.round(player.getExp() * player.getExpToLevel()) + getTotalExperience(player.getLevel());
+    }
+
+    public static void setTotalExperience(Player player, int amount) {
+        int level = 0;
+        int xp = 0;
+        float a = 0;
+        float b = 0;
+        float c = -amount;
+
+        if (amount > getTotalExperience(0) && amount <= getTotalExperience(15)) {
+            a = 1;
+            b = 6;
+        } else if (amount > getTotalExperience(15) && amount <= getTotalExperience(30)) {
+            a = 2.5f;
+            b = -40.5f;
+            c += 360;
+        } else if (amount > getTotalExperience(30)) {
+            a = 4.5f;
+            b = -162.5f;
+            c += 2220;
+        }
+        level = (int) Math.floor((-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a));
+        xp = amount - getTotalExperience(level);
+        player.setLevel(level);
+        player.setExp(0);
+        player.giveExp(xp);
     }
 }

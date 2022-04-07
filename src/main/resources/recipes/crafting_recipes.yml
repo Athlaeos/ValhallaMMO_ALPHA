@@ -1,0 +1,1984 @@
+craft:
+  craft_wooden_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_SWORD
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 70.0
+        priority: SOON
+      dynamic_durability:
+        strength: 70.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+    display_name: '&fCraft Wooden Sword'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_wooden_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_PICKAXE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 70.0
+        priority: SOON
+      dynamic_durability:
+        strength: 70.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+        amount: 3
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Wooden Pickaxe'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_wooden_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_SHOVEL
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 70.0
+        priority: SOON
+      dynamic_durability:
+        strength: 70.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Wooden Shovel'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_wooden_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_AXE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 70.0
+        priority: SOON
+      dynamic_durability:
+        strength: 70.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+        amount: 3
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Wooden Axe'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_wooden_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_HOE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 70.0
+        priority: SOON
+      dynamic_durability:
+        strength: 70.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Wooden Hoe'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_stone_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+        amount: 3
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Stone Pickaxe'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_stone_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+    display_name: '&fCraft Stone Sword'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_stone_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+        amount: 3
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Stone Axe'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_stone_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Stone Shovel'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_stone_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    display_name: '&fCraft Stone Hoe'
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_chainmail_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Chainmail Boots'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_NUGGET
+        amount: 12
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_chainmail_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Chainmail Chestplate'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_NUGGET
+        amount: 24
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_chainmail_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Chainmail Helmet'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_NUGGET
+        amount: 15
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_chainmail_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Chainmail Leggings'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_NUGGET
+        amount: 21
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Axe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 3
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Boots'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 4
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Chestplate'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 8
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Helmet'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 5
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Hoe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Leggings'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 7
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Pickaxe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 3
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Shovel'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_gold_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Gold Sword'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Axe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0': &id28831
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 3
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+      '1': &id28832
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Boots'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 4
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Chestplate'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 8
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Helmet'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 5
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Hoe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Leggings'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 7
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Pickaxe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0': *id28831
+      '1': *id28832
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Shovel'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_iron_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fForge Iron Sword'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_leather_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Leather Boots'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER
+        amount: 4
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_leather_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Leather Chestplate'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER
+        amount: 8
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_leather_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Leather Helmet'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER
+        amount: 5
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_leather_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Leather Leggings'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER
+        amount: 7
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Axe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0': &id28833
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1': &id28834
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 3
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Boots'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+      dynamic_armor_toughness:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 4
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Chestplate'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+      dynamic_armor_toughness:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 8
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Helmet'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+      dynamic_armor_toughness:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 5
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Hoe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Leggings'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 60.0
+        priority: SOON
+      dynamic_armor_toughness:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 7
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Pickaxe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0': *id28833
+      '1': *id28834
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Shovel'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_diamond_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&bFuse Diamond Sword'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 40.0
+        priority: SOON
+      dynamic_durability:
+        strength: 40.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_heated_netherite_ingot:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing Netherite
+          Ingot"}],"text":""}'
+    craft_block: SOUL_CAMPFIRE
+    craft_time: 400
+    break_station: false
+    display_name: '&bSuperheat Netherite Ingot'
+    modifiers:
+      custom_model_data_add:
+        strength: 1.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: NETHERITE_INGOT
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_bow:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Bow'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_bow_strength:
+        strength: 60.0
+        priority: SOON
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 3
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STRING
+        amount: 3
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_elytra:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ELYTRA
+    craft_block: CRAFTING_TABLE
+    craft_time: 3400
+    break_station: false
+    display_name: '&fCraft Elytra'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PHANTOM_MEMBRANE
+        amount: 8
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STRING
+        amount: 4
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: NETHERITE_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
+            Netherite Ingot"}],"text":""}'
+          custom-model-data: 1
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER
+        amount: 2
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_fishing_rod:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Fishing Rod'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 3
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STRING
+        amount: 2
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_flint_and_steel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FLINT_AND_STEEL
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Flint and Steel'
+    modifiers:
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_quality:
+        strength: 100.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FLINT
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_shears:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Shears'
+    modifiers:
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_quality:
+        strength: 100.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_shield:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHIELD
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Shield'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+        amount: 6
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_trident:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    craft_block: ANVIL
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Trident'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+      dynamic_damage:
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+        amount: 2
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+            Diamond"}],"text":""}'
+          custom-model-data: 1
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PRISMARINE_SHARD
+        amount: 4
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PRISMARINE_CRYSTALS
+    consecutive_crafts: 8
+    exact_meta: true
+  craft_crossbow:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CROSSBOW
+    craft_block: CRAFTING_TABLE
+    craft_time: 1400
+    break_station: false
+    display_name: '&fCraft Crossbow'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_bow_strength:
+        strength: 60.0
+        priority: NEUTRAL
+      draw_strength_static:
+        strength: 1.2
+        priority: SOON
+      dynamic_durability:
+        strength: 60.0
+        priority: NEUTRAL
+      durability_static:
+        strength: 464.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+        amount: 2
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
+            Ingot"}],"text":""}'
+          custom-model-data: 1
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_NUGGET
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+        amount: 2
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STRING
+        amount: 2
+    consecutive_crafts: 8
+    exact_meta: true
+  melt_honeycomb:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+        custom-model-data: 1
+    craft_block: CAMPFIRE
+    craft_time: 1400
+    consecutive_crafts: 64
+    exact_meta: true
+    break_station: false
+    display_name: '&6Melt Honeycomb'
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: HONEYCOMB
+  craft_heated_gold_ingot:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold Ingot"}],"text":""}'
+    craft_block: CAMPFIRE
+    craft_time: 200
+    consecutive_crafts: 128
+    exact_meta: true
+    break_station: false
+    display_name: '&6Heat Gold Ingot'
+    modifiers:
+      custom_model_data_add:
+        strength: 1.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+  craft_heated_iron_ingot:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron Ingot"}],"text":""}'
+    craft_block: CAMPFIRE
+    craft_time: 200
+    consecutive_crafts: 128
+    exact_meta: true
+    break_station: false
+    display_name: '&6Heat Iron Ingot'
+    modifiers:
+      custom_model_data_add:
+        strength: 1.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+  craft_unstable_diamond:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
+          Diamond"}],"text":""}'
+    craft_block: ANVIL
+    craft_time: 200
+    consecutive_crafts: 128
+    exact_meta: true
+    break_station: false
+    display_name: '&dDestabilize Diamond'
+    modifiers:
+      custom_model_data_add:
+        strength: 1.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: ENDER_PEARL

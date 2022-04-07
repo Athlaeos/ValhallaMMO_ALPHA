@@ -1,8 +1,9 @@
-package me.athlaeos.valhallammo.domain;
+package me.athlaeos.valhallammo.dom;
 
-import me.athlaeos.valhallammo.Main;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ public class Perk {
     private final String displayName;
     private final String description;
     private final Material icon;
-    private final SkillType skill;
+    private final String skill;
     private final int x;
     private final int y;
     private final boolean hidden;
@@ -26,7 +27,7 @@ public class Perk {
     private final List<String> requirement_perk_one;
     private final List<String> requirement_perk_all;
 
-    public Perk(String name, String displayName, String description, Material icon, SkillType skill, int x, int y, boolean hidden, int cost, int requirement_level, List<PerkReward> rewards, List<String> messages, List<String> commands, List<String> requirement_perk_one, List<String> requirement_perk_all) {
+    public Perk(String name, String displayName, String description, Material icon, String skill, int x, int y, boolean hidden, int cost, int requirement_level, List<PerkReward> rewards, List<String> messages, List<String> commands, List<String> requirement_perk_one, List<String> requirement_perk_all) {
         this.name = name;
         this.displayName = displayName;
         this.description = description;
@@ -45,19 +46,20 @@ public class Perk {
     }
 
     public boolean canUnlock(Player p){
-        Profile profile = ProfileUtil.getProfile(p, SkillType.ACCOUNT);
+        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
         if (profile != null){
             if (profile instanceof AccountProfile){
-                if (((AccountProfile) profile).getUnlockedPerks().contains(this.name)) return false;
-                boolean canUnlock = metLevelRequirement(p) && metAllPerkRequirement((AccountProfile) profile) && metSinglePerkRequirement((AccountProfile) profile);
-                return canUnlock;
+                if (((AccountProfile) profile).getUnlockedPerks().contains(this.name)) {
+                    return false;
+                }
+                return metLevelRequirement(p) && metAllPerkRequirement((AccountProfile) profile) && metSinglePerkRequirement((AccountProfile) profile);
             }
         }
         return false;
     }
 
     public boolean hasUnlocked(Player p){
-        Profile profile = ProfileUtil.getProfile(p, SkillType.ACCOUNT);
+        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
         if (profile != null){
             if (profile instanceof AccountProfile){
                 return ((AccountProfile) profile).getUnlockedPerks().contains(this.name);
@@ -68,7 +70,7 @@ public class Perk {
 
     private boolean metLevelRequirement(Player p){
         int currentLevel = 0;
-        Profile profile = ProfileUtil.getProfile(p, skill);
+        Profile profile = ProfileManager.getProfile(p, skill);
         if (profile != null){
             currentLevel = profile.getLevel();
         }
@@ -167,7 +169,7 @@ public class Perk {
             p.sendMessage(Utils.chat(message));
         }
         for (String command : commands){
-            Main.getPlugin().getServer().dispatchCommand(Main.getPlugin().getServer().getConsoleSender(), command.replace("%player%", p.getName()));
+            ValhallaMMO.getPlugin().getServer().dispatchCommand(ValhallaMMO.getPlugin().getServer().getConsoleSender(), command.replace("%player%", p.getName()));
         }
         for (PerkReward reward : rewards){
             reward.execute(p);

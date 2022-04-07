@@ -1,23 +1,50 @@
-package me.athlaeos.valhallammo.core_listeners;
+package me.athlaeos.valhallammo.listeners;
 
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.managers.ProfileVersionManager;
+import me.athlaeos.valhallammo.managers.TranslationManager;
+import me.athlaeos.valhallammo.managers.TutorialBook;
+import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class JoinListener implements Listener {
+    private boolean book_on_join;
+    private String error_command_givebook;
+    private static JoinListener listener;
 
-    @EventHandler
+    public JoinListener(){
+        listener = this;
+        book_on_join = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("book_on_join");
+        error_command_givebook = TranslationManager.getInstance().getTranslation("error_command_givebook");
+    }
+
+    public void reload(){
+        book_on_join = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("book_on_join");
+        error_command_givebook = TranslationManager.getInstance().getTranslation("error_command_givebook");
+    }
+
+    public static JoinListener getListener() {
+        return listener;
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent e){
-//        ItemStack customDurabilityItem = new ItemStack(Material.DIAMOND_PICKAXE);
-//        ItemDurabilityManager.getInstance().setDurability(customDurabilityItem, 1000, 10000);
-//        e.getPlayer().getInventory().addItem(customDurabilityItem);
-//
-//        ItemStack customDurabilityItem2 = new ItemStack(Material.GOLDEN_PICKAXE);
-//        ItemDurabilityManager.getInstance().setDurability(customDurabilityItem2, 3, 3);
-//        e.getPlayer().getInventory().addItem(customDurabilityItem2);
-//
-//        ItemStack customDurabilityItem3 = new ItemStack(Material.DIAMOND_SWORD);
-//        ItemDamageManager.getInstance().setDamage(customDurabilityItem3, 5.5);
-//        e.getPlayer().getInventory().addItem(customDurabilityItem3);
+        if (!e.getPlayer().hasPlayedBefore()){
+            if (book_on_join){
+                ItemStack book = TutorialBook.getTutorialBookInstance().getBook();
+                if (book != null){
+                    e.getPlayer().getInventory().addItem(book.clone());
+                } else {
+                    ValhallaMMO.getPlugin().getLogger().warning(ChatColor.stripColor(Utils.chat(error_command_givebook)));
+                }
+            }
+        }
+        ProfileVersionManager.getInstance().checkForReset(e.getPlayer());
     }
 }

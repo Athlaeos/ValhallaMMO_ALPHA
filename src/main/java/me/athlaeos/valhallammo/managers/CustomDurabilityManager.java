@@ -1,9 +1,8 @@
-package me.athlaeos.valhallammo.items;
+package me.athlaeos.valhallammo.managers;
 
-import me.athlaeos.valhallammo.Main;
+import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Scaling;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
-import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;
@@ -20,11 +19,15 @@ public class CustomDurabilityManager {
 
     private static CustomDurabilityManager manager = null;
 
-    private final NamespacedKey key_durability = new NamespacedKey(Main.getPlugin(), "valhalla_durability");
-    private final NamespacedKey key_max_durability = new NamespacedKey(Main.getPlugin(), "valhalla_max_durability");
-    private final String durabilityTranslation;
+    private final NamespacedKey key_durability = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_durability");
+    private final NamespacedKey key_max_durability = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_max_durability");
+    private String durabilityTranslation;
 
     public CustomDurabilityManager(){
+        durabilityTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("translation_durability"));
+    }
+
+    public void reload(){
         durabilityTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("translation_durability"));
     }
 
@@ -153,7 +156,7 @@ public class CustomDurabilityManager {
 
     public void applyCustomDurability(ItemStack i, int qualityRating){
         if (i == null) return;
-        Scaling scaling = ItemTreatmentManager.getInstance().getScaling(i.getType(), "CUSTOM_MAX_DURABILITY");
+        Scaling scaling = SmithingItemTreatmentManager.getInstance().getScaling(i.getType(), "CUSTOM_MAX_DURABILITY");
         if (scaling == null) return;
         assert i.getItemMeta() != null;
         if (i.getItemMeta() instanceof Damageable){
@@ -175,7 +178,7 @@ public class CustomDurabilityManager {
                 if (customDurability < 1) customDurability = 1;
                 setDurability(i, customDurability, maxDurability);
             } catch (RuntimeException e){
-                System.out.println("Attempting to parse formula " + scaling + ", but something went wrong. ");
+                ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] Attempting to parse formula " + scaling + ", but something went wrong. ");
                 e.printStackTrace();
             }
         }

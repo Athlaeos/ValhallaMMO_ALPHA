@@ -1,104 +1,159 @@
 package me.athlaeos.valhallammo;
 
-import me.athlaeos.valhallammo.commands.CommandManager;
-import me.athlaeos.valhallammo.configs.ConfigUpdater;
+import me.athlaeos.valhallammo.commands.ValhallaCommandManager;
+import me.athlaeos.valhallammo.commands.SkillsCommand;
+import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.config.ConfigUpdater;
+import me.athlaeos.valhallammo.crafting.PlayerClassTinkerListener;
 import me.athlaeos.valhallammo.crafting.PlayerCustomCraftListener;
 import me.athlaeos.valhallammo.crafting.PlayerShapedCraftListener;
 import me.athlaeos.valhallammo.crafting.PlayerTinkerListener;
-import me.athlaeos.valhallammo.crafting.dom.BrewingRecipe;
+import me.athlaeos.valhallammo.dom.ArtificialGlow;
 import me.athlaeos.valhallammo.listeners.*;
-import me.athlaeos.valhallammo.managers.CustomRecipeManager;
-import me.athlaeos.valhallammo.managers.SkillProgressionManager;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemStack;
+import me.athlaeos.valhallammo.loottables.LootManager;
+import me.athlaeos.valhallammo.managers.*;
+import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class Main extends JavaPlugin {
-    private static Main plugin;
+public final class ValhallaMMO extends JavaPlugin {
+    private static ValhallaMMO plugin;
     private InteractListener interactListener;
     private JoinListener joinListener;
     private ItemDamageListener itemDamageListener;
     private ItemMendListener itemMendListener;
     private PlayerShapedCraftListener playerCraftListener;
     private PlayerTinkerListener tinkerListener;
+    private PlayerClassTinkerListener classTinkerListener;
     private PlayerCustomCraftListener customCraftListener;
-    private ItemDynamicallyModifiedListener itemModifiedListener;
     private VillagerInteractListener villagerInteractListener;
-    private ProjectileShootListener projectileShootListener;
+    private ProjectileListener projectileShootListener;
     private EntityDamagedListener entityDamagedListener;
     private PotionInventoryListener potionInventoryListener;
+    private PotionBrewListener potionBrewListener;
+    private ItemConsumeListener itemConsumeListener;
+    private PotionEffectListener potionSplashListener;
+    private PlayerEnchantListener playerEnchantListener;
+    private PlayerExperienceAbsorbListener playerExperienceAbsorbListener;
+    private BlockListener blocksListener;
+    private FishingListener fishingListener;
+    private EntityBreedListener breedListener;
+    private EntityTargetingListener entityTargetingListener;
+
+    private static boolean is_spigot;
 
     @Override
     public void onEnable() {
         plugin = this;
+        this.getServer().getConsoleSender().sendMessage(Utils.chat("&6[&eValhallaMMO&6] &fEnabling ValhallaMMO, this might take a bit..."));
+        ArtificialGlow.registerGlow();
 
-        saveConfig("config.yml");
-        saveConfig("recipes.yml");
+        saveAndUpdateConfig("config.yml");
+        saveConfig("recipes/brewing_recipes.yml");
+        saveConfig("recipes/improvement_recipes.yml");
+        saveConfig("recipes/class_improvement_recipes.yml");
+        saveConfig("recipes/crafting_recipes.yml");
+        saveConfig("recipes/shaped_recipes.yml");
         saveConfig("sounds.yml");
-        saveConfig("skill_smithing.yml");
-        saveConfig("skill_player.yml");
+        saveConfig("tutorial_book.yml");
+        saveAndUpdateConfig("skill_smithing.yml");
+        saveAndUpdateConfig("skill_archery.yml");
+        saveAndUpdateConfig("skill_alchemy.yml");
+        saveAndUpdateConfig("skill_enchanting.yml");
+        saveAndUpdateConfig("skill_player.yml");
+        saveAndUpdateConfig("skill_farming.yml");
+        saveAndUpdateConfig("skill_mining.yml");
+        saveAndUpdateConfig("skill_landscaping.yml");
+        saveConfig("progression_archery.yml");
         saveConfig("progression_smithing.yml");
+        saveConfig("progression_alchemy.yml");
+        saveConfig("progression_enchanting.yml");
         saveConfig("progression_player.yml");
+        saveConfig("progression_farming.yml");
+        saveConfig("progression_mining.yml");
+        saveConfig("progression_landscaping.yml");
         saveConfig("villagers.yml");
+        saveConfig("alchemy_transmutations.yml");
+        saveConfig("block_interact_conversions.yml");
 
-        saveConfig("languages/en-us.yml");
+        saveAndUpdateConfig("languages/en-us.yml");
 
-        updateConfig("config.yml");
-        updateConfig("languages/en-us.yml");
+        saveConfig("loot_tables/farming_fishing.yml");
+        saveConfig("loot_tables/landscaping_digging.yml");
 
+        is_spigot = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("is_spigot");
+        if (is_spigot) getServer().getLogger().fine("ValhallaMMO is registered to be using Spigot, some mechanics may work differently");
+
+        new SkillsCommand(this);
+        BlockConversionManager.getInstance();
+        TutorialBook.getTutorialBookInstance().loadBookContents();
         CustomRecipeManager.getInstance().loadRecipesAsync();
         CustomRecipeManager.getInstance().disableRecipes();
-        CommandManager.getInstance();
+        LootManager.getInstance().loadLootTables();
+        ValhallaCommandManager.getInstance();
+        TransmutationManager.getInstance();
 
         // Plugin startup logic
-        interactListener = new InteractListener();
-        joinListener = new JoinListener();
-        itemDamageListener = new ItemDamageListener();
-        itemMendListener = new ItemMendListener();
-        playerCraftListener = new PlayerShapedCraftListener();
-        customCraftListener = new PlayerCustomCraftListener();
-        tinkerListener = new PlayerTinkerListener();
-        itemModifiedListener = new ItemDynamicallyModifiedListener();
-        villagerInteractListener = new VillagerInteractListener();
-        projectileShootListener = new ProjectileShootListener();
-        entityDamagedListener = new EntityDamagedListener();
-        potionInventoryListener = new PotionInventoryListener();
-        this.getServer().getPluginManager().registerEvents(interactListener, this);
-        this.getServer().getPluginManager().registerEvents(joinListener, this);
-        this.getServer().getPluginManager().registerEvents(itemDamageListener, this);
-        this.getServer().getPluginManager().registerEvents(itemMendListener, this);
-        this.getServer().getPluginManager().registerEvents(playerCraftListener, this);
-        this.getServer().getPluginManager().registerEvents(tinkerListener, this);
-        this.getServer().getPluginManager().registerEvents(customCraftListener, this);
-        this.getServer().getPluginManager().registerEvents(itemModifiedListener, this);
-        this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerLevelSkillListener(), this);
-        this.getServer().getPluginManager().registerEvents(villagerInteractListener, this);
-        this.getServer().getPluginManager().registerEvents(projectileShootListener, this);
-        this.getServer().getPluginManager().registerEvents(entityDamagedListener, this);
-//        this.getServer().getPluginManager().registerEvents(potionInventoryListener, this);
+        interactListener = (InteractListener) registerListener(new InteractListener(), "interact");
+        joinListener = (JoinListener) registerListener(new JoinListener(), "join");
+        itemDamageListener = (ItemDamageListener) registerListener(new ItemDamageListener(), "item_damage");
+        itemMendListener = (ItemMendListener) registerListener(new ItemMendListener(), "item_mend");
+        playerCraftListener = (PlayerShapedCraftListener) registerListener(new PlayerShapedCraftListener(), "shaped_craft");
+        customCraftListener = (PlayerCustomCraftListener) registerListener(new PlayerCustomCraftListener(), "custom_craft");
+        tinkerListener = (PlayerTinkerListener) registerListener(new PlayerTinkerListener(), "custom_tinker");
+        classTinkerListener = (PlayerClassTinkerListener) registerListener(new PlayerClassTinkerListener(), "custom_tinker");
+        villagerInteractListener = (VillagerInteractListener) registerListener(new VillagerInteractListener(), "villager_interact");
+        projectileShootListener = (ProjectileListener) registerListener(new ProjectileListener(), "projectile_shoot");
+        entityDamagedListener = (EntityDamagedListener) registerListener(new EntityDamagedListener(), "entity_damaged");
+        potionInventoryListener = (PotionInventoryListener) registerListener(new PotionInventoryListener(), "potion_inventory");
+        potionBrewListener = (PotionBrewListener) registerListener(new PotionBrewListener(), "potion_brew");
+        itemConsumeListener = (ItemConsumeListener) registerListener(new ItemConsumeListener(), "item_consume");
+        potionSplashListener = (PotionEffectListener) registerListener(new PotionEffectListener(), "potion_splash");
+        playerEnchantListener = (PlayerEnchantListener) registerListener(new PlayerEnchantListener(), "player_enchant");
+        playerExperienceAbsorbListener = (PlayerExperienceAbsorbListener) registerListener(new PlayerExperienceAbsorbListener(), "player_experience");
 
-        CustomRecipeManager.getInstance().registerBrewingRecipe(
-                new BrewingRecipe("test", new ItemStack(Material.GREEN_DYE), Material.DIAMOND_CHESTPLATE, (inventory, item, ingredient) -> {
-                    if (item.getType() == Material.DIAMOND_CHESTPLATE){
-                        item.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
-                    } else {
-                        System.out.println("item isnt diamond chestplate, its " + item.getType());
-                    }
-                }, false));
+        blocksListener = (BlockListener) registerListener(new BlockListener(), "blocks");
+        fishingListener = (FishingListener) registerListener(new FishingListener(), "fishing");
+        breedListener = (EntityBreedListener) registerListener(new EntityBreedListener(), "breeding");
+        entityTargetingListener = (EntityTargetingListener) registerListener(new EntityTargetingListener(), "targeting");
+
+        this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
 
         SkillProgressionManager.getInstance().registerPerks();
+    }
+
+    private void saveAndUpdateConfig(String config){
+        saveConfig(config);
+        updateConfig(config);
+    }
+
+    private Listener registerListener(Listener l, String key){
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("config.yml").get();
+        if (config.getBoolean("enabled_listeners." + key, true)){
+            this.getServer().getPluginManager().registerEvents(l, this);
+            return l;
+        }
+        return null;
+    }
+
+    public static boolean isSpigot() {
+        return is_spigot;
     }
 
     @Override
     public void onDisable() {
         CustomRecipeManager.getInstance().saveRecipes(false);
-        // Plugin shutdown logic
+        LootManager.getInstance().saveLootTables();
+// Plugin shutdown logic
+    }
+
+    public BlockListener getBlocksListener() {
+        return blocksListener;
     }
 
     public InteractListener getInteractListener() {
@@ -125,15 +180,11 @@ public final class Main extends JavaPlugin {
         return playerCraftListener;
     }
 
-    public ItemDynamicallyModifiedListener getItemModifiedListener() {
-        return itemModifiedListener;
-    }
-
     public VillagerInteractListener getVillagerInteractListener() {
         return villagerInteractListener;
     }
 
-    public ProjectileShootListener getProjectileShootListener() {
+    public ProjectileListener getProjectileShootListener() {
         return projectileShootListener;
     }
 
@@ -149,11 +200,47 @@ public final class Main extends JavaPlugin {
         return potionInventoryListener;
     }
 
-    public static Main getPlugin() {
+    public PotionBrewListener getPotionBrewListener() {
+        return potionBrewListener;
+    }
+
+    public ItemConsumeListener getItemConsumeListener() {
+        return itemConsumeListener;
+    }
+
+    public PotionEffectListener getPotionSplashListener() {
+        return potionSplashListener;
+    }
+
+    public PlayerClassTinkerListener getClassTinkerListener() {
+        return classTinkerListener;
+    }
+
+    public EntityTargetingListener getEntityTargetingListener() {
+        return entityTargetingListener;
+    }
+
+    public PlayerEnchantListener getPlayerEnchantListener() {
+        return playerEnchantListener;
+    }
+
+    public PlayerExperienceAbsorbListener getPlayerExperienceAbsorbListener() {
+        return playerExperienceAbsorbListener;
+    }
+
+    public EntityBreedListener getBreedListener() {
+        return breedListener;
+    }
+
+    public FishingListener getFishingListener() {
+        return fishingListener;
+    }
+
+    public static ValhallaMMO getPlugin() {
         return plugin;
     }
 
-    private void saveConfig(String name){
+    public void saveConfig(String name){
         File config = new File(this.getDataFolder(), name);
         if (!config.exists()){
             this.saveResource(name, false);

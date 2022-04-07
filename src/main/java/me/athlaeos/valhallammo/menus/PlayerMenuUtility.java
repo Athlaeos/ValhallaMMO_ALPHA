@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.domain;
+package me.athlaeos.valhallammo.menus;
 
 import org.bukkit.entity.Player;
 

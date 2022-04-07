@@ -1,129 +1,170 @@
-package me.athlaeos.valhallammo.skills.alchemy;
+package me.athlaeos.valhallammo.skills.enchanting;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.items.PotionType;
+import me.athlaeos.valhallammo.items.EnchantmentType;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.Skill;
-import me.athlaeos.valhallammo.skills.SkillType;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
 
-public class AlchemyProfile extends Profile implements Serializable {
-    private static final NamespacedKey alchemyProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_alchemy");
+public class EnchantingProfile extends Profile implements Serializable {
+    private static final NamespacedKey enchantingProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_enchanting");
 
-    private float brewingtimereduction = 1F; // reduction in brewing time to brew anything
-    private float brewingingredientsavechance = 0F; // chance for ingredient to not be consumed
-    private float potionvelocity = 1F; // velocity multiplier of thrown potions
-    private float potionsavechance = 0F; // chance for thrown/drank potion to not be consumed
+    private float vanillaenchantmentamplifychance = 0F; // chance for vanilla enchantments to be amplified (or weakened)
+    private int maxcustomenchantmentsallowed = 0; // amount of custom enchantments one is allowed to add to an item
+    private float lapissavechance = 0F; // chance for lapis lazuli to be refunded to the player
+    private float exprefundchance = 0F; // chance for experience to be refunded to the player
+    private float exprefundfraction = 0F; // amount of experience refunded if chance procs, capped at 1.0
+    private float vanillaexpgainmultiplier = 1F; // multiplier of the player's experience gained
 
-    private int brewingquality_general = 0;
-    private int brewingquality_buffs = 0;
-    private int brewingquality_debuffs = 0;
+    private int enchantingquality_general = 0; // general enchanting skill
+    private int enchantingquality_vanilla = 0; // vanilla enchanting skill
+    private int enchantingquality_custom = 0; // custom enchanting skill
 
-    private double brewingexpmultiplier = 100D;
+    private double enchantingexpmultiplier_general = 100D;
+    private double enchantingexpmultiplier_custom = 100D;
+    private double enchantingexpmultiplier_vanilla = 100D;
 
-    private Collection<String> unlockedTransmutations = new HashSet<>();
-
-    public AlchemyProfile(Player owner){
+    public EnchantingProfile(Player owner){
         super(owner);
         if (owner == null) return;
-        this.key = alchemyProfileKey;
-    }
-
-    public Collection<String> getUnlockedTransmutations() {
-        return unlockedTransmutations;
-    }
-
-    public void setUnlockedTransmutations(Collection<String> unlockedTransmutations) {
-        this.unlockedTransmutations = unlockedTransmutations;
-    }
-
-    public int getBrewingQuality(PotionType type){
-        switch (type){
-            case BUFF: return brewingquality_buffs;
-            case DEBUFF: return brewingquality_debuffs;
-            default: return 0;
-        }
-    }
-
-    public void setPotionSaveChance(float potionreusage) {
-        this.potionsavechance = potionreusage;
-    }
-
-    public void setPotionVelocity(float potionvelocity) {
-        this.potionvelocity = potionvelocity;
-    }
-
-    public float getPotionSaveChance() {
-        return potionsavechance;
-    }
-
-    public float getPotionVelocity() {
-        return potionvelocity;
-    }
-
-    public void setBrewingQuality(PotionType type, int quality) {
-        switch (type){
-            case BUFF: this.brewingquality_buffs = quality;
-            break;
-            case DEBUFF: this.brewingquality_debuffs = quality;
-            break;
-        }
-    }
-
-    public float getBrewingTimeMultiplier() {
-        return brewingtimereduction;
-    }
-
-    public void setBrewingTimeReduction(float brewingtimereduction) {
-        this.brewingtimereduction = brewingtimereduction;
-    }
-
-    public void setBrewingIngredientSaveChance(float brewingingredientsavechance) {
-        this.brewingingredientsavechance = brewingingredientsavechance;
-    }
-
-    public float getBrewingIngredientSaveChance() {
-        return brewingingredientsavechance;
-    }
-
-    public double getBrewingEXPMultiplier() {
-        return brewingexpmultiplier;
-    }
-
-    public int getGeneralBrewingQuality() {
-        return brewingquality_general;
-    }
-
-    public void setBrewingEXPMultiplier(double brewingexpmultiplier) {
-        this.brewingexpmultiplier = brewingexpmultiplier;
-    }
-
-    public void setGeneralBrewingQuality(int quality) {
-        this.brewingquality_general = quality;
+        this.key = enchantingProfileKey;
     }
 
     @Override
     public void setDefaultStats(Player player) {
-        Skill skill = SkillProgressionManager.getInstance().getSkill(SkillType.ALCHEMY);
+        Skill skill = SkillProgressionManager.getInstance().getSkill("ENCHANTING");
         if (skill != null){
-            if (skill instanceof AlchemySkill){
-                AlchemySkill alchemySkill = (AlchemySkill) skill;
-                for (PerkReward startingPerk : alchemySkill.getStartingPerks()){
+            if (skill instanceof EnchantingSkill){
+                EnchantingSkill enchantingSkill = (EnchantingSkill) skill;
+                for (PerkReward startingPerk : enchantingSkill.getStartingPerks()){
                     startingPerk.execute(player);
                 }
             }
         }
     }
 
+    public float getLapisSaveChance() {
+        return lapissavechance;
+    }
+
+    public void setLapisSaveChance(float value) {
+        this.lapissavechance = value;
+    }
+
+    public float getExpRefundChance() {
+        return exprefundchance;
+    }
+
+    public void setExpRefundChance(float value) {
+        this.exprefundchance = value;
+    }
+
+    public float getVanillaExpGainMultiplier() {
+        return vanillaexpgainmultiplier;
+    }
+
+    public void setVanillaExpGainMultiplier(float value) {
+        this.vanillaexpgainmultiplier = value;
+    }
+
+    public float getExpRefundFraction() {
+        return exprefundfraction;
+    }
+
+    public void setExpRefundFraction(float value) {
+        this.exprefundfraction = value;
+    }
+
+    public double getEnchantingExpMultiplier(EnchantmentType type) {
+        if (type == null) return enchantingexpmultiplier_general;
+        switch (type){
+            case CUSTOM:{
+                return enchantingexpmultiplier_custom;
+            }
+            case VANILLA:{
+                return enchantingexpmultiplier_vanilla;
+            }
+        }
+        return enchantingexpmultiplier_general;
+    }
+
+    public void setEnchantingExpMultiplier(EnchantmentType type, double value) {
+        if (type == null) {
+            this.enchantingexpmultiplier_general = value;
+            return;
+        }
+        switch (type){
+            case CUSTOM:{
+                this.enchantingexpmultiplier_custom = value;
+                return;
+            }
+            case VANILLA:{
+                this.enchantingexpmultiplier_vanilla = value;
+                return;
+            }
+        }
+        this.enchantingexpmultiplier_general = value;
+    }
+
+    public int getEnchantingSkill(EnchantmentType type) {
+        if (type == null) return enchantingquality_general;
+        switch (type){
+            case CUSTOM:{
+                return enchantingquality_custom;
+            }
+            case VANILLA:{
+                return enchantingquality_vanilla;
+            }
+        }
+        return enchantingquality_general;
+    }
+
+    public void setEnchantingSkill(EnchantmentType type, int value) {
+        if (type == null) {
+            this.enchantingquality_general = value;
+            return;
+        }
+        switch (type){
+            case CUSTOM:{
+                this.enchantingquality_custom = value;
+                return;
+            }
+            case VANILLA:{
+                this.enchantingquality_vanilla = value;
+                return;
+            }
+        }
+        this.enchantingquality_general = value;
+    }
+
+    public float getVanillaEnchantmentAmplifyChance() {
+        return vanillaenchantmentamplifychance;
+    }
+
+    public int getMaxCustomEnchantmentsAllowed() {
+        return maxcustomenchantmentsallowed;
+    }
+
+    public void setVanillaEnchantmentAmplifyChance(float value) {
+        this.vanillaenchantmentamplifychance = value;
+    }
+
+    public void setMaxCustomEnchantmentsAllowed(int value) {
+        this.maxcustomenchantmentsallowed = value;
+    }
+
     @Override
     public NamespacedKey getKey() {
-        return alchemyProfileKey;
+        return enchantingProfileKey;
+    }
+
+    @Override
+    public EnchantingProfile clone() throws CloneNotSupportedException {
+        return (EnchantingProfile) super.clone();
     }
 }

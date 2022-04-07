@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.materials;
+package me.athlaeos.valhallammo.items;
 
 import org.bukkit.Material;
 

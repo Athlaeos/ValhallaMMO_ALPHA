@@ -1,12 +1,12 @@
-package me.athlaeos.valhallammo.listeners;
+package me.athlaeos.valhallammo.crafting;
 
-import me.athlaeos.valhallammo.Main;
-import me.athlaeos.valhallammo.configs.ConfigManager;
-import me.athlaeos.valhallammo.events.DynamicModifierApplicationEvent;
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.events.PlayerItemTinkerEvent;
 import me.athlaeos.valhallammo.managers.CooldownManager;
 import me.athlaeos.valhallammo.managers.MaterialCosmeticManager;
-import me.athlaeos.valhallammo.skills.smithing.recipes.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.managers.TranslationManager;
+import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -29,8 +29,8 @@ public class PlayerTinkerListener implements Listener {
     private final String errorTinkeringFailed;
 
     public PlayerTinkerListener(){
-        errorNoSpace = ConfigManager.getInstance().getConfig("messages.yml").get().getString("error_no_space");
-        errorTinkeringFailed = ConfigManager.getInstance().getConfig("messages.yml").get().getString("error_conditions_failed");
+        errorNoSpace = TranslationManager.getInstance().getTranslation("error_crafting_no_space");
+        errorTinkeringFailed = TranslationManager.getInstance().getTranslation("error_crafting_tinker_fail");
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -52,26 +52,24 @@ public class PlayerTinkerListener implements Listener {
             ItemStack newItem = e.getPlayer().getInventory().getItemInMainHand().clone();
             for (DynamicItemModifier modifier : modifiers){
                 if (newItem == null) break;
-                if (newItem.getType() == Material.AIR) break;
-                DynamicModifierApplicationEvent event = new DynamicModifierApplicationEvent(e.getPlayer(), modifier, newItem);
-                Main.getPlugin().getServer().getPluginManager().callEvent(event);
-                newItem = event.getAppliedOn();
+                newItem = modifier.processItem(e.getPlayer(), newItem);
             }
 
             if (newItem != null){
+                if (e.getRecipe().getValidation() != null){
+                    e.getRecipe().getValidation().executeAfter(e.getCraftingStation());
+                }
                 if (e.getRecipe().breakStation()){
                     BlockBreakEvent event = new BlockBreakEvent(e.getCraftingStation(), e.getPlayer());
-                    Main.getPlugin().getServer().getPluginManager().callEvent(event);
+                    ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
                     if (event.isCancelled()){
                         return;
                     } else {
-                        event.getBlock().breakNaturally();
+                        event.getBlock().setType(Material.AIR);
                     }
                 }
                 // player has inventory space and crafting requirements are met, ingredients are removed and held item is updated
-                for (ItemStack ingredient : e.getRecipe().getIngredients()){
-                    e.getPlayer().getInventory().removeItem(ingredient);
-                }
+                ItemUtils.removeItems(e.getPlayer(), e.getRecipe().getIngredients(), e.getRecipe().requireExactMeta());
 
                 Sound sound = MaterialCosmeticManager.getInstance().getCraftFinishSounds(e.getCraftingStation().getType());
                 if (sound != null){

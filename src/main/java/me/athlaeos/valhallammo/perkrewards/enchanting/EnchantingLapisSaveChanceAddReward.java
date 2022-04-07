@@ -1,28 +1,28 @@
 package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class EnchantingRefundAmountAddReward extends PerkReward {
+public class EnchantingLapisSaveChanceAddReward extends PerkReward {
     private float chance = 0F;
 
-    public EnchantingRefundAmountAddReward(String name, Object argument) {
+    public EnchantingLapisSaveChanceAddReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ENCHANTING);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
         if (profile instanceof EnchantingProfile){
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
-            enchantingProfile.setExpRefundFraction(enchantingProfile.getExpRefundFraction() + chance);
-            ProfileUtil.setProfile(player, enchantingProfile, SkillType.ENCHANTING);
+            enchantingProfile.setLapisSaveChance(enchantingProfile.getLapisSaveChance() + chance);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -41,5 +41,10 @@ public class EnchantingRefundAmountAddReward extends PerkReward {
                 chance = (float) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.DOUBLE;
     }
 }

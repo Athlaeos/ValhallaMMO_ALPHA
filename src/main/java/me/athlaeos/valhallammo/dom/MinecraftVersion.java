@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.domain;
+package me.athlaeos.valhallammo.dom;
 
 public enum MinecraftVersion {
     MINECRAFT_1_8,
@@ -11,5 +11,8 @@ public enum MinecraftVersion {
     MINECRAFT_1_15,
     MINECRAFT_1_16,
     MINECRAFT_1_17,
+    MINECRAFT_1_18,
+    MINECRAFT_1_19,
+    MINECRAFT_1_20,
     INCOMPATIBLE
 }

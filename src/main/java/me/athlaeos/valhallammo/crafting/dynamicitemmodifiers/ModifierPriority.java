@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.skills.smithing.recipes.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
 
 import me.athlaeos.valhallammo.utility.Utils;
 

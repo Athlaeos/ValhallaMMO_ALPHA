@@ -8,14 +8,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class FarmingExtraDropsEnchantment extends EnchantmentWrapper {
-    private final String translation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_farming_extra_drops"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("enchantment_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("enchantment_positive_prefix");
+public class FarmingFishingTierEnchantment extends EnchantmentWrapper {
+    private final String translation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_farming_fishing_tier"));
 
-    public FarmingExtraDropsEnchantment(double amount) {
+    public FarmingFishingTierEnchantment(double amount) {
         super(amount);
-        this.attribute = "FARMING_EXTRA_DROPS";
+        this.attribute = "FARMING_FISHING_TIER";
         this.minValue = -1000;
         this.maxValue = 1000;
     }
@@ -41,14 +39,14 @@ public class FarmingExtraDropsEnchantment extends EnchantmentWrapper {
             removeLore(meta);
             return;
         }
-        double bow_strength = amplifier;
+        double tier = amplifier;
 
         if (!translation.equals("")){
-            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
-            String prefix = ((bow_strength < 0) ? negativePrefix : positivePrefix);
+            String fishingTier = ((tier < 0) ? "" : "+") + String.format("%d", (int) Math.floor(tier));
+            String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(translation)),
-                    String.format(prefix + "%s %s%%", translation, bowStrength));
+                    String.format(prefix + "%s %s", translation, fishingTier));
         }
     }
 

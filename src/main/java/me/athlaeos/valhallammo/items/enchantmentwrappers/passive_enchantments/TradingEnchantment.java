@@ -1,5 +1,6 @@
-package me.athlaeos.valhallammo.items.enchantmentwrappers;
+package me.athlaeos.valhallammo.items.enchantmentwrappers.passive_enchantments;
 
+import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
@@ -9,8 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class TradingEnchantment extends EnchantmentWrapper {
     private final String translation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_trading"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("enchantment_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("enchantment_positive_prefix");
 
     public TradingEnchantment(double amount) {
         super(amount);
@@ -40,11 +39,11 @@ public class TradingEnchantment extends EnchantmentWrapper {
             removeLore(meta);
             return;
         }
-        double amplifier = amount;
+        double amplifier = this.amplifier;
 
         if (!translation.equals("")){
             String strength = ((amplifier < 0) ? "" : "+") + String.format("%d", (int) Math.floor(amplifier));
-            String prefix = ((amplifier < 0) ? negativePrefix : positivePrefix);
+            String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(translation)),
                     String.format(prefix + "%s %s", translation, strength));

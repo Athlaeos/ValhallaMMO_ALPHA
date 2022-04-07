@@ -1,28 +1,28 @@
 package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class EnchantingAllowedEnchantmentsAddReward extends PerkReward {
+public class EnchantingAllowedEnchantmentsSetReward extends PerkReward {
     private int amount = 0;
 
-    public EnchantingAllowedEnchantmentsAddReward(String name, Object argument) {
+    public EnchantingAllowedEnchantmentsSetReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ENCHANTING);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
         if (profile instanceof EnchantingProfile){
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
-            enchantingProfile.setMaxCustomEnchantmentsAllowed(enchantingProfile.getMaxCustomEnchantmentsAllowed() + amount);
-            ProfileUtil.setProfile(player, enchantingProfile, SkillType.ENCHANTING);
+            enchantingProfile.setMaxCustomEnchantmentsAllowed(amount);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -38,5 +38,10 @@ public class EnchantingAllowedEnchantmentsAddReward extends PerkReward {
                 amount = (int) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.INTEGER;
     }
 }

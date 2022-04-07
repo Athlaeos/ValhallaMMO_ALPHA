@@ -1,14 +1,17 @@
 package me.athlaeos.valhallammo.managers;
 
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
-public class ExtraBlockData {
-    private static final Map<Block, UUID> placedBlocks = new HashMap<>();
+public class BlockStore {
+    private static Map<Location, UUID> placedBlocks = new HashMap<>();
 
-    private static final Map<Block, BreakReason> brokenBlocks = new HashMap<>();
+    private static final Map<Location, BreakReason> brokenBlocks = new HashMap<>();
 
     /**
      * Returns true if the block has been placed, or false if it hasn't
@@ -16,7 +19,7 @@ public class ExtraBlockData {
      * @return true if placed, false if not
      */
     public static boolean isPlaced(Block b){
-        return placedBlocks.containsKey(b);
+        return placedBlocks.containsKey(b.getLocation());
     }
 
 
@@ -24,28 +27,30 @@ public class ExtraBlockData {
     /**
      * Sets the placement status of the block. If placed is true, the block will be considered placed by a particular
      * person. If placed is false, it is no longer considered placed.
+     * Skills involving the breaking of blocks should not reward the player if the block was placed
      * @param b the block to change its status of
      * @param placed the placement status
      */
     public static void setPlaced(Block b, OfflinePlayer placer, boolean placed){
         if (placed){
-            placedBlocks.put(b, placer.getUniqueId());
+            placedBlocks.put(b.getLocation(), placer.getUniqueId());
         } else {
-            placedBlocks.remove(b);
+            placedBlocks.remove(b.getLocation());
         }
     }
 
     /**
      * Sets the placement status of the block. If placed is true, the block will be considered placed by no particular
      * person. If placed is false, it is no longer considered placed.
+     * Skills involving the breaking of blocks should not reward the player if the block was placed
      * @param b the block to change its status of
      * @param placed the placement status
      */
     public static void setPlaced(Block b, boolean placed){
         if (placed){
-            placedBlocks.put(b, null);
+            placedBlocks.put(b.getLocation(), null);
         } else {
-            placedBlocks.remove(b);
+            placedBlocks.remove(b.getLocation());
         }
     }
 
@@ -56,35 +61,46 @@ public class ExtraBlockData {
      * @return the player who placed the block, will be null if block isn't placed (by player)
      */
     public static UUID getPlacedBy(Block b){
-        return placedBlocks.get(b);
+        return placedBlocks.get(b.getLocation());
     }
 
+    /**
+     * Returns the break reason of a block, if there is one.
+     * @param b the block to check its break reason
+     * @return returns NOT_BROKEN if the block is not broken, or if the reason was not specified.
+     * returns EXPLOSION if the block was registered to be broken by an explosion
+     * returns MINED if the block was registered to be mined by a player
+     */
     public static BreakReason getBreakReason(Block b){
-        if (brokenBlocks.containsKey(b)){
-            return brokenBlocks.get(b);
+        if (brokenBlocks.containsKey(b.getLocation())){
+            return brokenBlocks.get(b.getLocation());
         }
-        return BreakReason.OTHER;
+        return BreakReason.NOT_BROKEN;
     }
 
     public static void setBreakReason(Block b, BreakReason reason){
-        if (reason == BreakReason.OTHER){
-            brokenBlocks.remove(b);
+        if (reason == BreakReason.NOT_BROKEN){
+            brokenBlocks.remove(b.getLocation());
         } else {
-            brokenBlocks.put(b, reason);
+            brokenBlocks.put(b.getLocation(), reason);
         }
     }
 
-    public static Map<Block, UUID> getPlacedBlocks() {
+    public static Map<Location, UUID> getPlacedBlocks() {
         return placedBlocks;
     }
 
-    public static Map<Block, BreakReason> getBrokenBlocks() {
+    public static void setPlacedBlocks(Map<Location, UUID> blocks) {
+        placedBlocks = blocks;
+    }
+
+    public static Map<Location, BreakReason> getBrokenBlocks() {
         return brokenBlocks;
     }
 
     public enum BreakReason{
         EXPLOSION,
         MINED,
-        OTHER
+        NOT_BROKEN
     }
 }

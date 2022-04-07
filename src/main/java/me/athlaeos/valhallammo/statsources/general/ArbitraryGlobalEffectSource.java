@@ -4,11 +4,12 @@ import me.athlaeos.valhallammo.managers.GlobalEffectManager;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 
-public class GlobalEffectExpGainSource extends AccumulativeStatSource {
+public class ArbitraryGlobalEffectSource extends AccumulativeStatSource {
     private final String effect;
 
-    public GlobalEffectExpGainSource(String effect){
+    public ArbitraryGlobalEffectSource(String effect){
         this.effect = effect;
+        GlobalEffectManager.getInstance().addValidEffect(this.effect);
     }
 
     @Override

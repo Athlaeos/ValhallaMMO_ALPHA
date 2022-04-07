@@ -1,14 +1,14 @@
 package me.athlaeos.valhallammo.perkrewards.smithing;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
-import me.athlaeos.valhallammo.items.MaterialClass;
 import org.bukkit.entity.Player;
 
-public class CraftingSkillAddReward extends PerkReward {
+public class SmithingCraftingSkillAddReward extends PerkReward {
     private int points = 0;
     private final MaterialClass materialClass;
     /**
@@ -20,7 +20,7 @@ public class CraftingSkillAddReward extends PerkReward {
      * @param argument the amount of points to add to the player. Must be Integer or Double. If Double, it's cast to int.
      * @param materialClass the MaterialClass to set the player's skill. If null, general crafting skill is set instead.
      */
-    public CraftingSkillAddReward(String name, Object argument, MaterialClass materialClass) {
+    public SmithingCraftingSkillAddReward(String name, Object argument, MaterialClass materialClass) {
         super(name, argument);
         this.materialClass = materialClass;
     }
@@ -28,7 +28,7 @@ public class CraftingSkillAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(player, "SMITHING");
         if (profile == null) return;
         if (profile instanceof SmithingProfile){
             SmithingProfile smithingProfile = (SmithingProfile) profile;
@@ -37,7 +37,7 @@ public class CraftingSkillAddReward extends PerkReward {
             } else {
                 smithingProfile.setMaterialCraftingQuality(materialClass, smithingProfile.getCraftingQuality(materialClass) + points);
             }
-            ProfileUtil.setProfile(player, smithingProfile, SkillType.SMITHING);
+            ProfileManager.setProfile(player, smithingProfile, "SMITHING");
         }
     }
 
@@ -53,5 +53,10 @@ public class CraftingSkillAddReward extends PerkReward {
                 points = (int) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.INTEGER;
     }
 }

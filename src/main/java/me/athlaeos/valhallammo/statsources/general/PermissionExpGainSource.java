@@ -1,26 +1,29 @@
 package me.athlaeos.valhallammo.statsources.general;
 
-import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 
-public class ProfileExpGainSource extends AccumulativeStatSource {
+public class PermissionExpGainSource extends AccumulativeStatSource {
+    private final String skillType;
+
+    public PermissionExpGainSource(String skill){
+        this.skillType = skill;
+    }
+
     @Override
     public double add(Entity p, boolean use) {
-        if (p instanceof Player){
-            Profile profile = ProfileUtil.getProfile((Player) p, SkillType.ACCOUNT);
-            if (profile == null) {
-                return 0;
+        String skill = (skillType == null) ? "general" : skillType.toLowerCase();
+        for (PermissionAttachmentInfo permission : p.getEffectivePermissions()){
+            if (permission.getPermission().contains("valhalla.experience." + skill)){
+                String[] split = permission.getPermission().split("\\.");
+                if (split.length < 4) return 0;
+                try {
+                    return Integer.parseInt(split[3]);
+                } catch (IllegalArgumentException ignored){
+                    return 0;
+                }
             }
-            if (!(profile instanceof AccountProfile)) {
-                return 0;
-            }
-            AccountProfile accountProfile = (AccountProfile) profile;
-            return accountProfile.getAllSkillEXPGain();
         }
         return 0;
     }

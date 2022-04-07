@@ -1,11 +1,11 @@
-package me.athlaeos.valhallammo.domain;
+package me.athlaeos.valhallammo.dom;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public abstract class Profile {
+public abstract class Profile implements Cloneable{
     protected NamespacedKey key;
     protected UUID owner;
     protected int level;
@@ -43,11 +43,20 @@ public abstract class Profile {
         return owner;
     }
 
+    public void setOwner(UUID owner) {
+        this.owner = owner;
+    }
+
     public double getLifetimeEXP() {
         return lifetimeEXP;
     }
 
     public void setLifetimeEXP(double lifetimeEXP) {
         this.lifetimeEXP = lifetimeEXP;
+    }
+
+    @Override
+    public Profile clone() throws CloneNotSupportedException {
+        return (Profile) super.clone();
     }
 }

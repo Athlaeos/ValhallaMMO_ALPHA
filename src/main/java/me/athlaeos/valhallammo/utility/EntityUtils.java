@@ -1,19 +1,30 @@
-package me.athlaeos.mmoskills.utility;
+package me.athlaeos.valhallammo.utility;
 
-import org.bukkit.Material;
+import me.athlaeos.valhallammo.items.EquipmentClass;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class EntityUtils {
+
+    public static ItemStack getHoldingItem(Player p, EquipmentClass equipmentClass){
+        ItemStack mainHandItem = p.getInventory().getItemInMainHand();
+        if (!Utils.isItemEmptyOrNull(mainHandItem)) {
+            if (equipmentClass == null) return mainHandItem;
+            EquipmentClass clazz = EquipmentClass.getClass(mainHandItem.getType());
+            if (clazz == equipmentClass){
+                return mainHandItem;
+            }
+        }
+        return null;
+    }
 
     public static double applyNaturalDamageMitigations(Entity damagee, double baseDamage, EntityDamageEvent.DamageCause cause){
         if (damagee instanceof LivingEntity){
@@ -50,7 +61,7 @@ public class EntityUtils {
 
     public static int getEPF(LivingEntity entity, EntityDamageEvent.DamageCause cause){
         int epf = 0;
-        for (ItemStack i : getEntityEquipment(entity, false)){
+        for (ItemStack i : getEntityEquipment(entity).getIterable(false)){
             if (cause == EntityDamageEvent.DamageCause.PROJECTILE){
                 epf += 2 * i.getEnchantmentLevel(Enchantment.PROTECTION_PROJECTILE);
             }
@@ -79,21 +90,107 @@ public class EntityUtils {
         return epf;
     }
 
-    public static List<ItemStack> getEntityEquipment(Entity entity, boolean getHands){
-        List<ItemStack> equipment = new ArrayList<>();
-        if (entity == null) return new ArrayList<>();
+    public static EntityEquipment getEntityEquipment(Entity entity){
+        EntityEquipment equipment = new EntityEquipment();
+        if (entity == null) return equipment;
         if (!(entity instanceof LivingEntity)) return equipment;
         LivingEntity e = (LivingEntity) entity;
         if (e.getEquipment() != null) {
-            if (e.getEquipment().getHelmet() != null){ equipment.add(e.getEquipment().getHelmet()); }
-            if (e.getEquipment().getChestplate() != null){ equipment.add(e.getEquipment().getChestplate()); }
-            if (e.getEquipment().getLeggings() != null){ equipment.add(e.getEquipment().getLeggings()); }
-            if (e.getEquipment().getBoots() != null){ equipment.add(e.getEquipment().getBoots()); }
-            if (getHands){
-                if (e.getEquipment().getItemInMainHand().getType() != Material.AIR){ equipment.add(e.getEquipment().getItemInMainHand()); }
-                if (e.getEquipment().getItemInOffHand().getType() != Material.AIR){ equipment.add(e.getEquipment().getItemInOffHand()); }
-            }
+            equipment.setHelmet(e.getEquipment().getHelmet());
+            equipment.setChestplate(e.getEquipment().getChestplate());
+            equipment.setLeggings(e.getEquipment().getLeggings());
+            equipment.setBoots(e.getEquipment().getBoots());
+            equipment.setMainHand(e.getEquipment().getItemInMainHand());
+            equipment.setOffHand(e.getEquipment().getItemInOffHand());
         }
         return equipment;
+    }
+
+    public static class EntityEquipment{
+        private ItemStack helmet = null;
+        private ItemStack chestplate = null;
+        private ItemStack leggings = null;
+        private ItemStack boots = null;
+        private ItemStack mainHand = null;
+        private ItemStack offHand = null;
+
+        public EntityEquipment(){};
+
+        public EntityEquipment(ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots, ItemStack leftHand, ItemStack rightHand){
+            this.helmet = helmet;
+            this.chestplate = chestplate;
+            this.leggings = leggings;
+            this.boots = boots;
+            this.mainHand = leftHand;
+            this.offHand = rightHand;
+        }
+
+        public ItemStack getHelmet() {
+            return helmet;
+        }
+
+        public void setHelmet(ItemStack helmet) {
+            this.helmet = helmet;
+        }
+
+        public ItemStack getChestplate() {
+            return chestplate;
+        }
+
+        public void setChestplate(ItemStack chestplate) {
+            this.chestplate = chestplate;
+        }
+
+        public ItemStack getBoots() {
+            return boots;
+        }
+
+        public void setBoots(ItemStack boots) {
+            this.boots = boots;
+        }
+
+        public ItemStack getLeggings() {
+            return leggings;
+        }
+
+        public void setLeggings(ItemStack leggings) {
+            this.leggings = leggings;
+        }
+
+        public ItemStack getMainHand() {
+            return mainHand;
+        }
+
+        public void setMainHand(ItemStack mainHand) {
+            this.mainHand = mainHand;
+        }
+
+        public ItemStack getOffHand() {
+            return offHand;
+        }
+
+        public void setOffHand(ItemStack offHand) {
+            this.offHand = offHand;
+        }
+
+        public Collection<ItemStack> getIterable(boolean includeHands){
+            Collection<ItemStack> iterable = new HashSet<>();
+            if (!Utils.isItemEmptyOrNull(helmet)) iterable.add(helmet);
+            if (!Utils.isItemEmptyOrNull(chestplate)) iterable.add(chestplate);
+            if (!Utils.isItemEmptyOrNull(leggings)) iterable.add(leggings);
+            if (!Utils.isItemEmptyOrNull(boots)) iterable.add(boots);
+            if (includeHands){
+                if (!Utils.isItemEmptyOrNull(mainHand)) iterable.add(mainHand);
+                if (!Utils.isItemEmptyOrNull(offHand)) iterable.add(offHand);
+            }
+            return iterable;
+        }
+
+        public Collection<ItemStack> getHands(){
+            Collection<ItemStack> iterable = new HashSet<>();
+            if (!Utils.isItemEmptyOrNull(mainHand)) iterable.add(mainHand);
+            if (!Utils.isItemEmptyOrNull(offHand)) iterable.add(offHand);
+            return iterable;
+        }
     }
 }

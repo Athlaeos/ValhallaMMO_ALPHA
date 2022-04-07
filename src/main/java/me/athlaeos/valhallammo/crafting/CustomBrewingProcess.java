@@ -3,10 +3,10 @@ package me.athlaeos.valhallammo.crafting;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.recipetypes.DynamicBrewingRecipe;
-import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
+import me.athlaeos.valhallammo.events.PlayerCustomBrewEvent;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
-import me.athlaeos.valhallammo.managers.PotionAttributesManager;
-import me.athlaeos.valhallammo.managers.TranslationManager;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
+import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -14,7 +14,6 @@ import org.bukkit.block.BrewingStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -86,6 +85,7 @@ public class CustomBrewingProcess extends BukkitRunnable
             }
 
             boolean[] success = new boolean[] {false, false, false};
+            boolean cancelled = false;
             for(int i = 0; i < 3 ; i ++)
             {
                 if(Utils.isItemEmptyOrNull(inventory.getItem(i)))
@@ -104,37 +104,48 @@ public class CustomBrewingProcess extends BukkitRunnable
                             result = modifier.processItem(brewer, result);
                         }
 
-                        renamePotion(result);
+                        PotionEffectManager.renamePotion(result, true);
+                        PlayerCustomBrewEvent event = new PlayerCustomBrewEvent(brewer, recipes.get(i), stand, result != null);
+                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+                        cancelled = event.isCancelled();
                     }
-                    if (result == null){
-                        // don't want to delete the item if the modifier conditions fail, so instead it's not touched at all
-                        inventory.setItem(i, backup);
-                    } else {
-                        success[i] = true;
-                        inventory.setItem(i, result);
+                    if (!cancelled){
+                        if (result == null){
+                            // don't want to delete the item if the modifier conditions fail, so instead it's not touched at all
+                            inventory.setItem(i, backup);
+                        } else {
+                            success[i] = true;
+                            inventory.setItem(i, result);
+                        }
                     }
                 }
             }
 
-            if (success[0] || success[1] || success[2]) {
-                boolean consume = true;
-                if (brewer != null){
-                    double chance = AccumulativeStatManager.getInstance().getStats("ALCHEMY_INGREDIENT_SAVE", brewer, true);
-                    if (Utils.getRandom().nextDouble() < chance) consume = false;
-                }
-                if (consume){
-                    if (!Utils.isItemEmptyOrNull(inventory.getIngredient())){
-                        if (inventory.getIngredient().getAmount() <= 1){
-                            inventory.setIngredient(null);
-                        } else {
-                            inventory.getIngredient().setAmount(inventory.getIngredient().getAmount() - 1);
+            if (!cancelled){
+                if (success[0] || success[1] || success[2]) {
+                    boolean consume = true;
+                    if (brewer != null){
+                        double chance = AccumulativeStatManager.getInstance().getStats("ALCHEMY_INGREDIENT_SAVE", brewer, true);
+                        if (Utils.getRandom().nextDouble() < chance) consume = false;
+                    }
+                    if (consume){
+                        if (!Utils.isItemEmptyOrNull(inventory.getIngredient())){
+                            if (inventory.getIngredient().getAmount() <= 1){
+                                if (ItemUtils.getFilledBuckets().contains(inventory.getIngredient().getType())){
+                                    inventory.setIngredient(new ItemStack(Material.BUCKET));
+                                } else {
+                                    inventory.setIngredient(null);
+                                }
+                            } else {
+                                inventory.getIngredient().setAmount(inventory.getIngredient().getAmount() - 1);
+                            }
                         }
                     }
+                    stand.setFuelLevel(stand.getFuelLevel() - 1);
+                    stand.getWorld().playEffect(stand.getLocation(), Effect.BREWING_STAND_BREW, 1);
+                } else {
+                    stand.getWorld().playEffect(stand.getLocation(), Effect.EXTINGUISH, 1);
                 }
-                stand.setFuelLevel(stand.getFuelLevel() - 1);
-                stand.getWorld().playEffect(stand.getLocation(), Effect.BREWING_STAND_BREW, 1);
-            } else {
-                stand.getWorld().playEffect(stand.getLocation(), Effect.EXTINGUISH, 1);
             }
             stand.setBrewingTime(400);
             activeStands.remove(inventory);
@@ -217,7 +228,18 @@ public class CustomBrewingProcess extends BukkitRunnable
 
     public void resetStand(BrewerInventory inventory, Map<Integer, DynamicBrewingRecipe> recipes){
         cancel();
-        activeStands.put(inventory, new CustomBrewingProcess(recipes, inventory, this.baseTime));
+        CustomBrewingProcess newProcess = new CustomBrewingProcess(recipes, inventory, this.baseTime);
+        activeStands.put(inventory, newProcess);
+        newProcess.setActualTime(this.actualTime);
+        newProcess.setTime(this.time);
+    }
+
+    public void setActualTime(double actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public static Map<BrewerInventory, CustomBrewingProcess> getActiveStands() {
@@ -234,53 +256,5 @@ public class CustomBrewingProcess extends BukkitRunnable
 
     public BrewingStand getStand() {
         return stand;
-    }
-
-    private void renamePotion(ItemStack i){
-        if (i == null) return;
-        if (i.getItemMeta() instanceof PotionMeta){
-            PotionMeta meta = (PotionMeta) i.getItemMeta();
-            List<PotionEffectWrapper> potionEffects = new ArrayList<>(PotionAttributesManager.getInstance().getCurrentStats(i));
-            if (potionEffects.size() == 0) return;
-            boolean mixed = potionEffects.size() > 1;
-
-            String formatToUse;
-            switch (i.getType()){
-                case SPLASH_POTION:{
-                    formatToUse = (mixed) ?
-                            TranslationManager.getInstance().getTranslation("potion_mixed_splash_format") :
-                            TranslationManager.getInstance().getTranslation("potion_splash_format");
-                    break;
-                }
-                case LINGERING_POTION:{
-                    formatToUse = (mixed) ?
-                            TranslationManager.getInstance().getTranslation("potion_mixed_lingering_format") :
-                            TranslationManager.getInstance().getTranslation("potion_lingering_format");
-                    break;
-                }
-                case TIPPED_ARROW:{
-                    formatToUse = (mixed) ?
-                            TranslationManager.getInstance().getTranslation("tipped_mixed_arrow_format") :
-                            TranslationManager.getInstance().getTranslation("tipped_arrow_format");
-                    break;
-                }
-                default:{
-                    formatToUse = (mixed) ?
-                            TranslationManager.getInstance().getTranslation("potion_mixed_base_format") :
-                            TranslationManager.getInstance().getTranslation("potion_base_format");
-                }
-            }
-
-            if (mixed){
-                meta.setDisplayName(Utils.chat(formatToUse));
-            } else {
-                meta.setDisplayName(Utils.chat(
-                        formatToUse.replace("%effect%", TranslationManager.getInstance()
-                                        .getTranslation("effect_" + potionEffects.get(0).getPotionEffect().toLowerCase()))
-                ));
-            }
-
-            i.setItemMeta(meta);
-        }
     }
 }

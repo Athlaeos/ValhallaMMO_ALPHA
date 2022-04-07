@@ -1,5 +1,8 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.items.attributewrappers.CustomPoisonResistanceWrapper;
 import me.athlaeos.valhallammo.utility.Utils;
@@ -15,6 +18,7 @@ public class AttributeAddPoisonResistanceModifier extends DynamicItemModifier im
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 0.1;
         this.bigStepIncrease = 0.1;

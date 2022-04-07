@@ -8,14 +8,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class AlchemyPotionSaveEnchantment extends EnchantmentWrapper {
-    private final String ingredientSaveTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_alchemy_potion_save"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("enchantment_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("enchantment_positive_prefix");
+public class AlchemyThrowVelocityEnchantment extends EnchantmentWrapper {
+    private final String ingredientSaveTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("enchantment_alchemy_throw_velocity"));
 
-    public AlchemyPotionSaveEnchantment(double amount) {
+    public AlchemyThrowVelocityEnchantment(double amount) {
         super(amount);
-        this.attribute = "ALCHEMY_POTION_SAVE";
+        this.attribute = "ALCHEMY_THROW_VELOCITY";
         this.minValue = -1000;
         this.maxValue = 1000;
     }
@@ -41,11 +39,11 @@ public class AlchemyPotionSaveEnchantment extends EnchantmentWrapper {
             removeLore(meta);
             return;
         }
-        double bow_strength = amount;
+        double bow_strength = amplifier;
 
         if (!ingredientSaveTranslation.equals("")){
-            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength));
-            String prefix = ((bow_strength < 0) ? negativePrefix : positivePrefix);
+            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
+            String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(ingredientSaveTranslation)),
                     String.format(prefix + "%s %s%%", ingredientSaveTranslation, bowStrength));

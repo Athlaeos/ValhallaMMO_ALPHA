@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.placeholders;
+package me.athlaeos.valhallammo.placeholder;
 
 import org.bukkit.entity.Player;
 

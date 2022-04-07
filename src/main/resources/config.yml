@@ -1,8 +1,232 @@
-# If true, the item's treatments are hidden from the item. If false, the treatments are applied as lore on the item.
-hide_treatments: false
-# If true, the item's additional damage numbers are hidden from the item. If false, the extra damage is applied
-# as lore on the item.
-hide_damage: false
-# If true, the item's custom durability numbers are hidden from the item. If false, the extra durability is appled
-# as lore on the item.
-hide_durability: false
+# GENERAL
+
+is_spigot: false # Spigot works slightly differently from its forks, and these differences sometimes break things that would
+# work on for example PaperMC or Purpur. If you are running on spigot, set this to true. Otherwise you can ignore this.
+# It is recommended to not use Spigot simply for performance reasons
+language: 'en-us' # The language file used. Language files can be found in ValhallaMMO/languages
+profile_version: 0 # The version of profiles used to define player's stats with. If you wish every player to start over,
+# increment this value by 1. If a player's profile version does not match this number, their profiles will be reset upon joining.
+
+# If enabled, the player will receive a book (detailed in tutorial_book.yml) on first join. This book will attempt to
+# teach the player some of the plugin's more obscure mechanics, such as the custom crafting mechanics
+book_on_join: true
+
+# Various skills have abilities that may "stun" targets, which are just a collection of potion effects
+# These potion effects are defined as...
+stun_effects:
+  SLOW: 5
+  SLOW_DIGGING: 5
+  BLINDNESS: 5
+  WEAKNESS: 5
+# After a target is stunned, they may not be stunned again for this amount of time (in milliseconds)
+stun_immunity_frame: 5000
+
+# Disabled skills are not registered and thus not visible in the skill trees, you can also not gain EXP for them.
+enabled_skills:
+  player: true # The only exception to typical skills in that this skill handles your player levels instead of individual skills
+  smithing: true
+  enchanting: true
+  alchemy: true
+  farming: true
+  mining: true
+  landscaping: true
+  trading: true
+  weapons_light: true
+  weapons_heavy: true
+  unarmed: true
+  armor_light: true
+  armor_heavy: true
+  acrobatics: true
+  archery: true
+
+# Disabling listeners will remove some functionality of the plugin. Only do so if you know what you're
+# doing and if they're known to cause issues with other plugins.
+enabled_listeners:
+  interact: true # Responsible for ValhallaMMO's custom crafting mechanics.
+                 # Disable if you want the entire custom crafting system gone.
+  join: true # Solely responsible for checking if a player's profiles should be reset or not if profile version does not
+             # match config version. There's little point in disabling this.
+  item_damage: true # Responsible for ValhallaMMO's custom durability mechanic, the item damage part specifically.
+                    # Disabling will render custom durability useless.
+  item_mend: true # Responsible for ValhallaMMO's custom durability mechanic, restoring durability with mending specifically.
+                  # Disabling will make items stop restoring custom durability if they have mending.
+  shaped_craft: true # Responsible for ValhallaMMO's custom shaped crafting recipes.
+                     # Disabling will remove the ability to use custom shaped crafting recipes.
+  custom_craft: true # Responsible for ValhallaMMO's custom crafting.
+                     # Disabling this will remove custom crafting recipes specifically, not tinker or class-tinker.
+  custom_tinker: true # Responsible for ValhallaMMO's custom tinkering.
+                      # Disabling this will remove custom tinker and class-tinker recipes specifically, not crafting.
+  villager_interact: true # Responsible for villager dialogue initiation and custom trading
+                          # Disabling will remove custom trading and villager dialogue.
+  projectile_shoot: true # Responsible for accelerating arrows shot, potions thrown, and ammo save chances.
+                         # Disabling will set shooting arrow and potion throwing mechanics to vanilla.
+  entity_damaged: true # Responsible for custom damage mitigation attributes and custom weapon damage outputs.
+                       # Disabling will remove the plugin's ability to alter damage numbers
+  potion_inventory: true # Responsible for handling ValhallaMMO's custom brewing mechanics
+                         # Disabling will prevent the player from inserting many items into the stand and custom brewing in general
+  potion_brew: true # Responsible for cancelling vanilla potion brewing.
+                    # Disabling will re-enable vanilla potion brewing, but this might clash with the custom brewing system.
+  item_consume: true # Responsible for handling custom food, potions, and potion save chance mechanics.
+                     # Disabling will make food custom foods act like as if they weren't custom at all, and custom potion
+                     # effects will not apply when drank.
+  potion_splash: true # Responsible for handling custom potion effects from splash potions and lingering potions
+                      # Disabling will prevent custom splash/lingering potions from applying their effects
+  player_enchant: true # Responsible for handling enchantment table interactions such as lapis save chance, exp refund chance,
+                       # and level amplification/reduction based on skill. Disabling will remove most functionality from the
+                       # enchanting skill.
+  player_experience: true # Responsible for experience absorption mechanics like vanilla exp multipliers. Disabling will remove
+                          # vanilla exp multiplication
+  blocks: true # Responsible for block breaking, placing, and block drop mechanics. Disabling will remove most of the harvesting
+               # skills' functionalities (farming, mining, landscaping).
+  fishing: true # Responsible for the farming skill's fishing mechanics
+  breeding: true # Responsible for the farming skill's breeding mechanics
+  targeting: true # Responsible for the farming skill's bee aggro immunity mechanics
+
+# CRAFTING
+
+# If true, items crafted with a custom crafting method will be dropped on top of the crafting block. If false, they will
+# be added to the player's inventory.
+craft_item_drop: true
+
+# Enabling this option allows you to see what an item will look like before really crafting it, however, it is heavier
+# on performance. Disabling will preview the vanilla unmodified item only, but the crafting result will be different than shown.
+advanced_crafting_preview: true
+# Disable this option if you find the performance hit too much
+
+# Enabling this option will make it so regular right-clicking crafting stations will open the custom menu,
+# and shift-right clicking the crafting stations will open the vanilla menu (if any). Only enable this option
+# if you plan to primarily use the custom crafting system
+swap_crafting_table_functionality: false
+
+# Disabled crafting recipes
+# An entry in this list is valid if the name equates to a recipe's namespaced key, which in most cases is just
+# the item ID in lowercase
+disabled:
+  - arrow
+  - leather_helmet
+  - leather_chestplate
+  - leather_leggings
+  - leather_boots
+  - wooden_pickaxe
+  - wooden_axe
+  - wooden_shovel
+  - wooden_hoe
+  - wooden_sword
+  - chainmail_helmet
+  - chainmail_chestplate
+  - chainmail_leggings
+  - chainmail_boots
+  - stone_pickaxe
+  - stone_axe
+  - stone_shovel
+  - stone_hoe
+  - stone_sword
+  - golden_helmet
+  - golden_chestplate
+  - golden_leggings
+  - golden_boots
+  - golden_pickaxe
+  - golden_axe
+  - golden_shovel
+  - golden_hoe
+  - golden_sword
+  - iron_helmet
+  - iron_chestplate
+  - iron_leggings
+  - iron_boots
+  - iron_pickaxe
+  - iron_axe
+  - iron_shovel
+  - iron_hoe
+  - iron_sword
+  - diamond_helmet
+  - diamond_chestplate
+  - diamond_leggings
+  - diamond_boots
+  - diamond_pickaxe
+  - diamond_axe
+  - diamond_shovel
+  - diamond_hoe
+  - diamond_sword
+  - netherite_helmet
+  - netherite_chestplate
+  - netherite_leggings
+  - netherite_boots
+  - netherite_pickaxe
+  - netherite_axe
+  - netherite_shovel
+  - netherite_hoe
+  - netherite_sword
+
+# PARTIES (NOT IMPLEMENTED YET!!)
+
+parties: true # If disabled, all party functionality is disabled
+party_capacity: 50 # Default member capacity of a party
+
+name_character_limit: 24 # Name limit of party names
+name_allow_colors: true # If true, party creators may add colors to their party name
+description_allow_colors: true # If true, party creators may add colors to their description
+party_chat_format: '&a&l[PARTY] &a[%rank%&a] %who% &f> %message%'
+
+exp_sharing: true # If disabled, party exp sharing will be disabled by default
+party_chat: true # If disabled, party chat will be disabled by default
+item_sharing: true # If disabled, party item sharing will be disabled by default
+
+# The default rank each member will get upon joining
+default_rank: rookie # The rank here must be present in the below "ranks", if not the party system will be disabled
+leader_title: '&6Chief'
+ranks: # Ranks may be distributed by the party leader, each rank has a title and may have additional permissions
+  rookie:
+    rating: 0
+    title: '&7Rookie'
+    permissions: # Valid permissions are
+    # party_chat, item_share, exp_share, open_party, invite_member, kick_members, manage_roles, manage_description
+      - party_chat
+  member:
+    rating: 1
+    title: '&7Member'
+    permissions:
+      - item_sharing
+      - party_chat
+  trusted:
+    rating: 2
+    title: '&7Trusted'
+    permissions:
+      - invite_member
+      - item_sharing
+      - party_chat
+  inner_circle:
+    rating: 3
+    title: '&eInner Circle'
+    permissions:
+      - invite_member
+      - item_sharing
+      - party_chat
+      - manage_roles
+      - open_party
+      - exp_share
+      - kick_members
+      - manage_description
+# party_chat: access to party chat
+# item_share: ability to share items with other party members
+# exp_share: ability to toggle exp share on and off for the party
+# open_party: ability to open party or to have party invite only (closed = invite only, open = free join + invite)
+# invite_members: ability to invite other people to the party
+# manage_roles: ability to take and give roles that are below the member's own rank to people with rankings lower than that of their own
+# kick_members: ability to remove members from the party with rankings lower than that of their own
+# manage_description: ability to change the party's description
+# The leader by default has all permissions and is the only one who can transfer leadership
+
+party_info: # This information is displayed in the command /party info, and mostly intended for the creator of the party
+  - '&aDescription&7: %description%'
+  - ''
+  - '&aParty Status&7: &a%status_open%'
+  - '&aEXP Sharing&7: &a%status_exp_sharing%'
+  - ''
+  - '&aMembers&7: &a%member_count%&7/&a%member_cap%'
+  - '&aYour rank&7: &a%rank%'
+
+# MISCELLANEOUS
+
+trident_damage_ranged: 1.3 # Damage multiplier of tridents when thrown
+trident_damage_ranged_loyalty: 1.0 # Damage multiplier of tridents when thrown, but they have loyalty

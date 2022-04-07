@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
-    public FlagAddHideUnbreakableModifier(String name, double strength, ModifierPriority priority) {
+public class FlagRemoveHideUnbreakableModifier extends DynamicItemModifier {
+    public FlagRemoveHideUnbreakableModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -24,9 +24,9 @@ public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 0;
-        this.description = Utils.chat("&7Adds the HIDE_UNBREAKABLE flag to the item. HIDE_UNBREAKABLE hides " +
-                "the \"&9Unbreakable\" &7tag if present.");
-        this.displayName = Utils.chat("&7&lAdd Flag: &e&lHide Unbreakable");
+        this.description = Utils.chat("&7Removes the HIDE_UNBREAKABLE flag from the item, revealing " +
+                "the \"&9Unbreakable\" &7tag again if the item is unbreakable.");
+        this.displayName = Utils.chat("&7&lRemove Flag: &e&lHide Unbreakable");
         this.icon = Material.PAPER;
     }
 
@@ -35,13 +35,13 @@ public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
-        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        meta.removeItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         outputItem.setItemMeta(meta);
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Adds the &eHIDE_UNBREAKABLE &7flag to the item. This hides the Unbreakable tag if present.");
+        return Utils.chat("&7Removes the &eHIDE_UNBREAKABLE &7flag from the item.");
     }
 }

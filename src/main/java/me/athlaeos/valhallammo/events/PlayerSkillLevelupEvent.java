@@ -1,30 +1,41 @@
-package me.athlaeos.valhallammo.skills.smithing.events;
+package me.athlaeos.valhallammo.events;
 
-import me.athlaeos.valhallammo.domain.SkillType;
+import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class PlayerSkillLevelupEvent extends Event implements Cancellable {
+public class PlayerSkillLevelupEvent extends Event {
     private static final HandlerList HANDLER_LIST = new HandlerList();
-    private boolean isCancelled;
-    private int amount;
-    private SkillType leveledSkill;
-    private Player player;
+    private final Skill leveledSkill;
+    private final int levelTo;
+    private final Player player;
 
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
-    }
-
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.isCancelled = cancel;
+    public PlayerSkillLevelupEvent(Player player, Skill leveledSkill, int levelTo){
+        this.player = player;
+        this.leveledSkill = leveledSkill;
+        this.levelTo = levelTo;
     }
 
     @Override
     public HandlerList getHandlers() {
         return HANDLER_LIST;
     }
+
+    public static HandlerList getHandlerList() {
+        return HANDLER_LIST;
+    }
+
+    public Skill getLeveledSkill() {
+        return leveledSkill;
+    }
+
+    public int getLevelTo() {
+        return levelTo;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
 }

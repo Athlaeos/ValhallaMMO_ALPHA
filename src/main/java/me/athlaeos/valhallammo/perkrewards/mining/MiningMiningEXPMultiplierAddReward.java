@@ -1,29 +1,28 @@
-package me.athlaeos.valhallammo.perkrewards.farming;
+package me.athlaeos.valhallammo.perkrewards.mining;
 
 import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.farming.FarmingProfile;
+import me.athlaeos.valhallammo.skills.mining.MiningProfile;
 import org.bukkit.entity.Player;
 
-public class FarmingFarmingEXPMultiplierAddReward extends PerkReward {
+public class MiningMiningEXPMultiplierAddReward extends PerkReward {
     private double multiplier = 0D;
 
-    public FarmingFarmingEXPMultiplierAddReward(String name, Object argument) {
+    public MiningMiningEXPMultiplierAddReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.FARMING);
+        Profile profile = ProfileManager.getProfile(player, "MINING");
         if (profile == null) return;
-        if (profile instanceof FarmingProfile){
-            FarmingProfile farmingProfile = (FarmingProfile) profile;
-            farmingProfile.setFarmingExpMultiplier(farmingProfile.getFarmingExpMultiplier() + multiplier);
-            ProfileUtil.setProfile(player, farmingProfile, SkillType.FARMING);
+        if (profile instanceof MiningProfile){
+            MiningProfile miningProfile = (MiningProfile) profile;
+            miningProfile.setMiningExpMultiplier(miningProfile.getMiningExpMultiplier() + multiplier);
+            ProfileManager.setProfile(player, miningProfile, "MINING");
         }
     }
 

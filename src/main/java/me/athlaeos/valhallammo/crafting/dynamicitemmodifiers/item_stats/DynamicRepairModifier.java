@@ -1,27 +1,27 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
-import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
 import me.athlaeos.valhallammo.items.MaterialClass;
-import me.athlaeos.valhallammo.managers.ItemTreatmentManager;
-import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
+import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
+import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
+import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class DynamicRepairModifier extends DynamicItemModifier{
+public class DynamicRepairModifier extends DynamicItemModifier {
     public DynamicRepairModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;
@@ -44,23 +44,20 @@ public class DynamicRepairModifier extends DynamicItemModifier{
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
-        Profile profile = ProfileUtil.getProfile(crafter, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(crafter, "SMITHING");
         if (!(meta instanceof Damageable)) return null;
         if (profile == null) return null;
-        if (!(profile instanceof SmithingProfile)) return null;
-        SmithingProfile smithingProfile = (SmithingProfile) profile;
         MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem.getType());
         if (materialClass == null) return null;
         int itemDurabiity = CustomDurabilityManager.getInstance().getDurability(outputItem);
         if (itemDurabiity >= CustomDurabilityManager.getInstance().getMaxDurability(outputItem)) return null;
-        int playerCraftingSkill = (int) Math.round((strength/100D) * (smithingProfile.getCraftingQuality(materialClass) + smithingProfile.getGeneralCraftingQuality()));
+        double generalSkill = Math.round((strength/100D) * AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_GENERAL", crafter, this.use));
         if (itemDurabiity > 0){
             // Item has custom durability
             int maxDurability = CustomDurabilityManager.getInstance().getMaxDurability(outputItem);
-            double fractionToRepair = Utils.eval(ItemTreatmentManager.getInstance().getRepairScaling().replace("%rating%", "" + playerCraftingSkill));
+            double fractionToRepair = Utils.eval(SmithingItemTreatmentManager.getInstance().getRepairScaling().replace("%rating%", "" + generalSkill));
             int addDurability = (int) (fractionToRepair * (double) maxDurability);
-            PlayerItemDamageEvent event = new PlayerItemDamageEvent(crafter, outputItem, -addDurability);
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+            CustomDurabilityManager.getInstance().damageItem(outputItem, -addDurability);
         }
         return outputItem;
     }

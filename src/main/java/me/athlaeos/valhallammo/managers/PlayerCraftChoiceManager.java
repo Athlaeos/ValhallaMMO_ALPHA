@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting;
+package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.crafting.recipetypes.AbstractCustomCraftingRecipe;
 import org.bukkit.entity.Player;
@@ -17,14 +17,14 @@ public class PlayerCraftChoiceManager {
     }
 
     public AbstractCustomCraftingRecipe getPlayerCurrentRecipe(Player p){
-        if (playerCraftChoices.containsKey(p.getUniqueId())){
-            return playerCraftChoices.get(p.getUniqueId());
-        }
-        return null;
+        return playerCraftChoices.get(p.getUniqueId());
     }
 
     public void setPlayerCurrentRecipe(Player p, AbstractCustomCraftingRecipe recipe){
-        if (recipe == null) playerCraftChoices.remove(p.getUniqueId());
+        if (recipe == null) {
+            playerCraftChoices.remove(p.getUniqueId());
+            return;
+        }
         playerCraftChoices.put(p.getUniqueId(), recipe);
     }
 }

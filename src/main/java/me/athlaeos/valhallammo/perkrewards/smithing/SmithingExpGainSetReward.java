@@ -1,14 +1,14 @@
 package me.athlaeos.valhallammo.perkrewards.smithing;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
-import me.athlaeos.valhallammo.items.MaterialClass;
 import org.bukkit.entity.Player;
 
-public class ExpGainSetReward extends PerkReward {
+public class SmithingExpGainSetReward extends PerkReward {
     private double expGain = 0D;
     private final MaterialClass materialClass;
     /**
@@ -21,7 +21,7 @@ public class ExpGainSetReward extends PerkReward {
      * @param materialClass the MaterialClass to set the player's experience multiplier to. If null, the general crafting
      *                      experience multiplier is set instead.
      */
-    public ExpGainSetReward(String name, Object argument, MaterialClass materialClass) {
+    public SmithingExpGainSetReward(String name, Object argument, MaterialClass materialClass) {
         super(name, argument);
         this.materialClass = materialClass;
     }
@@ -29,7 +29,7 @@ public class ExpGainSetReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(player, "SMITHING");
         if (profile == null) return;
         if (profile instanceof SmithingProfile){
             SmithingProfile smithingProfile = (SmithingProfile) profile;
@@ -38,7 +38,7 @@ public class ExpGainSetReward extends PerkReward {
             } else {
                 smithingProfile.setCraftingEXPMultiplier(materialClass, expGain);
             }
-            ProfileUtil.setProfile(player, smithingProfile, SkillType.SMITHING);
+            ProfileManager.setProfile(player, smithingProfile, "SMITHING");
         }
     }
 
@@ -53,5 +53,10 @@ public class ExpGainSetReward extends PerkReward {
                 expGain = (Integer) argument;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.INTEGER;
     }
 }

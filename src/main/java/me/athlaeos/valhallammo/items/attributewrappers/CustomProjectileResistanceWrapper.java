@@ -2,73 +2,62 @@ package me.athlaeos.valhallammo.items.attributewrappers;
 
 import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
-import org.bukkit.Material;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class CustomProjectileResistanceWrapper extends AttributeWrapper{
+    private final String translation_projectile_resistance = Utils.chat(TranslationManager.getInstance().getTranslation("translation_projectile_resistance"));
 
-public class CustomDrawStrengthWrapper extends AttributeWrapper{
-    private final String bowStrengthTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("translation_drawstrength"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("stat_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("stat_positive_prefix");
-
-    public CustomDrawStrengthWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
+    public CustomProjectileResistanceWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
         super(amount, operation, slot);
-        this.attribute = "CUSTOM_DRAW_STRENGTH";
-        this.minValue = 0;
-        this.maxValue = 16;
+        this.attribute = "CUSTOM_PROJECTILE_RESISTANCE";
+        this.minValue = -1000;
+        this.maxValue = 1000;
     }
 
     @Override
     public boolean isCompatible(ItemStack i) {
-        return i.getType() == Material.BOW || i.getType() == Material.CROSSBOW;
+        return true;
     }
 
     @Override
     public void onApply(ItemMeta i) {
-        updateBowStrength(i);
+        updateLore(i);
     }
 
     @Override
     public void onRemove(ItemMeta i) {
-        updateBowStrength(i);
+        removeLore(i);
     }
 
-    public void updateBowStrength(ItemMeta meta){
+    private void updateLore(ItemMeta meta){
         if (meta == null) return;
-        double bow_strength = amount;
-        if (bow_strength == 0) return;
+        if (meta.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES)) {
+            removeLore(meta);
+            return;
+        }
+        double strength = amount;
+        if (strength == 0) return;
 
-        List<String> lore = meta.getLore();
-        if (lore == null) lore = new ArrayList<>();
-        int strengthLoreIndex = -1;
-        for (String l : lore){
-            if (l.contains(" ")){
-                String[] splitString = l.split(" ");
-                if (splitString.length >= 2){
-                    String matchString = String.join(" ", Arrays.copyOfRange(splitString, splitString.length - 1, splitString.length));
-                    if (bowStrengthTranslation.equals(matchString)){
-                        strengthLoreIndex = lore.indexOf(l);
-                        break;
-                    }
-                }
-            }
+        if (!translation_projectile_resistance.equals("")){
+            String strengthPart = String.format("%d", ((int) Math.floor(strength * 100)));
+            String prefix = ((strength < 0) ? TranslationManager.getInstance().getTranslation("stat_negative_prefix") : TranslationManager.getInstance().getTranslation("stat_positive_prefix") + "+");
+            Utils.findAndReplaceLore(meta,
+                    ChatColor.stripColor(Utils.chat(translation_projectile_resistance)),
+                    String.format(prefix + "%s%% " + translation_projectile_resistance, strengthPart));
         }
+    }
 
-        if (strengthLoreIndex != -1) {
-            lore.remove(strengthLoreIndex);
+    private void removeLore(ItemMeta meta){
+        if (meta == null) return;
+        if (!translation_projectile_resistance.equals("")){
+            Utils.removeIfLoreContains(meta,
+                    ChatColor.stripColor(Utils.chat(translation_projectile_resistance)));
         }
-        if (!bowStrengthTranslation.equals("")){
-            String bowStrength = String.format("%d", (int) Math.floor(bow_strength * 100));
-            String prefix = ((bow_strength < 1) ? negativePrefix : positivePrefix);
-            lore.add(Utils.chat(String.format(prefix + "%s%% " + bow_strength, bowStrength)));
-        }
-        meta.setLore(lore);
     }
 
     /*

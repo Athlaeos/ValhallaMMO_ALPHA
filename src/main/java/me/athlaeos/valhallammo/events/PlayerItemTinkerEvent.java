@@ -1,31 +1,30 @@
 package me.athlaeos.valhallammo.events;
 
-import me.athlaeos.valhallammo.skills.smithing.recipes.dom.AbstractCraftingRecipe;
-import me.athlaeos.valhallammo.skills.smithing.recipes.dom.ItemCraftingRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.ItemImprovementRecipe;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.inventory.ItemStack;
 
-public class PlayerCustomTinkerEvent extends Event implements Cancellable {
+public class PlayerItemTinkerEvent extends Event implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();
     private final Player player;
-    private AbstractCraftingRecipe recipe;
-    private ItemStack result;
+    private ItemImprovementRecipe recipe;
     private boolean applyDynamicModifiers = true;
     private boolean isCancelled;
+    private final Block craftingStation;
 
-    public PlayerCustomTinkerEvent(Player player, ItemCraftingRecipe recipe, ItemStack result) {
+    public PlayerItemTinkerEvent(Player player, ItemImprovementRecipe recipe, Block craftingStation) {
         this.player = player;
         this.recipe = recipe;
-        this.result = result;
+        this.craftingStation = craftingStation;
     }
 
-    public PlayerCustomTinkerEvent(Player player, ItemCraftingRecipe recipe, ItemStack result, boolean applyDynamicModifiers) {
+    public PlayerItemTinkerEvent(Player player, ItemImprovementRecipe recipe, Block craftingStation, boolean applyDynamicModifiers) {
         this.player = player;
         this.recipe = recipe;
-        this.result = result;
+        this.craftingStation = craftingStation;
         this.applyDynamicModifiers = applyDynamicModifiers;
     }
 
@@ -34,24 +33,20 @@ public class PlayerCustomTinkerEvent extends Event implements Cancellable {
         return HANDLER_LIST;
     }
 
+    public static HandlerList getHandlerList() {
+        return HANDLER_LIST;
+    }
+
     public Player getPlayer() {
         return player;
     }
 
-    public AbstractCraftingRecipe getRecipe() {
+    public ItemImprovementRecipe getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(ItemCraftingRecipe recipe) {
+    public void setRecipe(ItemImprovementRecipe recipe) {
         this.recipe = recipe;
-    }
-
-    public void setResult(ItemStack result) {
-        this.result = result;
-    }
-
-    public ItemStack getResult() {
-        return result;
     }
 
     public boolean applyDynamicModifiers() {
@@ -60,6 +55,10 @@ public class PlayerCustomTinkerEvent extends Event implements Cancellable {
 
     public void setApplyDynamicModifiers(boolean applyDynamicModifiers) {
         this.applyDynamicModifiers = applyDynamicModifiers;
+    }
+
+    public Block getCraftingStation() {
+        return craftingStation;
     }
 
     @Override

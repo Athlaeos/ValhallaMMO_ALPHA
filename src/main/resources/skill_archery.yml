@@ -1,0 +1,20 @@
+display_name: '&7Archery'
+icon: BOW
+description: '&8Practice Archery to increase your ranged damage, improve your accuracy, and kill targets consistently at a safe distance.'
+
+levelbar_title: '&7Archery &eLV %lv_current% &6%exp_current%&7/&6%exp_next%'
+levelbar_color: YELLOW # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
+levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
+
+# The distance between shooter and target can increase the damage on an arrow, but to prevent this from being exploited
+# to one-shot targets there's a limit to how far this damage can go.
+# The damage increase is not predefined in configs, it is determined in the player's profile
+# Distances beyond this amount will not affect the damage of shots further
+distance_limit: 50
+
+prevent_crits_facing_shooter: true # If enabled, no matter what, the shooter will never be able to stun if the shot enemy is facing the shooter
+facing_angle: 70 # The angle between the target's line of vision and to the shooter which the plugin would consider
+# the target to be "facing" the shooter, the effective angle of vision is double this value.
+# example: if this value is 90, the shooter can be anywhere within 180 degrees in front of the target for the target to
+# "see" the shooter. Anywhere outside of that front 180 degrees will be considered "facing away"
+

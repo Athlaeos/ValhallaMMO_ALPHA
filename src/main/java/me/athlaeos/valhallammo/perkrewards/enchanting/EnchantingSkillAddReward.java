@@ -1,43 +1,39 @@
-package me.athlaeos.valhallammo.perkrewards.smithing;
+package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.items.EnchantmentType;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
-import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class SmithingCraftingSkillAddReward extends PerkReward {
+public class EnchantingSkillAddReward extends PerkReward {
     private int points = 0;
-    private final MaterialClass materialClass;
+    private final EnchantmentType enchantmentType;
     /**
-     * Constructor for CraftingSkillAddReward, which adds a number of skill points (of a specific MaterialClass if desired)
-     * to the player's profile when execute() runs. If materialClass is null, the amount is added to the player's general
-     * crafting skill instead.
+     * Constructor for EnchantingSkillAddReward, which adds a number of skill points (of a specific EnchantmentType if desired)
+     * to the player's profile when execute() runs. If enchantmentType is null, the amount is added to the player's general
+     * enchanting skill instead.
      * @param name the name of the reward. Must be unique to others rewards, or it will override them.
      *             This is also the name used to define the rewards in the configs.
      * @param argument the amount of points to add to the player. Must be Integer or Double. If Double, it's cast to int.
-     * @param materialClass the MaterialClass to set the player's skill. If null, general crafting skill is set instead.
+     * @param enchantmentType the EnchantmentType to set the player's skill. If null, general enchanting skill is set instead.
      */
-    public SmithingCraftingSkillAddReward(String name, Object argument, MaterialClass materialClass) {
+    public EnchantingSkillAddReward(String name, Object argument, EnchantmentType enchantmentType) {
         super(name, argument);
-        this.materialClass = materialClass;
+        this.enchantmentType = enchantmentType;
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
-        if (profile instanceof SmithingProfile){
-            SmithingProfile smithingProfile = (SmithingProfile) profile;
-            if (materialClass == null){
-                smithingProfile.setGeneralCraftingQuality(smithingProfile.getGeneralCraftingQuality() + points);
-            } else {
-                smithingProfile.setMaterialCraftingQuality(materialClass, smithingProfile.getCraftingQuality(materialClass) + points);
-            }
-            ProfileUtil.setProfile(player, smithingProfile, SkillType.SMITHING);
+        if (profile instanceof EnchantingProfile){
+            EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
+            enchantingProfile.setEnchantingSkill(enchantmentType, enchantingProfile.getEnchantingSkill(enchantmentType) + points);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -53,5 +49,10 @@ public class SmithingCraftingSkillAddReward extends PerkReward {
                 points = (int) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.INTEGER;
     }
 }

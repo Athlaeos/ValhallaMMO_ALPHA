@@ -1,15 +1,42 @@
-# Here you configure how smithing is displayed within its skill tree
-display_name: '&7Farming'
-icon: WOODEN_HOE
-description: '&8Practice Farming to increase your harvest''s bounty, to collect rare plants and ingredients, and to improve your fishing and livestock farming.'
-starting_coordinates: '4,9' # The coordinates in the skill tree the player sees first when switching to the skill tree
+display_name: '&7Mining'
+icon: IRON_PICKAXE
+description: '&8Practice Mining to increase your ore extraction, increase the effectiveness of blast mining, and to gain rare minerals useful in crafting'
 
-levelbar_title: '&7Farming &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'
-levelbar_color: GREEN # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
+levelbar_title: '&7Mining &cLV %lv_current% &4%exp_current%&7/&4%exp_next%'
+levelbar_color: RED # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 
-break_limit_ultra_harvesting: 128 # Maximum amount of blocks the Ultra Harvesting special ability is allowed to break
-instant_pickup_ultra_harvesting: true # If true, drops from ultra harvesting are transferred to the player immediately. If false, they drop normally.
+vein_mining_instant: false # If true, vein mining breaks blocks instantly
+break_limit_vein_mining: 64 # Maximum amount of blocks the Vein Mining special ability is allowed to break
+instant_pickup_vein_mining: true # If true, drops from vein mining are transferred to the player immediately. If false, they drop normally.
 
-fishing_luck_of_the_sea_potency: 1.0 # The luck tiers added per level of Luck of the Sea. Higher levels result in better rewards
-fishing_luck_potency: 0.33 # The luck tiers added per level of Luck. Higher levels result in better rewards
+quickmode_toggle_on: '&cOverdrive enabled'
+quickmode_toggle_off: '&cOverdrive disabled'
+
+forgiving_multipliers: true # drop multipliers below 0 will, if false, sometimes cause blocks mined to not drop anything.
+# if true, the drop amount can not go below 1 so only blocks that drop multiple items (such as redstone ore, lapis lazuli ore,
+# gold/iron ore with fortune) will be affected, but everything else will drop at least 1.
+# This may be set to false if you desire a more grindy experience for your players, though it might be frustrating for them
+
+remove_tnt_chaining: true # if true, tnt will no longer be able to detonate other tnt. instead, tnt that otherwise would be
+# detonated drops as an item. Recommended to keep enabled for public servers
+
+cosmetic_outline: false # If true, vein miner-mined blocks get a cool particle outline when they break
+# this has no functionality, I just think it looks cool. probably not great for performance though idk
+outline_color: '#ff0000' # The color the particle outline should have (this is red :) )
+
+quickmode_block_values: # Values of blocks with the quick mining mode enabled, the blocks here count for more
+  # points than usual. unlisted blocks are defined as being worth 1. The more worth a block, the quicker the player loses
+  # saturation, hunger, or health when quick mining them.
+  # This ability also only works on blocks that give the player experience when mined (defined in progression_mining.yml)
+  OBSIDIAN: 30
+  END_STONE: 3
+  DEEPSLATE: 3
+  DEEPSLATE_COAL_ORE: 3
+  DEEPSLATE_IRON_ORE: 3
+  DEEPSLATE_COPPER_ORE: 3
+  DEEPSLATE_GOLD_ORE: 3
+  DEEPSLATE_LAPIS_ORE: 3
+  DEEPSLATE_REDSTONE_ORE: 3
+  DEEPSLATE_DIAMOND_ORE: 3
+  DEEPSLATE_EMERALD_ORE: 3

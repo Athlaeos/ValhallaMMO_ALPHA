@@ -1,7 +1,16 @@
-package me.athlaeos.valhallammo.placeholder;
+package me.athlaeos.valhallammo.managers;
 
-import me.athlaeos.valhallammo.dom.SkillType;
-import me.athlaeos.valhallammo.materials.MaterialClass;
+import me.athlaeos.valhallammo.items.EnchantmentType;
+import me.athlaeos.valhallammo.items.PotionType;
+import me.athlaeos.valhallammo.placeholder.placeholders.alchemy.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.enchanting.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.farming.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.landscaping.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.mining.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.smithing.SmithingEXPMultipliers;
+import me.athlaeos.valhallammo.placeholder.placeholders.smithing.SmithingSkill;
+import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.placeholder.Placeholder;
 import me.athlaeos.valhallammo.placeholder.placeholders.*;
 import org.bukkit.entity.Player;
 
@@ -18,106 +27,24 @@ public class PlaceholderManager {
     }
 
     public PlaceholderManager(){
-        registerPlaceholder(new EXPCurrent("%account_exp_current%", SkillType.ACCOUNT));
-        registerPlaceholder(new EXPCurrent("%smithing_exp_current%", SkillType.SMITHING));
-        registerPlaceholder(new EXPCurrent("%acrobatics_exp_current%", SkillType.ACROBATICS));
-        registerPlaceholder(new EXPCurrent("%alchemy_exp_current%", SkillType.ALCHEMY));
-        registerPlaceholder(new EXPCurrent("%archery_exp_current%", SkillType.ARCHERY));
-        registerPlaceholder(new EXPCurrent("%armor_heavy_exp_current%", SkillType.ARMOR_HEAVY));
-        registerPlaceholder(new EXPCurrent("%armor_light_exp_current%", SkillType.ARMOR_LIGHT));
-        registerPlaceholder(new EXPCurrent("%enchanting_exp_current%", SkillType.ENCHANTING));
-        registerPlaceholder(new EXPCurrent("%farming_exp_current%", SkillType.FARMING));
-        registerPlaceholder(new EXPCurrent("%mining_exp_current%", SkillType.MINING));
-        registerPlaceholder(new EXPCurrent("%trading_exp_current%", SkillType.TRADING));
-        registerPlaceholder(new EXPCurrent("%unarmed_exp_current%", SkillType.UNARMED));
-        registerPlaceholder(new EXPCurrent("%weapons_heavy_exp_current%", SkillType.WEAPONS_HEAVY));
-        registerPlaceholder(new EXPCurrent("%weapons_light_exp_current%", SkillType.WEAPONS_LIGHT));
-        registerPlaceholder(new EXPCurrent("%woodcutting_exp_current%", SkillType.WOODCUTTING));
+        // GENERAL/EVERYTHING
+        registerPlaceholder(new SkillEXPMultiplier("%exp_gain%"));
 
-        registerPlaceholder(new EXPNextLevel("%account_exp_next%", SkillType.ACCOUNT));
-        registerPlaceholder(new EXPNextLevel("%smithing_exp_next%", SkillType.SMITHING));
-        registerPlaceholder(new EXPNextLevel("%acrobatics_exp_next%", SkillType.ACROBATICS));
-        registerPlaceholder(new EXPNextLevel("%alchemy_exp_next%", SkillType.ALCHEMY));
-        registerPlaceholder(new EXPNextLevel("%archery_exp_next%", SkillType.ARCHERY));
-        registerPlaceholder(new EXPNextLevel("%armor_heavy_exp_next%", SkillType.ARMOR_HEAVY));
-        registerPlaceholder(new EXPNextLevel("%armor_light_exp_next%", SkillType.ARMOR_LIGHT));
-        registerPlaceholder(new EXPNextLevel("%enchanting_exp_next%", SkillType.ENCHANTING));
-        registerPlaceholder(new EXPNextLevel("%farming_exp_next%", SkillType.FARMING));
-        registerPlaceholder(new EXPNextLevel("%mining_exp_next%", SkillType.MINING));
-        registerPlaceholder(new EXPNextLevel("%trading_exp_next%", SkillType.TRADING));
-        registerPlaceholder(new EXPNextLevel("%unarmed_exp_next%", SkillType.UNARMED));
-        registerPlaceholder(new EXPNextLevel("%weapons_heavy_exp_next%", SkillType.WEAPONS_HEAVY));
-        registerPlaceholder(new EXPNextLevel("%weapons_light_exp_next%", SkillType.WEAPONS_LIGHT));
-        registerPlaceholder(new EXPNextLevel("%woodcutting_exp_next%", SkillType.WOODCUTTING));
-
-        registerPlaceholder(new EXPPercentProgress("%account_exp_percent%", SkillType.ACCOUNT));
-        registerPlaceholder(new EXPPercentProgress("%smithing_exp_percent%", SkillType.SMITHING));
-        registerPlaceholder(new EXPPercentProgress("%acrobatics_exp_percent%", SkillType.ACROBATICS));
-        registerPlaceholder(new EXPPercentProgress("%alchemy_exp_percent%", SkillType.ALCHEMY));
-        registerPlaceholder(new EXPPercentProgress("%archery_exp_percent%", SkillType.ARCHERY));
-        registerPlaceholder(new EXPPercentProgress("%armor_heavy_exp_percent%", SkillType.ARMOR_HEAVY));
-        registerPlaceholder(new EXPPercentProgress("%armor_light_exp_percent%", SkillType.ARMOR_LIGHT));
-        registerPlaceholder(new EXPPercentProgress("%enchanting_exp_percent%", SkillType.ENCHANTING));
-        registerPlaceholder(new EXPPercentProgress("%farming_exp_percent%", SkillType.FARMING));
-        registerPlaceholder(new EXPPercentProgress("%mining_exp_percent%", SkillType.MINING));
-        registerPlaceholder(new EXPPercentProgress("%trading_exp_percent%", SkillType.TRADING));
-        registerPlaceholder(new EXPPercentProgress("%unarmed_exp_percent%", SkillType.UNARMED));
-        registerPlaceholder(new EXPPercentProgress("%weapons_heavy_exp_percent%", SkillType.WEAPONS_HEAVY));
-        registerPlaceholder(new EXPPercentProgress("%weapons_light_exp_percent%", SkillType.WEAPONS_LIGHT));
-        registerPlaceholder(new EXPPercentProgress("%woodcutting_exp_percent%", SkillType.WOODCUTTING));
-
-        registerPlaceholder(new EXPTotal("%account_exp_total%", SkillType.ACCOUNT));
-        registerPlaceholder(new EXPTotal("%smithing_exp_total%", SkillType.SMITHING));
-        registerPlaceholder(new EXPTotal("%acrobatics_exp_total%", SkillType.ACROBATICS));
-        registerPlaceholder(new EXPTotal("%alchemy_exp_total%", SkillType.ALCHEMY));
-        registerPlaceholder(new EXPTotal("%archery_exp_total%", SkillType.ARCHERY));
-        registerPlaceholder(new EXPTotal("%armor_heavy_exp_total%", SkillType.ARMOR_HEAVY));
-        registerPlaceholder(new EXPTotal("%armor_light_exp_total%", SkillType.ARMOR_LIGHT));
-        registerPlaceholder(new EXPTotal("%enchanting_exp_total%", SkillType.ENCHANTING));
-        registerPlaceholder(new EXPTotal("%farming_exp_total%", SkillType.FARMING));
-        registerPlaceholder(new EXPTotal("%mining_exp_total%", SkillType.MINING));
-        registerPlaceholder(new EXPTotal("%trading_exp_total%", SkillType.TRADING));
-        registerPlaceholder(new EXPTotal("%unarmed_exp_total%", SkillType.UNARMED));
-        registerPlaceholder(new EXPTotal("%weapons_heavy_exp_total%", SkillType.WEAPONS_HEAVY));
-        registerPlaceholder(new EXPTotal("%weapons_light_exp_total%", SkillType.WEAPONS_LIGHT));
-        registerPlaceholder(new EXPTotal("%woodcutting_exp_total%", SkillType.WOODCUTTING));
-
-        registerPlaceholder(new LevelCurrent("%account_level%", SkillType.ACCOUNT));
-        registerPlaceholder(new LevelCurrent("%smithing_level%", SkillType.SMITHING));
-        registerPlaceholder(new LevelCurrent("%acrobatics_level%", SkillType.ACROBATICS));
-        registerPlaceholder(new LevelCurrent("%alchemy_level%", SkillType.ALCHEMY));
-        registerPlaceholder(new LevelCurrent("%archery_level%", SkillType.ARCHERY));
-        registerPlaceholder(new LevelCurrent("%armor_heavy_level%", SkillType.ARMOR_HEAVY));
-        registerPlaceholder(new LevelCurrent("%armor_light_level%", SkillType.ARMOR_LIGHT));
-        registerPlaceholder(new LevelCurrent("%enchanting_level%", SkillType.ENCHANTING));
-        registerPlaceholder(new LevelCurrent("%farming_level%", SkillType.FARMING));
-        registerPlaceholder(new LevelCurrent("%mining_level%", SkillType.MINING));
-        registerPlaceholder(new LevelCurrent("%trading_level%", SkillType.TRADING));
-        registerPlaceholder(new LevelCurrent("%unarmed_level%", SkillType.UNARMED));
-        registerPlaceholder(new LevelCurrent("%weapons_heavy_level%", SkillType.WEAPONS_HEAVY));
-        registerPlaceholder(new LevelCurrent("%weapons_light_level%", SkillType.WEAPONS_LIGHT));
-        registerPlaceholder(new LevelCurrent("%woodcutting_level%", SkillType.WOODCUTTING));
-
-        registerPlaceholder(new LevelNext("%account_level_next%", SkillType.ACCOUNT));
-        registerPlaceholder(new LevelNext("%smithing_level_next%", SkillType.SMITHING));
-        registerPlaceholder(new LevelNext("%acrobatics_level_next%", SkillType.ACROBATICS));
-        registerPlaceholder(new LevelNext("%alchemy_level_next%", SkillType.ALCHEMY));
-        registerPlaceholder(new LevelNext("%archery_level_next%", SkillType.ARCHERY));
-        registerPlaceholder(new LevelNext("%armor_heavy_level_next%", SkillType.ARMOR_HEAVY));
-        registerPlaceholder(new LevelNext("%armor_light_level_next%", SkillType.ARMOR_LIGHT));
-        registerPlaceholder(new LevelNext("%enchanting_level_next%", SkillType.ENCHANTING));
-        registerPlaceholder(new LevelNext("%farming_level_next%", SkillType.FARMING));
-        registerPlaceholder(new LevelNext("%mining_level_next%", SkillType.MINING));
-        registerPlaceholder(new LevelNext("%trading_level_next%", SkillType.TRADING));
-        registerPlaceholder(new LevelNext("%unarmed_level_next%", SkillType.UNARMED));
-        registerPlaceholder(new LevelNext("%weapons_heavy_level_next%", SkillType.WEAPONS_HEAVY));
-        registerPlaceholder(new LevelNext("%weapons_light_level_next%", SkillType.WEAPONS_LIGHT));
-        registerPlaceholder(new LevelNext("%woodcutting_level_next%", SkillType.WOODCUTTING));
+        for (String skill : SkillProgressionManager.getInstance().getAllSkills().keySet()){
+            String name = skill.toLowerCase();
+            registerPlaceholder(new EXPCurrent("%" + name + "_exp_current%", skill));
+            registerPlaceholder(new EXPNextLevel("%" + name + "_exp_next%", skill));
+            registerPlaceholder(new EXPPercentProgress("%" + name + "_exp_percent%", skill));
+            registerPlaceholder(new EXPTotal("%" + name + "_exp_total%", skill));
+            registerPlaceholder(new LevelCurrent("%" + name + "_level%", skill));
+            registerPlaceholder(new LevelNext("%" + name + "_level_next%", skill));
+        }
 
         registerPlaceholder(new GeneralPlayerName("%player_name%"));
 
         registerPlaceholder(new GeneralPlayerNickName("%player_nickname%"));
 
+        // SMITHING
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_general%", null));
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_wood%", MaterialClass.WOOD));
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_leather%", MaterialClass.LEATHER));
@@ -132,20 +59,91 @@ public class PlaceholderManager {
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_bow%", MaterialClass.BOW));
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_crossbow%", MaterialClass.CROSSBOW));
 
-        registerPlaceholder(new SmithingSkill("%skill_general%", null));
-        registerPlaceholder(new SmithingSkill("%skill_wood%", MaterialClass.WOOD));
-        registerPlaceholder(new SmithingSkill("%skill_leather%", MaterialClass.LEATHER));
-        registerPlaceholder(new SmithingSkill("%skill_stone%", MaterialClass.STONE));
-        registerPlaceholder(new SmithingSkill("%skill_chain%", MaterialClass.CHAINMAIL));
-        registerPlaceholder(new SmithingSkill("%skill_iron%", MaterialClass.IRON));
-        registerPlaceholder(new SmithingSkill("%skill_gold%", MaterialClass.GOLD));
-        registerPlaceholder(new SmithingSkill("%skill_diamond%", MaterialClass.DIAMOND));
-        registerPlaceholder(new SmithingSkill("%skill_netherite%", MaterialClass.NETHERITE));
-        registerPlaceholder(new SmithingSkill("%skill_prismarine%", MaterialClass.PRISMARINE));
-        registerPlaceholder(new SmithingSkill("%skill_membrane%", MaterialClass.MEMBRANE));
-        registerPlaceholder(new SmithingSkill("%skill_bow%", MaterialClass.BOW));
-        registerPlaceholder(new SmithingSkill("%skill_crossbow%", MaterialClass.CROSSBOW));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_general%", null));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_wood%", MaterialClass.WOOD));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_leather%", MaterialClass.LEATHER));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_stone%", MaterialClass.STONE));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_chain%", MaterialClass.CHAINMAIL));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_iron%", MaterialClass.IRON));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_gold%", MaterialClass.GOLD));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_diamond%", MaterialClass.DIAMOND));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_netherite%", MaterialClass.NETHERITE));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_prismarine%", MaterialClass.PRISMARINE));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_membrane%", MaterialClass.MEMBRANE));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_bow%", MaterialClass.BOW));
+        registerPlaceholder(new SmithingSkill("%smithing_skill_crossbow%", MaterialClass.CROSSBOW));
 
+        // ALCHEMY
+        registerPlaceholder(new AlchemySkill("%alchemy_skill_general%", null));
+        registerPlaceholder(new AlchemySkill("%alchemy_skill_debuff%", PotionType.DEBUFF));
+        registerPlaceholder(new AlchemySkill("%alchemy_skill_buff%", PotionType.BUFF));
+        registerPlaceholder(new AlchemyPotionVelocity("%alchemy_potion_velocity%"));
+        registerPlaceholder(new AlchemyBrewingSpeed("%alchemy_brewing_speed%"));
+        registerPlaceholder(new AlchemyIngredientSaveChance("%alchemy_ingredient_save_chance%"));
+        registerPlaceholder(new AlchemyPotionSaveChance("%alchemy_potion_save_chance%"));
+
+        // ENCHANTING
+        registerPlaceholder(new EnchantingSkill("%enchanting_skill_general%", null));
+        registerPlaceholder(new EnchantingSkill("%enchanting_skill_vanilla%", EnchantmentType.VANILLA));
+        registerPlaceholder(new EnchantingSkill("%enchanting_skill_custom%", EnchantmentType.CUSTOM));
+        registerPlaceholder(new EnchantingMaxCustomAllowed("%enchanting_max_custom_allowed%"));
+        registerPlaceholder(new EnchantingLapisSaveChance("%enchanting_lapis_save_chance%"));
+        registerPlaceholder(new EnchantingRefundChance("%enchanting_refund_chance%"));
+        registerPlaceholder(new EnchantingRefundAmount("%enchanting_refund_amount%"));
+        registerPlaceholder(new EnchantingVanillaEXPMultiplier("%enchanting_vanilla_exp_multiplier%"));
+        registerPlaceholder(new EnchantingAmplifyChance("%enchanting_amplify_chance%"));
+
+        // FARMING
+        registerPlaceholder(new FarmingAnimalDamageMultiplier("%farming_animal_damage_multiplier%"));
+        registerPlaceholder(new FarmingAnimalDropMultiplier("%farming_animal_drop_multiplier%"));
+        registerPlaceholder(new FarmingBabyAnimalAgeMultiplier("%farming_animal_age_multiplier%"));
+        registerPlaceholder(new FarmingBeeAggroImmune("%farming_bee_aggro_immune%"));
+        registerPlaceholder(new FarmingBreedingEXPMultiplier("%farming_breeding_exp_multiplier%"));
+        registerPlaceholder(new FarmingBreedingVanillaEXPMultiplier("%farming_breeding_vanilla_exp_multiplier%"));
+        registerPlaceholder(new FarmingDropMultiplier("%farming_drop_multiplier%"));
+        registerPlaceholder(new FarmingFarmingEXPMultiplier("%farming_farming_exp_multiplier%"));
+        registerPlaceholder(new FarmingFarmingVanillaEXPReward("%farming_farming_exp_reward%"));
+        registerPlaceholder(new FarmingFishingEXPMultiplier("%farming_fishing_exp_multiplier%"));
+        registerPlaceholder(new FarmingFishingRewardTier("%farming_fishing_reward_tier%"));
+        registerPlaceholder(new FarmingFishingTimeMultiplier("%farming_fishing_time_multiplier%"));
+        registerPlaceholder(new FarmingFishingVanillaEXPMultiplier("%farming_fishing_vanilla_exp_multiplier%"));
+        registerPlaceholder(new FarmingGeneralEXPMultiplier("%farming_general_exp_multiplier%"));
+        registerPlaceholder(new FarmingHiveHoneySaveChance("%farming_honey_save_chance%"));
+        registerPlaceholder(new FarmingInstantHarvestingUnlocked("%farming_instant_harvesting_unlocked%"));
+        registerPlaceholder(new FarmingRareDropMultiplier("%farming_rare_drop_multiplier%"));
+        registerPlaceholder(new FarmingUltraHarvestingCooldown("%farming_ultra_harvesting_cooldown_timestamp%"));
+
+        // MINING
+        registerPlaceholder(new BlastMiningDropMultiplier("%blast_drop_multiplier%"));
+        registerPlaceholder(new BlastMiningEXPMultiplier("%blast_exp_multiplier%"));
+        registerPlaceholder(new BlastMiningRareDropMultiplier("%blast_rare_drop_multiplier%"));
+        registerPlaceholder(new BlastRadiusMultiplier("%blast_tnt_radius_multiplier%"));
+        registerPlaceholder(new BlastTntFortuneLevel("%blast_fortune_level%"));
+        registerPlaceholder(new ExplosionDamageMultiplier("%blast_explosion_damage_multiplier%"));
+        registerPlaceholder(new MiningDropMultiplier("%mining_drop_multiplier%"));
+        registerPlaceholder(new MiningExperienceDropRate("%mining_exp_reward%"));
+        registerPlaceholder(new MiningEXPMultiplier("%mining_exp_multiplier%"));
+        registerPlaceholder(new MiningGeneralEXPMultiplier("%mining_general_exp_multiplier%"));
+        registerPlaceholder(new MiningOreExperienceMultiplier("%mining_ore_exp_multiplier%"));
+        registerPlaceholder(new MiningRareDropMultiplier("%mining_rare_drop_multiplier%"));
+        registerPlaceholder(new QuickMineDurabilityDamageMultiplier("%mining_quick_mine_durability_multiplier%"));
+        registerPlaceholder(new QuickMineHungerDrainSpeed("%mining_quick_mine_hunger_decay_capacity%"));
+
+        // LANDSCAPING
+        registerPlaceholder(new DiggingDropMultiplier("%digging_drop_multiplier%"));
+        registerPlaceholder(new DiggingRareDropMultiplier("%digging_rare_drop_multiplier%"));
+        registerPlaceholder(new DiggingVanillaEXPReward("%digging_exp_reward%"));
+        registerPlaceholder(new LandscapingDiggingEXPMultiplier("%landscaping_digging_exp_multiplier%"));
+        registerPlaceholder(new LandscapingGeneralEXPMultiplier("%landscaping_general_exp_multiplier%"));
+        registerPlaceholder(new LandscapingWoodcuttingEXPMultiplier("%landscaping_woodcutting_exp_multiplier%"));
+        registerPlaceholder(new LandscapingWoodstrippingEXPMultiplier("%landscaping_woodstripping_exp_multiplier%"));
+        registerPlaceholder(new LandscapingSaplingReplaceUnlocked("%landscaping_sapling_replace_unlocked%"));
+        registerPlaceholder(new WoodcuttingDropMultiplier("%woodcutting_drop_multiplier%"));
+        registerPlaceholder(new WoodcuttingRareDropMultiplier("%woodcutting_rare_drop_multiplier%"));
+        registerPlaceholder(new WoodstrippingRareDropMultiplier("%woodstripping_drop_multiplier%"));
+        registerPlaceholder(new WoodcuttingVanillaEXPReward("%woodcutting_exp_reward%"));
+
+        // ACCOUNT
         registerPlaceholder(new Skillpoints("%skillpoints%"));
     }
 

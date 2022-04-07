@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.materials.blockstatevalidations;
+package me.athlaeos.valhallammo.items.blockstatevalidations;
 
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
@@ -9,6 +9,8 @@ public class CauldronNeedsWaterValidation extends CraftValidation {
 
     public CauldronNeedsWaterValidation(){
         this.block = Material.CAULDRON;
+        this.icon = Material.WATER_BUCKET;
+        this.compatibleMaterials = convertStringsToMaterials("WATER_CAULDRON", "CAULDRON"/*, "LAVA_CAULDRON", "POWDERED_SNOW_CAULDRON"*/);
         this.name = "requirement_cauldron_water";
         this.displayName = Utils.chat("&9Cauldron needs water");
         this.description = Utils.chat("&7When crafting with a cauldron, it requires at least 1 level of water " +
@@ -17,13 +19,11 @@ public class CauldronNeedsWaterValidation extends CraftValidation {
 
     @Override
     public boolean check(Block block) {
-        if (block.getType() == Material.CAULDRON){
-            if (block.getBlockData() instanceof Levelled){
-                Levelled cauldron = (Levelled) block.getBlockData();
-                return cauldron.getLevel() > 0;
-            }
+        if (block.getBlockData() instanceof Levelled){
+            Levelled cauldron = (Levelled) block.getBlockData();
+            return cauldron.getLevel() > 0;
         }
-        return true;
+        return false;
     }
 
     @Override

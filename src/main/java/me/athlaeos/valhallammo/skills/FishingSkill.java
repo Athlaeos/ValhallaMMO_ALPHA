@@ -1,10 +1,7 @@
 package me.athlaeos.valhallammo.skills;
 
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerFishEvent;
 
-public interface ItemConsumptionSkill {
-    void onItemConsume(PlayerItemConsumeEvent event);
-
-    void onHungerChange(FoodLevelChangeEvent event);
+public interface FishingSkill {
+    void onFishing(PlayerFishEvent event);
 }

@@ -8,14 +8,13 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
-public class PotionSetPotionTypeModifier extends DynamicItemModifier {
+public class PotionCancelIfPotionTypeModifier extends DynamicItemModifier {
     private final PotionType type;
     private final String typeString;
 
-    public PotionSetPotionTypeModifier(String name, double strength, ModifierPriority priority, PotionType type, Material icon) {
+    public PotionCancelIfPotionTypeModifier(String name, double strength, ModifierPriority priority, PotionType type, Material icon) {
         super(name, strength, priority);
         this.type = type;
         typeString = Utils.toPascalCase(type.toString().replace("_", " "));
@@ -30,10 +29,9 @@ public class PotionSetPotionTypeModifier extends DynamicItemModifier {
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 0;
-        this.description = Utils.chat("&7Sets the potion type to &e" + typeString + " &7. -nThe recipe is cancelled if" +
-                " the potion already has this type. This can be used to add" +
-                " conditions to following recipes.");
-        this.displayName = Utils.chat("&7&lSet Potion Type: &e&l" + typeString);
+        this.description = Utils.chat("&7Cancels the recipe if the potion has type &e" + typeString + " &7." +
+                " This can be used to add conditions to following recipes.");
+        this.displayName = Utils.chat("&7&lCancel if Potion Type: &e&l" + typeString);
         this.icon = icon;
     }
 
@@ -42,18 +40,15 @@ public class PotionSetPotionTypeModifier extends DynamicItemModifier {
         if (outputItem == null) return null;
         if (outputItem.getItemMeta() == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
-        if (!this.use) return outputItem;
+        if (!this.validate) return outputItem;
         PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
         if (meta.getBasePotionData().getType() == type) return null;
-
-        meta.setBasePotionData(new PotionData(type, meta.getBasePotionData().isExtended(), meta.getBasePotionData().isUpgraded()));
-        outputItem.setItemMeta(meta);
 
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Sets the potion type to &e" + typeString + "&7. Recipe is cancelled if potion already has this property.");
+        return Utils.chat("&7Cancels the recipe if the potion has type &e" + typeString + "&7.");
     }
 }

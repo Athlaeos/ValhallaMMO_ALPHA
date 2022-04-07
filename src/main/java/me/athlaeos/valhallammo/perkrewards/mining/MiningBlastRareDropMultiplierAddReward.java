@@ -2,28 +2,27 @@ package me.athlaeos.valhallammo.perkrewards.mining;
 
 import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.mining.MiningProfile;
 import org.bukkit.entity.Player;
 
-public class MiningMiningRareDropMultiplierAddReward extends PerkReward {
-    private float exp = 0F;
+public class MiningBlastRareDropMultiplierAddReward extends PerkReward {
+    private float multiplier = 0F;
 
-    public MiningMiningRareDropMultiplierAddReward(String name, Object argument) {
+    public MiningBlastRareDropMultiplierAddReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.MINING);
+        Profile profile = ProfileManager.getProfile(player, "MINING");
         if (profile == null) return;
         if (profile instanceof MiningProfile){
             MiningProfile miningProfile = (MiningProfile) profile;
-            miningProfile.setMiningRareDropRateMultiplier(miningProfile.getMiningRareDropRateMultiplier() + exp);
-            ProfileUtil.setProfile(player, miningProfile, SkillType.MINING);
+            miningProfile.setBlastMiningRareDropRateMultiplier(miningProfile.getBlastMiningRareDropRateMultiplier() + multiplier);
+            ProfileManager.setProfile(player, miningProfile, "MINING");
         }
     }
 
@@ -32,11 +31,11 @@ public class MiningMiningRareDropMultiplierAddReward extends PerkReward {
         super.setArgument(argument);
         if (argument != null){
             if (argument instanceof Float){
-                exp = (float) argument;
+                multiplier = (float) argument;
             }
             if (argument instanceof Double){
                 double temp = (Double) argument;
-                exp = (float) temp;
+                multiplier = (float) temp;
             }
         }
     }

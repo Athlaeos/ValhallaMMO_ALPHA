@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class FlagAddUnbreakableModifier extends DynamicItemModifier {
-    public FlagAddUnbreakableModifier(String name, double strength, ModifierPriority priority) {
+public class UnbreakableSetModifier extends DynamicItemModifier {
+    public UnbreakableSetModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;

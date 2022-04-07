@@ -1,0 +1,57 @@
+title: '&fIntroduction to ValhallaMMO'
+author: 'Athlaeos' # you can insert your own name or anything else here, if you want
+model_data: -1 # custom model data of the book, in case you want it to have a custom texture
+pages:
+  # Pages can only contain up to 798 characters, but each line also can't exceed a certain length.
+  # You can give yourself a book with '/valhalla givebook' to see what it looks like
+  - 'Welcome to &#ae00ffValhalla&#4000ffMMO&r<br>
+
+    ValhallaMMO introduces some
+    new mechanics to the game,
+    this book will introduce
+    the essential basics.'
+  - 'Custom Crafting<br>
+
+    &#4000ffSneak Right-Click &rwith an
+    &#ae00ffempty hand&r on a crafting
+    station to open the &#ae00ffCrafting
+    GUI&r.<br><br>&#4000ffSneak Right-Click &rwith an
+    &#ae00ffitem&r on a crafting station
+    to open that item''s &#ae00ffTinkering
+    GUI&r.'
+  - 'Once a recipe from either GUIs
+    is selected, &#4000ffhold Right-Click&r
+    on that crafting station to
+    craft or tinker the item.<br>
+
+    Crafting creates something
+    new, tinkering improves
+    the item further'
+  - 'Some examples of crafting
+    stations are:<br>
+    - Crafting Table<br>
+    - Anvil<br>
+    - Campfire<br>
+    - Cauldron<br>
+    - Grindstone<br>
+    - Smooth Andesite Slab<br>
+    - Fletching Table<br>'
+  - 'Crafting tools this way
+    earns you &#4000ffSmithing EXP&r,
+    level up &#4000ffSmithing&r and your
+    crafted tools will become
+    higher quality.<br><br>You can create some truly powerful
+    items this way by training
+    your &#4000ffSmithing&r skill'
+  - '&#4000ffSmithing &ris one of many
+    skills ValhallaMMO introduces.<br>Each skill you level gives
+    you &#4000ffPower&r, level up &#4000ffPower&r
+    to get &#ae00ffSkill Points&r, then
+    you can invest &#ae00ffSkill Points&r
+    into perks.<br>
+
+    Use the command &#ae00ff/skills &rto
+    access your skills.'
+  - 'I encourage you to experiment
+    and explore ValhallaMMO further,
+    and I hope you enjoy it'

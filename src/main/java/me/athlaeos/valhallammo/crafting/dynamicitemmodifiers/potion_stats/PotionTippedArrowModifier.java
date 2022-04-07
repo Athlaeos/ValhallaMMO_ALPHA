@@ -3,13 +3,18 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
+import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
+import me.athlaeos.valhallammo.managers.PotionAttributesManager;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class PotionSplashModifier extends DynamicItemModifier {
-    public PotionSplashModifier(String name, double strength, ModifierPriority priority) {
+import java.util.Collection;
+
+public class PotionTippedArrowModifier extends DynamicItemModifier {
+    public PotionTippedArrowModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -23,18 +28,29 @@ public class PotionSplashModifier extends DynamicItemModifier {
         this.minStrength = 0;
         this.maxStrength = 0;
 
-        this.description = Utils.chat("&7Converts the item into a splash potion. Recipe is cancelled if item " +
-                "already is a splash potion");
-        this.displayName = Utils.chat("&7&lSplash Potion");
-        this.icon = Material.SPLASH_POTION;
+        this.description = Utils.chat("&7Converts the item into a tipped arrow. Recipe is cancelled if item " +
+                "already is a tipped arrow. Tipped arrows are assumed to be made out of lingering potions, " +
+                "so any custom potion effects they have will have their duration halved.");
+        this.displayName = Utils.chat("&7&lTipped Arrow");
+        this.icon = Material.TIPPED_ARROW;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
 
-        if (outputItem.getType() == Material.SPLASH_POTION) return null;
-        outputItem.setType(Material.SPLASH_POTION);
+        if (outputItem.getType() == Material.TIPPED_ARROW) return null;
+        outputItem.setType(Material.TIPPED_ARROW);
+        PotionEffectManager.renamePotion(outputItem, true);
+
+        Collection<PotionEffectWrapper> potionEffects = PotionAttributesManager.getInstance().getCurrentStats(outputItem);
+        if (!potionEffects.isEmpty()){
+            for (PotionEffectWrapper potionEffect : potionEffects){
+//                if (PotionEffectType.getByName(potionEffect.getPotionEffect()) == null) continue;
+                potionEffect.setDuration((int) Math.floor(potionEffect.getDuration() / 2D));
+            }
+            PotionAttributesManager.getInstance().setStats(outputItem, potionEffects);
+        }
 
         return outputItem;
     }

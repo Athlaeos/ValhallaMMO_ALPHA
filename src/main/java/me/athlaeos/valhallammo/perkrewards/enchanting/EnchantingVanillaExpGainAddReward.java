@@ -1,28 +1,28 @@
 package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class EnchantingAmplifyChanceAddReward extends PerkReward {
-    private float chance = 0F;
+public class EnchantingVanillaExpGainAddReward extends PerkReward {
+    private float multiplier = 0F;
 
-    public EnchantingAmplifyChanceAddReward(String name, Object argument) {
+    public EnchantingVanillaExpGainAddReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ENCHANTING);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
         if (profile instanceof EnchantingProfile){
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
-            enchantingProfile.setVanillaEnchantmentAmplifyChance(enchantingProfile.getVanillaEnchantmentAmplifyChance() + chance);
-            ProfileUtil.setProfile(player, enchantingProfile, SkillType.ENCHANTING);
+            enchantingProfile.setVanillaExpGainMultiplier(enchantingProfile.getVanillaExpGainMultiplier() + multiplier);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -31,15 +31,20 @@ public class EnchantingAmplifyChanceAddReward extends PerkReward {
         super.setArgument(argument);
         if (argument != null){
             if (argument instanceof Integer){
-                chance = (float) (Integer) argument;
+                multiplier = (float) (Integer) argument;
             }
             if (argument instanceof Float){
-                chance = (float) argument;
+                multiplier = (float) argument;
             }
             if (argument instanceof Double){
                 double temp = (Double) argument;
-                chance = (float) temp;
+                multiplier = (float) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.DOUBLE;
     }
 }

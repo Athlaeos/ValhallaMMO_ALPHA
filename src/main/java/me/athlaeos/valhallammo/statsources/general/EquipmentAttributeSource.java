@@ -1,12 +1,13 @@
-package me.athlaeos.valhallammo.statsources;
+package me.athlaeos.valhallammo.statsources.general;
 
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
+import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import me.athlaeos.valhallammo.utility.EntityUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-public class EquipmentAttributeSource extends AccumulativeStatSource{
+public class EquipmentAttributeSource extends AccumulativeStatSource {
     private final String wrapper;
 
     /**
@@ -20,7 +21,7 @@ public class EquipmentAttributeSource extends AccumulativeStatSource{
     @Override
     public double add(Entity p, boolean use) {
         double combinedStrength = 0D;
-        for (ItemStack i : EntityUtils.getEntityEquipment(p, true)){
+        for (ItemStack i : EntityUtils.getEntityEquipment(p).getIterable(true)){
             if (i.getItemMeta() == null) continue;
             AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(i, wrapper);
             if (attributeWrapper != null){

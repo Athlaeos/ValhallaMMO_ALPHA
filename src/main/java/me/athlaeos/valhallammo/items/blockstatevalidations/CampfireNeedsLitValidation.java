@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.materials.blockstatevalidations;
+package me.athlaeos.valhallammo.items.blockstatevalidations;
 
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
@@ -9,7 +9,9 @@ public class CampfireNeedsLitValidation extends CraftValidation {
 
     public CampfireNeedsLitValidation(){
         this.block = Material.CAMPFIRE;
+        this.icon = Material.CAMPFIRE;
         this.name = "requirement_campfire_lit";
+        this.compatibleMaterials = convertStringsToMaterials("CAMPFIRE");
         this.displayName = Utils.chat("&9Campfire needs to be on");
         this.description = Utils.chat("&7When crafting with a campfire, it needs to be on " +
                 "to be used.");

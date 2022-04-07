@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_conditionals;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicEditable;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
-public class PotionColorModifier extends TripleArgDynamicItemModifier implements DynamicEditable {
-    public PotionColorModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority) {
+public class PotionColorConditionModifier extends TripleArgDynamicItemModifier implements DynamicEditable {
+    public PotionColorConditionModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority) {
         super(name, strength, strength2, strength3, priority);
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_CONDITIONALS;
 
         this.bigStepDecrease = 25D; // R
         this.bigStepIncrease = 25D;
@@ -42,10 +42,9 @@ public class PotionColorModifier extends TripleArgDynamicItemModifier implements
         this.minStrength3 = 0;
         this.maxStrength3 = 255D;
 
-        this.description = Utils.chat("&7Changes a potion's color given an RGB value. Also works on tipped arrows." +
-                " It is recommended to use an online RGB color picker to pick exactly which colors you want.");
-        this.displayName = Utils.chat("&c&lPotion Color");
-        this.icon = Material.RED_DYE;
+        this.description = Utils.chat("&7If the potion doesn't have the exact color given here, the recipe is cancelled.");
+        this.displayName = Utils.chat("&e&lCONDITION: Potion Color");
+        this.icon = Material.BLUE_DYE;
     }
 
     @Override
@@ -54,11 +53,12 @@ public class PotionColorModifier extends TripleArgDynamicItemModifier implements
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
         PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
         if (meta == null) return null;
+        if (meta.getColor() == null) return null;
+        if (meta.getColor().getRed() == (int) strength &&
+            meta.getColor().getGreen() == (int) strength2 &&
+            meta.getColor().getBlue() == (int) strength3) return outputItem;
 
-        meta.setColor(Color.fromRGB((int) strength, (int) strength2, (int) strength3));
-        outputItem.setItemMeta(meta);
-
-        return outputItem;
+        return null;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class PotionColorModifier extends TripleArgDynamicItemModifier implements
         int g = (int) strength2;
         int b = (int) strength3;
         String hex = Utils.rgbToHex(r, g, b);
-        return Utils.chat(String.format("&7RGB: &e%d&7, &e%d&7, &e%d&7. -nSetting the potion's color to %s", r, g, b,
+        return Utils.chat(String.format("&7RGB: &e%d&7, &e%d&7, &e%d&7. -nRequiring the color %s", r, g, b,
                 Utils.chat("&" + hex + hex)));
     }
 

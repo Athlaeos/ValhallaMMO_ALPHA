@@ -3,15 +3,19 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.managers.ItemTreatmentManager;
+import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
+import me.athlaeos.valhallammo.managers.PotionAttributesManager;
+import me.athlaeos.valhallammo.managers.AlchemyPotionTreatmentManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 
-public class DynamicAmplifierVanillaModifier extends DynamicItemModifier {
-    public DynamicAmplifierVanillaModifier(String name, double strength, ModifierPriority priority) {
+import java.util.Collection;
+
+public class DynamicPotionAmplifierModifier extends DynamicItemModifier {
+    public DynamicPotionAmplifierModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -24,27 +28,32 @@ public class DynamicAmplifierVanillaModifier extends DynamicItemModifier {
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 1000D;
-        this.description = Utils.chat("&7Updates the potion's amplifier strengths. The strength of the modifier " +
+        this.description = Utils.chat("&7Updates the potion's effect amplifiers. The strength of the modifier " +
                 "represents the % of the potion's quality rating used in determining its amplifier. Example: " +
                 "if an item has a quality rating of 150, setting a strength of 50% will update the " +
-                "item's knockback resistance to if it had a rating of 75, and 200% results in a rating of 300.");
-        this.displayName = Utils.chat("&c&lUpdate Knockback Resistance");
-        this.icon = Material.NETHERITE_CHESTPLATE;
+                "potion's effect amplifiers to if it had a rating of 75, and 200% results in a rating of 300.");
+        this.displayName = Utils.chat("&c&lUpdate Potion Effect Amplifiers");
+        this.icon = Material.GLOWSTONE_DUST;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
-        ItemMeta meta = outputItem.getItemMeta();
+        if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
+        PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
         if (meta == null) return null;
-        int quality = ItemTreatmentManager.getInstance().getItemsQuality(outputItem);
+        int quality = AlchemyPotionTreatmentManager.getInstance().getPotionQuality(outputItem);
         int finalQuality = (int) Math.round((strength / 100D) * quality);
-        ItemTreatmentManager.getInstance().applyAttributeScaling(outputItem, finalQuality, "GENERIC_KNOCKBACK_RESISTANCE");
+
+        Collection<PotionEffectWrapper> wrappers = PotionAttributesManager.getInstance().getCurrentStats(outputItem);
+        for (PotionEffectWrapper wrapper : wrappers){
+            AlchemyPotionTreatmentManager.getInstance().applyPotionEffectScaling(outputItem, finalQuality, AlchemyPotionTreatmentManager.Type.AMPLIFIER, wrapper.getPotionEffect());
+        }
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat(String.format("&7Setting the item's armor toughness to be &e%s%%&7 efficient with its quality score.", strength));
+        return Utils.chat(String.format("&7Setting the potion's amplifier strength to be &e%.1f%%&7 efficient with its quality score.", strength));
     }
 }

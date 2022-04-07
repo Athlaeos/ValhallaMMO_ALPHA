@@ -1,32 +1,23 @@
 package me.athlaeos.valhallammo.placeholder.placeholders;
 
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
-import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
-import me.athlaeos.valhallammo.skills.smithing.SmithingProfile;
+import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import org.bukkit.entity.Player;
 
-public class SmithingEXPMultipliers extends Placeholder {
-    private final MaterialClass materialClass;
+public class SkillEXPMultiplier extends Placeholder {
 
-    public SmithingEXPMultipliers(String placeholder, MaterialClass materialClass) {
+    public SkillEXPMultiplier(String placeholder) {
         super(placeholder);
-        this.materialClass = materialClass;
     }
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileUtil.getProfile(p, SkillType.SMITHING);
+        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
         if (profile != null){
-            if (profile instanceof SmithingProfile){
-                double multiplier;
-                if (materialClass == null){
-                    multiplier = ((SmithingProfile) profile).getGeneralCraftingExpMultiplier();
-                } else {
-                    multiplier = ((SmithingProfile) profile).getCraftingEXPMultiplier(materialClass);
-                }
+            if (profile instanceof AccountProfile){
+                double multiplier = ((AccountProfile) profile).getAllSkillEXPGain();
                 return s.replace(this.placeholder, String.format("%,.2f", multiplier));
             }
         }

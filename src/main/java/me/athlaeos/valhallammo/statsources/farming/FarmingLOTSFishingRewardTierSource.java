@@ -1,6 +1,6 @@
 package me.athlaeos.valhallammo.statsources.farming;
 
-import me.athlaeos.valhallammo.configutils.ConfigManager;
+import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -9,13 +9,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 
-public class FarmingLuckFishingRewardTierSource extends AccumulativeStatSource {
-    private double fishingLOTSPotency;
-    private double fishing_luck_potency;
-    public FarmingLuckFishingRewardTierSource(){
+public class FarmingLOTSFishingRewardTierSource extends AccumulativeStatSource {
+    private final double fishingLOTSPotency;
+    public FarmingLOTSFishingRewardTierSource(){
         YamlConfiguration farmingConfig = ConfigManager.getInstance().getConfig("skill_farming.yml").get();
         fishingLOTSPotency = farmingConfig.getDouble("fishing_luck_of_the_sea_potency");
-        fishing_luck_potency = farmingConfig.getDouble("fishing_luck_potency");
     }
 
     @Override

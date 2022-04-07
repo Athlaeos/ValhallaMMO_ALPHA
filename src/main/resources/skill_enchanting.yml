@@ -1,929 +1,279 @@
-# Here you configure how smithing is displayed within its skill tree
-display_name: '&7Smithing'
-icon: ANVIL
-description: '&8Practice Smithing to make tools and equipment of increasingly superior quality'
-starting_coordinates: '3,6' # The coordinates in the skill tree the player sees first when switching to the skill tree
+display_name: '&7Enchanting'
+icon: ENCHANTING_TABLE
+description: '&8Practice Enchanting to grant your equipment enchantments of epic strength'
 
-levelbar_title: '&7Smithing &eLV&e%lv_current% &6%exp_current%&7/&6%exp_next%'
-levelbar_color: YELLOW
+levelbar_title: '&7Enchanting &bLV&b%lv_current% &9%exp_current%&7/&9%exp_next%'
+levelbar_color: BLUE # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 
-# If true, the item's custom durability numbers are hidden from the item. If false, the extra durability is applied
-# as lore on the item.
-hide_durability: false
-
-quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
-  # If left empty, they won't appear.
-  0: '&cPoor'
-  50: '&7Decent'
-  100: '&7Great'
-  150: '&eEpic'
-  200: '&eLegendary'
-  250: '&6&lDivine'
-  300: '&8&lIncomprehensible'
-
-# Treatments
-hide_treatment_lore: false # If true, treatment lore does not appear on items at all
-# These treatments include TEMPERING, SHARPENING_FINE, ENGRAVING, and LEATHER_BINDING. As well as ARMOR_FITTING for armor,
-# WAX_COATING for wooden and stone tools,
-treatment_lore: # The treatment lores displayed on the item if hide_treatment_lore is false. If one is left empty, it does not appear.
-  # QUENCHING: '&cQuenched'
-  # TEMPERING: '&7Tempered'
-  # SHARPENING_ROUGH: '&8Rough Sharpened'
-  SHARPENING_FINE: '&7Razor Sharp'
-  # POLISHING: '&7Polished'
-  # ENGRAVING: '&aEngraved'
-  # LEATHER_BINDING: '&6Leather bound'
-  # WAX_COATING: '&eWaxed'
-  ARMOR_FITTING: '&7Well-Fit'
-  HEATING: '&6Red-Hot'
-  SUPERHEATING: '&eWhite-Hot'
-
-# Here you can fill in the formulas used for calculating durability values of items crafted using this custom system
-# The output will be a multiplier, which will be applied on the item's vanilla max durability and made into custom durability
-# "rating" refers to the quality points a player has or at which the item was made. Which will be general quality
-# points + material quality points. The item's rating can be improved ingame through various crafting/improvement methods.
-# General quality points apply to all materials, and each material can have their individual quality points which are then
-# added on top of the general crafting quality.
+# Here you can fill in the formulas used for calculating the amplifiers of vanilla and custom enchantments
+# The output will be applied on the item's default enchantment amplifiers
+# "rating" refers to the player's skill points. Which will be general skill points + specific skill points.
 # Example: A wooden tool has a max durability of 60, if the outcome of the wood formula is 0.5 its custom durability
 #          will be 30. The x-axis of the resulting graph represents the player's smithing skill, the y-axis the
 #          durability multiplier.
-scaling_durability:
-  wood:
-    scaling: '(9.2/300) * %rating% + 0.8' # This default formula results in a durability multiplier of 0.8x-10x linearly from 0-300 pts.
-    mode: 'MULTIPLIER' # The scaling mode, MULTIPLIER multiplies the tool's base attribute value by the outcome of the scaling.
+
+# For vanilla enchantments the "default" amplifier is considered the amplifiers of the enchantments the item has
+# directly after enchanting with the vanilla system. If a bow got power IV for example, it could be amplified to
+# power VI if the player has 300 "skill" with enchanting
+# For custom enchantments the "default" amplifier is whatever the amplifier was decided to be in the enchanting recipe
+scaling_amplifier:
+  power:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT' # The scaling mode, MULTIPLIER multiplies the item's base enchantment amplifier by the outcome of the scaling.
     # ADD_ON_DEFAULT instead adds the outcome of the scaling to the attribute's base value.
     lower_bound: 0 # The outcome of the scaling can't go below this value. If not a number, there is no lower bound.
     upper_bound: none # The outcome of the scaling can't go above this value. If not a number, there is no upper bound.
-  bow:
-    scaling: '(2.2/300) * %rating% + 0.8' # 0.8x-3x linearly from 0-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(2.1/300) * %rating% + 0.9' # 0.9x-5x linearly from 0-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(5.2/300) * %rating% + 0.8' # 0.8x-6x linearly from 0-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(5.2/280) * (%rating% - 20) + 0.8' # 0.8x-6x linearly from 20-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(3.2/280) * (%rating% - 20) + 0.8' # 0.8x-4x from 20-150 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(7.7/260) * (%rating% - 40) + 0.3' # 0.3x-8x from 40-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(3.2/260) * (%rating% - 40) + 0.8' # 0.8x-4x from 40-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(2.4/240) * (%rating% - 60) + 0.6' # 0.6x-3x from 60-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(2.4/220) * (%rating% - 80) + 0.6' # 0.6x-3x from 80-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(3.2/260) * (%rating% - 40) + 0.8' # Pretty much just applies to tridents. 0.8x-4x from 40-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.7/240) * (%rating% - 60) + 0.8' # Pretty much just applies to elytras. 0.8x-2.5x from 60-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.7/300) * %rating% + 0.8' # Applies to any other damageable item. 0.8x-2.5x from 0-300 pts.
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-# The same as durability, but for damage numbers.
-# Damage numbers are rounded to 1 decimal
-# Damage numbers are only updated once after crafting and again after sharpening
-# Keep in mind these damage values are further updated by the type of tool used to attack
-# Bows are an exception where instead it IS a multiplier translating to arrow velocity instead, which is more damage.
-scaling_damage:
-  wood:
-    scaling: '(1.7/300) * %rating% + 0.8' # This default formula results in a damage multiplier of 0.8x-2.5x at 300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.7/280) * (%rating% - 20) + 0.8' # 0.8x-2.5x damage from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.7/240) * (%rating% - 60) + 0.8' # 0.8x-2.5x damage from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.7/220) * (%rating% - 80) + 0.8' # 0.8x-2.5x damage from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x arrow velocity from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x arrow velocity from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.7/300) * %rating% + 0.8' # Applies for any other item that has been given custom damage
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_speed:
-  wood:
-    scaling: '(1.2/300) * %rating% + 0.8' # This default formula results in an attack speed multiplier of 0.8x-2x at 300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x damage from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x damage from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x damage from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom attack speed
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-# Stat value multipliers for armor.
-# These stats include knockback resistance (for netherite), toughness, and armor points
-# Updated once after crafting armor, and again after fitting armor.
-# The armor's armor values are multiplied by the outcome of each formula, and rounded to 1 decimal place.
-# Example: If the outcome of diamond armor is 2x, a diamond chestplate will give 16 armor points (8 bars)
-# instead of 8 (4 bars) and 8 toughness instead of 4
-scaling_armor:
-  leather:
-    scaling: '(1.2/300) * %rating% + 0.8' # This default formula results in an armor multiplier of 0.8x-2x at 300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x armor at 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-3x armor at 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x armor at 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x armor at 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x armor at 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.2/210) * (%rating% - 90) + 0.8' # 0.8x-2x armor at 90-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom armor
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_armor_toughness:
-  leather:
-    scaling: '(1.2/300) * %rating% + 0.8' # This default formula results in a toughness multiplier of 0.8x-2x at 300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x toughness at 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-3x toughness at 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x toughness at 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x toughness at 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x toughness at 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.2/210) * (%rating% - 90) + 0.8' # 0.8x-2x toughness at 90-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom armor toughness
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_armor_knockbackresist:
-  leather:
-    scaling: '(1.2/300) * %rating% + 0.8' # This default formula results in a knockback resistance multiplier of 0.8x-2x at 300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x knockback resistance at 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x knockback resistance at 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x knockback resistance at 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x knockback resistance at 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x knockback resistance at 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.2/210) * (%rating% - 90) + 0.8' # 0.8x-2x knockback resistance at 90-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom knockback resistance
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_health: # Applies for any item that has been given custom health boost
-  wood:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x health boost from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x health boost from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x health boost from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x health boost from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x health boost from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x health boost from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.2/230) * (%rating% - 70) + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.2/210) * (%rating% - 90) + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x health boost from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_movement_speed: # Applies for any item that has been given custom health boost
-  wood:
-    scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
+  punch:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  leather:
-    scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
+  sharpness:
+    scaling: '(5/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +3 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  stone:
-    scaling: '(0.2/280) * (%rating% - 20)' # +0%-20% movement speed from 20-300 pts
+  bane_of_arthropods:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  chainmail:
-    scaling: '(0.2/280) * (%rating% - 20)' # +0%-20% movement speed from 20-300 pts
+  smite:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  gold:
-    scaling: '(0.2/260) * (%rating% - 40)' # +0%-20% movement speed from 40-300 pts
+  depth_strider:
+    scaling: '(3/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  iron:
-    scaling: '(0.2/260) * (%rating% - 40)' # +0%-20% movement speed from 40-300 pts
+  efficiency:
+    scaling: '(5/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +3 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  diamond:
-    scaling: '(0.2/240) * (%rating% - 60)' # +0%-20% movement speed from 60-300 pts
+  unbreaking:
+    scaling: '(3/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  netherite:
-    scaling: '(0.2/240) * (%rating% - 60)' # +0%-20% movement speed from 60-300 pts
+  fire_aspect:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  prismarine:
-    scaling: '(0.2/230) * (%rating% - 70)' # +0%-20% movement speed from 70-300 pts
+  frost_walker:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  membrane:
-    scaling: '(0.2/210) * (%rating% - 90)' # +0%-20% movement speed from 90-300 pts
+  impaling:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  bow:
-    scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
+  knockback:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  crossbow:
-    scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
+  fortune:
+    scaling: '(3/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  other:
-    scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
+  looting:
+    scaling: '(3/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  loyalty:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  luck:
+    scaling: '(3/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  lure:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  respiration:
+    scaling: '(3/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  piercing:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  protection:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  projectile_protection:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  blast_protection:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fire_protection:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  feather_falling:
+    scaling: '(3/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +1 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  quick_charge:
+    scaling: '(3/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +1 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  riptide:
+    scaling: '(4/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  soul_speed:
+    scaling: '(3/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +2 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  sweeping_edge:
+    scaling: '(3/300) * %rating% - 2' # This default formula results in an amplifier amplification of -2 to +1 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  thorns:
+    scaling: '(2/300) * %rating% - 1' # This default formula results in an amplifier amplification of -1 to +1 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
 
-scaling_knockback: # Applies for any item that has been given custom knockback
-  wood:
-    scaling: '(0.7/300) * %rating% + 0.1' # +10%-80% knockback from 0-300 pts
+  # CUSTOM ENCHANTMENTS
+  fortify_alchemy_quality:
+    scaling: '(49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  stone:
-    scaling: '(0.7/280) * (%rating% - 20) + 0.1' # +10%-80% knockback from 20-300 pts
+  fortify_alchemy_brew_speed:
+    scaling: '(0.14/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  gold:
-    scaling: '(0.7/260) * (%rating% - 40) + 0.1' # +10%-80% knockback from 40-300 pts
+  fortify_alchemy_ingredient_save:
+    scaling: '(0.32/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +32 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  iron:
-    scaling: '(0.7/260) * (%rating% - 40) + 0.1' # +10%-80% knockback from 40-300 pts
+  fortify_alchemy_potion_save:
+    scaling: '(0.32/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +32 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  diamond:
-    scaling: '(0.7/240) * (%rating% - 60) + 0.1' # +10%-80% knockback from 60-300 pts
+  fortify_smithing:
+    scaling: '(49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  netherite:
-    scaling: '(0.7/240) * (%rating% - 60) + 0.1' # +10%-80% knockback from 60-300 pts
+  fortify_mining_extra_drops:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  prismarine:
-    scaling: '(0.7/230) * (%rating% - 70) + 0.1' # +10%-80% knockback from 70-300 pts
+  fortify_mining_rare_drops:
+    scaling: '(3/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +3 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  other:
-    scaling: '(0.7/300) * %rating% + 0.1' # +10%-80% knockback from 0-300 pts
+  fortify_woodcutting_extra_drops:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_woodcutting_rare_drops:
+    scaling: '(3/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +3 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_farming_extra_drops:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24% from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_farming_rare_drops:
+    scaling: '(0.99/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +99% from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_farming_fishing_tier:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +0.49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_acrobatics:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_weapons_damage:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_archery_damage:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_archery_accuracy:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_archery_ammo_save:
+    scaling: '(0.32/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +32 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_unarmed_damage:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  exp_gained_skill:
+    scaling: '(14/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +14 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  exp_gained_vanilla:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  damage_taken:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  damage_dealt:
+    scaling: '(0.09/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
 
-# The fraction of how much durability an item regains when repaired, can't exceed 1.0
-scaling_repair: '(0.7/300) * %rating% + 0.1' # This default formula results in 10%-80% of an item being repaired from 0-300 pts
-
-scaling_damage_resistance: # Applies for any item that has been given custom damage resistance
-  wood:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x damage resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x damage resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x damage resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x damage resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.4/240) * (%rating% - 60) + 0.1' # 0.1x-1.5x damage resistance from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.4/220) * (%rating% - 80) + 0.1' # 0.1x-1.5x damage resistance from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.4/230) * (%rating% - 70) + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.4/210) * (%rating% - 90) + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x damage resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_explosion_resistance: # Applies for any item that has been given custom damage resistance
-  wood:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x explosion resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x explosion resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x explosion resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x explosion resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.4/240) * (%rating% - 60) + 0.1' # 0.1x-1.5x explosion resistance from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.4/220) * (%rating% - 80) + 0.1' # 0.1x-1.5x explosion resistance from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.4/230) * (%rating% - 70) + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.4/210) * (%rating% - 90) + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x explosion resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_fire_resistance: # Applies for any item that has been given custom fire resistance
-  wood:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x fire resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x fire resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x fire resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x fire resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.4/240) * (%rating% - 60) + 0.1' # 0.1x-1.5x fire resistance from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.4/220) * (%rating% - 80) + 0.1' # 0.1x-1.5x fire resistance from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.4/230) * (%rating% - 70) + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.4/210) * (%rating% - 90) + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x fire resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_poison_resistance: # Applies for any item that has been given custom poison resistance
-  wood:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x poison resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x poison resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x poison resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x poison resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.4/240) * (%rating% - 60) + 0.1' # 0.1x-1.5x poison resistance from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.4/220) * (%rating% - 80) + 0.1' # 0.1x-1.5x poison resistance from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.4/230) * (%rating% - 70) + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.4/210) * (%rating% - 90) + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x poison resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_magic_resistance: # Applies for any item that has been given custom magic resistance
-  wood:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x magic resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x magic resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x magic resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x magic resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.4/240) * (%rating% - 60) + 0.1' # 0.1x-1.5x magic resistance from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.4/220) * (%rating% - 80) + 0.1' # 0.1x-1.5x magic resistance from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.4/230) * (%rating% - 70) + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.4/210) * (%rating% - 90) + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x magic resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-
-scaling_projectile_resistance: # Applies for any item that has been given custom damage resistance
-  wood:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  leather:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  stone:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x projectile resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  chainmail:
-    scaling: '(1.4/280) * (%rating% - 20) + 0.1' # 0.1x-1.5x projectile resistance from 20-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  gold:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x projectile resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  iron:
-    scaling: '(1.4/260) * (%rating% - 40) + 0.1' # 0.1x-1.5x projectile resistance from 40-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  diamond:
-    scaling: '(1.4/240) * (%rating% - 60) + 0.1' # 0.1x-1.5x projectile resistance from 60-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  netherite:
-    scaling: '(1.4/220) * (%rating% - 80) + 0.1' # 0.1x-1.5x projectile resistance from 80-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  prismarine:
-    scaling: '(1.4/230) * (%rating% - 70) + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  membrane:
-    scaling: '(1.4/210) * (%rating% - 90) + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  bow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  crossbow:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none
-  other:
-    scaling: '(1.4/300) * %rating% + 0.1' # 0.1x-1.5x projectile resistance from 0-300 pts
-    mode: 'MULTIPLIER'
-    lower_bound: 0
-    upper_bound: none

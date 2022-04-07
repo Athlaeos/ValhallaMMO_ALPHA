@@ -1,12 +1,12 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
-import me.athlaeos.valhallammo.ValhallaMMO;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,6 +16,7 @@ public class StaticRepairModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;
@@ -35,6 +36,7 @@ public class StaticRepairModifier extends DynamicItemModifier {
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
+        if (crafter == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
         if (!(meta instanceof Damageable)) return null;
@@ -44,8 +46,7 @@ public class StaticRepairModifier extends DynamicItemModifier {
             int maxDurability = CustomDurabilityManager.getInstance().getMaxDurability(outputItem);
             if (maxDurability <= CustomDurabilityManager.getInstance().getDurability(outputItem)) return null;
             int addDurability = (int) ((strength / 100D) * (double) maxDurability);
-            PlayerItemDamageEvent event = new PlayerItemDamageEvent(crafter, outputItem, -addDurability);
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+            CustomDurabilityManager.getInstance().damageItem(outputItem, -addDurability);
             return outputItem;
         }
         return null;

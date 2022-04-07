@@ -1,0 +1,20 @@
+display_name: '&7Landscaping'
+icon: IRON_AXE
+description: '&8Practice Landscaping to increase your wood harvesting, to find rare drops in the dirt, and to augment your building skills'
+
+levelbar_title: '&7Landscaping &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'
+levelbar_color: GREEN # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
+levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
+
+tree_capitator_instant: false # If true, tree capitator breaks trees instantly
+break_limit_tree_capitator: 128 # Maximum amount of blocks the Ultra Harvesting special ability is allowed to break
+leaf_decay_limit_tree_capitator: 384 # The max amount of leaves tree capitator will attempt to decay after treecapitator. If 0, this is disabled
+
+forgiving_multipliers: true # drop multipliers below 0 will, if false, sometimes cause blocks mined to not drop anything.
+# if true, the drop amount can not go below 1 so only blocks that drop multiple items (such as redstone ore, lapis lazuli ore,
+# gold/iron ore with fortune) will be affected, but everything else will drop at least 1.
+# This may be set to false if you desire a more grindy experience for your players, though it might be frustrating for them
+
+cosmetic_outline: false # If true, tree capitator-mined blocks get a cool particle outline when they break
+# this has no functionality, I just think it looks cool. probably not great for performance though idk
+outline_color: '#45fc03' # The color the particle outline should have (this is lime green :) )

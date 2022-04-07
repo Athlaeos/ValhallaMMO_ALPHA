@@ -3,62 +3,56 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.managers.ItemTreatmentManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class RandomizedQualityRatingModifier extends DuoArgDynamicItemModifier implements Cloneable{
+public class RandomizedAmountModifier extends DuoArgDynamicItemModifier implements Cloneable{
 
-    public RandomizedQualityRatingModifier(String name, double strength, double strength2, ModifierPriority priority) {
+    public RandomizedAmountModifier(String name, double strength, double strength2, ModifierPriority priority) {
         super(name, strength, strength2, priority);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS;
 
-        this.bigStepDecrease = 0.1;
-        this.bigStepIncrease = 0.1;
-        this.smallStepDecrease = 0.01;
-        this.smallStepIncrease = 0.01;
+        this.bigStepDecrease = 10;
+        this.bigStepIncrease = 10;
+        this.smallStepDecrease = 1;
+        this.smallStepIncrease = 1;
         this.defaultStrength = 0;
-        this.minStrength = 100D;
-        this.maxStrength = 1000D;
+        this.minStrength = -64D;
+        this.maxStrength = 64D;
 
-        this.bigStepDecrease2 = 0.1;
-        this.bigStepIncrease2 = 0.1;
-        this.smallStepDecrease2 = 0.01;
-        this.smallStepIncrease2 = 0.01;
+        this.bigStepDecrease2 = 10;
+        this.bigStepIncrease2 = 10;
+        this.smallStepDecrease2 = 1;
+        this.smallStepIncrease2 = 1;
         this.defaultStrength2 = 0;
-        this.minStrength2 = -100D;
-        this.maxStrength2 = 1000D;
-        this.description = Utils.chat("&7Changes the current quality rating of the item to be randomized between " +
-                "two percentages away from the current amount. Example: an item with a quality rating of 200 " +
-                "with this modifier set to -10% to 10% will get a quality rating between 180 and 220 (200 - 10% and " +
-                "200 + 10%). The same item with the modifier set to 20% to 30% would get a rating between 240 and 260.");
-        this.displayName = Utils.chat("&b&lUpdate Quality : RANDOM");
-        this.icon = Material.NETHER_STAR;
+        this.minStrength2 = -64D;
+        this.maxStrength2 = 64D;
+        this.description = Utils.chat("&7Changes the item's amount to be randomized between " +
+                "the two given values. Respects max stack size.");
+        this.displayName = Utils.chat("&b&lRandomize Amount");
+        this.icon = Material.STICK;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
-        int quality = ItemTreatmentManager.getInstance().getItemsQuality(outputItem);
-        if (quality == 0) return outputItem;
+        if (!this.use) return outputItem;
         if (strength > strength2) {
             crafter.sendMessage(Utils.chat("&cThis recipe has been improperly configured, randomized lower bound " +
                     "is not allowed to exceed the upper bound. Notify server owner(s)/admin(s)"));
             return null;
         }
-        int lowerBound = quality + (int) Math.floor(strength * quality);
-        int upperBound = quality + (int) Math.ceil(strength2 * quality);
-        int newQuality = Utils.getRandom().nextInt((upperBound + 1) - lowerBound) + lowerBound;
-        ItemTreatmentManager.getInstance().setItemsQuality(outputItem, newQuality);
+        int newAmount = Utils.getRandom().nextInt((int) strength2 + 1) + (int) strength;
+        outputItem.setAmount(Math.min(Math.max(1, newAmount), outputItem.getMaxStackSize()));
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat(String.format("&7Setting the item's quality rating to a random value between &e%.1f%% &7and &e%.1f%%&7 of the item's original quality.", strength * 100, strength2 * 100));
+        return Utils.chat(String.format("&7Setting the item's amount to a random value between &e%d &7and &e%d&7.", (int) strength, (int) strength2));
     }
 }

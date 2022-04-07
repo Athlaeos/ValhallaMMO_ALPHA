@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.configutils;
+package me.athlaeos.valhallammo.config;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 

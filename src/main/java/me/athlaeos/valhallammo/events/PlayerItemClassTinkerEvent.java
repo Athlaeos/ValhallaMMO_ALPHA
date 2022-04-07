@@ -1,27 +1,27 @@
 package me.athlaeos.valhallammo.events;
 
-import me.athlaeos.valhallammo.crafting.recipetypes.ItemImprovementRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.ItemClassImprovementRecipe;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class PlayerItemTinkerEvent extends Event implements Cancellable {
+public class PlayerItemClassTinkerEvent extends Event implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();
     private final Player player;
-    private ItemImprovementRecipe recipe;
+    private ItemClassImprovementRecipe recipe;
     private boolean applyDynamicModifiers = true;
     private boolean isCancelled;
     private final Block craftingStation;
 
-    public PlayerItemTinkerEvent(Player player, ItemImprovementRecipe recipe, Block craftingStation) {
+    public PlayerItemClassTinkerEvent(Player player, ItemClassImprovementRecipe recipe, Block craftingStation) {
         this.player = player;
         this.recipe = recipe;
         this.craftingStation = craftingStation;
     }
 
-    public PlayerItemTinkerEvent(Player player, ItemImprovementRecipe recipe, Block craftingStation, boolean applyDynamicModifiers) {
+    public PlayerItemClassTinkerEvent(Player player, ItemClassImprovementRecipe recipe, Block craftingStation, boolean applyDynamicModifiers) {
         this.player = player;
         this.recipe = recipe;
         this.craftingStation = craftingStation;
@@ -41,11 +41,11 @@ public class PlayerItemTinkerEvent extends Event implements Cancellable {
         return player;
     }
 
-    public ItemImprovementRecipe getRecipe() {
+    public ItemClassImprovementRecipe getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(ItemImprovementRecipe recipe) {
+    public void setRecipe(ItemClassImprovementRecipe recipe) {
         this.recipe = recipe;
     }
 

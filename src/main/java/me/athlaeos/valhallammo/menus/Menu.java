@@ -1,7 +1,8 @@
-package me.athlaeos.valhallammo.domain;
+package me.athlaeos.valhallammo.menus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -18,6 +19,8 @@ public abstract class Menu implements InventoryHolder {
     public abstract int getSlots();
 
     public abstract void handleMenu(InventoryClickEvent e);
+
+    public abstract void handleMenu(InventoryDragEvent e);
 
     public abstract void setMenuItems();
 

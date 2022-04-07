@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.materials.blockstatevalidations;
+package me.athlaeos.valhallammo.items.blockstatevalidations;
 
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.block.Block;

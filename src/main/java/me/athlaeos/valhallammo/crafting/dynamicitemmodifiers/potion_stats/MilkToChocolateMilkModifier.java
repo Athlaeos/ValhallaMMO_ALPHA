@@ -1,46 +1,37 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats;
 
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.items.potioneffectwrappers.VanillaPotionEffectWrapper;
+import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
 import me.athlaeos.valhallammo.managers.PotionAttributesManager;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
-public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
-    private String effect;
+import java.util.Collection;
 
-    public PotionEffectAddCustomModifier(String name, double duration_ticks, double amplifier, ModifierPriority priority, String effect, Material icon) {
-        super(name, duration_ticks, amplifier, priority);
-        this.effect = effect;
+public class MilkToChocolateMilkModifier extends DynamicItemModifier {
+    public MilkToChocolateMilkModifier(String name) {
+        super(name, 0, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_STATS;
 
-        this.bigStepDecrease = 15000;
-        this.bigStepIncrease = 15000;
-        this.smallStepDecrease = 1000;
-        this.smallStepIncrease = 1000;
-        this.defaultStrength = 30000;
-        this.minStrength = 1000;
-        this.maxStrength = Integer.MAX_VALUE;
+        this.bigStepDecrease = 0;
+        this.bigStepIncrease = 0;
+        this.smallStepDecrease = 0;
+        this.smallStepIncrease = 0;
+        this.defaultStrength = 0;
+        this.minStrength = 0;
+        this.maxStrength = 0;
 
-        this.bigStepDecrease2 = 10;
-        this.bigStepIncrease2 = 10;
-        this.smallStepDecrease2 = 1;
-        this.smallStepIncrease2 = 1;
-        this.defaultStrength2 = 1;
-        this.minStrength2 = 0;
-        this.maxStrength2 = 1000;
-
-        this.description = Utils.chat("&7Adds &e" + effect + " &7as a default potion effect to the potion/tipped arrow. " +
-                "-nThe recipe is cancelled if the item already has this potion effect. Can only be applied on potions and tipped arrows.");
-        this.displayName = Utils.chat("&7&lAdd Base Effect: &e&l" + effect);
-        this.icon = icon;
+        this.description = Utils.chat("&7turn milk to choco milk.");
+        this.displayName = Utils.chat("&7&lchocolate milk");
+        this.icon = Material.COCOA_BEANS;
     }
 
     @Override
@@ -49,13 +40,34 @@ public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
         PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
         if (meta == null) return null;
-        if (PotionAttributesManager.getInstance().getCurrentStats(outputItem).stream().anyMatch(potionEffectWrapper -> potionEffectWrapper.getPotionEffect().equals(effect))) return null;
-        PotionAttributesManager.getInstance().addDefaultStat(outputItem, new VanillaPotionEffectWrapper(effect, strength2, (int) Math.floor(strength)));
+        Collection<PotionEffectWrapper> defaultPotionEffects = PotionAttributesManager.getInstance().getDefaultPotionEffects(outputItem);
+        defaultPotionEffects.removeIf(potionEffectWrapper -> potionEffectWrapper.getPotionEffect().equals("MILK"));
+
+        Collection<PotionEffectWrapper> currentPotionEffects = PotionAttributesManager.getInstance().getCurrentStats(outputItem);
+        currentPotionEffects.removeIf(potionEffectWrapper -> potionEffectWrapper.getPotionEffect().equals("MILK"));
+
+        PotionEffectWrapper chocolateMilkWrapper = PotionAttributesManager.getInstance().getRegisteredPotionEffects().get("CHOCOLATE_MILK");
+        if (chocolateMilkWrapper != null){
+            try {
+                chocolateMilkWrapper = chocolateMilkWrapper.clone();
+            } catch (CloneNotSupportedException ignored){
+                return null;
+            }
+
+            defaultPotionEffects.add(chocolateMilkWrapper);
+            currentPotionEffects.add(chocolateMilkWrapper);
+        } else {
+            return null;
+        }
+        PotionAttributesManager.getInstance().setDefaultPotionEffects(outputItem, currentPotionEffects);
+        PotionAttributesManager.getInstance().setStats(outputItem, currentPotionEffects);
+        PotionEffectManager.renamePotion(outputItem, true);
+
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat(String.format("&7Gives the potion &e%s %.1f for %s&7. Recipe is cancelled if item already has this potion effect.", effect, strength2, Utils.toTimeStamp((int) Math.floor(strength), 1000)));
+        return Utils.chat("&7make chocolate milk");
     }
 }

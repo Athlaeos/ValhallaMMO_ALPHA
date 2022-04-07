@@ -1,7 +1,10 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience;
 
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +15,7 @@ public class ExpLevelCostModifier extends DynamicItemModifier {
 
         this.name = name;
 
+        this.category = ModifierCategory.EXPERIENCE;
         this.bigStepDecrease = 10;
         this.bigStepIncrease = 10;
         this.smallStepDecrease = 1;
@@ -26,6 +30,11 @@ public class ExpLevelCostModifier extends DynamicItemModifier {
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
+        if (crafter == null) return null;
+        if (crafter.getGameMode() == GameMode.CREATIVE) return outputItem;
+        if (this.validate){
+            if (crafter.getLevel() < (int) strength) return null;
+        }
         if (this.use){
             if (outputItem == null) return null;
             if (crafter.getLevel() < (int) strength) return null;

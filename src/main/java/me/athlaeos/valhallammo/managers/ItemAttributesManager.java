@@ -1,6 +1,6 @@
-package me.athlaeos.valhallammo.items;
+package me.athlaeos.valhallammo.managers;
 
-import me.athlaeos.valhallammo.Main;
+import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.items.attributewrappers.*;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
@@ -20,15 +20,17 @@ public class ItemAttributesManager {
     private final Map<Material, Map<String, AttributeWrapper>> defaultVanillaAttributes;
     private final Map<String, AttributeWrapper> registeredAttributes;
     // key used to save all default vanilla and custom attributes to the item
-    private final NamespacedKey defaultAttributeKey = new NamespacedKey(Main.getPlugin(), "valhalla_default_attributes");
+    private final NamespacedKey defaultAttributeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_default_attributes");
     // key used to save all current custom attributes to the item
-    private final NamespacedKey customAttributeKey = new NamespacedKey(Main.getPlugin(), "valhalla_custom_attributes");
+    private final NamespacedKey customAttributeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_custom_attributes");
 
     public ItemAttributesManager(){
         defaultVanillaAttributes = new HashMap<>();
         registeredAttributes = new HashMap<>();
 
         registerAttribute(new CustomDrawStrengthWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomArrowDamageWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomArrowAccuracyWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new CustomMaxDurabilityWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaArmorToughnessWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaArmorWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
@@ -228,13 +230,13 @@ public class ItemAttributesManager {
                                 }
                                 attributes.put(wrapper.getAttribute(), wrapper);
                             } else {
-                                System.out.println("[ValhallaMMO] Attempting to grab attribute " + attribute + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab attribute " + attribute + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            System.out.println("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
                         }
                     } else {
-                        System.out.println("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
                     }
                 }
             } else {
@@ -255,8 +257,8 @@ public class ItemAttributesManager {
     public Map<String, AttributeWrapper> getCurrentStats(ItemStack i){
         if (i == null) return null;
         Map<String, AttributeWrapper> attributes = new HashMap<>();
-        assert i.getItemMeta() != null;
         ItemMeta meta = i.getItemMeta();
+        if (meta == null) return attributes;
         if (meta.getPersistentDataContainer().has(customAttributeKey, PersistentDataType.STRING)){
             String customAttributeString = meta.getPersistentDataContainer().get(customAttributeKey, PersistentDataType.STRING);
             if (customAttributeString != null){
@@ -286,13 +288,13 @@ public class ItemAttributesManager {
                                 }
                                 attributes.put(wrapper.getAttribute(), wrapper);
                             } else {
-                                System.out.println("[ValhallaMMO] Attempting to grab attribute " + attribute + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab attribute " + attribute + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            System.out.println("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
                         }
                     } else {
-                        System.out.println("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
                     }
                 }
             }
@@ -473,7 +475,7 @@ public class ItemAttributesManager {
                 currentStats.put(currentAttribute.getAttribute(), currentAttribute);
                 setStats(i, currentStats);
             } catch (CloneNotSupportedException ignored){
-                System.out.println("[ValhallaMMO] Attempted to clone attribute wrapper, but this failed");
+                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempted to clone attribute wrapper, but this failed");
             }
         }
     }

@@ -1,35 +1,28 @@
-package me.athlaeos.valhallammo.perkrewards.alchemy;
+package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.alchemy.AlchemyProfile;
+import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class PotionThrowVelocitySetReward extends PerkReward {
-    private float velocity = 0F;
-    /**
-     * Constructor for PotionThrowVelocitySetReward, which sets the player's potion throw velocity.
-     * A negative value reduces the potion's velocity when thrown, a positive value increases it.
-     * A final value of 0 (or less than) makes it so the potion does not go forward and just drops to the ground.
-     * @param name the name of the reward. Must be unique to others rewards, or it will override them.
-     *             This is also the name used to define the rewards in the configs.
-     * @param argument the amount additional velocity. Must be Float or Double. If Double, it's cast to float.
-     */
-    public PotionThrowVelocitySetReward(String name, Object argument) {
+public class EnchantingAmplifyChanceSetReward extends PerkReward {
+    private float chance = 0F;
+
+    public EnchantingAmplifyChanceSetReward(String name, Object argument) {
         super(name, argument);
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ALCHEMY);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
-        if (profile instanceof AlchemyProfile){
-            AlchemyProfile alchemyProfile = (AlchemyProfile) profile;
-            alchemyProfile.setPotionVelocity(velocity);
-            ProfileUtil.setProfile(player, alchemyProfile, SkillType.ALCHEMY);
+        if (profile instanceof EnchantingProfile){
+            EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
+            enchantingProfile.setVanillaEnchantmentAmplifyChance(chance);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -38,15 +31,20 @@ public class PotionThrowVelocitySetReward extends PerkReward {
         super.setArgument(argument);
         if (argument != null){
             if (argument instanceof Integer){
-                velocity = (float) (Integer) argument;
+                chance = (float) (Integer) argument;
             }
             if (argument instanceof Float){
-                velocity = (float) argument;
+                chance = (float) argument;
             }
             if (argument instanceof Double){
                 double temp = (Double) argument;
-                velocity = (float) temp;
+                chance = (float) temp;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.DOUBLE;
     }
 }

@@ -1,42 +1,66 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats;
 
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.dom.ArtificialGlow;
+import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class AddEnchantmentGlowModifier extends DynamicItemModifier {
-    public AddEnchantmentGlowModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+public class RandomlyEnchantItemModifier extends DuoArgDynamicItemModifier {
+    public RandomlyEnchantItemModifier(String name, double strength, ModifierPriority priority) {
+        super(name, strength, 0D, priority);
 
         this.name = name;
         this.category = ModifierCategory.ENCHANTING_STATS;
 
-        this.bigStepDecrease = 0;
-        this.bigStepIncrease = 0;
-        this.smallStepDecrease = 0;
-        this.smallStepIncrease = 0;
+        this.bigStepDecrease = 10;
+        this.bigStepIncrease = 10;
+        this.smallStepDecrease = 1;
+        this.smallStepIncrease = 1;
         this.defaultStrength = 0;
         this.minStrength = 0;
-        this.maxStrength = 0;
-        this.description = Utils.chat("&7Adds an enchantment glimmer to the item");
-        this.displayName = Utils.chat("&7&lAdd Enchantment Glimmer");
-        this.icon = Material.ENCHANTED_BOOK;
+        this.maxStrength = 10000;
+
+        this.bigStepDecrease2 = 1;
+        this.bigStepIncrease2 = 1;
+        this.smallStepDecrease2 = 1;
+        this.smallStepIncrease2 = 1;
+        this.defaultStrength2 = 0;
+        this.minStrength2 = 0;
+        this.maxStrength2 = 1;
+
+        this.description = Utils.chat("&7Randomly enchants the item given an enchantment level." +
+                " The enchantment distribution is the same as vanilla enchantment distribution. Recipe" +
+                " is cancelled if item already has (non-custom) enchantments. Recipe is cancelled if " +
+                "item after enchanting still has no enchantments");
+        this.displayName = Utils.chat("&7&lEnchant Item : RANDOM");
+        this.icon = Material.ENCHANTING_TABLE;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
-        outputItem.addUnsafeEnchantment(new ArtificialGlow(), 0);
+        if (!this.use) return outputItem;
+        if (!outputItem.getEnchantments().isEmpty()) return null;
+        boolean treasure = (int) Math.round(strength2) == 1;
+        int level = (int) Math.round(strength);
+
+        ItemUtils.enchantItem(outputItem, level, treasure);
+        if (outputItem.getEnchantments().isEmpty()) return null;
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Adds an enchantment glow to the item");
+        if ((int) Math.round(strength2) == 0){
+            return Utils.chat(String.format("&7Randomly enchants the item with an enchantment level of &e%d&7, &eexcluding&7 treasure enchantments.", (int) strength));
+        } else if ((int) Math.round(strength2) == 1){
+            return Utils.chat(String.format("&7Randomly enchants the item with an enchantment level of &e%d&7, &eincluding&7 treasure enchantments.", (int) strength));
+        } else {
+            return "invalid argument";
+        }
     }
 }

@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantments;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
@@ -6,12 +6,11 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
 import me.athlaeos.valhallammo.managers.CustomEnchantmentManager;
-import me.athlaeos.valhallammo.managers.ItemEnchantmentManager;
+import me.athlaeos.valhallammo.managers.EnchantingItemEnchantmentsManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
     private final String enchantment;
@@ -49,11 +48,10 @@ public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
-        ItemMeta meta = outputItem.getItemMeta();
-        if (meta == null) return null;
         if (CustomEnchantmentManager.getInstance().getCustomEnchant(outputItem, enchantment) != null) return null;
         EnchantmentWrapper wrapper = CustomEnchantmentManager.getInstance().getRegisteredEnchantments().get(enchantment);
         if (wrapper == null) {
+            if (crafter == null) return null;
             crafter.sendMessage(Utils.chat("&cInvalid enchantment " + enchantment + " was called, but it did not exist. Notify server owner/developer(s)"));
             return null;
         }
@@ -64,9 +62,10 @@ public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
         }
         wrapper.setAmplifier(strength);
         CustomEnchantmentManager.getInstance().addEnchantment(outputItem, wrapper);
-        if (strength2 < 0){
-            int enchantingSkill = (int) ((strength2 / 100) * Math.floor(AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_CUSTOM", crafter, this.use)));
-            ItemEnchantmentManager.getInstance().applyEnchantmentScaling(outputItem, enchantingSkill, enchantment, strength);
+        if (strength2 > 0){
+            if (crafter == null) return null;
+            int enchantingSkill = (int) ((strength2 / 100) * Math.floor(AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_GENERAL", crafter, this.use) + AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_CUSTOM", crafter, this.use)));
+            EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(outputItem, enchantingSkill, enchantment, strength);
         }
         return outputItem;
     }

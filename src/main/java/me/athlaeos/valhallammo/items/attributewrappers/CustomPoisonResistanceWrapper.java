@@ -5,17 +5,16 @@ import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CustomDamageResistanceWrapper extends AttributeWrapper{
-    private final String translation_magic_resistance = Utils.chat(TranslationManager.getInstance().getTranslation("translation_magic_resistance"));
-    private final String negativePrefix = TranslationManager.getInstance().getTranslation("stat_negative_prefix");
-    private final String positivePrefix = TranslationManager.getInstance().getTranslation("stat_positive_prefix");
+public class CustomPoisonResistanceWrapper extends AttributeWrapper{
+    private final String translation_poison_resistance = Utils.chat(TranslationManager.getInstance().getTranslation("translation_poison_resistance"));
 
-    public CustomDamageResistanceWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
+    public CustomPoisonResistanceWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
         super(amount, operation, slot);
-        this.attribute = "CUSTOM_MAGIC_RESISTANCE";
+        this.attribute = "CUSTOM_POISON_RESISTANCE";
         this.minValue = -1000;
         this.maxValue = 1000;
     }
@@ -37,23 +36,27 @@ public class CustomDamageResistanceWrapper extends AttributeWrapper{
 
     private void updateLore(ItemMeta meta){
         if (meta == null) return;
+        if (meta.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES)) {
+            removeLore(meta);
+            return;
+        }
         double strength = amount;
         if (strength == 0) return;
 
-        if (!translation_magic_resistance.equals("")){
-            String strengthPart = String.format("%d", (int) Math.floor(strength * 100));
-            String prefix = ((strength < 0) ? negativePrefix : positivePrefix);
+        if (!translation_poison_resistance.equals("")){
+            String strengthPart = String.format("%d", ((int) Math.floor(strength * 100)));
+            String prefix = ((strength < 0) ? TranslationManager.getInstance().getTranslation("stat_negative_prefix") : TranslationManager.getInstance().getTranslation("stat_positive_prefix") + "+");
             Utils.findAndReplaceLore(meta,
-                    ChatColor.stripColor(Utils.chat(translation_magic_resistance)),
-                    String.format(prefix + "%s%% " + translation_magic_resistance, strengthPart));
+                    ChatColor.stripColor(Utils.chat(translation_poison_resistance)),
+                    String.format(prefix + "%s%% " + translation_poison_resistance, strengthPart));
         }
     }
 
     private void removeLore(ItemMeta meta){
         if (meta == null) return;
-        if (!translation_magic_resistance.equals("")){
+        if (!translation_poison_resistance.equals("")){
             Utils.removeIfLoreContains(meta,
-                    ChatColor.stripColor(Utils.chat(translation_magic_resistance)));
+                    ChatColor.stripColor(Utils.chat(translation_poison_resistance)));
         }
     }
 

@@ -1,7 +1,7 @@
 package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
-import me.athlaeos.valhallammo.items.enchantmentwrappers.DrawStrengthEnchantment;
+import me.athlaeos.valhallammo.items.enchantmentwrappers.passive_enchantments.*;
 import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.NamespacedKey;
@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ItemEnchantmentsManager {
-    private static ItemEnchantmentsManager manager = null;
+public class CustomEnchantmentManager {
+    private static CustomEnchantmentManager manager = null;
 
     private final Map<String, EnchantmentWrapper> registeredEnchantments;
     // key used to save all current custom attributes to the item
@@ -30,6 +30,14 @@ public class ItemEnchantmentsManager {
         i.setItemMeta(meta);
     }
 
+    public void addEnchantment(ItemStack i, EnchantmentWrapper wrapper){
+        if (i == null) return;
+        Map<String, EnchantmentWrapper> enchantments = getCurrentEnchantments(i);
+        enchantments.put(wrapper.getEnchantment(), wrapper);
+
+        setEnchantments(i, enchantments);
+    }
+
     public int getEnchantmentsCount(ItemStack i){
         if (i == null) return 0;
         ItemMeta meta = i.getItemMeta();
@@ -40,15 +48,37 @@ public class ItemEnchantmentsManager {
         return 0;
     }
 
-    public ItemEnchantmentsManager(){
+    public CustomEnchantmentManager(){
         registeredEnchantments = new HashMap<>();
 
-        registerAttribute(new DrawStrengthEnchantment(0D));
-
+        registerAttribute(new AcrobaticsEnchantment(0D));
+        registerAttribute(new AlchemyBrewSpeedEnchantment(0D));
+        registerAttribute(new AlchemyIngredientSaveEnchantment(0D));
+        registerAttribute(new AlchemyPotionSaveEnchantment(0D));
+        registerAttribute(new AlchemyQualityEnchantment(0D));
+        registerAttribute(new AlchemyThrowVelocityEnchantment(0D));
+        registerAttribute(new ArcheryAccuracyEnchantment(0D));
+        registerAttribute(new ArcheryAmmoSaveEnchantment(0D));
+        registerAttribute(new ArcheryDamageEnchantment(0D));
+        registerAttribute(new DamageDealtEnchantment(0D));
+        registerAttribute(new DamageTakenEnchantment(0D));
+        registerAttribute(new ExpGainSkillEnchantment(0D));
+        registerAttribute(new ExpGainVanillaEnchantment(0D));
+        registerAttribute(new FarmingExtraDropsEnchantment(0D));
+        registerAttribute(new FarmingRareDropsEnchantment(0D));
+        registerAttribute(new FarmingFishingTierEnchantment(0D));
+        registerAttribute(new MiningExtraDropsEnchantment(0D));
+        registerAttribute(new MiningRareDropsEnchantment(0D));
+        registerAttribute(new WoodcuttingExtraDropsEnchantment(0D));
+        registerAttribute(new WoodcuttingRareDropsEnchantment(0D));
+        registerAttribute(new SmithingQualityEnchantment(0D));
+        registerAttribute(new TradingEnchantment(0D));
+        registerAttribute(new UnarmedDamageEnchantment(0D));
+        registerAttribute(new WeaponsDamageEnchantment(0D));
     }
 
     public void registerAttribute(EnchantmentWrapper attribute){
-        registeredEnchantments.put(attribute.getAttribute(), attribute);
+        registeredEnchantments.put(attribute.getEnchantment(), attribute);
     }
 
     /**
@@ -75,17 +105,17 @@ public class ItemEnchantmentsManager {
                             if (registeredEnchantments.containsKey(enchantment)){
                                 EnchantmentWrapper wrapper = registeredEnchantments.get(enchantment).clone();
                                 double finalValue = Double.parseDouble(value);
-                                wrapper.setAmount(finalValue);
+                                wrapper.setAmplifier(finalValue);
 
-                                enchantments.put(wrapper.getAttribute(), wrapper);
+                                enchantments.put(wrapper.getEnchantment(), wrapper);
                             } else {
-                                System.out.println("[ValhallaMMO] Attempting to grab enchantment " + enchantment + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab enchantment " + enchantment + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            System.out.println("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + ", but it could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + ", but it could not be parsed.");
                         }
                     } else {
-                        System.out.println("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2, but it was less.");
                     }
                 }
             }
@@ -96,23 +126,22 @@ public class ItemEnchantmentsManager {
     /**
      * Sets the given attributes to the item, but only if item has the attribute type in its default attributes.
      * @param i the item to set its attributes to
-     * @param attributes the attributes to set to the item
+     * @param enchantments the attributes to set to the item
      */
-    public void setEnchantments(ItemStack i, Map<String, EnchantmentWrapper> attributes){
+    public void setEnchantments(ItemStack i, Map<String, EnchantmentWrapper> enchantments){
         if (i == null) return;
         ItemMeta meta = i.getItemMeta();
         assert meta != null;
-        if (attributes != null){
-            if (!attributes.isEmpty()){
-                meta.setAttributeModifiers(null);
+        if (enchantments != null){
+            if (!enchantments.isEmpty()){
                 for (EnchantmentWrapper registeredEnchantmentWrapper : registeredEnchantments.values()){
                     registeredEnchantmentWrapper.onRemove(meta);
                 }
 
-                if (!attributes.isEmpty()){
+                if (!enchantments.isEmpty()){
                     List<String> customAttributeStringComponents = new ArrayList<>();
-                    for (EnchantmentWrapper wrapper : attributes.values()){
-                        customAttributeStringComponents.add(wrapper.getAttribute() + ":" + wrapper.getAmount());
+                    for (EnchantmentWrapper wrapper : enchantments.values()){
+                        customAttributeStringComponents.add(wrapper.getEnchantment() + ":" + wrapper.getAmplifier());
                         wrapper.onApply(meta);
                     }
                     meta.getPersistentDataContainer().set(customEnchantmentKey, PersistentDataType.STRING, String.join(";", customAttributeStringComponents));
@@ -137,16 +166,6 @@ public class ItemEnchantmentsManager {
         return getCurrentEnchantments(i).get(enchant);
     }
 
-
-    /**
-     * Sets an attribute's strength to an item only if the type of the item has this attribute by default.
-     * This does not edit default attributes, it only changes the value of the applied attributes.
-     * For certain attributes the value is corrected automatically, like attack speed is reduced by 4.0 and attack damage
-     * reduced by 1.0 if their operation equals ADD_NUMBER
-     * @param i the item to add the attribute to
-     * @param enchantment the attribute to add to the item
-     * @param value the value to give to the item
-     */
     public void setEnchantmentStrength(ItemStack i, String enchantment, double value){
         if (i == null) return;
         Map<String, EnchantmentWrapper> currentStats = new HashMap<>(getCurrentEnchantments(i));
@@ -160,16 +179,16 @@ public class ItemEnchantmentsManager {
                 value = currentAttribute.getMaxValue();
             }
             value = Utils.round(value, 4);
-            currentAttribute.setAmount(value);
-            currentStats.put(currentAttribute.getAttribute(), currentAttribute);
+            currentAttribute.setAmplifier(value);
+            currentStats.put(currentAttribute.getEnchantment(), currentAttribute);
             setEnchantments(i, currentStats);
         } catch (CloneNotSupportedException ignored){
-            System.out.println("[ValhallaMMO] Attempted to clone attribute wrapper, but this failed");
+            ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] Attempted to clone attribute wrapper, but this failed");
         }
     }
 
-    public static ItemEnchantmentsManager getInstance(){
-        if (manager == null) manager = new ItemEnchantmentsManager();
+    public static CustomEnchantmentManager getInstance(){
+        if (manager == null) manager = new CustomEnchantmentManager();
         return manager;
     }
 

@@ -1,5 +1,8 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.items.attributewrappers.VanillaMaxHealthWrapper;
 import me.athlaeos.valhallammo.utility.ItemUtils;
@@ -10,11 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class AttributeAddHealthModifier extends DynamicItemModifier{
+public class AttributeAddHealthModifier extends DynamicItemModifier {
     public AttributeAddHealthModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 1;
         this.bigStepIncrease = 1;
@@ -23,8 +27,7 @@ public class AttributeAddHealthModifier extends DynamicItemModifier{
         this.defaultStrength = 0;
         this.minStrength = -100;
         this.maxStrength = 100;
-        this.description = Utils.chat("&7Adds &eHealth Boost &7as a default attribute to the item. " +
-                "-nThe recipe is cancelled if the item already has health boost.");
+        this.description = Utils.chat("&7Adds &eHealth Boost &7as a default attribute to the item.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lHealth Boost");
         this.icon = Material.GOLDEN_APPLE;
     }

@@ -1,21 +1,19 @@
 package me.athlaeos.valhallammo.items.attributewrappers;
 
-import me.athlaeos.valhallammo.configs.ConfigManager;
+import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class CustomDrawStrengthWrapper extends AttributeWrapper{
+    private final String bowStrengthTranslation = Utils.chat(TranslationManager.getInstance().getTranslation("translation_drawstrength"));
 
-public class CustomBowStrengthWrapper extends AttributeWrapper{
-    private String bowStrengthTranslation = Utils.chat(ConfigManager.getInstance().getConfig("skill_smithing.yml").get().getString("draw_strength"));;
-
-    public CustomBowStrengthWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
+    public CustomDrawStrengthWrapper(double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
         super(amount, operation, slot);
         this.attribute = "CUSTOM_DRAW_STRENGTH";
         this.minValue = 0;
@@ -34,36 +32,33 @@ public class CustomBowStrengthWrapper extends AttributeWrapper{
 
     @Override
     public void onRemove(ItemMeta i) {
-        updateBowStrength(i);
+        removeLore(i);
     }
 
-    public void updateBowStrength(ItemMeta meta){
+    private void updateBowStrength(ItemMeta meta){
         if (meta == null) return;
+        if (meta.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES)) {
+            removeLore(meta);
+            return;
+        }
         double bow_strength = amount;
+        if (bow_strength < 0) bow_strength = 0;
 
-        List<String> lore = meta.getLore();
-        if (lore == null) lore = new ArrayList<>();
-        int strengthLoreIndex = -1;
-        for (String l : lore){
-            if (l.contains(" ")){
-                String[] splitString = l.split(" ");
-                if (splitString.length >= 2){
-                    String matchString = String.join(" ", Arrays.copyOfRange(splitString, 0, splitString.length - 1));
-                    if (bowStrengthTranslation.equals(matchString)){
-                        strengthLoreIndex = lore.indexOf(l);
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (strengthLoreIndex != -1) {
-            lore.remove(strengthLoreIndex);
-        }
         if (!bowStrengthTranslation.equals("")){
-            lore.add(Utils.chat(String.format(bowStrengthTranslation + " %.2f", bow_strength)));
+            String bowStrength = String.format("%d", (int) Math.floor(bow_strength * 100));
+            String prefix = ((bow_strength < 1) ? TranslationManager.getInstance().getTranslation("stat_negative_prefix") : TranslationManager.getInstance().getTranslation("stat_positive_prefix"));
+            Utils.findAndReplaceLore(meta,
+                    ChatColor.stripColor(Utils.chat(bowStrengthTranslation)),
+                    String.format(prefix + "%s%% " + bowStrengthTranslation, bowStrength));
         }
-        meta.setLore(lore);
+    }
+
+    private void removeLore(ItemMeta meta){
+        if (meta == null) return;
+        if (!bowStrengthTranslation.equals("")){
+            Utils.removeIfLoreContains(meta,
+                    ChatColor.stripColor(Utils.chat(bowStrengthTranslation)));
+        }
     }
 
     /*

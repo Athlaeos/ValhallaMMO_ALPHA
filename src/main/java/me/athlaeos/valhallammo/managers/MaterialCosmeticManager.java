@@ -1,8 +1,9 @@
-package me.athlaeos.valhallammo.core_managers;
+package me.athlaeos.valhallammo.managers;
 
-import me.athlaeos.valhallammo.configs.ConfigManager;
+import me.athlaeos.valhallammo.config.ConfigManager;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.HashMap;
@@ -20,50 +21,56 @@ public class MaterialCosmeticManager {
         craftFinishSounds = new HashMap<>();
         craftWorkSounds = new HashMap<>();
         YamlConfiguration config = ConfigManager.getInstance().getConfig("sounds.yml").get();
-        for (String station : config.getConfigurationSection("craft_finish").getKeys(false)){
-            Material block = null;
-            Sound sound = null;
-            try {
-                sound = Sound.valueOf(config.getString("craft_finish." + station));
-            } catch (IllegalArgumentException ignored){
-                if (config.getString("craft_finish." + station) != null) {
-                    continue;
+        ConfigurationSection finishSection = config.getConfigurationSection("craft_finish");
+        if (finishSection != null){
+            for (String station : finishSection.getKeys(false)){
+                Material block = null;
+                Sound sound = null;
+                try {
+                    sound = Sound.valueOf(config.getString("craft_finish." + station));
+                } catch (IllegalArgumentException ignored){
+                    if (config.getString("craft_finish." + station) != null) {
+                        continue;
+                    }
                 }
-            }
-            try {
-                block = Material.valueOf(station);
-            } catch (IllegalArgumentException ignored){
-                if (station.equalsIgnoreCase("default")){
-                    defaultCraftFinishSound = sound;
-                } else {
-                    continue;
+                try {
+                    block = Material.valueOf(station);
+                } catch (IllegalArgumentException ignored){
+                    if (station.equalsIgnoreCase("default")){
+                        defaultCraftFinishSound = sound;
+                    } else {
+                        continue;
+                    }
                 }
-            }
-            if (block != null){
-                craftFinishSounds.put(block, sound);
+                if (block != null){
+                    craftFinishSounds.put(block, sound);
+                }
             }
         }
-        for (String station : config.getConfigurationSection("craft_work").getKeys(false)){
-            Material block = null;
-            Sound sound = null;
-            try {
-                sound = Sound.valueOf(config.getString("craft_work." + station));
-            } catch (IllegalArgumentException ignored){
-                if (config.getString("craft_work." + station) != null) {
-                    continue;
+        ConfigurationSection workSection = config.getConfigurationSection("craft_work");
+        if (workSection != null){
+            for (String station : workSection.getKeys(false)){
+                Material block = null;
+                Sound sound = null;
+                try {
+                    sound = Sound.valueOf(config.getString("craft_work." + station));
+                } catch (IllegalArgumentException ignored){
+                    if (config.getString("craft_work." + station) != null) {
+                        continue;
+                    }
                 }
-            }
-            try {
-                block = Material.valueOf(station);
-            } catch (IllegalArgumentException ignored){
-                if (station.equalsIgnoreCase("default")){
-                    defaultCraftWorKSound = sound;
-                } else {
-                    continue;
+                try {
+                    block = Material.valueOf(station);
+                } catch (IllegalArgumentException ignored){
+                    if (station.equalsIgnoreCase("default")){
+                        defaultCraftWorKSound = sound;
+                    } else {
+                        continue;
+                    }
                 }
-            }
-            if (block != null){
-                craftWorkSounds.put(block, sound);
+                if (block != null){
+                    craftWorkSounds.put(block, sound);
+                }
             }
         }
     }

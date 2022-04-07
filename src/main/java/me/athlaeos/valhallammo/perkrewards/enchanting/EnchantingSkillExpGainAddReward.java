@@ -1,34 +1,31 @@
-package me.athlaeos.valhallammo.perkrewards.alchemy;
+package me.athlaeos.valhallammo.perkrewards.enchanting;
 
+import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.managers.ProfileUtil;
+import me.athlaeos.valhallammo.items.EnchantmentType;
+import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.SkillType;
-import me.athlaeos.valhallammo.skills.alchemy.AlchemyProfile;
+import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
 import org.bukkit.entity.Player;
 
-public class BrewingExpGainAddReward extends PerkReward {
+public class EnchantingSkillExpGainAddReward extends PerkReward {
     private double expGain = 0D;
+    private final EnchantmentType type;
 
-    /**
-     * Constructor for BrewingExpGainAddReward, which adds an amount to the player's brewing experience multiplier.
-     * @param name the name of the reward. Must be unique to others rewards, or it will override them.
-     *             This is also the name used to define the rewards in the configs.
-     * @param argument the amount to add to the player's experience multiplier. Must be Integer or Double.
-     */
-    public BrewingExpGainAddReward(String name, Object argument) {
+    public EnchantingSkillExpGainAddReward(String name, Object argument, EnchantmentType type) {
         super(name, argument);
+        this.type = type;
     }
 
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileUtil.getProfile(player, SkillType.ALCHEMY);
+        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
         if (profile == null) return;
-        if (profile instanceof AlchemyProfile){
-            AlchemyProfile alchemyProfile = (AlchemyProfile) profile;
-            alchemyProfile.setBrewingEXPMultiplier(alchemyProfile.getBrewingEXPMultiplier() + expGain);
-            ProfileUtil.setProfile(player, alchemyProfile, SkillType.ALCHEMY);
+        if (profile instanceof EnchantingProfile){
+            EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
+            enchantingProfile.setEnchantingExpMultiplier(type, enchantingProfile.getEnchantingExpMultiplier(type) + expGain);
+            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 
@@ -43,5 +40,10 @@ public class BrewingExpGainAddReward extends PerkReward {
                 expGain = (Integer) argument;
             }
         }
+    }
+
+    @Override
+    public ObjectType getType() {
+        return ObjectType.INTEGER;
     }
 }

@@ -1,208 +1,216 @@
-package me.athlaeos.valhallammo.skills.farming;
+package me.athlaeos.valhallammo.skills.mining;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.Skill;
-import me.athlaeos.valhallammo.skills.SkillType;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 
-public class FarmingProfile extends Profile implements Serializable {
-    private static final NamespacedKey farmingProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_farming");
+public class MiningProfile extends Profile implements Serializable {
+    private static final NamespacedKey miningProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_mining");
 
-    private float raredropratemultiplier = 1F; // rare drop rate multiplier for crops
-    private float dropmultiplier = 1F; // drop multiplier for crops
-    private float animaldropmultiplier = 1F; // drop multiplier for animals
-    private boolean instantharvesting = false; // if true, players can right click crops to harvest them and immediately replant them
-    private float instantgrowthrate = 0F; // the amount of stages crops grow immediately upon planting
-    private float fishingtimemultiplier = 1F; // the duration multiplier of fishing hooks until they catch a fish
-    private float fishingrewardtier = 0F; // the reward tier of rewards the player fishes up
-    private float farmingvanillaexpreward = 0F; // (vanilla) exp rewarded for harvesting fully grown crops
-    private float breedingvanillaexpmultiplier = 1F; // (vanilla) experience multiplier for experience gained by breeding animals
-    private float fishingvanillaexpmultiplier = 1F; // (vanilla) experience multiplier for experience gained by fishing
-    private float babyanimalagemultiplier = 1F; // multiplier of baby animal age when born, causing them to mature faster or slower
-    private float hivehoneysavechance = 0F; // chance for hives to not consume honey when harvested (either with shears or bottles)
-    private boolean hivebeeaggroimmunity = false;
-    private int ultraharvestingcooldown = -1; // cooldown of the ultra harvesting ability, which harvests a large area of crops at once (similar to veinminer except for crops). if -1, ability is unusable
-    private float animaldamagemultiplier = 1F; // damage multiplier against livestock animals (cows, chickens, pigs, sheep, etc. NOT neutral animals like wolves or hoglins)
+    private float miningraredropratemultiplier = 1F; // rare drop rate multiplier of mining
+    private float blastminingraredropratemultiplier = 1F; // rare drop rate multiplier of blast mining
+    private float miningdropmultiplier = 1F; // drop multiplier for mining
+    private float blastminingdropmultiplier = 1F; // drop multiplier for blast mining
+    private float blastradiusmultiplier = 1F; // blast radius multiplier
+    private float tntexplosiondamagemultiplier = 1F; // damage multiplier of damage taken from tnt
+    private int veinminingcooldown = -1; // cooldown of the vein mining ability, which harvests a large area of the same ore at once. if -1, ability is unusable
+    private Collection<String> validveinminerblocks = new HashSet<>();
+    private Collection<String> unbreakableblocks = new HashSet<>();
+    private int quickminecooldown = 0; // cooldown of the quick mine ability, which allows blocks to be instantly mined at the cost of hunger and health.
+    private int quickminehungerdrainspeed = -1; // amount of blocks the player can instantly mine before losing 1 saturation/hunger/health point. if <0 this ability is disabled
+    // some blocks can be valued higher, which are defined in skill_mining.yml
+    // this is to make it so blocks like obsidian can't be mined as frequently as any other block. undefined block values are valued as 1
+    private float quickminedurabilitylossrate = 1F; // durability damage multiplier of tools while quickmine mode is enabled. 1 is equal to a normal rate, anything below 1 means a decreased rate, anything above 1 is an increased rate
+    private float oreexperiencemultiplier = 1F;
+    private float blockmineexperiencerate = 0F;
+    private int explosionfortunelevel = 0; // the fortune level at which exploded blocks will be "mined". if 0 blocks will be broken as if they were mined with a plain iron pickaxe, if -1 they will be broken as if broken with a silk touch pickaxe
+    private int tunnelfatiguelevel = -1; // mining fatigue level applied on the player when tunnel mode is activated, if <0 tunnel mode is locked, if 0 no fatigue is applied
 
     private double generalexpmultiplier = 100D;
-    private double farmingexpmultiplier = 100D;
-    private double breedingexpmultiplier = 100D;
-    private double fishingexpmultiplier = 100D;
+    private double blastminingexpmultiplier = 100D;
+    private double miningexpmultiplier = 100D;
 
-    public FarmingProfile(Player owner){
+    public MiningProfile(Player owner){
         super(owner);
         if (owner == null) return;
-        this.key = farmingProfileKey;
+        this.key = miningProfileKey;
     }
 
-    public boolean isHiveBeeAggroImmune() {
-        return hivebeeaggroimmunity;
+    public float getMiningRareDropRateMultiplier() {
+        return miningraredropratemultiplier;
     }
 
-    public void setHiveBeeAggroImmunity(boolean hivebeeaggroimmunity) {
-        this.hivebeeaggroimmunity = hivebeeaggroimmunity;
+    public float getBlastMiningRareDropRateMultiplier() {
+        return blastminingraredropratemultiplier;
+    }
+
+    public float getMiningDropMultiplier() {
+        return miningdropmultiplier;
+    }
+
+    public float getBlastMiningDropMultiplier() {
+        return blastminingdropmultiplier;
+    }
+
+    public float getBlastRadiusMultiplier() {
+        return blastradiusmultiplier;
+    }
+
+    public float getTntExplosionDamageMultiplier() {
+        return tntexplosiondamagemultiplier;
+    }
+
+    public int getVeinMiningCooldown() {
+        return veinminingcooldown;
+    }
+
+    public float getQuickMineDurabilityLossRate() {
+        return quickminedurabilitylossrate;
+    }
+
+    /**
+     * currently has no purpose
+     * @return how fatigued the player should be while in tunneling mode
+     */
+    public int getTunnelFatigueLevel() {
+        return tunnelfatiguelevel;
+    }
+
+    /**
+     * currently has no purpose
+     * @param tunnelfatiguelevel how fatigued the player should be while in tunneling mode
+     */
+    public void setTunnelFatigueLevel(int tunnelfatiguelevel) {
+        this.tunnelfatiguelevel = tunnelfatiguelevel;
+    }
+
+    public int getExplosionFortuneLevel() {
+        return explosionfortunelevel;
+    }
+
+    public Collection<String> getValidVeinMinerBlocks() {
+        return validveinminerblocks;
+    }
+
+    public int getQuickMineHungerDrainSpeed() {
+        return quickminehungerdrainspeed;
     }
 
     public double getGeneralExpMultiplier() {
         return generalexpmultiplier;
     }
 
+    public double getBlastMiningExpMultiplier() {
+        return blastminingexpmultiplier;
+    }
+
+    public double getMiningExpMultiplier() {
+        return miningexpmultiplier;
+    }
+
+    public float getBlockMineExperienceRate() {
+        return blockmineexperiencerate;
+    }
+
+    public float getOreExperienceMultiplier() {
+        return oreexperiencemultiplier;
+    }
+
+    public void setMiningRareDropRateMultiplier(float miningraredropratemultiplier) {
+        this.miningraredropratemultiplier = miningraredropratemultiplier;
+    }
+
+    public void setBlastMiningRareDropRateMultiplier(float blastminingraredropratemultiplier) {
+        this.blastminingraredropratemultiplier = blastminingraredropratemultiplier;
+    }
+
+    public void setMiningDropMultiplier(float miningdropmultiplier) {
+        this.miningdropmultiplier = miningdropmultiplier;
+    }
+
+    public void setBlastMiningDropMultiplier(float blastminingdropmultiplier) {
+        this.blastminingdropmultiplier = blastminingdropmultiplier;
+    }
+
+    public void setBlastRadiusMultiplier(float blastradiusmultiplier) {
+        this.blastradiusmultiplier = blastradiusmultiplier;
+    }
+
+    public void setTntExplosionDamageMultiplier(float tntexplosiondamagemultiplier) {
+        this.tntexplosiondamagemultiplier = tntexplosiondamagemultiplier;
+    }
+
+    public void setVeinMiningCooldown(int veinminingcooldown) {
+        this.veinminingcooldown = veinminingcooldown;
+    }
+
+    public void setValidVeinMinerBlocks(Collection<String> validveinminerblocks) {
+        this.validveinminerblocks = validveinminerblocks;
+    }
+
+    public void setQuickMineHungerDrainSpeed(int quickMineHungerDrainSpeed) {
+        this.quickminehungerdrainspeed = quickMineHungerDrainSpeed;
+    }
+
+    public void setQuickMineDurabilityLossRate(float quickminedurabilitylossrate) {
+        this.quickminedurabilitylossrate = quickminedurabilitylossrate;
+    }
+
     public void setGeneralExpMultiplier(double generalexpmultiplier) {
         this.generalexpmultiplier = generalexpmultiplier;
     }
 
-    public int getUltraHarvestingCooldown() {
-        return ultraharvestingcooldown;
+    public void setBlastMiningExpMultiplier(double blastminingexpmultiplier) {
+        this.blastminingexpmultiplier = blastminingexpmultiplier;
     }
 
-    public float getAnimalDamageMultiplier() {
-        return animaldamagemultiplier;
+    public void setMiningExpMultiplier(double miningexpmultiplier) {
+        this.miningexpmultiplier = miningexpmultiplier;
     }
 
-    public void setAnimalDamageMultiplier(float animaldamagemultiplier) {
-        this.animaldamagemultiplier = animaldamagemultiplier;
+    public void setBlockMineExperienceRate(float blockmineexperiencerate) {
+        this.blockmineexperiencerate = blockmineexperiencerate;
     }
 
-    public float getAnimalDropMultiplier() {
-        return animaldropmultiplier;
+    public void setOreExperienceMultiplier(float oreexperiencemultiplier) {
+        this.oreexperiencemultiplier = oreexperiencemultiplier;
     }
 
-    public void setAnimalDropMultiplier(float animaldropmultiplier) {
-        this.animaldropmultiplier = animaldropmultiplier;
+    public Collection<String> getUnbreakableBlocks() {
+        return unbreakableblocks;
     }
 
-    public void setUltraHarvestingCooldown(int ultraharvestingcooldown) {
-        this.ultraharvestingcooldown = ultraharvestingcooldown;
+    public void setUnbreakableBlocks(
+            Collection<String> unbreakableblocks) {
+        this.unbreakableblocks = unbreakableblocks;
     }
 
-    public float getFarmingVanillaExpReward() {
-        return farmingvanillaexpreward;
+    public int getQuickMineCooldown() {
+        return quickminecooldown;
     }
 
-    public float getFishingVanillaExpMultiplier() {
-        return fishingvanillaexpmultiplier;
+    public void setQuickMineCooldown(int quickminecooldown) {
+        this.quickminecooldown = quickminecooldown;
     }
 
-    public double getFishingExpMultiplier() {
-        return fishingexpmultiplier;
-    }
-
-    public double getBreedingExpMultiplier() {
-        return breedingexpmultiplier;
-    }
-
-    public void setFarmingVanillaExpReward(float farmingVanillaExpReward) {
-        this.farmingvanillaexpreward = farmingVanillaExpReward;
-    }
-
-    public void setFishingVanillaExpMultiplier(float fishingvanillaexpmultiplier) {
-        this.fishingvanillaexpmultiplier = fishingvanillaexpmultiplier;
-    }
-
-    public void setBreedingExpMultiplier(double breedingexpmultiplier) {
-        this.breedingexpmultiplier = breedingexpmultiplier;
-    }
-
-    public void setFishingExpMultiplier(double fishingexpmultiplier) {
-        this.fishingexpmultiplier = fishingexpmultiplier;
-    }
-
-    public void setRareDropRateMultiplier(float raredropratemultiplier) {
-        this.raredropratemultiplier = raredropratemultiplier;
-    }
-
-    public void setDropMultiplier(float dropmultiplier) {
-        this.dropmultiplier = dropmultiplier;
-    }
-
-    public void setInstantHarvesting(boolean instantharvesting) {
-        this.instantharvesting = instantharvesting;
-    }
-
-    public void setInstantGrowthRate(float instantgrowthrate) {
-        this.instantgrowthrate = instantgrowthrate;
-    }
-
-    public void setFishingTimeMultiplier(float fishingtimemultiplier) {
-        this.fishingtimemultiplier = fishingtimemultiplier;
-    }
-
-    public void setFishingRewardTier(float fishingrewardtier) {
-        this.fishingrewardtier = fishingrewardtier;
-    }
-
-    public void setBreedingVanillaExpMultiplier(float breedingexpmultiplier) {
-        this.breedingvanillaexpmultiplier = breedingexpmultiplier;
-    }
-
-    public void setBabyAnimalAgeMultiplier(float babyanimalagemultiplier) {
-        this.babyanimalagemultiplier = babyanimalagemultiplier;
-    }
-
-    public void setFarmingExpMultiplier(double farmingexpmultiplier) {
-        this.farmingexpmultiplier = farmingexpmultiplier;
-    }
-
-    public void setHiveHoneySaveChance(float hivehoneysavechange) {
-        this.hivehoneysavechance = hivehoneysavechange;
-    }
-
-    public static NamespacedKey getFarmingProfileKey() {
-        return farmingProfileKey;
-    }
-
-    public float getRareDropRateMultiplier() {
-        return raredropratemultiplier;
-    }
-
-    public float getDropMultiplier() {
-        return dropmultiplier;
-    }
-
-    public boolean isInstantHarvestingUnlocked() {
-        return instantharvesting;
-    }
-
-    public float getInstantGrowthRate() {
-        return instantgrowthrate;
-    }
-
-    public float getFishingTimeMultiplier() {
-        return fishingtimemultiplier;
-    }
-
-    public float getFishingRewardTier() {
-        return fishingrewardtier;
-    }
-
-    public float getBreedingVanillaExpMultiplier() {
-        return breedingvanillaexpmultiplier;
-    }
-
-    public float getBabyAnimalAgeMultiplier() {
-        return babyanimalagemultiplier;
-    }
-
-    public double getFarmingExpMultiplier() {
-        return farmingexpmultiplier;
-    }
-
-    public float getHiveHoneySaveChance() {
-        return hivehoneysavechance;
+    public void setExplosionFortuneLevel(int explosionfortunelevel) {
+        this.explosionfortunelevel = explosionfortunelevel;
     }
 
     @Override
     public void setDefaultStats(Player player) {
-        Skill skill = SkillProgressionManager.getInstance().getSkill(SkillType.FARMING);
+        Skill skill = SkillProgressionManager.getInstance().getSkill("MINING");
         if (skill != null){
-            if (skill instanceof FarmingSkill){
-                FarmingSkill farmingSkill = (FarmingSkill) skill;
+            if (skill instanceof MiningSkill){
+                MiningSkill farmingSkill = (MiningSkill) skill;
                 for (PerkReward startingPerk : farmingSkill.getStartingPerks()){
                     startingPerk.execute(player);
                 }
@@ -212,6 +220,11 @@ public class FarmingProfile extends Profile implements Serializable {
 
     @Override
     public NamespacedKey getKey() {
-        return farmingProfileKey;
+        return miningProfileKey;
+    }
+
+    @Override
+    public MiningProfile clone() throws CloneNotSupportedException {
+        return (MiningProfile) super.clone();
     }
 }

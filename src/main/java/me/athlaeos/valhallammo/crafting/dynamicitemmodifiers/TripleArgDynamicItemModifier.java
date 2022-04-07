@@ -1,58 +1,58 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
 
-public abstract class DuoArgDynamicItemModifier extends DynamicItemModifier implements Cloneable{
-    protected double strength2;
-    protected double minStrength2;
-    protected double defaultStrength2;
-    protected double maxStrength2;
-    protected double smallStepIncrease2;
-    protected double bigStepIncrease2;
-    protected double smallStepDecrease2;
-    protected double bigStepDecrease2;
+public abstract class TripleArgDynamicItemModifier extends DuoArgDynamicItemModifier implements Cloneable{
+    protected double strength3;
+    protected double minStrength3;
+    protected double defaultStrength3;
+    protected double maxStrength3;
+    protected double smallStepIncrease3;
+    protected double bigStepIncrease3;
+    protected double smallStepDecrease3;
+    protected double bigStepDecrease3;
 
-    public DuoArgDynamicItemModifier(String name, double strength, double strength2, ModifierPriority priority){
-        super(name, strength, priority);
-        this.strength2 = strength2;
+    public TripleArgDynamicItemModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority){
+        super(name, strength, strength2, priority);
+        this.strength3 = strength3;
     }
 
-    public double getMinStrength2() {
-        return minStrength2;
+    public double getMinStrength3() {
+        return minStrength3;
     }
 
-    public double getDefaultStrength2() {
-        return defaultStrength2;
+    public double getDefaultStrength3() {
+        return defaultStrength3;
     }
 
-    public double getMaxStrength2() {
-        return maxStrength2;
+    public double getMaxStrength3() {
+        return maxStrength3;
     }
 
-    public double getSmallStepIncrease2() {
-        return smallStepIncrease2;
+    public double getSmallStepIncrease3() {
+        return smallStepIncrease3;
     }
 
-    public double getBigStepIncrease2() {
-        return bigStepIncrease2;
+    public double getBigStepIncrease3() {
+        return bigStepIncrease3;
     }
 
-    public double getSmallStepDecrease2() {
-        return smallStepDecrease2;
+    public double getSmallStepDecrease3() {
+        return smallStepDecrease3;
     }
 
-    public double getBigStepDecrease2() {
-        return bigStepDecrease2;
+    public double getBigStepDecrease3() {
+        return bigStepDecrease3;
     }
 
-    public double getStrength2() {
-        return strength2;
+    public double getStrength3() {
+        return strength3;
     }
 
-    public void setStrength2(double strength2) {
-        this.strength2 = strength2;
+    public void setStrength3(double strength3) {
+        this.strength3 = strength3;
     }
 
     @Override
-    public DuoArgDynamicItemModifier clone() throws CloneNotSupportedException {
-        return (DuoArgDynamicItemModifier) super.clone();
+    public TripleArgDynamicItemModifier clone() throws CloneNotSupportedException {
+        return (TripleArgDynamicItemModifier) super.clone();
     }
 }

@@ -1,8 +1,7 @@
-package me.athlaeos.valhallammo.crafting.dom;
+package me.athlaeos.valhallammo.crafting.recipetypes;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.dom.SkillType;
-import me.athlaeos.valhallammo.materials.blockstatevalidations.CraftValidation;
+import me.athlaeos.valhallammo.items.blockstatevalidations.CraftValidation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,12 +13,12 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
     protected String name;
     protected String displayName;
     protected Collection<ItemStack> ingredients;
-    protected boolean requireExactMeta;
+    protected boolean requireExactMeta = true;
     protected int craftingTime = 2500;
     protected boolean breakStation = false;
-    protected SkillType expReward;
     protected Collection<DynamicItemModifier> itemModifers = new HashSet<>();
     protected CraftValidation validation = null;
+    protected int consecutiveCrafts = 8;
 
     public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients){
         this.name = name;
@@ -66,6 +65,18 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         this.requireExactMeta = requireExactMeta;
     }
 
+    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, Collection<DynamicItemModifier> itemModifers, boolean requireExactMeta, int consecutiveCrafts){
+        this.name = name;
+        this.displayName = displayName;
+        this.craftingBlock = craftingBlock;
+        this.ingredients = ingredients;
+        this.craftingTime = craftingtime;
+        this.breakStation = breakStation;
+        this.itemModifers = itemModifers;
+        this.requireExactMeta = requireExactMeta;
+        this.consecutiveCrafts = consecutiveCrafts;
+    }
+
     public Collection<DynamicItemModifier> getItemModifers() {
         return itemModifers;
     }
@@ -90,7 +101,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         return craftingBlock;
     }
 
-    public void setItemModifers(Collection<DynamicItemModifier> itemModifers) {
+    public void setModifiers(Collection<DynamicItemModifier> itemModifers) {
         this.itemModifers = itemModifers;
     }
 
@@ -120,5 +131,21 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
 
     public void setValidation(CraftValidation validation) {
         this.validation = validation;
+    }
+
+    public boolean requireExactMeta() {
+        return requireExactMeta;
+    }
+
+    public void setRequireExactMeta(boolean requireExactMeta) {
+        this.requireExactMeta = requireExactMeta;
+    }
+
+    public int getConsecutiveCrafts() {
+        return consecutiveCrafts;
+    }
+
+    public void setConsecutiveCrafts(int consecutiveCrafts) {
+        this.consecutiveCrafts = consecutiveCrafts;
     }
 }

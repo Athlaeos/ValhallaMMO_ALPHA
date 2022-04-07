@@ -1,21 +1,20 @@
 package me.athlaeos.valhallammo.menus;
 
-import me.athlaeos.valhallammo.Main;
-import me.athlaeos.valhallammo.crafting.CustomRecipeManager;
-import me.athlaeos.valhallammo.crafting.DynamicItemModifierManager;
-import me.athlaeos.valhallammo.crafting.dom.AbstractCustomCraftingRecipe;
-import me.athlaeos.valhallammo.crafting.dom.ItemCraftingRecipe;
+import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.materials.CraftValidationManager;
-import me.athlaeos.valhallammo.materials.blockstatevalidations.CraftValidation;
-import me.athlaeos.valhallammo.materials.blockstatevalidations.DefaultValidation;
+import me.athlaeos.valhallammo.crafting.recipetypes.AbstractCustomCraftingRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.ItemCraftingRecipe;
+import me.athlaeos.valhallammo.dom.RequirementType;
+import me.athlaeos.valhallammo.items.BlockCraftStateValidationManager;
+import me.athlaeos.valhallammo.items.blockstatevalidations.CraftValidation;
+import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,9 +24,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CreateCraftRecipe extends Menu{
+public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
     private View view = View.VIEW_RECIPES;
-    private final NamespacedKey buttonNameKey = new NamespacedKey(Main.getPlugin(), "button_recipe_name");
+    private final NamespacedKey buttonNameKey = new NamespacedKey(ValhallaMMO.getPlugin(), "button_recipe_name");
     private ItemCraftingRecipe current_craft_recipe = null;
     private ItemCraftingRecipe old_craft_recipe = null;
 
@@ -37,6 +36,17 @@ public class CreateCraftRecipe extends Menu{
     private final ItemStack nextPageButton;
     private final ItemStack previousPageButton;
     private int currentPage = 0;
+
+    private final ItemStack toolIDRequiredButton = Utils.createItemStack(
+            Material.IRON_HOE,
+            Utils.chat("&7&lTool ID Required"),
+            new ArrayList<>()
+    );
+    private final ItemStack toolRequiredTypeButton = Utils.createItemStack(
+            Material.IRON_HOE,
+            Utils.chat("&7&lTool Required Type"),
+            new ArrayList<>()
+    );
 
     private final ItemStack viewCustomCraftRecipesButton = Utils.createItemStack(
             Material.ANVIL,
@@ -49,19 +59,6 @@ public class CreateCraftRecipe extends Menu{
     private final ItemStack cancelButton = Utils.createItemStack(Material.BARRIER,
             Utils.chat("&cDelete"),
             null);
-    private final ItemStack createNewButton = Utils.createItemStack(Material.LIME_STAINED_GLASS_PANE,
-            Utils.chat("&b&lNew"),
-            null);
-    private final ItemStack modifierStrengthButton = Utils.createItemStack(
-            Material.NETHER_STAR,
-            Utils.chat("&6&lStrength"),
-            new ArrayList<>()
-    );
-    private final ItemStack modifierPriorityButton = Utils.createItemStack(
-            Material.CLOCK,
-            Utils.chat("&6&lPriority"),
-            new ArrayList<>()
-    );
 
     private final ItemStack dynamicModifierButton = Utils.createItemStack(
             Material.BOOK,
@@ -73,9 +70,19 @@ public class CreateCraftRecipe extends Menu{
             Utils.chat("&7&lIngredients"),
             new ArrayList<>()
     );
+    private final ItemStack exactMetaButton = Utils.createItemStack(
+            Material.PAPER,
+            Utils.chat("&7&lRequire exact meta:"),
+            new ArrayList<>()
+    );
     private final ItemStack timeButton = Utils.createItemStack(
             Material.CLOCK,
             Utils.chat("&e&lTime to craft"),
+            new ArrayList<>()
+    );
+    private final ItemStack consecutiveCraftsButton = Utils.createItemStack(
+            Material.REPEATER,
+            Utils.chat("&7&lRepeat crafting"),
             new ArrayList<>()
     );
     private final ItemStack breakStationButton = Utils.createItemStack(
@@ -93,11 +100,6 @@ public class CreateCraftRecipe extends Menu{
             Utils.chat("&7&lAlways works"),
             new ArrayList<>()
     );
-    private final ItemStack improveResultButton = Utils.createItemStack(
-            Material.WOODEN_SWORD,
-            Utils.chat("&7&lApplicable on: "),
-            new ArrayList<>()
-    );
     private ItemStack craftResultButton = Utils.createItemStack(
             Material.WOODEN_SWORD,
             Utils.chat("&7&lResult"),
@@ -109,33 +111,38 @@ public class CreateCraftRecipe extends Menu{
             new ArrayList<>()
     );
 
-    private DynamicItemModifier currentModifier = null;
-    private double modifierStrength = 0D;
+    private int toolIDRequired = -1;
+    private int toolRequiredType = 0;
     private boolean breakStation = false;
     private int craftTime = 2500;
+    private int consecutiveCrafts = 8;
+    private boolean exactMeta = true;
     private Material craftStation = Material.CRAFTING_TABLE;
     private Collection<ItemStack> customRecipeIngredients = new ArrayList<>();
     private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
-    private ModifierPriority priority = ModifierPriority.NEUTRAL;
 
-    public CreateCraftRecipe(PlayerMenuUtility playerMenuUtility) {
+    public ManageCraftRecipeMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
         nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lNext page"), null);
         previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lPrevious page"), null);
-        this.currentValidation = CraftValidationManager.getInstance().getDefaultValidation();
+        this.currentValidation = BlockCraftStateValidationManager.getInstance().getDefaultValidation();
     }
 
-    public CreateCraftRecipe(PlayerMenuUtility playerMenuUtility, AbstractCustomCraftingRecipe recipe){
+    public ManageCraftRecipeMenu(PlayerMenuUtility playerMenuUtility, ItemCraftingRecipe recipe){
         super(playerMenuUtility);
         nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lNext page"), null);
         previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lPrevious page"), null);
         if (recipe != null){
-            current_craft_recipe = (ItemCraftingRecipe) recipe;
+            current_craft_recipe = recipe;
             view = View.CREATE_RECIPE;
             this.currentValidation = recipe.getValidation();
             this.craftTime = recipe.getCraftingTime();
             this.craftStation = recipe.getCraftingBlock();
             this.breakStation = recipe.breakStation();
+            this.exactMeta = recipe.requireExactMeta();
+            this.consecutiveCrafts = recipe.getConsecutiveCrafts();
+            this.toolIDRequired = recipe.getRequiredToolId();
+            this.toolRequiredType = recipe.getToolRequirementType();
         }
     }
 
@@ -157,7 +164,7 @@ public class CreateCraftRecipe extends Menu{
         if (view == View.PICK_INGREDIENTS){
             e.setCancelled(false);
             if (e.getCurrentItem() != null){
-                if (e.getCurrentItem().equals(confirmButton)){
+                if (e.getCurrentItem().equals(confirmButton) || e.getSlot() >= 45){
                     e.setCancelled(true);
                 }
             }
@@ -165,7 +172,7 @@ public class CreateCraftRecipe extends Menu{
                 @Override
                 public void run() {
                     if (view == View.PICK_INGREDIENTS){
-                        ItemStack[] originalContents = inventory.getContents();
+                        ItemStack[] originalContents = Arrays.copyOfRange(inventory.getContents(), 0, 45);
                         Map<ItemStack, Integer> contents = new HashMap<>();
                         for (ItemStack i : originalContents){
                             if (i == null) continue;
@@ -185,11 +192,12 @@ public class CreateCraftRecipe extends Menu{
                         }
                     }
                 }
-            }.runTaskLater(Main.getPlugin(), 2L);
+            }.runTaskLater(ValhallaMMO.getPlugin(), 2L);
         }
         if (e.getCurrentItem() != null){
             if (e.getCurrentItem().equals(returnToMenuButton)) {
-                // go back to main menu
+                new RecipeCategoryMenu(playerMenuUtility).open();
+                return;
             } else if (e.getCurrentItem().equals(viewCustomCraftRecipesButton)){
                 currentPage = 1;
                 view = View.VIEW_RECIPES;
@@ -201,10 +209,21 @@ public class CreateCraftRecipe extends Menu{
                 view = View.PICK_INGREDIENTS;
                 setMenuItems();
                 return;
+            } else if (e.getCurrentItem().equals(exactMetaButton)) {
+                exactMeta = !exactMeta;
+                current_craft_recipe.setRequireExactMeta(exactMeta);
+            } else if (e.getCurrentItem().equals(consecutiveCraftsButton)) {
+                handleConsecutiveCraftsButton(e.getClick());
             } else if (e.getCurrentItem().equals(dynamicModifierButton)){
-                view = View.VIEW_MODIFIERS;
+                playerMenuUtility.setPreviousMenu(this);
+                new DynamicModifierMenu(playerMenuUtility, currentModifiers).open();
+                return;
             } else if (e.getCurrentItem().equals(timeButton)){
                 handleTimeButton(e.getClick());
+            } else if (e.getCurrentItem().equals(toolIDRequiredButton)){
+                handleToolRequiredButton(e.getClick());
+            } else if (e.getCurrentItem().equals(toolRequiredTypeButton)){
+                handleToolRequiredTypeButton(e.getClick());
             } else if (e.getCurrentItem().equals(breakStationButton)){
                 breakStation = !breakStation;
                 if (current_craft_recipe != null){
@@ -212,37 +231,8 @@ public class CreateCraftRecipe extends Menu{
                 }
             } else if (e.getCurrentItem().equals(confirmButton)){
                 switch (view){
-                    case NEW_MODIFIER: {
-                        if (currentModifier != null){
-                            for (DynamicItemModifier mod : currentModifiers){
-                                if (mod.getName().equalsIgnoreCase(currentModifier.getName())){
-                                    currentModifiers.remove(mod);
-                                    break;
-                                }
-                            }
-                            currentModifier.setPriority(priority);
-                            priority = ModifierPriority.NEUTRAL;
-                            currentModifier.setStrength(modifierStrength);
-                            modifierStrength = 0D;
-                            currentModifiers.add(currentModifier);
-                            currentModifier = null;
-                            view = View.VIEW_MODIFIERS;
-                        }
-                        break;
-                    }
-                    case PICK_MODIFIERS: {
-                        view = View.VIEW_MODIFIERS;
-                        break;
-                    }
-                    case VIEW_MODIFIERS: {
-                        if (current_craft_recipe != null){
-                            current_craft_recipe.setItemModifers(currentModifiers);
-                            view = View.CREATE_RECIPE;
-                        }
-                        break;
-                    }
                     case PICK_INGREDIENTS: {
-                        ItemStack[] originalContents = inventory.getContents();
+                        ItemStack[] originalContents = Arrays.copyOfRange(inventory.getContents(), 0, 45);
                         Map<ItemStack, Integer> contents = new HashMap<>();
                         for (ItemStack i : originalContents){
                             if (i == null) continue;
@@ -271,14 +261,14 @@ public class CreateCraftRecipe extends Menu{
                     case CREATE_RECIPE: {
                         if (current_craft_recipe != null){
                             current_craft_recipe.setIngredients(customRecipeIngredients);
-                            current_craft_recipe.setItemModifers(currentModifiers);
+                            current_craft_recipe.setModifiers(currentModifiers);
                             current_craft_recipe.setCraftingTime(craftTime);
                             current_craft_recipe.setResult(craftResultButton);
                             current_craft_recipe.setBreakStation(breakStation);
-                            if (!(currentValidation instanceof DefaultValidation)){
-                                current_craft_recipe.setValidation(currentValidation);
-                            }
+                            current_craft_recipe.setValidation(currentValidation);
                             current_craft_recipe.setCraftingBlock(craftStationButton.getType());
+                            current_craft_recipe.setToolRequirementType(toolRequiredType);
+                            current_craft_recipe.setRequiredToolId(toolIDRequired);
                             CustomRecipeManager.getInstance().update(old_craft_recipe, current_craft_recipe);
                             current_craft_recipe = null;
                             view = View.VIEW_RECIPES;
@@ -286,12 +276,8 @@ public class CreateCraftRecipe extends Menu{
                         break;
                     }
                 }
-            } else if (e.getCurrentItem().equals(createNewButton)){
-                view = View.PICK_MODIFIERS;
-            } else if (e.getCurrentItem().equals(modifierStrengthButton)){
-                handleModifierStrength(e.getClick());
             } else if (e.getCurrentItem().equals(craftValidationButton)){
-                List<CraftValidation> availableValidations = CraftValidationManager.getInstance().getValidations(craftStation);
+                List<CraftValidation> availableValidations = BlockCraftStateValidationManager.getInstance().getValidations(craftStation);
                 if (!availableValidations.isEmpty()){
                     if (currentValidationIndex + 1 < availableValidations.size()){
                         currentValidationIndex += 1;
@@ -300,22 +286,11 @@ public class CreateCraftRecipe extends Menu{
                     }
                     currentValidation = availableValidations.get(currentValidationIndex);
                 }
-            } else if (e.getCurrentItem().equals(modifierPriorityButton)){
-                handleModifierPriority(e.getClick());
             } else if (e.getCurrentItem().equals(cancelButton)){
-                switch (view){
-                    case NEW_MODIFIER:{
-                        if (currentModifier != null){
-                            currentModifiers.remove(currentModifier);
-                            view = View.VIEW_MODIFIERS;
-                        }
-                        break;
-                    }
-                    case CREATE_RECIPE:{
-                        if (current_craft_recipe != null){
-                            CustomRecipeManager.getInstance().unregister(old_craft_recipe);
-                            view = View.VIEW_RECIPES;
-                        }
+                if (view == View.CREATE_RECIPE) {
+                    if (current_craft_recipe != null) {
+                        CustomRecipeManager.getInstance().unregister(old_craft_recipe);
+                        view = View.VIEW_RECIPES;
                     }
                 }
             }
@@ -331,10 +306,10 @@ public class CreateCraftRecipe extends Menu{
                                 }
                             } else if (e.getSlot() == 30){
                                 if (e.getCursor().getType().isBlock()){
-                                    List<Material> similarMaterials = ItemUtils.getSimilarMaterials(craftStationButton.getType());
+                                    Material similarMaterial = ItemUtils.getBaseMaterial(craftStationButton.getType());
                                     craftStationButton.setType(e.getCursor().getType());
-                                    if (similarMaterials != null) {
-                                        craftStationButton.setType(similarMaterials.get(0));
+                                    if (similarMaterial != null) {
+                                        craftStationButton.setType(similarMaterial);
                                     }
                                     craftStationButton.setAmount(1);
                                     craftStation = craftStationButton.getType();
@@ -351,45 +326,14 @@ public class CreateCraftRecipe extends Menu{
             if (e.getCurrentItem() != null){
                 if (e.getCurrentItem().getItemMeta() != null){
                     if (e.getCurrentItem().getItemMeta().getPersistentDataContainer().has(buttonNameKey, PersistentDataType.STRING)){
-                        switch (view){
-//                case VIEW_VANILLA:
-//                    DynamicShapedRecipe vanillaRecipe = CustomRecipeManager.getInstance().getDynamicShapedRecipe(
-//                            e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING));
-//                    if (vanillaRecipe != null){
-//                        current_vanilla_recipe = vanillaRecipe;
-//                        view = View.CREATE_VANILLA;
-//                    }
-//                    break;
-                            case VIEW_RECIPES:
-                                AbstractCustomCraftingRecipe craftRecipe = CustomRecipeManager.getInstance().getRecipeByName(
-                                        e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING));
-                                if (craftRecipe instanceof ItemCraftingRecipe){
-                                    current_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
-                                    old_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
-                                    view = View.CREATE_RECIPE;
-                                }
-                                break;
-                            case PICK_MODIFIERS:
-                                currentModifier = DynamicItemModifierManager.getInstance().createModifier(
-                                        e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING),
-                                        0D,
-                                        ModifierPriority.NEUTRAL
-                                );
-                                currentModifier.setStrength(currentModifier.getDefaultStrength());
-                                view = View.NEW_MODIFIER;
-                                break;
-                            case VIEW_MODIFIERS:
-                                String clickedModifier = e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING);
-                                for (DynamicItemModifier modifier : currentModifiers){
-                                    if (modifier.getName().equals(clickedModifier)){
-                                        currentModifier = modifier;
-                                        modifierStrength = modifier.getStrength();
-                                        priority = modifier.getPriority();
-                                        view = View.NEW_MODIFIER;
-                                        break;
-                                    }
-                                }
-                                break;
+                        if (view == View.VIEW_RECIPES) {
+                            AbstractCustomCraftingRecipe craftRecipe = CustomRecipeManager.getInstance().getRecipeByName(
+                                    e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING));
+                            if (craftRecipe instanceof ItemCraftingRecipe) {
+                                current_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
+                                old_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
+                                view = View.CREATE_RECIPE;
+                            }
                         }
                     }
                 }
@@ -401,111 +345,29 @@ public class CreateCraftRecipe extends Menu{
     }
 
     @Override
+    public void handleMenu(InventoryDragEvent e) {
+
+    }
+
+    @Override
     public void setMenuItems() {
         inventory.clear();
+        for (int i = 0; i < getSlots(); i++){
+            inventory.setItem(i, Utils.createItemStack(Material.GRAY_STAINED_GLASS_PANE, Utils.chat("&8 "), null));
+        }
         switch (view){
             case VIEW_RECIPES: setCustomCraftRecipeView();
                 return;
             case CREATE_RECIPE: setCreateCraftRecipeView();
                 return;
             case PICK_INGREDIENTS: setPickIngredientsView();
-                return;
-            case VIEW_MODIFIERS: setViewModifiersView();
-                return;
-            case PICK_MODIFIERS: setPickModifiersView();
-                return;
-            case NEW_MODIFIER: setNewModifierView();
         }
-    }
-
-    private void setNewModifierView(){
-        if (currentModifier != null){
-            List<String> modifierIconLore = new ArrayList<>(Utils.separateStringIntoLines(currentModifier.toString(), 40));
-            modifierIconLore.add(Utils.chat("&8&m                                        "));
-            modifierIconLore.addAll(Utils.separateStringIntoLines(currentModifier.getDescription(), 40));
-            ItemStack modifierButton = Utils.createItemStack(currentModifier.getIcon(),
-                    Utils.chat(currentModifier.getDisplayName()),
-                    modifierIconLore);
-
-            List<String> strengthButtonLore = new ArrayList<>(Utils.separateStringIntoLines(currentModifier.toString(), 40));
-            ItemMeta strengthButtonMeta = modifierStrengthButton.getItemMeta();
-            assert strengthButtonMeta != null;
-            strengthButtonMeta.setLore(strengthButtonLore);
-            modifierStrengthButton.setItemMeta(strengthButtonMeta);
-
-            List<String> modifierPriorityLore = new ArrayList<>(Utils.separateStringIntoLines(priority.getDescription().replace("%priority%", priorityToNumber(priority)), 40));
-            ItemMeta priorityButtonMeta = modifierPriorityButton.getItemMeta();
-            assert priorityButtonMeta != null;
-            priorityButtonMeta.setLore(modifierPriorityLore);
-            modifierPriorityButton.setItemMeta(priorityButtonMeta);
-
-            inventory.setItem(13, modifierButton);
-            inventory.setItem(30, modifierPriorityButton);
-            inventory.setItem(32, modifierStrengthButton);
-        }
-        inventory.setItem(53, confirmButton);
-        inventory.setItem(45, cancelButton);
-    }
-
-    private void setPickModifiersView(){
-        Map<String, DynamicItemModifier> modifiers = DynamicItemModifierManager.getInstance().getModifiers();
-        List<String> currentStringModifiers = currentModifiers.stream().map(DynamicItemModifier::getName).collect(Collectors.toList());
-        List<ItemStack> totalModifierButtons = new ArrayList<>();
-        for (String modifier : modifiers.keySet()){
-            if (currentStringModifiers.contains(modifier)) continue;
-            DynamicItemModifier currentModifier = DynamicItemModifierManager.getInstance().createModifier(modifier, 0D, ModifierPriority.NEUTRAL);
-            List<String> modifierIconLore = new ArrayList<>(Utils.separateStringIntoLines(currentModifier.getDescription(), 40));
-            ItemStack modifierIcon = Utils.createItemStack(currentModifier.getIcon(),
-                    currentModifier.getDisplayName(),
-                    modifierIconLore);
-
-            ItemMeta modifierIconMeta = modifierIcon.getItemMeta();
-            assert modifierIconMeta != null;
-            modifierIconMeta.getPersistentDataContainer().set(buttonNameKey, PersistentDataType.STRING, currentModifier.getName());
-            modifierIcon.setItemMeta(modifierIconMeta);
-            totalModifierButtons.add(modifierIcon);
-        }
-        totalModifierButtons.sort(Comparator.comparing(ItemStack::getType));
-        Map<Integer, ArrayList<ItemStack>> pages = Utils.paginateItemStackList(45, totalModifierButtons);
-
-        if (currentPage > pages.size()) currentPage = pages.size();
-        if (currentPage < 1) currentPage = 1;
-
-        if (pages.size() > 0){
-            for (ItemStack i : pages.get(currentPage - 1)){
-                inventory.addItem(i);
-            }
-        }
-        inventory.setItem(45, previousPageButton);
-        inventory.setItem(53, nextPageButton);
-        inventory.setItem(49, confirmButton);
-    }
-
-    private void setViewModifiersView(){
-        List<DynamicItemModifier> modifiers = currentModifiers.stream().limit(45).collect(Collectors.toList());
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-        for (DynamicItemModifier modifier : modifiers){
-            List<String> modifierIconLore = new ArrayList<>();
-            modifierIconLore.addAll(Utils.separateStringIntoLines(Utils.chat(modifier.toString()), 40));
-            modifierIconLore.add(Utils.chat("&8&m                            "));
-            modifierIconLore.addAll(Utils.separateStringIntoLines(modifier.getDescription(), 40));
-            ItemStack modifierIcon = Utils.createItemStack(modifier.getIcon(),
-                    modifier.getDisplayName(),
-                    modifierIconLore);
-
-            ItemMeta modifierIconMeta = modifierIcon.getItemMeta();
-            assert modifierIconMeta != null;
-            modifierIconMeta.getPersistentDataContainer().set(buttonNameKey, PersistentDataType.STRING, modifier.getName());
-            modifierIcon.setItemMeta(modifierIconMeta);
-            inventory.addItem(modifierIcon);
-        }
-        if (currentModifiers.size() <= 44){
-            inventory.addItem(createNewButton);
-        }
-        inventory.setItem(49, confirmButton);
     }
 
     private void setPickIngredientsView(){
+        for (int i = 0; i < 45; i++){
+            inventory.setItem(i, null);
+        }
         for (ItemStack ingredient : customRecipeIngredients.stream().limit(45L).collect(Collectors.toList())){
             inventory.addItem(ingredient);
         }
@@ -521,6 +383,11 @@ public class CreateCraftRecipe extends Menu{
             currentModifiers = new ArrayList<>(current_craft_recipe.getItemModifers());
             craftTime = current_craft_recipe.getCraftingTime();
             breakStation = current_craft_recipe.breakStation();
+            consecutiveCrafts = current_craft_recipe.getConsecutiveCrafts();
+            exactMeta = current_craft_recipe.requireExactMeta();
+            currentValidation = current_craft_recipe.getValidation();
+            toolIDRequired = current_craft_recipe.getRequiredToolId();
+            toolRequiredType = current_craft_recipe.getToolRequirementType();
         }
 
         List<String> ingredientButtonLore = new ArrayList<>();
@@ -533,9 +400,12 @@ public class CreateCraftRecipe extends Menu{
         ingredientsButton.setItemMeta(ingredientButtonMeta);
 
         List<String> modifierButtonLore = new ArrayList<>();
-        for (DynamicItemModifier modifier : currentModifiers){
+        List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
+        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        for (DynamicItemModifier modifier : modifiers){
             modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
         }
+
         ItemMeta modifierButtonMeta = dynamicModifierButton.getItemMeta();
         assert modifierButtonMeta != null;
         modifierButtonMeta.setLore(modifierButtonLore);
@@ -546,22 +416,117 @@ public class CreateCraftRecipe extends Menu{
         timeButtonMeta.setDisplayName(Utils.chat(String.format("&e&lTime to craft: %.1fs", ((double) craftTime) / 1000D)));
         timeButton.setItemMeta(timeButtonMeta);
 
+        RequirementType type = null;
+        if (toolRequiredType < RequirementType.values().length && toolRequiredType >= 0){
+            type = RequirementType.values()[toolRequiredType];
+        }
+        ItemMeta toolIDRequiredMeta = toolIDRequiredButton.getItemMeta();
+        assert toolIDRequiredMeta != null;
+        ItemMeta toolRequirementTypeMeta = toolRequiredTypeButton.getItemMeta();
+        assert toolRequirementTypeMeta != null;
+        toolIDRequiredMeta.setLore(Collections.singletonList(
+                Utils.chat("&cInvalid configuration")
+        ));
+        toolRequirementTypeMeta.setLore(Collections.singletonList(
+                Utils.chat("&cInvalid configuration")
+        ));
+        if (type != null){
+            if (toolIDRequired < 0){
+                toolIDRequiredMeta.setLore(Arrays.asList(
+                        Utils.chat("&7Recipe requires &eno special tool"),
+                        Utils.chat("&7to craft. Can be crafted with"),
+                        Utils.chat("&7empty hand")
+                ));
+                toolRequirementTypeMeta.setLore(Arrays.asList(
+                        Utils.chat("&7Recipe requires &eno special tool"),
+                        Utils.chat("&7to craft. Can be crafted with"),
+                        Utils.chat("&7empty hand")
+                ));
+            } else {
+                switch (type){
+                    case NO_TOOL_REQUIRED:{
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &eno special tool"),
+                                Utils.chat("&7to craft. Can be crafted with"),
+                                Utils.chat("&7empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &eno special tool"),
+                                Utils.chat("&7to craft. Can be crafted with"),
+                                Utils.chat("&7empty hand")
+                        ));
+                        break;
+                    }
+                    case EQUALS:{
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof exactly " + toolIDRequired + "&7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof exactly " + toolIDRequired + "&7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        break;
+                    }
+                    case EQUALS_OR_GREATER: {
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or higher &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or higher &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        break;
+                    }
+                    case EQUALS_OR_LESSER: {
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or less &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or less &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        break;
+                    }
+                }
+            }
+            toolIDRequiredMeta.setDisplayName(Utils.chat(toolIDRequired >= 0 ? "&7&lTool ID Required: " + toolIDRequired : "&7&lNo special Tool Required"));
+            toolRequirementTypeMeta.setDisplayName(Utils.chat("&7&lTool Required Type: " + type.toString().replace("_", " ")));
+        }
+        toolIDRequiredButton.setItemMeta(toolIDRequiredMeta);
+        toolRequiredTypeButton.setItemMeta(toolRequirementTypeMeta);
+
+
+        ItemMeta consecutiveCraftsMeta = consecutiveCraftsButton.getItemMeta();
+        assert consecutiveCraftsMeta != null;
+        consecutiveCraftsMeta.setDisplayName(Utils.chat(String.format("&e&lRepeat crafting: %dx", consecutiveCrafts)));
+        consecutiveCraftsButton.setItemMeta(consecutiveCraftsMeta);
+
+        ItemMeta requireExactMetaMeta = exactMetaButton.getItemMeta();
+        assert requireExactMetaMeta != null;
+        requireExactMetaMeta.setDisplayName(Utils.chat(String.format("&e&lRequire exact meta: %s", ((exactMeta) ? "Yes" : "No"))));
+        exactMetaButton.setItemMeta(requireExactMetaMeta);
+
         ItemMeta breakStationMeta = breakStationButton.getItemMeta();
         assert breakStationMeta != null;
         breakStationMeta.setDisplayName(Utils.chat("&c&lBreak station after use: " + ((breakStation) ? "Yes" : "No")));
         breakStationButton.setItemMeta(breakStationMeta);
 
         List<String> validationButtonLore = new ArrayList<>();
-        ItemMeta validationButtonMeta = dynamicModifierButton.getItemMeta();
+        ItemMeta validationButtonMeta = craftValidationButton.getItemMeta();
         assert validationButtonMeta != null;
         if (this.currentValidation != null){
             validationButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat(this.currentValidation.getDescription()), 40));
             validationButtonMeta.setDisplayName(Utils.chat(this.currentValidation.getDisplayName()));
-            if (this.currentValidation.getBlock() == null){
-                craftValidationButton.setType(Material.BARRIER);
-            } else {
-                craftValidationButton.setType(this.currentValidation.getBlock());
-            }
+            craftValidationButton.setType(this.currentValidation.getIcon());
         } else {
             validationButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat(
                     "&7No validation available and default is not set, this is not intended and you should contact the developer- but it should still work."
@@ -572,6 +537,9 @@ public class CreateCraftRecipe extends Menu{
         validationButtonMeta.setLore(validationButtonLore);
         craftValidationButton.setItemMeta(validationButtonMeta);
 
+        inventory.setItem(5, toolIDRequiredButton);
+        inventory.setItem(6, toolRequiredTypeButton);
+        inventory.setItem(11, exactMetaButton);
         inventory.setItem(12, ingredientsButton);
         inventory.setItem(14, craftResultButton);
         inventory.setItem(19, cancelButton);
@@ -580,14 +548,20 @@ public class CreateCraftRecipe extends Menu{
         inventory.setItem(30, craftStationButton);
         inventory.setItem(32, dynamicModifierButton);
         inventory.setItem(39, timeButton);
+        inventory.setItem(40, consecutiveCraftsButton);
         inventory.setItem(41, breakStationButton);
     }
 
     private void setCustomCraftRecipeView(){
+        for (int i = 0; i < 45; i++){
+            inventory.setItem(i, null);
+        }
         List<ItemStack> totalRecipeButtons = new ArrayList<>();
-        for (AbstractCustomCraftingRecipe recipe : CustomRecipeManager.getInstance().getAllRecipes().values()){
+        for (AbstractCustomCraftingRecipe recipe : CustomRecipeManager.getInstance().getAllCustomRecipes().values()){
             if (recipe instanceof ItemCraftingRecipe){
-                ItemStack resultButton = ((ItemCraftingRecipe) recipe).getResult().clone();
+                ItemStack resultButton = ((ItemCraftingRecipe) recipe).getResult();
+                if (resultButton == null) continue;
+                resultButton = resultButton.clone();
                 ItemMeta resultMeta = resultButton.getItemMeta();
                 assert resultMeta != null;
                 resultMeta.setDisplayName(recipe.getName());
@@ -596,7 +570,9 @@ public class CreateCraftRecipe extends Menu{
                     resultLore.add(Utils.chat("&e"+ingredient.getAmount() + " &7x&e " + getItemName(ingredient)));
                 }
                 resultLore.add(Utils.chat("&8&m                                      "));
-                for (DynamicItemModifier modifier : recipe.getItemModifers()){
+                List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifers());
+                modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                for (DynamicItemModifier modifier : modifiers){
                     resultLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
                 }
                 if (resultMeta.getLore() != null){
@@ -625,13 +601,16 @@ public class CreateCraftRecipe extends Menu{
         inventory.setItem(53, nextPageButton);
     }
 
+    @Override
+    public void setCurrentModifiers(Collection<DynamicItemModifier> modifiers) {
+        this.currentModifiers = modifiers;
+        current_craft_recipe.setModifiers(modifiers);
+    }
+
     private enum View{
         VIEW_RECIPES,
         CREATE_RECIPE,
-        PICK_INGREDIENTS,
-        PICK_MODIFIERS,
-        VIEW_MODIFIERS,
-        NEW_MODIFIER
+        PICK_INGREDIENTS
     }
 
     private String getItemName(ItemStack i){
@@ -668,97 +647,65 @@ public class CreateCraftRecipe extends Menu{
         }
     }
 
-    private void handleModifierPriority(ClickType clickType){
+    private void handleToolRequiredButton(ClickType clickType){
         switch (clickType){
-            case LEFT: {
-                switch (priority){
-                    case NEUTRAL: priority = ModifierPriority.SOON;
-                        break;
-                    case SOON: priority = ModifierPriority.SOONEST;
-                        break;
-                    case SOONEST: priority = ModifierPriority.LAST;
-                        break;
-                    case LAST: priority = ModifierPriority.LATER;
-                        break;
-                    case LATER: priority = ModifierPriority.NEUTRAL;
-                        break;
-                }
+            case LEFT: toolIDRequired += 1;
+                break;
+            case RIGHT: {
+                if (toolIDRequired - 1 < -1) toolIDRequired = -1;
+                else toolIDRequired -= 1;
                 break;
             }
-            case RIGHT:{
-                switch (priority){
-                    case NEUTRAL: priority = ModifierPriority.LATER;
-                        break;
-                    case SOON: priority = ModifierPriority.NEUTRAL;
-                        break;
-                    case SOONEST: priority = ModifierPriority.SOON;
-                        break;
-                    case LAST: priority = ModifierPriority.SOONEST;
-                        break;
-                    case LATER: priority = ModifierPriority.LAST;
-                        break;
-                }
+            case SHIFT_LEFT: toolIDRequired += 10;
                 break;
+            case SHIFT_RIGHT: {
+                if (toolIDRequired - 10 < 0) toolIDRequired = 0;
+                else toolIDRequired -= 10;
             }
         }
-        currentModifier.setPriority(priority);
-    }
-
-    private void handleModifierStrength(ClickType clickType){
-        if (currentModifier != null){
-            switch (clickType){
-                case LEFT: {
-                    if (modifierStrength + currentModifier.getSmallStepIncrease() > currentModifier.getMaxStrength()) {
-                        modifierStrength = currentModifier.getMaxStrength();
-                    } else if (modifierStrength == currentModifier.getMaxStrength()){
-                        modifierStrength = currentModifier.getMinStrength();
-                    } else {
-                        modifierStrength += currentModifier.getSmallStepIncrease();
-                    }
-                    break;
-                }
-                case RIGHT: {
-                    if (modifierStrength - currentModifier.getSmallStepDecrease() < currentModifier.getMinStrength()){
-                        modifierStrength = currentModifier.getMinStrength();
-                    } else if (modifierStrength == currentModifier.getMinStrength()){
-                        modifierStrength = currentModifier.getMaxStrength();
-                    } else {
-                        modifierStrength -= currentModifier.getSmallStepDecrease();
-                    }
-                    break;
-                }
-                case SHIFT_LEFT: {
-                    if (modifierStrength + currentModifier.getBigStepIncrease() > currentModifier.getMaxStrength()) {
-                        modifierStrength = currentModifier.getMaxStrength();
-                    } else if (modifierStrength == currentModifier.getMaxStrength()){
-                        modifierStrength = currentModifier.getMinStrength();
-                    } else {
-                        modifierStrength += currentModifier.getBigStepIncrease();
-                    }
-                    break;
-                }
-                case SHIFT_RIGHT: {
-                    if (modifierStrength - currentModifier.getBigStepDecrease() < currentModifier.getMinStrength()){
-                        modifierStrength = currentModifier.getMinStrength();
-                    } else if (modifierStrength == currentModifier.getMinStrength()){
-                        modifierStrength = currentModifier.getMaxStrength();
-                    } else {
-                        modifierStrength -= currentModifier.getBigStepDecrease();
-                    }
-                }
-            }
-            currentModifier.setStrength(modifierStrength);
+        if (current_craft_recipe != null){
+            current_craft_recipe.setRequiredToolId(toolIDRequired);
         }
     }
 
-    private String priorityToNumber(ModifierPriority priority){
-        switch (priority){
-            case SOONEST: return "5";
-            case SOON: return "4";
-            case NEUTRAL: return "3";
-            case LATER: return "2";
-            case LAST: return "1";
+    private void handleToolRequiredTypeButton(ClickType clickType){
+        switch (clickType){
+            case LEFT:
+            case SHIFT_LEFT: {
+                if (toolRequiredType + 1 > RequirementType.values().length - 1) toolRequiredType = RequirementType.values().length - 1;
+                else toolRequiredType += 1;
+                break;
+            }
+            case RIGHT:
+            case SHIFT_RIGHT:{
+                if (toolRequiredType - 1 < 0) toolRequiredType = 0;
+                else toolRequiredType -= 1;
+                break;
+            }
         }
-        return "";
+        if (current_craft_recipe != null){
+            current_craft_recipe.setToolRequirementType(toolRequiredType);
+        }
+    }
+
+    private void handleConsecutiveCraftsButton(ClickType clickType){
+        switch (clickType){
+            case LEFT: consecutiveCrafts += 1;
+                break;
+            case RIGHT: {
+                if (consecutiveCrafts - 1 < 1) consecutiveCrafts = 1;
+                else consecutiveCrafts -= 1;
+                break;
+            }
+            case SHIFT_LEFT: consecutiveCrafts += 10;
+                break;
+            case SHIFT_RIGHT: {
+                if (consecutiveCrafts - 10 < 1) consecutiveCrafts = 1;
+                else consecutiveCrafts -= 10;
+            }
+        }
+        if (current_craft_recipe != null){
+            current_craft_recipe.setConsecutiveCrafts(consecutiveCrafts);
+        }
     }
 }

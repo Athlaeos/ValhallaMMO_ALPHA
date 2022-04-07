@@ -1,6 +1,120 @@
-name: MMOSkills
-version: 1.0_ALPHA
-main: me.athlaeos.mmoskills.MMOSkills
+name: ValhallaMMO
+version: ALPHA_1.5
+main: me.athlaeos.valhallammo.ValhallaMMO
 api-version: 1.14
 authors: [Athlaeos]
-description: Adds in a number of interesting categories players can level up and improve ingame actions
+description: Adds in 14 skills with new mechanics, custom recipes, skill trees, and leveling.
+commands:
+  valhalla:
+    description: Main command for all things ValhallaMMO-related
+    aliases: [val]
+  skills:
+    description: Shorter command to access the plugin's skill trees
+    aliases: [s]
+  partychat:
+    description: Allows a user to toggle party chat, or to send a single message in party chat
+    aliases: [pc]
+  itemshare:
+    description: Allows the user to transfer their held item to another party member
+    aliases: [share]
+  party:
+    description: Main command for users to manage their party
+    aliases: [p]
+
+permissions:
+  valhalla.manageparties:
+    default: op
+    description: Allows the user to target other people's parties and to manage things like ownership and stats
+  valhalla.createparty:
+    default: op
+    description: Allows the user to create their own party
+  valhalla.allrecipes:
+    default: op
+    description: All Valhalla custom crafting recipes will be available to the player with this permission
+  valhalla.skills:
+    default: op
+    description: Access to the /valhalla skills command, which accesses your skill trees.
+  valhalla.givebook:
+    default: op
+    description: Access to the /valhalla givebook command, which allows the user to give themselves or someone else a ValhallaMMO introduction book
+  valhalla.help:
+    default: op
+    description: Access to the /valhalla help command, which gives descriptions and details on all available commands.
+  valhalla.recipes:
+    default: op
+    description: Access to the /valhalla recipes command, which gives the user full control over all custom recipes on the server.
+  valhalla.loottables:
+    default: op
+    description: Access to the /valhalla loot command, which gives the user full control over all loot tables within the plugin.
+  valhalla.modify:
+    default: op
+    description: Access to the /valhalla modify command, which allows the user to freely modify held items given the right key and strength.
+  valhalla.reward:
+    default: op
+    description: Access to the /valhalla reward command, which allows the user to reward a player with a given perk reward.
+  valhalla.profile:
+    default: op
+    description: Access to the /valhalla profile command, which allows the user to view their own ValhallaMMO stats.
+  valhalla.profile.other:
+    default: op
+    description: Access to the /valhalla profile command, which allows the user to view anyone's ValhallaMMO stats.
+  valhalla.reset.other:
+    default: op
+    description: Access to the /valhalla reset command, which soft/hard resets someone's ValhallaMMO progress.
+  valhalla.reset:
+    default: op
+    description: Access to the /valhalla reset command, which allows the user to only hard reset their own progress
+  valhalla.ignorediminishingreturns:
+    default: false
+    description: Allows the user to bypass diminishing returns on EXP gain.
+  valhalla.ignorecooldowns:
+    default: op
+    description: Allows the user the use abilities freely, cooldown is not applied.
+  valhalla.globalbuffs:
+    default: op
+    description: Access to the /valhalla globalbuff command, which allows the user to apply global status effects
+  valhalla.reload:
+    default: op
+    description: Reloads the plugin's configs into memory, be careful as this also saves changes made to recipes and loot tables before reloading which can cause a lag spike
+  valhalla.exp:
+    default: op
+    description: Access to the /valhalla exp command, which allows the user to freely give exp to anyone
+  valhalla.exp.general.#:
+    default: false
+    description: Adds (or subtracts) from the player's experience multiplier. valhalla.exp.general.100 gives the player +100% more experience in everything.
+  valhalla.exp.smithing.#:
+    default: false
+    description: Adds (or subtracts) from the player's smithing experience multiplier. valhalla.exp.smithing.100 gives the player +100% more experience in smithing.
+  valhalla.exp.alchemy.#:
+    default: false
+    description: Adds (or subtracts) from the player's alchemy experience multiplier. valhalla.exp.alchemy.100 gives the player +100% more experience in alchemy.
+  valhalla.exp.enchanting.#:
+    default: false
+    description: Adds (or subtracts) from the player's enchanting experience multiplier. valhalla.exp.enchanting.100 gives the player +100% more experience in enchanting.
+  valhalla.exp.farming.#:
+    default: false
+    description: Adds (or subtracts) from the player's farming experience multiplier. valhalla.exp.farming.100 gives the player +100% more experience in farming.
+  valhalla.exp.mining.#:
+    default: false
+    description: Adds (or subtracts) from the player's mining experience multiplier. valhalla.exp.mining.100 gives the player +100% more experience in mining.
+  valhalla.exp.woodcutting.#:
+    default: false
+    description: Adds (or subtracts) from the player's woodcutting experience multiplier. valhalla.exp.woodcutting.100 gives the player +100% more experience in woodcutting.
+  valhalla.exp.archery.#:
+    default: false
+    description: Adds (or subtracts) from the player's archery experience multiplier. valhalla.exp.archery.100 gives the player +100% more experience in archery.
+  valhalla.exp.weapons_light.#:
+    default: false
+    description: Adds (or subtracts) from the player's light weapons experience multiplier. valhalla.exp.weapons_light.100 gives the player +100% more experience in light weapons.
+  valhalla.exp.weapons_heavy.#:
+    default: false
+    description: Adds (or subtracts) from the player's heavy weapons experience multiplier. valhalla.exp.weapons_heavy.100 gives the player +100% more experience in heavy weapons.
+  valhalla.exp.armor_light.#:
+    default: false
+    description: Adds (or subtracts) from the player's light armor experience multiplier. valhalla.exp.armor_light.100 gives the player +100% more experience in light armor.
+  valhalla.exp.armor_heavy.#:
+    default: false
+    description: Adds (or subtracts) from the player's heavy armor experience multiplier. valhalla.exp.armor_heavy.100 gives the player +100% more experience in heavy armor.
+  valhalla.exp.unarmed.#:
+    default: false
+    description: Adds (or subtracts) from the player's unarmed experience multiplier. valhalla.exp.unarmed.100 gives the player +100% more experience in unarmed.

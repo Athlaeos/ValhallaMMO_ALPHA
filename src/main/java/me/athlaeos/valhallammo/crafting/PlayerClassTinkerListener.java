@@ -2,7 +2,7 @@ package me.athlaeos.valhallammo.crafting;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.events.PlayerItemTinkerEvent;
+import me.athlaeos.valhallammo.events.PlayerItemClassTinkerEvent;
 import me.athlaeos.valhallammo.managers.CooldownManager;
 import me.athlaeos.valhallammo.managers.MaterialCosmeticManager;
 import me.athlaeos.valhallammo.managers.TranslationManager;
@@ -23,18 +23,18 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class PlayerTinkerListener implements Listener {
+public class PlayerClassTinkerListener implements Listener {
     CooldownManager cooldownManager = CooldownManager.getInstance();
     private final String errorNoSpace;
     private final String errorTinkeringFailed;
 
-    public PlayerTinkerListener(){
+    public PlayerClassTinkerListener(){
         errorNoSpace = TranslationManager.getInstance().getTranslation("error_crafting_no_space");
         errorTinkeringFailed = TranslationManager.getInstance().getTranslation("error_crafting_tinker_fail");
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerCustomCraft(PlayerItemTinkerEvent e){
+    public void onPlayerCustomCraft(PlayerItemClassTinkerEvent e){
         if (!e.isCancelled()){
             ItemStack playerHand = e.getPlayer().getInventory().getItemInMainHand().clone();
             boolean playerHasSpace = e.getPlayer().getInventory().firstEmpty() > -1;

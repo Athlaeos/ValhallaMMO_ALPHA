@@ -1,13 +1,10 @@
 package me.athlaeos.valhallammo.skills;
 
-import org.bukkit.event.entity.EntityPotionEffectEvent;
-import org.bukkit.event.entity.LingeringPotionSplashEvent;
-import org.bukkit.event.entity.PotionSplashEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
-public interface PotionEffectSkill {
-    void onPotionEffect(EntityPotionEffectEvent event);
+public interface EntityTargetingSkill {
+    void onEntityTargetEntity(EntityTargetLivingEntityEvent event);
 
-    void onPotionSplash(PotionSplashEvent event);
-
-    void onPotionLingering(LingeringPotionSplashEvent event);
+    void onEntityTarget(EntityTargetEvent event);
 }

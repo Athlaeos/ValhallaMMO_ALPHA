@@ -1,5 +1,8 @@
-package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
+package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.items.attributewrappers.VanillaArmorWrapper;
 import me.athlaeos.valhallammo.utility.ItemUtils;
@@ -10,11 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class AttributeAddArmorModifier extends DynamicItemModifier{
+public class AttributeAddArmorModifier extends DynamicItemModifier {
     public AttributeAddArmorModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
+        this.category = ModifierCategory.ITEM_STATS;
 
         this.bigStepDecrease = 1;
         this.bigStepIncrease = 1;
@@ -23,8 +27,7 @@ public class AttributeAddArmorModifier extends DynamicItemModifier{
         this.defaultStrength = 0;
         this.minStrength = 0;
         this.maxStrength = 1000;
-        this.description = Utils.chat("&7Adds &eArmor &7as a default attribute to the item. " +
-                "-nThe recipe is cancelled if the item already has armor.");
+        this.description = Utils.chat("&7Adds &eArmor &7as a default attribute to the item.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lArmor");
         this.icon = Material.CHAINMAIL_CHESTPLATE;
     }

@@ -1,316 +1,353 @@
-package me.athlaeos.valhallammo.skills.alchemy;
+package me.athlaeos.valhallammo.skills.enchanting;
 
-import me.athlaeos.valhallammo.configs.ConfigManager;
-import me.athlaeos.valhallammo.dom.Perk;
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.items.EquipmentClass;
+import me.athlaeos.valhallammo.items.ItemTreatment;
+import me.athlaeos.valhallammo.items.MaterialClass;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
-import me.athlaeos.valhallammo.managers.PerkRewardsManager;
-import me.athlaeos.valhallammo.perkrewards.PerkReward;
-import me.athlaeos.valhallammo.skills.CraftingSkill;
+import me.athlaeos.valhallammo.managers.EnchantingItemEnchantmentsManager;
+import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
+import me.athlaeos.valhallammo.skills.EnchantmentApplicationSkill;
+import me.athlaeos.valhallammo.skills.OffensiveSkill;
 import me.athlaeos.valhallammo.skills.Skill;
-import me.athlaeos.valhallammo.skills.SkillType;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class AlchemySkill extends Skill implements CraftingSkill {
-//    private final Map<PotionType, Double> baseExperienceValues;
-//    private final Map<PotionBrewAction, Double> experienceMultipliers;
-//    private double turtleMasterPotionBaseEXP = 0D;
-//    private double awkwardPotionBaseEXP = 0D;
+public class EnchantingSkill extends Skill implements OffensiveSkill, EnchantmentApplicationSkill {
+    private final Map<Enchantment, Double> enchantmentBaseValues;
+    private final Map<Integer, Double> enchantmentLevelMultipliers;
+    private final Map<MaterialClass, Double> enchantmentMaterialClassMultipliers;
+    private final Map<EquipmentClass, Double> enchantmentEquipmentClassMultipliers;
 
-    public AlchemySkill() {
-//        baseExperienceValues = new HashMap<>();
-//        experienceMultipliers = new HashMap<>();
-        YamlConfiguration alchemyConfig = ConfigManager.getInstance().getConfig("skill_alchemy.yml").get();
-        YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_alchemy.yml").get();
+    private final double diminishingReturnsMultiplier;
+    private final int diminishingReturnsCount;
+    private final List<EntityType> diminishingReturnsEntities = new ArrayList<>();
+    private final Map<EntityType, Double> entityEXPMultipliers = new HashMap<>();
+    private final Map<UUID, Integer> diminishingReturnTallyCounter = new HashMap<>();
 
-        this.type = SkillType.ALCHEMY;
-        this.displayName = Utils.chat(alchemyConfig.getString("display_name"));
-        this.description = Utils.chat(alchemyConfig.getString("description"));
-        try {
-            this.icon = Material.valueOf(alchemyConfig.getString("icon"));
-        } catch (IllegalArgumentException ignored){
-            System.out.println("[ValhallaMMO] invalid icon given for Alchemy skill tree in skill_alchemy.yml, defaulting to BREWING_STAND");
-            this.icon = Material.BREWING_STAND;
-        }
+    public EnchantingSkill(String type) {
+        super(type);
+        enchantmentBaseValues = new HashMap<>();
+        enchantmentLevelMultipliers = new HashMap<>();
+        enchantmentMaterialClassMultipliers = new HashMap<>();
+        enchantmentEquipmentClassMultipliers = new HashMap<>();
+        YamlConfiguration enchantmentConfig = ConfigManager.getInstance().getConfig("skill_enchanting.yml").get();
+        YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_enchanting.yml").get();
 
-        this.expCurve = progressionConfig.getString("experience.exp_level_curve");
+        this.loadCommonConfig(enchantmentConfig, progressionConfig);
 
-        this.max_level = progressionConfig.getInt("experience.max_level");
-
-        this.messages = progressionConfig.getStringList("messages");
-
-        this.commands = progressionConfig.getStringList("commands");
-
-        try {
-            String coords = alchemyConfig.getString("starting_coordinates");
-            if (coords == null) throw new IllegalArgumentException();
-            String[] indivCoords = coords.split(",");
-            if (indivCoords.length != 2) throw new IllegalArgumentException();
-            this.centerX = Integer.parseInt(indivCoords[0]);
-            this.centerY = Integer.parseInt(indivCoords[1]);
-        } catch (IllegalArgumentException e){
-            System.out.println("[ValhallaMMO] invalid coordinates given for alchemy in skill_alchemy.yml, defaulting to 0,0. Coords are to be given in the format \"x,y\" where X and Y are whole numbers");
-            this.centerX = 0;
-            this.centerY = 0;
-        }
-
-        ConfigurationSection startingPerksSection = progressionConfig.getConfigurationSection("starting_perks");
-        if (startingPerksSection != null){
-            for (String startPerk : startingPerksSection.getKeys(false)){
-                Object arg = progressionConfig.get("starting_perks." + startPerk);
-                if (arg != null){
-                    PerkReward reward = PerkRewardsManager.getInstance().createReward(startPerk, arg);
-                    if (reward == null) {
-                        continue;
-                    }
-                    startingPerks.add(reward);
-                }
+        this.diminishingReturnsMultiplier = progressionConfig.getDouble("experience.diminishing_returns.multiplier");
+        this.diminishingReturnsCount = progressionConfig.getInt("experience.diminishing_returns.amount");
+        for (String s : progressionConfig.getStringList("experience.diminishing_returns.on")){
+            try {
+                this.diminishingReturnsEntities.add(EntityType.valueOf(s));
+            } catch (IllegalArgumentException ignored){
             }
         }
 
-        ConfigurationSection levelingPerksSection = progressionConfig.getConfigurationSection("leveling_perks");
-        if (levelingPerksSection != null){
-            for (String levelPerk : levelingPerksSection.getKeys(false)){
-                Object arg = progressionConfig.get("leveling_perks." + levelPerk);
-                if (arg != null){
-                    PerkReward reward = PerkRewardsManager.getInstance().createReward(levelPerk, arg);
-                    if (reward == null) continue;
-                    levelingPerks.add(reward);
-                }
-            }
-        }
-
-        ConfigurationSection perksSection = progressionConfig.getConfigurationSection("perks");
-        if (perksSection != null){
-            for (String perkName : perksSection.getKeys(false)){
-                String displayName = progressionConfig.getString("perks." + perkName + ".name");
-                String description = progressionConfig.getString("perks." + perkName + ".description");
-                Material perkIcon = Material.BOOK;
+        ConfigurationSection expReducedEntitySection = progressionConfig.getConfigurationSection("experience.diminishing_returns.mob_experience");
+        if (expReducedEntitySection != null){
+            for (String mob : expReducedEntitySection.getKeys(false)){
                 try {
-                    String stringIcon = progressionConfig.getString("perks." + perkName + ".icon");
-                    if (stringIcon == null) {
-                        throw new IllegalArgumentException();
-                    }
-                    perkIcon = Material.valueOf(stringIcon);
+                    EntityType entity = EntityType.valueOf(mob);
+                    double value = progressionConfig.getDouble("experience.diminishing_returns.mob_experience." + mob);
+                    entityEXPMultipliers.put(entity, value);
                 } catch (IllegalArgumentException ignored){
-                    System.out.println("[ValhallaMMO] invalid icon given for perk " + perkName + " in skill_alchemy.yml, defaulting to BOOK");
                 }
-                int perkX;
-                int perkY;
-                try {
-                    String coords = progressionConfig.getString("perks." + perkName + ".coords");
-                    if (coords == null) {
-                        throw new IllegalArgumentException();
-                    }
-                    String[] indivCoords = coords.split(",");
-                    if (indivCoords.length != 2) {
-                        throw new IllegalArgumentException();
-                    }
-                    perkX = Integer.parseInt(indivCoords[0]);
-                    perkY = Integer.parseInt(indivCoords[1]);
-                } catch (IllegalArgumentException e){
-                    System.out.println("[ValhallaMMO] invalid coordinates given for perk " + perkName + " in skill_alchemy.yml, cancelling perk creation. Coords are to be given in the format \"x,y\" where X and Y are whole numbers");
-                    e.printStackTrace();
-                    continue;
-                }
-                boolean hidden = progressionConfig.getBoolean("perks." + perkName + ".hidden");
-                int cost = progressionConfig.getInt("perks." + perkName + ".cost");
-                int required_level = progressionConfig.getInt("perks." + perkName + ".required_lv");
-
-                List<PerkReward> perkRewards = new ArrayList<>();
-                ConfigurationSection perkRewardSection = progressionConfig.getConfigurationSection("perks." + perkName + ".perk_rewards");
-                if (perkRewardSection != null){
-                    for (String rewardString : perkRewardSection.getKeys(false)){
-                        Object arg = progressionConfig.get("perks." + perkName + ".perk_rewards." + rewardString);
-                        if (arg != null){
-                            PerkReward reward = null;
-                            try {
-                                reward = PerkRewardsManager.getInstance().createReward(rewardString, arg);
-                                if (reward != null){
-                                    reward = reward.clone();
-                                }
-                            } catch (CloneNotSupportedException ignored){
-                            }
-                            if (reward == null) {
-                                continue;
-                            }
-                            perkRewards.add(reward);
-                        }
-                    }
-                }
-
-                List<String> perkMessages = progressionConfig.getStringList("perks." + perkName + ".messages");
-                List<String> commands = progressionConfig.getStringList("perks." + perkName + ".commands");
-                List<String> requirementSkillOne = progressionConfig.getStringList("perks." + perkName + ".requireperk_one");
-                List<String> requirementSkillAll = progressionConfig.getStringList("perks." + perkName + ".requireperk_all");
-
-                Perk newPerk = new Perk(perkName, displayName, description, perkIcon,
-                        this.type, perkX, perkY, hidden, cost, required_level, perkRewards,
-                        perkMessages, commands, requirementSkillOne, requirementSkillAll);
-                perks.add(newPerk);
             }
         }
 
-        ConfigurationSection specialSection = progressionConfig.getConfigurationSection("special_perks");
-        if (specialSection != null){
-            for (String stringLevel : specialSection.getKeys(false)){
-                int level;
+        ConfigurationSection baseEnchantmentValueSection = progressionConfig.getConfigurationSection("experience.exp_gain.enchantment_base");
+        if (baseEnchantmentValueSection != null){
+            for (String s : baseEnchantmentValueSection.getKeys(false)){
+                Enchantment e = Enchantment.getByKey(NamespacedKey.minecraft(s.toLowerCase()));
+                if (e != null){
+                    double base = progressionConfig.getDouble("experience.exp_gain.enchantment_base." + s);
+                    enchantmentBaseValues.put(e, base);
+                } else {
+                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid enchantment type given at skill_enchanting.yml experience.exp_gain.enchantment_base." + s);
+                }
+            }
+        }
+
+        ConfigurationSection levelMultiplierSection = progressionConfig.getConfigurationSection("experience.exp_gain.enchantment_level_multiplier");
+        if (levelMultiplierSection != null){
+            for (String s : levelMultiplierSection.getKeys(false)){
                 try {
-                    level = Integer.parseInt(stringLevel);
+                    int level = Integer.parseInt(s);
+                    double multiplier = progressionConfig.getDouble("experience.exp_gain.enchantment_level_multiplier." + s);
+                    enchantmentLevelMultipliers.put(level, multiplier);
+                } catch (NumberFormatException ignored){
+                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid enchantment level given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
+                }
+            }
+        }
+
+        ConfigurationSection materialClassMultiplierSection = progressionConfig.getConfigurationSection("experience.exp_gain.enchantment_type_multiplier");
+        if (materialClassMultiplierSection != null){
+            for (String s : materialClassMultiplierSection.getKeys(false)){
+                try {
+                    MaterialClass materialClass = MaterialClass.valueOf(s);
+                    double multiplier = progressionConfig.getDouble("experience.exp_gain.enchantment_type_multiplier." + s);
+                    enchantmentMaterialClassMultipliers.put(materialClass, multiplier);
                 } catch (IllegalArgumentException ignored){
-                    System.out.println("[ValhallaMMO] Invalid special level given at special_perks." + stringLevel + ". Cancelled this special level, it should be a whole number!");
-                    continue;
+                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid Material Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
                 }
-
-                specialLevelingCommands.put(level, progressionConfig.getStringList("special_perks." + stringLevel + ".commands"));
-                specialLevelingMessages.put(level, progressionConfig.getStringList("special_perks." + stringLevel + ".messages"));
-                List<PerkReward> specialPerkRewards = new ArrayList<>();
-
-                ConfigurationSection perkSection = progressionConfig.getConfigurationSection("special_perks." + stringLevel + ".perk_rewards");
-                if (perkSection != null){
-                    for (String perkName : perkSection.getKeys(false)){
-                        Object arg = progressionConfig.get("special_perks." + stringLevel + ".perk_rewards." + perkName);
-                        if (arg != null){
-                            PerkReward reward = PerkRewardsManager.getInstance().createReward(perkName, arg);
-                            if (reward == null) continue;
-                            specialPerkRewards.add(reward);
-                        }
-                    }
-                }
-
-                specialLevelingPerks.put(level, specialPerkRewards);
             }
         }
 
-        this.barTitle = alchemyConfig.getString("levelbar_title", "");
-        try {
-            this.barColor = BarColor.valueOf(alchemyConfig.getString("levelbar_color", "YELLOW"));
-        } catch (IllegalArgumentException ignored){
-            this.barColor = BarColor.PURPLE;
+        ConfigurationSection itemTypeMultiplierSection = progressionConfig.getConfigurationSection("experience.exp_gain.enchantment_item_multiplier");
+        if (itemTypeMultiplierSection != null){
+            for (String s : itemTypeMultiplierSection.getKeys(false)){
+                try {
+                    EquipmentClass equipmentClass = EquipmentClass.valueOf(s);
+                    double multiplier = progressionConfig.getDouble("experience.exp_gain.enchantment_item_multiplier." + s);
+                    enchantmentEquipmentClassMultipliers.put(equipmentClass, multiplier);
+                } catch (IllegalArgumentException ignored){
+                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid Equipment Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
+                }
+            }
         }
-
-        try {
-            this.barStyle = BarStyle.valueOf(alchemyConfig.getString("levelbar_style", "SEGMENTED_6"));
-        } catch (IllegalArgumentException ignored){
-            this.barStyle = BarStyle.SEGMENTED_6;
-        }
-
-//        ConfigurationSection potionBaseEXPSection = progressionConfig.getConfigurationSection("experience.exp_gain.potion_base");
-//        if (potionBaseEXPSection != null){
-//            for (String potionEffect : potionBaseEXPSection.getKeys(false)){
-//                try {
-//                    PotionType potionBaseType = PotionType.valueOf(potionEffect);
-//                    double potionBaseAmount = progressionConfig.getDouble("experience.exp_gain.potion_base." + potionEffect);
-//                    baseExperienceValues.put(potionBaseType, potionBaseAmount);
-//                } catch (IllegalArgumentException ignored){
-//                    System.out.println("[ValhallaMMO] Invalid material class given at experience.exp_gain.potion_base." + potionEffect + ". Skipped this section, review the documentation or ask in my discord what the available options are");
-//                }
-//            }
-//        }
-//
-//        ConfigurationSection potionBrewActionEXPMultiplierSection = progressionConfig.getConfigurationSection("experience.exp_gain.potion_multiplier");
-//        if (potionBrewActionEXPMultiplierSection != null){
-//            for (String action : potionBrewActionEXPMultiplierSection.getKeys(false)){
-//                try {
-//                    PotionBrewAction brewAction = PotionBrewAction.valueOf(action);
-//                    double actionMultiplier = progressionConfig.getDouble("experience.exp_gain.potion_multiplier." + action);
-//                    experienceMultipliers.put(brewAction, actionMultiplier);
-//                } catch (IllegalArgumentException ignored){
-//                    System.out.println("[ValhallaMMO] Invalid equipment class given at experience.exp_gain.type_multiplier." + action + ". Skipped this section, review the documentation or ask in my discord what the available options are");
-//                }
-//            }
-//        }
     }
 
-//    public Map<PotionType, Double> getBaseExperienceValues() {
-//        return baseExperienceValues;
-//    }
-//
-//    public Map<PotionBrewAction, Double> getExperienceMultipliers() {
-//        return experienceMultipliers;
-//    }
+    public Map<EntityType, Double> getEntityEXPMultipliers() {
+        return entityEXPMultipliers;
+    }
 
-    //    public void addSmithingEXP(Player p, double amount, MaterialClass materialClass){
-//        Profile profile = ProfileUtil.getProfile(p, SkillType.SMITHING);
-//        if (profile == null) profile = ProfileUtil.newProfile(p, SkillType.SMITHING);
-//        if (profile != null){
-//            if (profile instanceof SmithingProfile){
-//                SmithingProfile smithingProfile = (SmithingProfile) profile;
-//                double expMultiplier = (smithingProfile.getCraftingEXPMultiplier(materialClass)) / 100D;
-//                double finalEXP = amount * expMultiplier * (smithingProfile.getGeneralCraftingExpMultiplier() / 100D);
-//                if (finalEXP < 0) finalEXP = 0;
-//            }
-//        }
-//    }
+    public void mobKillHandler(EntityType type, Player p){
+        if (p.hasPermission("valhalla.ignorediminishingreturns")) return;
+        if (diminishingReturnsEntities.contains(type)){
+            int count = 0;
+            if (diminishingReturnTallyCounter.containsKey(p.getUniqueId())){
+                count = diminishingReturnTallyCounter.get(p.getUniqueId());
+            }
+            count++;
+            diminishingReturnTallyCounter.put(p.getUniqueId(), count);
+        }
+    }
 
-    /**
-     * Because alchemy exp is awarded through the recipe directly, nothing can be awarded here.
-     * Will always return 0
-     * @param p -
-     * @param item -
-     * @return 0
-     */
-    @Override
-    public double expForCraftedItem(Player p, ItemStack item) {
-        return 0;
+    private void reduceTallyCounter(Player p){
+        if (!diminishingReturnTallyCounter.containsKey(p.getUniqueId())){
+            return;
+        }
+        int count = diminishingReturnTallyCounter.get(p.getUniqueId());
+        if (count < diminishingReturnsCount) return;
+        count -= diminishingReturnsCount;
+        diminishingReturnTallyCounter.put(p.getUniqueId(), count);
+    }
+
+    public boolean doDiminishingReturnsApply(Player p){
+        if (p.hasPermission("valhalla.ignorediminishingreturns")) return false;
+        if (!diminishingReturnTallyCounter.containsKey(p.getUniqueId())){
+            return false;
+        }
+        int count = diminishingReturnTallyCounter.get(p.getUniqueId());
+        return count >= diminishingReturnsCount;
     }
 
     @Override
-    public void addEXP(Player p, double amount) {
-        double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ALCHEMY_EXP_GAIN", p, true) / 100D));
-        super.addEXP(p, finalAmount);
+    public NamespacedKey getKey() {
+        return new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_enchanting");
     }
 
-    //    private final Collection<Material> validTypes = new HashSet<>(Arrays.asList(Material.POTION, Material.SPLASH_POTION, Material.LINGERING_POTION));
+    @Override
+    public Profile getCleanProfile() {
+        return new EnchantingProfile(null);
+    }
 
-    /**
-     * Calculates how much EXP a player should earn from brewing a vanilla potion. This method also requires what the
-     * potion was before brewing, as different upgrades affect the potion differently and grant different EXP rewards.
-     * @param p the brewer
-     * @param before the potion before the upgrade
-     * @param after the potion after the upgrade
-     * @return the amount of EXP the potion should grant
-     */
-//    public double expForVanillaPotion(Player p, ItemStack before, ItemStack after){
-//        if (Utils.isItemEmptyOrNull(before) || Utils.isItemEmptyOrNull(after)) return 0;
-//        if (!validTypes.contains(before.getType()) || validTypes.contains(after.getType())) return 0;
-//        if (!(before.getItemMeta() instanceof PotionMeta) || !(after.getItemMeta() instanceof PotionMeta)) return 0;
-//        // If either of the ItemStacks are null or air, not potions, or dont have potion meta, return 0.
-//        PotionBrewAction action = PotionBrewAction.BREW;
-//        double baseToUse = 0D;
-//        PotionMeta beforeMeta = (PotionMeta) before.getItemMeta();
-//        PotionMeta afterMeta = (PotionMeta) after.getItemMeta();
-//        if (before.getType() == Material.POTION && after.getType() == Material.SPLASH_POTION){
-//            action = PotionBrewAction.SPLASH;
-//        } else if (before.getType() == Material.SPLASH_POTION && after.getType() == Material.LINGERING_POTION){
-//            action = PotionBrewAction.LINGERING;
-//        } else if (!beforeMeta.getBasePotionData().isUpgraded() && afterMeta.getBasePotionData().isUpgraded()){
-//            action = PotionBrewAction.AMPLIFY;
-//        } else if (!beforeMeta.getBasePotionData().isExtended() && afterMeta.getBasePotionData().isExtended()){
-//            action = PotionBrewAction.EXTEND;
-//        }
-//        if (beforeMeta.getBasePotionData().getType() != afterMeta.getBasePotionData().getType()){
-//            // if for some freaky reason the previous potion type isn't the same as the current even if the action was previously
-//            // already determined to be anything but BREW, it's corrected here.
-//            action = PotionBrewAction.BREW;
-//        }
-//        if (action == PotionBrewAction.BREW){
-//            if (baseExperienceValues.containsKey(afterMeta.getBasePotionData().getType())){
-//                baseToUse = baseExperienceValues.get(afterMeta.getBasePotionData().getType());
+    @Override
+    public void addEXP(Player p, double amount, boolean silent) {
+        double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ENCHANTING_EXP_GAIN_GENERAL", p, true) / 100D));
+        super.addEXP(p, finalAmount, silent);
+    }
+
+    public void rewardEXPForEnchantments(Player p, ItemStack item, Map<Enchantment, Integer> enchantments){
+        if (item == null) return;
+        if (p == null) return;
+        if (enchantments.isEmpty()) return;
+        double amount = 0D;
+        double equipmentMultiplier;
+        double materialMultiplier;
+        EquipmentClass equipmentClass = EquipmentClass.getClass(item.getType());
+        MaterialClass materialClass = MaterialClass.getMatchingClass(item.getType());
+        if (equipmentClass == null) {
+            equipmentMultiplier = 1D;
+        } else {
+            if (enchantmentEquipmentClassMultipliers.get(equipmentClass) != null){
+                equipmentMultiplier = enchantmentEquipmentClassMultipliers.get(equipmentClass);
+            } else {
+                equipmentMultiplier = 1D;
+            }
+        }
+        if (materialClass == null) {
+            materialMultiplier = 1D;
+        } else {
+            if (enchantmentMaterialClassMultipliers.get(materialClass) != null){
+                materialMultiplier = enchantmentMaterialClassMultipliers.get(materialClass);
+            } else {
+                materialMultiplier = 1D;
+            }
+        }
+
+        for (Enchantment e : enchantments.keySet()){
+            double levelMultiplier = 0D;
+            if (enchantmentLevelMultipliers.containsKey(enchantments.get(e))){
+                levelMultiplier = enchantmentLevelMultipliers.get(enchantments.get(e));
+            }
+            double baseAmount = 0D;
+            if (enchantmentBaseValues.containsKey(e)){
+                baseAmount = enchantmentBaseValues.get(e);
+            }
+
+            amount += baseAmount * equipmentMultiplier * levelMultiplier * materialMultiplier;
+        }
+        double generalEXPMultiplier = ((AccumulativeStatManager.getInstance().getStats("ENCHANTING_EXP_GAIN_VANILLA", p, true) / 100D));
+        amount *= generalEXPMultiplier;
+
+        if (doDiminishingReturnsApply(p)){
+            amount *= diminishingReturnsMultiplier;
+            reduceTallyCounter(p);
+        }
+        addEXP(p, amount, false);
+    }
+
+    @Override
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
+
+    }
+
+    @Override
+    public void onEntityKilled(EntityDeathEvent event) {
+        if (event.getEntity().getKiller() == null) return;
+        mobKillHandler(event.getEntityType(), event.getEntity().getKiller());
+        if (entityEXPMultipliers.containsKey(event.getEntityType())){
+            event.setDroppedExp(Utils.excessChance(event.getDroppedExp() * entityEXPMultipliers.get(event.getEntityType())));
+        }
+    }
+
+    @Override
+    public void onEnchantItem(EnchantItemEvent event) {
+        Player enchanter = event.getEnchanter();
+        ItemStack item = event.getItem();
+        if (SmithingItemTreatmentManager.getInstance().hasTreatment(item, ItemTreatment.UNENCHANTABLE)) {
+            event.setCancelled(true);
+            return;
+        }
+        int generalSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_GENERAL", enchanter, true);
+        int vanillaSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_VANILLA", enchanter, true);
+        double chance = AccumulativeStatManager.getInstance().getStats("ENCHANTING_AMPLIFY_CHANCE", enchanter, true);
+
+        for (Enchantment en : event.getEnchantsToAdd().keySet()){
+            if (Utils.getRandom().nextDouble() <= chance){
+                Map<Enchantment, Integer> newEnchantments = EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(item, generalSkill + vanillaSkill, en, event.getEnchantsToAdd().get(en));
+                event.getEnchantsToAdd().putAll(newEnchantments);
+            }
+        }
+
+//            if (item.getItemMeta() instanceof EnchantmentStorageMeta){
+//                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item;
+//                for (Enchantment en : meta.getStoredEnchants().keySet()){
+//                    e.getEnchantsToAdd().put(en, meta.getStoredEnchants().get(en));
+//                }
+//            } else {
+//                for (Enchantment en : item.getEnchantments().keySet()){
+//                    e.getEnchantsToAdd().put(en, item.getEnchantments().get(en));
+//                }
 //            }
-//        }
-//        if (experienceMultipliers.containsKey(action)){
-//            return experienceMultipliers.get(action) * baseToUse;
-//        }
-//        return 0D;
-//    }
+
+        int consumed = event.whichButton() + 1;
+
+        if (event.getEnchanter().getGameMode() != GameMode.CREATIVE){
+            if (Utils.getRandom().nextDouble() <= AccumulativeStatManager.getInstance().getStats("ENCHANTING_LAPIS_SAVE_CHANCE", enchanter, true)){
+                ItemStack lapisSlot = event.getInventory().getItem(1);
+                ItemStack newLapis = new ItemStack(Material.LAPIS_LAZULI, consumed);
+                if (!Utils.isItemEmptyOrNull(lapisSlot)){
+                    if (lapisSlot.isSimilar(newLapis)){
+                        lapisSlot.setAmount(lapisSlot.getAmount() + consumed);
+                        event.getInventory().setItem(1, lapisSlot);
+                    } else {
+                        Map<Integer, ItemStack> remainingItems = event.getEnchanter().getInventory().addItem(newLapis);
+                        if (!remainingItems.isEmpty()){
+                            for (ItemStack i : remainingItems.values()){
+                                Item drop = event.getEnchanter().getWorld().dropItemNaturally(event.getEnchanter().getEyeLocation(), i);
+                                drop.setOwner(event.getEnchanter().getUniqueId());
+                            }
+                        }
+                    }
+                } else {
+                    event.getInventory().setItem(1, newLapis);
+                }
+            }
+        }
+
+        if (Utils.getRandom().nextDouble() <= AccumulativeStatManager.getInstance().getStats("ENCHANTING_REFUND_CHANCE", event.getEnchanter(), true)){
+            double refundAmount = Math.max(0, Math.min(AccumulativeStatManager.getInstance().getStats("ENCHANTING_REFUND_AMOUNT", event.getEnchanter(), true), 1D));
+            // refundAmount is now a value between 0 and 1
+            int refunded = Utils.excessChance(consumed * refundAmount);
+            event.getEnchanter().giveExpLevels(refunded);
+        }
+
+        rewardEXPForEnchantments(enchanter, item, event.getEnchantsToAdd());
+    }
+
+    @Override
+    public void onPrepareEnchant(PrepareItemEnchantEvent event) {
+        if (SmithingItemTreatmentManager.getInstance().hasTreatment(event.getItem(), ItemTreatment.UNENCHANTABLE)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @Override
+    public void onAnvilUsage(PrepareAnvilEvent event) {
+        ItemStack item1 = event.getInventory().getItem(0);
+        if (Utils.isItemEmptyOrNull(item1)) return;
+        ItemStack item2 = event.getInventory().getItem(1);
+        if (Utils.isItemEmptyOrNull(item2)) return;
+        ItemStack result = event.getResult();
+        if (Utils.isItemEmptyOrNull(result)) return;
+
+        // If item 1 or item 2 have the UNENCHANTABLE tag, and the result has different enchantments from item1 it implies
+        // the player attempted to combine items that are unenchantable and should therefore not be combined
+        // if the result ends up having the same enchantments as item 1 it can be assumed no enchantments are added to
+        // the item, and so this event should not be interfered with. if any of the items in the anvil are empty,
+        // nothing is being combined(successfully) and so nothing is wrong
+        if (SmithingItemTreatmentManager.getInstance().hasTreatment(item1, ItemTreatment.UNENCHANTABLE)
+        || SmithingItemTreatmentManager.getInstance().hasTreatment(item2, ItemTreatment.UNENCHANTABLE)){
+            boolean matches = result.getEnchantments().size() == item1.getEnchantments().size();
+            if (matches){
+                for (Enchantment e : item1.getEnchantments().keySet()){
+                    if (!result.getEnchantments().containsKey(e)){
+                        matches = false;
+                        break;
+                    }
+                    if (result.getEnchantments().get(e).intValue() != item1.getEnchantments().get(e).intValue()){
+                        matches = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!matches){
+                event.setResult(null);
+            }
+        }
+    }
 }

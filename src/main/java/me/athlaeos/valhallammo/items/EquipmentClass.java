@@ -1,10 +1,11 @@
-package me.athlaeos.valhallammo.materials;
+package me.athlaeos.valhallammo.items;
 
 import org.bukkit.Material;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 
 public enum EquipmentClass {
     SWORD(Arrays.asList(Material.GOLDEN_SWORD, Material.STONE_SWORD, Material.WOODEN_SWORD, Material.NETHERITE_SWORD, Material.DIAMOND_SWORD, Material.IRON_SWORD)),
@@ -25,13 +26,13 @@ public enum EquipmentClass {
     HOE(Arrays.asList(Material.WOODEN_HOE, Material.STONE_HOE, Material.GOLDEN_HOE, Material.IRON_HOE, Material.DIAMOND_HOE, Material.NETHERITE_HOE)),
     SHIELD(Collections.singletonList(Material.SHIELD));
 
-    private final List<Material> matches;
+    private final Collection<Material> matches = new HashSet<>();
 
-    EquipmentClass(List<Material> matches){
-        this.matches = matches;
+    EquipmentClass(Collection<Material> matches){
+        this.matches.addAll(matches);
     }
 
-    public List<Material> getMatches() {
+    public Collection<Material> getMatches() {
         return matches;
     }
 
@@ -42,5 +43,12 @@ public enum EquipmentClass {
             }
         }
         return null;
+    }
+
+    public static boolean isArmor(Material m){
+        if (EquipmentClass.HELMET.getMatches().contains(m)) return true;
+        if (EquipmentClass.CHESTPLATE.getMatches().contains(m)) return true;
+        if (EquipmentClass.LEGGINGS.getMatches().contains(m)) return true;
+        return EquipmentClass.BOOTS.getMatches().contains(m);
     }
 }

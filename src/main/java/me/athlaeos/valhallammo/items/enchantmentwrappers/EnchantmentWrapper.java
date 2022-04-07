@@ -7,10 +7,10 @@ public abstract class EnchantmentWrapper implements Cloneable{
     protected double minValue;
     protected double maxValue;
     protected String attribute;
-    protected double amount;
+    protected double amplifier;
 
     public EnchantmentWrapper(double amount){
-        this.amount = amount;
+        this.amplifier = amount;
     }
 
     public abstract boolean isCompatible(ItemStack i);
@@ -27,15 +27,15 @@ public abstract class EnchantmentWrapper implements Cloneable{
         return maxValue;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getAmplifier() {
+        return amplifier;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setAmplifier(double amount) {
+        this.amplifier = amount;
     }
 
-    public String getAttribute() {
+    public String getEnchantment() {
         return attribute;
     }
 

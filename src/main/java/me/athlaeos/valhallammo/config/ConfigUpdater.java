@@ -1,4 +1,4 @@
-package me.athlaeos.valhallammo.configutils;
+package me.athlaeos.valhallammo.config;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -1,6 +1,7 @@
-package me.athlaeos.valhallammo.core_listeners;
+package me.athlaeos.valhallammo.listeners;
 
-import me.athlaeos.valhallammo.skills.smithing.managers.ItemDurabilityManager;
+import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
+import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -8,11 +9,11 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 
 public class ItemDamageListener implements Listener {
 
-    @EventHandler (priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.LOWEST)
     public void onDurabilityChange(PlayerItemDamageEvent e){
-        ItemDurabilityManager.getInstance().damageItem(e.getItem(), e.getDamage());
-        if (ItemDurabilityManager.getInstance().getDurability(e.getItem()) > 0){
-            e.setCancelled(true);
+        if (SmithingItemTreatmentManager.getInstance().isItemCustom(e.getItem())){
+            CustomDurabilityManager.getInstance().damageItem(e.getItem(), e.getDamage());
+            e.setCancelled(CustomDurabilityManager.getInstance().getDurability(e.getItem()) > 0);
         }
     }
 }

@@ -1,9 +1,11 @@
 package me.athlaeos.valhallammo.menus;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.loottables.TieredLootEntry;
-import me.athlaeos.valhallammo.loottables.TieredLootTable;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
+import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
+import me.athlaeos.valhallammo.loottables.ChancedBlockLootEntry;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,27 +20,27 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
-public class ManageTieredLootTablesMenu extends Menu {
+public class ManageChancedLootTablesMenu extends Menu {
     private final ItemStack nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lNext page"), null);
     private final ItemStack previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lPrevious page"), null);
     private final ItemStack returnToMenuButton = Utils.createItemStack(Material.WRITABLE_BOOK, Utils.chat("&7&lReturn to menu"), null);
-    private final ItemStack weightButton = Utils.createItemStack(Material.PAPER, Utils.chat("&fWeight (rarity)"),
-            Utils.separateStringIntoLines(Utils.chat("&7Determines the rarity (weighted) of the item drop." +
-                            " The lower, the more rare. The drop chance will be equal to <weight>/<total combined " +
-                            "weight of available drops> * 100%")
+    private final ItemStack dropChanceButton = Utils.createItemStack(Material.PAPER, Utils.chat("&fDrop Chance: &e0.0%"),
+            Utils.separateStringIntoLines(Utils.chat("&7Determines the chance the item will drop." +
+                            " The lower, the more rare. ")
                     , 40));
-    private final ItemStack tierButton = Utils.createItemStack(Material.GOLD_INGOT, Utils.chat("&fTier"),
-            Utils.separateStringIntoLines(Utils.chat("&7The tier of the drop. Typically the higher the tier " +
-                            "the more powerful/valuable the drops.")
+    private final ItemStack overwriteDropsButton = Utils.createItemStack(Material.GOLD_INGOT, Utils.chat("&fOverwrite drops: &eFalse"),
+            Utils.separateStringIntoLines(Utils.chat("&7If true, the block's regular drops will no longer drop and are " +
+                            "instead replaced by the custom drop.")
                     , 40));
     private final ItemStack dynamicModifierButton = Utils.createItemStack(
             Material.BOOK,
             Utils.chat("&b&lDynamic Modifiers"), null);
-    private final ItemStack biomeFilterButton = Utils.createItemStack(Material.GOLD_INGOT, Utils.chat("&fBiome Filter"), null);
-    private final ItemStack regionFilterButton = Utils.createItemStack(Material.GOLD_INGOT, Utils.chat("&fRegion Filter"), null);
+    private final ItemStack biomeFilterButton = Utils.createItemStack(Material.GRASS_BLOCK, Utils.chat("&fBiome Filter"), null);
+    private final ItemStack regionFilterButton = Utils.createItemStack(Material.NETHERRACK, Utils.chat("&fRegion Filter"), null);
     private final ItemStack newEntryButton = Utils.createItemStack(Material.GREEN_STAINED_GLASS_PANE, Utils.chat("&aAdd"), null);
     private final ItemStack saveButton = Utils.createItemStack(Material.STRUCTURE_VOID, Utils.chat("&aSave Changes"), null);
-    private final ItemStack deleteButton = Utils.createItemStack(Material.BARRIER, Utils.chat("&aRemove Entry"), null);
+    private final ItemStack deleteButton = Utils.createItemStack(Material.BARRIER, Utils.chat("&cRemove Entry"), null);
+    private final ItemStack blockButton = Utils.createItemStack(Material.GRASS_BLOCK, Utils.chat("&r&fBlock to drop custom item"), null);
 
     private final NamespacedKey entryNameKey = new NamespacedKey(ValhallaMMO.getPlugin(), "entry_identifier");
     private final NamespacedKey biomeNameKey = new NamespacedKey(ValhallaMMO.getPlugin(), "biome_identifier");
@@ -46,16 +48,17 @@ public class ManageTieredLootTablesMenu extends Menu {
 
     private View view = View.VIEW_ENTRIES;
     private int currentPage = 0;
-    private final TieredLootTable currentLootTable;
-    private TieredLootEntry currentLootEntry = null;
-    private ItemStack drop = null;
-    private List<String> regionFilter = new ArrayList<>();
-    private List<Biome> biomeFilter = new ArrayList<>();
-    private int weight = 0;
-    private int tier = 0;
+    private final ChancedBlockLootTable currentLootTable;
+    private ChancedBlockLootEntry currentLootEntry = null;
+    private ItemStack drop = Utils.createItemStack(Material.WHEAT_SEEDS, Utils.chat("&r&fPlace your own custom drop here :)"), null);
+    private Set<String> regionFilter = new HashSet<>();
+    private Set<Biome> biomeFilter = new HashSet<>();
+    private double chance = 0;
+    private boolean overwriteDrops = false;
+    private Material block = Material.GRASS_BLOCK;
     private List<DynamicItemModifier> currentModifiers = new ArrayList<>();
 
-    public ManageTieredLootTablesMenu(PlayerMenuUtility playerMenuUtility, TieredLootTable table) {
+    public ManageChancedLootTablesMenu(PlayerMenuUtility playerMenuUtility, ChancedBlockLootTable table) {
         super(playerMenuUtility);
         this.currentLootTable = table;
         if (currentLootTable == null) {
@@ -66,7 +69,7 @@ public class ManageTieredLootTablesMenu extends Menu {
 
     @Override
     public String getMenuName() {
-        return "&7Tiered Loot Table: " + this.currentLootTable.getDisplayName();
+        return Utils.chat("&7Chanced Loot Table: " + this.currentLootTable.getDisplayName());
     }
 
     @Override
@@ -78,37 +81,66 @@ public class ManageTieredLootTablesMenu extends Menu {
     public void handleMenu(InventoryClickEvent e) {
         ItemStack clickedItem = e.getCurrentItem();
         e.setCancelled(true);
-        if (clickedItem != null){
-            if (e.getClickedInventory() instanceof PlayerInventory){
-                drop = clickedItem.clone();
-            } else {
-                if (clickedItem.hasItemMeta()){
-                    ItemMeta meta = clickedItem.getItemMeta();
-                    assert meta != null;
-                    if (meta.getPersistentDataContainer().has(entryNameKey, PersistentDataType.STRING)){
-                        String value = meta.getPersistentDataContainer().get(entryNameKey, PersistentDataType.STRING);
-                        if (currentLootTable.getAllLootEntries().containsKey(value)){
-                            TieredLootEntry entry = currentLootTable.getAllLootEntries().get(value);
-                            if (entry == null){
-                                playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has been removed"));
-                            } else {
-                                currentPage = 0;
-                                currentLootEntry = entry;
-                                view = View.VIEW_ENTRY;
-                                this.weight = entry.getWeight();
-                                this.tier = entry.getTier();
-                                this.biomeFilter = entry.getBiomeFilter();
-                                this.regionFilter = entry.getRegionFilter();
-                                this.drop = entry.getLoot();
-                                this.currentModifiers = new ArrayList<>(entry.getModifiers());
-                            }
-                        } else {
+        if (e.getClickedInventory() instanceof PlayerInventory){
+            e.setCancelled(false);
+        } else {
+            if (clickedItem != null){
+                ItemMeta meta = clickedItem.getItemMeta();
+                assert meta != null;
+                if (meta.getPersistentDataContainer().has(entryNameKey, PersistentDataType.STRING)){
+                    String value = meta.getPersistentDataContainer().get(entryNameKey, PersistentDataType.STRING);
+                    if (currentLootTable.getAllLootEntries().containsKey(value)){
+                        ChancedBlockLootEntry entry = currentLootTable.getAllLootEntries().get(value);
+                        if (entry == null){
                             playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has been removed"));
+                        } else {
+                            currentPage = 0;
+                            currentLootEntry = entry;
+                            view = View.VIEW_ENTRY;
+                            this.chance = entry.getChance();
+                            this.overwriteDrops = entry.isOverwriteNaturalDrops();
+                            this.biomeFilter = entry.getBiomeFilter();
+                            this.regionFilter = entry.getRegionFilter();
+                            this.drop = entry.getLoot().clone();
+                            this.block = entry.getBlock();
+                            this.currentModifiers = new ArrayList<>(entry.getModifiers());
                         }
+                    } else {
+                        playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has been removed"));
+                    }
+                } else if (meta.getPersistentDataContainer().has(biomeNameKey, PersistentDataType.STRING)){
+                    String value = meta.getPersistentDataContainer().get(biomeNameKey, PersistentDataType.STRING);
+                    try {
+                        if (view == View.VIEW_BIOME_FILTER){
+                            biomeFilter.remove(Biome.valueOf(value));
+                        } else if (view == View.PICK_BIOME_FILTER){
+                            biomeFilter.add(Biome.valueOf(value));
+                        }
+                    } catch (IllegalArgumentException ignored){
+                    }
+                } else if (meta.getPersistentDataContainer().has(regionNameKey, PersistentDataType.STRING)){
+                    String value = meta.getPersistentDataContainer().get(regionNameKey, PersistentDataType.STRING);
+                    if (view == View.VIEW_REGION_FILTER){
+                        regionFilter.remove(value);
+                    } else if (view == View.PICK_REGION_FILTER){
+                        regionFilter.add(value);
                     }
                 }
                 if (clickedItem.equals(nextPageButton)){
                     currentPage++;
+                } else if (clickedItem.equals(drop)) {
+                    if (e.getCursor() != null){
+                        drop = e.getCursor().clone();
+                    }
+                } else if (clickedItem.equals(blockButton)) {
+                    if (e.getCursor() != null){
+                        if (e.getCursor().getType().isBlock()){
+                            if (currentLootTable.getCompatibleMaterials().contains(e.getCursor().getType())){
+                                blockButton.setType(e.getCursor().getType());
+                                block = blockButton.getType();
+                            }
+                        }
+                    }
                 } else if (clickedItem.equals(previousPageButton)){
                     currentPage--;
                 } else if (clickedItem.equals(returnToMenuButton)) {
@@ -147,13 +179,15 @@ public class ManageTieredLootTablesMenu extends Menu {
                                     break;
                                 }
                             }
-                            currentLootEntry = new TieredLootEntry(name, 0, new ItemStack(Material.STICK),
-                                    10, new HashSet<>(), new ArrayList<>(), new ArrayList<>());
-                            this.weight = currentLootEntry.getWeight();
-                            this.tier = currentLootEntry.getTier();
+                            currentLootEntry = new ChancedBlockLootEntry(name, Material.GRASS_BLOCK, new ItemStack(Material.WHEAT_SEEDS),
+                                    false, 0, new HashSet<>(), new HashSet<>(), new HashSet<>());
+                            this.chance = currentLootEntry.getChance();
+                            this.overwriteDrops = currentLootEntry.isOverwriteNaturalDrops();
                             this.biomeFilter = currentLootEntry.getBiomeFilter();
                             this.regionFilter = currentLootEntry.getRegionFilter();
-                            this.drop = currentLootEntry.getLoot();
+                            this.drop = currentLootEntry.getLoot().clone();
+                            this.block = currentLootEntry.getBlock();
+                            blockButton.setType(block);
                             this.currentModifiers = new ArrayList<>(currentLootEntry.getModifiers());
                             break;
                         }
@@ -166,10 +200,10 @@ public class ManageTieredLootTablesMenu extends Menu {
                             break;
                         }
                     }
-                } else if (clickedItem.equals(weightButton)){
-                    handleWeightButton(e.getClick());
-                } else if (clickedItem.equals(tierButton)){
-                    handleTierButton(e.getClick());
+                } else if (clickedItem.equals(dropChanceButton)){
+                    handleChanceButton(e.getClick());
+                } else if (clickedItem.equals(overwriteDropsButton)){
+                    overwriteDrops = !overwriteDrops;
                 } else if (clickedItem.equals(dynamicModifierButton)){
                     playerMenuUtility.setPreviousMenu(this);
                     new DynamicModifierMenu(playerMenuUtility, this.currentModifiers).open();
@@ -185,8 +219,8 @@ public class ManageTieredLootTablesMenu extends Menu {
                         if (drop == null || currentLootEntry.getName() == null){
                             playerMenuUtility.getOwner().sendMessage(Utils.chat("&cPlease enter a drop!"));
                         } else {
-                            TieredLootEntry newEntry = new TieredLootEntry(currentLootEntry.getName(),
-                                    tier, drop, weight, currentModifiers, biomeFilter, regionFilter);
+                            ChancedBlockLootEntry newEntry = new ChancedBlockLootEntry(currentLootEntry.getName(),
+                                    block, drop.clone(), overwriteDrops, chance, currentModifiers, biomeFilter, regionFilter);
                             currentLootTable.unRegisterEntry(currentLootEntry.getName());
                             currentLootTable.registerEntry(newEntry);
                             view = View.VIEW_ENTRIES;
@@ -410,9 +444,38 @@ public class ManageTieredLootTablesMenu extends Menu {
             modifierButtonMeta.setLore(modifierButtonLore);
             dynamicModifierButton.setItemMeta(modifierButtonMeta);
 
+            List<String> biomeFilterLore = new ArrayList<>();
+            for (Biome b : biomeFilter){
+                biomeFilterLore.add(Utils.chat("&7- " + b));
+            }
+            ItemMeta biomeFilterMeta = biomeFilterButton.getItemMeta();
+            assert biomeFilterMeta != null;
+            biomeFilterMeta.setLore(biomeFilterLore);
+            biomeFilterButton.setItemMeta(biomeFilterMeta);
+
+            List<String> regionFilterLore = new ArrayList<>();
+            for (String r : regionFilter){
+                regionFilterLore.add(Utils.chat("&7- " + r));
+            }
+            ItemMeta regionFilterMeta = regionFilterButton.getItemMeta();
+            assert regionFilterMeta != null;
+            regionFilterMeta.setLore(regionFilterLore);
+            regionFilterButton.setItemMeta(regionFilterMeta);
+
+            ItemMeta dropChanceMeta = dropChanceButton.getItemMeta();
+            assert dropChanceMeta != null;
+            dropChanceMeta.setDisplayName(Utils.chat(String.format("&fDrop Chance: &e%.1f%%", chance * 100)));
+            dropChanceButton.setItemMeta(dropChanceMeta);
+
+            ItemMeta overwriteMeta = overwriteDropsButton.getItemMeta();
+            assert overwriteMeta != null;
+            overwriteMeta.setDisplayName(Utils.chat("&fOverwrite drops: &e" + (overwriteDrops ? "True" : "False")));
+            overwriteDropsButton.setItemMeta(overwriteMeta);
+
             inventory.setItem(19, drop);
-            inventory.setItem(11, tierButton);
-            inventory.setItem(29, weightButton);
+            inventory.setItem(20, blockButton);
+            inventory.setItem(11, dropChanceButton);
+            inventory.setItem(29, overwriteDropsButton);
             inventory.setItem(22, dynamicModifierButton);
             inventory.setItem(16, biomeFilterButton);
             inventory.setItem(34, regionFilterButton);
@@ -426,39 +489,80 @@ public class ManageTieredLootTablesMenu extends Menu {
             inventory.setItem(i, null);
         }
         List<ItemStack> lootTableEntries = new ArrayList<>();
-        List<TieredLootEntry> entries = new ArrayList<>(currentLootTable.getAllLootEntries().values());
-        entries.sort(Comparator.comparing(TieredLootEntry::getTier));
-        for (TieredLootEntry entry : entries){
-            ItemStack icon = currentLootTable.entryToItem(entry);
-            if (icon.hasItemMeta()){
-                ItemMeta meta = icon.getItemMeta();
-                assert meta != null;
-                List<String> lore = new ArrayList<>();
-                lore.add(Utils.chat("&7Tier: &e" + entry.getTier()));
-                if (entry.getBiomeFilter() != null){
-                    if (!entry.getBiomeFilter().isEmpty()){
-                        lore.add(Utils.chat("&8                                        "));
-                        lore.add(Utils.chat("&7Only obtainable in biome(s):"));
-                        for (Biome b : entry.getBiomeFilter()){
-                            lore.add(Utils.chat("&7- &e" + Utils.toPascalCase(b.toString())));
-                        }
-                    }
-                }
-                if (entry.getRegionFilter() != null){
-                    if (!entry.getRegionFilter().isEmpty()){
-                        lore.add(Utils.chat("&8                                        "));
-                        lore.add(Utils.chat("&7Only obtainable in region(s):"));
-                        for (String r : entry.getRegionFilter()){
-                            lore.add(Utils.chat("&7- &e" + r));
-                        }
-                    }
-                }
-                meta.setLore(lore);
+        List<ChancedBlockLootEntry> entries = new ArrayList<>(currentLootTable.getAllLootEntries().values());
+        entries.sort(Comparator.comparing(ChancedBlockLootEntry::getBlock));
+        for (ChancedBlockLootEntry entry : entries){
+            boolean unobtainable = false;
 
-                meta.getPersistentDataContainer().set(entryNameKey, PersistentDataType.STRING, entry.getName());
-                icon.setItemMeta(meta);
-                lootTableEntries.add(icon);
+            ItemStack icon = currentLootTable.entryToItem(entry);
+            if (icon == null) {
+                icon = entry.getLoot();
+                unobtainable = true;
             }
+            if (icon == null) continue;
+            icon = icon.clone();
+            ItemMeta meta = icon.getItemMeta();
+            assert meta != null;
+            List<String> lore = new ArrayList<>();
+            if (unobtainable){
+                lore.add(Utils.chat("&cWarning: Item is currently unobtainable."));
+                lore.add(Utils.chat("&cItem is violating modifier conditions"));
+            }
+            lore.add(Utils.chat("&7Drops from: &e" + entry.getBlock()));
+            lore.add(Utils.chat("&7Chance: &e" + Utils.round(entry.getChance() * 100, 2) + "%"));
+            lore.add(Utils.chat("&7Overrides natural drops: &e" + (entry.isOverwriteNaturalDrops() ? "Yes" : "No")));
+            if (entry.getModifiers() != null){
+                if (!entry.getModifiers().isEmpty()){
+                    lore.add(Utils.chat("&8                                        "));
+                    lore.add(Utils.chat("&7Executes modifiers:"));
+
+                    List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
+                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+
+                    for (DynamicItemModifier modifier : modifiers){
+                        String craftDescription = modifier.getCraftDescription();
+                        if (craftDescription != null){
+                            if (!craftDescription.equals("")){
+                                if (modifier instanceof TripleArgDynamicItemModifier){
+                                    lore.add(Utils.chat("&7- &e" + craftDescription
+                                            .replace("%strength%", "" + Utils.round(modifier.getStrength(), 2))
+                                            .replace("%strength2%", "" + Utils.round(((TripleArgDynamicItemModifier) modifier).getStrength2(), 2))
+                                            .replace("%strength3%", "" + Utils.round(((TripleArgDynamicItemModifier) modifier).getStrength3(), 2))));
+                                } else if (modifier instanceof DuoArgDynamicItemModifier){
+                                    lore.add(Utils.chat("&7- &e" + craftDescription
+                                            .replace("%strength%", "" + Utils.round(modifier.getStrength(), 2))
+                                            .replace("%strength2%", "" + Utils.round(((DuoArgDynamicItemModifier) modifier).getStrength2(), 2))));
+                                } else {
+                                    lore.add(Utils.chat("&7- &e" + craftDescription.replace("%strength%", "" + Utils.round(modifier.getStrength(), 2))));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (entry.getBiomeFilter() != null){
+                if (!entry.getBiomeFilter().isEmpty()){
+                    lore.add(Utils.chat("&8                                        "));
+                    lore.add(Utils.chat("&7Only obtainable in biome(s):"));
+                    for (Biome b : entry.getBiomeFilter()){
+                        lore.add(Utils.chat("&7- &e" + Utils.toPascalCase(b.toString().replace("_", " "))));
+                    }
+                }
+            }
+            if (entry.getRegionFilter() != null){
+                if (!entry.getRegionFilter().isEmpty()){
+                    lore.add(Utils.chat("&8                                        "));
+                    lore.add(Utils.chat("&7Only obtainable in region(s):"));
+                    for (String r : entry.getRegionFilter()){
+                        lore.add(Utils.chat("&7- &e" + r));
+                    }
+                }
+            }
+            meta.setLore(lore);
+
+            meta.getPersistentDataContainer().set(entryNameKey, PersistentDataType.STRING, entry.getName());
+            icon.setItemMeta(meta);
+            lootTableEntries.add(icon);
         }
         lootTableEntries.add(newEntryButton);
 
@@ -487,38 +591,26 @@ public class ManageTieredLootTablesMenu extends Menu {
         PICK_REGION_FILTER
     }
 
-    private void handleWeightButton(ClickType clickType){
+    private void handleChanceButton(ClickType clickType){
         switch (clickType){
-            case LEFT: this.weight += 1;
+            case LEFT: {
+                if (this.chance + 0.001 > 1) this.chance = 1;
+                else this.chance += 0.001;
                 break;
+            }
             case RIGHT: {
-                if (this.weight - 1 < 0) this.weight = 0;
-                else this.weight -= 1;
+                if (this.chance - 0.001 < 0) this.chance = 0;
+                else this.chance -= 0.001;
                 break;
             }
-            case SHIFT_LEFT: this.weight += 10;
+            case SHIFT_LEFT: {
+                if (this.chance + 0.025 > 1) this.chance = 1;
+                else this.chance += 0.025;
                 break;
+            }
             case SHIFT_RIGHT: {
-                if (this.weight - 10 < 0) this.weight = 0;
-                else this.weight -= 10;
-            }
-        }
-    }
-
-    private void handleTierButton(ClickType clickType){
-        switch (clickType){
-            case LEFT: this.weight += 1;
-                break;
-            case RIGHT: {
-                if (this.weight - 1 < 0) this.weight = 0;
-                else this.weight -= 1;
-                break;
-            }
-            case SHIFT_LEFT: this.weight += 5;
-                break;
-            case SHIFT_RIGHT: {
-                if (this.weight - 5 < 0) this.weight = 0;
-                else this.weight -= 5;
+                if (this.chance - 0.025 < 0) this.chance = 0;
+                else this.chance -= 0.025;
             }
         }
     }

@@ -3,13 +3,18 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
+import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
+import me.athlaeos.valhallammo.managers.PotionAttributesManager;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class PotionSplashModifier extends DynamicItemModifier {
-    public PotionSplashModifier(String name, double strength, ModifierPriority priority) {
+import java.util.Collection;
+
+public class PotionLingeringModifier extends DynamicItemModifier {
+    public PotionLingeringModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
 
         this.name = name;
@@ -23,24 +28,35 @@ public class PotionSplashModifier extends DynamicItemModifier {
         this.minStrength = 0;
         this.maxStrength = 0;
 
-        this.description = Utils.chat("&7Converts the item into a splash potion. Recipe is cancelled if item " +
-                "already is a splash potion");
-        this.displayName = Utils.chat("&7&lSplash Potion");
-        this.icon = Material.SPLASH_POTION;
+        this.description = Utils.chat("&7Converts the item into a lingering potion. Recipe is cancelled if item " +
+                "already is a lingering potion. Lingering potions have their custom potion effect durations " +
+                "quartered.");
+        this.displayName = Utils.chat("&7&lLingering Potion");
+        this.icon = Material.LINGERING_POTION;
     }
 
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
 
-        if (outputItem.getType() == Material.SPLASH_POTION) return null;
-        outputItem.setType(Material.SPLASH_POTION);
+        if (outputItem.getType() == Material.LINGERING_POTION) return null;
+        outputItem.setType(Material.LINGERING_POTION);
+        PotionEffectManager.renamePotion(outputItem, true);
+
+        Collection<PotionEffectWrapper> potionEffects = PotionAttributesManager.getInstance().getCurrentStats(outputItem);
+        if (!potionEffects.isEmpty()){
+            for (PotionEffectWrapper potionEffect : potionEffects){
+//                if (PotionEffectType.getByName(potionEffect.getPotionEffect()) == null) continue;
+                potionEffect.setDuration((int) Math.floor(potionEffect.getDuration() / 4D));
+            }
+            PotionAttributesManager.getInstance().setStats(outputItem, potionEffects);
+        }
 
         return outputItem;
     }
 
     @Override
     public String toString() {
-        return Utils.chat("&7Converts the item into a splash potion. Recipe is cancelled if already a splash potion.");
+        return Utils.chat("&7Converts the item into a lingering potion. Recipe is cancelled if already a lingering potion.");
     }
 }
