@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RemoveAllTreatmentsModifier extends DynamicItemModifier {
     public RemoveAllTreatmentsModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -28,6 +31,11 @@ public class RemoveAllTreatmentsModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Removes &eAll Treatments &7from the item.");
         this.displayName = Utils.chat("&7&lRemove all treatments");
         this.icon = Material.BARRIER;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

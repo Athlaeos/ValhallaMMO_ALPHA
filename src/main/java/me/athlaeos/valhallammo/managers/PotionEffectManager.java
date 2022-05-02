@@ -200,7 +200,7 @@ public class PotionEffectManager {
     public void addPotionEffect(Entity p, PotionEffect effect, boolean force){
         if (effect == null) return;
         if (!registeredPotionEffects.containsKey(effect.getName())) {
-            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to apply potion effect " + effect.getName() + ", but it was not registered");
+            ValhallaMMO.getPlugin().getLogger().warning("Attempting to apply potion effect " + effect.getName() + ", but it was not registered");
             return;
         }
         Map<String, PotionEffect> currentPotionEffects = getActivePotionEffects(p);
@@ -270,6 +270,10 @@ public class PotionEffectManager {
     public static PotionEffectManager getInstance(){
         if (manager == null) manager = new PotionEffectManager();
         return manager;
+    }
+
+    public Map<String, PotionEffect> getRegisteredPotionEffects() {
+        return registeredPotionEffects;
     }
 
     public static void renamePotion(ItemStack i, boolean override){

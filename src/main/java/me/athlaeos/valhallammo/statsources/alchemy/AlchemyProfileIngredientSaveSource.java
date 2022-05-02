@@ -11,7 +11,7 @@ public class AlchemyProfileIngredientSaveSource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "ALCHEMY");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "ALCHEMY");
             if (profile == null) return 0;
             if (!(profile instanceof AlchemyProfile)) return 0;
             AlchemyProfile alchemyProfile = (AlchemyProfile) profile;

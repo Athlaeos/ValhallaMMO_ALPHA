@@ -10,6 +10,10 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EnchantingProfile extends Profile implements Serializable {
     private static final NamespacedKey enchantingProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_enchanting");
@@ -28,6 +32,83 @@ public class EnchantingProfile extends Profile implements Serializable {
     private double enchantingexpmultiplier_general = 100D;
     private double enchantingexpmultiplier_custom = 100D;
     private double enchantingexpmultiplier_vanilla = 100D;
+
+    @Override
+    public void createProfileTable(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_enchanting (" +
+                "owner VARCHAR(40) PRIMARY KEY," +
+                "level SMALLINT default 0," +
+                "exp DOUBLE default 0," +
+                "exp_total DOUBLE default 0," +
+                "vanillaenchantmentamplifychance FLOAT DEFAULT 0," +
+                "maxcustomenchantmentsallowed SMALLINT DEFAULT 0, " +
+                "lapissavechance FLOAT DEFAULT 0," +
+                "exprefundchance FLOAT DEFAULT 0," +
+                "exprefundfraction FLOAT DEFAULT 0," +
+                "vanillaexpgainmultiplier FLOAT DEFAULT 1," +
+                "enchantingquality_general SMALLINT DEFAULT 0," +
+                "enchantingquality_vanilla SMALLINT DEFAULT 0," +
+                "enchantingquality_custom SMALLINT DEFAULT 0," +
+                "enchantingexpmultiplier_general DOUBLE DEFAULT 100," +
+                "enchantingexpmultiplier_custom DOUBLE DEFAULT 100," +
+                "enchantingexpmultiplier_vanilla DOUBLE DEFAULT 100);");
+        stmt.execute();
+    }
+
+    @Override
+    public void insertOrUpdateProfile(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "REPLACE INTO profiles_enchanting " +
+                        "(owner, level, exp, exp_total, vanillaenchantmentamplifychance, maxcustomenchantmentsallowed, " +
+                        "lapissavechance, exprefundchance, exprefundfraction, vanillaexpgainmultiplier, enchantingquality_general, " +
+                        "enchantingquality_vanilla, enchantingquality_custom, enchantingexpmultiplier_general, " +
+                        "enchantingexpmultiplier_custom, enchantingexpmultiplier_vanilla) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        stmt.setString(1, owner.toString());
+        stmt.setInt(2, level);
+        stmt.setDouble(3, exp);
+        stmt.setDouble(4, lifetimeEXP);
+        stmt.setFloat(5, vanillaenchantmentamplifychance);
+        stmt.setInt(6, maxcustomenchantmentsallowed);
+        stmt.setFloat(7, lapissavechance);
+        stmt.setFloat(8, exprefundchance);
+        stmt.setFloat(9, exprefundfraction);
+        stmt.setFloat(10, vanillaexpgainmultiplier);
+        stmt.setInt(11, enchantingquality_general);
+        stmt.setInt(12, enchantingquality_vanilla);
+        stmt.setInt(13, enchantingquality_custom);
+        stmt.setDouble(14, enchantingexpmultiplier_general);
+        stmt.setDouble(15, enchantingexpmultiplier_custom);
+        stmt.setDouble(16, enchantingexpmultiplier_vanilla);
+        stmt.execute();
+    }
+
+    @Override
+    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_enchanting WHERE owner = ?;");
+        stmt.setString(1, p.getUniqueId().toString());
+        ResultSet result = stmt.executeQuery();
+        if (result.next()){
+            EnchantingProfile profile = new EnchantingProfile(p);
+            profile.setLevel(result.getInt("level"));
+            profile.setExp(result.getDouble("exp"));
+            profile.setLifetimeEXP(result.getDouble("exp_total"));
+            profile.setVanillaEnchantmentAmplifyChance(result.getFloat("vanillaenchantmentamplifychance"));
+            profile.setMaxCustomEnchantmentsAllowed(result.getInt("maxcustomenchantmentsallowed"));
+            profile.setLapisSaveChance(result.getFloat("lapissavechance"));
+            profile.setExpRefundChance(result.getFloat("exprefundchance"));
+            profile.setExpRefundFraction(result.getFloat("exprefundfraction"));
+            profile.setVanillaExpGainMultiplier(result.getFloat("vanillaexpgainmultiplier"));
+            profile.setEnchantingSkill(null, result.getInt("enchantingquality_general"));
+            profile.setEnchantingSkill(EnchantmentType.VANILLA, result.getInt("enchantingquality_vanilla"));
+            profile.setEnchantingSkill(EnchantmentType.CUSTOM, result.getInt("enchantingquality_custom"));
+            profile.setEnchantingExpMultiplier(null, result.getDouble("enchantingexpmultiplier_general"));
+            profile.setEnchantingExpMultiplier(EnchantmentType.CUSTOM, result.getDouble("enchantingexpmultiplier_custom"));
+            profile.setEnchantingExpMultiplier(EnchantmentType.VANILLA, result.getDouble("enchantingexpmultiplier_vanilla"));
+            return profile;
+        }
+        return null;
+    }
 
     public EnchantingProfile(Player owner){
         super(owner);

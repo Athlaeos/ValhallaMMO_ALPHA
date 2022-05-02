@@ -396,30 +396,30 @@ public class CustomRecipeManager {
                 else if (recipe instanceof ItemClassImprovementRecipe) saveRecipeAsync(recipe, "recipes/class_improvement_recipes.yml");
                 else if (recipe instanceof ItemImprovementRecipe) saveRecipeAsync(recipe, "recipes/improvement_recipes.yml");
             }
-            ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] ASYNC : Finished saving custom crafting recipes ");
+            ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom crafting recipes ");
             for (DynamicShapedRecipe recipe : shapedRecipes.values()){
                 saveRecipeAsync(recipe, shapedConfig);
             }
-            ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] ASYNC : Finished saving custom shaped recipes");
+            ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom shaped recipes");
             for (DynamicBrewingRecipe recipe : brewingRecipes.values()){
                 saveRecipeAsync(recipe, brewingConfig);
             }
-            ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] ASYNC : Finished saving custom brewing recipes");
+            ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom brewing recipes");
         } else {
             for (AbstractCustomCraftingRecipe recipe : allRecipes.values()){
                 if (recipe instanceof ItemCraftingRecipe) saveRecipe(recipe, "recipes/crafting_recipes.yml");
                 else if (recipe instanceof ItemClassImprovementRecipe) saveRecipe(recipe, "recipes/class_improvement_recipes.yml");
                 else if (recipe instanceof ItemImprovementRecipe) saveRecipe(recipe, "recipes/improvement_recipes.yml");
             }
-            ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Finished saving custom crafting recipes");
+            ValhallaMMO.getPlugin().getLogger().info("Finished saving custom crafting recipes");
             for (DynamicShapedRecipe recipe : shapedRecipes.values()){
                 saveRecipe(recipe, shapedConfig);
             }
-            ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Finished saving custom shaped recipes");
+            ValhallaMMO.getPlugin().getLogger().info("Finished saving custom shaped recipes");
             for (DynamicBrewingRecipe recipe : brewingRecipes.values()){
                 saveRecipe(recipe, brewingConfig);
             }
-            ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Finished saving custom brewing recipes");
+            ValhallaMMO.getPlugin().getLogger().info("Finished saving custom brewing recipes");
         }
     }
 
@@ -477,16 +477,16 @@ public class CustomRecipeManager {
     public void loadRecipesAsync(){
         loadDynamicShapedRecipes();
         loadDynamicBrewingRecipes();
-        ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Successfully loaded custom shaped recipes");
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom shaped recipes");
         new BukkitRunnable(){
             @Override
             public void run() {
                 loadItemCraftingRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Successfully loaded custom crafting recipes");
+                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom crafting recipes");
                 loadItemImprovementRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Successfully loaded custom item improvement recipes");
+                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item improvement recipes");
                 loadItemClassImprovementRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("[ValhallaMMO] Successfully loaded custom item class improvement recipes");
+                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item class improvement recipes");
             }
         }.runTaskAsynchronously(ValhallaMMO.getPlugin());
     }
@@ -865,7 +865,7 @@ public class CustomRecipeManager {
                                         charItemStack = new ItemStack(Material.valueOf(material));
                                     } else throw new IllegalArgumentException();
                                 } catch (IllegalArgumentException ignored){
-                                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid material ingredient " + c + " for recipe " + recipe);
+                                    ValhallaMMO.getPlugin().getLogger().warning("Invalid material ingredient " + c + " for recipe " + recipe);
                                     continue recipeLoop;
                                 }
                             }
@@ -875,7 +875,7 @@ public class CustomRecipeManager {
                         }
                     }
                 } catch (NullPointerException | IndexOutOfBoundsException e){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid crafting shape for shaped recipe " + recipe + ", cancelled crafting recipe");
+                    ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting shape for shaped recipe " + recipe + ", cancelled crafting recipe");
                     e.printStackTrace();
                     continue;
                 }
@@ -904,7 +904,7 @@ public class CustomRecipeManager {
                 try {
                     applyOn = Material.valueOf(applyOnString);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid material required " + applyOnString + " for recipe " + recipe);
+                    ValhallaMMO.getPlugin().getLogger().warning("Invalid material required " + applyOnString + " for recipe " + recipe);
                     continue;
                 }
 
@@ -965,7 +965,7 @@ public class CustomRecipeManager {
             }
         }
         if (ingredientMap.size() != charLayout.size()) {
-            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] recipe " + recipe.getName() + " could not save properly");
+            ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
             return;
         }
         for (Integer i : ingredientMap.keySet()){
@@ -976,7 +976,7 @@ public class CustomRecipeManager {
             if (charLayout.containsKey(i)){
                 config.set("shaped." + recipe.getName() + ".ingredients." + charLayout.get(i), ingredient);
             } else {
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] recipe " + recipe.getName() + " could not save properly");
+                ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
                 return;
             }
         }
@@ -1065,7 +1065,7 @@ public class CustomRecipeManager {
      */
     public Map<Integer, DynamicBrewingRecipe> getBrewingRecipes(BrewerInventory inventory, Player brewer){
         Collection<String> unlockedRecipes = new HashSet<>();
-        Profile p = ProfileManager.getProfile(brewer, "ACCOUNT");
+        Profile p = ProfileManager.getManager().getProfile(brewer, "ACCOUNT");
         AccountProfile profile = null;
         boolean allowedAllRecipes = brewer.hasPermission("valhalla.allrecipes");
         if (p instanceof AccountProfile){

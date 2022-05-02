@@ -39,7 +39,7 @@ public class ProfileVersionManager {
     public void checkForReset(Player p){
         int version = getProfileVersion(p);
         if (version != currentVersion){
-            ProfileManager.resetProfiles(p, true);
+            ProfileManager.getManager().resetProfiles(p, true);
         }
     }
 }

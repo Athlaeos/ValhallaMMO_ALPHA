@@ -12,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class PotionRemoveTreatmentModifier extends DynamicItemModifier {
     private final PotionTreatment treatment;
@@ -36,6 +38,11 @@ public class PotionRemoveTreatmentModifier extends DynamicItemModifier {
                 " -nThis can be used to apply conditions to recipes.");
         this.displayName = Utils.chat("&7&lRemove treatment: &e&l" + treatmentString);
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

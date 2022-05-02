@@ -12,7 +12,7 @@ public class ArcheryProfileChargeShotCooldownSource extends AccumulativeStatSour
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "ARCHERY");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "ARCHERY");
             if (profile == null) return 0;
             if (!(profile instanceof ArcheryProfile)) return 0;
             ArcheryProfile archeryProfile = (ArcheryProfile) profile;

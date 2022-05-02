@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class MilkToChocolateMilkModifier extends DynamicItemModifier {
     public MilkToChocolateMilkModifier(String name) {
@@ -32,6 +34,11 @@ public class MilkToChocolateMilkModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7turn milk to choco milk.");
         this.displayName = Utils.chat("&7&lchocolate milk");
         this.icon = Material.COCOA_BEANS;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("666");
     }
 
     @Override

@@ -13,11 +13,13 @@ public class PlayerSkillExperienceGainEvent extends Event implements Cancellable
     private final Player player;
     private double amount;
     private Skill leveledSkill;
+    private ExperienceGainReason reason;
 
-    public PlayerSkillExperienceGainEvent(Player player, double amount, Skill leveledSkill){
+    public PlayerSkillExperienceGainEvent(Player player, double amount, Skill leveledSkill, ExperienceGainReason reason){
         this.player = player;
         this.amount = amount;
         this.leveledSkill = leveledSkill;
+        this.reason = reason;
     }
 
     @Override
@@ -46,13 +48,30 @@ public class PlayerSkillExperienceGainEvent extends Event implements Cancellable
         this.amount = amount;
     }
 
+    public void setLeveledSkill(Skill leveledSkill) {
+        this.leveledSkill = leveledSkill;
+    }
+
     @Override
     public HandlerList getHandlers() {
         return HANDLER_LIST;
+    }
+
+    public ExperienceGainReason getReason() {
+        return reason;
+    }
+
+    public void setReason(ExperienceGainReason reason) {
+        this.reason = reason;
     }
 
     public static HandlerList getHandlerList() {
         return HANDLER_LIST;
     }
 
+    public enum ExperienceGainReason{
+        SKILL_ACTION,
+        EXP_SHARE,
+        COMMAND
+    }
 }

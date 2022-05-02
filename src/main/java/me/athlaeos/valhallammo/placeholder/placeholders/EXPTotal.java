@@ -15,7 +15,7 @@ public class EXPTotal extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, skillType);
+        Profile profile = ProfileManager.getManager().getProfile(p, skillType);
         if (profile != null){
             return s.replace(this.placeholder, String.format("%,d", (int) Math.floor(profile.getLifetimeEXP())));
         }

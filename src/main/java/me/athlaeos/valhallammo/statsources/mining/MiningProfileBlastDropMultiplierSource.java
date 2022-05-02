@@ -12,7 +12,7 @@ public class MiningProfileBlastDropMultiplierSource extends AccumulativeStatSour
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "MINING");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "MINING");
             if (profile == null) return 0;
             if (!(profile instanceof MiningProfile)) return 0;
             MiningProfile miningProfile = (MiningProfile) profile;

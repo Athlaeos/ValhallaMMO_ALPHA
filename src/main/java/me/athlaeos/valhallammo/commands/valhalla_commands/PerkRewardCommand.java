@@ -11,17 +11,19 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class PerkRewardCommand implements Command {
+public class  PerkRewardCommand implements Command {
 	private final String error_player_not_found;
 	private final String error_command_invalid_reward;
 	private final String error_command_invalid_argument_type;
 	private final String description_command_reward;
+	private final String status_command_reward_executed;
 
 	public PerkRewardCommand(){
 		error_player_not_found = TranslationManager.getInstance().getTranslation("error_command_player_offline");
 		error_command_invalid_reward = TranslationManager.getInstance().getTranslation("error_command_invalid_reward");
 		error_command_invalid_argument_type = TranslationManager.getInstance().getTranslation("error_command_invalid_argument_type");
 		description_command_reward = TranslationManager.getInstance().getTranslation("description_command_reward");
+		status_command_reward_executed = TranslationManager.getInstance().getTranslation("status_command_reward_executed");
 	}
 
 	@Override
@@ -121,6 +123,7 @@ public class PerkRewardCommand implements Command {
 			for (Player target : targets){
 				createdReward.execute(target);
 			}
+			sender.sendMessage(Utils.chat(status_command_reward_executed));
 			return true;
 		}
 		return false;
@@ -155,6 +158,9 @@ public class PerkRewardCommand implements Command {
 			PerkReward reward = PerkRewardsManager.getInstance().getPerkRewards().get(args[1]);
 			if (reward != null){
 				if (args.length == 3){
+					if (!reward.getTabAutoComplete(args[2]).isEmpty()){
+						return reward.getTabAutoComplete(args[2]);
+					}
 					switch (reward.getType()){
 						case BOOLEAN:{
 							return Arrays.asList("true", "false");

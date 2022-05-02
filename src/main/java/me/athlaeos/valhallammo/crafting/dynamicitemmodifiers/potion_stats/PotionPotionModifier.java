@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionPotionModifier extends DynamicItemModifier {
     public PotionPotionModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -28,6 +31,11 @@ public class PotionPotionModifier extends DynamicItemModifier {
                 "already is a potion");
         this.displayName = Utils.chat("&7&lPotion");
         this.icon = Material.POTION;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

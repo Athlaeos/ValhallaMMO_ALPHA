@@ -1,14 +1,18 @@
 package me.athlaeos.valhallammo.utility;
 
 import me.athlaeos.valhallammo.items.EquipmentClass;
+import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 
@@ -28,10 +32,21 @@ public class EntityUtils {
 
     public static double applyNaturalDamageMitigations(Entity damagee, double baseDamage, EntityDamageEvent.DamageCause cause){
         if (damagee instanceof LivingEntity){
-            double armor = ((LivingEntity) damagee).getAttribute(Attribute.GENERIC_ARMOR).getValue();
-            double armor_toughness = ((LivingEntity) damagee).getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).getValue();
-            int resistance = (((LivingEntity) damagee).hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-                    ? ((LivingEntity) damagee).getPotionEffect(PotionEffectType.DAMAGE_RESISTANCE).getAmplifier() + 1 : 0;
+            double armor = 0;
+            AttributeInstance armorInstance = ((LivingEntity) damagee).getAttribute(Attribute.GENERIC_ARMOR);
+            if (armorInstance != null){
+                armor = armorInstance.getValue();
+            }
+            double armor_toughness = 0;
+            AttributeInstance toughnessInstance = ((LivingEntity) damagee).getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS);
+            if (toughnessInstance != null){
+                armor_toughness = toughnessInstance.getValue();
+            }
+            int resistance = 0;
+            PotionEffect effect = ((LivingEntity) damagee).getPotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+            if (effect != null){
+                resistance = effect.getAmplifier() + 1;
+            }
             int epf = getEPF((LivingEntity) damagee, cause);
 
             double withArmorReduction = baseDamage * (1 - Math.min(20, Math.max(armor / 5, armor - baseDamage / (2 + armor_toughness / 4))) / 25);
@@ -52,11 +67,16 @@ public class EntityUtils {
 
             double withoutEnchantmentReduction = mitigatedDamage / (1 - (Math.min(epf, 20) / 25D));
             double withoutResistanceReduction = withoutEnchantmentReduction / (1 - (resistance * 0.2));
-            double withoutArmorReduction = withoutResistanceReduction / (1 - Math.min(20, Math.max(armor / 5, armor - mitigatedDamage / (2 + armor_toughness / 4))) / 25);
-            return withoutArmorReduction;
+            return withoutResistanceReduction / (1 - Math.min(20, Math.max(armor / 5, armor - mitigatedDamage / (2 + armor_toughness / 4))) / 25);
         } else {
             return mitigatedDamage;
         }
+    }
+
+    public static boolean isEntityFacing(LivingEntity who, Location at, double cos_angle){
+        Vector dir = at.toVector().subtract(who.getEyeLocation().toVector()).normalize();
+        double dot = dir.dot(who.getEyeLocation().getDirection());
+        return dot >= cos_angle;
     }
 
     public static int getEPF(LivingEntity entity, EntityDamageEvent.DamageCause cause){

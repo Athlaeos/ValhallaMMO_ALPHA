@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class PotionLingeringModifier extends DynamicItemModifier {
     public PotionLingeringModifier(String name, double strength, ModifierPriority priority) {
@@ -33,6 +35,11 @@ public class PotionLingeringModifier extends DynamicItemModifier {
                 "quartered.");
         this.displayName = Utils.chat("&7&lLingering Potion");
         this.icon = Material.LINGERING_POTION;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

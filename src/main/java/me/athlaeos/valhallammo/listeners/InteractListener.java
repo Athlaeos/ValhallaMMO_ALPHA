@@ -31,6 +31,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
@@ -84,7 +85,7 @@ public class InteractListener implements Listener {
                         open_custom = false;
                     }
 
-                    if (open_custom){
+                    if (open_custom && e.getHand() == EquipmentSlot.HAND){
                         // Opening a recipe picking menu
                         CooldownManager.getInstance().startTimer(e.getPlayer().getUniqueId(), "benchmark");
                         Material clickedBlockType = e.getClickedBlock().getType();
@@ -104,6 +105,7 @@ public class InteractListener implements Listener {
                                 }).collect(Collectors.toList());
                                 CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes);
                                 e.setCancelled(true);
+                                e.setUseItemInHand(Event.Result.DENY);
                                 menu.open();
                             }
                         } else {
@@ -111,6 +113,7 @@ public class InteractListener implements Listener {
                                 Collection<AbstractCustomCraftingRecipe> availableRecipes = CustomRecipeManager.getInstance().getRecipesByCraftingStation(clickedBlockType, e.getPlayer().getInventory().getItemInMainHand().getType());
                                 CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes);
                                 e.setCancelled(true);
+                                e.setUseItemInHand(Event.Result.DENY);
                                 menu.open();
                             }
                         }

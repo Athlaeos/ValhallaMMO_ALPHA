@@ -2,16 +2,18 @@ package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.items.EnchantmentType;
-import me.athlaeos.valhallammo.perkrewards.*;
+import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.perkrewards.account.*;
 import me.athlaeos.valhallammo.perkrewards.alchemy.*;
 import me.athlaeos.valhallammo.perkrewards.archery.*;
 import me.athlaeos.valhallammo.perkrewards.enchanting.*;
 import me.athlaeos.valhallammo.perkrewards.farming.*;
+import me.athlaeos.valhallammo.perkrewards.heavy_armor.*;
 import me.athlaeos.valhallammo.perkrewards.landscaping.*;
+import me.athlaeos.valhallammo.perkrewards.light_armor.*;
 import me.athlaeos.valhallammo.perkrewards.mining.*;
 import me.athlaeos.valhallammo.perkrewards.smithing.*;
-import me.athlaeos.valhallammo.items.MaterialClass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class PerkRewardsManager {
     private final Map<String, PerkReward> perkRewards = new HashMap<>();
 
     public PerkRewardsManager(){
-        // GENERAL
+        // ACCOUNT
         register(new ExpGainAddReward("expgain_add", 0D));
         register(new ExpGainSetReward("expgain_set", 0D));
 
@@ -45,6 +47,45 @@ public class PerkRewardsManager {
         register(new SkillPointsSetReward("skillpoints_set", new ArrayList<>()));
 
         register(new PotionEffectAddReward("potion_effects_add", 0));
+
+        register(new AccountArmorBonusAddReward("player_base_bonus_armor_add", 0));
+        register(new AccountArmorBonusSetReward("player_base_bonus_armor_set", 0));
+        register(new AccountAttackDamageBonusAddReward("player_base_attack_damage_add", 0));
+        register(new AccountAttackDamageBonusSetReward("player_base_attack_damage_set", 0));
+        register(new AccountAttackSpeedBonusAddReward("player_base_attack_speed_add", 0));
+        register(new AccountAttackSpeedBonusSetReward("player_base_attack_speed_set", 0));
+        register(new AccountCooldownReductionAddReward("player_cooldown_reduction_add", 0));
+        register(new AccountCooldownReductionSetReward("player_cooldown_reduction_set", 0));
+        register(new AccountDamageResistanceAddReward("player_damage_resistance_add", 0));
+        register(new AccountDamageResistanceSetReward("player_damage_resistance_set", 0));
+        register(new AccountExplosionResistanceAddReward("player_explosion_resistance_add", 0));
+        register(new AccountExplosionResistanceSetReward("player_explosion_resistance_set", 0));
+        register(new AccountFallDamageResistanceAddReward("player_fall_damage_resistance_add", 0));
+        register(new AccountFallDamageResistanceSetReward("player_fall_damage_resistance_set", 0));
+        register(new AccountFireResistanceAddReward("player_fire_resistance_add", 0));
+        register(new AccountFireResistanceSetReward("player_fire_resistance_set", 0));
+        register(new AccountHealthBonusAddReward("player_base_bonus_health_add", 0));
+        register(new AccountHealthBonusSetReward("player_base_bonus_health_set", 0));
+        register(new AccountHealthRegenerationAddReward("player_health_regeneration_add", 0));
+        register(new AccountHealthRegenerationSetReward("player_health_regeneration_set", 0));
+        register(new AccountHungerSaveChanceAddReward("player_hunger_save_chance_add", 0));
+        register(new AccountHungerSaveChanceSetReward("player_hunger_save_chance_set", 0));
+        register(new AccountKnockbackResistanceAddReward("player_knockback_resistance_add", 0));
+        register(new AccountKnockbackResistanceSetReward("player_knockback_resistance_set", 0));
+        register(new AccountLuckBonusAddReward("player_base_luck_add", 0));
+        register(new AccountLuckBonusSetReward("player_base_luck_set", 0));
+        register(new AccountMagicResistanceAddReward("player_magic_resistance_add", 0));
+        register(new AccountMagicResistanceSetReward("player_magic_resistance_set", 0));
+        register(new AccountMeleeResistanceAddReward("player_melee_resistance_add", 0));
+        register(new AccountMeleeResistanceSetReward("player_melee_resistance_set", 0));
+        register(new AccountMovementSpeedBonusAddReward("player_movement_speed_bonus_add", 0));
+        register(new AccountMovementSpeedBonusSetReward("player_movement_speed_bonus_set", 0));
+        register(new AccountPoisonResistanceAddReward("player_poison_resistance_add", 0));
+        register(new AccountPoisonResistanceSetReward("player_poison_resistance_set", 0));
+        register(new AccountProjectileResistanceAddReward("player_projectile_resistance_add", 0));
+        register(new AccountProjectileResistanceSetReward("player_projectile_resistance_set", 0));
+        register(new AccountToughnessBonusAddReward("player_base_bonus_armor_toughness_add", 0));
+        register(new AccountToughnessBonusSetReward("player_base_bonus_armor_toughness_set", 0));
 
         // SMITHING
         register(new SmithingCraftingSkillAddReward("smithing_craftskill_general_add", 0, null));
@@ -311,6 +352,92 @@ public class PerkRewardsManager {
         register(new ArcheryStunDurationAddReward("archery_stun_duration_add", 0));
         register(new ArcheryStunDurationSetReward("archery_stun_duration_set", 0));
         register(new ArcheryStunOnCritReward("archery_stun_on_crit", 0));
+
+        register(new LightArmorAdrenalineCooldownAddReward("light_armor_adrenaline_cooldown_add", 0));
+        register(new LightArmorAdrenalineCooldownSetReward("light_armor_adrenaline_cooldown_set", 0));
+        register(new LightArmorAdrenalineLevelAddReward("light_armor_adrenaline_level_add", 0));
+        register(new LightArmorAdrenalineLevelSetReward("light_armor_adrenaline_level_set", 0));
+        register(new LightArmorAdrenalineThresholdAddReward("light_armor_adrenaline_threshold_add", 0));
+        register(new LightArmorAdrenalineThresholdSetReward("light_armor_adrenaline_threshold_set", 0));
+        register(new LightArmorArmorMultiplierAddReward("light_armor_armor_multiplier_add", 0));
+        register(new LightArmorArmorMultiplierSetReward("light_armor_armor_multiplier_set", 0));
+        register(new LightArmorDamageResistanceAddReward("light_armor_damage_resistance_add", 0));
+        register(new LightArmorDamageResistanceSetReward("light_armor_damage_resistance_set", 0));
+        register(new LightArmorExplosionResistanceAddReward("light_armor_explosion_resistance_add", 0));
+        register(new LightArmorExplosionResistanceSetReward("light_armor_explosion_resistance_set", 0));
+        register(new LightArmorEXPMultiplierAddReward("light_armor_expgain_add", 0));
+        register(new LightArmorEXPMultiplierSetReward("light_armor_expgain_set", 0));
+        register(new LightArmorFallDamageResistanceAddReward("light_armor_fall_damage_resistance_add", 0));
+        register(new LightArmorFallDamageResistanceSetReward("light_armor_fall_damage_resistance_set", 0));
+        register(new LightArmorFireResistanceAddReward("light_armor_fire_resistance_add", 0));
+        register(new LightArmorFireResistanceSetReward("light_armor_fire_resistance_set", 0));
+        register(new LightArmorImmunePotionEffectsAddReward("light_armor_immune_potion_effects_add", new ArrayList<>()));
+        register(new LightArmorImmunePotionEffectsRemoveReward("light_armor_immune_potion_effects_remove", new ArrayList<>()));
+        register(new LightArmorImmunePotionEffectsClearReward("light_armor_immune_potion_effects_clear", null));
+        register(new LightArmorKnockbackResistanceAddReward("light_armor_knockback_resistance_add", 0));
+        register(new LightArmorKnockbackResistanceSetReward("light_armor_knockback_resistance_set", 0));
+        register(new LightArmorMagicResistanceAddReward("light_armor_magic_resistance_add", 0));
+        register(new LightArmorMagicResistanceSetReward("light_armor_magic_resistance_set", 0));
+        register(new LightArmorMeleeResistanceAddReward("light_armor_melee_resistance_add", 0));
+        register(new LightArmorMeleeResistanceSetReward("light_armor_melee_resistance_set", 0));
+        register(new LightArmorMovementSpeedPenaltyAddReward("light_armor_movement_speed_penalty_add", 0));
+        register(new LightArmorMovementSpeedPenaltySetReward("light_armor_movement_speed_penalty_set", 0));
+        register(new LightArmorProjectileResistanceAddReward("light_armor_projectile_resistance_add", 0));
+        register(new LightArmorProjectileResistanceSetReward("light_armor_projectile_resistance_set", 0));
+        register(new LightArmorSetBonusArmorAddReward("light_armor_set_bonus_armor_add", 0));
+        register(new LightArmorSetBonusArmorSetReward("light_armor_set_bonus_armor_set", 0));
+        register(new LightArmorSetBonusDodgeChanceAddReward("light_armor_set_bonus_dodge_chance_add", 0));
+        register(new LightArmorSetBonusDodgeChanceSetReward("light_armor_set_bonus_dodge_chance_set", 0));
+        register(new LightArmorSetBonusHungerSaveChanceAddReward("light_armor_set_bonus_hunger_save_chance_add", 0));
+        register(new LightArmorSetBonusHungerSaveChanceSetReward("light_armor_set_bonus_hunger_save_chance_set", 0));
+        register(new LightArmorSetBonusHealingBonusAddReward("light_armor_set_bonus_healing_bonus_add", 0));
+        register(new LightArmorSetBonusHealingBonusSetReward("light_armor_set_bonus_healing_bonus_set", 0));
+        register(new LightArmorSetBonusPiecesRequiredAddReward("light_armor_set_bonus_pieces_required_add", 0));
+        register(new LightArmorSetBonusPiecesRequiredSetReward("light_armor_set_bonus_pieces_required_set", 0));
+
+        register(new HeavyArmorRageCooldownAddReward("heavy_armor_rage_cooldown_add", 0));
+        register(new HeavyArmorRageCooldownSetReward("heavy_armor_rage_cooldown_set", 0));
+        register(new HeavyArmorRageLevelAddReward("heavy_armor_rage_level_add", 0));
+        register(new HeavyArmorRageLevelSetReward("heavy_armor_rage_level_set", 0));
+        register(new HeavyArmorRageThresholdAddReward("heavy_armor_rage_threshold_add", 0));
+        register(new HeavyArmorRageThresholdSetReward("heavy_armor_rage_threshold_set", 0));
+        register(new HeavyArmorArmorMultiplierAddReward("heavy_armor_armor_multiplier_add", 0));
+        register(new HeavyArmorArmorMultiplierSetReward("heavy_armor_armor_multiplier_set", 0));
+        register(new HeavyArmorDamageResistanceAddReward("heavy_armor_damage_resistance_add", 0));
+        register(new HeavyArmorDamageResistanceSetReward("heavy_armor_damage_resistance_set", 0));
+        register(new HeavyArmorExplosionResistanceAddReward("heavy_armor_explosion_resistance_add", 0));
+        register(new HeavyArmorExplosionResistanceSetReward("heavy_armor_explosion_resistance_set", 0));
+        register(new HeavyArmorEXPMultiplierAddReward("heavy_armor_expgain_add", 0));
+        register(new HeavyArmorEXPMultiplierSetReward("heavy_armor_expgain_set", 0));
+        register(new HeavyArmorFallDamageResistanceAddReward("heavy_armor_fall_damage_resistance_add", 0));
+        register(new HeavyArmorFallDamageResistanceSetReward("heavy_armor_fall_damage_resistance_set", 0));
+        register(new HeavyArmorFireResistanceAddReward("heavy_armor_fire_resistance_add", 0));
+        register(new HeavyArmorFireResistanceSetReward("heavy_armor_fire_resistance_set", 0));
+        register(new HeavyArmorImmunePotionEffectsAddReward("heavy_armor_immune_potion_effects_add", new ArrayList<>()));
+        register(new HeavyArmorImmunePotionEffectsRemoveReward("heavy_armor_immune_potion_effects_remove", new ArrayList<>()));
+        register(new HeavyArmorImmunePotionEffectsClearReward("heavy_armor_immune_potion_effects_clear", null));
+        register(new HeavyArmorKnockbackResistanceAddReward("heavy_armor_knockback_resistance_add", 0));
+        register(new HeavyArmorKnockbackResistanceSetReward("heavy_armor_knockback_resistance_set", 0));
+        register(new HeavyArmorMagicResistanceAddReward("heavy_armor_magic_resistance_add", 0));
+        register(new HeavyArmorMagicResistanceSetReward("heavy_armor_magic_resistance_set", 0));
+        register(new HeavyArmorMeleeResistanceAddReward("heavy_armor_melee_resistance_add", 0));
+        register(new HeavyArmorMeleeResistanceSetReward("heavy_armor_melee_resistance_set", 0));
+        register(new HeavyArmorMovementSpeedPenaltyAddReward("heavy_armor_movement_speed_penalty_add", 0));
+        register(new HeavyArmorMovementSpeedPenaltySetReward("heavy_armor_movement_speed_penalty_set", 0));
+        register(new HeavyArmorProjectileResistanceAddReward("heavy_armor_projectile_resistance_add", 0));
+        register(new HeavyArmorProjectileResistanceSetReward("heavy_armor_projectile_resistance_set", 0));
+        register(new HeavyArmorSetBonusArmorAddReward("heavy_armor_set_bonus_armor_add", 0));
+        register(new HeavyArmorSetBonusArmorSetReward("heavy_armor_set_bonus_armor_set", 0));
+        register(new HeavyArmorSetBonusReflectChanceAddReward("heavy_armor_set_bonus_reflect_chance_add", 0));
+        register(new HeavyArmorSetBonusReflectChanceSetReward("heavy_armor_set_bonus_reflect_chance_set", 0));
+        register(new HeavyArmorReflectFractionAddReward("heavy_armor_reflect_fraction_add", 0));
+        register(new HeavyArmorReflectFractionSetReward("heavy_armor_reflect_fraction_set", 0));
+        register(new HeavyArmorSetBonusHungerSaveChanceAddReward("heavy_armor_set_bonus_hunger_save_chance_add", 0));
+        register(new HeavyArmorSetBonusHungerSaveChanceSetReward("heavy_armor_set_bonus_hunger_save_chance_set", 0));
+        register(new HeavyArmorSetBonusHealingBonusAddReward("heavy_armor_set_bonus_healing_bonus_add", 0));
+        register(new HeavyArmorSetBonusHealingBonusSetReward("heavy_armor_set_bonus_healing_bonus_set", 0));
+        register(new HeavyArmorSetBonusPiecesRequiredAddReward("heavy_armor_set_bonus_pieces_required_add", 0));
+        register(new HeavyArmorSetBonusPiecesRequiredSetReward("heavy_armor_set_bonus_pieces_required_set", 0));
     }
 
     public static PerkRewardsManager getInstance(){
@@ -339,7 +466,7 @@ public class PerkRewardsManager {
             modifier.setArgument(argument);
             return modifier;
         } catch (CloneNotSupportedException ignored){
-            ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] Could not clone PerkReward, notify plugin author");
+            ValhallaMMO.getPlugin().getLogger().severe("Could not clone PerkReward, notify plugin author");
             return null;
         }
     }

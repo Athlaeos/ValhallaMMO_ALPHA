@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class CancelIfTreatmentModifier extends DynamicItemModifier {
     private final ItemTreatment treatment;
     private final String treatmentString;
@@ -34,6 +37,11 @@ public class CancelIfTreatmentModifier extends DynamicItemModifier {
                 " -nThis can be used to enforce conditions to recipes.");
         this.displayName = Utils.chat("&7&lCancel if item has &e&l" + treatmentString);
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

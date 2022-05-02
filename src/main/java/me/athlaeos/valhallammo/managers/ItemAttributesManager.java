@@ -30,8 +30,12 @@ public class ItemAttributesManager {
 
         registerAttribute(new CustomDrawStrengthWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new CustomArrowDamageWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomArrowSaveChanceWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomArrowSpeedWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new CustomArrowAccuracyWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomArrowPiercingWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new CustomMaxDurabilityWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+
         registerAttribute(new VanillaArmorToughnessWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaArmorWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaAttackDamageWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
@@ -40,12 +44,14 @@ public class ItemAttributesManager {
         registerAttribute(new VanillaKnockbackResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new VanillaMaxHealthWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaMovementSpeedWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+
         registerAttribute(new CustomDamageResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomExplosionResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomFireResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomMagicResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomPoisonResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomProjectileResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomMeleeResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
 
         weaponDamage(Material.WOODEN_SWORD, 4D);
         weaponSpeed(Material.WOODEN_SWORD, 1.6);
@@ -230,13 +236,13 @@ public class ItemAttributesManager {
                                 }
                                 attributes.put(wrapper.getAttribute(), wrapper);
                             } else {
-                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab attribute " + attribute + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("Attempting to grab attribute " + attribute + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
                         }
                     } else {
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
                     }
                 }
             } else {
@@ -288,13 +294,13 @@ public class ItemAttributesManager {
                                 }
                                 attributes.put(wrapper.getAttribute(), wrapper);
                             } else {
-                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab attribute " + attribute + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("Attempting to grab attribute " + attribute + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + " and operation " + operation + ", but they could not be parsed.");
                         }
                     } else {
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2 or 3, but it was less.");
                     }
                 }
             }
@@ -422,6 +428,21 @@ public class ItemAttributesManager {
         return getCurrentStats(i).get(attribute);
     }
 
+    /**
+     * Attempts to grab an AttributeWrapper off an item. If the item does not directly have an attribute wrapper,
+     * it'll attempt to grab a default attribute wrapper. If it doesn't have a default one, it'll attempt to grab
+     * a vanilla attribute wrapper. If it still doesn't have one of those, it'll return null.
+     * @param i the item to grab the attribute wrapper off of
+     * @param attribute the attribute to try and grab off the item
+     * @return the current wrapper, default wrapper, or vanilla wrapper.
+     */
+    public AttributeWrapper getAnyAttributeWrapper(ItemStack i, String attribute){
+        AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(i, attribute);
+        if (attributeWrapper == null) attributeWrapper = ItemAttributesManager.getInstance().getDefaultStat(i, attribute);
+        if (attributeWrapper == null) attributeWrapper = ItemAttributesManager.getInstance().getVanillaStats(i).get(attribute);
+        return attributeWrapper;
+    }
+
     public AttributeWrapper getDefaultStat(ItemStack i, String attribute){
         if (i == null) return null;
         return getDefaultStats(i).get(attribute);
@@ -475,7 +496,7 @@ public class ItemAttributesManager {
                 currentStats.put(currentAttribute.getAttribute(), currentAttribute);
                 setStats(i, currentStats);
             } catch (CloneNotSupportedException ignored){
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempted to clone attribute wrapper, but this failed");
+                ValhallaMMO.getPlugin().getLogger().warning("Attempted to clone attribute wrapper, but this failed");
             }
         }
     }

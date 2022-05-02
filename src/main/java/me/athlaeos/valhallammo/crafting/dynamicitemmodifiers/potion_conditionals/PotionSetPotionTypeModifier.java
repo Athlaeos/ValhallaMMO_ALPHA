@@ -11,6 +11,9 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionSetPotionTypeModifier extends DynamicItemModifier {
     private final PotionType type;
     private final String typeString;
@@ -35,6 +38,11 @@ public class PotionSetPotionTypeModifier extends DynamicItemModifier {
                 " conditions to following recipes.");
         this.displayName = Utils.chat("&7&lSet Potion Type: &e&l" + typeString);
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

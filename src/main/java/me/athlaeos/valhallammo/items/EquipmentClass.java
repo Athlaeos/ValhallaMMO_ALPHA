@@ -46,9 +46,9 @@ public enum EquipmentClass {
     }
 
     public static boolean isArmor(Material m){
-        if (EquipmentClass.HELMET.getMatches().contains(m)) return true;
-        if (EquipmentClass.CHESTPLATE.getMatches().contains(m)) return true;
-        if (EquipmentClass.LEGGINGS.getMatches().contains(m)) return true;
-        return EquipmentClass.BOOTS.getMatches().contains(m);
+        if (HELMET.getMatches().contains(m)) return true;
+        if (CHESTPLATE.getMatches().contains(m)) return true;
+        if (LEGGINGS.getMatches().contains(m)) return true;
+        return BOOTS.getMatches().contains(m);
     }
 }

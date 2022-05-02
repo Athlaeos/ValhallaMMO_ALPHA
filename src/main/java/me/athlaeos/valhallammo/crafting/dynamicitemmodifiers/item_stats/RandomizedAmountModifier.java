@@ -8,6 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RandomizedAmountModifier extends DuoArgDynamicItemModifier implements Cloneable{
 
     public RandomizedAmountModifier(String name, double strength, double strength2, ModifierPriority priority) {
@@ -35,6 +38,16 @@ public class RandomizedAmountModifier extends DuoArgDynamicItemModifier implemen
                 "the two given values. Respects max stack size.");
         this.displayName = Utils.chat("&b&lRandomize Amount");
         this.icon = Material.STICK;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<minimum_amount>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<maximum_amount>");
     }
 
     @Override

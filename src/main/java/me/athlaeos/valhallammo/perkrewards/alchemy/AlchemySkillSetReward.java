@@ -23,12 +23,12 @@ public class AlchemySkillSetReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ALCHEMY");
+        Profile profile = ProfileManager.getManager().getManager().getProfile(player, "ALCHEMY");
         if (profile == null) return;
         if (profile instanceof AlchemyProfile){
             AlchemyProfile alchemyProfile = (AlchemyProfile) profile;
             alchemyProfile.setGeneralBrewingQuality(points);
-            ProfileManager.setProfile(player, alchemyProfile, "ALCHEMY");
+            ProfileManager.getManager().getManager().setProfile(player, alchemyProfile, "ALCHEMY");
         }
     }
 

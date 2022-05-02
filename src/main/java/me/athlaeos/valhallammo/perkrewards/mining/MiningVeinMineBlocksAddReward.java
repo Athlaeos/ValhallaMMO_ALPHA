@@ -5,11 +5,14 @@ import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.mining.MiningProfile;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MiningVeinMineBlocksAddReward extends PerkReward {
     private List<String> blocksToAdd = new ArrayList<>();
@@ -20,14 +23,14 @@ public class MiningVeinMineBlocksAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "MINING");
+        Profile profile = ProfileManager.getManager().getProfile(player, "MINING");
         if (profile == null) return;
         if (profile instanceof MiningProfile){
             MiningProfile miningProfile = (MiningProfile) profile;
             Collection<String> unlockedBlocks = miningProfile.getValidVeinMinerBlocks();
             unlockedBlocks.addAll(blocksToAdd);
             miningProfile.setValidVeinMinerBlocks(unlockedBlocks);
-            ProfileManager.setProfile(player, miningProfile, "MINING");
+            ProfileManager.getManager().setProfile(player, miningProfile, "MINING");
         }
     }
 
@@ -39,6 +42,14 @@ public class MiningVeinMineBlocksAddReward extends PerkReward {
                 blocksToAdd = new ArrayList<>(((Collection<String>) this.argument));
             }
         }
+    }
+
+    @Override
+    public List<String> getTabAutoComplete(String currentArg) {
+        if (currentArg.endsWith(";") || currentArg.equals("")){
+            return Arrays.stream(Material.values()).filter(Material::isBlock).map(Material::toString).filter(s -> !currentArg.contains(s)).collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

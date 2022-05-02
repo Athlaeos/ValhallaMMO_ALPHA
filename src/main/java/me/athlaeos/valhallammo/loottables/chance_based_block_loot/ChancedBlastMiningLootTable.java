@@ -59,11 +59,12 @@ public class ChancedBlastMiningLootTable extends ChancedBlockLootTable {
     public boolean onBlockExplode(Block b, Player player, int fortuneLevel){
         double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_BLAST_RARE_DROP_CHANCE_MULTIPLIER", player, true);
         Collection<ChancedBlockLootEntry> entries = getRandomEntries(b.getState(), rareDropMultiplier);
+        boolean dropped = false;
         for (ChancedBlockLootEntry e : entries) {
             ItemStack item = entryToItem(e, player);
-            if (item == null) return false;
+            if (item == null) continue;
             Location dropLocation = b.getLocation();
-            if (dropLocation.getWorld() == null) return false;
+            if (dropLocation.getWorld() == null) continue;
 
             if (e.isOverwriteNaturalDrops()){
                 b.setType(Material.AIR);
@@ -71,8 +72,9 @@ public class ChancedBlastMiningLootTable extends ChancedBlockLootTable {
                 Utils.explodeBlock(player, b, false, fortuneLevel);
             }
             b.getWorld().dropItemNaturally(b.getLocation(), item);
+            dropped = true;
         }
-        return true;
+        return dropped;
 
 //        double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_BLAST_RARE_DROP_CHANCE_MULTIPLIER", player, true);
 //        for (Block b : new HashSet<>(event.blockList())){

@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.crafting;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.recipetypes.DynamicShapedRecipe;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
@@ -38,7 +39,7 @@ public class PlayerShapedCraftListener implements Listener {
                 }
                 DynamicShapedRecipe recipe = manager.getDynamicShapedRecipe(((ShapedRecipe) e.getRecipe()).getKey());
                 if (recipe != null){
-                    Profile profile = ProfileManager.getProfile((Player) e.getWhoClicked(), "ACCOUNT");
+                    Profile profile = ProfileManager.getManager().getProfile((Player) e.getWhoClicked(), "ACCOUNT");
                     if (profile != null){
                         if (profile instanceof AccountProfile){
                             if (((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
@@ -61,7 +62,7 @@ public class PlayerShapedCraftListener implements Listener {
                             if (skill != null){
                                 if (skill instanceof SmithingSkill){
                                     double expReward = ((SmithingSkill) skill).expForCraftedItem((Player) e.getWhoClicked(), result);
-                                    skill.addEXP((Player) e.getWhoClicked(), expReward, false);
+                                    skill.addEXP((Player) e.getWhoClicked(), expReward, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
                                 }
                             }
                         }
@@ -87,7 +88,7 @@ public class PlayerShapedCraftListener implements Listener {
                     ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getInventory().getResult());
                     if (result != null){
                         if (e.getViewers().size() > 0){
-                            Profile profile = ProfileManager.getProfile((Player) e.getViewers().get(0), "ACCOUNT");
+                            Profile profile = ProfileManager.getManager().getProfile((Player) e.getViewers().get(0), "ACCOUNT");
                             if (profile != null){
                                 if (profile instanceof AccountProfile){
                                     if (((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){

@@ -1,17 +1,20 @@
 package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.items.EnchantmentType;
-import me.athlaeos.valhallammo.items.PotionType;
-import me.athlaeos.valhallammo.placeholder.placeholders.alchemy.*;
-import me.athlaeos.valhallammo.placeholder.placeholders.enchanting.*;
-import me.athlaeos.valhallammo.placeholder.placeholders.farming.*;
-import me.athlaeos.valhallammo.placeholder.placeholders.landscaping.*;
-import me.athlaeos.valhallammo.placeholder.placeholders.mining.*;
-import me.athlaeos.valhallammo.placeholder.placeholders.smithing.SmithingEXPMultipliers;
-import me.athlaeos.valhallammo.placeholder.placeholders.smithing.SmithingSkill;
 import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.items.PotionType;
 import me.athlaeos.valhallammo.placeholder.Placeholder;
 import me.athlaeos.valhallammo.placeholder.placeholders.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.account.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.alchemy.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.archery.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.enchanting.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.farming.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.heavy_armor.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.landscaping.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.light_armor.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.mining.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.smithing.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -143,8 +146,97 @@ public class PlaceholderManager {
         registerPlaceholder(new WoodstrippingRareDropMultiplier("%woodstripping_drop_multiplier%"));
         registerPlaceholder(new WoodcuttingVanillaEXPReward("%woodcutting_exp_reward%"));
 
+        // ARCHERY
+        registerPlaceholder(new ArcheryAmmoSaveChance("%archery_ammo_save_chance%"));
+        registerPlaceholder(new ArcheryBowCritChance("%archery_bow_crit_chance%"));
+        registerPlaceholder(new ArcheryBowDamageMultiplier("%archery_bow_damage_multiplier%"));
+        registerPlaceholder(new ArcheryBowEXPMultiplier("%archery_bow_exp_multiplier%"));
+        registerPlaceholder(new ArcheryChargedShotCooldown("%archery_charged_shot_cooldown%"));
+        registerPlaceholder(new ArcheryChargedShotDamageMultiplier("%archery_charged_shot_damage_multiplier%"));
+        registerPlaceholder(new ArcheryChargedShotKnockbackBonus("%archery_charged_shot_knockback_bonus%"));
+        registerPlaceholder(new ArcheryCritDamageMultiplier("%archery_crit_damage_multiplier%"));
+        registerPlaceholder(new ArcheryCritOnFacingAway("%archery_crit_on_facing_away%"));
+        registerPlaceholder(new ArcheryCritOnStandingStill("%archery_crit_on_standing_still%"));
+        registerPlaceholder(new ArcheryCritOnStandingStill("%archery_crit_on_stealth%"));
+        registerPlaceholder(new ArcheryCrossbowCritChance("%archery_crossbow_crit_chance%"));
+        registerPlaceholder(new ArcheryCritDamageMultiplier("%archery_crossbow_damage_multiplier%"));
+        registerPlaceholder(new ArcheryCrossbowEXPMultiplier("%archery_crossbow_exp_multiplier%"));
+        registerPlaceholder(new ArcheryDamageDistanceBaseMultiplier("%archery_damage_distance_base_multiplier%"));
+        registerPlaceholder(new ArcheryDamageDistanceMultiplier("%archery_damage_distance_multiplier%"));
+        registerPlaceholder(new ArcheryGeneralEXPMultiplier("%archery_general_exp_multiplier%"));
+        registerPlaceholder(new ArcheryInaccuracy("%archery_inaccuracy%"));
+        registerPlaceholder(new ArcheryInfinityDamageMultiplier("%archery_infinity_damage_multiplier%"));
+        registerPlaceholder(new ArcheryStunChance("%archery_stun_chance%"));
+        registerPlaceholder(new ArcheryStunDuration("%archery_stun_duration%"));
+        registerPlaceholder(new ArcheryStunOnCrit("%archery_stun_on_crit%"));
+
+        // LIGHT ARMOR
+        registerPlaceholder(new LightArmorAdrenalineCooldown("%light_armor_adrenaline_cooldown%"));
+        registerPlaceholder(new LightArmorAdrenalineLevel("%light_armor_adrenaline_level%"));
+        registerPlaceholder(new LightArmorAdrenalineThreshold("%light_armor_adrenaline_threshold%"));
+        registerPlaceholder(new LightArmorArmorMultiplier("%light_armor_armor_multiplier%"));
+        registerPlaceholder(new LightArmorDamageResistance("%light_armor_damage_resistance%"));
+        registerPlaceholder(new LightArmorExplosionResistance("%light_armor_explosion_resistance%"));
+        registerPlaceholder(new LightArmorEXPMultiplier("%light_armor_exp_multiplier%"));
+        registerPlaceholder(new LightArmorFallDamageResistance("%light_armor_fall_damage_resistance%"));
+        registerPlaceholder(new LightArmorFireResistance("%light_armor_fire_resistance%"));
+        registerPlaceholder(new LightArmorFullSetArmorBonus("%light_armor_full_set_armor_bonus%"));
+        registerPlaceholder(new LightArmorFullSetDodgeChance("%light_armor_full_set_dodge_chance%"));
+        registerPlaceholder(new LightArmorFullSetHungerSaveChance("%light_armor_full_set_hunger_save_chance%"));
+        registerPlaceholder(new LightArmorFullSetHealingBonus("%light_armor_full_set_healing_bonus%"));
+        registerPlaceholder(new LightArmorFullSetPiecesRequired("%light_armor_full_set_pieces_required%"));
+        registerPlaceholder(new LightArmorKnockbackResistance("%light_armor_knockback_resistance%"));
+        registerPlaceholder(new LightArmorMagicResistance("%light_armor_magic_resistance%"));
+        registerPlaceholder(new LightArmorMeleeResistance("%light_armor_melee_resistance%"));
+        registerPlaceholder(new LightArmorMovementSpeedPenalty("%light_armor_movement_speed_penalty%"));
+        registerPlaceholder(new LightArmorPoisonResistance("%light_armor_poison_resistance%"));
+        registerPlaceholder(new LightArmorProjectileResistance("%light_armor_projectile_resistance%"));
+
+        // HEAVY ARMOR
+        registerPlaceholder(new HeavyArmorRageCooldown("%heavy_armor_rage_cooldown%"));
+        registerPlaceholder(new HeavyArmorRageLevel("%heavy_armor_rage_level%"));
+        registerPlaceholder(new HeavyArmorRageThreshold("%heavy_armor_rage_threshold%"));
+        registerPlaceholder(new HeavyArmorArmorMultiplier("%heavy_armor_armor_multiplier%"));
+        registerPlaceholder(new HeavyArmorDamageResistance("%heavy_armor_damage_resistance%"));
+        registerPlaceholder(new HeavyArmorExplosionResistance("%heavy_armor_explosion_resistance%"));
+        registerPlaceholder(new HeavyArmorEXPMultiplier("%heavy_armor_exp_multiplier%"));
+        registerPlaceholder(new HeavyArmorFallDamageResistance("%heavy_armor_fall_damage_resistance%"));
+        registerPlaceholder(new HeavyArmorFireResistance("%heavy_armor_fire_resistance%"));
+        registerPlaceholder(new HeavyArmorFullSetArmorBonus("%heavy_armor_full_set_armor_bonus%"));
+        registerPlaceholder(new HeavyArmorReflectFraction("%heavy_armor_reflect_fraction%"));
+        registerPlaceholder(new HeavyArmorFullSetReflectChance("%heavy_armor_full_set_reflect_chance%"));
+        registerPlaceholder(new HeavyArmorFullSetHungerSaveChance("%heavy_armor_full_set_hunger_save_chance%"));
+        registerPlaceholder(new HeavyArmorFullSetHealingBonus("%heavy_armor_full_set_healing_bonus%"));
+        registerPlaceholder(new HeavyArmorFullSetPiecesRequired("%heavy_armor_full_set_pieces_required%"));
+        registerPlaceholder(new HeavyArmorKnockbackResistance("%heavy_armor_knockback_resistance%"));
+        registerPlaceholder(new HeavyArmorMagicResistance("%heavy_armor_magic_resistance%"));
+        registerPlaceholder(new HeavyArmorMeleeResistance("%heavy_armor_melee_resistance%"));
+        registerPlaceholder(new HeavyArmorMovementSpeedPenalty("%heavy_armor_movement_speed_penalty%"));
+        registerPlaceholder(new HeavyArmorPoisonResistance("%heavy_armor_poison_resistance%"));
+        registerPlaceholder(new HeavyArmorProjectileResistance("%heavy_armor_projectile_resistance%"));
+
         // ACCOUNT
         registerPlaceholder(new Skillpoints("%skillpoints%"));
+
+        registerPlaceholder(new ArmorBonus("%player_armor_bonus%"));
+        registerPlaceholder(new AttackDamageBonus("%player_attack_damage_bonus%"));
+        registerPlaceholder(new AttackSpeedBonus("%player_attack_speed_bonus%"));
+        registerPlaceholder(new CooldownReduction("%player_ability_cooldown_reduction%"));
+        registerPlaceholder(new DamageResistance("%player_damage_resistance%"));
+        registerPlaceholder(new ExplosionResistance("%player_explosion_resistance%"));
+        registerPlaceholder(new FallDamageResistance("%player_fall_damage_resistance%"));
+        registerPlaceholder(new FireResistance("%player_fire_resistance%"));
+        registerPlaceholder(new HealthBonus("%player_health_bonus%"));
+        registerPlaceholder(new HealthRegenerationBonus("%player_health_regeneration_bonus%"));
+        registerPlaceholder(new HungerSaveChance("%player_hunger_save_chance%"));
+        registerPlaceholder(new KnockbackResistanceBonus("%player_knockback_resistance%"));
+        registerPlaceholder(new LuckBonus("%player_luck_bonus%"));
+        registerPlaceholder(new MagicResistance("%player_magic_resistance%"));
+        registerPlaceholder(new MeleeResistance("%player_melee_resistance%"));
+        registerPlaceholder(new MovementSpeedBonus("%player_movement_speed_bonus%"));
+        registerPlaceholder(new PoisonResistance("%player_poison_resistance%"));
+        registerPlaceholder(new ProjectileResistance("%player_projectile_resistance%"));
+        registerPlaceholder(new ToughnessBonus("%player_toughness_bonus%"));
     }
 
     public void registerPlaceholder(Placeholder p){

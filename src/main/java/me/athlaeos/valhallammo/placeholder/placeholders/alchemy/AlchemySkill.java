@@ -17,7 +17,7 @@ public class AlchemySkill extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "ALCHEMY");
+        Profile profile = ProfileManager.getManager().getProfile(p, "ALCHEMY");
         if (profile != null){
             if (profile instanceof AlchemyProfile){
                 int skill;

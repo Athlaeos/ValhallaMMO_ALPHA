@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.skills.Skill;
@@ -13,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Collections;
+import java.util.List;
 
 public class UpgradeNetheriteModifier extends DynamicItemModifier {
     public UpgradeNetheriteModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +36,11 @@ public class UpgradeNetheriteModifier extends DynamicItemModifier {
                 " for the craft appropriate to the item crafted.");
         this.displayName = Utils.chat("&7&lTransform to Netherite");
         this.icon = Material.SMITHING_TABLE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override
@@ -68,7 +77,7 @@ public class UpgradeNetheriteModifier extends DynamicItemModifier {
                 if (skill != null){
                     if (skill instanceof SmithingSkill){
                         double expReward = ((SmithingSkill) skill).expForCraftedItem(crafter, outputItem);
-                        skill.addEXP(crafter, expReward, false);
+                        skill.addEXP(crafter, expReward, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
                     }
                 }
             }

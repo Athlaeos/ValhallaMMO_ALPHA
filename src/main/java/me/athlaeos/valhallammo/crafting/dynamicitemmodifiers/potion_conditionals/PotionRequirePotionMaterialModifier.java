@@ -8,6 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionRequirePotionMaterialModifier extends DynamicItemModifier {
     private final Material requiredType;
     private final String typeString;
@@ -32,6 +35,11 @@ public class PotionRequirePotionMaterialModifier extends DynamicItemModifier {
                 " conditions to following recipes.");
         this.displayName = Utils.chat("&7&lRequire Potion Material: &e&l" + typeString);
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

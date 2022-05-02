@@ -16,10 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class PotionInvertEffectsModifier extends DynamicItemModifier {
     private static Map<String, InvertedEffect> invertedEffects = null;
@@ -66,6 +63,11 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
+    }
+
+    @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
@@ -101,7 +103,7 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
                 bDefaultWrappers.add(wrapper);
                 changedDefaults = true;
             } catch (CloneNotSupportedException ignored) {
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Could not clone potion effect wrapper in PotionInvertEffectsModifier");
+                ValhallaMMO.getPlugin().getLogger().warning("Could not clone potion effect wrapper in PotionInvertEffectsModifier");
                 return null;
             }
 
@@ -131,7 +133,7 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
                 bCurrentWrappers.add(wrapper);
                 changedCurrents = true;
             } catch (CloneNotSupportedException ignored) {
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Could not clone potion effect wrapper in PotionInvertEffectsModifier");
+                ValhallaMMO.getPlugin().getLogger().warning("Could not clone potion effect wrapper in PotionInvertEffectsModifier");
                 return null;
             }
 

@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class UnbreakableSetModifier extends DynamicItemModifier {
     public UnbreakableSetModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -28,6 +31,11 @@ public class UnbreakableSetModifier extends DynamicItemModifier {
                 "durability values are not displayed. ");
         this.displayName = Utils.chat("&7&lSet Property: &e&lUnbreakable");
         this.icon = Material.DIAMOND;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Arrays.asList("0-Breakable", "1-Unbreakable");
     }
 
     @Override

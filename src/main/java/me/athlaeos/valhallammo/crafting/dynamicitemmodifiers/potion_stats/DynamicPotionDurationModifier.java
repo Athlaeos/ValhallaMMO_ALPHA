@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class DynamicPotionDurationModifier extends DynamicItemModifier {
     public DynamicPotionDurationModifier(String name, double strength, ModifierPriority priority) {
@@ -34,6 +36,11 @@ public class DynamicPotionDurationModifier extends DynamicItemModifier {
                 "potion's effect durations to if it had a rating of 75, and 200% results in a rating of 300.");
         this.displayName = Utils.chat("&c&lUpdate Potion Effect Durations");
         this.icon = Material.REDSTONE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("percentage_quality");
     }
 
     @Override

@@ -3,12 +3,16 @@ package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Collections;
+import java.util.List;
 
 public class SkillEXPModifier extends DynamicItemModifier {
     private final String skillType;
@@ -35,6 +39,11 @@ public class SkillEXPModifier extends DynamicItemModifier {
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<exp_reward_base>");
+    }
+
+    @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         if (crafter == null) return null;
@@ -42,7 +51,7 @@ public class SkillEXPModifier extends DynamicItemModifier {
         if (this.use){
             Skill skill = SkillProgressionManager.getInstance().getSkill(skillType);
             if (skill != null){
-                skill.addEXP(crafter, strength, false);
+                skill.addEXP(crafter, strength, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
         }
         return outputItem;

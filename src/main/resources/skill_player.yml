@@ -1,5 +1,6 @@
 display_name: '&7Power'
 icon: ARMOR_STAND
+icon_data: 3510001
 description: '&8Level other skills to get exp for your player level. Level up to get skill points to spend on other skills'
 
 levelbar_title: '&7Power Level &eLV&e%lv_current% &6%exp_current%&7/&6%exp_next%'

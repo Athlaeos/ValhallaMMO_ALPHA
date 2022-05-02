@@ -13,7 +13,7 @@ public class MiningDropMultiplier extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "MINING");
+        Profile profile = ProfileManager.getManager().getProfile(p, "MINING");
         if (profile != null){
             if (profile instanceof MiningProfile){
                 float multiplier = ((MiningProfile) profile).getMiningDropMultiplier();

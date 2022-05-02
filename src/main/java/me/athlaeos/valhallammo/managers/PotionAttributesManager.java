@@ -155,13 +155,13 @@ public class PotionAttributesManager {
 
                                 attributes.add(wrapper);
                             } else {
-                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab potion effect " + potionEffect + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("Attempting to grab potion effect " + potionEffect + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed potion metadata on item " + i.getType() + ", attempted to parse double value " + amplifier + " and duration " + duration + ", but they could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("Malformed potion metadata on item " + i.getType() + ", attempted to parse double value " + amplifier + " and duration " + duration + ", but they could not be parsed.");
                         }
                     } else {
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed potion metadata on item " + i.getType() + ", notify plugin author. Expected property length 3 or more, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("Malformed potion metadata on item " + i.getType() + ", notify plugin author. Expected property length 3 or more, but it was less.");
                     }
                 }
             } //else {
@@ -201,13 +201,13 @@ public class PotionAttributesManager {
                                 wrapper.setDuration(Integer.parseInt(duration));
                                 attributes.add(wrapper);
                             } else {
-                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab potion effect " + attribute + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("Attempting to grab potion effect " + attribute + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed potion metadata on item " + i.getType() + ", attempted to parse double value " + amplifier + " and int " + duration + ", but they could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("Malformed potion metadata on item " + i.getType() + ", attempted to parse double value " + amplifier + " and int " + duration + ", but they could not be parsed.");
                         }
                     } else {
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed potion metadata on item " + i.getType() + ", notify plugin author. Expected property length 3 or more, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("Malformed potion metadata on item " + i.getType() + ", notify plugin author. Expected property length 3 or more, but it was less.");
                     }
                 }
             }
@@ -404,7 +404,7 @@ public class PotionAttributesManager {
                 currentStats.add(currentPotionEffect);
                 setStats(i, currentStats);
             } catch (CloneNotSupportedException ignored){
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempted to clone potion effect wrapper, but this failed");
+                ValhallaMMO.getPlugin().getLogger().warning("Attempted to clone potion effect wrapper, but this failed");
             }
         }
     }

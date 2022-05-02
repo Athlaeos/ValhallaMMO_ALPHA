@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class CustomModelDataAddModifier extends DynamicItemModifier {
     public CustomModelDataAddModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -26,6 +29,11 @@ public class CustomModelDataAddModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Sets the item's custom model data to a specific value");
         this.displayName = Utils.chat("&7&lAdd Custom Model Data");
         this.icon = Material.GRASS_BLOCK;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<model_data>");
     }
 
     @Override

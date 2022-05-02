@@ -1,5 +1,5 @@
 name: ValhallaMMO
-version: ALPHA_1.5
+version: ALPHA_1.6
 main: me.athlaeos.valhallammo.ValhallaMMO
 api-version: 1.14
 authors: [Athlaeos]
@@ -14,12 +14,12 @@ commands:
   partychat:
     description: Allows a user to toggle party chat, or to send a single message in party chat
     aliases: [pc]
-  itemshare:
-    description: Allows the user to transfer their held item to another party member
-    aliases: [share]
   party:
+    usage: /party <option> <args>
     description: Main command for users to manage their party
     aliases: [p]
+  parties:
+    description: Admin command to manage others' parties
 
 permissions:
   valhalla.manageparties:

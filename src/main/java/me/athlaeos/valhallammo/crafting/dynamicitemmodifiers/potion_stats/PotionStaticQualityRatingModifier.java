@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionStaticQualityRatingModifier extends DynamicItemModifier implements Cloneable{
 
     public PotionStaticQualityRatingModifier(String name, double strength, ModifierPriority priority) {
@@ -29,6 +32,11 @@ public class PotionStaticQualityRatingModifier extends DynamicItemModifier imple
                 "potion effects or perks boosting the player's alchemy skill.");
         this.displayName = Utils.chat("&b&lUpdate Quality : STATIC");
         this.icon = Material.POTION;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<quality>");
     }
 
     @Override

@@ -16,6 +16,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DynamicRepairModifier extends DynamicItemModifier {
     public DynamicRepairModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -40,11 +43,16 @@ public class DynamicRepairModifier extends DynamicItemModifier {
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<percentage_skill>");
+    }
+
+    @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
-        Profile profile = ProfileManager.getProfile(crafter, "SMITHING");
+        Profile profile = ProfileManager.getManager().getProfile(crafter, "SMITHING");
         if (!(meta instanceof Damageable)) return null;
         if (profile == null) return null;
         MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem.getType());

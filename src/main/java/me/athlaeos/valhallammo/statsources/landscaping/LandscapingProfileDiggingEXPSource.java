@@ -12,7 +12,7 @@ public class LandscapingProfileDiggingEXPSource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "LANDSCAPING");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "LANDSCAPING");
             if (profile == null) return 0;
             if (!(profile instanceof LandscapingProfile)) return 0;
             LandscapingProfile landscapingProfile = (LandscapingProfile) profile;

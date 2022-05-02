@@ -11,6 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DynamicQualityRatingModifier extends DynamicItemModifier implements Cloneable{
 
     public DynamicQualityRatingModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class DynamicQualityRatingModifier extends DynamicItemModifier implements
                 "item's quality rating to a quality rating of 75, and 200% results in a rating of 300.");
         this.displayName = Utils.chat("&b&lUpdate Quality : DYNAMIC");
         this.icon = Material.NETHER_STAR;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<percentage_skill>");
     }
 
     @Override

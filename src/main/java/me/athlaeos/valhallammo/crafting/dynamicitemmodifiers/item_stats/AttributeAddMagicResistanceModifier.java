@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddMagicResistanceModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddMagicResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class AttributeAddMagicResistanceModifier extends DynamicItemModifier imp
                 "If negative, the target will take more projectile damage instead.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lMagic Resistance");
         this.icon = Material.SPLASH_POTION;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

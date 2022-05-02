@@ -29,7 +29,7 @@ public class SmithingExpGainSetReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "SMITHING");
+        Profile profile = ProfileManager.getManager().getProfile(player, "SMITHING");
         if (profile == null) return;
         if (profile instanceof SmithingProfile){
             SmithingProfile smithingProfile = (SmithingProfile) profile;
@@ -38,7 +38,7 @@ public class SmithingExpGainSetReward extends PerkReward {
             } else {
                 smithingProfile.setCraftingEXPMultiplier(materialClass, expGain);
             }
-            ProfileManager.setProfile(player, smithingProfile, "SMITHING");
+            ProfileManager.getManager().setProfile(player, smithingProfile, "SMITHING");
         }
     }
 

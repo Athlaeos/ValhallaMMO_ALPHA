@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeRemoveFireResistanceModifier extends DynamicItemModifier {
     public AttributeRemoveFireResistanceModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -27,6 +30,11 @@ public class AttributeRemoveFireResistanceModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Removes &eFire Resistance &7as a default attribute from the item if present. ");
         this.displayName = Utils.chat("&7&lRemove Stat: &e&lFire Resistance");
         this.icon = Material.MAGMA_CREAM;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

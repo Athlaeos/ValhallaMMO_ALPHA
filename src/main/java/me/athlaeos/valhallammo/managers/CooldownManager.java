@@ -1,5 +1,7 @@
 package me.athlaeos.valhallammo.managers;
 
+import org.bukkit.entity.Entity;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -23,6 +25,14 @@ public class CooldownManager {
     public void setCooldown(UUID entity, int timems, String cooldownKey){
         if (!allCooldowns.containsKey(cooldownKey)) allCooldowns.put(cooldownKey, new HashMap<>());
         allCooldowns.get(cooldownKey).put(entity, System.currentTimeMillis() + timems);
+    }
+
+    public void setCooldownIgnoreIfPermission(Entity entity, int timems, String cooldownKey){
+        if (!entity.hasPermission("valhalla.ignorecooldowns")){
+            double cooldownReduction = AccumulativeStatManager.getInstance().getStats("COOLDOWN_REDUCTION", entity, true);
+            int newCooldown = Math.max(0, (int) (timems * (1D - cooldownReduction)));
+            setCooldown(entity.getUniqueId(), newCooldown, cooldownKey);
+        }
     }
 
     public long getCooldown(UUID entity, String cooldownKey){

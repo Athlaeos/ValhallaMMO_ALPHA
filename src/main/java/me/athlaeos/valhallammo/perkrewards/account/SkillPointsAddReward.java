@@ -24,7 +24,7 @@ public class SkillPointsAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ACCOUNT");
         if (profile == null) return;
         if (profile instanceof AccountProfile){
             AccountProfile accountProfile = (AccountProfile) profile;
@@ -32,7 +32,7 @@ public class SkillPointsAddReward extends PerkReward {
             int newAmount = currentPoints + points;
             if (newAmount < 0) newAmount = 0;
             accountProfile.setSpendableSkillPoints(newAmount);
-            ProfileManager.setProfile(player, accountProfile, "ACCOUNT");
+            ProfileManager.getManager().setProfile(player, accountProfile, "ACCOUNT");
         }
     }
 

@@ -1,16 +1,15 @@
 package me.athlaeos.valhallammo.perkrewards.account;
 
 import me.athlaeos.valhallammo.dom.ObjectType;
+import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LockRecipesReward extends PerkReward {
     private final List<String> recipesToUnlock = new ArrayList<>();
@@ -29,7 +28,7 @@ public class LockRecipesReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ACCOUNT");
         if (profile == null) return;
         if (profile instanceof AccountProfile){
             AccountProfile accountProfile = (AccountProfile) profile;
@@ -38,7 +37,7 @@ public class LockRecipesReward extends PerkReward {
                 unlockedRecipes.remove(r);
             }
             accountProfile.setUnlockedRecipes(unlockedRecipes);
-            ProfileManager.setProfile(player, accountProfile, "ACCOUNT");
+            ProfileManager.getManager().setProfile(player, accountProfile, "ACCOUNT");
         }
     }
 
@@ -50,6 +49,19 @@ public class LockRecipesReward extends PerkReward {
                 recipesToUnlock.addAll((Collection<String>) argument);
             }
         }
+    }
+
+    @Override
+    public List<String> getTabAutoComplete(String currentArg) {
+        if (currentArg.endsWith(";") || currentArg.equals("")){
+            Set<String> allRecipes = new HashSet<>();
+            allRecipes.addAll(CustomRecipeManager.getInstance().getBrewingRecipes().keySet());
+            allRecipes.addAll(CustomRecipeManager.getInstance().getShapedRecipes().keySet());
+            allRecipes.addAll(CustomRecipeManager.getInstance().getAllCustomRecipes().keySet());
+
+            return allRecipes.stream().filter(s -> !currentArg.contains(s)).collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

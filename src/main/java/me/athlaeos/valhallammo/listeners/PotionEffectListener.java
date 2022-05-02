@@ -81,7 +81,7 @@ public class PotionEffectListener implements Listener {
                     Map<Material, Transmutation> transmutations = TransmutationManager.getInstance().getStoredTransmutations(((ThrownPotion) e.getEntity()).getItem());
                     if (!transmutations.isEmpty()){
                         int radius = TransmutationManager.getInstance().getRadius();
-                        Collection<Block> affectedBlocks = Utils.getBlocks(e.getHitBlock(), radius, 1, radius, Material.AIR, Material.CAVE_AIR, Material.VOID_AIR);
+                        Collection<Block> affectedBlocks = Utils.getBlocksTouching(e.getHitBlock(), radius, 1, radius, Material.AIR, Material.CAVE_AIR, Material.VOID_AIR);
                         for (Block b : affectedBlocks){
                             if (transmutations.containsKey(b.getType())){
                                 BlockBreakEvent event = new BlockBreakEvent(b, ((Player) e.getEntity().getShooter()));

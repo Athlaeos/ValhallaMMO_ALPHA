@@ -5,6 +5,7 @@ import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Offset;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
 import me.athlaeos.valhallammo.loottables.LootManager;
@@ -118,7 +119,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                     double reward = progressionConfig.getDouble("experience.mining_break." + key);
                     blockBreakEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block break rewards in progression_farming.yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block break rewards in progression_farming.yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -132,7 +133,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                     int value = miningConfig.getInt("quickmode_block_values." + key);
                     quickModeBlockWorth.put(block, value);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block interact rewards in skill_mining.yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block interact rewards in skill_mining.yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -149,16 +150,16 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
     }
 
     @Override
-    public void addEXP(Player p, double amount, boolean silent) {
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
         double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_GENERAL", p, true) / 100D));
         double finalAmount = amount * multiplier;
-        super.addEXP(p, finalAmount, silent);
+        super.addEXP(p, finalAmount, silent, reason);
     }
 
     @Override
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
-        Profile p = ProfileManager.getProfile(event.getPlayer(), "MINING");
+        Profile p = ProfileManager.getManager().getManager().getProfile(event.getPlayer(), "MINING");
         if (p != null){
             if (p instanceof MiningProfile){
                 // If block is unbreakable, event gets cancelled and nothing else happens.
@@ -215,7 +216,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
             // reward player experience for mining a block
             double amount = blockBreakEXPReward.get(b.getType());
             double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", event.getPlayer(), true) / 100D));
-            addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false);
+            addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
             // multiply/add experience for the block broken
             double expMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_ORE_EXPERIENCE_MULTIPLIER", event.getPlayer(), true);
@@ -312,11 +313,9 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                         }
                                     });
                         }
-                        if (!event.getPlayer().hasPermission("valhalla.ignorecooldowns")){
-                            CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), veinMiningCooldown, "cooldown_ultra_harvest");
-                        }
+                        CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), veinMiningCooldown, "cooldown_vein_miner");
                     } else {
-                        int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest");
+                        int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_vein_miner");
                         event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
                                 new TextComponent(
                                         Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
@@ -462,9 +461,9 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                         exp += expMultiplierBlast * blockBreakEXPReward.get(b.getType()) * multiplier;
                     }
                 }
-                addEXP(player, exp, false);
+                addEXP(player, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
                 int fortuneLevel = 0;
-                Profile p = ProfileManager.getProfile(player, "MINING");
+                Profile p = ProfileManager.getManager().getManager().getProfile(player, "MINING");
                 if (p != null){
                     if (p instanceof MiningProfile){
                         fortuneLevel = ((MiningProfile) p).getExplosionFortuneLevel();
@@ -574,12 +573,12 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
             enabled = !enabled;
             if (!enabled){
                 if (!CooldownManager.getInstance().isCooldownPassed(player.getUniqueId(), "cooldown_mining_quickmine")) return;
-                Profile p = ProfileManager.getProfile(player, "MINING");
+                Profile p = ProfileManager.getManager().getProfile(player, "MINING");
                 if (p != null){
                     if (!(p instanceof MiningProfile)) return;
                     MiningProfile profile = (MiningProfile) p;
                     if (profile.getQuickMineCooldown() > 0){
-                        CooldownManager.getInstance().setCooldown(player.getUniqueId(), profile.getQuickMineCooldown() * 1000, "cooldown_mining_quickmine");
+                        CooldownManager.getInstance().setCooldownIgnoreIfPermission(player, profile.getQuickMineCooldown() * 1000, "cooldown_mining_quickmine");
                     }
                 }
             }

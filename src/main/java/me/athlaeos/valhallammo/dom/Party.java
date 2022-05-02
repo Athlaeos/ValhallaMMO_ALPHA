@@ -1,152 +1,165 @@
 package me.athlaeos.valhallammo.dom;
 
-import org.bukkit.OfflinePlayer;
+import me.athlaeos.valhallammo.managers.PartyManager;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Party {
-    private final UUID id;
-    private String name;
-    private String description;
-    private String password = null;
+    private final String name;
+    private final String displayName;
+    private String description = "";
+
+    private boolean unlockedEXPSharing = PartyManager.getInstance().isDefaultUnlockedEXPSharing();
+    private boolean unlockedItemSharing = PartyManager.getInstance().isDefaultUnlockedItemSharing();
+    private boolean enabledEXPSharing = unlockedEXPSharing;
+    private boolean enabledItemSharing = unlockedItemSharing;
+    private int memberLimit = PartyManager.getInstance().getDefaultMemberLimit();
+    private int EXPSharingRadius = PartyManager.getInstance().getDefaultEXPSharingRadius();
+    private float EXPSharingMultiplier = PartyManager.getInstance().getDefaultEXPSharingMultiplier();
+    private boolean isOpen = false;
+
     private UUID leader;
-    private final Map<UUID, PartyRank> members = new HashMap<>();
-    private int member_limit;
-    private boolean open = true;
+    private final Map<UUID, PermissionGroup> members = new HashMap<>();
 
-    private boolean party_chat;
-    private boolean exp_sharing;
-    private boolean item_sharing;
-
-    private double exp_sharing_multiplier;
-
-    public Party(Player owner, String name, String description, int member_limit){
-        this.id = UUID.randomUUID();
-        this.leader = owner.getUniqueId();
+    public Party(String name, String displayName, UUID leader){
         this.name = name;
-        this.description = description;
-        this.member_limit = member_limit;
+        this.displayName = displayName;
+        this.leader = leader;
     }
 
-    public void addMember(Player member){
-        members.put(member.getUniqueId(), null);
+    public PermissionGroup getPermissions(Player p){
+        return members.get(p.getUniqueId());
     }
 
-    /**
-     * Sets the rank of a member
-     * @param member the member to set their rank
-     * @param rank the integer representing the rank
-     * @return true if the member's rank was changed, or false if the member is not in the party
-     */
-    public boolean setMemberRank(OfflinePlayer member, PartyRank rank){
-        if (members.containsKey(member.getUniqueId())){
-            members.put(member.getUniqueId(), rank);
-            return true;
+    public boolean hasPermission(Player p, String permission){
+        if (leader.equals(p.getUniqueId())) return true;
+        PermissionGroup permissionGroup = getPermissions(p);
+        if (permissionGroup != null){
+            return getPermissions(p).getPermissions().contains(permission);
         }
         return false;
     }
 
-    /**
-     * Removes a member, if present
-     * @param member the member to remove
-     * @return true if member was removed, or false if they weren't in the party
-     */
-    public boolean removeMember(OfflinePlayer member){
-        if (members.containsKey(member.getUniqueId())){
-            members.remove(member.getUniqueId());
-            return true;
-        }
-        return false;
+    public boolean isEnabledEXPSharing() {
+        return enabledEXPSharing;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean isEnabledItemSharing() {
+        return enabledItemSharing;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEnabledEXPSharing(boolean enabledEXPSharing) {
+        this.enabledEXPSharing = enabledEXPSharing;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEnabledItemSharing(boolean enabledItemSharing) {
+        this.enabledItemSharing = enabledItemSharing;
+    }
+
+    public float getEXPSharingMultiplier() {
+        return EXPSharingMultiplier;
+    }
+
+    public void setEXPSharingMultiplier(float EXPSharingMultiplier) {
+        this.EXPSharingMultiplier = EXPSharingMultiplier;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 
     public void setLeader(UUID leader) {
         this.leader = leader;
     }
 
-    public void setMember_limit(int member_limit) {
-        this.member_limit = member_limit;
-    }
-
-    public void setOpen(boolean open) {
-        this.open = open;
-    }
-
-    public void setParty_chat(boolean party_chat) {
-        this.party_chat = party_chat;
-    }
-
-    public void setExp_sharing(boolean exp_sharing) {
-        this.exp_sharing = exp_sharing;
-    }
-
-    public void setItem_sharing(boolean item_sharing) {
-        this.item_sharing = item_sharing;
-    }
-
-    public void setExp_sharing_multiplier(double exp_sharing_multiplier) {
-        this.exp_sharing_multiplier = exp_sharing_multiplier;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean isUnlockedEXPSharing() {
+        return unlockedEXPSharing;
+    }
+
+    public boolean isUnlockedItemSharing() {
+        return unlockedItemSharing;
+    }
+
+    public int getMemberLimit() {
+        return memberLimit;
+    }
+
+    public int getEXPSharingRadius() {
+        return EXPSharingRadius;
     }
 
     public UUID getLeader() {
         return leader;
     }
 
-    public Map<UUID, PartyRank> getMembers() {
+    public Map<UUID, PermissionGroup> getMembers() {
         return members;
     }
 
-    public int getMember_limit() {
-        return member_limit;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public boolean isOpen() {
-        return open;
+    public void setUnlockedEXPSharing(boolean unlockedEXPSharing) {
+        this.unlockedEXPSharing = unlockedEXPSharing;
     }
 
-    public boolean isParty_chat() {
-        return party_chat;
+    public void setUnlockedItemSharing(boolean unlockedItemSharing) {
+        this.unlockedItemSharing = unlockedItemSharing;
     }
 
-    public boolean isExp_sharing() {
-        return exp_sharing;
+    public void setMemberLimit(int memberLimit) {
+        this.memberLimit = memberLimit;
     }
 
-    public boolean isItem_sharing() {
-        return item_sharing;
+    public void setEXPSharingRadius(int EXPSharingRadius) {
+        this.EXPSharingRadius = EXPSharingRadius;
     }
 
-    public double getExp_sharing_multiplier() {
-        return exp_sharing_multiplier;
+    public static class PermissionGroup{
+        private final String name;
+        private final String title;
+        private final Collection<String> permissions;
+        private final int rank;
+
+        public PermissionGroup(String name, String title, int rank, Collection<String> permissions){
+            this.name = name;
+            this.title = title;
+            this.rank = rank;
+            this.permissions = permissions;
+        }
+
+        public Collection<String> getPermissions() {
+            return permissions;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+
+        public String getTitle() {
+            return title;
+        }
     }
 }

@@ -9,6 +9,10 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class FarmingProfile extends Profile implements Serializable {
     private static final NamespacedKey farmingProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_farming");
@@ -41,6 +45,129 @@ public class FarmingProfile extends Profile implements Serializable {
     private double farmingexpmultiplier = 100D;
     private double breedingexpmultiplier = 100D;
     private double fishingexpmultiplier = 100D;
+
+    @Override
+    public void createProfileTable(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_farming (" +
+                "owner VARCHAR(40) PRIMARY KEY," +
+                "level SMALLINT default 0," +
+                "exp DOUBLE default 0," +
+                "exp_total DOUBLE default 0," +
+                "raredropratemultiplier FLOAT DEFAULT 1," +
+                "dropmultiplier SMALLINT DEFAULT 1, " +
+                "animaldropmultiplier FLOAT DEFAULT 1," +
+                "animalraredropratemultiplier FLOAT DEFAULT 1," +
+                "instantharvesting BOOL DEFAULT false," +
+                "instantgrowthrate FLOAT DEFAULT 0," +
+                "fishingtimemultiplier FLOAT DEFAULT 1," +
+                "fishingrewardtier FLOAT DEFAULT 0," +
+                "farmingvanillaexpreward FLOAT DEFAULT 0," +
+                "breedingvanillaexpmultiplier FLOAT DEFAULT 1," +
+                "fishingvanillaexpmultiplier FLOAT DEFAULT 1," +
+                "babyanimalagemultiplier FLOAT DEFAULT 1," +
+                "hivehoneysavechance FLOAT DEFAULT 0," +
+                "hivebeeaggroimmunity BOOL DEFAULT false," +
+                "ultraharvestingcooldown INT DEFAULT -1," +
+                "animaldamagemultiplier FLOAT DEFAULT 1," +
+                "isbadfoodimmune BOOL DEFAULT false," +
+                "carnivoroushungermultiplier FLOAT DEFAULT 1," +
+                "pescotarianhungermultiplier FLOAT DEFAULT 1," +
+                "vegetarianhungermultiplier FLOAT DEFAULT 1," +
+                "garbagehungermultiplier FLOAT DEFAULT 1," +
+                "magicalhungermultiplier FLOAT DEFAULT 1," +
+                "generalexpmultiplier DOUBLE DEFAULT 100," +
+                "farmingexpmultiplier DOUBLE DEFAULT 100," +
+                "breedingexpmultiplier DOUBLE DEFAULT 100," +
+                "fishingexpmultiplier DOUBLE DEFAULT 100);");
+        stmt.execute();
+    }
+
+    @Override
+    public void insertOrUpdateProfile(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "REPLACE INTO profiles_farming " +
+                        "(owner, level, exp, exp_total, " +
+                        "raredropratemultiplier, dropmultiplier, animaldropmultiplier, " +
+                        "animalraredropratemultiplier, instantharvesting, instantgrowthrate, fishingtimemultiplier, " +
+                        "fishingrewardtier, farmingvanillaexpreward, breedingvanillaexpmultiplier, fishingvanillaexpmultiplier, " +
+                        "babyanimalagemultiplier, hivehoneysavechance, hivebeeaggroimmunity, ultraharvestingcooldown, " +
+                        "animaldamagemultiplier, isbadfoodimmune, carnivoroushungermultiplier, pescotarianhungermultiplier, " +
+                        "vegetarianhungermultiplier, garbagehungermultiplier, magicalhungermultiplier, generalexpmultiplier, " +
+                        "farmingexpmultiplier, breedingexpmultiplier, fishingexpmultiplier) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        stmt.setString(1, owner.toString());
+        stmt.setInt(2, level);
+        stmt.setDouble(3, exp);
+        stmt.setDouble(4, lifetimeEXP);
+        stmt.setFloat(5, raredropratemultiplier);
+        stmt.setFloat(6, dropmultiplier);
+        stmt.setFloat(7, animaldropmultiplier);
+        stmt.setFloat(8, animalraredropratemultiplier);
+        stmt.setBoolean(9, instantharvesting);
+        stmt.setFloat(10, instantgrowthrate);
+        stmt.setFloat(11, fishingtimemultiplier);
+        stmt.setFloat(12, fishingrewardtier);
+        stmt.setFloat(13, farmingvanillaexpreward);
+        stmt.setFloat(14, breedingvanillaexpmultiplier);
+        stmt.setFloat(15, fishingvanillaexpmultiplier);
+        stmt.setFloat(16, babyanimalagemultiplier);
+        stmt.setFloat(17, hivehoneysavechance);
+        stmt.setBoolean(18, hivebeeaggroimmunity);
+        stmt.setInt(19, ultraharvestingcooldown);
+        stmt.setFloat(20, animaldamagemultiplier);
+        stmt.setBoolean(21, isbadfoodimmune);
+        stmt.setFloat(22, carnivoroushungermultiplier);
+        stmt.setFloat(23, pescotarianhungermultiplier);
+        stmt.setFloat(24, vegetarianhungermultiplier);
+        stmt.setFloat(25, garbagehungermultiplier);
+        stmt.setFloat(26, magicalhungermultiplier);
+        stmt.setDouble(27, generalexpmultiplier);
+        stmt.setDouble(28, farmingexpmultiplier);
+        stmt.setDouble(29, breedingexpmultiplier);
+        stmt.setDouble(30, fishingexpmultiplier);
+        stmt.execute();
+    }
+
+    @Override
+    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_farming WHERE owner = ?;");
+        stmt.setString(1, p.getUniqueId().toString());
+        ResultSet result = stmt.executeQuery();
+        if (result.next()){
+            FarmingProfile profile = new FarmingProfile(p);
+            profile.setLevel(result.getInt("level"));
+            profile.setExp(result.getDouble("exp"));
+            profile.setLifetimeEXP(result.getDouble("exp_total"));
+            profile.setRareDropRateMultiplier(result.getFloat("raredropratemultiplier"));
+            profile.setDropMultiplier(result.getFloat("dropmultiplier"));
+            profile.setAnimalDropMultiplier(result.getFloat("animaldropmultiplier"));
+            profile.setAnimalRareDropRateMultiplier(result.getFloat("animalraredropratemultiplier"));
+            profile.setInstantHarvesting(result.getBoolean("instantharvesting"));
+            profile.setInstantGrowthRate(result.getFloat("instantgrowthrate"));
+            profile.setFishingTimeMultiplier(result.getFloat("fishingtimemultiplier"));
+            profile.setFishingRewardTier(result.getFloat("fishingrewardtier"));
+            profile.setFarmingVanillaExpReward(result.getFloat("farmingvanillaexpreward"));
+            profile.setBreedingVanillaExpMultiplier(result.getFloat("breedingvanillaexpmultiplier"));
+            profile.setFishingVanillaExpMultiplier(result.getFloat("fishingvanillaexpmultiplier"));
+            profile.setBabyAnimalAgeMultiplier(result.getFloat("babyanimalagemultiplier"));
+            profile.setHiveHoneySaveChance(result.getFloat("hivehoneysavechance"));
+            profile.setHiveBeeAggroImmunity(result.getBoolean("hivebeeaggroimmunity"));
+            profile.setUltraHarvestingCooldown(result.getInt("ultraharvestingcooldown"));
+            profile.setAnimalDamageMultiplier(result.getFloat("animaldamagemultiplier"));
+            profile.setBadFoodImmune(result.getBoolean("isbadfoodimmune"));
+            profile.setCarnivorousHungerMultiplier(result.getFloat("carnivoroushungermultiplier"));
+            profile.setPescotarianHungerMultiplier(result.getFloat("pescotarianhungermultiplier"));
+            profile.setVegetarianHungerMultiplier(result.getFloat("vegetarianhungermultiplier"));
+            profile.setGarbageHungerMultiplier(result.getFloat("garbagehungermultiplier"));
+            profile.setMagicalHungerMultiplier(result.getFloat("magicalhungermultiplier"));
+            profile.setGeneralExpMultiplier(result.getDouble("generalexpmultiplier"));
+            profile.setFarmingExpMultiplier(result.getDouble("farmingexpmultiplier"));
+            profile.setBreedingExpMultiplier(result.getDouble("breedingexpmultiplier"));
+            profile.setFishingExpMultiplier(result.getDouble("fishingexpmultiplier"));
+            return profile;
+        }
+        return null;
+    }
 
     public FarmingProfile(Player owner){
         super(owner);

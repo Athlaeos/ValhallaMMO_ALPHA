@@ -1,11 +1,32 @@
+# PERSISTENCY
+# Database credentials for profile storage
+# If the database credentials are wrong or absent, the plugin will use PersistentDataContainer to store profiles.
+# This means profiles can't be viewed as a whole, only individually, and also can't be edited without using
+# plugin-provided commands. The plugin will also have to use work-arounds to make leaderboards work by temporarily
+# storing certain datapoints in another file (leaderboards.yml).
+db_host: 'host'
+db_database: 'database'
+db_username: 'username'
+db_password: 'password'
+
 # GENERAL
 
+metrics: true # Allow the plugin to register bStats metrics.
 is_spigot: false # Spigot works slightly differently from its forks, and these differences sometimes break things that would
 # work on for example PaperMC or Purpur. If you are running on spigot, set this to true. Otherwise you can ignore this.
 # It is recommended to not use Spigot simply for performance reasons
 language: 'en-us' # The language file used. Language files can be found in ValhallaMMO/languages
 profile_version: 0 # The version of profiles used to define player's stats with. If you wish every player to start over,
 # increment this value by 1. If a player's profile version does not match this number, their profiles will be reset upon joining.
+
+skilltree_arrow_data_n: 3511002 # Custom model data of the NORTHERN arrow in the skill tree
+skilltree_arrow_data_ne: 3511003 # Custom model data of the NORTHEASTERN arrow in the skill tree
+skilltree_arrow_data_e: 3511004 # Custom model data of the EASTERN arrow in the skill tree
+skilltree_arrow_data_se: 3511005 # i think you get it
+skilltree_arrow_data_s: 3511006
+skilltree_arrow_data_sw: 3511007
+skilltree_arrow_data_w: 3511008
+skilltree_arrow_data_nw: 3511001
 
 # If enabled, the player will receive a book (detailed in tutorial_book.yml) on first join. This book will attempt to
 # teach the player some of the plugin's more obscure mechanics, such as the custom crafting mechanics
@@ -76,11 +97,95 @@ enabled_listeners:
                        # enchanting skill.
   player_experience: true # Responsible for experience absorption mechanics like vanilla exp multipliers. Disabling will remove
                           # vanilla exp multiplication
+  player_movement: true # Responsible for movement based mechanics like movement speed modifiers
+  player_chat: true # Responsible for party chat
+  healing: true # Responsible for custom healing mechanics
   blocks: true # Responsible for block breaking, placing, and block drop mechanics. Disabling will remove most of the harvesting
                # skills' functionalities (farming, mining, landscaping).
   fishing: true # Responsible for the farming skill's fishing mechanics
   breeding: true # Responsible for the farming skill's breeding mechanics
   targeting: true # Responsible for the farming skill's bee aggro immunity mechanics
+
+  movement_update_delay: 5000 # Movement-based stats are updated with a delay to improve performance, low values may
+  # make the plugin lag more. Delay is in milliseconds
+
+# DAMAGE
+
+# Damage calculation for armor and armor toughness. Armor is effective only against the given damage sources,
+# everything else is not mitigated by how many armor points you have.
+# Valid arguments are %damage%, %toughness%, and %armor%
+# This default formula doubles the player's effective HP every 10 armor points, or up to 6x eHP at 50 armor,
+# and further reduces heavy damage with toughness. Toughness is not very effective if the player doesn't have
+# a lot of armor or if the player doesn't take very heavy damage. This formula normally breaks at extreme damage numbers,
+# but damage reduction cannot go below a certain fraction to make sure the formula can never go into the negatives
+damage_formula_physical: '%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)'
+damage_formula_mode: SET # Valid modes are SET and MULTIPLY
+# SET sets physical damage to the outcome of this formula. The outcome cannot go below 0
+# MULTIPLY multiplies the original damage and sets that as the final damage. The outcome cannot go below 0
+damage_reduction_cap: 0.1 # The final damage cannot go below this fraction of the original damage
+armor_effective_types:
+  - PROJECTILE
+  - ENTITY_ATTACK
+  - ENTITY_SWEEP_ATTACK
+  - ENTITY_EXPLOSION
+  - BLOCK_EXPLOSION
+  - CONTACT
+  - FALLING_BLOCK
+
+# ValhallaMMO features a dodge mechanic, these are its balance options
+prevent_dodge_not_facing_attacker: true # If enabled, no matter what, the defender will never be able to dodge if
+# they are not facing the attacker
+facing_angle: 70 # The angle between the target's line of vision and to the attacker which the plugin would consider
+# the target to be "facing" the attacker, the effective angle of vision is double this value.
+# example: if this value is 90, the attacker can be anywhere within 180 degrees in front of the target for the target to
+# "see" the shooter. Anywhere outside of that front 180 degrees will be considered "facing away"
+
+# ValhallaMMO also feature a reflect mechanic. Reflect chance is defined by player stats and circumstances
+reflect_damage_type: THORNS # The damage type of reflected damage, to define how it should be mitigated
+
+# Damage mitigation obtained from specific enchantments. These mitigations reduce damage before armor comes into play.
+# These mitigations also stack on top of any additional damage mitigation attributes the armor may be given,
+# as example: a protection V chestplate that also has +15% damage mitigations will effectively have 20% damage mitigation
+protection_effectiveness: 0.01 # each level of PROTECTION reduces all damage taken by this scalar (default 1%)
+# so having a combined total of protection 20 will reduce damage taken from any source by 20%
+protection_magic_effectiveness: 0.03 # each level of PROTECTION reduces all magic damage taken by this scalar (default 3%)
+# so having a combined total of protection 20 will reduce magic damage taken by 60%
+# Magic damage is a damage source that is not reduced by armor or toughness, so this value should be reasonably high
+fire_protection_effectiveness: 0.05 # each level of FIRE PROTECTION reduces fire damage by this scalar (default 5%)
+# so having a combined total of fire protection 20 will completely prevent fire damage
+# fire protection still reduces the time the wearer will be lit on fire, should they be lit on fire
+projectile_protection_effectiveness: 0.015 # each level of PROJECTILE PROTECTION reduces projectile damage by this scalar
+# (default 1.5%) so having a combined total of projectile protection 20 will reduce projectile damage by 30%
+blast_protection_effectiveness: 0.03 # Each level of BLAST PROTECTION reduces explosion damage by this scalar (default 3%)
+# so having a combined total of blast protection 20 will reduce explosion damage taken by 60%
+feather_falling_effectiveness: 0.18 # each level of FEATHER FALLING reduces fall damage by this scalar (default 18%)
+# so having a combined total of feather falling 5 will reduce fall damage by 90%
+
+buff_resistance_reduction: 0.2 # Damage reduction per level of the Resistance buff (vanilla value: 0.2)
+
+light_damage_reduction: 0.00 # All damage reduced per piece of light armor
+light_projectile_reduction: 0.00 # Projectile damage reduced per piece of light armor
+light_poison_reduction: 0.00 # Poison damage reduction reduced per piece of light armor
+light_explosion_reduction: 0.00 # Explosion damage reduction reduced per piece of light armor
+light_fall_reduction: 0.00 # Fall damage reduced reduced per piece of light armor
+light_fire_reduction: 0.00 # Fire damage reduced per piece of light armor
+light_melee_reduction: 0.00 # Melee damage reduced per piece of light armor
+light_magic_reduction: 0.00 # Magic damage reduced per piece of light armor
+light_knockback_reduction: 0.00 # Knockback reduced per piece of light armor
+
+heavy_damage_reduction: 0.00 # All damage reduced per piece of heavy armor
+heavy_projectile_reduction: 0.05 # Projectile damage reduced per piece of heavy armor (default up to 20%)
+heavy_poison_reduction: 0.00 # Poison damage reduced per piece of heavy armor
+heavy_explosion_reduction: 0.00 # Explosion damage reduction reduced per piece of heavy armor
+heavy_fall_reduction: 0.00 # Fall damage reduced reduced per piece of heavy armor
+heavy_fire_reduction: 0.00 # Fire damage reduced per piece of heavy armor
+heavy_melee_reduction: 0.025 # Melee damage reduced per piece of heavy armor (default up to 10%)
+heavy_magic_reduction: 0.00 # Magic damage reduced per piece of heavy armor
+heavy_knockback_reduction: 0.05 # Knockback reduced per piece of heavy armor (default up to 20%)
+
+# ValhallaMMO changes trident damage to instead scale off its melee damage
+trident_damage_ranged: 1.3 # Damage multiplier of tridents when thrown
+trident_damage_ranged_loyalty: 1.0 # Damage multiplier of tridents when thrown, but they have loyalty
 
 # CRAFTING
 
@@ -102,7 +207,6 @@ swap_crafting_table_functionality: false
 # An entry in this list is valid if the name equates to a recipe's namespaced key, which in most cases is just
 # the item ID in lowercase
 disabled:
-  - arrow
   - leather_helmet
   - leather_chestplate
   - leather_leggings
@@ -161,16 +265,26 @@ disabled:
 # PARTIES (NOT IMPLEMENTED YET!!)
 
 parties: true # If disabled, all party functionality is disabled
-party_capacity: 50 # Default member capacity of a party
+item_sharing: true # If disabled, item sharing will not be possible
+exp_sharing: true # If disabled, exp sharing will not be possible
 
+party_creation_cooldown: 86400000 # Cooldown to create a party, so it can't be spammed (default 1d)
+item_share_cooldown: 3600000 # Cooldown between item shares (default 1hr)
+
+name_character_minimum: 2
 name_character_limit: 24 # Name limit of party names
+description_character_limit: 256 # Description limit of party descriptions
+party_chat_format: '&2[PC] &a[%rank%&a] %s &f> %s'
 name_allow_colors: true # If true, party creators may add colors to their party name
 description_allow_colors: true # If true, party creators may add colors to their description
-party_chat_format: '&a&l[PARTY] &a[%rank%&a] %who% &f> %message%'
 
-exp_sharing: true # If disabled, party exp sharing will be disabled by default
-party_chat: true # If disabled, party chat will be disabled by default
-item_sharing: true # If disabled, party item sharing will be disabled by default
+party_capacity_default: 50 # Default member capacity of a party
+exp_sharing_default: true # If disabled, party exp sharing will be disabled by default
+item_sharing_default: true # If disabled, party item sharing will be disabled by default
+
+exp_sharing_radius: 25 # Default exp sharing radius
+exp_sharing_multiplier: 1.0 # Default exp sharing fraction
+# Exp gained by 1 player is shared equally among nearby allies within the radius, and then multiplied by this amount
 
 # The default rank each member will get upon joining
 default_rank: rookie # The rank here must be present in the below "ranks", if not the party system will be disabled
@@ -211,6 +325,8 @@ ranks: # Ranks may be distributed by the party leader, each rank has a title and
 # item_share: ability to share items with other party members
 # exp_share: ability to toggle exp share on and off for the party
 # open_party: ability to open party or to have party invite only (closed = invite only, open = free join + invite)
+# toggle_item_sharing: ability to toggle item sharing
+# toggle_exp_sharing: ability to toggle exp sharing
 # invite_members: ability to invite other people to the party
 # manage_roles: ability to take and give roles that are below the member's own rank to people with rankings lower than that of their own
 # kick_members: ability to remove members from the party with rankings lower than that of their own
@@ -218,15 +334,14 @@ ranks: # Ranks may be distributed by the party leader, each rank has a title and
 # The leader by default has all permissions and is the only one who can transfer leadership
 
 party_info: # This information is displayed in the command /party info, and mostly intended for the creator of the party
+  - '&8&m                 [&a%name%&8&m]                 '
   - '&aDescription&7: %description%'
   - ''
-  - '&aParty Status&7: &a%status_open%'
+  - '&aParty Open&7: &a%status_open%'
   - '&aEXP Sharing&7: &a%status_exp_sharing%'
+  - '&aItem Sharing&7: &a%status_item_sharing%'
   - ''
-  - '&aMembers&7: &a%member_count%&7/&a%member_cap%'
   - '&aYour rank&7: &a%rank%'
-
-# MISCELLANEOUS
-
-trident_damage_ranged: 1.3 # Damage multiplier of tridents when thrown
-trident_damage_ranged_loyalty: 1.0 # Damage multiplier of tridents when thrown, but they have loyalty
+  - ''
+  - '&7Members (&a%member_count%&7/&a%member_cap%&7)'
+  - '&a%member_list%'

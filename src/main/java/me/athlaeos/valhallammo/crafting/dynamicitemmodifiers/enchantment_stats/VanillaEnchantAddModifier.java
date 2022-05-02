@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class VanillaEnchantAddModifier extends DuoArgDynamicItemModifier {
@@ -84,14 +86,24 @@ public class VanillaEnchantAddModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<enchantment_strength>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<percentage_skill>");
+    }
+
+    @Override
     public String toString() {
         if (strength == 0){
             return Utils.chat(String.format("&7Removes &e%s&7 from the item. Recipe is cancelled if item already has this enchantment.", Utils.toPascalCase(enchantName.replace("_", " "))));
         } else {
             if (strength2 >= 0){
-                return Utils.chat(String.format("&7Gives the item &e%s %s&7. Recipe is cancelled if item already has this enchantment.", Utils.toPascalCase(enchantName.replace("_", " ")), Utils.toRoman((int) strength)));
-            } else {
                 return Utils.chat(String.format("&7Gives the item &e%s %s&7 scaling with &e%,.1f%% &7of the player's skill. Recipe is cancelled if item already has this enchantment.", Utils.toPascalCase(enchantName.replace("_", " ")), Utils.toRoman((int) strength), strength2));
+            } else {
+                return Utils.chat(String.format("&7Gives the item &e%s %s&7. Recipe is cancelled if item already has this enchantment.", Utils.toPascalCase(enchantName.replace("_", " ")), Utils.toRoman((int) strength)));
             }
         }
     }

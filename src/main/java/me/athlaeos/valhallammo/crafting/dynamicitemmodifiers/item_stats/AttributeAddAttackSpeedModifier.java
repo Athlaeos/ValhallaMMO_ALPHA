@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddAttackSpeedModifier extends DynamicItemModifier {
     public AttributeAddAttackSpeedModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -33,6 +36,11 @@ public class AttributeAddAttackSpeedModifier extends DynamicItemModifier {
                 " When an item says it has -1.5 attack speed, it actually has 2.5.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lAttack Speed");
         this.icon = Material.STONE_SWORD;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

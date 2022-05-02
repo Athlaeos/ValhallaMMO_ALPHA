@@ -53,10 +53,10 @@ public class ChancedWoodstrippingLootTable extends ChancedBlockLootTable {
         Collection<ChancedBlockLootEntry> entries = getRandomEntries(event.getBlockReplacedState(), rareDropMultiplier);
         for (ChancedBlockLootEntry e : entries) {
             ItemStack item = entryToItem(e, event.getPlayer());
-            if (item == null) return;
+            if (item == null) continue;
             Location pLoc = event.getPlayer().getLocation();
             Location dropLocation = event.getBlockReplacedState().getBlock().getRelative(pLoc.getBlockX(), event.getBlock().getLocation().getBlockY(), pLoc.getBlockZ()).getLocation();
-            if (dropLocation.getWorld() == null) return;
+            if (dropLocation.getWorld() == null) continue;
 
             dropLocation.getWorld().dropItemNaturally(dropLocation, item);
         }

@@ -26,7 +26,7 @@ public class UnlockAllShapedRecipesReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ACCOUNT");
         if (profile == null) return;
         if (profile instanceof AccountProfile){
             AccountProfile accountProfile = (AccountProfile) profile;
@@ -35,7 +35,7 @@ public class UnlockAllShapedRecipesReward extends PerkReward {
             unlockedRecipes.addAll(CustomRecipeManager.getInstance().getShapedRecipes().keySet());
 
             accountProfile.setUnlockedRecipes(unlockedRecipes);
-            ProfileManager.setProfile(player, accountProfile, "ACCOUNT");
+            ProfileManager.getManager().setProfile(player, accountProfile, "ACCOUNT");
         }
     }
 

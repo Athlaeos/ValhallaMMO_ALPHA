@@ -87,7 +87,7 @@ public class ResetProfilesCommand implements Command {
 				return true;
 			}
 		}
-		ProfileManager.resetProfiles(target, hard);
+		ProfileManager.getManager().resetProfiles(target, hard);
 		Utils.sendMessage(sender, Utils.chat(hard ? status_command_hard_reset_success : status_command_soft_reset_success));
 		return true;
 	}

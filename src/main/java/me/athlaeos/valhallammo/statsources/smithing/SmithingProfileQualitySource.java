@@ -18,7 +18,7 @@ public class SmithingProfileQualitySource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "SMITHING");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "SMITHING");
             if (profile == null) return 0;
             if (!(profile instanceof SmithingProfile)) return 0;
             SmithingProfile smithingProfile = (SmithingProfile) profile;

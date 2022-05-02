@@ -10,7 +10,9 @@ import me.athlaeos.valhallammo.skills.alchemy.AlchemySkill;
 import me.athlaeos.valhallammo.skills.archery.ArcherySkill;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingSkill;
 import me.athlaeos.valhallammo.skills.farming.FarmingSkill;
+import me.athlaeos.valhallammo.skills.heavyarmor.HeavyArmorSkill;
 import me.athlaeos.valhallammo.skills.landscaping.LandscapingSkill;
+import me.athlaeos.valhallammo.skills.lightarmor.LightArmorSkill;
 import me.athlaeos.valhallammo.skills.mining.MiningSkill;
 import me.athlaeos.valhallammo.skills.smithing.SmithingSkill;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -37,6 +39,9 @@ public class SkillProgressionManager {
         if (config.getBoolean("enabled_skills.mining")) registerSkill(new MiningSkill("MINING"));
         if (config.getBoolean("enabled_skills.landscaping")) registerSkill(new LandscapingSkill("LANDSCAPING"));
         if (config.getBoolean("enabled_skills.archery")) registerSkill(new ArcherySkill("ARCHERY"));
+        if (config.getBoolean("enabled_skills.armor_light")) registerSkill(new LightArmorSkill("LIGHT_ARMOR"));
+        if (config.getBoolean("enabled_skills.armor_heavy")) registerSkill(new HeavyArmorSkill("HEAVY_ARMOR"));
+
 
     }
 
@@ -80,19 +85,27 @@ public class SkillProgressionManager {
         return null;
     }
 
+    public Map<String, Perk> getAllPerks(){
+        Map<String, Perk> perks = new HashMap<>();
+        for (String skill : allPerks.keySet()){
+            perks.putAll(allPerks.get(skill));
+        }
+        return perks;
+    }
+
     public Map<String, Skill> getAllSkills() {
         return allSkills;
     }
 
     public void unlockPerk(Player player, Perk perk){
-        Profile account = ProfileManager.getProfile(player, "ACCOUNT");
+        Profile account = ProfileManager.getManager().getProfile(player, "ACCOUNT");
         if (account != null){
             if (account instanceof AccountProfile){
                 Set<String> perks = ((AccountProfile) account).getUnlockedPerks();
                 if (perks.contains(perk.getName())) return;
                 perks.add(perk.getName());
                 ((AccountProfile) account).setUnlockedPerks(perks);
-                ProfileManager.setProfile(player, account, "ACCOUNT");
+                ProfileManager.getManager().setProfile(player, account, "ACCOUNT");
                 perk.execute(player);
             }
         }

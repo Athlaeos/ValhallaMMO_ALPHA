@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RandomizedDurabilityModifier extends DynamicItemModifier implements Cloneable{
 
     public RandomizedDurabilityModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class RandomizedDurabilityModifier extends DynamicItemModifier implements
                 " instead be damaged the vanilla way. If the item is not damageable it is not modified.");
         this.displayName = Utils.chat("&b&lRandomize Durability");
         this.icon = Material.WOODEN_PICKAXE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

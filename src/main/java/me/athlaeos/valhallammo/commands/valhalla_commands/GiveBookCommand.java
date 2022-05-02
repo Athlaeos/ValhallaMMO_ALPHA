@@ -38,7 +38,7 @@ public class GiveBookCommand implements Command {
 		}
 
 		if (args.length >= 2){
-			targets.addAll(Utils.selectPlayers(sender, args[3]));
+			targets.addAll(Utils.selectPlayers(sender, args[1]));
 
 			if (targets.isEmpty()){
 				sender.sendMessage(Utils.chat(error_player_not_found));
@@ -49,8 +49,8 @@ public class GiveBookCommand implements Command {
 		if (book != null){
 			for (Player target : targets){
 				target.getInventory().addItem(book.clone());
-				Utils.sendMessage(sender, Utils.chat(status_command_givebook_executed));
 			}
+			Utils.sendMessage(sender, Utils.chat(status_command_givebook_executed));
 		} else {
 			sender.sendMessage(Utils.chat(error_command_givebook));
 		}

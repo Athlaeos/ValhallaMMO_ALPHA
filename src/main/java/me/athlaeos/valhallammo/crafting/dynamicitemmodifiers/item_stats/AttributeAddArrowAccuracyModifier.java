@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddArrowAccuracyModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddArrowAccuracyModifier(String name, double strength, ModifierPriority priority) {
@@ -24,7 +27,7 @@ public class AttributeAddArrowAccuracyModifier extends DynamicItemModifier imple
         this.bigStepIncrease = 1;
         this.smallStepDecrease = 0.1;
         this.smallStepIncrease = 0.1;
-        this.defaultStrength = 1;
+        this.defaultStrength = 0;
         this.minStrength = Short.MIN_VALUE;
         this.maxStrength = Short.MAX_VALUE;
         this.description = Utils.chat("&7Sets a default custom arrow inaccuracy to the item. The strength of the modifier " +
@@ -35,6 +38,11 @@ public class AttributeAddArrowAccuracyModifier extends DynamicItemModifier imple
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
+    }
+
+    @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         ItemAttributesManager.getInstance().addDefaultStat(outputItem, new CustomArrowAccuracyWrapper(
@@ -42,6 +50,7 @@ public class AttributeAddArrowAccuracyModifier extends DynamicItemModifier imple
                 AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlot.HAND
         ));
+        ItemAttributesManager.getInstance().setAttributeStrength(outputItem, "CUSTOM_ARROW_ACCURACY", strength);
         return outputItem;
     }
 

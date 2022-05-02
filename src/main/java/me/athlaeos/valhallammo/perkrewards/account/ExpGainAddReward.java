@@ -25,12 +25,12 @@ public class ExpGainAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ACCOUNT");
         if (profile == null) return;
         if (profile instanceof AccountProfile){
             AccountProfile accountProfile = (AccountProfile) profile;
             accountProfile.setAllSkillEXPGain(accountProfile.getAllSkillEXPGain() + expGain);
-            ProfileManager.setProfile(player, accountProfile, "ACCOUNT");
+            ProfileManager.getManager().setProfile(player, accountProfile, "ACCOUNT");
         }
     }
 

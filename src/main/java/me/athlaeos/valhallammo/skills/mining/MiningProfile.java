@@ -9,6 +9,11 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -24,7 +29,7 @@ public class MiningProfile extends Profile implements Serializable {
     private int veinminingcooldown = -1; // cooldown of the vein mining ability, which harvests a large area of the same ore at once. if -1, ability is unusable
     private Collection<String> validveinminerblocks = new HashSet<>();
     private Collection<String> unbreakableblocks = new HashSet<>();
-    private int quickminecooldown = 0; // cooldown of the quick mine ability, which allows blocks to be instantly mined at the cost of hunger and health.
+    private int quickminecooldown = -1; // cooldown of the quick mine ability, which allows blocks to be instantly mined at the cost of hunger and health.
     private int quickminehungerdrainspeed = -1; // amount of blocks the player can instantly mine before losing 1 saturation/hunger/health point. if <0 this ability is disabled
     // some blocks can be valued higher, which are defined in skill_mining.yml
     // this is to make it so blocks like obsidian can't be mined as frequently as any other block. undefined block values are valued as 1
@@ -37,6 +42,105 @@ public class MiningProfile extends Profile implements Serializable {
     private double generalexpmultiplier = 100D;
     private double blastminingexpmultiplier = 100D;
     private double miningexpmultiplier = 100D;
+
+    @Override
+    public void createProfileTable(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_mining (" +
+                "owner VARCHAR(40) PRIMARY KEY," +
+                "level SMALLINT default 0," +
+                "exp DOUBLE default 0," +
+                "exp_total DOUBLE default 0," +
+                "miningraredropratemultiplier FLOAT DEFAULT 1," +
+                "blastminingraredropratemultiplier FLOAT DEFAULT 1, " +
+                "miningdropmultiplier FLOAT DEFAULT 1," +
+                "blastminingdropmultiplier FLOAT DEFAULT 1," +
+                "blastradiusmultiplier FLOAT DEFAULT 1," +
+                "tntexplosiondamagemultiplier FLOAT DEFAULT 1," +
+                "veinminingcooldown INT DEFAULT -1," +
+                "validveinminerblocks VARCHAR(16384) DEFAULT ''," +
+                "unbreakableblocks VARCHAR(16384) DEFAULT ''," +
+                "quickminecooldown INT default -1," +
+                "quickminehungerdrainspeed INT DEFAULT -1," +
+                "quickminedurabilitylossrate FLOAT DEFAULT 1," +
+                "oreexperiencemultiplier FLOAT DEFAULT 1," +
+                "blockmineexperiencerate FLOAT DEFAULT 1," +
+                "explosionfortunelevel INT DEFAULT 0," +
+                "tunnelfatiguelevel INT DEFAULT -1," +
+                "generalexpmultiplier DOUBLE DEFAULT 100," +
+                "blastminingexpmultiplier DOUBLE DEFAULT 100," +
+                "miningexpmultiplier DOUBLE DEFAULT 100);");
+        stmt.execute();
+    }
+
+    @Override
+    public void insertOrUpdateProfile(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "REPLACE INTO profiles_mining " +
+                        "(owner, level, exp, exp_total, miningraredropratemultiplier, blastminingraredropratemultiplier, " +
+                        "miningdropmultiplier, blastminingdropmultiplier, blastradiusmultiplier, tntexplosiondamagemultiplier, " +
+                        "veinminingcooldown, validveinminerblocks, unbreakableblocks, quickminecooldown, quickminehungerdrainspeed, " +
+                        "quickminedurabilitylossrate, oreexperiencemultiplier, blockmineexperiencerate, explosionfortunelevel, " +
+                        "tunnelfatiguelevel, generalexpmultiplier, blastminingexpmultiplier, miningexpmultiplier) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        stmt.setString(1, owner.toString());
+        stmt.setInt(2, level);
+        stmt.setDouble(3, exp);
+        stmt.setDouble(4, lifetimeEXP);
+        stmt.setFloat(5, miningraredropratemultiplier);
+        stmt.setFloat(6, blastminingraredropratemultiplier);
+        stmt.setFloat(7, miningdropmultiplier);
+        stmt.setFloat(8, blastminingdropmultiplier);
+        stmt.setFloat(9, blastradiusmultiplier);
+        stmt.setFloat(10, tntexplosiondamagemultiplier);
+        stmt.setInt(11, veinminingcooldown);
+        stmt.setString(12, String.join("<>", validveinminerblocks));
+        stmt.setString(13, String.join("<>", unbreakableblocks));
+        stmt.setInt(14, quickminecooldown);
+        stmt.setFloat(15, quickminehungerdrainspeed);
+        stmt.setFloat(16, quickminedurabilitylossrate);
+        stmt.setFloat(17, oreexperiencemultiplier);
+        stmt.setFloat(18, blockmineexperiencerate);
+        stmt.setInt(19, explosionfortunelevel);
+        stmt.setInt(20, tunnelfatiguelevel);
+        stmt.setDouble(21, generalexpmultiplier);
+        stmt.setDouble(22, blastminingexpmultiplier);
+        stmt.setDouble(23, miningexpmultiplier);
+        stmt.execute();
+    }
+
+    @Override
+    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_mining WHERE owner = ?;");
+        stmt.setString(1, p.getUniqueId().toString());
+        ResultSet result = stmt.executeQuery();
+        if (result.next()){
+            MiningProfile profile = new MiningProfile(p);
+            profile.setLevel(result.getInt("level"));
+            profile.setExp(result.getDouble("exp"));
+            profile.setLifetimeEXP(result.getDouble("exp_total"));
+            profile.setMiningRareDropRateMultiplier(result.getFloat("miningraredropratemultiplier"));
+            profile.setBlastMiningRareDropRateMultiplier(result.getFloat("blastminingraredropratemultiplier"));
+            profile.setMiningDropMultiplier(result.getFloat("miningdropmultiplier"));
+            profile.setBlastMiningDropMultiplier(result.getFloat("blastminingdropmultiplier"));
+            profile.setBlastRadiusMultiplier(result.getFloat("blastradiusmultiplier"));
+            profile.setTntExplosionDamageMultiplier(result.getFloat("tntexplosiondamagemultiplier"));
+            profile.setVeinMiningCooldown(result.getInt("veinminingcooldown"));
+            profile.setValidVeinMinerBlocks(new HashSet<>(Arrays.asList(result.getString("validveinminerblocks").split("<>"))));
+            profile.setUnbreakableBlocks(new HashSet<>(Arrays.asList(result.getString("unbreakableblocks").split("<>"))));
+            profile.setQuickMineCooldown(result.getInt("quickminecooldown"));
+            profile.setQuickMineHungerDrainSpeed(result.getInt("quickminehungerdrainspeed"));
+            profile.setQuickMineDurabilityLossRate(result.getFloat("quickminedurabilitylossrate"));
+            profile.setOreExperienceMultiplier(result.getFloat("oreexperiencemultiplier"));
+            profile.setBlockMineExperienceRate(result.getFloat("blockmineexperiencerate"));
+            profile.setExplosionFortuneLevel(result.getInt("explosionfortunelevel"));
+            profile.setTunnelFatigueLevel(result.getInt("tunnelfatiguelevel"));
+            profile.setGeneralExpMultiplier(result.getDouble("generalexpmultiplier"));
+            profile.setBlastMiningExpMultiplier(result.getDouble("blastminingexpmultiplier"));
+            profile.setMiningExpMultiplier(result.getDouble("miningexpmultiplier"));
+            return profile;
+        }
+        return null;
+    }
 
     public MiningProfile(Player owner){
         super(owner);

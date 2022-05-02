@@ -53,9 +53,9 @@ public class ItemModifierCommand implements Command {
 			if (baseModifier instanceof TripleArgDynamicItemModifier){
 				if (args.length >= 5){
 					try {
-						strength = Double.parseDouble(args[2]);
-						strength2 = Double.parseDouble(args[3]);
-						strength3 = Double.parseDouble(args[4]);
+						strength = Double.parseDouble(args[2].split("-")[0]);
+						strength2 = Double.parseDouble(args[3].split("-")[0]);
+						strength3 = Double.parseDouble(args[4].split("-")[0]);
 					} catch (IllegalArgumentException ignored){
 						Utils.sendMessage(sender, Utils.chat(error_command_invalid_number));
 						return true;
@@ -72,8 +72,8 @@ public class ItemModifierCommand implements Command {
 			} else if (baseModifier instanceof DuoArgDynamicItemModifier){
 				if (args.length >= 4){
 					try {
-						strength = Double.parseDouble(args[2]);
-						strength2 = Double.parseDouble(args[3]);
+						strength = Double.parseDouble(args[2].split("-")[0]);
+						strength2 = Double.parseDouble(args[3].split("-")[0]);
 					} catch (IllegalArgumentException ignored){
 						Utils.sendMessage(sender, Utils.chat(error_command_invalid_number));
 						return true;
@@ -89,7 +89,7 @@ public class ItemModifierCommand implements Command {
 				}
 			} else {
 				try {
-					strength = Double.parseDouble(args[2]);
+					strength = Double.parseDouble(args[2].split("-")[0]);
 				} catch (IllegalArgumentException ignored){
 					Utils.sendMessage(sender, Utils.chat(error_command_invalid_number));
 					return true;
@@ -154,19 +154,39 @@ public class ItemModifierCommand implements Command {
 			DynamicItemModifier modifier = DynamicItemModifierManager.getInstance().getModifiers().get(args[1]);
 			if (modifier != null){
 				if (args.length == 3){
-					return Collections.singletonList("<arg1>");
+					List<String> alternativeArgs = modifier.tabAutoCompleteFirstArg();
+					if (alternativeArgs == null || alternativeArgs.isEmpty()){
+						return Collections.singletonList("<arg1>");
+					} else {
+						return alternativeArgs;
+					}
 				}
 				if (modifier instanceof TripleArgDynamicItemModifier){
 					if (args.length == 4){
-						return Collections.singletonList("<arg2>");
+						List<String> alternativeArgs = ((TripleArgDynamicItemModifier) modifier).tabAutoCompleteSecondArg();
+						if (alternativeArgs == null || alternativeArgs.isEmpty()){
+							return Collections.singletonList("<arg2>");
+						} else {
+							return alternativeArgs;
+						}
 					}
 					if (args.length == 5){
-						return Collections.singletonList("<arg3>");
+						List<String> alternativeArgs = ((TripleArgDynamicItemModifier) modifier).tabAutoCompleteThirdArg();
+						if (alternativeArgs == null || alternativeArgs.isEmpty()){
+							return Collections.singletonList("<arg3>");
+						} else {
+							return alternativeArgs;
+						}
 					}
 				}
 				if (modifier instanceof DuoArgDynamicItemModifier){
 					if (args.length == 4){
-						return Collections.singletonList("<arg2>");
+						List<String> alternativeArgs = ((DuoArgDynamicItemModifier) modifier).tabAutoCompleteSecondArg();
+						if (alternativeArgs == null || alternativeArgs.isEmpty()){
+							return Collections.singletonList("<arg2>");
+						} else {
+							return alternativeArgs;
+						}
 					}
 				}
 			}

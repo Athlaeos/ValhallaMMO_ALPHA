@@ -9,6 +9,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class RandomlyEnchantItemModifier extends DuoArgDynamicItemModifier {
     public RandomlyEnchantItemModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, 0D, priority);
@@ -38,6 +42,16 @@ public class RandomlyEnchantItemModifier extends DuoArgDynamicItemModifier {
                 "item after enchanting still has no enchantments");
         this.displayName = Utils.chat("&7&lEnchant Item : RANDOM");
         this.icon = Material.ENCHANTING_TABLE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<enchantment_strength>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Arrays.asList("0", "1");
     }
 
     @Override

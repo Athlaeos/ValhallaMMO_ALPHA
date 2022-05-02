@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.perkrewards.account;
 import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RemovePerksReward extends PerkReward {
     private final List<String> recipesToUnlock = new ArrayList<>();
@@ -29,7 +31,7 @@ public class RemovePerksReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ACCOUNT");
         if (profile == null) return;
         if (profile instanceof AccountProfile){
             AccountProfile accountProfile = (AccountProfile) profile;
@@ -38,7 +40,7 @@ public class RemovePerksReward extends PerkReward {
                 unlockedPerks.remove(r);
             }
             accountProfile.setUnlockedPerks(unlockedPerks);
-            ProfileManager.setProfile(player, accountProfile, "ACCOUNT");
+            ProfileManager.getManager().setProfile(player, accountProfile, "ACCOUNT");
         }
     }
 
@@ -50,6 +52,14 @@ public class RemovePerksReward extends PerkReward {
                 recipesToUnlock.addAll((Collection<String>) argument);
             }
         }
+    }
+
+    @Override
+    public List<String> getTabAutoComplete(String currentArg) {
+        if (currentArg.endsWith(";") || currentArg.equals("")){
+            return SkillProgressionManager.getInstance().getAllPerks().keySet().stream().filter(s -> !currentArg.contains(s)).collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

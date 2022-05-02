@@ -14,6 +14,9 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddCustomDurabilityModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddCustomDurabilityModifier(String name, double strength, ModifierPriority priority) {
@@ -33,6 +36,11 @@ public class AttributeAddCustomDurabilityModifier extends DynamicItemModifier im
                 "represents the default max durability of the item. This only works on items that can be damaged.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lMax Durability");
         this.icon = Material.IRON_PICKAXE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

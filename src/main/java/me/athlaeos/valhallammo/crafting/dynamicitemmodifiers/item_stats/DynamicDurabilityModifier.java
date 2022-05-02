@@ -10,6 +10,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DynamicDurabilityModifier extends DynamicItemModifier {
 
     public DynamicDurabilityModifier(String name, double strength, ModifierPriority priority) {
@@ -31,6 +34,11 @@ public class DynamicDurabilityModifier extends DynamicItemModifier {
                 "item's durability to if it had a rating of 75, and 200% results in a rating of 300.");
         this.displayName = Utils.chat("&b&lUpdate Durability");
         this.icon = Material.DIAMOND;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<percentage_quality>");
     }
 
     @Override

@@ -1,5 +1,6 @@
 display_name: '&7Alchemy'
 icon: GLASS_BOTTLE
+icon_data: 3510001
 description: '&8Practice Alchemy to make potions and poisons of extreme potency, and learn how to transmute materials'
 
 levelbar_title: '&7Alchemy &dLV %lv_current% &5%exp_current%&7/&5%exp_next%'

@@ -1,5 +1,6 @@
 display_name: '&7Farming'
 icon: WOODEN_HOE
+icon_data: 3510001
 description: '&8Practice Farming to increase your harvest''s bounty, to collect rare plants and ingredients, and to improve your fishing and livestock farming.'
 
 levelbar_title: '&7Farming &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'

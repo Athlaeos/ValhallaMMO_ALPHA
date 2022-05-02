@@ -4,7 +4,7 @@ import me.athlaeos.valhallammo.commands.Command;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.listeners.EntityDamagedListener;
 import me.athlaeos.valhallammo.listeners.InteractListener;
-import me.athlaeos.valhallammo.listeners.JoinListener;
+import me.athlaeos.valhallammo.listeners.JoinLeaveListener;
 import me.athlaeos.valhallammo.listeners.VillagerInteractListener;
 import me.athlaeos.valhallammo.loottables.LootManager;
 import me.athlaeos.valhallammo.managers.*;
@@ -77,7 +77,7 @@ public class ReloadCommand implements Command {
 				AlchemyPotionTreatmentManager.getInstance().reload();
 				EntityDamagedListener.getListener().reload();
 				InteractListener.getListener().reload();
-				JoinListener.getListener().reload();
+				JoinLeaveListener.getListener().reload();
 				VillagerInteractListener.getListener().reload();
 				BlockConversionManager.getInstance().reload();
 				CustomDurabilityManager.getInstance().reload();

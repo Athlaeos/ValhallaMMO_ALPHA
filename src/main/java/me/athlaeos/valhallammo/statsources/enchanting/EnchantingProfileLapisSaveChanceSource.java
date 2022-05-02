@@ -14,7 +14,7 @@ public class EnchantingProfileLapisSaveChanceSource extends AccumulativeStatSour
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "ENCHANTING");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "ENCHANTING");
             if (profile == null) return 0;
             if (!(profile instanceof EnchantingProfile)) return 0;
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;

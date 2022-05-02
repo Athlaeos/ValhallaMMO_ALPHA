@@ -114,6 +114,10 @@ public class DynamicItemModifierManager {
         register(new UpgradeStoneChainModifier("upgrade_equipment_stone_chain", 0D, ModifierPriority.NEUTRAL));
         register(new UpgradeWoodLeatherModifier("upgrade_equipment_wood_leather", 0D, ModifierPriority.NEUTRAL));
 
+        register(new ArmorHeavyModifier("armor_weight_class_heavy", 0D, ModifierPriority.NEUTRAL));
+        register(new ArmorLightModifier("armor_weight_class_light", 0D, ModifierPriority.NEUTRAL));
+        register(new ArmorWeightlessModifier("armor_weight_class_weightless", 0D, ModifierPriority.NEUTRAL));
+
         register(new SkillEXPModifier("exp_bonus_smithing", 0D, ModifierPriority.NEUTRAL, "SMITHING"));
         register(new SkillEXPModifier("exp_bonus_alchemy", 0D, ModifierPriority.NEUTRAL, "ALCHEMY"));
         register(new SkillEXPModifier("exp_bonus_enchanting", 0D, ModifierPriority.NEUTRAL, "ENCHANTING"));
@@ -136,10 +140,25 @@ public class DynamicItemModifierManager {
         register(new AttributeAddMagicResistanceModifier("default_attribute_magic_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddPoisonResistanceModifier("default_attribute_poison_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddProjectileResistanceModifier("default_attribute_projectile_resistance_add", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddMeleeResistanceModifier("default_attribute_melee_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddDrawStrengthModifier("draw_strength_static", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddCustomDurabilityModifier("durability_static", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddArrowStrengthModifier("arrow_damage", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddArrowAccuracyModifier("arrow_accuracy", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddArrowSaveChanceModifier("arrow_save_chance", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddArrowSpeedModifier("arrow_speed", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddArrowPiercingModifier("arrow_piercing", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddArrowInfinityExploitableModifier("arrow_infinity_compatible", 0D, ModifierPriority.NEUTRAL));
+
+        register(new ArrowExplosiveUpgradeModifier("arrow_explosive_upgrade", 0D, 0D, 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowIncendiaryUpgradeModifier("arrow_incendiary_upgrade", 0D, 0D, 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowEnderUpgradeModifier("arrow_ender_upgrade", 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowRemoveIFramesUpgradeModifier("arrow_no_iframes_upgrade", 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowLightningUpgradeModifier("arrow_lightning_upgrade", 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowSFireballUpgradeModifier("arrow_small_fireball_upgrade", 0D, 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowLFireballUpgradeModifier("arrow_large_fireball_upgrade", 0D, 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowDFireballUpgradeModifier("arrow_dragon_fireball_upgrade", 0D, 0D, ModifierPriority.NEUTRAL));
+        register(new ArrowRemoveGravityUpgradeModifier("arrow_remove_gravity_upgrade", 0D, ModifierPriority.NEUTRAL));
 
         register(new AttributeRemoveArmorKBResistModifier("default_attribute_knockback_resist_remove", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeRemoveArmorModifier("default_attribute_armor_remove", 0D, ModifierPriority.NEUTRAL));
@@ -158,6 +177,7 @@ public class DynamicItemModifierManager {
 
         register(new SetAmountModifier("set_amount", 0D, ModifierPriority.NEUTRAL));
         register(new RandomizedAmountModifier("random_amount", 0D, 0D, ModifierPriority.NEUTRAL));
+        register(new DynamicAmountModifier("dynamic_amount", 0D, ModifierPriority.NEUTRAL));
 
         register(new SetToolIdModifier("tool_id", 0D, ModifierPriority.NEUTRAL));
 

@@ -2,6 +2,7 @@ package me.athlaeos.valhallammo.commands.valhalla_commands;
 
 import me.athlaeos.valhallammo.commands.Command;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.managers.TranslationManager;
@@ -69,11 +70,11 @@ public class EXPCommand implements Command {
 			}
 
 			for (Player target : targets){
-				Profile profile = ProfileManager.getProfile(target, skillType);
+				Profile profile = ProfileManager.getManager().getProfile(target, skillType);
 				if (profile != null){
 					Skill skill = SkillProgressionManager.getInstance().getSkill(skillType);
 					if (skill != null){
-						skill.addEXP(target, amount, false);
+						skill.addEXP(target, amount, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
 						Utils.sendMessage(sender, status_command_exp_success
 								.replace("%player%", target.getName())
 								.replace("%amount%", String.format("%.2f", amount))

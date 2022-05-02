@@ -17,7 +17,7 @@ public class SmithingEXPMultipliers extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "SMITHING");
+        Profile profile = ProfileManager.getManager().getProfile(p, "SMITHING");
         if (profile != null){
             if (profile instanceof SmithingProfile){
                 double multiplier;

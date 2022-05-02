@@ -17,12 +17,12 @@ public class ArcheryChargedShotCooldownAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ARCHERY");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ARCHERY");
         if (profile == null) return;
         if (profile instanceof ArcheryProfile){
             ArcheryProfile archeryProfile = (ArcheryProfile) profile;
             archeryProfile.setChargedShotCooldown(archeryProfile.getChargedShotCooldown() + cooldown);
-            ProfileManager.setProfile(player, archeryProfile, "ARCHERY");
+            ProfileManager.getManager().setProfile(player, archeryProfile, "ARCHERY");
         }
     }
 

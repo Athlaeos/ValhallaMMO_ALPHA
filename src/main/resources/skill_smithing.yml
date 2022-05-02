@@ -1,5 +1,6 @@
 display_name: '&7Smithing'
 icon: ANVIL
+icon_data: 3510001
 description: '&8Practice Smithing to make tools and equipment of increasingly superior quality'
 
 levelbar_title: '&7Smithing &eLV&e%lv_current% &6%exp_current%&7/&6%exp_next%'
@@ -37,6 +38,10 @@ treatment_lore: # The treatment lores displayed on the item if hide_treatment_lo
   HEATING: '&6Red-Hot'
   SUPERHEATING: '&eWhite-Hot'
   UNENCHANTABLE: '&cUnenchantable'
+
+scaling_quantity: '0.7/300 * %rating%' # Quantity
+scaling_minimum: 0
+scaling_maximum: 0.8
 
 # Here you can fill in the formulas used for calculating durability values of items crafted using this custom system
 # The output will be a multiplier, which will be applied on the item's vanilla max durability and made into custom durability

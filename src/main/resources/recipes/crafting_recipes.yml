@@ -1982,3 +1982,1002 @@ craft:
         ==: org.bukkit.inventory.ItemStack
         v: 2586
         type: ENDER_PEARL
+  craft_carbon_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Carbon Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&fCraft Carbon Arrows'
+    modifiers:
+      arrow_speed:
+        strength: 0.4
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 1.0
+        priority: NEUTRAL
+      arrow_accuracy:
+        strength: -1.0
+        priority: SOON
+      custom_model_data_add:
+        strength: 13.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: CHARCOAL
+  craft_carbon_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Carbon Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Carbon Arrows'
+    modifiers:
+      arrow_damage:
+        strength: 1.0
+        priority: NEUTRAL
+      arrow_accuracy:
+        strength: 1.0
+        priority: SOON
+      arrow_speed:
+        strength: 0.4
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 14.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: CHARCOAL
+  craft_copper_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Copper Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Copper Arrows'
+    modifiers:
+      arrow_speed:
+        strength: 0.2
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 7.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 1.5
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COPPER_INGOT
+  craft_copper_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Copper Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Copper Arrows'
+    modifiers:
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      custom_model_data_add:
+        strength: 8.0
+        priority: SOONEST
+      arrow_speed:
+        strength: 0.2
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 1.5
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COPPER_INGOT
+  craft_diamond_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 8
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Diamond Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&bCraft Diamond Arrows'
+    modifiers:
+      arrow_speed:
+        strength: 0.2
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 3.0
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 15.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+  craft_diamond_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 8
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Diamond Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&bCraft Diamond Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 16.0
+        priority: SOONEST
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      arrow_damage:
+        strength: 3.0
+        priority: NEUTRAL
+      arrow_speed:
+        strength: 0.2
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+  craft_ender_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 2
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"blue","text":"Enderic Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&9Craft Enderic Arrows'
+    modifiers:
+      arrow_damage:
+        strength: 0.0
+        priority: NEUTRAL
+      arrow_speed:
+        strength: -0.4
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 18.0
+        priority: SOONEST
+      arrow_ender_upgrade:
+        strength: 0.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: ENDER_EYE
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+  craft_ender_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 2
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"blue","text":"Enderic Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&9Craft Enderic Arrows'
+    modifiers:
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      arrow_damage:
+        strength: 0.0
+        priority: NEUTRAL
+      arrow_speed:
+        strength: -0.4
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 18.0
+        priority: SOONEST
+      arrow_ender_upgrade:
+        strength: 0.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: ENDER_EYE
+  craft_explosive_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 2
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"Explosive
+            Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&6Craft Explosive Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 21.0
+        priority: SOONEST
+      arrow_speed:
+        strength: -0.4
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 0.5
+        priority: NEUTRAL
+      arrow_no_iframes_upgrade:
+        strength: 0.0
+        priority: SOON
+      arrow_explosive_upgrade:
+        strength3: 0.0
+        strength2: 1.0
+        strength: 2.0
+        priority: LATER
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: TNT
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: BLAZE_ROD
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+  craft_flint_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Flint Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: CRAFTING_TABLE
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Flint Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 4.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 1.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FLINT
+  craft_flint_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Flint Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: CRAFTING_TABLE
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Flint Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 4.0
+        priority: SOONEST
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      arrow_damage:
+        strength: 1.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FLINT
+  craft_gold_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Golden Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Golden Arrows'
+    modifiers:
+      arrow_speed:
+        strength: -0.2
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 9.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 3.5
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+  craft_gold_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Golden Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Golden Arrows'
+    modifiers:
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      arrow_speed:
+        strength: -0.2
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 10.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 3.5
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+  craft_incendiary_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 2
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"yellow","text":"Incendiary
+            Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&eCraft Incendiary Arrows'
+    modifiers:
+      arrow_speed:
+        strength: -0.2
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 1.0
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 20.0
+        priority: SOONEST
+      arrow_incendiary_upgrade:
+        strength3: 0.7
+        strength2: 2.0
+        strength: 100.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: BLAZE_ROD
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FIRE_CHARGE
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+  craft_iron_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Iron Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Iron Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 11.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 2.0
+        priority: NEUTRAL
+      arrow_piercing:
+        strength: 1.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+  craft_iron_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Iron Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Iron Arrows'
+    modifiers:
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      custom_model_data_add:
+        strength: 12.0
+        priority: SOONEST
+      arrow_piercing:
+        strength: 1.0
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 2.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_INGOT
+  craft_lightning_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 2
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Storm Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: true
+    break_station: false
+    display_name: '&bCraft Storm Arrows'
+    modifiers:
+      arrow_damage:
+        strength: 0.5
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 22.0
+        priority: SOONEST
+      arrow_no_iframes_upgrade:
+        strength: 0.0
+        priority: SOON
+      arrow_lightning_upgrade:
+        strength: 1.0
+        priority: LATER
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LIGHTNING_ROD
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COPPER_INGOT
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+  craft_netherite_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 16
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"dark_gray","text":"Netherite
+            Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 1400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&8Craft Netherite Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 19.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 5.0
+        priority: NEUTRAL
+      arrow_piercing:
+        strength: 5.0
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLD_INGOT
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: NETHERITE_SCRAP
+  craft_stone_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Stone Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: CRAFTING_TABLE
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Stone Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 5.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 1.5
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+  craft_stone_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Stone Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: CRAFTING_TABLE
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Stone Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 6.0
+        priority: SOONEST
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+      arrow_damage:
+        strength: 1.5
+        priority: NEUTRAL
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: COBBLESTONE
+  craft_unholy_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 8
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"dark_gray","text":"Unholy
+            Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: ANVIL
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&8Craft Unholy Arrows'
+    modifiers:
+      arrow_speed:
+        strength: 0.2
+        priority: NEUTRAL
+      arrow_damage:
+        strength: 3.0
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 23.0
+        priority: SOONEST
+      arrow_piercing:
+        strength: 1.0
+        priority: NEUTRAL
+      arrow_no_iframes_upgrade:
+        strength: 0.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: WITHER_ROSE
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+  craft_wood_feather_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Wooden Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: CRAFTING_TABLE
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Wooden Arrows'
+    modifiers:
+      arrow_damage:
+        strength: 0.5
+        priority: NEUTRAL
+      custom_model_data_add:
+        strength: 1.0
+        priority: SOONEST
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: FEATHER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS
+  craft_wood_paper_arrows:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ARROW
+      amount: 4
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"Wooden Arrow"}],"text":""}'
+    tool_id: -1
+    tool_requirement_type: 0
+    craft_block: CRAFTING_TABLE
+    craft_time: 400
+    consecutive_crafts: 64
+    exact_meta: false
+    break_station: false
+    display_name: '&fCraft Wooden Arrows'
+    modifiers:
+      custom_model_data_add:
+        strength: 2.0
+        priority: SOONEST
+      arrow_damage:
+        strength: 0.5
+        priority: NEUTRAL
+      arrow_accuracy:
+        strength: 2.0
+        priority: SOON
+    ingredients:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STICK
+      '1':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: PAPER
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: OAK_PLANKS

@@ -109,7 +109,7 @@ public class LootManager {
                     try {
                         biomeFilter.add(Biome.valueOf(s));
                     } catch (IllegalArgumentException ignored){
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : Invalid biome " + s + " found in " + configPath + " at entries." + entry + ".biome_filter. Skipped");
+                        ValhallaMMO.getPlugin().getLogger().warning(": Invalid biome " + s + " found in " + configPath + " at entries." + entry + ".biome_filter. Skipped");
                     }
                 }
                 Set<String> regionFilter = new HashSet<>(config.getStringList("entries." + entry + ".region_filter"));
@@ -151,18 +151,18 @@ public class LootManager {
                 try {
                     String b = config.getString("entries." + entry + ".block");
                     if (b == null) {
-                        ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] : Attempting to load loot table " + chancedBlockLootTable.getName() + ", but the loot entries did not match its type. Quit loading loot table.");
+                        ValhallaMMO.getPlugin().getLogger().severe(": Attempting to load loot table " + chancedBlockLootTable.getName() + ", but the loot entries did not match its type. Quit loading loot table.");
                         break;
                     }
                     block = Material.valueOf(b);
                     if (!block.isBlock()) throw new IllegalArgumentException();
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : Material at entries." + entry + ".block was not a valid block. Skipped entry.");
+                    ValhallaMMO.getPlugin().getLogger().warning(": Material at entries." + entry + ".block was not a valid block. Skipped entry.");
                     continue;
                 }
                 double chance = config.getDouble("entries." + entry + ".drop_chance", -1);
                 if (chance < 0){
-                    ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] : Drop chance at entries." + entry + ".drop_chance was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
+                    ValhallaMMO.getPlugin().getLogger().severe(": Drop chance at entries." + entry + ".drop_chance was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
                     break;
                 }
                 boolean overwriteNaturalDrops = config.getBoolean("entries." + entry + ".overwrite_natural_drops", false);
@@ -171,7 +171,7 @@ public class LootManager {
                         name, block, drop, overwriteNaturalDrops, chance, modifiers, biomeFilter, regionFilter
                 ));
             } catch (IllegalStateException e){
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : " + e.getMessage());
+                ValhallaMMO.getPlugin().getLogger().warning(": " + e.getMessage());
             }
         }
     }
@@ -193,7 +193,7 @@ public class LootManager {
                     try {
                         biomeFilter.add(Biome.valueOf(s));
                     } catch (IllegalArgumentException ignored){
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : Invalid biome " + s + " found in " + configPath + " at entries." + entry + ".biome_filter. Skipped");
+                        ValhallaMMO.getPlugin().getLogger().warning(": Invalid biome " + s + " found in " + configPath + " at entries." + entry + ".biome_filter. Skipped");
                     }
                 }
                 Set<String> regionFilter = new HashSet<>(config.getStringList("entries." + entry + ".region_filter"));
@@ -235,17 +235,17 @@ public class LootManager {
                 try {
                     String b = config.getString("entries." + entry + ".entity");
                     if (b == null) {
-                        ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] : Attempting to load loot table " + chancedEntityLootTable.getName() + ", but the loot entries did not match its type. Quit loading loot table.");
+                        ValhallaMMO.getPlugin().getLogger().severe(": Attempting to load loot table " + chancedEntityLootTable.getName() + ", but the loot entries did not match its type. Quit loading loot table.");
                         break;
                     }
                     entity = EntityType.valueOf(b);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : Material at entries." + entry + ".block was not a valid block. Skipped entry.");
+                    ValhallaMMO.getPlugin().getLogger().warning(": Material at entries." + entry + ".block was not a valid block. Skipped entry.");
                     continue;
                 }
                 double chance = config.getDouble("entries." + entry + ".drop_chance", -1);
                 if (chance < 0){
-                    ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] : Drop chance at entries." + entry + ".drop_chance was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
+                    ValhallaMMO.getPlugin().getLogger().severe(": Drop chance at entries." + entry + ".drop_chance was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
                     break;
                 }
                 boolean overwriteNaturalDrops = config.getBoolean("entries." + entry + ".overwrite_natural_drops", false);
@@ -254,7 +254,7 @@ public class LootManager {
                         name, entity, drop, overwriteNaturalDrops, chance, modifiers, biomeFilter, regionFilter
                 ));
             } catch (IllegalStateException e){
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : " + e.getMessage());
+                ValhallaMMO.getPlugin().getLogger().warning(": " + e.getMessage());
             }
         }
     }
@@ -276,7 +276,7 @@ public class LootManager {
                     try {
                         biomeFilter.add(Biome.valueOf(s));
                     } catch (IllegalArgumentException ignored){
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : Invalid biome " + s + " found in " + configPath + " at entries." + entry + ".biome_filter. Skipped");
+                        ValhallaMMO.getPlugin().getLogger().warning(": Invalid biome " + s + " found in " + configPath + " at entries." + entry + ".biome_filter. Skipped");
                     }
                 }
                 Set<String> regionFilter = new HashSet<>(config.getStringList("entries." + entry + ".region_filter"));
@@ -316,12 +316,12 @@ public class LootManager {
 
                 int weight = config.getInt("entries." + entry + ".weight", -1);
                 if (weight < 0){
-                    ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] : Weight at entries." + entry + ".weight was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
+                    ValhallaMMO.getPlugin().getLogger().severe(": Weight at entries." + entry + ".weight was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
                     break;
                 }
                 int tier = config.getInt("entries." + entry + ".tier", -1);
                 if (tier < 0){
-                    ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] : Tier at entries." + entry + ".tier was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
+                    ValhallaMMO.getPlugin().getLogger().severe(": Tier at entries." + entry + ".tier was absent/invalid. This implies the loot table entries may not be for its respective intended loot table. Quit loading loot table.");
                     break;
                 }
 
@@ -329,7 +329,7 @@ public class LootManager {
                         name, tier, drop, weight, modifiers, biomeFilter, regionFilter
                 ));
             } catch (IllegalStateException e){
-                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] : " + e.getMessage());
+                ValhallaMMO.getPlugin().getLogger().warning(": " + e.getMessage());
             }
         }
     }

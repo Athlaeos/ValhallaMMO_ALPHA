@@ -11,7 +11,7 @@ public class ProfileExpGainSource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
-            Profile profile = ProfileManager.getProfile((Player) p, "ACCOUNT");
+            Profile profile = ProfileManager.getManager().getProfile((Player) p, "ACCOUNT");
             if (profile == null) {
                 return 0;
             }

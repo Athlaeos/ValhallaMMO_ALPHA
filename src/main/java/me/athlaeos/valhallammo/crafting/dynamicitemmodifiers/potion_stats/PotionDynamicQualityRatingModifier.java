@@ -14,6 +14,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionDynamicQualityRatingModifier extends DynamicItemModifier implements Cloneable{
     private final PotionType type;
 
@@ -47,10 +50,15 @@ public class PotionDynamicQualityRatingModifier extends DynamicItemModifier impl
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("percentage_skill");
+    }
+
+    @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         if (crafter == null) return null;
-        Profile profile = ProfileManager.getProfile(crafter, "ALCHEMY");
+        Profile profile = ProfileManager.getManager().getProfile(crafter, "ALCHEMY");
         if (profile == null) return null;
         if (!(profile instanceof AlchemyProfile)) return null;
         double generalSkill = AccumulativeStatManager.getInstance().getStats("ALCHEMY_QUALITY_GENERAL", crafter, this.validate);

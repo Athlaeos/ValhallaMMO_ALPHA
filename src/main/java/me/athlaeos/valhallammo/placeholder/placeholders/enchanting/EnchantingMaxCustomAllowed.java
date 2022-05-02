@@ -14,7 +14,7 @@ public class EnchantingMaxCustomAllowed extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "ENCHANTING");
+        Profile profile = ProfileManager.getManager().getProfile(p, "ENCHANTING");
         if (profile != null){
             if (profile instanceof EnchantingProfile){
                 int maxAllowed;

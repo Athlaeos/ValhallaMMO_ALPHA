@@ -9,9 +9,11 @@ import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.ItemConsumptionSkill;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.EntityEffect;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -74,7 +76,7 @@ public class ItemConsumeListener implements Listener {
                 if (!transmutations.isEmpty()){
                     AttributeInstance a = e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
                     if (a != null){
-                        e.getPlayer().damage(0);
+                        e.getPlayer().playEffect(EntityEffect.HURT);
                         e.getPlayer().setHealth(1);
                     }
                 }
@@ -97,10 +99,23 @@ public class ItemConsumeListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onHungerChange(FoodLevelChangeEvent e){
-        for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
-            if (skill != null){
-                if (skill instanceof ItemConsumptionSkill){
-                    ((ItemConsumptionSkill) skill).onHungerChange(e);
+        if (!e.isCancelled()){
+            for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (skill != null){
+                    if (skill instanceof ItemConsumptionSkill){
+                        ((ItemConsumptionSkill) skill).onHungerChange(e);
+                    }
+                }
+            }
+
+            if (e.getEntity() instanceof Player){
+                Player p = (Player) e.getEntity();
+                if (e.getFoodLevel() < e.getEntity().getFoodLevel()){
+                    // entity lost hunger
+                    double hungerSaveChance = AccumulativeStatManager.getInstance().getStats("HUNGER_SAVE_CHANCE", p, true);
+                    if (Utils.getRandom().nextDouble() < hungerSaveChance){
+                        e.setCancelled(true);
+                    }
                 }
             }
         }

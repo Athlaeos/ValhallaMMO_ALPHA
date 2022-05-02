@@ -39,7 +39,7 @@ public class SmithingSkill extends Skill {
                     double materialBase = smithingProgressionConfig.getDouble("experience.exp_gain.material_base." + material);
                     baseExperienceValues.put(materialClass, materialBase);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid material class given at experience.exp_gain.material_base." + material + ". Skipped this section, review the documentation or ask in my discord what the available options are");
+                    ValhallaMMO.getPlugin().getLogger().warning("Invalid material class given at experience.exp_gain.material_base." + material + ". Skipped this section, review the documentation or ask in my discord what the available options are");
                 }
             }
         }
@@ -52,7 +52,7 @@ public class SmithingSkill extends Skill {
                     double typeMult = smithingProgressionConfig.getDouble("experience.exp_gain.type_multiplier." + toolType);
                     experienceMultipliers.put(toolClass, typeMult);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid equipment class given at experience.exp_gain.type_multiplier." + toolType + ". Skipped this section, review the documentation or ask in my discord what the available options are");
+                    ValhallaMMO.getPlugin().getLogger().warning("Invalid equipment class given at experience.exp_gain.type_multiplier." + toolType + ". Skipped this section, review the documentation or ask in my discord what the available options are");
                 }
             }
         }

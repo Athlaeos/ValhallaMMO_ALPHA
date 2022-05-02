@@ -42,6 +42,7 @@ public abstract class Skill {
     protected List<Perk> perks = new ArrayList<>();
     protected int centerX;
     protected int centerY;
+    protected int iconCustomModelData;
 
     protected BarColor barColor = BarColor.YELLOW;
     protected BarStyle barStyle = BarStyle.SEGMENTED_6;
@@ -67,6 +68,10 @@ public abstract class Skill {
      */
     public abstract Profile getCleanProfile();
 
+    public int getIconCustomModelData() {
+        return iconCustomModelData;
+    }
+
     /**
      * Loads the following common elements of the two configs into the skill
      * A skill's properties may also be hard coded or implemented in some other fashion
@@ -76,6 +81,7 @@ public abstract class Skill {
      *      display_name                    (STRING)
      *      description                     (STRING)
      *      icon                            (STRING)
+     *      custom_model_data               (INTEGER)
      *
      * progression config:
      *      messages                        (STRING LIST)
@@ -94,9 +100,10 @@ public abstract class Skill {
         try {
             this.icon = Material.valueOf(baseSkillConfig.getString("icon"));
         } catch (IllegalArgumentException ignored){
-            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid icon given for the " + Utils.toPascalCase(this.type.toString()) + " skill tree in " + baseSkillConfig.getName() + ".yml, defaulting to BARRIER");
+            ValhallaMMO.getPlugin().getLogger().warning("invalid icon given for the " + Utils.toPascalCase(this.type.toString()) + " skill tree in " + baseSkillConfig.getName() + ".yml, defaulting to BARRIER");
             this.icon = Material.BARRIER;
         }
+        this.iconCustomModelData = baseSkillConfig.getInt("icon_data", -1);
 
         this.expCurve = progressionConfig.getString("experience.exp_level_curve");
         this.max_level = progressionConfig.getInt("experience.max_level");
@@ -111,7 +118,7 @@ public abstract class Skill {
             this.centerX = Integer.parseInt(indivCoords[0]);
             this.centerY = Integer.parseInt(indivCoords[1]);
         } catch (IllegalArgumentException e){
-            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid coordinates given for alchemy in skill_alchemy.yml, defaulting to 0,0. Coords are to be given in the format \"x,y\" where X and Y are whole numbers");
+            ValhallaMMO.getPlugin().getLogger().warning("invalid coordinates given for alchemy in skill_alchemy.yml, defaulting to 0,0. Coords are to be given in the format \"x,y\" where X and Y are whole numbers");
             this.centerX = 0;
             this.centerY = 0;
         }
@@ -122,9 +129,7 @@ public abstract class Skill {
                 Object arg = progressionConfig.get("starting_perks." + startPerk);
                 if (arg != null){
                     PerkReward reward = PerkRewardsManager.getInstance().createReward(startPerk, arg);
-                    if (reward == null) {
-                        continue;
-                    }
+                    if (reward == null) continue;
                     startingPerks.add(reward);
                 }
             }
@@ -155,7 +160,7 @@ public abstract class Skill {
                     }
                     perkIcon = Material.valueOf(stringIcon);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid icon given for perk " + perkName + " in " + progressionConfig.getName() + ".yml, defaulting to BOOK");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid icon given for perk " + perkName + " in " + progressionConfig.getName() + ".yml, defaulting to BOOK");
                 }
                 int perkX;
                 int perkY;
@@ -171,7 +176,7 @@ public abstract class Skill {
                     perkX = Integer.parseInt(indivCoords[0]);
                     perkY = Integer.parseInt(indivCoords[1]);
                 } catch (IllegalArgumentException e){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid coordinates given for perk " + perkName + " in " + progressionConfig.getName() + ".yml, cancelling perk creation. Coords are to be given in the format \"x,y\" where X and Y are whole numbers");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid coordinates given for perk " + perkName + " in " + progressionConfig.getName() + ".yml, cancelling perk creation. Coords are to be given in the format \"x,y\" where X and Y are whole numbers");
                     e.printStackTrace();
                     continue;
                 }
@@ -206,9 +211,16 @@ public abstract class Skill {
                 List<String> requirementSkillOne = progressionConfig.getStringList("perks." + perkName + ".requireperk_one");
                 List<String> requirementSkillAll = progressionConfig.getStringList("perks." + perkName + ".requireperk_all");
 
+                int customModelDataUnlockable = baseSkillConfig.getInt("perks." + perkName + ".custom_model_data_unlockable", -1);
+                int customModelDataUnlocked = baseSkillConfig.getInt("perks." + perkName + ".custom_model_data_unlocked", -1);
+                int customModelDataVisible = baseSkillConfig.getInt("perks." + perkName + ".custom_model_data_visible", -1);
+
                 Perk newPerk = new Perk(perkName, displayName, description, perkIcon,
                         this.type, perkX, perkY, hidden, cost, required_level, perkRewards,
                         perkMessages, commands, requirementSkillOne, requirementSkillAll);
+                if (customModelDataUnlockable > 0) newPerk.setCustomModelDataUnlockable(customModelDataUnlockable);
+                if (customModelDataUnlocked > 0) newPerk.setCustomModelDataUnlocked(customModelDataUnlocked);
+                if (customModelDataVisible > 0) newPerk.setCustomModelDataVisible(customModelDataVisible);
                 perks.add(newPerk);
             }
         }
@@ -220,7 +232,7 @@ public abstract class Skill {
                 try {
                     level = Integer.parseInt(stringLevel);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid special level given at special_perks." + stringLevel + ". Cancelled this special level, it should be a whole number!");
+                    ValhallaMMO.getPlugin().getLogger().warning("Invalid special level given at special_perks." + stringLevel + ". Cancelled this special level, it should be a whole number!");
                     continue;
                 }
 
@@ -350,7 +362,7 @@ public abstract class Skill {
      * @return the integer level the player has in this skill
      */
     public int getCurrentLevel(Player p){
-        Profile profile = ProfileManager.getProfile(p, this.type);
+        Profile profile = ProfileManager.getManager().getProfile(p, this.type);
         if (profile != null){
             return profile.getLevel();
         }
@@ -378,8 +390,8 @@ public abstract class Skill {
      * @param p the player to level up depending on if the conditions are met.
      */
     public void updateLevelUpConditions(Player p, boolean silent){
-        Profile profile = ProfileManager.getProfile(p, this.type);
-        if (profile == null) profile = ProfileManager.newProfile(p, this.type);
+        Profile profile = ProfileManager.getManager().getProfile(p, this.type);
+        if (profile == null) profile = ProfileManager.getManager().newProfile(p, this.type);
         if (profile != null){
             int currentLevel = profile.getLevel();
             int nextLevel = profile.getLevel() + 1;
@@ -391,16 +403,16 @@ public abstract class Skill {
                     nextLevel += 1;
                     remainingEXP -= nextLevelEXP;
                     nextLevelEXP = expForlevel(nextLevel);
-                    profile = ProfileManager.getProfile(p, this.type);
+                    profile = ProfileManager.getManager().getProfile(p, this.type);
                     if (profile != null){
                         profile.setExp(remainingEXP);
-                        ProfileManager.setProfile(p, profile, type);
+                        ProfileManager.getManager().setProfile(p, profile, type);
                     }
                 } else {
                     break;
                 }
             }
-            Profile profile2 = ProfileManager.getProfile(p, this.type);
+            Profile profile2 = ProfileManager.getManager().getProfile(p, this.type);
             if (profile2 != null){
                 int newLevel = profile2.getLevel();
                 if (newLevel > currentLevel){
@@ -412,7 +424,7 @@ public abstract class Skill {
                             new BukkitRunnable(){
                                 @Override
                                 public void run() {
-                                    Profile profile = ProfileManager.getProfile(p, type);
+                                    Profile profile = ProfileManager.getManager().getProfile(p, type);
                                     if (profile != null){
                                         Skill accountSkill = SkillProgressionManager.getInstance().getSkill(type);
                                         if (accountSkill != null){
@@ -440,30 +452,30 @@ public abstract class Skill {
      * @param p the player to add EXP to
      * @param amount the amount of EXP to add
      */
-    public void addEXP(Player p, double amount, boolean silent){
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason){
         if (!this.type.equals("ACCOUNT")){
             amount *= AccumulativeStatManager.getInstance().getStats("GLOBAL_EXP_GAIN", p, true) / 100D;
         }
-        PlayerSkillExperienceGainEvent event = new PlayerSkillExperienceGainEvent(p, amount, this);
+        PlayerSkillExperienceGainEvent event = new PlayerSkillExperienceGainEvent(p, amount, this, reason);
         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
         if (!event.isCancelled()){
-            if (amount == 0) return;
-            Profile profile = ProfileManager.getProfile(p, this.type);
-            if (profile == null) profile = ProfileManager.newProfile(p, this.type);
+            if (event.getAmount() == 0) return;
+            Profile profile = ProfileManager.getManager().getProfile(p, event.getLeveledSkill().getType());
+            if (profile == null) profile = ProfileManager.getManager().newProfile(p, event.getLeveledSkill().getType());
             if (profile != null){
-                profile.setExp(profile.getExp() + amount);
-                profile.setLifetimeEXP(profile.getLifetimeEXP() + amount);
+                profile.setExp(profile.getExp() + event.getAmount());
+                profile.setLifetimeEXP(profile.getLifetimeEXP() + event.getAmount());
                 if (!silent){
                     if (!status_experience_gain.equals("")){
-                        double statusAmount = accumulateEXP(p, amount, this.type);
+                        double statusAmount = accumulateEXP(p, event.getAmount(), event.getLeveledSkill().getType());
                         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Utils.chat(status_experience_gain
-                                .replace("%skill%", this.displayName)
+                                .replace("%skill%", event.getLeveledSkill().getDisplayName())
                                 .replace("%exp%", ((statusAmount >= 0) ? "+" : "") + (String.format("%,.2f", statusAmount).replace("-", ""))))));
                     }
                     showBossBar(p, profile);
                 }
 
-                ProfileManager.setProfile(p, profile, this.type);
+                ProfileManager.getManager().setProfile(p, profile,  event.getLeveledSkill().getType());
                 if (profile.getExp() >= expForlevel(profile.getLevel() + 1)){
                     updateLevelUpConditions(p, silent);
                 }
@@ -553,8 +565,6 @@ public abstract class Skill {
                 fraction = (float) Utils.round(profile.getExp() / expForNextLevel, 4);
             }
             BossBarUtils.showBossBarToPlayer(p, bossBarTitle, Math.min(fraction, 1F), 50, this.type, barColor, barStyle);
-        } else {
-            System.out.println("bar title empty");
         }
     }
 
@@ -563,7 +573,7 @@ public abstract class Skill {
      * @param p the player to level up
      */
     public void levelPlayerUp(Player p, Profile profile, boolean silent){
-        if (profile == null) profile = ProfileManager.newProfile(p, this.type);
+        if (profile == null) profile = ProfileManager.getManager().newProfile(p, this.type);
         if (profile != null){
             int levelFrom = profile.getLevel();
             PlayerSkillLevelupEvent event = new PlayerSkillLevelupEvent(p, this, levelFrom + 1);
@@ -577,7 +587,7 @@ public abstract class Skill {
                 }
             }
             profile.setLevel(levelFrom + 1);
-            ProfileManager.setProfile(p, profile, this.type);
+            ProfileManager.getManager().setProfile(p, profile, this.type);
             int newLevel = profile.getLevel();
             for (PerkReward reward : levelingPerks){
                 reward.execute(p);

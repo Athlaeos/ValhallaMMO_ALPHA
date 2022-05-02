@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddPoisonResistanceModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddPoisonResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class AttributeAddPoisonResistanceModifier extends DynamicItemModifier im
                 "take more poison damage instead.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lPoison Resistance");
         this.icon = Material.FERMENTED_SPIDER_EYE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

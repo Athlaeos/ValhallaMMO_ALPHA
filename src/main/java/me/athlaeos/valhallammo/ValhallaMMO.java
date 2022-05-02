@@ -1,7 +1,6 @@
 package me.athlaeos.valhallammo;
 
-import me.athlaeos.valhallammo.commands.ValhallaCommandManager;
-import me.athlaeos.valhallammo.commands.SkillsCommand;
+import me.athlaeos.valhallammo.commands.*;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.config.ConfigUpdater;
 import me.athlaeos.valhallammo.crafting.PlayerClassTinkerListener;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public final class ValhallaMMO extends JavaPlugin {
     private static ValhallaMMO plugin;
     private InteractListener interactListener;
-    private JoinListener joinListener;
+    private JoinLeaveListener joinListener;
     private ItemDamageListener itemDamageListener;
     private ItemMendListener itemMendListener;
     private PlayerShapedCraftListener playerCraftListener;
@@ -44,6 +43,9 @@ public final class ValhallaMMO extends JavaPlugin {
     private FishingListener fishingListener;
     private EntityBreedListener breedListener;
     private EntityTargetingListener entityTargetingListener;
+    private PlayerMovementListener movementListener;
+    private HealingListener healingListener;
+    private ChatListener chatListener;
 
     private static boolean is_spigot;
 
@@ -69,6 +71,8 @@ public final class ValhallaMMO extends JavaPlugin {
         saveAndUpdateConfig("skill_farming.yml");
         saveAndUpdateConfig("skill_mining.yml");
         saveAndUpdateConfig("skill_landscaping.yml");
+        saveAndUpdateConfig("skill_light_armor.yml");
+        saveAndUpdateConfig("skill_heavy_armor.yml");
         saveConfig("progression_archery.yml");
         saveConfig("progression_smithing.yml");
         saveConfig("progression_alchemy.yml");
@@ -77,6 +81,8 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("progression_farming.yml");
         saveConfig("progression_mining.yml");
         saveConfig("progression_landscaping.yml");
+        saveConfig("progression_light_armor.yml");
+        saveConfig("progression_heavy_armor.yml");
         saveConfig("villagers.yml");
         saveConfig("alchemy_transmutations.yml");
         saveConfig("block_interact_conversions.yml");
@@ -86,10 +92,16 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("loot_tables/farming_fishing.yml");
         saveConfig("loot_tables/landscaping_digging.yml");
 
+        if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("metrics", true)){
+            new Metrics(this, 14942);
+        }
         is_spigot = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("is_spigot");
         if (is_spigot) getServer().getLogger().fine("ValhallaMMO is registered to be using Spigot, some mechanics may work differently");
 
+        ProfileManager.getManager();
+
         new SkillsCommand(this);
+
         BlockConversionManager.getInstance();
         TutorialBook.getTutorialBookInstance().loadBookContents();
         CustomRecipeManager.getInstance().loadRecipesAsync();
@@ -100,7 +112,7 @@ public final class ValhallaMMO extends JavaPlugin {
 
         // Plugin startup logic
         interactListener = (InteractListener) registerListener(new InteractListener(), "interact");
-        joinListener = (JoinListener) registerListener(new JoinListener(), "join");
+        joinListener = (JoinLeaveListener) registerListener(new JoinLeaveListener(), "join");
         itemDamageListener = (ItemDamageListener) registerListener(new ItemDamageListener(), "item_damage");
         itemMendListener = (ItemMendListener) registerListener(new ItemMendListener(), "item_mend");
         playerCraftListener = (PlayerShapedCraftListener) registerListener(new PlayerShapedCraftListener(), "shaped_craft");
@@ -116,11 +128,21 @@ public final class ValhallaMMO extends JavaPlugin {
         potionSplashListener = (PotionEffectListener) registerListener(new PotionEffectListener(), "potion_splash");
         playerEnchantListener = (PlayerEnchantListener) registerListener(new PlayerEnchantListener(), "player_enchant");
         playerExperienceAbsorbListener = (PlayerExperienceAbsorbListener) registerListener(new PlayerExperienceAbsorbListener(), "player_experience");
-
+        movementListener = (PlayerMovementListener) registerListener(new PlayerMovementListener(), "player_movement");
         blocksListener = (BlockListener) registerListener(new BlockListener(), "blocks");
         fishingListener = (FishingListener) registerListener(new FishingListener(), "fishing");
         breedListener = (EntityBreedListener) registerListener(new EntityBreedListener(), "breeding");
         entityTargetingListener = (EntityTargetingListener) registerListener(new EntityTargetingListener(), "targeting");
+        healingListener = (HealingListener) registerListener(new HealingListener(), "healing");
+
+        if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("parties")){
+            chatListener = (ChatListener) registerListener(new ChatListener(), "player_chat");
+            new PartyCommand(this);
+            new PartyChatCommand();
+            new PlayerEXPShareListener(this);
+            new AdminPartyCommand(this);
+            PartyManager.getInstance().loadParties();
+        }
 
         this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
 
@@ -149,6 +171,12 @@ public final class ValhallaMMO extends JavaPlugin {
     public void onDisable() {
         CustomRecipeManager.getInstance().saveRecipes(false);
         LootManager.getInstance().saveLootTables();
+
+        ProfileManager.getManager().savePlayerProfiles();
+
+        if (PartyManager.getInstance().isEnableParties()) {
+            PartyManager.getInstance().saveParties();
+        }
 // Plugin shutdown logic
     }
 
@@ -164,7 +192,7 @@ public final class ValhallaMMO extends JavaPlugin {
         return itemDamageListener;
     }
 
-    public JoinListener getJoinListener() {
+    public JoinLeaveListener getJoinListener() {
         return joinListener;
     }
 
@@ -236,8 +264,16 @@ public final class ValhallaMMO extends JavaPlugin {
         return fishingListener;
     }
 
+    public PlayerMovementListener getMovementListener() {
+        return movementListener;
+    }
+
     public static ValhallaMMO getPlugin() {
         return plugin;
+    }
+
+    public HealingListener getHealingListener() {
+        return healingListener;
     }
 
     public void saveConfig(String name){

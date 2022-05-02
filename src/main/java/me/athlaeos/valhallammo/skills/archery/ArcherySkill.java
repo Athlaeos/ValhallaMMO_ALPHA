@@ -2,44 +2,32 @@ package me.athlaeos.valhallammo.skills.archery;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats.AttributeAddArrowInfinityExploitableModifier;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
-import me.athlaeos.valhallammo.items.attributewrappers.CustomArrowAccuracyWrapper;
-import me.athlaeos.valhallammo.items.attributewrappers.CustomArrowDamageWrapper;
-import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
-import me.athlaeos.valhallammo.managers.ItemAttributesManager;
-import me.athlaeos.valhallammo.managers.PotionEffectManager;
-import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.InteractSkill;
 import me.athlaeos.valhallammo.skills.OffensiveSkill;
 import me.athlaeos.valhallammo.skills.ProjectileSkill;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.EntityUtils;
 import me.athlaeos.valhallammo.utility.Utils;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupArrowEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill, ProjectileSkill {
     private final double bow_exp_base;
@@ -52,8 +40,15 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
     private final double facing_angle;
     private final double cos_facing_angle;
     private final boolean prevent_crits_facing_shooter;
+    private final double diminishing_returns_limit;
+    private final double diminishing_returns_multiplier;
+    private Sound charged_shot_sound;
+    private static boolean special_arrow_trails = true;
+    private static double special_arrow_trail_duration = 3;
 
-    private final NamespacedKey arrowCustomModelDataKey = new NamespacedKey(ValhallaMMO.getPlugin(), "arrow_damage");
+    public double getFacing_angle() {
+        return facing_angle;
+    }
 
     public ArcherySkill(String type) {
         super(type);
@@ -73,6 +68,17 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
         facing_angle = archeryConfig.getDouble("facing_angle");
         cos_facing_angle = Math.cos(facing_angle);
         prevent_crits_facing_shooter = archeryConfig.getBoolean("prevent_crits_facing_shooter");
+        diminishing_returns_limit = archeryConfig.getDouble("diminishing_returns_limit");
+        diminishing_returns_multiplier = archeryConfig.getDouble("diminishing_returns_multiplier");
+        special_arrow_trails = archeryConfig.getBoolean("special_arrow_trails");
+        special_arrow_trail_duration = archeryConfig.getDouble("special_arrow_trail_duration");
+
+        try {
+            charged_shot_sound = Sound.valueOf(archeryConfig.getString("charged_shot_sound"));
+        } catch (IllegalArgumentException ignored){
+            ValhallaMMO.getPlugin().getServer().getLogger().warning("Invalid sound name used for charged_shot_sound in skill_archery.yml. Defaulted to ENTITY_BLAZE_SHOOT");
+            charged_shot_sound = Sound.ENTITY_BLAZE_SHOOT;
+        }
     }
 
     @Override
@@ -86,29 +92,39 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
     }
 
     @Override
-    public void addEXP(Player p, double amount, boolean silent) {
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ARCHERY_EXP_GAIN_GENERAL", p, true) / 100D));
-        super.addEXP(p, finalAmount, silent);
+        super.addEXP(p, finalAmount, silent, reason);
     }
+
+    private final Collection<UUID> chargedShotUsers = new HashSet<>();
 
     @Override
     public void onInteract(PlayerInteractEvent event) {
-
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR){
+            if (!chargedShotUsers.contains(event.getPlayer().getUniqueId())){
+                ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
+                if (!Utils.isItemEmptyOrNull(mainHandItem)){
+                    if (mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW){
+                        if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_charged_shot")){
+                            int cooldown = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_CHARGED_SHOT_COOLDOWN", event.getPlayer(), true);
+                            chargedShotUsers.add(event.getPlayer().getUniqueId());
+                            CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), cooldown, "cooldown_charged_shot");
+                            event.getPlayer().playSound(event.getPlayer().getLocation(), charged_shot_sound, 0.6F, 1F);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private final Map<UUID, ItemStack> bowsUsedInShooting = new HashMap<>();
-
-    private boolean isFacing(LivingEntity who, Location at){
-        Vector dir = at.toVector().subtract(who.getEyeLocation().toVector()).normalize();
-        double dot = dir.dot(who.getEyeLocation().getDirection());
-        return dot >= cos_facing_angle;
-    }
 
     @Override
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         Entity attacker = event.getDamager();
         if (!(event.getEntity() instanceof LivingEntity)) return;
-        if (attacker instanceof AbstractArrow){
+        if (attacker instanceof AbstractArrow && !(attacker instanceof Trident)){
             AbstractArrow arrow = (AbstractArrow) event.getDamager();
             if (arrow.getShooter() instanceof Player){
                 Player shooter = (Player) arrow.getShooter();
@@ -119,7 +135,7 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                 int damageDistanceBonus = (int) (Math.min(damage_distance_limit, distance) / 10D);
                 int expDistanceBonus = (int) (Math.min(exp_distance_limit, distance) / 10D);
                 if (bow != null){
-                    Profile p = ProfileManager.getProfile(shooter, "ARCHERY");
+                    Profile p = ProfileManager.getManager().getProfile(shooter, "ARCHERY");
                     ArcheryProfile profile = null;
                     if (p instanceof ArcheryProfile){
                         profile = (ArcheryProfile) p;
@@ -158,7 +174,7 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                         damage *= AccumulativeStatManager.getInstance().getStats("ARCHERY_INFINITY_DAMAGE_MULTIPLIER", shooter, true);
                     }
 
-                    boolean facing = isFacing((LivingEntity) event.getEntity(), shooter.getLocation());
+                    boolean facing = EntityUtils.isEntityFacing((LivingEntity) event.getEntity(), shooter.getLocation(), cos_facing_angle);
                     boolean can_crit = !(prevent_crits_facing_shooter && facing);
                     if (can_crit){ // if the target is not facing the shooter, and facing the shooter does not prevent crits
                         if (!facing){ // if the target is not facing the shooter, crit if target is facing away if enabled
@@ -193,7 +209,14 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                     int duration = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_STUN_DURATION", shooter, true);
                     if (stun) PotionEffectManager.getInstance().stunTarget((LivingEntity) event.getEntity(), duration);
 
-                    addEXP(shooter, expToGive, false);
+                    addEXP(shooter, expToGive, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
+                    // apply diminishing returns to damage
+                    if (damage > diminishing_returns_limit){
+                        double excessDamage = damage - diminishing_returns_limit;
+                        damage = diminishing_returns_limit + (excessDamage * diminishing_returns_multiplier);
+                    }
+
                     event.setDamage(damage);
                     bowsUsedInShooting.remove(shooter.getUniqueId());
                 }
@@ -224,33 +247,51 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                 AbstractArrow arrow = (AbstractArrow) event.getProjectile();
                 arrow.setCritical(false); // the plugin has its own crit system, so vanilla crits are disabled
 
-                // add custom model data as data value to arrow projectile so it can be re-applied when picking it up
-                ItemMeta arrowMeta = event.getConsumable().getItemMeta();
-                if (arrowMeta != null && arrowMeta.hasCustomModelData()){
-                    arrow.getPersistentDataContainer().set(arrowCustomModelDataKey, PersistentDataType.INTEGER, arrowMeta.getCustomModelData());
+                // custom attributes
+                boolean isInfinityCompatible = AttributeAddArrowInfinityExploitableModifier.isInfinityCompatible(event.getConsumable());
+                boolean hasInfinity = event.getBow().getEnchantments().containsKey(Enchantment.ARROW_INFINITE);
+                boolean shouldSave = isInfinityCompatible && hasInfinity;
+                if (!isInfinityCompatible && hasInfinity){
+                    arrow.setPickupStatus(AbstractArrow.PickupStatus.ALLOWED); // if the arrow is not infinity compatible but still shot with an infinity bow, it should be pickuppable
+                    event.setConsumeItem(true);
                 }
-
                 AttributeWrapper damageWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(event.getConsumable(), "CUSTOM_ARROW_DAMAGE");
                 if (damageWrapper != null){
-                    event.setConsumeItem(true);
+                    event.setConsumeItem(!shouldSave);
                     arrow.setDamage(Math.max(0, damageWrapper.getAmount()));
-                    arrow.setMetadata("is_custom", new FixedMetadataValue(ValhallaMMO.getPlugin(), true));
                 }
                 AttributeWrapper accuracyWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(event.getConsumable(), "CUSTOM_ARROW_ACCURACY");
                 if (accuracyWrapper != null){
-                    event.setConsumeItem(true);
+                    event.setConsumeItem(!shouldSave);
                     inaccuracy += accuracyWrapper.getAmount();
-                    arrow.setMetadata("valhallammo_accuracy", new FixedMetadataValue(ValhallaMMO.getPlugin(), accuracyWrapper.getAmount()));
+                }
+                AttributeWrapper piercingWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(event.getConsumable(), "CUSTOM_ARROW_PIERCING");
+                if (piercingWrapper != null){
+                    event.setConsumeItem(!shouldSave);
+                    arrow.setPierceLevel(arrow.getPierceLevel() + (int) piercingWrapper.getAmount());
                 }
 
                 // save ammo mechanics
                 if (event.shouldConsumeItem()){
                     double saveChance = AccumulativeStatManager.getInstance().getStats("ARCHERY_AMMO_SAVE_CHANCE", event.getEntity(), true);
+                    AttributeWrapper saveChanceWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(event.getConsumable(), "CUSTOM_ARROW_SAVE_CHANCE");
+                    if (saveChanceWrapper != null){
+                        saveChance += saveChanceWrapper.getAmount();
+                    }
                     if (Utils.getRandom().nextDouble() < saveChance) {
                         event.setConsumeItem(false);
                         arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
-                        shooter.updateInventory();
                     }
+                }
+                shooter.updateInventory();
+
+                if (chargedShotUsers.contains(shooter.getUniqueId())){
+                    double chargedDamageMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_CHARGED_SHOT_DAMAGE_MULTIPLIER", shooter, true);
+                    int chargedKnockbackBonus = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_CHARGED_SHOT_KNOCKBACK_BONUS", shooter, true);
+                    arrow.setKnockbackStrength(arrow.getKnockbackStrength() + chargedKnockbackBonus);
+                    arrow.setDamage(arrow.getDamage() * chargedDamageMultiplier);
+                    chargedShotUsers.remove(shooter.getUniqueId());
+                    trailProjectile(arrow, Particle.CRIT_MAGIC);
                 }
 
                 // inaccuracy mechanics
@@ -282,44 +323,12 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
 
     @Override
     public void onArrowPickup(PlayerPickupArrowEvent event) {
-        Item i = event.getItem();
-        double damage = event.getArrow().getDamage();
-        ItemStack item = i.getItemStack();
-        if (event.getArrow().getPersistentDataContainer().has(arrowCustomModelDataKey, PersistentDataType.INTEGER)){
-            int value = event.getArrow().getPersistentDataContainer().get(arrowCustomModelDataKey, PersistentDataType.INTEGER);
-            ItemMeta meta = item.getItemMeta();
-            if (meta != null){
-                meta.setCustomModelData(value);
-                item.setItemMeta(meta);
-            }
-        }
-        if (event.getArrow().hasMetadata("is_custom")){
-            ItemAttributesManager.getInstance().addDefaultStat(item, new CustomArrowDamageWrapper(
-                    damage,
-                    AttributeModifier.Operation.ADD_NUMBER,
-                    EquipmentSlot.HAND
-            ));
-        }
-        if (event.getArrow().hasMetadata("valhallammo_accuracy")){
-            List<MetadataValue> metaData = event.getArrow().getMetadata("valhallammo_accuracy");
-            if (!metaData.isEmpty()){
-                try {
-                    ItemAttributesManager.getInstance().addDefaultStat(item, new CustomArrowAccuracyWrapper(
-                            metaData.get(0).asDouble(),
-                            AttributeModifier.Operation.ADD_NUMBER,
-                            EquipmentSlot.HAND
-                    ));
-                } catch (Exception ignored){
-                    ValhallaMMO.getPlugin().getServer().getLogger().severe("Another plugin is using metadata key 'valhallammo_accuracy' and not using the proper data type");
-                }
-            }
-        }
-        i.setItemStack(item);
+        // do nothing
     }
 
     @Override
     public void onEntityKilled(EntityDeathEvent event) {
-
+        // do nothing
     }
 
     @Override
@@ -330,5 +339,32 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
     @Override
     public void onAtEntityInteract(PlayerInteractAtEntityEvent event) {
         // do nothing
+    }
+
+    /**
+     * Creates a particle trail behind the arrow while flying
+     * @param projectile the arrow to give a trail to
+     */
+    public static void trailProjectile(Projectile projectile, Particle particle){
+        if (special_arrow_trails){
+            new BukkitRunnable(){
+                final World w = projectile.getWorld();
+                final int duration = (int) (special_arrow_trail_duration * 20D);
+                int count = 0;
+                @Override
+                public void run() {
+                    if (count >= duration) {
+                        cancel();
+                        return;
+                    }
+                    if (projectile != null && projectile.isValid()){
+                        w.spawnParticle(particle, projectile.getLocation(), 0);
+                    } else {
+                        cancel();
+                    }
+                    count++;
+                }
+            }.runTaskTimer(ValhallaMMO.getPlugin(), 1L, 1L);
+        }
     }
 }

@@ -17,12 +17,12 @@ public class FarmingGeneralEXPMultiplierAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "FARMING");
+        Profile profile = ProfileManager.getManager().getManager().getProfile(player, "FARMING");
         if (profile == null) return;
         if (profile instanceof FarmingProfile){
             FarmingProfile farmingProfile = (FarmingProfile) profile;
             farmingProfile.setGeneralExpMultiplier(farmingProfile.getGeneralExpMultiplier() + multiplier);
-            ProfileManager.setProfile(player, farmingProfile, "FARMING");
+            ProfileManager.getManager().getManager().setProfile(player, farmingProfile, "FARMING");
         }
     }
 

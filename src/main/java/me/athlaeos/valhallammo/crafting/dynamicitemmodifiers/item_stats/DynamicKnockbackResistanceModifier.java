@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DynamicKnockbackResistanceModifier extends DynamicItemModifier {
     public DynamicKnockbackResistanceModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -30,6 +33,11 @@ public class DynamicKnockbackResistanceModifier extends DynamicItemModifier {
                 "item's knockback resistance to if it had a rating of 75, and 200% results in a rating of 300.");
         this.displayName = Utils.chat("&c&lUpdate Knockback Resistance");
         this.icon = Material.NETHERITE_CHESTPLATE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<percentage_quality>");
     }
 
     @Override

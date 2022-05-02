@@ -51,7 +51,7 @@ public class TransmutationManager {
 
                     registerTransmutation(new Transmutation(name, from, to));
                 } catch (IllegalArgumentException no){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Could not register transmutation " + name + ", invalid material used. " + fs + "/" + ts);
+                    ValhallaMMO.getPlugin().getLogger().warning("Could not register transmutation " + name + ", invalid material used. " + fs + "/" + ts);
                 }
             }
         }

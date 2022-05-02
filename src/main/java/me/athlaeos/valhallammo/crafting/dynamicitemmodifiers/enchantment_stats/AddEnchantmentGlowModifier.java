@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddEnchantmentGlowModifier extends DynamicItemModifier {
     public AddEnchantmentGlowModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -26,6 +29,11 @@ public class AddEnchantmentGlowModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Adds an enchantment glimmer to the item");
         this.displayName = Utils.chat("&7&lAdd Enchantment Glimmer");
         this.icon = Material.ENCHANTED_BOOK;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

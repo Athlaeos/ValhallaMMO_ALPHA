@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class StaticQualityRatingModifier extends DynamicItemModifier implements Cloneable{
 
     public StaticQualityRatingModifier(String name, double strength, ModifierPriority priority) {
@@ -29,6 +32,11 @@ public class StaticQualityRatingModifier extends DynamicItemModifier implements 
                 "potion effects or perks boosting the player's crafting skill.");
         this.displayName = Utils.chat("&b&lUpdate Quality : STATIC");
         this.icon = Material.NETHER_STAR;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<quality>");
     }
 
     @Override

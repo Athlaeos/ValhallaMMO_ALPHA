@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.skills.enchanting;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.items.ItemTreatment;
 import me.athlaeos.valhallammo.items.MaterialClass;
@@ -83,7 +84,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     double base = progressionConfig.getDouble("experience.exp_gain.enchantment_base." + s);
                     enchantmentBaseValues.put(e, base);
                 } else {
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid enchantment type given at skill_enchanting.yml experience.exp_gain.enchantment_base." + s);
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid enchantment type given at skill_enchanting.yml experience.exp_gain.enchantment_base." + s);
                 }
             }
         }
@@ -96,7 +97,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     double multiplier = progressionConfig.getDouble("experience.exp_gain.enchantment_level_multiplier." + s);
                     enchantmentLevelMultipliers.put(level, multiplier);
                 } catch (NumberFormatException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid enchantment level given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid enchantment level given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
                 }
             }
         }
@@ -109,7 +110,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     double multiplier = progressionConfig.getDouble("experience.exp_gain.enchantment_type_multiplier." + s);
                     enchantmentMaterialClassMultipliers.put(materialClass, multiplier);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid Material Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid Material Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
                 }
             }
         }
@@ -122,7 +123,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     double multiplier = progressionConfig.getDouble("experience.exp_gain.enchantment_item_multiplier." + s);
                     enchantmentEquipmentClassMultipliers.put(equipmentClass, multiplier);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid Equipment Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid Equipment Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
                 }
             }
         }
@@ -174,9 +175,9 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
     }
 
     @Override
-    public void addEXP(Player p, double amount, boolean silent) {
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ENCHANTING_EXP_GAIN_GENERAL", p, true) / 100D));
-        super.addEXP(p, finalAmount, silent);
+        super.addEXP(p, finalAmount, silent, reason);
     }
 
     public void rewardEXPForEnchantments(Player p, ItemStack item, Map<Enchantment, Integer> enchantments){
@@ -226,7 +227,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
             amount *= diminishingReturnsMultiplier;
             reduceTallyCounter(p);
         }
-        addEXP(p, amount, false);
+        addEXP(p, amount, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
     }
 
     @Override

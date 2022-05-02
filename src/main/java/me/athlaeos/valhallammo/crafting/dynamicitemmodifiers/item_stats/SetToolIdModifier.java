@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class SetToolIdModifier extends DynamicItemModifier implements Cloneable{
 
     public SetToolIdModifier(String name, double strength, ModifierPriority priority) {
@@ -28,6 +31,11 @@ public class SetToolIdModifier extends DynamicItemModifier implements Cloneable{
                 " to be used as a tool to craft items with if the recipe requires it.");
         this.displayName = Utils.chat("&b&lSet Tool ID");
         this.icon = Material.IRON_HOE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<id>");
     }
 
     @Override

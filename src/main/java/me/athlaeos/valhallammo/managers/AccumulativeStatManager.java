@@ -4,12 +4,15 @@ import me.athlaeos.valhallammo.items.EnchantmentType;
 import me.athlaeos.valhallammo.items.MaterialClass;
 import me.athlaeos.valhallammo.items.PotionType;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
+import me.athlaeos.valhallammo.statsources.EvEAccumulativeStatSource;
 import me.athlaeos.valhallammo.statsources.alchemy.*;
 import me.athlaeos.valhallammo.statsources.archery.*;
 import me.athlaeos.valhallammo.statsources.enchanting.*;
 import me.athlaeos.valhallammo.statsources.farming.*;
 import me.athlaeos.valhallammo.statsources.general.*;
+import me.athlaeos.valhallammo.statsources.heavy_armor.*;
 import me.athlaeos.valhallammo.statsources.landscaping.*;
+import me.athlaeos.valhallammo.statsources.light_armor.*;
 import me.athlaeos.valhallammo.statsources.mining.*;
 import me.athlaeos.valhallammo.statsources.smithing.SmithingPotionQualitySingleUseSource;
 import me.athlaeos.valhallammo.statsources.smithing.SmithingPotionQualitySource;
@@ -22,14 +25,48 @@ import java.util.*;
 
 public class AccumulativeStatManager {
     private static AccumulativeStatManager manager = null;
-    private final Map<String, Collection<AccumulativeStatSource>> sources;
+    private final Map<String, Collection<AccumulativeStatSource>> genericSources;
+    private final Map<String, Collection<EvEAccumulativeStatSource>> entityVersusEntitySources;
 
     public AccumulativeStatManager(){
-        sources = new HashMap<>();
+        genericSources = new HashMap<>();
+        entityVersusEntitySources = new HashMap<>();
 
         register("GLOBAL_EXP_GAIN", new ProfileExpGainSource(), new BuffExpGainSource(), new EnchantmentSkillExpGainSource(), new PermissionExpGainSource(null), new ArbitraryGlobalEffectSource("general_experience"));
         register("DAMAGE_DEALT", new EnchantmentDamageDealtSource());
-        register("DAMAGE_TAKEN", new EnchantmentDamageTakenSource());
+
+        register("DAMAGE_RESISTANCE", new ProfileDamageResistanceSource(), new HeavyArmorProfileEquipmentDamageResistanceSource(), new HeavyArmorDefaultEquipmentDamageResistanceSource(), new BuffResistanceDamageResistanceSource(), new ArbitraryEnchantmentAmplifierSource("DAMAGE_TAKEN"), new EquipmentAttributeSource("CUSTOM_DAMAGE_RESISTANCE"), new LightArmorProfileEquipmentDamageResistanceSource(), new LightArmorDefaultEquipmentDamageResistanceSource(), new EquipmentProtectionEnchantmentDamageResistanceSource());
+        register("EXPLOSION_RESISTANCE", new ProfileExplosionResistanceSource(), new HeavyArmorProfileEquipmentExplosionResistanceSource(), new HeavyArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentAttributeSource("CUSTOM_EXPLOSION_RESISTANCE"), new LightArmorProfileEquipmentExplosionResistanceSource(), new LightArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentBlastProtectionEnchantmentExplosionResistanceSource());
+        register("FIRE_RESISTANCE", new ProfileFireResistanceSource(), new HeavyArmorProfileEquipmentFireResistanceSource(), new HeavyArmorDefaultEquipmentFireResistanceSource(), new EquipmentAttributeSource("CUSTOM_FIRE_RESISTANCE"), new LightArmorProfileEquipmentFireResistanceSource(), new LightArmorDefaultEquipmentFireResistanceSource(), new EquipmentFireProtectionEnchantmentFireResistanceSource());
+        register("MAGIC_RESISTANCE", new ProfileMagicResistanceSource(), new HeavyArmorProfileEquipmentMagicResistanceSource(), new HeavyArmorDefaultEquipmentMagicResistanceSource(), new EquipmentAttributeSource("CUSTOM_MAGIC_RESISTANCE"), new LightArmorProfileEquipmentMagicResistanceSource(), new LightArmorDefaultEquipmentMagicResistanceSource(), new EquipmentProtectionEnchantmentMagicDamageResistanceSource());
+        register("POISON_RESISTANCE", new ProfilePoisonResistanceSource(), new HeavyArmorProfileEquipmentPoisonResistanceSource(), new HeavyArmorDefaultEquipmentPoisonResistanceSource(), new EquipmentAttributeSource("CUSTOM_POISON_RESISTANCE"), new LightArmorProfileEquipmentPoisonResistanceSource(), new LightArmorDefaultEquipmentPoisonResistanceSource());
+        register("PROJECTILE_RESISTANCE", new ProfileProjectileResistanceSource(), new HeavyArmorProfileEquipmentProjectileResistanceSource(), new HeavyArmorDefaultEquipmentProjectileResistanceSource(), new EquipmentAttributeSource("CUSTOM_PROJECTILE_RESISTANCE"), new LightArmorProfileEquipmentProjectileResistanceSource(), new LightArmorDefaultEquipmentProjectileResistanceSource(), new EquipmentProjectileProtectionEnchantmentProjectileResistanceSource());
+        register("MELEE_RESISTANCE", new ProfileMeleeResistanceSource(), new HeavyArmorProfileEquipmentMeleeResistanceSource(), new HeavyArmorDefaultEquipmentMeleeResistanceSource(), new EquipmentAttributeSource("CUSTOM_MELEE_RESISTANCE"), new LightArmorProfileEquipmentMeleeResistanceSource(), new LightArmorDefaultEquipmentMeleeResistanceSource());
+        register("FALLING_RESISTANCE", new ProfileFallDamageResistanceSource(), new HeavyArmorProfileEquipmentFallDamageResistanceSource(), new HeavyArmorDefaultEquipmentFallDamageResistanceSource(), new EquipmentAttributeSource("CUSTOM_FALLING_RESISTANCE"), new LightArmorProfileEquipmentFallDamageResistanceSource(), new LightArmorDefaultEquipmentFallDamageResistanceSource(), new EquipmentFeatherFallingEnchantmentFallDamageResistanceSource());
+        register("KNOCKBACK_RESISTANCE", new ProfileKnockbackResistanceSource(), new HeavyArmorProfileEquipmentKnockbackResistanceSource(), new HeavyArmorDefaultEquipmentKnockbackResistanceSource(), new LightArmorDefaultEquipmentKnockbackResistanceSource(), new LightArmorProfileEquipmentKnockbackResistanceSource());
+
+        // returns all combined armor/toughness, does not distinguish if armor came from heavy or light armor
+        register("ARMOR", new ProfileBaseArmorBonusSource(), new EquipmentAttributeSource("GENERIC_ARMOR"), new EntityAttributeArmorRatingSource());
+        register("TOUGHNESS", new EquipmentAttributeSource("GENERIC_ARMOR_TOUGHNESS"), new EntityAttributeArmorToughnessSource());
+        // returns only armor that comes from light/heavy equipment
+        register("LIGHT_ARMOR", new LightArmorEquipmentAttributeSource("GENERIC_ARMOR"));
+        register("HEAVY_ARMOR", new HeavyArmorEquipmentAttributeSource("GENERIC_ARMOR"));
+        // returns all armor that came from non-equipment sources, like attributes/potion effects
+        register("NON_EQUIPMENT_ARMOR", new EntityAttributeArmorRatingSource());
+
+        register("ARMOR_BONUS", new ProfileBaseArmorBonusSource());
+        register("TOUGHNESS_BONUS", new ProfileBaseToughnessBonusSource());
+        register("HUNGER_SAVE_CHANCE", new ProfileHungerSaveChanceBonusSource(), new LightArmorProfileFullArmorHungerSaveChanceBonusSource(), new HeavyArmorProfileFullArmorHungerSaveChanceSource());
+        register("DODGE_CHANCE", new LightArmorProfileFullArmorDodgeChanceBonusEvESource());
+        register("MOVEMENT_SPEED_BONUS", new ProfileMovementSpeedBonusSource(), new LightArmorProfileEquipmentMovementSpeedPenaltySource(), new HeavyArmorProfileEquipmentMovementSpeedPenaltySource());
+        register("HEALTH_BONUS", new ProfileHealthBonusSource());
+        register("COOLDOWN_REDUCTION", new ProfileCooldownReductionSource());
+        register("LUCK_BONUS", new ProfileBaseLuckBonusSource());
+        register("ATTACK_DAMAGE_BONUS", new ProfileBaseAttackDamageBonusSource());
+        register("ATTACK_SPEED_BONUS", new ProfileBaseAttackSpeedBonusSource());
+        register("HEALING_BONUS", new ProfileHealthRegenerationBonusSource(), new LightArmorProfileFullArmorHealingBonusSource(), new HeavyArmorProfileFullArmorHealingBonusSource());
+        register("REFLECT_CHANCE", new HeavyArmorProfileFullArmorReflectChanceSource());
+        register("REFLECT_FRACTION", new HeavyArmorProfileReflectFractionSource());
 
         register("SMITHING_QUALITY_GENERAL", new SmithingProfileQualitySource(null), new SmithingPotionQualitySingleUseSource(), new SmithingPotionQualitySource(), new ArbitraryEnchantmentAmplifierSource("SMITHING_QUALITY"), new ArbitraryGlobalEffectSource("smithing_quality"));
         register("SMITHING_QUALITY_WOOD", new SmithingProfileQualitySource(MaterialClass.WOOD));
@@ -44,12 +81,6 @@ public class AccumulativeStatManager {
         register("SMITHING_QUALITY_CROSSBOW", new SmithingProfileQualitySource(MaterialClass.CROSSBOW));
         register("SMITHING_QUALITY_PRISMARINE", new SmithingProfileQualitySource(MaterialClass.PRISMARINE));
         register("SMITHING_QUALITY_MEMBRANE", new SmithingProfileQualitySource(MaterialClass.MEMBRANE));
-        register("ATTRIBUTE_DAMAGE_RESISTANCE", new EquipmentAttributeSource("CUSTOM_DAMAGE_RESISTANCE"));
-        register("ATTRIBUTE_EXPLOSION_RESISTANCE", new EquipmentAttributeSource("CUSTOM_EXPLOSION_RESISTANCE"));
-        register("ATTRIBUTE_FIRE_RESISTANCE", new EquipmentAttributeSource("CUSTOM_FIRE_RESISTANCE"));
-        register("ATTRIBUTE_MAGIC_RESISTANCE", new EquipmentAttributeSource("CUSTOM_MAGIC_RESISTANCE"));
-        register("ATTRIBUTE_POISON_RESISTANCE", new EquipmentAttributeSource("CUSTOM_POISON_RESISTANCE"));
-        register("ATTRIBUTE_PROJECTILE_RESISTANCE", new EquipmentAttributeSource("CUSTOM_PROJECTILE_RESISTANCE"));
         register("SMITHING_EXP_GAIN_GENERAL", new SmithingProfileEXPSource(null), new PermissionExpGainSource("SMITHING"), new ArbitraryGlobalEffectSource("smithing_experience"));
         register("SMITHING_EXP_GAIN_WOOD", new SmithingProfileEXPSource(MaterialClass.WOOD));
         register("SMITHING_EXP_GAIN_LEATHER", new SmithingProfileEXPSource(MaterialClass.LEATHER));
@@ -152,32 +183,58 @@ public class AccumulativeStatManager {
         register("ARCHERY_INACCURACY", new ArcheryProfileInaccuracySource());
         register("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER_BASE", new ArcheryProfileDistanceDamageBaseSource());
         register("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER", new ArcheryProfileDistanceDamageMultiplierSource());
-
-
         register("ARCHERY_EXP_GAIN_BOW", new ArcheryProfileBowEXPSource());
         register("ARCHERY_EXP_GAIN_CROSSBOW", new ArcheryProfileCrossBowEXPSource());
         register("ARCHERY_EXP_GAIN_GENERAL", new ArcheryProfileGeneralEXPSource());
+
+        register("LIGHT_ARMOR_MULTIPLIER", new LightArmorProfileArmorValueMultiplierSource(), new LightArmorProfileFullArmorArmorValueBonusSource());
+        register("LIGHT_ARMOR_EXP_GAIN", new LightArmorEXPSource());
+
+        register("HEAVY_ARMOR_MULTIPLIER", new HeavyArmorProfileArmorValueMultiplierSource(), new HeavyArmorProfileFullArmorArmorValueBonusSource());
+        register("HEAVY_ARMOR_EXP_GAIN", new HeavyArmorEXPSource());
     }
 
     /**
      * Registers a stat name to be used and collected stats from
      * @param stat the stat name to register
      */
-    public void register(String stat){
-        sources.put(stat, new HashSet<>());
+    public void registerGenericSource(String stat){
+        genericSources.put(stat, new HashSet<>());
     }
 
     /**
+     * Registers an entity versus entity stat name to be used and collected stats from
+     * Entity versus entity sources are stats that vary depending on another involving entity,
+     * an example being that an entity attacking another entity wearing armor may ignore part of that entity's armor
+     * @param stat the stat name to register
+     */
+    public void registerEvESource(String stat) { entityVersusEntitySources.put(stat, new HashSet<>()); }
+
+    /**
      * Registers a new stat source to a stat name. If the stat does not yet exist, it is registered also.
-     * This source will be used to conditionally collect a specific stat from given a player.
+     * This source will be used to conditionally collect a specific stat from a given entity.
      * @param stat the stat to register a new source to
      * @param sources the source to register
      */
     public void register(String stat, AccumulativeStatSource... sources){
-        Collection<AccumulativeStatSource> existingSources = this.sources.get(stat);
+        Collection<AccumulativeStatSource> existingSources = this.genericSources.get(stat);
         if (existingSources == null) existingSources = new HashSet<>();
         existingSources.addAll(Arrays.asList(sources));
-        this.sources.put(stat, existingSources);
+        this.genericSources.put(stat, existingSources);
+    }
+
+    /**
+     * Registers a new entity-versus-entity stat source to a stat name. If the stat does not yet exist,
+     * it is registered also. This source will be used to conditionally collect a specific stat from a given entity
+     * where these stats are also influenced by another involved entity
+     * @param stat the stat to register a new source to
+     * @param sources the source to register
+     */
+    public void register(String stat, EvEAccumulativeStatSource... sources){
+        Collection<EvEAccumulativeStatSource> existingSources = this.entityVersusEntitySources.get(stat);
+        if (existingSources == null) existingSources = new HashSet<>();
+        existingSources.addAll(Arrays.asList(sources));
+        this.entityVersusEntitySources.put(stat, existingSources);
     }
 
     /**
@@ -194,11 +251,35 @@ public class AccumulativeStatManager {
      * @throws IllegalArgumentException if the given stat was not registered
      */
     public double getStats(String stat, Entity p, boolean use) throws IllegalArgumentException {
-        if (!sources.containsKey(stat)) return 0;
-        Collection<AccumulativeStatSource> existingSources = sources.get(stat);
+        if (!genericSources.containsKey(stat)) return 0;
+        Collection<AccumulativeStatSource> existingSources = genericSources.get(stat);
         double value = 0;
         for (AccumulativeStatSource s : existingSources){
             value += s.add(p, use);
+        }
+        return Utils.round(value, 6);
+    }
+
+    /**
+     * Collects all the stats of the given stat name. For example, if 'LIGHT_GENERIC_ARMOR' is given, it will return the
+     * given entity's total armor points influenced by the second entity given, which would be the accumulation of
+     * actual skill, potion effects, global boosters, etc.
+     * @param stat the stat to gather its total from
+     * @param p the entity to gether their stats from
+     * @param e the second entity involved in stat accumulation
+     * @param use if true, it will be assumed the stat is actually being used in practice rather than being a visual
+     *            for show. Example: if a player were to craft an item and had some potion effect to boost their
+     *            crafting quality, use would be true. If the player were to only look at the item in the crafting menu,
+     *            so not actually having crafted it just yet, use would be false.
+     * @return the collective stat number
+     * @throws IllegalArgumentException if the given stat was not registered
+     */
+    public double getStats(String stat, Entity p, Entity e, boolean use) throws IllegalArgumentException {
+        if (!entityVersusEntitySources.containsKey(stat)) return 0;
+        Collection<EvEAccumulativeStatSource> existingSources = entityVersusEntitySources.get(stat);
+        double value = 0;
+        for (EvEAccumulativeStatSource s : existingSources){
+            value += s.add(p, e, use);
         }
         return Utils.round(value, 6);
     }

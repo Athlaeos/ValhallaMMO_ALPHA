@@ -44,7 +44,7 @@ public class CustomArrowAccuracyWrapper extends AttributeWrapper{
         double arrow_accuracy = -amount;
 
         if (!arrowAccuracyTranslation.equals("")){
-            String arrowStrength = String.format("%.1f", Math.floor(arrow_accuracy));
+            String arrowStrength = String.format((arrow_accuracy >= 0 ? "+" : "") + "%.1f", arrow_accuracy);
             String prefix = arrow_accuracy >= 0 ? TranslationManager.getInstance().getTranslation("stat_positive_prefix") : TranslationManager.getInstance().getTranslation("stat_negative_prefix");
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(arrowAccuracyTranslation)),

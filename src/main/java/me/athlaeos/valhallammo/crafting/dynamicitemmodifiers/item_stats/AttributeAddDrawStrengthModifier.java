@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddDrawStrengthModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddDrawStrengthModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class AttributeAddDrawStrengthModifier extends DynamicItemModifier implem
                 " of arrows shot from these items. This only works on bows or crossbows.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lDraw Strength");
         this.icon = Material.CROSSBOW;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<strength_multiplier>");
     }
 
     @Override

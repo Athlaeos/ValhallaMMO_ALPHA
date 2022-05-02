@@ -62,6 +62,25 @@ public class Utils {
         map.put(1, "I");
     }
 
+    public static boolean quickWithinRange(Location l1, Location l2, double range){
+        double distX = l1.getX() - l2.getX();
+        double distY = l1.getY() - l2.getY();
+        double distZ = l1.getZ() - l2.getZ();
+        distX = (distX < 0) ? -distX : distX;
+        distY = (distY < 0) ? -distY : distY;
+        distZ = (distZ < 0) ? -distZ : distZ;
+        return distX <= range && distY <= range && distZ <= range;
+    }
+
+    public static Map<String, OfflinePlayer> getPlayersFromUUIDCollection(Collection<UUID> uuids){
+        Map<String, OfflinePlayer> players = new HashMap<>();
+        for (UUID uuid : uuids){
+            OfflinePlayer player = ValhallaMMO.getPlugin().getServer().getOfflinePlayer(uuid);
+            players.put(player.getName(), player);
+        }
+        return players;
+    }
+
     public static String toRoman(int number) {
         if (number == 0) return "0";
         if (number == 1) return "I";
@@ -703,7 +722,7 @@ public class Utils {
             {0, 0, -1}
     };
 
-    public static Collection<Block> getBlocks(Block start, int radiusX, int radiusY, int radiusZ, Material... touching){
+    public static Collection<Block> getBlocksTouching(Block start, int radiusX, int radiusY, int radiusZ, Material... touching){
         Collection<Block> blocks = new HashSet<>();
         for(double x = start.getLocation().getX() - radiusX; x <= start.getLocation().getX() + radiusX; x++){
             for(double y = start.getLocation().getY() - radiusY; y <= start.getLocation().getY() + radiusY; y++){
@@ -713,11 +732,23 @@ public class Utils {
                 }
             }
         }
-        if (touching == null) return blocks;
+        if (touching.length == 0) return blocks;
         return blocks.stream().filter(block -> {
             for (int[] offset : offsets){
                 Location l = block.getLocation().add(offset[0], offset[1], offset[2]);
                 if (Arrays.asList(touching).contains(l.getBlock().getType())){
+                    return true;
+                }
+            }
+            return false;
+        }).collect(Collectors.toList());
+    }
+
+    public static Collection<Block> getBlocksTouchingAnything(Block start, int radiusX, int radiusY, int radiusZ){
+        return getBlocksTouching(start, radiusX, radiusY, radiusZ).stream().filter(block -> {
+            for (int[] offset : offsets){
+                Location l = block.getLocation().add(offset[0], offset[1], offset[2]);
+                if (!l.getBlock().getType().isAir()){
                     return true;
                 }
             }

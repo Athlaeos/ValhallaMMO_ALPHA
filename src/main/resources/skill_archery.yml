@@ -1,5 +1,6 @@
 display_name: '&7Archery'
 icon: BOW
+icon_data: 3510001
 description: '&8Practice Archery to increase your ranged damage, improve your accuracy, and kill targets consistently at a safe distance.'
 
 levelbar_title: '&7Archery &eLV %lv_current% &6%exp_current%&7/&6%exp_next%'
@@ -17,4 +18,20 @@ facing_angle: 70 # The angle between the target's line of vision and to the shoo
 # the target to be "facing" the shooter, the effective angle of vision is double this value.
 # example: if this value is 90, the shooter can be anywhere within 180 degrees in front of the target for the target to
 # "see" the shooter. Anywhere outside of that front 180 degrees will be considered "facing away"
+
+# Sound that plays when the player activates charged shot
+charged_shot_sound: ENTITY_BLAZE_SHOOT
+# Determines if special arrows (like enderic, incendiary, unholy) should have particle trails or not
+special_arrow_trails: true
+# Maximum duration of particle trails on arrows. Trails stop when the arrow is picked up or otherwise stops existing
+special_arrow_trail_duration: 3
+
+# Archery damage can get extremely high with all the multiplicative damage sources that are available
+# This is intended to reduce end-game damage so it becomes more balanced
+# After the amount of damage specified in diminishing_returns_limit, any excess damage is multiplied by the amount
+# specified in diminishing_returns_multiplier
+diminishing_returns_limit: 30
+diminishing_returns_multiplier: 0.1
+# Example: if an arrow were to do 100 damage to a target, the excess over 30 damage (being 70) would be multiplied by
+# 0.1, and so the shooter would instead do 37 damage
 

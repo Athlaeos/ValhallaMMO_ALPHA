@@ -24,12 +24,12 @@ public class AlchemyBuffSkillAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ALCHEMY");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ALCHEMY");
         if (profile == null) return;
         if (profile instanceof AlchemyProfile){
             AlchemyProfile alchemyProfile = (AlchemyProfile) profile;
             alchemyProfile.setBrewingQuality(PotionType.BUFF, alchemyProfile.getBrewingQuality(PotionType.BUFF) + points);
-            ProfileManager.setProfile(player, alchemyProfile, "ALCHEMY");
+            ProfileManager.getManager().setProfile(player, alchemyProfile, "ALCHEMY");
         }
     }
 

@@ -2,6 +2,7 @@ package me.athlaeos.valhallammo.perkrewards.landscaping;
 
 import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.managers.BlockConversionManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.landscaping.LandscapingProfile;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LandscapingLockConversionsReward extends PerkReward {
     private final List<String> conversionsToLock = new ArrayList<>();
@@ -28,7 +30,7 @@ public class LandscapingLockConversionsReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "LANDSCAPING");
+        Profile profile = ProfileManager.getManager().getProfile(player, "LANDSCAPING");
         if (profile == null) return;
         if (profile instanceof LandscapingProfile){
             LandscapingProfile landscapingProfile = (LandscapingProfile) profile;
@@ -38,8 +40,16 @@ public class LandscapingLockConversionsReward extends PerkReward {
                 unlockedConversions.remove(r);
             }
             landscapingProfile.setUnlockedConversions(unlockedConversions);
-            ProfileManager.setProfile(player, landscapingProfile, "LANDSCAPING");
+            ProfileManager.getManager().setProfile(player, landscapingProfile, "LANDSCAPING");
         }
+    }
+
+    @Override
+    public List<String> getTabAutoComplete(String currentArg) {
+        if (currentArg.endsWith(";") || currentArg.equals("")){
+            return BlockConversionManager.getInstance().getAllConversions().keySet().stream().filter(s -> !currentArg.contains(s)).collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

@@ -15,6 +15,9 @@ public class Perk {
     private final String displayName;
     private final String description;
     private final Material icon;
+    private int customModelDataUnlockable = -1;
+    private int customModelDataUnlocked = -1;
+    private int customModelDataVisible = -1;
     private final String skill;
     private final int x;
     private final int y;
@@ -46,7 +49,7 @@ public class Perk {
     }
 
     public boolean canUnlock(Player p){
-        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(p, "ACCOUNT");
         if (profile != null){
             if (profile instanceof AccountProfile){
                 if (((AccountProfile) profile).getUnlockedPerks().contains(this.name)) {
@@ -58,8 +61,41 @@ public class Perk {
         return false;
     }
 
+    /**
+     * @return the custom model data on the icon when the perk is unlocked
+     */
+    public int getCustomModelDataUnlocked() {
+        return customModelDataUnlocked;
+    }
+
+    /**
+     * @return the custom model data on the icon when the perk is visible but not unlockable
+     */
+    public int getCustomModelDataVisible() {
+        return customModelDataVisible;
+    }
+
+    public void setCustomModelDataUnlocked(int customModelDataUnlocked) {
+        this.customModelDataUnlocked = customModelDataUnlocked;
+    }
+
+    public void setCustomModelDataVisible(int customModelDataVisible) {
+        this.customModelDataVisible = customModelDataVisible;
+    }
+
+    /**
+     * @return the custom model data on the icon when the perk can be unlocked
+     */
+    public int getCustomModelDataUnlockable() {
+        return customModelDataUnlockable;
+    }
+
+    public void setCustomModelDataUnlockable(int customModelDataUnlockable) {
+        this.customModelDataUnlockable = customModelDataUnlockable;
+    }
+
     public boolean hasUnlocked(Player p){
-        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(p, "ACCOUNT");
         if (profile != null){
             if (profile instanceof AccountProfile){
                 return ((AccountProfile) profile).getUnlockedPerks().contains(this.name);
@@ -70,7 +106,7 @@ public class Perk {
 
     private boolean metLevelRequirement(Player p){
         int currentLevel = 0;
-        Profile profile = ProfileManager.getProfile(p, skill);
+        Profile profile = ProfileManager.getManager().getProfile(p, skill);
         if (profile != null){
             currentLevel = profile.getLevel();
         }

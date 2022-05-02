@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddProjectileResistanceModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddProjectileResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class AttributeAddProjectileResistanceModifier extends DynamicItemModifie
                 "take more projectile damage instead.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lProjectile Resistance");
         this.icon = Material.SPECTRAL_ARROW;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

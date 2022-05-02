@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class DynamicPotionAmplifierModifier extends DynamicItemModifier {
     public DynamicPotionAmplifierModifier(String name, double strength, ModifierPriority priority) {
@@ -34,6 +36,11 @@ public class DynamicPotionAmplifierModifier extends DynamicItemModifier {
                 "potion's effect amplifiers to if it had a rating of 75, and 200% results in a rating of 300.");
         this.displayName = Utils.chat("&c&lUpdate Potion Effect Amplifiers");
         this.icon = Material.GLOWSTONE_DUST;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("percentage_quality");
     }
 
     @Override

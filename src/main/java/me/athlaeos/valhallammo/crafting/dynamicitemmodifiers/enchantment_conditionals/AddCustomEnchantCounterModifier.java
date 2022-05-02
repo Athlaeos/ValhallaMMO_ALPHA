@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddCustomEnchantCounterModifier extends DynamicItemModifier {
     public AddCustomEnchantCounterModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -27,6 +30,11 @@ public class AddCustomEnchantCounterModifier extends DynamicItemModifier {
                 "apply further conditions to the item");
         this.displayName = Utils.chat("&7&lAdd Enchantment Counter");
         this.icon = Material.KNOWLEDGE_BOOK;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

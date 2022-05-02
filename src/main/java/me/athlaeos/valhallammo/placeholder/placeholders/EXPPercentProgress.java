@@ -17,7 +17,7 @@ public class EXPPercentProgress extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, skillType);
+        Profile profile = ProfileManager.getManager().getProfile(p, skillType);
         if (profile != null){
             Skill skill = SkillProgressionManager.getInstance().getSkill(skillType);
             if (skill != null){

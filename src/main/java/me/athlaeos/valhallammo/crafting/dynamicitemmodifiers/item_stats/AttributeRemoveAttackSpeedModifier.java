@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeRemoveAttackSpeedModifier extends DynamicItemModifier {
     public AttributeRemoveAttackSpeedModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -27,6 +30,11 @@ public class AttributeRemoveAttackSpeedModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Removes &eAttack Speed &7as a default attribute from the item if present. ");
         this.displayName = Utils.chat("&7&lRemove Stat: &e&lAttack Speed");
         this.icon = Material.STONE_SWORD;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

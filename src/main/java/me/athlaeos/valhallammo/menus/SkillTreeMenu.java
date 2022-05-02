@@ -1,6 +1,7 @@
 package me.athlaeos.valhallammo.menus;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Perk;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.ProfileManager;
@@ -31,6 +32,15 @@ public class SkillTreeMenu extends Menu{
     private int currentCenterY;
     private final ItemStack directionButton = Utils.createItemStack(Material.ARROW, " ", null);
 
+    private static final int arrowN = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_n", -1);
+    private static final int arrowNE = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_ne", -1);
+    private static final int arrowE = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_e", -1);
+    private static final int arrowSE = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_se", -1);
+    private static final int arrowS = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_s", -1);
+    private static final int arrowSW = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_sw", -1);
+    private static final int arrowW = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_w", -1);
+    private static final int arrowNW = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_nw", -1);
+
     public SkillTreeMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
         Skill accountSkill = SkillProgressionManager.getInstance().getSkill("ACCOUNT");
@@ -48,8 +58,10 @@ public class SkillTreeMenu extends Menu{
 
             ItemMeta iconMeta = skillIcon.getItemMeta();
             assert iconMeta != null;
-            iconMeta.getPersistentDataContainer().set(buttonKey, PersistentDataType.STRING, s.getType().toString());
-            iconMeta.setCustomModelData(3510001);
+            iconMeta.getPersistentDataContainer().set(buttonKey, PersistentDataType.STRING, s.getType());
+            if (s.getIconCustomModelData() > 0){
+                iconMeta.setCustomModelData(s.getIconCustomModelData());
+            }
             skillIcon.setItemMeta(iconMeta);
 
             skillIcons.add(skillIcon);
@@ -141,12 +153,12 @@ public class SkillTreeMenu extends Menu{
                     Perk p = SkillProgressionManager.getInstance().getPerk(identification, selectedSkill.getType());
                     if (p != null){
                         if (p.canUnlock(playerMenuUtility.getOwner())){
-                            Profile account = ProfileManager.getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
+                            Profile account = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
                             if (account != null){
                                 if (account instanceof AccountProfile){
                                     if (((AccountProfile) account).getSpendableSkillPoints() >= p.getCost()){
                                         ((AccountProfile) account).setSpendableSkillPoints(((AccountProfile) account).getSpendableSkillPoints() - p.getCost());
-                                        ProfileManager.setProfile(playerMenuUtility.getOwner(), account, "ACCOUNT");
+                                        ProfileManager.getManager().setProfile(playerMenuUtility.getOwner(), account, "ACCOUNT");
                                         SkillProgressionManager.getInstance().unlockPerk(playerMenuUtility.getOwner(), p);
                                     } else {
                                         playerMenuUtility.getOwner().sendMessage(Utils.chat(TranslationManager.getInstance().getTranslation("warning_not_enough_skillpoints")));
@@ -200,14 +212,14 @@ public class SkillTreeMenu extends Menu{
                 }
             }
         }
-        inventory.setItem(0, Utils.setCustomModelData(directionButton, 3511001));
-        inventory.setItem(4, Utils.setCustomModelData(directionButton, 3511002));
-        inventory.setItem(8, Utils.setCustomModelData(directionButton, 3511003));
-        inventory.setItem(18, Utils.setCustomModelData(directionButton, 3511008));
-        inventory.setItem(26, Utils.setCustomModelData(directionButton, 3511004));
-        inventory.setItem(36, Utils.setCustomModelData(directionButton, 3511007));
-        inventory.setItem(40, Utils.setCustomModelData(directionButton, 3511006));
-        inventory.setItem(44, Utils.setCustomModelData(directionButton, 3511005));
+        inventory.setItem(0, arrowNW > 0 ? Utils.setCustomModelData(directionButton, arrowNW) : directionButton);
+        inventory.setItem(4, arrowN > 0 ? Utils.setCustomModelData(directionButton, arrowN) : directionButton);
+        inventory.setItem(8, arrowNE > 0 ? Utils.setCustomModelData(directionButton, arrowNE) : directionButton);
+        inventory.setItem(18, arrowE > 0 ? Utils.setCustomModelData(directionButton, arrowE) : directionButton);
+        inventory.setItem(26, arrowSE > 0 ? Utils.setCustomModelData(directionButton, arrowSE) : directionButton);
+        inventory.setItem(36, arrowS > 0 ? Utils.setCustomModelData(directionButton, arrowS) : directionButton);
+        inventory.setItem(40, arrowSW > 0 ? Utils.setCustomModelData(directionButton, arrowSW) : directionButton);
+        inventory.setItem(44, arrowW > 0 ? Utils.setCustomModelData(directionButton, arrowW) : directionButton);
     }
 
     private void setScrollBar(){
@@ -219,7 +231,7 @@ public class SkillTreeMenu extends Menu{
                 String storedType = getItemStoredSkillType(i);
                 if (storedType != null){
                     Skill s = SkillProgressionManager.getInstance().getSkill(storedType);
-                    Profile acc = ProfileManager.getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
+                    Profile acc = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
                     int spendablePoints = 0;
                     if (acc != null){
                         if (acc instanceof AccountProfile){
@@ -227,7 +239,7 @@ public class SkillTreeMenu extends Menu{
                         }
                     }
                     if (s != null) {
-                        Profile p = ProfileManager.getProfile(playerMenuUtility.getOwner(), storedType);
+                        Profile p = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), storedType);
                         if (p != null){
                             ItemMeta meta = i.getItemMeta();
                             assert meta != null;
@@ -378,13 +390,19 @@ public class SkillTreeMenu extends Menu{
                     perkMeta.setLore(iconLore);
                 }
                 if (p.hasUnlocked(playerMenuUtility.getOwner())){
-                    perkMeta.setCustomModelData(3512002);
+                    if (p.getCustomModelDataUnlocked() > 0){
+                        perkMeta.setCustomModelData(p.getCustomModelDataUnlocked());
+                    }
                 } else if (p.canUnlock(playerMenuUtility.getOwner())){
                     perkMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                     perkMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                    perkMeta.setCustomModelData(3512003);
+                    if (p.getCustomModelDataUnlockable() > 0){
+                        perkMeta.setCustomModelData(p.getCustomModelDataUnlockable());
+                    }
                 } else {
-                    perkMeta.setCustomModelData(3512001);
+                    if (p.getCustomModelDataVisible() > 0){
+                        perkMeta.setCustomModelData(p.getCustomModelDataVisible());
+                    }
                 }
                 perkMeta.getPersistentDataContainer().set(buttonKey, PersistentDataType.STRING, p.getName());
                 perkIcon.setItemMeta(perkMeta);

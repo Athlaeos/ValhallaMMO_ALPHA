@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddExplosionResistanceModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddExplosionResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -31,6 +34,11 @@ public class AttributeAddExplosionResistanceModifier extends DynamicItemModifier
                 "explosion damage taken. If negative, the target will take more explosion damage instead.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lExplosion Resistance");
         this.icon = Material.TNT;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

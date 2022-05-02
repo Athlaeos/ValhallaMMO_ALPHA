@@ -12,6 +12,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
     private final String enchantment;
 
@@ -43,6 +46,16 @@ public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
                 " unless this percentage is -1. ");
         this.displayName = Utils.chat("&7&lAdd Enchantment: &d&l" + Utils.toPascalCase(enchantment.replace("_", " ")));
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<base_strength>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<percentage_skill>");
     }
 
     @Override

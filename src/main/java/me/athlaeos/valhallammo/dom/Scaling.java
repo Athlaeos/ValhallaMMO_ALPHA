@@ -1,5 +1,7 @@
 package me.athlaeos.valhallammo.dom;
 
+import me.athlaeos.valhallammo.utility.Utils;
+
 public class Scaling {
 
     private final double lowerBound;

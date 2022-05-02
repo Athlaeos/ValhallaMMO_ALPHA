@@ -13,6 +13,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionTransmutationAssignmentModifier extends DynamicItemModifier implements Cloneable{
 
     public PotionTransmutationAssignmentModifier(String name, double strength, ModifierPriority priority) {
@@ -35,6 +38,11 @@ public class PotionTransmutationAssignmentModifier extends DynamicItemModifier i
     }
 
     @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
+    }
+
+    @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         if (crafter == null) return null;
@@ -43,7 +51,7 @@ public class PotionTransmutationAssignmentModifier extends DynamicItemModifier i
             PotionEffectManager.renamePotion(outputItem, true);
             return outputItem;
         }
-        Profile profile = ProfileManager.getProfile(crafter, "ALCHEMY");
+        Profile profile = ProfileManager.getManager().getProfile(crafter, "ALCHEMY");
         if (profile == null) return null;
         if (!(profile instanceof AlchemyProfile)) return null;
 

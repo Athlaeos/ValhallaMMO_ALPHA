@@ -45,7 +45,7 @@ public class CustomArrowDamageWrapper extends AttributeWrapper{
         if (arrow_strength < 0) arrow_strength = 0;
 
         if (!arrowStrengthTranslation.equals("")){
-            String arrowStrength = String.format("%.1f", Math.floor(arrow_strength));
+            String arrowStrength = String.format("%.1f", arrow_strength);
             String prefix = TranslationManager.getInstance().getTranslation("stat_positive_prefix");
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(arrowStrengthTranslation)),

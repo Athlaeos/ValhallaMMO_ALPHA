@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionColorModifier extends TripleArgDynamicItemModifier implements DynamicEditable {
     public PotionColorModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority) {
         super(name, strength, strength2, strength3, priority);
@@ -46,6 +49,21 @@ public class PotionColorModifier extends TripleArgDynamicItemModifier implements
                 " It is recommended to use an online RGB color picker to pick exactly which colors you want.");
         this.displayName = Utils.chat("&c&lPotion Color");
         this.icon = Material.RED_DYE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<red>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<green>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteThirdArg() {
+        return Collections.singletonList("<blue>");
     }
 
     @Override

@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DynamicDamageResistanceModifier extends DynamicItemModifier {
 
     public DynamicDamageResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -30,6 +33,11 @@ public class DynamicDamageResistanceModifier extends DynamicItemModifier {
                 "bow's strength to if it had a rating of 75, and 200% results in a rating of 300.");
         this.displayName = Utils.chat("&b&lUpdate Damage Resistance");
         this.icon = Material.SCUTE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<percentage_quality>");
     }
 
     @Override

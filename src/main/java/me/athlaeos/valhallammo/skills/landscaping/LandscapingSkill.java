@@ -5,6 +5,7 @@ import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Offset;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
 import me.athlaeos.valhallammo.loottables.LootManager;
@@ -119,7 +120,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                     double reward = progressionConfig.getDouble("experience.woodcutting_break." + key);
                     woodcuttingBreakEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the woodcutting block break rewards in progression_landscaping.yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the woodcutting block break rewards in progression_landscaping.yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -133,7 +134,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                     double reward = progressionConfig.getDouble("experience.woodcutting_strip." + key);
                     woodcuttingStripEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the woodcutting block strip rewards in progression_landscaping.yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the woodcutting block strip rewards in progression_landscaping.yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -147,7 +148,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                     double reward = progressionConfig.getDouble("experience.digging_break." + key);
                     diggingBreakEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the digging block break rewards in progression_landscaping.yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the digging block break rewards in progression_landscaping.yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -164,9 +165,9 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
     }
 
     @Override
-    public void addEXP(Player p, double amount, boolean silent) {
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("LANDSCAPING_EXP_GAIN_GENERAL", p, true) / 100D));
-        super.addEXP(p, finalAmount, silent);
+        super.addEXP(p, finalAmount, silent, reason);
     }
 
     @Override
@@ -189,13 +190,13 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_VANILLA_EXP_REWARD", event.getPlayer(), true)));
             }
             if (amount > 0){
-                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats(expMultiplierStat, event.getPlayer(), true) / 100D)), false);
+                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats(expMultiplierStat, event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
         }
 
         boolean unlockedTreeCapitator = false;
         int treeCapitatorCooldown = 0;
-        Profile p = ProfileManager.getProfile(event.getPlayer(), "LANDSCAPING");
+        Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "LANDSCAPING");
         Collection<Material> allowedTreeCapitatorBlocks = new HashSet<>();
         boolean replaceSaplings = false;
         if (p != null){
@@ -307,9 +308,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                                             afterAction
                                     );
                                 }
-                                if (!event.getPlayer().hasPermission("valhalla.ignorecooldowns")){
-                                    CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), treeCapitatorCooldown, "cooldown_tree_capitator");
-                                }
+                                CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), treeCapitatorCooldown, "cooldown_tree_capitator");
                             } else {
                                 int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_tree_capitator");
                                 event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
@@ -498,7 +497,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
         Block b = event.getClickedBlock();
         if (b == null) return;
         if (event.getPlayer().isSneaking()) return;
-        Profile p = ProfileManager.getProfile(event.getPlayer(), "LANDSCAPING");
+        Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "LANDSCAPING");
         if (p == null) return;
         if (!(p instanceof LandscapingProfile)) return;
         Collection<String> unlockedConversions = ((LandscapingProfile) p).getUnlockedConversions();
@@ -518,7 +517,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
             if (!(woodcuttingStripEXPReward.containsKey(b.getType()))) return;
             double amount = woodcuttingStripEXPReward.get(b.getType());
             if (amount > 0){
-                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("LANDSCAPING_EXP_GAIN_WOODSTRIPPING", event.getPlayer(), true) / 100D)), false);
+                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("LANDSCAPING_EXP_GAIN_WOODSTRIPPING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
             woodstrippingLootTable.onLogStripped(event);
         } else if (saplings.containsKey(b.getType())){
@@ -607,8 +606,8 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
 
                 event.getItems().clear();
                 event.getItems().addAll(newItems);
+                BlockStore.setPlaced(event.getBlock(), false);
             }
         }
-        BlockStore.setPlaced(event.getBlock(), false);
     }
 }

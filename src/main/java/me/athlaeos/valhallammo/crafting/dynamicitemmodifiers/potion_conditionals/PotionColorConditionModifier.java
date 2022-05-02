@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionColorConditionModifier extends TripleArgDynamicItemModifier implements DynamicEditable {
     public PotionColorConditionModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority) {
         super(name, strength, strength2, strength3, priority);
@@ -45,6 +48,21 @@ public class PotionColorConditionModifier extends TripleArgDynamicItemModifier i
         this.description = Utils.chat("&7If the potion doesn't have the exact color given here, the recipe is cancelled.");
         this.displayName = Utils.chat("&e&lCONDITION: Potion Color");
         this.icon = Material.BLUE_DYE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<red>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<green>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteThirdArg() {
+        return Collections.singletonList("<blue>");
     }
 
     @Override

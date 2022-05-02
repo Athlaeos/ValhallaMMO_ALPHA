@@ -18,12 +18,12 @@ public class LandscapingLockAllConversionsReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "LANDSCAPING");
+        Profile profile = ProfileManager.getManager().getManager().getProfile(player, "LANDSCAPING");
         if (profile == null) return;
         if (profile instanceof LandscapingProfile){
             LandscapingProfile landscapingProfile = (LandscapingProfile) profile;
             landscapingProfile.setUnlockedConversions(new HashSet<>());
-            ProfileManager.setProfile(player, landscapingProfile, "LANDSCAPING");
+            ProfileManager.getManager().getManager().setProfile(player, landscapingProfile, "LANDSCAPING");
         }
     }
 

@@ -1,5 +1,7 @@
 package me.athlaeos.valhallammo.crafting.dynamicitemmodifiers;
 
+import java.util.List;
+
 public abstract class DuoArgDynamicItemModifier extends DynamicItemModifier implements Cloneable{
     protected double strength2;
     protected double minStrength2;
@@ -13,6 +15,10 @@ public abstract class DuoArgDynamicItemModifier extends DynamicItemModifier impl
     public DuoArgDynamicItemModifier(String name, double strength, double strength2, ModifierPriority priority){
         super(name, strength, priority);
         this.strength2 = strength2;
+    }
+
+    public List<String> tabAutoCompleteSecondArg(){
+        return null;
     }
 
     public double getMinStrength2() {

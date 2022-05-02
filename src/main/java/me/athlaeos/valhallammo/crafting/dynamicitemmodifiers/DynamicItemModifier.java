@@ -6,6 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public abstract class DynamicItemModifier implements Cloneable{
     protected String name;
     protected double strength;
@@ -129,6 +131,10 @@ public abstract class DynamicItemModifier implements Cloneable{
         if (priority != null){
             this.priority = priority;
         }
+    }
+
+    public List<String> tabAutoCompleteFirstArg(){
+        return null;
     }
 
     @Override

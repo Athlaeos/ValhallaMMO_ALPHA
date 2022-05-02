@@ -1,5 +1,6 @@
 display_name: '&7Enchanting'
 icon: ENCHANTING_TABLE
+icon_data: 3510001
 description: '&8Practice Enchanting to grant your equipment enchantments of epic strength'
 
 levelbar_title: '&7Enchanting &bLV&b%lv_current% &9%exp_current%&7/&9%exp_next%'

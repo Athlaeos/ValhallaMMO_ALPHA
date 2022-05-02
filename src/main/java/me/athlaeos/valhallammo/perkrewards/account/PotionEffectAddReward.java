@@ -52,7 +52,7 @@ public class PotionEffectAddReward extends PerkReward {
                        if (baseEffect == null) throw new IllegalArgumentException();
                        potionEffects.put(potionEffectName, new PotionEffect(potionEffectName, potionEffectDuration, potionEffectAmplifier, baseEffect.getType()));
                    } catch (IllegalArgumentException e){
-                       ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid arguments given for reward potion_effect_add in progression_smithing.yml" +
+                       ValhallaMMO.getPlugin().getLogger().warning("Invalid arguments given for reward potion_effect_add in progression_smithing.yml" +
                                " where name = " + potionEffectArgs.get(0) + ", duration = " + potionEffectArgs.get(1) + ", and amplifier is " + potionEffectArgs.get(2) + "\n" +
                                "A string list is to be given with a number of arguments divisible by 3, each set of 3 representing a potion effect." +
                                "\nEvery first argument must be the string name of the potion effect." +
@@ -61,13 +61,13 @@ public class PotionEffectAddReward extends PerkReward {
                                "\nExample:" +
                                "\nperk_rewards:" +
                                "\n  potion_effect_add:" +
-                               "\n    - 'smithing_buff_quality_singleuse'" +
+                               "\n    - 'MASTERPIECE_SMITHING'" +
                                "\n    - '-1'" +
                                "\n    - '50'\n");
                    }
                }
            } else {
-               ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Invalid arguments given for reward potion_effect_add in progression_smithing.yml" +
+               ValhallaMMO.getPlugin().getLogger().warning("Invalid arguments given for reward potion_effect_add in progression_smithing.yml" +
                        "\nA string list is to be given with a number of arguments divisible by 3, each set of 3 representing a potion effect." +
                        "\nEvery first argument must be the string name of the potion effect." +
                        "\nEvery second argument must be the integer duration of the potion effect, enter -1 to make effect infinite." +
@@ -80,6 +80,18 @@ public class PotionEffectAddReward extends PerkReward {
                        "\n    - '50'\n");
            }
        }
+    }
+
+    @Override
+    public List<String> getTabAutoComplete(String currentArg) {
+        String[] args = currentArg.split(";");
+        if (args.length % 3 == 0){
+            return new ArrayList<>(PotionEffectManager.getInstance().getRegisteredPotionEffects().keySet());
+        } else if (args.length % 3 == 1){
+            return Collections.singletonList("duration(ms)");
+        } else {
+            return Collections.singletonList("amplifier");
+        }
     }
 
     @Override

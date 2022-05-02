@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddArmorKBResistModifier extends DynamicItemModifier {
     public AttributeAddArmorKBResistModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -30,6 +33,11 @@ public class AttributeAddArmorKBResistModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Adds &eKnockback Resistance &7as a default attribute to the item. ");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lKnockback Resistance");
         this.icon = Material.CHAINMAIL_CHESTPLATE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

@@ -109,13 +109,13 @@ public class CustomEnchantmentManager {
 
                                 enchantments.put(wrapper.getEnchantment(), wrapper);
                             } else {
-                                ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Attempting to grab enchantment " + enchantment + " but it was not registered.");
+                                ValhallaMMO.getPlugin().getLogger().warning("Attempting to grab enchantment " + enchantment + " but it was not registered.");
                             }
                         } catch (IllegalArgumentException | CloneNotSupportedException e){
-                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + ", but it could not be parsed.");
+                            ValhallaMMO.getPlugin().getLogger().warning("Malformed metadata on item " + i.getType() + ", attempted to parse double value " + value + ", but it could not be parsed.");
                         }
                     } else {
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2, but it was less.");
+                        ValhallaMMO.getPlugin().getLogger().warning("Malformed metadata on item " + i.getType() + ", notify plugin author. Expected property length 2, but it was less.");
                     }
                 }
             }
@@ -183,7 +183,7 @@ public class CustomEnchantmentManager {
             currentStats.put(currentAttribute.getEnchantment(), currentAttribute);
             setEnchantments(i, currentStats);
         } catch (CloneNotSupportedException ignored){
-            ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] Attempted to clone attribute wrapper, but this failed");
+            ValhallaMMO.getPlugin().getLogger().severe("Attempted to clone attribute wrapper, but this failed");
         }
     }
 

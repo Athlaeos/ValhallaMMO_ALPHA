@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.dom.Offset;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.PotionType;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
 import me.athlaeos.valhallammo.loottables.ChancedEntityLootTable;
@@ -115,7 +116,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                     double reward = progressionConfig.getDouble("experience.farming_break." + key);
                     blockBreakEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block break rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block break rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -129,7 +130,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                     double reward = progressionConfig.getDouble("experience.farming_interact." + key);
                     blockInteractEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid block type given:" + key + " for the block interact rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block interact rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -142,7 +143,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                     double reward = progressionConfig.getDouble("experience.farming_breed." + key);
                     entityBreedEXPReward.put(entity, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid entity type given:" + key + " for the entity breed rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid entity type given:" + key + " for the entity breed rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -167,7 +168,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         } else if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH){
             double fishingEXPMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_VANILLA_EXP_MULTIPLIER", event.getPlayer(), true);
             event.setExpToDrop(Utils.excessChance(event.getExpToDrop() * fishingEXPMultiplier));
-            addEXP(event.getPlayer(), fishingEXPReward * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FISHING", event.getPlayer(), true) / 100D)), false);
+            addEXP(event.getPlayer(), fishingEXPReward * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FISHING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
             if (fishingLootTable != null){
                 fishingLootTable.onFishEvent(event);
@@ -180,7 +181,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             Player p = (Player) event.getBreeder();
             if (entityBreedEXPReward.containsKey(event.getEntity().getType())){
                 double exp = entityBreedEXPReward.get(event.getEntity().getType()) * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_BREEDING", p, true) / 100D));
-                this.addEXP(p, exp, false);
+                this.addEXP(p, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
             int vanillaEXP = Utils.excessChance(event.getExperience() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
             event.setExperience(vanillaEXP);
@@ -193,9 +194,9 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     }
 
     @Override
-    public void addEXP(Player p, double amount, boolean silent) {
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_GENERAL", p, true) / 100D));
-        super.addEXP(p, finalAmount, silent);
+        super.addEXP(p, finalAmount, silent, reason);
     }
 
     @Override
@@ -223,7 +224,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         }
         if (reward){
             double amount = blockBreakEXPReward.get(b.getType());
-            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false);
+            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
             double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
             event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(vanillaExpReward));
@@ -259,7 +260,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                             BlockStore.setPlaced(b, false);
                             // reward player farming exp
                             double amount = blockInteractEXPReward.get(b.getType());
-                            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false);
+                            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
                             double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
                             if (vanillaExpReward > 0){
@@ -272,7 +273,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                         boolean unlockedInstantHarvest = false;
                         boolean unlockedUltraHarvest = false;
                         int ultraHarvestCooldown = 0;
-                        Profile p = ProfileManager.getProfile(event.getPlayer(), "FARMING");
+                        Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "FARMING");
                         if (p != null){
                             if (p instanceof FarmingProfile){
                                 unlockedInstantHarvest = ((FarmingProfile) p).isInstantHarvestingUnlocked();
@@ -329,9 +330,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                                                 },
                                                 null);
                                     }
-                                    if (!event.getPlayer().hasPermission("valhalla.ignorecooldowns")){
-                                        CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), ultraHarvestCooldown, "cooldown_ultra_harvest");
-                                    }
+                                    CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), ultraHarvestCooldown, "cooldown_ultra_harvest");
                                 } else {
                                     int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest");
                                     event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
@@ -473,9 +472,9 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                 }
                 event.getItems().clear();
                 event.getItems().addAll(newItems);
+                BlockStore.setPlaced(event.getBlock(), false);
             }
         }
-        BlockStore.setPlaced(event.getBlock(), false);
     }
 
     @Override
@@ -577,7 +576,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                     if (event.getNewEffect() != null){
                         if (PotionType.getClass(event.getNewEffect().getType()) == PotionType.DEBUFF){
                             Player target = (Player) event.getEntity();
-                            Profile p = ProfileManager.getProfile(target, "FARMING");
+                            Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
                             if (p != null){
                                 if (p instanceof FarmingProfile){
                                     if (((FarmingProfile) p).isBadFoodImmune()){
@@ -608,7 +607,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             if (event.getTarget() instanceof Player){
                 if (event.getReason() == EntityTargetEvent.TargetReason.CLOSEST_PLAYER){
                     Player target = (Player) event.getTarget();
-                    Profile p = ProfileManager.getProfile(target, "FARMING");
+                    Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
                     if (p != null){
                         if (p instanceof FarmingProfile){
                             if (((FarmingProfile) p).isHiveBeeAggroImmune()){

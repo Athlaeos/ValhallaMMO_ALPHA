@@ -17,12 +17,12 @@ public class MiningBlastRareDropMultiplierSetReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "MINING");
+        Profile profile = ProfileManager.getManager().getProfile(player, "MINING");
         if (profile == null) return;
         if (profile instanceof MiningProfile){
             MiningProfile miningProfile = (MiningProfile) profile;
             miningProfile.setBlastMiningRareDropRateMultiplier(multiplier);
-            ProfileManager.setProfile(player, miningProfile, "MINING");
+            ProfileManager.getManager().setProfile(player, miningProfile, "MINING");
         }
     }
 

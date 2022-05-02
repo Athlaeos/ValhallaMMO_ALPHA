@@ -60,7 +60,7 @@ public class BlockConversionManager {
                             }
                         }
                         if (withSection == null || tools.isEmpty()){
-                            ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Block interact conversion " + name + " did not have any items to trigger it, conversion registration cancelled");
+                            ValhallaMMO.getPlugin().getLogger().warning("Block interact conversion " + name + " did not have any items to trigger it, conversion registration cancelled");
                             continue;
                         }
 
@@ -70,7 +70,7 @@ public class BlockConversionManager {
                             registerDamageConversion(new BlockConversion(name, tools, from, to, sound));
                         }
                     } catch (IllegalArgumentException no){
-                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] Could not register block interact conversion " + name + ", invalid material or sound used. " + fs + "/" + ts + "/" + ss);
+                        ValhallaMMO.getPlugin().getLogger().warning("Could not register block interact conversion " + name + ", invalid material or sound used. " + fs + "/" + ts + "/" + ss);
                     }
                 }
             }

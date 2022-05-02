@@ -27,11 +27,29 @@ pages:
     Crafting creates something
     new, tinkering improves
     the item further'
-  - 'Some examples of crafting
+  - 'Try it out to get a feeling of it<br><br>
+    &#4000ffSneak Right-Click &ra Crafting
+    Table with an empty hand and click
+    on the Wooden Sword icon.<br>'
+  - 'The GUI closes, now hold &#4000ffRight-Click&r
+    on the Crafting Table. A wooden sword should
+    appear shortly.<br><br>&#4000ffRight-Click &rsomething else or
+    &#4000ffLeft-Click &rto stop crafting.'
+  - 'Take your wooden sword to a grindstone
+    and &#4000ffSneak Right-Click &rit with said
+    sword. Click the option to sharpen the sword
+    and, just like last time, &#4000ffhold Right-Click&r
+    on the grindstone with the sword in hand.'
+  - 'Now you''ve sharpened your sword! The higher
+    quality it is the more impact sharpening has.<br><br>
+    Some examples of crafting
+        stations are:<br>
+        - Crafting Table<br>
+        - Anvil<br>
+        - Campfire<br><br>'
+  - 'Some examples of tinkering
     stations are:<br>
     - Crafting Table<br>
-    - Anvil<br>
-    - Campfire<br>
     - Cauldron<br>
     - Grindstone<br>
     - Smooth Andesite Slab<br>

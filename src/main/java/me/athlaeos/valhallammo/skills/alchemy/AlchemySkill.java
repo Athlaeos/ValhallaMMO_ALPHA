@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.skills.alchemy;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
 import me.athlaeos.valhallammo.skills.ProjectileSkill;
 import me.athlaeos.valhallammo.skills.Skill;
@@ -42,9 +43,9 @@ public class AlchemySkill extends Skill implements ProjectileSkill {
     }
 
     @Override
-    public void addEXP(Player p, double amount, boolean silent) {
+    public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ALCHEMY_EXP_GAIN", p, true) / 100D));
-        super.addEXP(p, finalAmount, silent);
+        super.addEXP(p, finalAmount, silent, reason);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class LandscapingDiggingEXPMultiplier extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "LANDSCAPING");
+        Profile profile = ProfileManager.getManager().getProfile(p, "LANDSCAPING");
         if (profile != null){
             if (profile instanceof LandscapingProfile){
                 double multiplier = ((LandscapingProfile) profile).getDiggingExpMultiplier();

@@ -11,6 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class StaticRepairModifier extends DynamicItemModifier {
     public StaticRepairModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -31,6 +34,11 @@ public class StaticRepairModifier extends DynamicItemModifier {
                 "A strength of 33% would repair a pickaxe with 1500 max durability by about 500 points.");
         this.displayName = Utils.chat("&7&lRepair item [STATIC]");
         this.icon = Material.ANVIL;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<percentage_repaired>");
     }
 
     @Override

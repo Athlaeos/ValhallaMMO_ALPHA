@@ -10,7 +10,9 @@ import org.bukkit.EntityEffect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -22,6 +24,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.MetadataValue;
 
 import java.util.*;
 
@@ -677,6 +680,39 @@ public class ItemUtils {
                 newItems.add(i);
             }
         }
+    }
+
+    public static String serializeItemStack(ItemStack itemStack) {
+        YamlConfiguration config = new YamlConfiguration();
+        config.set("i", itemStack);
+        return config.saveToString();
+    }
+
+    public static ItemStack deserializeItemStack(String json){
+        YamlConfiguration config = new YamlConfiguration();
+        try {
+            config.loadFromString(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return config.getItemStack("i", null);
+    }
+
+    public static ItemStack getArrowFromEntity(AbstractArrow arrow){
+        if (arrow.hasMetadata("arrow_data")){
+            List<MetadataValue> metaData = arrow.getMetadata("arrow_data");
+            if (!metaData.isEmpty()){
+                ItemStack item = null;
+                try {
+                    item = ItemUtils.deserializeItemStack(metaData.get(0).asString());
+                } catch (Exception ignored){
+                    ValhallaMMO.getPlugin().getServer().getLogger().severe("Another plugin is using metadata key 'arrow_data' and not using the proper data type");
+                }
+                return item;
+            }
+        }
+        return null;
     }
 
     private static class Range {

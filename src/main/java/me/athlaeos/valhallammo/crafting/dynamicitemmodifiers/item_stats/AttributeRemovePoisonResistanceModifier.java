@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeRemovePoisonResistanceModifier extends DynamicItemModifier {
     public AttributeRemovePoisonResistanceModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -27,6 +30,11 @@ public class AttributeRemovePoisonResistanceModifier extends DynamicItemModifier
         this.description = Utils.chat("&7Removes &ePoison Resistance &7as a default attribute from the item if present. ");
         this.displayName = Utils.chat("&7&lRemove Stat: &e&lPoison Resistance");
         this.icon = Material.FERMENTED_SPIDER_EYE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

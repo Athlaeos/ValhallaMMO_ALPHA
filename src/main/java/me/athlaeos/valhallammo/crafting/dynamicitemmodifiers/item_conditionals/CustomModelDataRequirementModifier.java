@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class CustomModelDataRequirementModifier extends DynamicItemModifier {
     public CustomModelDataRequirementModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -26,6 +29,11 @@ public class CustomModelDataRequirementModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Requires the item to have a specific Custom Model Data");
         this.displayName = Utils.chat("&7&lRequire Custom Model Data");
         this.icon = Material.GRASS_BLOCK;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<model_data>");
     }
 
     @Override

@@ -3,6 +3,9 @@ package me.athlaeos.valhallammo.perkrewards;
 import me.athlaeos.valhallammo.dom.ObjectType;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class PerkReward implements Cloneable{
     protected String name;
     protected Object argument;
@@ -27,6 +30,10 @@ public abstract class PerkReward implements Cloneable{
     }
 
     public abstract ObjectType getType();
+
+    public List<String> getTabAutoComplete(String currentArg){
+        return new ArrayList<>();
+    }
 
     @Override
     public PerkReward clone() throws CloneNotSupportedException {

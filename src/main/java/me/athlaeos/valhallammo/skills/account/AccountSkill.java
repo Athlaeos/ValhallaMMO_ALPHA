@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.skills.account;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
@@ -37,11 +38,11 @@ public class AccountSkill extends Skill {
     }
 
     public void addAccountEXP(Player p, double amount){
-        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
-        if (profile == null) profile = ProfileManager.newProfile(p, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(p, "ACCOUNT");
+        if (profile == null) profile = ProfileManager.getManager().newProfile(p, "ACCOUNT");
         if (profile != null){
             if (profile instanceof AccountProfile){
-                addEXP(p, amount, false);
+                addEXP(p, amount, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
         }
     }

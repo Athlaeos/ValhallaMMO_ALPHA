@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class FlagAddHidePotionEffectsModifier extends DynamicItemModifier {
     public FlagAddHidePotionEffectsModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -29,6 +32,11 @@ public class FlagAddHidePotionEffectsModifier extends DynamicItemModifier {
                 "effects too, add a HIDE_ATTRIBUTES flag as well.");
         this.displayName = Utils.chat("&7&lAdd Flag: &e&lHide Potion Effects");
         this.icon = Material.PAPER;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

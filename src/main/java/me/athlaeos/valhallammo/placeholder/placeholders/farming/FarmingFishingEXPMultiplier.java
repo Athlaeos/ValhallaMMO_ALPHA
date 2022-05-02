@@ -13,7 +13,7 @@ public class FarmingFishingEXPMultiplier extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "FARMING");
+        Profile profile = ProfileManager.getManager().getProfile(p, "FARMING");
         if (profile != null){
             if (profile instanceof FarmingProfile){
                 double multiplier = ((FarmingProfile) profile).getFishingExpMultiplier();

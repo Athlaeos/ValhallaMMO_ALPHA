@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
     public FlagAddHideUnbreakableModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -28,6 +31,11 @@ public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
                 "the \"&9Unbreakable\" &7tag if present.");
         this.displayName = Utils.chat("&7&lAdd Flag: &e&lHide Unbreakable");
         this.icon = Material.PAPER;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddDamageResistanceModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddDamageResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -31,6 +34,11 @@ public class AttributeAddDamageResistanceModifier extends DynamicItemModifier im
                 "all damage taken except VOID by the given factor. If negative, the target will take more damage instead.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lDamage Resistance");
         this.icon = Material.SCUTE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

@@ -110,7 +110,7 @@ public class VillagerInteractListener implements Listener {
                                         currentDialogue.addAll(possibleDialogue);
                                         materialProfessionDialogue.put(specificMaterial, currentDialogue);
                                     } catch (IllegalArgumentException ignored1){
-                                        ValhallaMMO.getPlugin().getLogger().warning("[ValhallaMMO] invalid material or material class " + material + " given in villagers.yml");
+                                        ValhallaMMO.getPlugin().getLogger().warning("invalid material or material class " + material + " given in villagers.yml");
                                     }
                                 }
                             }

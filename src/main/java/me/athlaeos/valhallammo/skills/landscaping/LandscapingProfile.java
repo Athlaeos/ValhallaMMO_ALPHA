@@ -9,6 +9,11 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -187,6 +192,99 @@ public class LandscapingProfile extends Profile implements Serializable {
                 }
             }
         }
+    }
+
+    @Override
+    public void createProfileTable(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_landscaping (" +
+                "owner VARCHAR(40) PRIMARY KEY," +
+                "level SMALLINT default 0," +
+                "exp DOUBLE default 0," +
+                "exp_total DOUBLE default 0," +
+                "woodcuttingraredropratemultiplier FLOAT DEFAULT 1," +
+                "woodcuttingdropmultiplier FLOAT DEFAULT 1, " +
+                "diggingraredropratemultiplier FLOAT DEFAULT 1," +
+                "diggingdropmultiplier FLOAT DEFAULT 1," +
+                "woodstrippingraredropratemultiplier FLOAT DEFAULT 1," +
+                "treecapitatorcooldown INT DEFAULT -1," +
+                "instantgrowthrate FLOAT DEFAULT 0," +
+                "replacesaplings BOOL DEFAULT false," +
+                "blockplacereachbonus FLOAT DEFAULT 0," +
+                "unlockedconversions VARCHAR(16384) default ''," +
+                "validtreecapitatorblocks VARCHAR(16384) DEFAULT ''," +
+                "woodcuttingexperiencerate FLOAT DEFAULT 0," +
+                "diggingexperiencerate FLOAT DEFAULT 0," +
+                "woodcuttingexpmultiplier DOUBLE DEFAULT 100," +
+                "diggingexpmultiplier DOUBLE DEFAULT 100," +
+                "woodstrippingexpmultiplier DOUBLE DEFAULT 100," +
+                "generalexpmultiplier DOUBLE DEFAULT 100);");
+        stmt.execute();
+    }
+
+    @Override
+    public void insertOrUpdateProfile(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "REPLACE INTO profiles_landscaping " +
+                        "(owner, level, exp, exp_total, woodcuttingraredropratemultiplier, woodcuttingdropmultiplier, " +
+                        "diggingraredropratemultiplier, diggingdropmultiplier, woodstrippingraredropratemultiplier, " +
+                        "treecapitatorcooldown, instantgrowthrate, replacesaplings, blockplacereachbonus, unlockedconversions, " +
+                        "validtreecapitatorblocks, woodcuttingexperiencerate, diggingexperiencerate, woodcuttingexpmultiplier, " +
+                        "diggingexpmultiplier, woodstrippingexpmultiplier, generalexpmultiplier) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        stmt.setString(1, owner.toString());
+        stmt.setInt(2, level);
+        stmt.setDouble(3, exp);
+        stmt.setDouble(4, lifetimeEXP);
+        stmt.setFloat(5, woodcuttingraredropratemultiplier);
+        stmt.setFloat(6, woodcuttingdropmultiplier);
+        stmt.setFloat(7, diggingraredropratemultiplier);
+        stmt.setFloat(8, diggingdropmultiplier);
+        stmt.setFloat(9, woodstrippingraredropratemultiplier);
+        stmt.setInt(10, treecapitatorcooldown);
+        stmt.setFloat(11, instantgrowthrate);
+        stmt.setBoolean(12, replacesaplings);
+        stmt.setFloat(13, blockplacereachbonus);
+        stmt.setString(14, String.join("<>", unlockedconversions));
+        stmt.setString(15, String.join("<>", validtreecapitatorblocks));
+        stmt.setFloat(16, woodcuttingexperiencerate);
+        stmt.setFloat(17, diggingexperiencerate);
+        stmt.setDouble(18, woodcuttingexpmultiplier);
+        stmt.setDouble(19, diggingexpmultiplier);
+        stmt.setDouble(20, woodstrippingexpmultiplier);
+        stmt.setDouble(21, generalexpmultiplier);
+        stmt.execute();
+    }
+
+    @Override
+    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_landscaping WHERE owner = ?;");
+        stmt.setString(1, p.getUniqueId().toString());
+        ResultSet result = stmt.executeQuery();
+        if (result.next()){
+            LandscapingProfile profile = new LandscapingProfile(p);
+            profile.setLevel(result.getInt("level"));
+            profile.setExp(result.getDouble("exp"));
+            profile.setLifetimeEXP(result.getDouble("exp_total"));
+            profile.setWoodcuttingRareDropRateMultiplier(result.getFloat("woodcuttingraredropratemultiplier"));
+            profile.setWoodcuttingDropMultiplier(result.getFloat("woodcuttingdropmultiplier"));
+            profile.setDiggingRareDropRateMultiplier(result.getFloat("diggingraredropratemultiplier"));
+            profile.setDiggingDropMultiplier(result.getFloat("diggingdropmultiplier"));
+            profile.setWoodstrippingRareDropRateMultiplier(result.getFloat("woodstrippingraredropratemultiplier"));
+            profile.setTreeCapitatorCooldown(result.getInt("treecapitatorcooldown"));
+            profile.setInstantGrowthRate(result.getFloat("instantgrowthrate"));
+            profile.setReplaceSaplings(result.getBoolean("replacesaplings"));
+            profile.setBlockPlaceReachBonus(result.getFloat("blockplacereachbonus"));
+            profile.setUnlockedConversions(new HashSet<>(Arrays.asList(result.getString("unlockedconversions").split("<>"))));
+            profile.setValidTreeCapitatorBlocks(new HashSet<>(Arrays.asList(result.getString("validtreecapitatorblocks").split("<>"))));
+            profile.setWoodcuttingExperienceRate(result.getFloat("woodcuttingexperiencerate"));
+            profile.setDiggingExperienceRate(result.getFloat("diggingexperiencerate"));
+            profile.setWoodcuttingExpMultiplier(result.getDouble("woodcuttingexpmultiplier"));
+            profile.setDiggingExpMultiplier(result.getDouble("diggingexpmultiplier"));
+            profile.setWoodstrippingExpMultiplier(result.getDouble("woodstrippingexpmultiplier"));
+            profile.setGeneralExpMultiplier(result.getDouble("generalexpmultiplier"));
+            return profile;
+        }
+        return null;
     }
 
     @Override

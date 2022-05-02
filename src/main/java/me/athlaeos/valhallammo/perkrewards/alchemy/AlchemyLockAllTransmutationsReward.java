@@ -24,12 +24,12 @@ public class AlchemyLockAllTransmutationsReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ALCHEMY");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ALCHEMY");
         if (profile == null) return;
         if (profile instanceof AlchemyProfile){
             AlchemyProfile accountProfile = (AlchemyProfile) profile;
             accountProfile.setUnlockedTransmutations(new HashSet<>());
-            ProfileManager.setProfile(player, accountProfile, "ALCHEMY");
+            ProfileManager.getManager().setProfile(player, accountProfile, "ALCHEMY");
         }
     }
 

@@ -1,5 +1,6 @@
 display_name: '&7Mining'
 icon: IRON_PICKAXE
+icon_data: 3510001
 description: '&8Practice Mining to increase your ore extraction, increase the effectiveness of blast mining, and to gain rare minerals useful in crafting'
 
 levelbar_title: '&7Mining &cLV %lv_current% &4%exp_current%&7/&4%exp_next%'

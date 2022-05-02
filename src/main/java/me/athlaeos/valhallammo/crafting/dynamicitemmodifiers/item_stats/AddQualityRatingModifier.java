@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddQualityRatingModifier extends DynamicItemModifier implements Cloneable{
 
     public AddQualityRatingModifier(String name, double strength, ModifierPriority priority) {
@@ -28,6 +31,11 @@ public class AddQualityRatingModifier extends DynamicItemModifier implements Clo
                 "represents the amount of quality points added/subtracted from the item.");
         this.displayName = Utils.chat("&b&lAdd/Subtract Quality");
         this.icon = Material.NETHER_STAR;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<quality>");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package me.athlaeos.valhallammo.statsources.general;
 
+import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
@@ -21,9 +22,17 @@ public class EquipmentAttributeSource extends AccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
         double combinedStrength = 0D;
-        for (ItemStack i : EntityUtils.getEntityEquipment(p).getIterable(true)){
+        for (ItemStack i : EntityUtils.getEntityEquipment(p).getIterable(false)){
             if (i.getItemMeta() == null) continue;
-            AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(i, wrapper);
+            AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getAnyAttributeWrapper(i, wrapper);
+            if (attributeWrapper != null){
+                combinedStrength += attributeWrapper.getAmount();
+            }
+        }
+        for (ItemStack i : EntityUtils.getEntityEquipment(p).getHands()){
+            if (i.getItemMeta() == null) continue;
+            if (EquipmentClass.isArmor(i.getType())) continue;
+            AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getAnyAttributeWrapper(i, wrapper);
             if (attributeWrapper != null){
                 combinedStrength += attributeWrapper.getAmount();
             }

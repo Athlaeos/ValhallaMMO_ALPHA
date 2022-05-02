@@ -4,6 +4,7 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.events.PlayerCustomCraftEvent;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.CooldownManager;
 import me.athlaeos.valhallammo.managers.MaterialCosmeticManager;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
@@ -87,7 +88,7 @@ public class PlayerCustomCraftListener implements Listener {
                     if (skill != null){
                         if (skill instanceof SmithingSkill){
                             double expReward = ((SmithingSkill) skill).expForCraftedItem(e.getPlayer(), result);
-                            skill.addEXP(e.getPlayer(), expReward, false);
+                            skill.addEXP(e.getPlayer(), expReward, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
                         }
                     }
                 } else {

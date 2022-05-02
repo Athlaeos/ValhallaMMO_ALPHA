@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class MultiplyQualityRatingModifier extends DynamicItemModifier implements Cloneable{
 
     public MultiplyQualityRatingModifier(String name, double strength, ModifierPriority priority) {
@@ -29,6 +32,11 @@ public class MultiplyQualityRatingModifier extends DynamicItemModifier implement
                 "a quality rating of 100 with a multiplier of 1.5x will have 150 quality");
         this.displayName = Utils.chat("&b&lMultiply Quality");
         this.icon = Material.NETHER_STAR;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<multiplier>");
     }
 
     @Override

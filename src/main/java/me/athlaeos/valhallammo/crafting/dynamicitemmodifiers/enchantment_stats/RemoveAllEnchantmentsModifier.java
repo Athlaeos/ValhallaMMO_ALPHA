@@ -11,7 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class RemoveAllEnchantmentsModifier extends DynamicItemModifier {
     public RemoveAllEnchantmentsModifier(String name) {
@@ -30,6 +32,11 @@ public class RemoveAllEnchantmentsModifier extends DynamicItemModifier {
         this.description = Utils.chat("&7Removes all enchantments from the item, including custom ones");
         this.displayName = Utils.chat("&7&lRemoves all enchantments");
         this.icon = Material.GRINDSTONE;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

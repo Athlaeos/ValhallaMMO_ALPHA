@@ -8,6 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionCancelIfPotionMaterialModifier extends DynamicItemModifier {
     private final Material requiredType;
     private final String typeString;
@@ -31,6 +34,11 @@ public class PotionCancelIfPotionMaterialModifier extends DynamicItemModifier {
                 "This can be used to add conditions to following recipes.");
         this.displayName = Utils.chat("&7&lCancel if Potion Material: &e&l" + typeString);
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override

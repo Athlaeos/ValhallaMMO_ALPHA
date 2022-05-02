@@ -1,0 +1,25 @@
+package me.athlaeos.valhallammo.statsources.light_armor;
+
+import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+
+public class LightArmorDefaultEquipmentProjectileResistanceSource extends AccumulativeStatSource {
+    private final double resistancePerPiece;
+
+    public LightArmorDefaultEquipmentProjectileResistanceSource(){
+        resistancePerPiece = ConfigManager.getInstance().getConfig("config.yml").get().getDouble("light_projectile_reduction");
+    }
+
+    @Override
+    public double add(Entity p, boolean use) {
+        if (p instanceof Player){
+            int lightArmorCount = ArmorType.getArmorTypeCount((LivingEntity) p, ArmorType.LIGHT);
+            return lightArmorCount * resistancePerPiece;
+        }
+        return 0;
+    }
+}

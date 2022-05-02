@@ -178,7 +178,7 @@ public class CustomDurabilityManager {
                 if (customDurability < 1) customDurability = 1;
                 setDurability(i, customDurability, maxDurability);
             } catch (RuntimeException e){
-                ValhallaMMO.getPlugin().getLogger().severe("[ValhallaMMO] Attempting to parse formula " + scaling + ", but something went wrong. ");
+                ValhallaMMO.getPlugin().getLogger().severe("Attempting to parse formula " + scaling + ", but something went wrong. ");
                 e.printStackTrace();
             }
         }

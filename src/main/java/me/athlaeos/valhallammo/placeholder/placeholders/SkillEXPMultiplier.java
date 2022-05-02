@@ -14,7 +14,7 @@ public class SkillEXPMultiplier extends Placeholder {
 
     @Override
     public String parse(String s, Player p) {
-        Profile profile = ProfileManager.getProfile(p, "ACCOUNT");
+        Profile profile = ProfileManager.getManager().getProfile(p, "ACCOUNT");
         if (profile != null){
             if (profile instanceof AccountProfile){
                 double multiplier = ((AccountProfile) profile).getAllSkillEXPGain();

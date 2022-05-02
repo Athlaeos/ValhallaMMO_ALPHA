@@ -13,6 +13,8 @@ import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.utility.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -37,13 +39,24 @@ public class CraftRecipeChoiceMenu extends Menu {
     private final String recipeIngredientFormat;
     private final String recipeNotCraftable;
 
+    private static final Collection<UUID> playersWhoReceivedFirstTimeMessage = new HashSet<>();
+    private final String statusOneTimeCraftingRecipeSelected;
+    private final String statusOneTimeTinkeringRecipeSelected;
+    private final String statusCraftingRecipeSelected;
+    private final String statusTinkeringRecipeSelected;
+
     public CraftRecipeChoiceMenu(PlayerMenuUtility playerMenuUtility, Collection<AbstractCustomCraftingRecipe> customRecipes) {
         super(playerMenuUtility);
         recipeButtonFormat = TranslationManager.getInstance().getList("recipe_button_format");
         recipeIngredientFormat = TranslationManager.getInstance().getTranslation("recipe_ingredient_format");
         recipeNotCraftable = TranslationManager.getInstance().getTranslation("recipe_uncraftable");
 
-        Profile p = ProfileManager.getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
+        statusOneTimeCraftingRecipeSelected = TranslationManager.getInstance().getTranslation("status_onetime_crafting_recipe_selected");
+        statusOneTimeTinkeringRecipeSelected = TranslationManager.getInstance().getTranslation("status_onetime_tinkering_recipe_selected");
+        statusCraftingRecipeSelected = TranslationManager.getInstance().getTranslation("status_crafting_recipe_selected");
+        statusTinkeringRecipeSelected = TranslationManager.getInstance().getTranslation("status_tinkering_recipe_selected");
+
+        Profile p = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
         if (p instanceof AccountProfile){
             profile = (AccountProfile) p;
         }
@@ -100,6 +113,43 @@ public class CraftRecipeChoiceMenu extends Menu {
             String recipe = e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(smithingRecipeKey, PersistentDataType.STRING);
             AbstractCustomCraftingRecipe chosenRecipe = CustomRecipeManager.getInstance().getRecipeByName(recipe);
             PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(playerMenuUtility.getOwner(), chosenRecipe);
+            if (chosenRecipe instanceof ItemCraftingRecipe){
+                if (playersWhoReceivedFirstTimeMessage.contains(playerMenuUtility.getOwner().getUniqueId())){
+                    playerMenuUtility.getOwner().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                            Utils.chat(statusCraftingRecipeSelected
+                                    .replace("%recipe%", chosenRecipe.getDisplayName())
+                                    .replace("%item%", Utils.getItemName(((ItemCraftingRecipe) chosenRecipe).getResult())))
+                    ));
+                } else {
+                    playerMenuUtility.getOwner().sendMessage(Utils.chat(
+                            statusOneTimeCraftingRecipeSelected
+                                    .replace("%recipe%", chosenRecipe.getDisplayName())
+                                    .replace("%item%", Utils.getItemName(((ItemCraftingRecipe) chosenRecipe).getResult()))
+                    ));
+                    playersWhoReceivedFirstTimeMessage.add(playerMenuUtility.getOwner().getUniqueId());
+                }
+            } else {
+                String item = null;
+                if (chosenRecipe instanceof ItemImprovementRecipe){
+                    item = Utils.toPascalCase(((ItemImprovementRecipe) chosenRecipe).getRequiredItemType().toString().replace("_", " "));
+                } else if (chosenRecipe instanceof ItemClassImprovementRecipe){
+                    item = Utils.toPascalCase(((ItemClassImprovementRecipe) chosenRecipe).getRequiredEquipmentClass().toString().replace("_", " "));
+                }
+                if (playersWhoReceivedFirstTimeMessage.contains(playerMenuUtility.getOwner().getUniqueId())){
+                    playerMenuUtility.getOwner().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                            Utils.chat(statusTinkeringRecipeSelected
+                                    .replace("%recipe%", chosenRecipe.getDisplayName())
+                                    .replace("%item%", item == null ? "" : item))
+                    ));
+                } else {
+                    playerMenuUtility.getOwner().sendMessage(Utils.chat(
+                            statusOneTimeTinkeringRecipeSelected
+                                    .replace("%recipe%", chosenRecipe.getDisplayName())
+                                    .replace("%item%", item == null ? "" : item))
+                    );
+                    playersWhoReceivedFirstTimeMessage.add(playerMenuUtility.getOwner().getUniqueId());
+                }
+            }
             e.getWhoClicked().closeInventory();
         }
         setMenuItems();

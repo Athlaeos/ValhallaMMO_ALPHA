@@ -17,12 +17,12 @@ public class EnchantingAllowedEnchantmentsSetReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getProfile(player, "ENCHANTING");
+        Profile profile = ProfileManager.getManager().getProfile(player, "ENCHANTING");
         if (profile == null) return;
         if (profile instanceof EnchantingProfile){
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
             enchantingProfile.setMaxCustomEnchantmentsAllowed(amount);
-            ProfileManager.setProfile(player, enchantingProfile, "ENCHANTING");
+            ProfileManager.getManager().setProfile(player, enchantingProfile, "ENCHANTING");
         }
     }
 

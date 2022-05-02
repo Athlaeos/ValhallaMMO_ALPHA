@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AttributeAddFireResistanceModifier extends DynamicItemModifier implements Cloneable{
 
     public AttributeAddFireResistanceModifier(String name, double strength, ModifierPriority priority) {
@@ -32,6 +35,11 @@ public class AttributeAddFireResistanceModifier extends DynamicItemModifier impl
                 "take more fire damage instead.");
         this.displayName = Utils.chat("&7&lAdd Stat: &e&lFire Resistance");
         this.icon = Material.MAGMA_CREAM;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

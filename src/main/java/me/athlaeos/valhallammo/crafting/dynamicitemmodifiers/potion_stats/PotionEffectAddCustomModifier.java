@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
     private String effect;
 
@@ -41,6 +44,16 @@ public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
                 "-nThe recipe is cancelled if the item already has this potion effect. Can only be applied on potions and tipped arrows.");
         this.displayName = Utils.chat("&7&lAdd Base Effect: &e&l" + effect);
         this.icon = icon;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<duration_ms>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<amplifier_base>");
     }
 
     @Override

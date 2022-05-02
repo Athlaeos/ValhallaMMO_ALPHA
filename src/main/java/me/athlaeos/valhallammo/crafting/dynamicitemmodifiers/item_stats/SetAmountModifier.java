@@ -8,6 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class SetAmountModifier extends DynamicItemModifier implements Cloneable{
 
     public SetAmountModifier(String name, double strength, ModifierPriority priority) {
@@ -26,6 +29,11 @@ public class SetAmountModifier extends DynamicItemModifier implements Cloneable{
         this.description = Utils.chat("&7Sets the amount of the item stack. Cancels recipe is the stack already has this amount.");
         this.displayName = Utils.chat("&b&lSet Amount");
         this.icon = Material.BARREL;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

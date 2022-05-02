@@ -11,6 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class EnchantCounterCancelIfExceededModifier extends DynamicItemModifier {
     public EnchantCounterCancelIfExceededModifier(String name, double strength, ModifierPriority priority) {
         super(name, strength, priority);
@@ -29,6 +32,11 @@ public class EnchantCounterCancelIfExceededModifier extends DynamicItemModifier 
                 " is allowed to have.");
         this.displayName = Utils.chat("&7&lCancel if Enchantment Counter Equals or Exceeds");
         this.icon = Material.KNOWLEDGE_BOOK;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<amount>");
     }
 
     @Override

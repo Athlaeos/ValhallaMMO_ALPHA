@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RandomizedPotionQualityRatingModifier extends DuoArgDynamicItemModifier implements Cloneable{
 
     public RandomizedPotionQualityRatingModifier(String name, double strength, double strength2, ModifierPriority priority) {
@@ -38,6 +41,16 @@ public class RandomizedPotionQualityRatingModifier extends DuoArgDynamicItemModi
                 "200 + 10%). The same item with the modifier set to 20% to 30% would get a rating between 240 and 260.");
         this.displayName = Utils.chat("&b&lUpdate Quality : RANDOM");
         this.icon = Material.POTION;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("<minimum_multiplier>");
+    }
+
+    @Override
+    public List<String> tabAutoCompleteSecondArg() {
+        return Collections.singletonList("<multiplier_maximum>");
     }
 
     @Override

@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class PotionTippedArrowModifier extends DynamicItemModifier {
     public PotionTippedArrowModifier(String name, double strength, ModifierPriority priority) {
@@ -33,6 +35,11 @@ public class PotionTippedArrowModifier extends DynamicItemModifier {
                 "so any custom potion effects they have will have their duration halved.");
         this.displayName = Utils.chat("&7&lTipped Arrow");
         this.icon = Material.TIPPED_ARROW;
+    }
+
+    @Override
+    public List<String> tabAutoCompleteFirstArg() {
+        return Collections.singletonList("0");
     }
 
     @Override
