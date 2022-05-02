@@ -19,3 +19,7 @@ The following permissions are most important for players to have:
 2. It introduces a completely new way of crafting that might be difficult for some players to understand, so they're given a short book on join introducing this new system
 3. It disables vanilla crafting recipes for tools and armor by default in favor of the plugin's custom progression, but you can disable it through config.yml if wanted. 
 4. The brewing system has been changed completely, so ValhallaMMO will not work with plugins interacting with brewing either.
+
+## Known issues
+1. The API "Unite", which purpose is to provide a shared party system for plugins like Quests and DungeonsXL, throws errors on PlayerMoveEvents while ValhallaMMO is installed. The cause is unknown.
+2. Shift-right clicking items into an active brewing stand deletes the item.
