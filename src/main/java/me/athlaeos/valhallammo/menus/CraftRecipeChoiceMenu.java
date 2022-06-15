@@ -4,6 +4,7 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.InvisibleIfIncompatibleModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.recipetypes.AbstractCustomCraftingRecipe;
 import me.athlaeos.valhallammo.crafting.recipetypes.ItemClassImprovementRecipe;
@@ -165,7 +166,7 @@ public class CraftRecipeChoiceMenu extends Menu {
         inventory.clear();
         if (profile != null){
             buildMenuItems(items -> {
-                items.sort(Comparator.comparing(Utils::getItemName));
+                items.sort(Comparator.comparing(ItemStack::getType));
 
                 if (items.size() >= 45){
                     Map<Integer, ArrayList<ItemStack>> pages = Utils.paginateItemStackList(45, items);
@@ -212,6 +213,7 @@ public class CraftRecipeChoiceMenu extends Menu {
     private void buildMenuItems(final ItemBuilderCallback callback){
         ValhallaMMO.getPlugin().getServer().getScheduler().runTaskAsynchronously(ValhallaMMO.getPlugin(), () -> {
             List<ItemStack> pickableRecipes = new ArrayList<>();
+            recipeLoop:
             for (AbstractCustomCraftingRecipe recipe : unlockedRecipes){
                 ItemStack button = null;
                 if (recipe instanceof ItemCraftingRecipe){
@@ -265,7 +267,7 @@ public class CraftRecipeChoiceMenu extends Menu {
                                 }
                             } else {
                                 buttonLore.add(Utils.chat(s
-                                        .replace("%crafting_time%", String.format("%.1f", (recipe.getCraftingTime()/1000D)))));
+                                        .replace("%crafting_time%", String.format("%.1f", ((recipe.getCraftingTime() * (1 - AccumulativeStatManager.getInstance().getStats("CRAFTING_TIME_REDUCTION", playerMenuUtility.getOwner(), true)))/1000D)))));
                             }
                         }
 
@@ -290,6 +292,9 @@ public class CraftRecipeChoiceMenu extends Menu {
                                     buttonBackup = modifier.processItem(playerMenuUtility.getOwner(), buttonBackup);
                                     if (buttonBackup == null) {
                                         if (isCraftable){
+                                            if (modifier instanceof InvisibleIfIncompatibleModifier){
+                                                continue recipeLoop;
+                                            }
                                             isCraftable = false;
                                         }
                                     } else {

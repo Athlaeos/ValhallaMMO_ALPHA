@@ -3636,6 +3636,151 @@ improve:
         priority: SOONEST
     ingredients:
       '0': *id28836
+  craft_netherite_pickaxe:
+    required_type: DIAMOND_PICKAXE
+    craft_block: SMITHING_TABLE
+    craft_time: 1400
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&8Reinforce Diamond Pickaxe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_damage:
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+    ingredients:
+      '0': *id28836
+  craft_netherite_axe:
+    required_type: DIAMOND_AXE
+    craft_block: SMITHING_TABLE
+    craft_time: 1400
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&8Reinforce Diamond Axe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_damage:
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+    ingredients:
+      '0': *id28836
+  craft_netherite_sword:
+    required_type: DIAMOND_SWORD
+    craft_block: SMITHING_TABLE
+    craft_time: 1400
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&8Reinforce Diamond Sword'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_damage:
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+    ingredients:
+      '0': *id28836
+  craft_netherite_shovel:
+    required_type: DIAMOND_SHOVEL
+    craft_block: SMITHING_TABLE
+    craft_time: 1400
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&8Reinforce Diamond Shovel'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_damage:
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+    ingredients:
+      '0': *id28836
+  craft_netherite_hoe:
+    required_type: DIAMOND_HOE
+    craft_block: SMITHING_TABLE
+    craft_time: 1400
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&8Reinforce Diamond Hoe'
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_damage:
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 60.0
+        priority: SOON
+      dynamic_attack_speed:
+        strength: 60.0
+        priority: SOON
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+    ingredients:
+      '0': *id28836
   fit_chainmail_boots:
     required_type: CHAINMAIL_BOOTS
     craft_block: CRAFTING_TABLE

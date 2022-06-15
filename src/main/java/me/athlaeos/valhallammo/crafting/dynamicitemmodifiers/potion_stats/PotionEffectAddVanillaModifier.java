@@ -23,7 +23,7 @@ public class PotionEffectAddVanillaModifier extends DuoArgDynamicItemModifier {
         this.effect = effect;
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_VANILLA;
 
         this.bigStepDecrease = 300;
         this.bigStepIncrease = 300;

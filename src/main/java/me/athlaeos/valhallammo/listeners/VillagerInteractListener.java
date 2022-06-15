@@ -42,7 +42,7 @@ public class VillagerInteractListener implements Listener {
         loadConfig();
     }
 
-    @EventHandler(priority= EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.HIGHEST)
     public void onVillagerInteract(InventoryOpenEvent e){
         if (e.getInventory() instanceof MerchantInventory){
             if (CooldownManager.getInstance().isCooldownPassed(e.getPlayer().getUniqueId(), "villager_dialogue_cooldown")){

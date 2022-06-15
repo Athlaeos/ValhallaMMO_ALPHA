@@ -22,6 +22,7 @@ public class SmithingSkill extends Skill {
 
     public SmithingSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 1;
 
         baseExperienceValues = new HashMap<>();
         experienceMultipliers = new HashMap<>();
@@ -85,7 +86,7 @@ public class SmithingSkill extends Skill {
      * @return the amount of EXP the crafter should earn
      */
     public double expForCraftedItem(Player p, ItemStack item) {
-        MaterialClass materialClass = MaterialClass.getMatchingClass(item.getType());
+        MaterialClass materialClass = MaterialClass.getMatchingClass(item);
         EquipmentClass equipmentClass = EquipmentClass.getClass(item.getType());
         if (materialClass != null && equipmentClass != null){
             double materialClassBase = 0;

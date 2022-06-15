@@ -2,7 +2,32 @@ starting_perks:
   expgain_set: 100
   unlock_recipes_all_craft: 0
   unlock_recipes_all_tinker: 0
+  player_movement_speed_bonus_set: 0.1
   lock_recipes:
+    - craft_wooden_mace
+    - craft_stone_mace
+    - craft_gold_mace
+    - craft_iron_mace
+    - craft_diamond_mace
+    - craft_netherite_mace
+    - craft_wooden_dagger
+    - craft_stone_dagger
+    - craft_gold_dagger
+    - craft_iron_dagger
+    - craft_diamond_dagger
+    - craft_netherite_dagger
+    - craft_wooden_warhammer
+    - craft_stone_warhammer
+    - craft_gold_warhammer
+    - craft_iron_warhammer
+    - craft_diamond_warhammer
+    - craft_netherite_warhammer
+    - craft_wooden_spear
+    - craft_stone_spear
+    - craft_gold_spear
+    - craft_iron_spear
+    - craft_diamond_spear
+    - craft_netherite_spear
     - craft_elytra
     - craft_trident
     - craft_battleshield

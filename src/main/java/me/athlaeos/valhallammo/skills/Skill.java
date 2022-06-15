@@ -27,6 +27,10 @@ public abstract class Skill {
     boolean locked = false;
 
     protected final String type;
+    protected boolean active = true;  // if false, the skill is hidden from access. Can be used to store stats and add behaviors to existing skills.
+    // if it is hidden, a skill tree will never be accessible and so it doesn't need files aside from extra content configuration
+    // for inactive skills people cannot be given exp or leveled up
+    protected int skillTreeMenuOrderPriority = 0;
     protected String displayName;
     protected String description;
     protected Material icon;
@@ -60,6 +64,19 @@ public abstract class Skill {
      * @return the NamespacedKey the skill's profile will be stored with
      */
     public abstract NamespacedKey getKey();
+
+    public int getSkillTreeMenuOrderPriority() {
+        return skillTreeMenuOrderPriority;
+    }
+
+    /**
+     * If active, the skill is intended to be interacted with and progressed through. If not, the skill is intended
+     * to be hidden from sight and more or less just meant to be used to store extra data and add behavior to ValhallaMMO
+     * @return whether the skill is active or passive
+     */
+    public boolean isActive() {
+        return active;
+    }
 
     /**
      * Should return a clean profile associated with the skill
@@ -362,6 +379,7 @@ public abstract class Skill {
      * @return the integer level the player has in this skill
      */
     public int getCurrentLevel(Player p){
+        if (!active) return 0;
         Profile profile = ProfileManager.getManager().getProfile(p, this.type);
         if (profile != null){
             return profile.getLevel();
@@ -376,7 +394,7 @@ public abstract class Skill {
      * max level, it returns -1.
      */
     public double expForlevel(int nextLevel){
-        if (nextLevel <= max_level){
+        if (active && nextLevel <= max_level){
             return Utils.round(Utils.eval(expCurve.replace("%level%", "" + nextLevel)), 4);
         } else {
             return -1;
@@ -449,10 +467,12 @@ public abstract class Skill {
 
     /**
      * Adds an amount of EXP to the player's profile, and checks if the player should level up
+     * If this method is being called on an inactive skill, no exp is added
      * @param p the player to add EXP to
      * @param amount the amount of EXP to add
      */
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason){
+        if (!active) return;
         if (!this.type.equals("ACCOUNT")){
             amount *= AccumulativeStatManager.getInstance().getStats("GLOBAL_EXP_GAIN", p, true) / 100D;
         }
@@ -573,6 +593,7 @@ public abstract class Skill {
      * @param p the player to level up
      */
     public void levelPlayerUp(Player p, Profile profile, boolean silent){
+        if (!active) return;
         if (profile == null) profile = ProfileManager.getManager().newProfile(p, this.type);
         if (profile != null){
             int levelFrom = profile.getLevel();

@@ -46,6 +46,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
 
     public EnchantingSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 2;
         enchantmentBaseValues = new HashMap<>();
         enchantmentLevelMultipliers = new HashMap<>();
         enchantmentMaterialClassMultipliers = new HashMap<>();
@@ -72,6 +73,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     double value = progressionConfig.getDouble("experience.diminishing_returns.mob_experience." + mob);
                     entityEXPMultipliers.put(entity, value);
                 } catch (IllegalArgumentException ignored){
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid entity type given at progression_enchanting.yml experience.diminishing_returns.mob_experience." + mob);
                 }
             }
         }
@@ -84,7 +86,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     double base = progressionConfig.getDouble("experience.exp_gain.enchantment_base." + s);
                     enchantmentBaseValues.put(e, base);
                 } else {
-                    ValhallaMMO.getPlugin().getLogger().warning("invalid enchantment type given at skill_enchanting.yml experience.exp_gain.enchantment_base." + s);
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid enchantment type given at progression_enchanting.yml experience.exp_gain.enchantment_base." + s);
                 }
             }
         }
@@ -188,7 +190,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
         double equipmentMultiplier;
         double materialMultiplier;
         EquipmentClass equipmentClass = EquipmentClass.getClass(item.getType());
-        MaterialClass materialClass = MaterialClass.getMatchingClass(item.getType());
+        MaterialClass materialClass = MaterialClass.getMatchingClass(item);
         if (equipmentClass == null) {
             equipmentMultiplier = 1D;
         } else {

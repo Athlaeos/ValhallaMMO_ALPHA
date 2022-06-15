@@ -237,6 +237,8 @@ public class PlaceholderManager {
         registerPlaceholder(new PoisonResistance("%player_poison_resistance%"));
         registerPlaceholder(new ProjectileResistance("%player_projectile_resistance%"));
         registerPlaceholder(new ToughnessBonus("%player_toughness_bonus%"));
+        registerPlaceholder(new StunResistance("%player_stun_resistance%"));
+        registerPlaceholder(new ImmunityFrameBonus("%player_immunity_frame_bonus%"));
     }
 
     public void registerPlaceholder(Placeholder p){

@@ -19,7 +19,7 @@ public class ArrowIncendiaryUpgradeModifier extends TripleArgDynamicItemModifier
         super(name, strength, strength2, strength3, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 20; // entity fire duration
         this.bigStepIncrease = 20;

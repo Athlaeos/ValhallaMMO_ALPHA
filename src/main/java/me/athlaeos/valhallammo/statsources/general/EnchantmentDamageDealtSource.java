@@ -1,17 +1,21 @@
 package me.athlaeos.valhallammo.statsources.general;
 
-import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
+import me.athlaeos.valhallammo.statsources.EvEAccumulativeStatSource;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
-public class EnchantmentDamageDealtSource extends AccumulativeStatSource {
+public class EnchantmentDamageDealtSource extends EvEAccumulativeStatSource {
     @Override
     public double add(Entity p, boolean use) {
-        if (p instanceof LivingEntity){
-            return ItemUtils.combinedCustomEnchantAmplifier((LivingEntity) p, "DAMAGE_DEALT");
-        }
+        return 0;
+    }
 
+    @Override
+    public double add(Entity entity, Entity offender, boolean use) {
+        if (offender instanceof LivingEntity){
+            return ItemUtils.combinedCustomEnchantAmplifier((LivingEntity) offender, "DAMAGE_DEALT");
+        }
         return 0;
     }
 }

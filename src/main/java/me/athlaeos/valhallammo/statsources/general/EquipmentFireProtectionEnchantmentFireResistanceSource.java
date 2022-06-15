@@ -5,7 +5,7 @@ import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import me.athlaeos.valhallammo.utility.EntityUtils;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 
 public class EquipmentFireProtectionEnchantmentFireResistanceSource extends AccumulativeStatSource {
@@ -17,7 +17,7 @@ public class EquipmentFireProtectionEnchantmentFireResistanceSource extends Accu
 
     @Override
     public double add(Entity p, boolean use) {
-        if (p instanceof Player){
+        if (p instanceof LivingEntity){
             int totalLevelCount = 0;
             for (ItemStack i : EntityUtils.getEntityEquipment(p).getIterable(false)){
                 totalLevelCount += i.getEnchantmentLevel(Enchantment.PROTECTION_FIRE);

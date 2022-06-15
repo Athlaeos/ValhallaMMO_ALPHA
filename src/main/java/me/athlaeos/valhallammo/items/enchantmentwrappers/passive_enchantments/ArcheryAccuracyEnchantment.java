@@ -39,10 +39,10 @@ public class ArcheryAccuracyEnchantment extends EnchantmentWrapper {
             removeLore(meta);
             return;
         }
-        double bow_strength = amplifier;
+        double accuracy = amplifier;
 
         if (!rangedDamageTranslation.equals("")){
-            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
+            String bowStrength = ((accuracy < 0) ? "" : "+") + String.format("%.1f", accuracy);
             String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(rangedDamageTranslation)),

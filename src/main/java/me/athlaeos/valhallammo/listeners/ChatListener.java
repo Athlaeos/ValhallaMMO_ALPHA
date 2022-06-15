@@ -14,8 +14,20 @@ import java.util.UUID;
 
 public class ChatListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent e){
+//        if (e.getMessage().equals("bleedme")){
+//            // this is a test "command" to inflict bleeding damage on the sender, "inflicted" by a random entity
+//            new BukkitRunnable(){
+//                @Override
+//                public void run() {
+//                    List<LivingEntity> entities = ValhallaMMO.getPlugin().getServer().getWorlds().get(0).getLivingEntities();
+//                    PotionEffectManager.getInstance().bleedEntity(e.getPlayer(),
+//                            entities.get(Utils.getRandom().nextInt(entities.size())), 15000, 4);
+//                }
+//            }.runTaskLater(ValhallaMMO.getPlugin(), 1L);
+//        }
+
         if (e.getMessage().startsWith("!")) {
             e.setMessage(e.getMessage().replaceFirst("!", ""));
             return;

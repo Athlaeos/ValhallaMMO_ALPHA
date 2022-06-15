@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class ItemConsumeListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onItemConsume(PlayerItemConsumeEvent e){
         if (!e.isCancelled()){
             if (e.getItem().getType() == Material.POTION){
@@ -38,7 +38,7 @@ public class ItemConsumeListener implements Listener {
                 Collection<PotionEffectWrapper> storedPotionEffects = PotionAttributesManager.getInstance().getCurrentStats(e.getItem());
                 for (PotionEffectWrapper wrapper : storedPotionEffects){
                     if (wrapper.getPotionEffect().equals("MILK")){
-                        PotionEffectManager.getInstance().removePotionEffects(e.getPlayer(), PotionEffect::isRemovable);
+                        PotionEffectManager.getInstance().removePotionEffects(e.getPlayer(), EntityPotionEffectEvent.Cause.MILK, PotionEffect::isRemovable);
                         for (org.bukkit.potion.PotionEffect p : e.getPlayer().getActivePotionEffects()){
                             EntityPotionEffectEvent event = new EntityPotionEffectEvent(e.getPlayer(), p, null, EntityPotionEffectEvent.Cause.PLUGIN, EntityPotionEffectEvent.Action.REMOVED, true);
                             ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
@@ -47,7 +47,7 @@ public class ItemConsumeListener implements Listener {
                             }
                         }
                     } else if (wrapper.getPotionEffect().equals("CHOCOLATE_MILK")){
-                        PotionEffectManager.getInstance().removePotionEffects(e.getPlayer(), potionEffect -> potionEffect.isRemovable() && potionEffect.getType() == PotionType.DEBUFF);
+                        PotionEffectManager.getInstance().removePotionEffects(e.getPlayer(), EntityPotionEffectEvent.Cause.MILK, potionEffect -> potionEffect.isRemovable() && potionEffect.getType() == PotionType.DEBUFF);
                         FoodLevelChangeEvent foodEvent = new FoodLevelChangeEvent(e.getPlayer(), 4, e.getItem());
                         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(foodEvent);
                         if (!foodEvent.isCancelled()){
@@ -67,7 +67,7 @@ public class ItemConsumeListener implements Listener {
                         PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(wrapper.getPotionEffect());
                         if (basePotionEffect != null){
                             // Potion effect is custom potion effect
-                            PotionEffectManager.getInstance().addPotionEffect(e.getPlayer(), new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + wrapper.getDuration(), wrapper.getAmplifier(), basePotionEffect.getType()), false);
+                            PotionEffectManager.getInstance().addPotionEffect(e.getPlayer(), new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + wrapper.getDuration(), wrapper.getAmplifier(), basePotionEffect.getType()), false, EntityPotionEffectEvent.Cause.POTION_DRINK, EntityPotionEffectEvent.Action.ADDED);
                         } // otherwise stored potion does not exist
                     }
                 }
@@ -83,7 +83,7 @@ public class ItemConsumeListener implements Listener {
             } else if (e.getItem().getType() == Material.MILK_BUCKET){
                 for (PotionEffect effect : PotionEffectManager.getInstance().getActivePotionEffects(e.getPlayer()).values()){
                     effect.setEffectiveUntil(0);
-                    PotionEffectManager.getInstance().addPotionEffect(e.getPlayer(), effect, true);
+                    PotionEffectManager.getInstance().addPotionEffect(e.getPlayer(), effect, true, EntityPotionEffectEvent.Cause.MILK, EntityPotionEffectEvent.Action.REMOVED);
                 }
             }
 
@@ -97,7 +97,7 @@ public class ItemConsumeListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onHungerChange(FoodLevelChangeEvent e){
         if (!e.isCancelled()){
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){

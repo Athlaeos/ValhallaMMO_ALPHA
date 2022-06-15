@@ -24,7 +24,7 @@ public class VanillaEnchantAddModifier extends DuoArgDynamicItemModifier {
         super(name, 0, 0, ModifierPriority.NEUTRAL);
 
         this.name = name;
-        this.category = ModifierCategory.ENCHANTING_STATS;
+        this.category = ModifierCategory.VANILLA_ENCHANTMENTS;
 
         this.bigStepDecrease = 1;
         this.bigStepIncrease = 1;

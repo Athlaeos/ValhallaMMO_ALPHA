@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
 public class FishingListener implements Listener {
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onPlayerFish(PlayerFishEvent e){
         if (!e.isCancelled()){
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){

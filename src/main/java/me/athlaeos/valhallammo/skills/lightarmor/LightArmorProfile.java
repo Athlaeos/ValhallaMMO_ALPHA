@@ -4,12 +4,12 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,11 +30,13 @@ public class LightArmorProfile extends Profile implements Serializable {
     private float falldamageresistance = 0F; // fall damage resistance per piece of light armor
     private float poisonresistance = 0F; // poison/wither damage resistance per piece of light armor
     private float knockbackresistance = 0F; // knockback reduction per piece of light armor
+    private float bleedresistance = 0F; // bleed resistance per piece of light armor
     private float lightarmormultiplier = 1F; // armor multiplier for worn light armor pieces
     private float fullarmormultiplierbonus = 0F; // armor multiplier when player wearing full light armor
     private float fullarmorhungersavechance = 0F; // chance to not consume hunger points when wearing full light armor
     private float fullarmordodgechance = 0F; // chance to avoid damage from an entity when wearing full light armor
     private float fullarmorhealingbonus = 0F; // additional healing when wearing full light armor
+    private float fullarmorbleedresistance = 0F; // additional bleeding resistance when wearing full light armor
     private int armorpiecesforbonusses = 4; // amount of armor pieces the player needs to wear to benefit from
     // "full set" bonusses
     private Collection<String> immunepotioneffects = new HashSet<>(); // potion effect immunity types
@@ -64,8 +66,8 @@ public class LightArmorProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void createProfileTable(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_light_armor (" +
+    public void createProfileTable(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles_light_armor (" +
                 "owner VARCHAR(40) PRIMARY KEY," +
                 "level SMALLINT default 0," +
                 "exp DOUBLE default 0," +
@@ -86,24 +88,28 @@ public class LightArmorProfile extends Profile implements Serializable {
                 "fullarmordodgechance FLOAT DEFAULT 0," +
                 "fullarmorhealingbonus FLOAT DEFAULT 0," +
                 "armorpiecesforbonusses TINYINT DEFAULT 4," +
-                "immunepotioneffects VARCHAR(16384) default ''," +
+                "immunepotioneffects TEXT default ''," +
                 "adrenalinethreshold FLOAT DEFAULT 0," +
                 "adrenalinecooldown INT DEFAULT -1," +
                 "adrenalinelevel SMALLINT DEFAULT 0," +
                 "expmultiplier DOUBLE DEFAULT 100);");
         stmt.execute();
+
+        conn.addColumnIfNotExists("profiles_light_armor", "bleedresistance", "FLOAT DEFAULT 0");
+        conn.addColumnIfNotExists("profiles_light_armor", "fullarmorbleedresistance", "FLOAT DEFAULT 0");
     }
 
     @Override
-    public void insertOrUpdateProfile(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(
+    public void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement(
                 "REPLACE INTO profiles_light_armor " +
                         "(owner, level, exp, exp_total, movementspeedpenalty, damageresistance, meleeresistance, " +
                         "projectileresistance, fireresistance, magicresistance, explosionresistance, falldamageresistance, " +
-                        "poisonresistance, knockbackresistance,  lightarmormultiplier, fullarmormultiplierbonus, " +
-                        "fullarmorhungersavechance, fullarmordodgechance, fullarmorhealingbonus, armorpiecesforbonusses, " +
-                        "immunepotioneffects, adrenalinethreshold, adrenalinecooldown, adrenalinelevel, expmultiplier) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        "poisonresistance, knockbackresistance, bleedresistance, lightarmormultiplier, " +
+                        "fullarmormultiplierbonus, fullarmorhungersavechance, fullarmordodgechance, fullarmorhealingbonus, " +
+                        "fullarmorbleedresistance, armorpiecesforbonusses, immunepotioneffects, adrenalinethreshold, " +
+                        "adrenalinecooldown, adrenalinelevel, expmultiplier) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
         stmt.setInt(2, level);
         stmt.setDouble(3, exp);
@@ -118,23 +124,25 @@ public class LightArmorProfile extends Profile implements Serializable {
         stmt.setFloat(12, falldamageresistance);
         stmt.setFloat(13, poisonresistance);
         stmt.setFloat(14, knockbackresistance);
-        stmt.setFloat(15, lightarmormultiplier);
-        stmt.setFloat(16, fullarmormultiplierbonus);
-        stmt.setFloat(17, fullarmorhungersavechance);
-        stmt.setFloat(18, fullarmordodgechance);
-        stmt.setFloat(19, fullarmorhealingbonus);
-        stmt.setInt(20, armorpiecesforbonusses);
-        stmt.setString(21, String.join("<>", immunepotioneffects));
-        stmt.setFloat(22, adrenalinethreshold);
-        stmt.setInt(23, adrenalinecooldown);
-        stmt.setInt(24, adrenalinelevel);
-        stmt.setDouble(25, expmultiplier);
+        stmt.setFloat(15, bleedresistance);
+        stmt.setFloat(16, lightarmormultiplier);
+        stmt.setFloat(17, fullarmormultiplierbonus);
+        stmt.setFloat(18, fullarmorhungersavechance);
+        stmt.setFloat(19, fullarmordodgechance);
+        stmt.setFloat(20, fullarmorhealingbonus);
+        stmt.setFloat(21, fullarmorbleedresistance);
+        stmt.setInt(22, armorpiecesforbonusses);
+        stmt.setString(23, String.join("<>", immunepotioneffects));
+        stmt.setFloat(24, adrenalinethreshold);
+        stmt.setInt(25, adrenalinecooldown);
+        stmt.setInt(26, adrenalinelevel);
+        stmt.setDouble(27, expmultiplier);
         stmt.execute();
     }
 
     @Override
-    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_light_armor WHERE owner = ?;");
+    public Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM profiles_light_armor WHERE owner = ?;");
         stmt.setString(1, p.getUniqueId().toString());
         ResultSet result = stmt.executeQuery();
         if (result.next()){
@@ -152,11 +160,13 @@ public class LightArmorProfile extends Profile implements Serializable {
             profile.setFallDamageResistance(result.getFloat("falldamageresistance"));
             profile.setPoisonResistance(result.getFloat("poisonresistance"));
             profile.setKnockbackResistance(result.getFloat("knockbackresistance"));
+            profile.setBleedResistance(result.getFloat("bleedresistance"));
             profile.setLightArmorMultiplier(result.getFloat("lightarmormultiplier"));
             profile.setFullArmorMultiplierBonus(result.getFloat("fullarmormultiplierbonus"));
             profile.setFullArmorHungerSaveChance(result.getFloat("fullarmorhungersavechance"));
             profile.setFullArmorDodgeChance(result.getFloat("fullarmordodgechance"));
             profile.setFullArmorHealingBonus(result.getFloat("fullarmorhealingbonus"));
+            profile.setFullArmorBleedResistance(result.getFloat("fullarmorbleedresistance"));
             profile.setArmorPiecesForBonusses(result.getInt("armorpiecesforbonusses"));
             profile.setImmunePotionEffects(new HashSet<>(Arrays.asList(result.getString("immunepotioneffects").split("<>"))));
             profile.setAdrenalineThreshold(result.getFloat("adrenalinethreshold"));
@@ -166,6 +176,22 @@ public class LightArmorProfile extends Profile implements Serializable {
             return profile;
         }
         return null;
+    }
+
+    public float getBleedResistance() {
+        return bleedresistance;
+    }
+
+    public void setBleedResistance(float bleedresistance) {
+        this.bleedresistance = bleedresistance;
+    }
+
+    public float getFullArmorBleedResistance() {
+        return fullarmorbleedresistance;
+    }
+
+    public void setFullArmorBleedResistance(float fullarmorbleedresistance) {
+        this.fullarmorbleedresistance = fullarmorbleedresistance;
     }
 
     public void setFullArmorHealingBonus(float fullarmorhealingbonus) {

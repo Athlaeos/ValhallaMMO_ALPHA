@@ -12,7 +12,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 
 public class PlayerEnchantListener implements Listener {
 
-    @EventHandler(priority= EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.HIGHEST)
     public void onPlayerEnchant(EnchantItemEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -25,7 +25,7 @@ public class PlayerEnchantListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onPrepareEnchant(PrepareItemEnchantEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -38,7 +38,7 @@ public class PlayerEnchantListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onPrepareEnchant(PrepareAnvilEvent e){
         for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
             if (s != null){

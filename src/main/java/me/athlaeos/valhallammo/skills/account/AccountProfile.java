@@ -4,12 +4,12 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +29,7 @@ public class AccountProfile extends Profile implements Serializable{
     private float movementSpeedBonus = 0F;
     private float knockbackResistanceBonus = 0F;
     private float armorBonus = 0F;
+    private float armorMultiplierBonus = 0F;
     private float toughnessBonus = 0F;
     private float attackDamageBonus = 0F;
     private float attackSpeedBonus = 0F;
@@ -44,18 +45,21 @@ public class AccountProfile extends Profile implements Serializable{
     private float poisonResistance = 0F;
     private float fallDamageResistance = 0F;
     private float cooldownReduction = 0F;
+    private int immunityframebonus = 0;
+    private float stunresistance = 0F;
+    private float bleedresistance = 0F;
 
     @Override
-    public void createProfileTable(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_account (" +
+    public void createProfileTable(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles_account (" +
                 "owner VARCHAR(40) PRIMARY KEY," +
                 "level SMALLINT default 0," +
                 "exp DOUBLE default 0," +
                 "exp_total DOUBLE default 0," +
                 "skill_points VARCHAR(40) DEFAULT 0," +
                 "exp_gain_multiplier DOUBLE DEFAULT 100.0, " +
-                "unlocked_perks VARCHAR(16384) DEFAULT ''," +
-                "unlocked_recipes VARCHAR(32768) DEFAULT ''," +
+                "unlocked_perks TEXT DEFAULT ''," +
+                "unlocked_recipes TEXT DEFAULT ''," +
                 "healthbonus FLOAT DEFAULT 0," +
                 "movementspeedbonus FLOAT DEFAULT 0," +
                 "knockbackresistancebonus FLOAT DEFAULT 0," +
@@ -76,19 +80,25 @@ public class AccountProfile extends Profile implements Serializable{
                 "falldamageresistance FLOAT DEFAULT 0," +
                 "cooldownreduction FLOAT DEFAULT 0);");
         stmt.execute();
+
+        conn.addColumnIfNotExists("profiles_account", "immunityframebonus", "SMALLINT DEFAULT 0");
+        conn.addColumnIfNotExists("profiles_account", "stunresistance", "FLOAT DEFAULT 0");
+        conn.addColumnIfNotExists("profiles_account", "armormultiplierbonus", "FLOAT DEFAULT 0");
+        conn.addColumnIfNotExists("profiles_account", "bleedresistance", "FLOAT DEFAULT 0");
     }
 
     @Override
-    public void insertOrUpdateProfile(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(
+    public void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement(
                 "REPLACE INTO profiles_account " +
                         "(owner, level, exp, exp_total, skill_points, exp_gain_multiplier, unlocked_perks, " +
                         "unlocked_recipes, healthbonus, movementspeedbonus, knockbackresistancebonus, " +
-                        "armorbonus, toughnessbonus, attackdamagebonus, attackspeedbonus, luckbonus, " +
+                        "armorbonus, armormultiplierbonus, toughnessbonus, attackdamagebonus, attackspeedbonus, luckbonus, " +
                         "healthregenerationbonus, hungersavechance, damageresistance, meleeresistance, " +
                         "projectileresistance, fireresistance, explosionresistance, magicresistance, " +
-                        "poisonresistance, falldamageresistance, cooldownreduction) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        "poisonresistance, falldamageresistance, cooldownreduction, immunityframebonus, " +
+                        "stunresistance, bleedresistance) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
         stmt.setInt(2, level);
         stmt.setDouble(3, exp);
@@ -101,42 +111,48 @@ public class AccountProfile extends Profile implements Serializable{
         stmt.setFloat(10, movementSpeedBonus);
         stmt.setFloat(11, knockbackResistanceBonus);
         stmt.setFloat(12, armorBonus);
-        stmt.setFloat(13, toughnessBonus);
-        stmt.setFloat(14, attackDamageBonus);
-        stmt.setFloat(15, attackSpeedBonus);
-        stmt.setFloat(16, luckBonus);
-        stmt.setFloat(17, healthRegenerationBonus);
-        stmt.setFloat(18, hungerSaveChance);
-        stmt.setFloat(19, damageResistance);
-        stmt.setFloat(20, meleeResistance);
-        stmt.setFloat(21, projectileResistance);
-        stmt.setFloat(22, fireResistance);
-        stmt.setFloat(23, explosionResistance);
-        stmt.setFloat(24, magicResistance);
-        stmt.setFloat(25, poisonResistance);
-        stmt.setFloat(26, fallDamageResistance);
-        stmt.setFloat(27, cooldownReduction);
+        stmt.setFloat(13, armorMultiplierBonus);
+        stmt.setFloat(14, toughnessBonus);
+        stmt.setFloat(15, attackDamageBonus);
+        stmt.setFloat(16, attackSpeedBonus);
+        stmt.setFloat(17, luckBonus);
+        stmt.setFloat(18, healthRegenerationBonus);
+        stmt.setFloat(19, hungerSaveChance);
+        stmt.setFloat(20, damageResistance);
+        stmt.setFloat(21, meleeResistance);
+        stmt.setFloat(22, projectileResistance);
+        stmt.setFloat(23, fireResistance);
+        stmt.setFloat(24, explosionResistance);
+        stmt.setFloat(25, magicResistance);
+        stmt.setFloat(26, poisonResistance);
+        stmt.setFloat(27, fallDamageResistance);
+        stmt.setFloat(28, cooldownReduction);
+        stmt.setFloat(29, immunityframebonus);
+        stmt.setFloat(30, stunresistance);
+        stmt.setFloat(31, bleedresistance);
         stmt.execute();
     }
 
     @Override
-    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_account WHERE owner = ?;");
+    public Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM profiles_account WHERE owner = ?;");
         stmt.setString(1, p.getUniqueId().toString());
         ResultSet result = stmt.executeQuery();
         if (result.next()){
             AccountProfile profile = new AccountProfile(p);
+            profile.setOwner(p.getUniqueId());
             profile.setLevel(result.getInt("level"));
             profile.setExp(result.getDouble("exp"));
             profile.setLifetimeEXP(result.getDouble("exp_total"));
             profile.setSpendableSkillPoints(result.getInt("skill_points"));
             profile.setAllSkillEXPGain(result.getDouble("exp_gain_multiplier"));
             profile.setUnlockedPerks(new HashSet<>(Arrays.asList(result.getString("unlocked_perks").split("<>"))));
-            profile.setUnlockedPerks(new HashSet<>(Arrays.asList(result.getString("unlocked_recipes").split("<>"))));
+            profile.setUnlockedRecipes(new HashSet<>(Arrays.asList(result.getString("unlocked_recipes").split("<>"))));
             profile.setHealthBonus(result.getFloat("healthbonus"));
             profile.setMovementSpeedBonus(result.getFloat("movementspeedbonus"));
             profile.setKnockbackResistanceBonus(result.getFloat("knockbackresistancebonus"));
             profile.setArmorBonus(result.getFloat("armorbonus"));
+            profile.setArmorMultiplierBonus(result.getFloat("armormultiplierbonus"));
             profile.setToughnessBonus(result.getFloat("toughnessbonus"));
             profile.setAttackDamageBonus(result.getFloat("attackdamagebonus"));
             profile.setAttackSpeedBonus(result.getFloat("attackspeedbonus"));
@@ -152,6 +168,9 @@ public class AccountProfile extends Profile implements Serializable{
             profile.setPoisonResistance(result.getFloat("poisonresistance"));
             profile.setFallDamageResistance(result.getFloat("falldamageresistance"));
             profile.setCooldownReduction(result.getFloat("cooldownreduction"));
+            profile.setImmunityFrameBonus(result.getInt("immunityframebonus"));
+            profile.setStunResistance(result.getFloat("stunresistance"));
+            profile.setBleedResistance(result.getFloat("bleedresistance"));
             return profile;
         }
         return null;
@@ -161,6 +180,22 @@ public class AccountProfile extends Profile implements Serializable{
         super(owner);
         if (owner == null) return;
         key = accountProfileKey;
+    }
+
+    public float getArmorMultiplierBonus() {
+        return armorMultiplierBonus;
+    }
+
+    public void setArmorMultiplierBonus(float armorMultiplierBonus) {
+        this.armorMultiplierBonus = armorMultiplierBonus;
+    }
+
+    public void setBleedResistance(float bleedresistance) {
+        this.bleedresistance = bleedresistance;
+    }
+
+    public float getBleedResistance() {
+        return bleedresistance;
     }
 
     @Override
@@ -174,6 +209,22 @@ public class AccountProfile extends Profile implements Serializable{
                 }
             }
         }
+    }
+
+    public float getStunResistance() {
+        return stunresistance;
+    }
+
+    public void setStunResistance(float stunimmunity) {
+        this.stunresistance = stunimmunity;
+    }
+
+    public int getImmunityFrameBonus() {
+        return immunityframebonus;
+    }
+
+    public void setImmunityFrameBonus(int immunityframebonus) {
+        this.immunityframebonus = immunityframebonus;
     }
 
     public float getHealthRegenerationBonus() {

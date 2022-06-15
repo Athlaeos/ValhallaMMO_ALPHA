@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.dom.Offset;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
+import me.athlaeos.valhallammo.events.EntityCustomPotionEffectEvent;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.PotionType;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
@@ -72,6 +73,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     public FarmingSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 6;
         ChancedBlockLootTable farming = LootManager.getInstance().getChancedBlockLootTables().get("farming_farming");
         if (farming != null){
             if (farming instanceof ChancedFarmingCropsLootTable){
@@ -199,6 +201,10 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         super.addEXP(p, finalAmount, silent, reason);
     }
 
+    private final Collection<Material> ageableExceptions = ItemUtils.getMaterialList(Arrays.asList(
+            "SUGAR_CANE", "BAMBOO", "CACTUS", "CHORUS_FLOWER", "KELP", "TWISTING_VINES", "WEEPING_VINES", "VINES"
+    ));
+
     @Override
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
@@ -209,7 +215,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             if (vines.isBerries()){
                 reward = true;
             }
-        } else if (b.getBlockData() instanceof Ageable) {
+        } else if (b.getBlockData() instanceof Ageable && !ageableExceptions.contains(b.getType())) {
             Ageable data = (Ageable) b.getBlockData();
             if (data.getAge() >= data.getMaximumAge()) {
                 // reward player farming exp if crop has finished growing
@@ -487,32 +493,17 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         if (event.getEntity().getKiller() != null){
             Player killer = event.getEntity().getKiller();
             if (entityBreedEXPReward.containsKey(event.getEntityType())){
-                List<ItemStack> newItems = new ArrayList<>();
-                double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_ANIMAL_DROP_MULTIPLIER", killer, true);
+                List<ItemStack> newItems = new ArrayList<>(event.getDrops());
+                //double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_ANIMAL_DROP_MULTIPLIER", killer, true);
 
-                ItemUtils.multiplyItemStacks(event.getDrops(), newItems, dropMultiplier, forgivingMultipliers);
-//                for (ItemStack i : event.getDrops()){
-//                    int newAmount = Utils.excessChance(i.getAmount() * dropMultiplier);
-//                    if (newAmount > i.getMaxStackSize()){
-//                        int limit = 4;
-//                        while(newAmount > i.getMaxStackSize()){
-//                            if (limit <= 0) break;
-//                            ItemStack drop = i.clone();
-//                            drop.setAmount(i.getMaxStackSize());
-//                            newItems.add(drop);
-//                            newAmount -= i.getMaxStackSize();
-//                            limit--;
-//                        }
-//                    }
-//                    i.setAmount(newAmount);
-//                    newItems.add(i);
-//                }
+                //ItemUtils.multiplyItemStacks(event.getDrops(), newItems, dropMultiplier, forgivingMultipliers);
+
                 if (!event.getDrops().isEmpty()){
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_ANIMAL_RARE_DROP_CHANCE_MULTIPLIER", killer, true);
                     animalLootTable.onEntityKilled(event.getEntity(), newItems, rareDropMultiplier);
+                    event.getDrops().clear();
+                    event.getDrops().addAll(newItems);
                 }
-                event.getDrops().clear();
-                event.getDrops().addAll(newItems);
             }
         }
     }
@@ -575,6 +566,29 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                 if (event.getCause() == EntityPotionEffectEvent.Cause.FOOD){
                     if (event.getNewEffect() != null){
                         if (PotionType.getClass(event.getNewEffect().getType()) == PotionType.DEBUFF){
+                            Player target = (Player) event.getEntity();
+                            Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
+                            if (p != null){
+                                if (p instanceof FarmingProfile){
+                                    if (((FarmingProfile) p).isBadFoodImmune()){
+                                        event.setCancelled(true);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onCustomPotionEffect(EntityCustomPotionEffectEvent event) {
+        if (event.getEntity() instanceof Player){
+            if (!event.isCancelled()){
+                if (event.getCause() == EntityPotionEffectEvent.Cause.FOOD){
+                    if (event.getNewEffect() != null){
+                        if (event.getNewEffect().getType() == PotionType.DEBUFF){
                             Player target = (Player) event.getEntity();
                             Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
                             if (p != null){

@@ -21,6 +21,7 @@ experience: # Everything about leveling and experience progression for Landscapi
     JUNGLE_LOG: 5
     ACACIA_LOG: 5
     DARK_OAK_LOG: 5
+    MANGROVE_LOG: 5
     WARPED_STEM: 7
     CRIMSON_STEM: 7
     OAK_WOOD: 7
@@ -29,6 +30,7 @@ experience: # Everything about leveling and experience progression for Landscapi
     JUNGLE_WOOD: 7
     ACACIA_WOOD: 7
     DARK_OAK_WOOD: 7
+    MANGROVE_WOOD: 7
     WARPED_HYPHAE: 10
     CRIMSON_HYPHAE: 10
   woodcutting_break:
@@ -38,6 +40,7 @@ experience: # Everything about leveling and experience progression for Landscapi
     JUNGLE_LOG: 10
     ACACIA_LOG: 10
     DARK_OAK_LOG: 10
+    MANGROVE_LOG: 10
     WARPED_STEM: 14
     CRIMSON_STEM: 14
     OAK_WOOD: 14
@@ -46,24 +49,27 @@ experience: # Everything about leveling and experience progression for Landscapi
     JUNGLE_WOOD: 14
     ACACIA_WOOD: 14
     DARK_OAK_WOOD: 14
+    MANGROVE_ROOTS: 14
+    MANGROVE_WOOD: 14
     WARPED_HYPHAE: 20
     CRIMSON_HYPHAE: 20
   digging_break:
-    SNOW: 1
-    FARMLAND: 1
-    DIRT: 1
-    SAND: 1
-    RED_SAND: 1
-    COARSE_DIRT: 2
-    SNOW_BLOCK: 2
-    SOUL_SAND: 2
-    SOUL_SOIL: 2
-    GRASS_BLOCK: 2
-    DIRT_PATH: 2
-    MYCELIUM: 2
-    GRAVEL: 2
-    PODZOL: 2
-    CLAY: 3
+    SNOW: 2
+    FARMLAND: 2
+    DIRT: 2
+    SAND: 2
+    RED_SAND: 2
+    COARSE_DIRT: 4
+    SNOW_BLOCK: 4
+    SOUL_SAND: 4
+    SOUL_SOIL: 4
+    GRASS_BLOCK: 4
+    DIRT_PATH: 4
+    MYCELIUM: 4
+    GRAVEL: 4
+    PODZOL: 4
+    CLAY: 6
+    MUD: 6
 
 special_perks: # Perks, commands, and messages executed when a player reaches a specific level
   # If you don't know how to format this, refer to other progression configs (such as smithing) for reference

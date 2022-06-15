@@ -4,13 +4,12 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
-import me.athlaeos.valhallammo.items.ItemTreatment;
 import me.athlaeos.valhallammo.dom.Scaling;
 import me.athlaeos.valhallammo.dom.ScalingMode;
-import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
+import me.athlaeos.valhallammo.items.ItemTreatment;
 import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
 import me.athlaeos.valhallammo.utility.Utils;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,6 +26,7 @@ public class SmithingItemTreatmentManager {
     private final NamespacedKey key_treatment = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_treatments");
     private final NamespacedKey key_quality = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_item_quality");
     private final NamespacedKey key_tool_id = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_tool_id");
+    private final NamespacedKey weapon_id = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_weapon_id");
 
     private BiMap<ItemTreatment, String> treatmentTranslations;
     private Map<Integer, String> cosmeticQualityModifiers;
@@ -203,14 +203,14 @@ public class SmithingItemTreatmentManager {
         registerScaling("GENERIC_MOVEMENT_SPEED", MaterialClass.MEMBRANE, getScalingFromPath(config,"scaling_movement_speed.membrane"));
         registerScaling("GENERIC_MOVEMENT_SPEED", MaterialClass.OTHER, getScalingFromPath(config,"scaling_movement_speed.other"));
 
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.WOOD, getScalingFromPath(config,"scaling_knockback.wood"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.STONE, getScalingFromPath(config,"scaling_knockback.stone"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.GOLD, getScalingFromPath(config,"scaling_knockback.gold"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.IRON, getScalingFromPath(config,"scaling_knockback.iron"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.DIAMOND, getScalingFromPath(config,"scaling_knockback.diamond"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.NETHERITE, getScalingFromPath(config,"scaling_knockback.netherite"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.PRISMARINE, getScalingFromPath(config,"scaling_knockback.prismarine"));
-        registerScaling("GENERIC_ATTACK_KNOCKBACK", MaterialClass.OTHER, getScalingFromPath(config,"scaling_knockback.other"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.WOOD, getScalingFromPath(config,"scaling_knockback.wood"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.STONE, getScalingFromPath(config,"scaling_knockback.stone"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.GOLD, getScalingFromPath(config,"scaling_knockback.gold"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.IRON, getScalingFromPath(config,"scaling_knockback.iron"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.DIAMOND, getScalingFromPath(config,"scaling_knockback.diamond"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.NETHERITE, getScalingFromPath(config,"scaling_knockback.netherite"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.PRISMARINE, getScalingFromPath(config,"scaling_knockback.prismarine"));
+        registerScaling("CUSTOM_KNOCKBACK", MaterialClass.OTHER, getScalingFromPath(config,"scaling_knockback.other"));
 
         registerScaling("CUSTOM_DAMAGE_RESISTANCE", MaterialClass.WOOD, getScalingFromPath(config,"scaling_damage_resistance.wood"));
         registerScaling("CUSTOM_DAMAGE_RESISTANCE", MaterialClass.LEATHER, getScalingFromPath(config,"scaling_damage_resistance.leather"));
@@ -330,7 +330,7 @@ public class SmithingItemTreatmentManager {
         getInstance();
     }
 
-    public Scaling getScaling(Material m, String type){
+    public Scaling getScaling(ItemStack m, String type){
         MaterialClass materialClass = MaterialClass.getMatchingClass(m);
         if (materialScalings.containsKey(type)){
             if (materialClass != null){
@@ -533,6 +533,21 @@ public class SmithingItemTreatmentManager {
     }
 
     /**
+     * @param i the ItemStack to get its weapon id from
+     * @return the weapon id the given ItemStack has, or -1 if the item or its meta is null, or if the
+     * item doesn't have the appropriate NamespacedKey
+     */
+    public int getWeaponId(ItemStack i){
+        if (Utils.isItemEmptyOrNull(i)) return -1;
+        if (i.getItemMeta() == null) return -1;
+        ItemMeta meta = i.getItemMeta();
+        if (meta.getPersistentDataContainer().has(weapon_id, PersistentDataType.INTEGER)){
+            return meta.getPersistentDataContainer().get(weapon_id, PersistentDataType.INTEGER);
+        }
+        return -1;
+    }
+
+    /**
      * Returns true if the item has any of the following keys in its PersistentDataContainer: key_quality, key_treatment,
      * key_durability, key_max_durability
      * @param i the ItemStack to check if it's custom
@@ -568,15 +583,15 @@ public class SmithingItemTreatmentManager {
     public void setItemsTreatments(ItemStack i, Collection<ItemTreatment> treatments){
         if (i == null) return;
         if (i.getItemMeta() == null) return;
+        ItemMeta meta = i.getItemMeta();
         if (treatments == null) {
-            i.getItemMeta().getPersistentDataContainer().remove(key_treatment);
+            meta.getPersistentDataContainer().remove(key_treatment);
         } else {
-            ItemMeta meta = i.getItemMeta();
             String treatmentString = treatments.stream().map(ItemTreatment::toString).collect(Collectors.joining(";"));
             meta.getPersistentDataContainer().set(key_treatment, PersistentDataType.STRING,
                     treatmentString);
-            i.setItemMeta(meta);
         }
+        i.setItemMeta(meta);
         setTreatmentLore(i);
     }
 
@@ -596,14 +611,27 @@ public class SmithingItemTreatmentManager {
 
     /**
      * Sets an item's tool id
-     * @param i the ItemStack to change its quality
-     * @param quality the amount of quality points to assign to the ItemStack
+     * @param i the ItemStack to change its tool id
+     * @param id the tool id to assign to the ItemStack
      */
-    public void setItemsToolId(ItemStack i, int quality){
+    public void setItemsToolId(ItemStack i, int id){
         if (i == null) return;
         if (i.getItemMeta() == null) return;
         ItemMeta meta = i.getItemMeta();
-        meta.getPersistentDataContainer().set(key_tool_id, PersistentDataType.INTEGER, quality);
+        meta.getPersistentDataContainer().set(key_tool_id, PersistentDataType.INTEGER, id);
+        i.setItemMeta(meta);
+    }
+
+    /**
+     * Sets an item's weapon id
+     * @param i the ItemStack to change its weapon id
+     * @param id the weapon id to assign to the ItemStack
+     */
+    public void setWeaponId(ItemStack i, int id){
+        if (i == null) return;
+        if (i.getItemMeta() == null) return;
+        ItemMeta meta = i.getItemMeta();
+        meta.getPersistentDataContainer().set(weapon_id, PersistentDataType.INTEGER, id);
         i.setItemMeta(meta);
     }
 
@@ -616,7 +644,7 @@ public class SmithingItemTreatmentManager {
         if (i == null) {
             return;
         }
-        Scaling scaling = getScaling(i.getType(), attribute);
+        Scaling scaling = getScaling(i, attribute);
         if (scaling == null) {
             return;
         }

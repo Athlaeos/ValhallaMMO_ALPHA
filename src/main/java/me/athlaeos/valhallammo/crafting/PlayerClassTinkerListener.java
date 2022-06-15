@@ -33,7 +33,7 @@ public class PlayerClassTinkerListener implements Listener {
         errorTinkeringFailed = TranslationManager.getInstance().getTranslation("error_crafting_tinker_fail");
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onPlayerCustomCraft(PlayerItemClassTinkerEvent e){
         if (!e.isCancelled()){
             ItemStack playerHand = e.getPlayer().getInventory().getItemInMainHand().clone();

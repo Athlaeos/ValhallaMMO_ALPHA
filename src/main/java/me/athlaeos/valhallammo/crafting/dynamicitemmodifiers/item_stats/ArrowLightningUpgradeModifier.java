@@ -17,7 +17,7 @@ public class ArrowLightningUpgradeModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 1;
         this.bigStepIncrease = 1;

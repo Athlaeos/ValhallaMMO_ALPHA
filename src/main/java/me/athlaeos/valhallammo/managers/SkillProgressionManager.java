@@ -11,8 +11,10 @@ import me.athlaeos.valhallammo.skills.archery.ArcherySkill;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingSkill;
 import me.athlaeos.valhallammo.skills.farming.FarmingSkill;
 import me.athlaeos.valhallammo.skills.heavyarmor.HeavyArmorSkill;
+import me.athlaeos.valhallammo.skills.heavyweapons.HeavyWeaponsSkill;
 import me.athlaeos.valhallammo.skills.landscaping.LandscapingSkill;
 import me.athlaeos.valhallammo.skills.lightarmor.LightArmorSkill;
+import me.athlaeos.valhallammo.skills.lightweapons.LightWeaponsSkill;
 import me.athlaeos.valhallammo.skills.mining.MiningSkill;
 import me.athlaeos.valhallammo.skills.smithing.SmithingSkill;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -41,6 +43,8 @@ public class SkillProgressionManager {
         if (config.getBoolean("enabled_skills.archery")) registerSkill(new ArcherySkill("ARCHERY"));
         if (config.getBoolean("enabled_skills.armor_light")) registerSkill(new LightArmorSkill("LIGHT_ARMOR"));
         if (config.getBoolean("enabled_skills.armor_heavy")) registerSkill(new HeavyArmorSkill("HEAVY_ARMOR"));
+        if (config.getBoolean("enabled_skills.weapons_light")) registerSkill(new LightWeaponsSkill("LIGHT_WEAPONS"));
+        if (config.getBoolean("enabled_skills.weapons_heavy")) registerSkill(new HeavyWeaponsSkill("HEAVY_WEAPONS"));
 
 
     }

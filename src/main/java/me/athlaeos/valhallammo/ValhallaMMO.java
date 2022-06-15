@@ -11,6 +11,7 @@ import me.athlaeos.valhallammo.dom.ArtificialGlow;
 import me.athlaeos.valhallammo.listeners.*;
 import me.athlaeos.valhallammo.loottables.LootManager;
 import me.athlaeos.valhallammo.managers.*;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 
 public final class ValhallaMMO extends JavaPlugin {
     private static ValhallaMMO plugin;
+    private static boolean metrics_enabled;
+    private static Metrics metrics = null;
+
     private InteractListener interactListener;
     private JoinLeaveListener joinListener;
     private ItemDamageListener itemDamageListener;
@@ -61,6 +65,7 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("recipes/class_improvement_recipes.yml");
         saveConfig("recipes/crafting_recipes.yml");
         saveConfig("recipes/shaped_recipes.yml");
+        saveConfig("recipes/cooking_recipes.yml");
         saveConfig("sounds.yml");
         saveConfig("tutorial_book.yml");
         saveAndUpdateConfig("skill_smithing.yml");
@@ -73,6 +78,8 @@ public final class ValhallaMMO extends JavaPlugin {
         saveAndUpdateConfig("skill_landscaping.yml");
         saveAndUpdateConfig("skill_light_armor.yml");
         saveAndUpdateConfig("skill_heavy_armor.yml");
+        saveAndUpdateConfig("skill_light_weapons.yml");
+        saveAndUpdateConfig("skill_heavy_weapons.yml");
         saveConfig("progression_archery.yml");
         saveConfig("progression_smithing.yml");
         saveConfig("progression_alchemy.yml");
@@ -83,6 +90,8 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("progression_landscaping.yml");
         saveConfig("progression_light_armor.yml");
         saveConfig("progression_heavy_armor.yml");
+        saveConfig("progression_light_weapons.yml");
+        saveConfig("progression_heavy_weapons.yml");
         saveConfig("villagers.yml");
         saveConfig("alchemy_transmutations.yml");
         saveConfig("block_interact_conversions.yml");
@@ -92,9 +101,13 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("loot_tables/farming_fishing.yml");
         saveConfig("loot_tables/landscaping_digging.yml");
 
-        if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("metrics", true)){
-            new Metrics(this, 14942);
+        DatabaseConnection connection = DatabaseConnection.getDatabaseConnection();
+        metrics_enabled = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("metrics", true);
+        if (metrics_enabled){
+            metrics = new Metrics(this, 14942);
+            metrics.addCustomChart(new Metrics.SimplePie("using_database_for_player_data", () -> connection.getConnection() == null ? "No" : "Yes"));
         }
+
         is_spigot = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("is_spigot");
         if (is_spigot) getServer().getLogger().fine("ValhallaMMO is registered to be using Spigot, some mechanics may work differently");
 
@@ -134,6 +147,7 @@ public final class ValhallaMMO extends JavaPlugin {
         breedListener = (EntityBreedListener) registerListener(new EntityBreedListener(), "breeding");
         entityTargetingListener = (EntityTargetingListener) registerListener(new EntityTargetingListener(), "targeting");
         healingListener = (HealingListener) registerListener(new HealingListener(), "healing");
+        this.getServer().getPluginManager().registerEvents(new FurnaceListener(), this);
 
         if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("parties")){
             chatListener = (ChatListener) registerListener(new ChatListener(), "player_chat");
@@ -147,6 +161,14 @@ public final class ValhallaMMO extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
 
         SkillProgressionManager.getInstance().registerPerks();
+    }
+
+    public ChatListener getChatListener() {
+        return chatListener;
+    }
+
+    public static boolean isMetricsEnabled() {
+        return metrics_enabled;
     }
 
     private void saveAndUpdateConfig(String config){

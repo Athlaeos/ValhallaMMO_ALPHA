@@ -25,6 +25,10 @@ public class ProfileVersionManager {
         return manager;
     }
 
+    public boolean hasProfileVersion(Player p){
+        return p.getPersistentDataContainer().has(profileVersionKey, PersistentDataType.INTEGER);
+    }
+
     public int getProfileVersion(Player p){
         if (!p.getPersistentDataContainer().has(profileVersionKey, PersistentDataType.INTEGER)){
             setProfileVersion(p, currentVersion);

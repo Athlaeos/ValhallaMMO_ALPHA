@@ -20,7 +20,7 @@ public class RemoveAllEnchantmentsModifier extends DynamicItemModifier {
         super(name, 0, ModifierPriority.NEUTRAL);
 
         this.name = name;
-        this.category = ModifierCategory.ENCHANTING_STATS;
+        this.category = ModifierCategory.ENCHANTING_MISC;
 
         this.bigStepDecrease = 0;
         this.bigStepIncrease = 0;

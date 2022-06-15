@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
 public class EntityTargetingListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onEntityTargetEntity(EntityTargetLivingEntityEvent e){
         if (!e.isCancelled()){
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -24,7 +24,7 @@ public class EntityTargetingListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onEntityTarget(EntityTargetEvent e){
         if (!e.isCancelled()){
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){

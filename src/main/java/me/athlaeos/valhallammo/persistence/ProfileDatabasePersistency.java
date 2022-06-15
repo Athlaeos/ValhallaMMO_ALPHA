@@ -32,9 +32,9 @@ public class ProfileDatabasePersistency extends IProfilePersistency {
     private void createDatabaseStructure(){
         for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
             try {
-                s.getCleanProfile().createProfileTable(conn.getConnection());
+                s.getCleanProfile().createProfileTable(conn);
             } catch (SQLException e){
-                ValhallaMMO.getPlugin().getServer().getLogger().severe("SQLException when trying create a table for skill type " + s.getType() + ". ");
+                ValhallaMMO.getPlugin().getServer().getLogger().severe("SQLException when trying to create a table for skill type " + s.getType() + ". ");
                 e.printStackTrace();
             }
         }
@@ -54,6 +54,7 @@ public class ProfileDatabasePersistency extends IProfilePersistency {
                     if (profile.getKey().equals(s.getKey())){
 
                         Map<String, Profile> profiles = this.profiles.getOrDefault(p.getUniqueId(), new HashMap<>());
+
                         profiles.put(type, profile);
                         this.profiles.put(p.getUniqueId(), profiles);
 
@@ -93,7 +94,7 @@ public class ProfileDatabasePersistency extends IProfilePersistency {
                 Map<String, Profile> profs = profiles.getOrDefault(p.getUniqueId(), new HashMap<>());
                 for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
                     try {
-                        Profile profile = s.getCleanProfile().fetchProfile(p, conn.getConnection());
+                        Profile profile = s.getCleanProfile().fetchProfile(p, conn);
                         // if no profile was found in the database, default to PersistentDataContainer implementation
                         // anyway
                         if (profile == null) profile = altPersistency.getProfile(p, s.getType());
@@ -115,7 +116,7 @@ public class ProfileDatabasePersistency extends IProfilePersistency {
         for (UUID p : profiles.keySet()){
             for (Profile profile : profiles.get(p).values()){
                 try {
-                    profile.insertOrUpdateProfile(conn.getConnection());
+                    profile.insertOrUpdateProfile(conn);
                 } catch (SQLException e){
                     ValhallaMMO.getPlugin().getServer().getLogger().severe("SQLException when trying to save profile for profile type " + profile.getClass().getName() + ". ");
                     e.printStackTrace();

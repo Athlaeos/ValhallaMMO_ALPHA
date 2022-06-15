@@ -14,13 +14,6 @@ public class GlobalEffectManager {
     private final Collection<String> validEffects = new HashSet<>();
 
     public GlobalEffectManager(){
-        addValidEffect("buff_exp_gain_all");
-        addValidEffect("buff_exp_gain_smithing");
-        addValidEffect("buff_exp_gain_enchanting");
-        addValidEffect("buff_exp_gain_alchemy");
-        addValidEffect("buff_exp_gain_farming");
-        addValidEffect("buff_exp_gain_mining");
-        addValidEffect("buff_exp_gain_landscaping");
     }
 
     /**

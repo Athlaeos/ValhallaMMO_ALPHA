@@ -34,10 +34,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InteractListener implements Listener {
@@ -46,24 +43,24 @@ public class InteractListener implements Listener {
     private final Map<UUID, RecipeFrequencyDO> recipeFrequency = new HashMap<>();
     private static InteractListener listener;
 
-    private boolean swap_crafting_table_functionality;
+    private Collection<Material> swap_crafting_table_functionality;
 
     public InteractListener(){
         listener = this;
         errorNoIngredients = TranslationManager.getInstance().getTranslation("error_crafting_no_ingredients");
-        swap_crafting_table_functionality = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("swap_crafting_table_functionality");
+        swap_crafting_table_functionality = new HashSet<>(ItemUtils.getMaterialList(ConfigManager.getInstance().getConfig("config.yml").get().getStringList("swap_crafting_table_functionality")));
     }
 
     public void reload(){
         errorNoIngredients = TranslationManager.getInstance().getTranslation("error_crafting_no_ingredients");
-        swap_crafting_table_functionality = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("swap_crafting_table_functionality");
+        swap_crafting_table_functionality = new HashSet<>(ItemUtils.getMaterialList(ConfigManager.getInstance().getConfig("config.yml").get().getStringList("swap_crafting_table_functionality")));
     }
 
     public static InteractListener getListener() {
         return listener;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent e){
         if (e.useItemInHand() == Event.Result.DENY && e.useInteractedBlock() == Event.Result.DENY) return; // event is cancelled
         for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -80,6 +77,7 @@ public class InteractListener implements Listener {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK){
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
                 if (e.getClickedBlock() != null){
+                    boolean swap_crafting_table_functionality = this.swap_crafting_table_functionality.contains(e.getClickedBlock().getType());
                     boolean open_custom = swap_crafting_table_functionality == !e.getPlayer().isSneaking();
                     if (swap_crafting_table_functionality && PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer()) != null){
                         open_custom = false;
@@ -190,7 +188,7 @@ public class InteractListener implements Listener {
                                                     cooldownManager.setCooldown(e.getPlayer().getUniqueId(), 500, "sound_craft");
                                                 }
                                             }
-                                        } else if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_held_right_click") >= currentRecipe.getCraftingTime()){
+                                        } else if (cooldownManager.getTimerResult(e.getPlayer().getUniqueId(), "time_held_right_click") >= (currentRecipe.getCraftingTime() * (1 - AccumulativeStatManager.getInstance().getStats("CRAFTING_TIME_REDUCTION", e.getPlayer(), true)))){
                                             if (ItemUtils.canCraft(currentRecipe, e.getPlayer(), currentRecipe.requireExactMeta())){
                                                 PlayerCustomCraftEvent craftEvent = new PlayerCustomCraftEvent(e.getPlayer(), (ItemCraftingRecipe) currentRecipe, e.getClickedBlock(), true);
                                                 ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(craftEvent);

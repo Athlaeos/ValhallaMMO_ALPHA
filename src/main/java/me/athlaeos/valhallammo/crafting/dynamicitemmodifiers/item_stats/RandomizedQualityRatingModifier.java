@@ -18,7 +18,7 @@ public class RandomizedQualityRatingModifier extends DuoArgDynamicItemModifier i
         super(name, strength, strength2, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 0.1;
         this.bigStepIncrease = 0.1;

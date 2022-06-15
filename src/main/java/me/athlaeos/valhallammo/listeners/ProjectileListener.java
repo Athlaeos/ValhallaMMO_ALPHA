@@ -26,7 +26,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class ProjectileListener implements Listener {
 
-    @EventHandler(priority= EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.HIGHEST)
     public void onProjectileShoot(ProjectileLaunchEvent e){
         if (!e.isCancelled()){
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -45,7 +45,7 @@ public class ProjectileListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onBowShoot(EntityShootBowEvent e){
         if (!e.isCancelled()){
             if (e.getProjectile() instanceof AbstractArrow){

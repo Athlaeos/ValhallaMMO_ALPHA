@@ -21,7 +21,7 @@ public class AttributeAddArrowSpeedModifier extends DynamicItemModifier implemen
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 0.1;
         this.bigStepIncrease = 0.1;

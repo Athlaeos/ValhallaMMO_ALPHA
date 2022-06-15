@@ -6,10 +6,7 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_conditionals.AddCustomEnchantCounterModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_conditionals.EnchantCounterCancelIfExceededModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats.AddEnchantmentGlowModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats.CustomEnchantAddModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats.RandomlyEnchantItemModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats.VanillaEnchantAddModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats.*;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience.ExpLevelCostModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience.ExpPointsCostModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience.SkillEXPModifier;
@@ -117,6 +114,9 @@ public class DynamicItemModifierManager {
         register(new ArmorHeavyModifier("armor_weight_class_heavy", 0D, ModifierPriority.NEUTRAL));
         register(new ArmorLightModifier("armor_weight_class_light", 0D, ModifierPriority.NEUTRAL));
         register(new ArmorWeightlessModifier("armor_weight_class_weightless", 0D, ModifierPriority.NEUTRAL));
+        register(new WeaponHeavyModifier("weapon_weight_class_heavy", 0D, ModifierPriority.NEUTRAL));
+        register(new WeaponLightModifier("weapon_weight_class_light", 0D, ModifierPriority.NEUTRAL));
+        register(new WeaponWeightlessModifier("weapon_weight_class_weightless", 0D, ModifierPriority.NEUTRAL));
 
         register(new SkillEXPModifier("exp_bonus_smithing", 0D, ModifierPriority.NEUTRAL, "SMITHING"));
         register(new SkillEXPModifier("exp_bonus_alchemy", 0D, ModifierPriority.NEUTRAL, "ALCHEMY"));
@@ -133,7 +133,6 @@ public class DynamicItemModifierManager {
         register(new AttributeAddAttackSpeedModifier("default_attribute_attack_speed_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddMovementSpeedModifier("default_attribute_movement_speed_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddHealthModifier("default_attribute_max_health_add", 0D, ModifierPriority.NEUTRAL));
-        register(new AttributeAddKnockbackModifier("default_attribute_attack_knockback_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddDamageResistanceModifier("default_attribute_damage_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddFireResistanceModifier("default_attribute_fire_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddExplosionResistanceModifier("default_attribute_explosion_resistance_add", 0D, ModifierPriority.NEUTRAL));
@@ -149,6 +148,28 @@ public class DynamicItemModifierManager {
         register(new AttributeAddArrowSpeedModifier("arrow_speed", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddArrowPiercingModifier("arrow_piercing", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddArrowInfinityExploitableModifier("arrow_infinity_compatible", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddModifier("custom_knockback", "CUSTOM_KNOCKBACK", Material.PISTON, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_stun_chance", "CUSTOM_STUN_CHANCE", Material.ANVIL, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_bleed_chance", "CUSTOM_BLEED_CHANCE", Material.BEETROOT, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_bleed_damage", "CUSTOM_BLEED_DAMAGE", Material.BEETROOT_SOUP, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1, 0.1));
+        register(new AttributeAddModifier("custom_bleed_duration", "CUSTOM_BLEED_DURATION", Material.BEETROOT_SOUP, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 10000, 1000));
+        register(new AttributeAddModifier("custom_crit_chance", "CUSTOM_CRIT_CHANCE", Material.IRON_SWORD, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_crit_damage", "CUSTOM_CRIT_DAMAGE", Material.GOLDEN_SWORD, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.25, 0.01));
+        register(new AttributeAddModifier("custom_weapon_reach", "CUSTOM_WEAPON_REACH", Material.ENDER_PEARL, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1, 0.1));
+        register(new AttributeAddModifier("custom_flat_armor_piercing", "CUSTOM_FLAT_ARMOR_PENETRATION", Material.ARROW, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 5, 1));
+        register(new AttributeAddModifier("custom_flat_heavy_armor_piercing", "CUSTOM_FLAT_HEAVY_ARMOR_PENETRATION", Material.IRON_CHESTPLATE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 5, 1));
+        register(new AttributeAddModifier("custom_flat_light_armor_piercing", "CUSTOM_FLAT_LIGHT_ARMOR_PENETRATION", Material.CHAINMAIL_CHESTPLATE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 5, 1));
+        register(new AttributeAddModifier("custom_flat_immunity_frame_bonus", "CUSTOM_FLAT_IMMUNITY_FRAME_BONUS", Material.NETHER_STAR, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 5, 1));
+        register(new AttributeAddModifier("custom_fraction_armor_piercing", "CUSTOM_FRACTION_ARMOR_PENETRATION", Material.SPECTRAL_ARROW, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_fraction_light_armor_piercing", "CUSTOM_FRACTION_LIGHT_ARMOR_PENETRATION", Material.DIAMOND_CHESTPLATE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_fraction_heavy_armor_piercing", "CUSTOM_FRACTION_HEAVY_ARMOR_PENETRATION", Material.NETHERITE_CHESTPLATE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_heavy_armor_damage", "CUSTOM_HEAVY_ARMOR_DAMAGE", Material.NETHERITE_CHESTPLATE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_light_armor_damage", "CUSTOM_LIGHT_ARMOR_DAMAGE", Material.LEATHER_CHESTPLATE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_fraction_immunity_frame_bonus", "CUSTOM_FRACTION_IMMUNITY_FRAME_BONUS", Material.DRAGON_EGG, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_immunity_frame_reduction", "CUSTOM_IMMUNITY_FRAME_REDUCTION", Material.TOTEM_OF_UNDYING, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_melee_damage", "CUSTOM_MELEE_DAMAGE", Material.STONE_AXE, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+        register(new AttributeAddModifier("custom_velocity_damage_bonus", "CUSTOM_VELOCITY_DAMAGE_BONUS", Material.TRIDENT, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0.1, 0.01));
+
 
         register(new ArrowExplosiveUpgradeModifier("arrow_explosive_upgrade", 0D, 0D, 0D, ModifierPriority.NEUTRAL));
         register(new ArrowIncendiaryUpgradeModifier("arrow_incendiary_upgrade", 0D, 0D, 0D, ModifierPriority.NEUTRAL));
@@ -175,11 +196,14 @@ public class DynamicItemModifierManager {
         register(new AttributeRemovePoisonResistanceModifier("default_attribute_poison_resistance_remove", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeRemoveProjectileResistanceModifier("default_attribute_projectile_resistance_remove", 0D, ModifierPriority.NEUTRAL));
 
+
         register(new SetAmountModifier("set_amount", 0D, ModifierPriority.NEUTRAL));
         register(new RandomizedAmountModifier("random_amount", 0D, 0D, ModifierPriority.NEUTRAL));
         register(new DynamicAmountModifier("dynamic_amount", 0D, ModifierPriority.NEUTRAL));
 
         register(new SetToolIdModifier("tool_id", 0D, ModifierPriority.NEUTRAL));
+        register(new WeaponIdAddModifier("weapon_id", 0D, ModifierPriority.NEUTRAL));
+        register(new WeaponIdRequirementModifier("require_weapon_id", 0D, ModifierPriority.NEUTRAL));
 
         register(new StaticRepairModifier("repair_static", 0D, ModifierPriority.NEUTRAL));
         register(new DynamicRepairModifier("repair_dynamic", 0D, ModifierPriority.NEUTRAL));
@@ -245,6 +269,7 @@ public class DynamicItemModifierManager {
         register(new PotionTransmutationAssignmentModifier("potion_transmutations_assign", 0D, ModifierPriority.NEUTRAL));
 
         register(new AddEnchantmentGlowModifier("enchantment_glimmer_add", 0D, ModifierPriority.NEUTRAL));
+        register(new RemoveAllEnchantmentsModifier("enchantment_remove_all"));
 
         register(new PotionEffectAddCustomModifier("potions_effect_add_masterpiece_smithing", 0D, 0D, ModifierPriority.NEUTRAL, "MASTERPIECE_SMITHING", Material.DAMAGED_ANVIL));
         register(new PotionEffectAddCustomModifier("potions_effect_add_fortify_enchanting", 0D, 0D, ModifierPriority.NEUTRAL, "FORTIFY_ENCHANTING", Material.EXPERIENCE_BOTTLE));
@@ -260,15 +285,43 @@ public class DynamicItemModifierManager {
         register(new PotionEffectAddCustomModifier("potions_effect_add_alchemy_ingredient_save", 0D, 0D, ModifierPriority.NEUTRAL, "ALCHEMY_INGREDIENT_SAVE", Material.GLASS_BOTTLE));
         register(new PotionEffectAddCustomModifier("potions_effect_add_alchemy_potion_save", 0D, 0D, ModifierPriority.NEUTRAL, "ALCHEMY_POTION_SAVE", Material.SPLASH_POTION));
         register(new PotionEffectAddCustomModifier("potions_effect_add_alchemy_potion_velocity", 0D, 0D, ModifierPriority.NEUTRAL, "ALCHEMY_POTION_VELOCITY", Material.SPLASH_POTION));
-//        register(new PotionEffectAddCustomModifier("potions_effect_add_archery_accuracy", 0D, 0D, ModifierPriority.NEUTRAL, "ARCHERY_ACCURACY", Material.TARGET));
-//        register(new PotionEffectAddCustomModifier("potions_effect_add_archery_damage", 0D, 0D, ModifierPriority.NEUTRAL, "ARCHERY_DAMAGE", Material.BOW));
-//        register(new PotionEffectAddCustomModifier("potions_effect_add_archery_ammo_save", 0D, 0D, ModifierPriority.NEUTRAL, "ARCHERY_AMMO_SAVE", Material.ARROW));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_archery_accuracy", 0D, 0D, ModifierPriority.NEUTRAL, "ARCHERY_ACCURACY", Material.TARGET));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_archery_damage", 0D, 0D, ModifierPriority.NEUTRAL, "ARCHERY_DAMAGE", Material.BOW));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_archery_ammo_save", 0D, 0D, ModifierPriority.NEUTRAL, "ARCHERY_AMMO_SAVE", Material.ARROW));
 //        register(new PotionEffectAddCustomModifier("potions_effect_add_unarmed_damage", 0D, 0D, ModifierPriority.NEUTRAL, "UNARMED_DAMAGE", Material.BARRIER));
 //        register(new PotionEffectAddCustomModifier("potions_effect_add_weapons_damage", 0D, 0D, ModifierPriority.NEUTRAL, "WEAPONS_DAMAGE", Material.IRON_SWORD));
         register(new PotionEffectAddCustomModifier("potions_effect_add_increase_exp", 0D, 0D, ModifierPriority.NEUTRAL, "INCREASE_EXP", Material.EXPERIENCE_BOTTLE));
-//        register(new PotionEffectAddCustomModifier("potions_effect_add_poison_anti_heal", 0D, 0D, ModifierPriority.NEUTRAL, "POISON_ANTI_HEAL", Material.WITHER_SKELETON_SKULL));
-//        register(new PotionEffectAddCustomModifier("potions_effect_add_poison_vulnerable", 0D, 0D, ModifierPriority.NEUTRAL, "POISON_VULNERABLE", Material.GOLDEN_CHESTPLATE));
         register(new PotionEffectAddCustomModifier("potions_effect_add_milk", 0D, 0D, ModifierPriority.NEUTRAL, "MILK", Material.MILK_BUCKET));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_armor_flat_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "ARMOR_FLAT_BONUS", Material.CHAINMAIL_CHESTPLATE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_light_armor_flat_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "LIGHT_ARMOR_FLAT_BONUS", Material.LEATHER_CHESTPLATE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_heavy_armor_flat_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "HEAVY_ARMOR_FLAT_BONUS", Material.GOLDEN_CHESTPLATE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_armor_fraction_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "ARMOR_FRACTION_BONUS", Material.IRON_CHESTPLATE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_light_armor_fraction_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "LIGHT_ARMOR_FRACTION_BONUS", Material.DIAMOND_CHESTPLATE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_heavy_armor_fraction_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "HEAVY_ARMOR_FRACTION_BONUS", Material.NETHERITE_CHESTPLATE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_damage_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "DAMAGE_RESISTANCE", Material.ENCHANTED_GOLDEN_APPLE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_explosion_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "EXPLOSION_RESISTANCE", Material.TNT));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_fire_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "FIRE_RESISTANCE", Material.MAGMA_CREAM));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_magic_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "MAGIC_RESISTANCE", Material.DRAGON_EGG));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_poison_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "POISON_RESISTANCE", Material.SPIDER_EYE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_projectile_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "PROJECTILE_RESISTANCE", Material.SHIELD));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_melee_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "MELEE_RESISTANCE", Material.IRON_SWORD));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_falling_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "FALLING_RESISTANCE", Material.FEATHER));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_knockback_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "KNOCKBACK_RESISTANCE", Material.NETHERITE_LEGGINGS));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_bleed_resistance", 0D, 0D, ModifierPriority.NEUTRAL, "BLEED_RESISTANCE", Material.BEETROOT_SOUP));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_crafting_time_reduction", 0D, 0D, ModifierPriority.NEUTRAL, "CRAFTING_TIME_REDUCTION", Material.CRAFTING_TABLE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_hunger_save_chance", 0D, 0D, ModifierPriority.NEUTRAL, "HUNGER_SAVE_CHANCE", Material.BREAD));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_dodge_chance", 0D, 0D, ModifierPriority.NEUTRAL, "DODGE_CHANCE", Material.LEATHER_BOOTS));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_knockback_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "KNOCKBACK_BONUS", Material.STONE_AXE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_cooldown_reduction", 0D, 0D, ModifierPriority.NEUTRAL, "COOLDOWN_REDUCTION", Material.CLOCK));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_immunity_frame_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "IMMUNITY_FRAME_BONUS", Material.NETHER_STAR));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_immunity_frame_multiplier", 0D, 0D, ModifierPriority.NEUTRAL, "IMMUNITY_FRAME_MULTIPLIER", Material.NETHER_STAR));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_healing_bonus", 0D, 0D, ModifierPriority.NEUTRAL, "HEALING_BONUS", Material.GLISTERING_MELON_SLICE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_reflect_chance", 0D, 0D, ModifierPriority.NEUTRAL, "REFLECT_CHANCE", Material.CACTUS));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_reflect_fraction", 0D, 0D, ModifierPriority.NEUTRAL, "REFLECT_FRACTION", Material.CACTUS));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_poison_anti_heal", 0D, 0D, ModifierPriority.NEUTRAL, "POISON_ANTI_HEAL", Material.WITHER_SKELETON_SKULL));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_poison_vulnerable", 0D, 0D, ModifierPriority.NEUTRAL, "POISON_VULNERABLE", Material.SKELETON_SKULL));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_fraction_armor_reduction", 0D, 0D, ModifierPriority.NEUTRAL, "FRACTION_ARMOR_REDUCTION", Material.NETHERITE_AXE));
+        register(new PotionEffectAddCustomModifier("potions_effect_add_flat_armor_reduction", 0D, 0D, ModifierPriority.NEUTRAL, "FLAT_ARMOR_REDUCTION", Material.DIAMOND_AXE));
         register(new MilkToChocolateMilkModifier("potions_chocolate_milk"));
 
         register(new PotionLingeringModifier("potions_conversion_lingering", 0D, ModifierPriority.NEUTRAL));
@@ -347,6 +400,8 @@ public class DynamicItemModifierManager {
         register(new PotionCancelIfPotionTypeModifier("potions_type_cancel_if_water", 0D, ModifierPriority.NEUTRAL, org.bukkit.potion.PotionType.WATER, Material.WATER_BUCKET));
         register(new PotionCancelIfPotionTypeModifier("potions_type_cancel_if_uncraftable", 0D, ModifierPriority.NEUTRAL, org.bukkit.potion.PotionType.UNCRAFTABLE, Material.BARRIER));
 
+        register(new PotionUpdateNameModifier("potions_update_name", 0D , ModifierPriority.NEUTRAL));
+
         // ENCHANTING
 //        register(new CustomEnchantAddModifier("enchantment_add_fortify_acrobatics", Material.BLAZE_ROD, "ALCHEMY_BREW_SPEED", 0.1, 0.01, -1000, 1000));
 //        register(new CustomEnchantAddModifier("enchantment_add_fortify_acrobatics", Material.FEATHER, "ACROBATICS", 0.1, 0.01, -1000, 1000));
@@ -355,8 +410,8 @@ public class DynamicItemModifierManager {
         register(new CustomEnchantAddModifier("enchantment_add_alchemy_potion_save", Material.SPLASH_POTION, "ALCHEMY_POTION_SAVE", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_alchemy_quality", Material.BREWING_STAND, "ALCHEMY_QUALITY", 10, 1, -100000, 100000));
         register(new CustomEnchantAddModifier("enchantment_add_alchemy_throw_velocity", Material.EGG, "ALCHEMY_THROW_VELOCITY", 0.1, 0.01, -1000, 1000));
-//        register(new CustomEnchantAddModifier("enchantment_add_archery_accuracy", Material.TARGET, "ARCHERY_ACCURACY", 0.1, 0.01, -1000, 1000));
-//        register(new CustomEnchantAddModifier("enchantment_add_archery_ammo_save", Material.ARROW, "ARCHERY_AMMO_SAVE", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_archery_accuracy", Material.TARGET, "ARCHERY_ACCURACY", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_archery_ammo_save", Material.ARROW, "ARCHERY_AMMO_SAVE", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_archery_damage", Material.CROSSBOW, "ARCHERY_DAMAGE", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_damage_dealt", Material.DIAMOND_SWORD, "DAMAGE_DEALT", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_damage_taken", Material.DIAMOND_CHESTPLATE, "DAMAGE_TAKEN", 0.1, 0.01, -1000, 1000));
@@ -365,14 +420,24 @@ public class DynamicItemModifierManager {
         register(new CustomEnchantAddModifier("enchantment_add_farming_extra_drops", Material.DIAMOND_HOE, "FARMING_EXTRA_DROPS", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_farming_rare_drops", Material.GOLDEN_HOE, "FARMING_RARE_DROPS", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_farming_fishing_tier", Material.FISHING_ROD, "FARMING_FISHING_TIER", 0.25, 0.01, -1000, 1000));
-//        register(new CustomEnchantAddModifier("enchantment_add_mining_extra_drops", Material.DIAMOND_PICKAXE, "MINING_EXTRA_DROPS", 0.1, 0.01, -1000, 1000));
-//        register(new CustomEnchantAddModifier("enchantment_add_mining_rare_drops", Material.GOLDEN_PICKAXE, "MINING_RARE_DROPS", 0.1, 0.01, -1000, 1000));
-//        register(new CustomEnchantAddModifier("enchantment_add_woodcutting_extra_drops", Material.DIAMOND_AXE, "WOODCUTTING_EXTRA_DROPS", 0.1, 0.01, -1000, 1000));
-//        register(new CustomEnchantAddModifier("enchantment_add_woodcutting_rare_drops", Material.GOLDEN_AXE, "WOODCUTTING_RARE_DROPS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_mining_extra_drops", Material.DIAMOND_PICKAXE, "MINING_EXTRA_DROPS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_mining_rare_drops", Material.GOLDEN_PICKAXE, "MINING_RARE_DROPS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_woodcutting_extra_drops", Material.DIAMOND_AXE, "WOODCUTTING_EXTRA_DROPS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_woodcutting_rare_drops", Material.GOLDEN_AXE, "WOODCUTTING_RARE_DROPS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_digging_extra_drops", Material.DIAMOND_SHOVEL, "DIGGING_EXTRA_DROPS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_digging_rare_drops", Material.GOLDEN_SHOVEL, "DIGGING_RARE_DROPS", 0.1, 0.01, -1000, 1000));
         register(new CustomEnchantAddModifier("enchantment_add_smithing_quality", Material.ANVIL, "SMITHING_QUALITY", 10, 1, -100000, 100000));
-//        register(new CustomEnchantAddModifier("enchantment_add_fortify_trading", Material.EMERALD, "FORTIFY_TRADING", 0.1, 0.01, -1000, 1000));
 //        register(new CustomEnchantAddModifier("enchantment_add_weapons_damage", Material.DIAMOND_SWORD, "WEAPONS_DAMAGE", 0.1, 0.01, -1000, 1000));
 //        register(new CustomEnchantAddModifier("enchantment_add_unarmed_damage", Material.BLAZE_ROD, "UNARMED_DAMAGE", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_dodge_chance", Material.FEATHER, "DODGE_CHANCE", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_armor_multiplier", Material.NETHERITE_CHESTPLATE, "ARMOR_MULTIPLIER", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_bleed_resistance", Material.BEETROOT_SOUP, "BLEED_RESISTANCE", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_cooldown_reduction", Material.CLOCK, "COOLDOWN_REDUCTION", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_crafting_speed", Material.CRAFTING_TABLE, "CRAFTING_SPEED", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_healing_bonus", Material.GLISTERING_MELON_SLICE, "HEALING_BONUS", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_hunger_save_chance", Material.BREAD, "HUNGER_SAVE_CHANCE", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_explosion_power", Material.TNT, "EXPLOSION_POWER", 0.1, 0.01, -1000, 1000));
+        register(new CustomEnchantAddModifier("enchantment_add_stun_resistance", Material.ANVIL, "STUN_RESISTANCE", 0.1, 0.01, -1000, 1000));
 
         register(new VanillaEnchantAddModifier("enchantments_add_sharpness", Material.IRON_SWORD, Enchantment.DAMAGE_ALL, Short.MAX_VALUE));
         register(new VanillaEnchantAddModifier("enchantments_add_smite", Material.NETHERITE_SWORD, Enchantment.DAMAGE_UNDEAD, Short.MAX_VALUE));

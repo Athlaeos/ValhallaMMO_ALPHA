@@ -18,7 +18,7 @@ public class RandomizedPotionQualityRatingModifier extends DuoArgDynamicItemModi
         super(name, strength, strength2, priority);
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_MISC;
 
         this.bigStepDecrease = 0.1;
         this.bigStepIncrease = 0.1;

@@ -25,7 +25,7 @@ public class PotionDynamicQualityRatingModifier extends DynamicItemModifier impl
 
         this.type = type;
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_MISC;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;

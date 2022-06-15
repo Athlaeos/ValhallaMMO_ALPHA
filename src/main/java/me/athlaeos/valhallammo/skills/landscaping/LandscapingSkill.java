@@ -75,6 +75,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
 
     public LandscapingSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 5;
         ChancedBlockLootTable woodcutting = LootManager.getInstance().getChancedBlockLootTables().get("landscaping_woodcutting");
         if (woodcutting != null){
             if (woodcutting instanceof ChancedWoodcuttingLootTable){
@@ -269,7 +270,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                                                     }
                                                     return false;
                                                 },
-                                                EquipmentClass.AXE,
+                                                null,
                                                 Utils::decayBlock,
                                                 null
                                         )
@@ -553,7 +554,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
 
                 if (!event.getItems().isEmpty()){
-                    double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("WOODCUTTING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
+                    double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     woodcuttingLootTable.onItemDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
                     // if the event's dropped items isn't empty it implies the block dropped something
                     // (stone harvested by hand will not trigger the loot table)
@@ -564,9 +565,6 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 // new drops should always at least contain the initial drops unless their amounts were edited to 0
                 //
                 event.getItems().clear();
-                if (!handleDropsSelf){
-                    event.getItems().addAll(newItems);
-                }
                 if (!handleDropsSelf){ // not spigot
                     event.getItems().addAll(newItems);
                 } else {
@@ -589,11 +587,11 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 ChancedBlockLootTable table;
                 if (woodcuttingBreakEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_DROP_MULTIPLIER", event.getPlayer(), true);
-                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("WOODCUTTING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
+                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     table = woodcuttingLootTable;
                 } else if (diggingBreakEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_DROP_MULTIPLIER", event.getPlayer(), true);
-                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("DIGGING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
+                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     table = diggingLootTable;
                 } else {
                     return;

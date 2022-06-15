@@ -2266,7 +2266,7 @@ craft:
         strength: -0.4
         priority: NEUTRAL
       custom_model_data_add:
-        strength: 18.0
+        strength: 17.0
         priority: SOONEST
       arrow_ender_upgrade:
         strength: 0.0
@@ -2439,7 +2439,7 @@ craft:
     display_name: '&fCraft Flint Arrows'
     modifiers:
       custom_model_data_add:
-        strength: 4.0
+        strength: 3.0
         priority: SOONEST
       arrow_accuracy:
         strength: 2.0

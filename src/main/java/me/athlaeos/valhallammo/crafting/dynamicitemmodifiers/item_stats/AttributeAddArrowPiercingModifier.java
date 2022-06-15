@@ -21,7 +21,7 @@ public class AttributeAddArrowPiercingModifier extends DynamicItemModifier imple
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 3;
         this.bigStepIncrease = 3;

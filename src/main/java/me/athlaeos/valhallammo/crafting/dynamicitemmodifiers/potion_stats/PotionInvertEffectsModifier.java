@@ -25,7 +25,7 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
         super(name, duration_ticks, priority);
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_MISC;
 
         this.bigStepDecrease = 0;
         this.bigStepIncrease = 0;

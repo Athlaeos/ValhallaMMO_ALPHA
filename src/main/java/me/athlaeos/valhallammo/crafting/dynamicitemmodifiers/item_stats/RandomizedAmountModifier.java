@@ -17,7 +17,7 @@ public class RandomizedAmountModifier extends DuoArgDynamicItemModifier implemen
         super(name, strength, strength2, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 10;
         this.bigStepIncrease = 10;

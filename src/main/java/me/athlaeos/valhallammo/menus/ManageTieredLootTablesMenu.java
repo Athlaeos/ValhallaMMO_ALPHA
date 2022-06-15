@@ -129,7 +129,7 @@ public class ManageTieredLootTablesMenu extends Menu {
                 } else if (clickedItem.equals(previousPageButton)){
                     currentPage--;
                 } else if (clickedItem.equals(drop)) {
-                    if (e.getCursor() != null){
+                    if (!Utils.isItemEmptyOrNull(e.getCursor())){
                         drop = e.getCursor().clone();
                     }
                 } else if (clickedItem.equals(returnToMenuButton)) {

@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.listeners;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.PotionEffect;
 import me.athlaeos.valhallammo.dom.Transmutation;
+import me.athlaeos.valhallammo.events.EntityCustomPotionEffectEvent;
 import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
 import me.athlaeos.valhallammo.managers.PotionAttributesManager;
 import me.athlaeos.valhallammo.managers.PotionEffectManager;
@@ -35,7 +36,7 @@ import java.util.Map;
 
 public class PotionEffectListener implements Listener {
 
-    @EventHandler(priority= EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.HIGHEST)
     public void onPotionEffect(EntityPotionEffectEvent e){
         if (!e.isCancelled()){
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -48,7 +49,20 @@ public class PotionEffectListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.HIGHEST)
+    public void onPotionEffect(EntityCustomPotionEffectEvent e){
+        if (!e.isCancelled()){
+            for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (skill != null){
+                    if (skill instanceof PotionEffectSkill){
+                        ((PotionEffectSkill) skill).onCustomPotionEffect(e);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onPotionSplash(PotionSplashEvent e){
         if (!e.isCancelled()){
             Collection<PotionEffectWrapper> storedPotionEffects = PotionAttributesManager.getInstance().getCurrentStats(e.getPotion().getItem());
@@ -58,7 +72,7 @@ public class PotionEffectListener implements Listener {
                     PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(wrapper.getPotionEffect());
                     if (basePotionEffect != null){
                         // Potion effect is custom potion effect
-                        PotionEffectManager.getInstance().addPotionEffect(entity, new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + (int) Math.floor(intensity * wrapper.getDuration()), wrapper.getAmplifier(), basePotionEffect.getType()), false);
+                        PotionEffectManager.getInstance().addPotionEffect(entity, new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + (int) Math.floor(intensity * wrapper.getDuration()), wrapper.getAmplifier(), basePotionEffect.getType()), false, EntityPotionEffectEvent.Cause.POTION_SPLASH, EntityPotionEffectEvent.Action.ADDED);
                     } // otherwise stored potion does not exist
                 }
             }
@@ -73,7 +87,7 @@ public class PotionEffectListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onProjectileHitBlock(ProjectileHitEvent e){
         if (e.getHitBlock() != null){
             if (e.getEntity() instanceof ThrownPotion){
@@ -108,7 +122,7 @@ public class PotionEffectListener implements Listener {
 
     private final NamespacedKey potionCloudKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_potion_cloud_custom_effects");
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onPotionLinger(LingeringPotionSplashEvent e){
         // Setting the potion effects to the cloud
 
@@ -136,7 +150,7 @@ public class PotionEffectListener implements Listener {
         }
     }
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onLingeringCloudHit(AreaEffectCloudApplyEvent e){
         if (!e.isCancelled()){
             AreaEffectCloud cloud = e.getEntity();
@@ -150,7 +164,7 @@ public class PotionEffectListener implements Listener {
                         PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(wrapper.getPotionEffect());
                         if (basePotionEffect != null){
                             // Potion effect is custom potion effect
-                            PotionEffectManager.getInstance().addPotionEffect(entity, new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + wrapper.getDuration(), wrapper.getAmplifier(), basePotionEffect.getType()), false);
+                            PotionEffectManager.getInstance().addPotionEffect(entity, new PotionEffect(wrapper.getPotionEffect(), System.currentTimeMillis() + wrapper.getDuration(), wrapper.getAmplifier(), basePotionEffect.getType()), false, EntityPotionEffectEvent.Cause.AREA_EFFECT_CLOUD, EntityPotionEffectEvent.Action.ADDED);
                         } // otherwise stored potion does not exist
                     }
                 }

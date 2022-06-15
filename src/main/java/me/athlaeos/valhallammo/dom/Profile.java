@@ -1,9 +1,9 @@
 package me.athlaeos.valhallammo.dom;
 
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -57,9 +57,9 @@ public abstract class Profile implements Cloneable{
         this.lifetimeEXP = lifetimeEXP;
     }
 
-    public abstract void createProfileTable(Connection conn) throws SQLException;
-    public abstract void insertOrUpdateProfile(Connection conn) throws SQLException;
-    public abstract Profile fetchProfile(Player p, Connection conn) throws SQLException;
+    public abstract void createProfileTable(DatabaseConnection conn) throws SQLException;
+    public abstract void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException;
+    public abstract Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException;
 
     @Override
     public Profile clone() throws CloneNotSupportedException {

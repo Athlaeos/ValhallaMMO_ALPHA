@@ -53,9 +53,12 @@ public class ItemModifierCommand implements Command {
 			if (baseModifier instanceof TripleArgDynamicItemModifier){
 				if (args.length >= 5){
 					try {
-						strength = Double.parseDouble(args[2].split("-")[0]);
-						strength2 = Double.parseDouble(args[3].split("-")[0]);
-						strength3 = Double.parseDouble(args[4].split("-")[0]);
+						args[2] = (args[2].startsWith("-")) ? "-" + args[2].split("-")[1] : args[2].split("-")[0];
+						args[3] = (args[3].startsWith("-")) ? "-" + args[3].split("-")[1] : args[3].split("-")[0];
+						args[4] = (args[4].startsWith("-")) ? "-" + args[4].split("-")[1] : args[4].split("-")[0];
+						strength = Double.parseDouble(args[2]);
+						strength2 = Double.parseDouble(args[3]);
+						strength3 = Double.parseDouble(args[4]);
 					} catch (IllegalArgumentException ignored){
 						Utils.sendMessage(sender, Utils.chat(error_command_invalid_number));
 						return true;
@@ -72,8 +75,10 @@ public class ItemModifierCommand implements Command {
 			} else if (baseModifier instanceof DuoArgDynamicItemModifier){
 				if (args.length >= 4){
 					try {
-						strength = Double.parseDouble(args[2].split("-")[0]);
-						strength2 = Double.parseDouble(args[3].split("-")[0]);
+						args[2] = (args[2].startsWith("-")) ? "-" + args[2].split("-")[1] : args[2].split("-")[0];
+						args[3] = (args[3].startsWith("-")) ? "-" + args[3].split("-")[1] : args[3].split("-")[0];
+						strength = Double.parseDouble(args[2]);
+						strength2 = Double.parseDouble(args[3]);
 					} catch (IllegalArgumentException ignored){
 						Utils.sendMessage(sender, Utils.chat(error_command_invalid_number));
 						return true;
@@ -89,7 +94,8 @@ public class ItemModifierCommand implements Command {
 				}
 			} else {
 				try {
-					strength = Double.parseDouble(args[2].split("-")[0]);
+					args[2] = (args[2].startsWith("-")) ? "-" + args[2].split("-")[1] : args[2].split("-")[0];
+					strength = Double.parseDouble(args[2]);
 				} catch (IllegalArgumentException ignored){
 					Utils.sendMessage(sender, Utils.chat(error_command_invalid_number));
 					return true;

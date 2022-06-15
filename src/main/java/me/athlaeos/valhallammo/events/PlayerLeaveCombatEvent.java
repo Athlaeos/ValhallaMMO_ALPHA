@@ -9,10 +9,12 @@ public class PlayerLeaveCombatEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();
     private boolean cancelled = false;
     private long when;
+    private long left;
 
-    public PlayerLeaveCombatEvent(Player who, long playerEnterCombatTime) {
+    public PlayerLeaveCombatEvent(Player who, long playerEnterCombatTime, long playerLeftCombatTime) {
         super(who);
         this.when = playerEnterCombatTime;
+        this.left = playerLeftCombatTime;
     }
 
     @Override
@@ -37,6 +39,8 @@ public class PlayerLeaveCombatEvent extends PlayerEvent implements Cancellable {
     public long getTimeInCombat(long alternativeLeaveCombatTime){
         return alternativeLeaveCombatTime - when;
     }
+
+    public long getTimeInCombat() { return left - when; }
 
     /**
      * returns the time in milliseconds when the player supposedly left combat

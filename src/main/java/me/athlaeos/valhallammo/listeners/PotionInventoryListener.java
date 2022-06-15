@@ -248,7 +248,7 @@ public class PotionInventoryListener implements Listener {
         updateBrewingStand(e);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void potionItemPlacer(InventoryDragEvent e) {
         if (!(e.getWhoClicked() instanceof Player)) return;
         if (e.getView().getTopInventory().getType() != InventoryType.BREWING) {

@@ -18,7 +18,7 @@ public class RandomlyEnchantItemModifier extends DuoArgDynamicItemModifier {
         super(name, strength, 0D, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ENCHANTING_STATS;
+        this.category = ModifierCategory.ENCHANTING_MISC;
 
         this.bigStepDecrease = 10;
         this.bigStepIncrease = 10;

@@ -3,8 +3,10 @@ package me.athlaeos.valhallammo.skills.archery;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats.AttributeAddArrowInfinityExploitableModifier;
+import me.athlaeos.valhallammo.dom.CombatType;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
+import me.athlaeos.valhallammo.events.ValhallaEntityCriticalHitEvent;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
 import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.InteractSkill;
@@ -52,6 +54,7 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
 
     public ArcherySkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 9;
 
         YamlConfiguration archeryConfig = ConfigManager.getInstance().getConfig("skill_archery.yml").get();
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_archery.yml").get();
@@ -150,28 +153,28 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                     boolean stun = false;
 
                     // distance multiplier
-                    double damageDistanceBaseMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER_BASE", shooter, true);
-                    double damageDistanceMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER", shooter, true);
+                    double damageDistanceBaseMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER_BASE", event.getEntity(), event.getDamager(), true);
+                    double damageDistanceMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
                     double finalDamageDistanceMultiplier = damageDistanceBaseMultiplier + (damageDistanceBonus * damageDistanceMultiplier);
                     damage *= finalDamageDistanceMultiplier;
-                    double critDamage = AccumulativeStatManager.getInstance().getStats("ARCHERY_CRIT_DAMAGE_MULTIPLIER", shooter, true);
+                    double critDamage = AccumulativeStatManager.getInstance().getStats("ARCHERY_CRIT_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
                     double critChance;
 
                     if (bow.getType() == Material.BOW){
                         expToGive = ((distance_exp_multiplier_base * bow_exp_base) + (bow_exp_base * distance_exp_multiplier_bonus * expDistanceBonus)) * (AccumulativeStatManager.getInstance().getStats("ARCHERY_EXP_GAIN_BOW", shooter, true) / 100D);
-                        damageMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_BOW_DAMAGE_MULTIPLIER", shooter, true);
-                        critChance = AccumulativeStatManager.getInstance().getStats("ARCHERY_BOW_CRIT_CHANCE", shooter, true);
+                        damageMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_BOW_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
+                        critChance = AccumulativeStatManager.getInstance().getStats("ARCHERY_BOW_CRIT_CHANCE", event.getEntity(), event.getDamager(), true);
                     } else {
                         expToGive = ((distance_exp_multiplier_base * crossbow_exp_base) + (crossbow_exp_base * expDistanceBonus)) * (AccumulativeStatManager.getInstance().getStats("ARCHERY_EXP_GAIN_CROSSBOW", shooter, true) / 100D);
-                        damageMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_CROSSBOW_DAMAGE_MULTIPLIER", shooter, true);
-                        critChance = AccumulativeStatManager.getInstance().getStats("ARCHERY_CROSSBOW_CRIT_CHANCE", shooter, true);
+                        damageMultiplier = AccumulativeStatManager.getInstance().getStats("ARCHERY_CROSSBOW_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
+                        critChance = AccumulativeStatManager.getInstance().getStats("ARCHERY_CROSSBOW_CRIT_CHANCE", event.getEntity(), event.getDamager(), true);
                     }
 
                     damage *= damageMultiplier;
 
                     if (hasInfinity) {
                         expToGive *= infinity_exp_multiplier;
-                        damage *= AccumulativeStatManager.getInstance().getStats("ARCHERY_INFINITY_DAMAGE_MULTIPLIER", shooter, true);
+                        damage *= AccumulativeStatManager.getInstance().getStats("ARCHERY_INFINITY_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
                     }
 
                     boolean facing = EntityUtils.isEntityFacing((LivingEntity) event.getEntity(), shooter.getLocation(), cos_facing_angle);
@@ -196,18 +199,22 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                     }
 
                     if (crit){
-                        damage *= critDamage;
-                        stun = profile.isStunoncrit();
+                        ValhallaEntityCriticalHitEvent e = new ValhallaEntityCriticalHitEvent(shooter, (LivingEntity) event.getEntity(), CombatType.RANGED, damage, critDamage);
+                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(e);
+                        if (!e.isCancelled()){
+                            damage = e.getDamageBeforeCrit() * e.getCriticalHitDamageMultiplier();
+                            stun = profile.isStunoncrit();
+                        }
                     }
 
                     if (!stun){
-                        if (Utils.getRandom().nextDouble() < AccumulativeStatManager.getInstance().getStats("ARCHERY_STUN_CHANCE", shooter, true)){
+                        if (Utils.getRandom().nextDouble() < AccumulativeStatManager.getInstance().getStats("ARCHERY_STUN_CHANCE", event.getEntity(), event.getDamager(), true)){
                             stun = true;
                         }
                     }
 
-                    int duration = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_STUN_DURATION", shooter, true);
-                    if (stun) PotionEffectManager.getInstance().stunTarget((LivingEntity) event.getEntity(), duration);
+                    int duration = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_STUN_DURATION", event.getEntity(), event.getDamager(), true);
+                    if (stun) PotionEffectManager.getInstance().stunTarget((LivingEntity) event.getEntity(), CombatType.RANGED, duration);
 
                     addEXP(shooter, expToGive, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
@@ -259,6 +266,10 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                 if (damageWrapper != null){
                     event.setConsumeItem(!shouldSave);
                     arrow.setDamage(Math.max(0, damageWrapper.getAmount()));
+                    // the Power enchantment usually increases arrow damage, but since base damage numbers are changed
+                    // the damage values power provides need to be re-added. This goes according to 1 + 0.5/(level - 1)
+                    int powerLevel = event.getBow().getEnchantmentLevel(Enchantment.ARROW_DAMAGE);
+                    if (powerLevel > 0) arrow.setDamage(arrow.getDamage() + (1 + (0.5 * (powerLevel - 1))));
                 }
                 AttributeWrapper accuracyWrapper = ItemAttributesManager.getInstance().getAttributeWrapper(event.getConsumable(), "CUSTOM_ARROW_ACCURACY");
                 if (accuracyWrapper != null){

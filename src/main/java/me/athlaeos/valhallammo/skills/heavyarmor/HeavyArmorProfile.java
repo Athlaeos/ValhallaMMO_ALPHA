@@ -4,12 +4,12 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,11 +30,13 @@ public class HeavyArmorProfile extends Profile implements Serializable {
     private float falldamageresistance = 0F; // fall damage resistance per piece of heavy armor
     private float poisonresistance = 0F; // poison/wither damage resistance per piece of heavy armor
     private float knockbackresistance = 0F; // knockback reduction per piece of heavy armor
+    private float bleedresistance = 0F; // bleed resistance per piece of heavy armor
     private float heavyarmormultiplier = 1F; // armor multiplier for worn heavy armor pieces
     private float fullarmormultiplierbonus = 0F; // armor multiplier when player wearing full heavy armor
     private float fullarmorhungersavechance = 0F; // chance to not consume hunger points when wearing full heavy armor
     private float fullarmorreflectchance = 0F; // chance reflect damage back to an entity when wearing full heavy armor
     private float fullarmorhealingbonus = 0F; // additional healing when wearing full heavy armor
+    private float fullarmorbleedresistance = 0F; // additional bleeding resistance when wearing full heavy armor
     private float reflectfraction = 0F; // fraction of original damage that should be reflected back to the attacker
     private int armorpiecesforbonusses = 4; // amount of armor pieces the player needs to wear to benefit from
     // "full set" bonusses
@@ -65,8 +67,8 @@ public class HeavyArmorProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void createProfileTable(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_heavy_armor (" +
+    public void createProfileTable(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles_heavy_armor (" +
                 "owner VARCHAR(40) PRIMARY KEY," +
                 "level SMALLINT default 0," +
                 "exp DOUBLE default 0," +
@@ -88,25 +90,28 @@ public class HeavyArmorProfile extends Profile implements Serializable {
                 "fullarmorhealingbonus FLOAT DEFAULT 0," +
                 "reflectfraction FLOAT DEFAULT 0," +
                 "armorpiecesforbonusses TINYINT DEFAULT 4," +
-                "immunepotioneffects VARCHAR(16384) default ''," +
+                "immunepotioneffects TEXT default ''," +
                 "ragethreshold FLOAT DEFAULT 0," +
                 "ragecooldown INT DEFAULT -1," +
                 "ragelevel SMALLINT DEFAULT 0," +
                 "expmultiplier DOUBLE DEFAULT 100);");
         stmt.execute();
+
+        conn.addColumnIfNotExists("profiles_heavy_armor", "bleedresistance", "FLOAT DEFAULT 0");
+        conn.addColumnIfNotExists("profiles_heavy_armor", "fullarmorbleedresistance", "FLOAT DEFAULT 0");
     }
 
     @Override
-    public void insertOrUpdateProfile(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(
+    public void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement(
                 "REPLACE INTO profiles_heavy_armor " +
                         "(owner, level, exp, exp_total, movementspeedpenalty, damageresistance, meleeresistance, " +
                         "projectileresistance, fireresistance, magicresistance, explosionresistance, falldamageresistance, " +
-                        "poisonresistance, knockbackresistance,  heavyarmormultiplier, fullarmormultiplierbonus, " +
-                        "fullarmorhungersavechance, fullarmorreflectchance, fullarmorhealingbonus, reflectfraction, " +
-                        "armorpiecesforbonusses, immunepotioneffects, ragethreshold, ragecooldown, ragelevel, " +
+                        "poisonresistance, knockbackresistance, bleedresistance, heavyarmormultiplier, fullarmormultiplierbonus, " +
+                        "fullarmorhungersavechance, fullarmorreflectchance, fullarmorhealingbonus, fullarmorbleedresistance, " +
+                        "reflectfraction, armorpiecesforbonusses, immunepotioneffects, ragethreshold, ragecooldown, ragelevel, " +
                         "expmultiplier) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
         stmt.setInt(2, level);
         stmt.setDouble(3, exp);
@@ -121,24 +126,26 @@ public class HeavyArmorProfile extends Profile implements Serializable {
         stmt.setFloat(12, falldamageresistance);
         stmt.setFloat(13, poisonresistance);
         stmt.setFloat(14, knockbackresistance);
-        stmt.setFloat(15, heavyarmormultiplier);
-        stmt.setFloat(16, fullarmormultiplierbonus);
-        stmt.setFloat(17, fullarmorhungersavechance);
-        stmt.setFloat(18, fullarmorreflectchance);
-        stmt.setFloat(19, fullarmorhealingbonus);
-        stmt.setFloat(20, reflectfraction);
-        stmt.setInt(21, armorpiecesforbonusses);
-        stmt.setString(22, String.join("<>", immunepotioneffects));
-        stmt.setFloat(23, ragethreshold);
-        stmt.setInt(24, ragecooldown);
-        stmt.setInt(25, ragelevel);
-        stmt.setDouble(26, expmultiplier);
+        stmt.setFloat(15, bleedresistance);
+        stmt.setFloat(16, heavyarmormultiplier);
+        stmt.setFloat(17, fullarmormultiplierbonus);
+        stmt.setFloat(18, fullarmorhungersavechance);
+        stmt.setFloat(19, fullarmorreflectchance);
+        stmt.setFloat(20, fullarmorhealingbonus);
+        stmt.setFloat(21, fullarmorbleedresistance);
+        stmt.setFloat(22, reflectfraction);
+        stmt.setInt(23, armorpiecesforbonusses);
+        stmt.setString(24, String.join("<>", immunepotioneffects));
+        stmt.setFloat(25, ragethreshold);
+        stmt.setInt(26, ragecooldown);
+        stmt.setInt(27, ragelevel);
+        stmt.setDouble(28, expmultiplier);
         stmt.execute();
     }
 
     @Override
-    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_heavy_armor WHERE owner = ?;");
+    public Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM profiles_heavy_armor WHERE owner = ?;");
         stmt.setString(1, p.getUniqueId().toString());
         ResultSet result = stmt.executeQuery();
         if (result.next()){
@@ -156,11 +163,13 @@ public class HeavyArmorProfile extends Profile implements Serializable {
             profile.setFallDamageResistance(result.getFloat("falldamageresistance"));
             profile.setPoisonResistance(result.getFloat("poisonresistance"));
             profile.setKnockbackResistance(result.getFloat("knockbackresistance"));
+            profile.setBleedResistance(result.getFloat("bleedresistance"));
             profile.setHeavyArmorMultiplier(result.getFloat("heavyarmormultiplier"));
             profile.setFullArmorMultiplierBonus(result.getFloat("fullarmormultiplierbonus"));
             profile.setFullArmorHungerSaveChance(result.getFloat("fullarmorhungersavechance"));
             profile.setFullArmorReflectChance(result.getFloat("fullarmorreflectchance"));
             profile.setFullArmorHealingBonus(result.getFloat("fullarmorhealingbonus"));
+            profile.setFullArmorBleedResistance(result.getFloat("fullarmorbleedresistance"));
             profile.setReflectFraction(result.getFloat("reflectfraction"));
             profile.setArmorPiecesForBonusses(result.getInt("armorpiecesforbonusses"));
             profile.setImmunePotionEffects(new HashSet<>(Arrays.asList(result.getString("immunepotioneffects").split("<>"))));
@@ -171,6 +180,22 @@ public class HeavyArmorProfile extends Profile implements Serializable {
             return profile;
         }
         return null;
+    }
+
+    public float getBleedResistance() {
+        return bleedresistance;
+    }
+
+    public void setBleedResistance(float bleedresistance) {
+        this.bleedresistance = bleedresistance;
+    }
+
+    public float getFullArmorBleedResistance() {
+        return fullarmorbleedresistance;
+    }
+
+    public void setFullArmorBleedResistance(float fullarmorbleedresistance) {
+        this.fullarmorbleedresistance = fullarmorbleedresistance;
     }
 
     public void setFullArmorHealingBonus(float fullarmorhealingbonus) {

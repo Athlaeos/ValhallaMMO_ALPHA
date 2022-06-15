@@ -9,6 +9,8 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
 import me.athlaeos.valhallammo.loottables.chance_based_block_loot.*;
 import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.ChancedFarmingAnimalLootTable;
+import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.ChancedHeavyWeaponsLootTable;
+import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.ChancedLightWeaponsLootTable;
 import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.GlobalChancedEntityLootTable;
 import me.athlaeos.valhallammo.loottables.tiered_loot_tables.TieredFishingLootTable;
 import me.athlaeos.valhallammo.utility.Utils;
@@ -42,6 +44,8 @@ public class LootManager {
         registerLootTable(new ChancedFarmingAnimalLootTable());
         registerLootTable(new GlobalChancedBlockLootTable());
         registerLootTable(new GlobalChancedEntityLootTable());
+        registerLootTable(new ChancedLightWeaponsLootTable());
+        registerLootTable(new ChancedHeavyWeaponsLootTable());
 
     }
 

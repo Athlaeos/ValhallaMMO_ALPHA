@@ -24,7 +24,7 @@ public class DynamicAmountModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;
@@ -60,7 +60,7 @@ public class DynamicAmountModifier extends DynamicItemModifier {
         if (outputItem == null) return null;
         double materialSkill = 0;
         double generalSkill = AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_GENERAL", crafter, this.use);
-        MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem.getType());
+        MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem);
         if (materialClass != null){
             materialSkill = AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_" + materialClass, crafter, this.use);
         }

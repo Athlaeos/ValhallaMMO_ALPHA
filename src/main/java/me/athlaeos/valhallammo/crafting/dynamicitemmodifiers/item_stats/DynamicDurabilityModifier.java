@@ -19,7 +19,7 @@ public class DynamicDurabilityModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;

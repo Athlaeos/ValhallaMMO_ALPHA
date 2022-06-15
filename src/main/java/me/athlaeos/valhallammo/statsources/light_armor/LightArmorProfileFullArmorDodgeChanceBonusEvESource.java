@@ -24,4 +24,9 @@ public class LightArmorProfileFullArmorDodgeChanceBonusEvESource extends EvEAccu
         }
         return 0;
     }
+
+    @Override
+    public double add(Entity p, boolean use) {
+        return 0;
+    }
 }

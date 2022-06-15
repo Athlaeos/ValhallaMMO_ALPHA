@@ -1,5 +1,5 @@
 name: ValhallaMMO
-version: ALPHA_1.6
+version: ALPHA_1.7
 main: me.athlaeos.valhallammo.ValhallaMMO
 api-version: 1.14
 authors: [Athlaeos]
@@ -32,7 +32,7 @@ permissions:
     default: op
     description: All Valhalla custom crafting recipes will be available to the player with this permission
   valhalla.skills:
-    default: op
+    default: true
     description: Access to the /valhalla skills command, which accesses your skill trees.
   valhalla.givebook:
     default: op
@@ -53,7 +53,7 @@ permissions:
     default: op
     description: Access to the /valhalla reward command, which allows the user to reward a player with a given perk reward.
   valhalla.profile:
-    default: op
+    default: true
     description: Access to the /valhalla profile command, which allows the user to view their own ValhallaMMO stats.
   valhalla.profile.other:
     default: op
@@ -68,7 +68,7 @@ permissions:
     default: false
     description: Allows the user to bypass diminishing returns on EXP gain.
   valhalla.ignorecooldowns:
-    default: op
+    default: false
     description: Allows the user the use abilities freely, cooldown is not applied.
   valhalla.globalbuffs:
     default: op

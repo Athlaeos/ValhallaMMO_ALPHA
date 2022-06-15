@@ -41,7 +41,7 @@ public class JoinLeaveListener implements Listener {
         return listener;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent e){
         ProfileManager.getManager().loadPlayerProfiles(e.getPlayer());
 

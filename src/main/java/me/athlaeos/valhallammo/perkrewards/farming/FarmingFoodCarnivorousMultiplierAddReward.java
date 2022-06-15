@@ -17,7 +17,7 @@ public class FarmingFoodCarnivorousMultiplierAddReward extends PerkReward {
     @Override
     public void execute(Player player) {
         if (player == null) return;
-        Profile profile = ProfileManager.getManager().getManager().getProfile(player, "FARMING");
+        Profile profile = ProfileManager.getManager().getProfile(player, "FARMING");
         if (profile == null) return;
         if (profile instanceof FarmingProfile){
             FarmingProfile farmingProfile = (FarmingProfile) profile;

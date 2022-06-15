@@ -81,6 +81,15 @@ public class Utils {
         return players;
     }
 
+//    public static double fastSqrt(double d){
+//        double result1 = Double.longBitsToDouble( ( ( Double.doubleToLongBits( d )-(1L<<52) )>>1 ) + ( 1L<<61 ) );
+//        double newton1 = (result1 + d/result1)*0.5;
+//        double result2 = Double.longBitsToDouble( ( ( Double.doubleToLongBits( newton1 )-(1L<<52) )>>1 ) + ( 1L<<61 ) );
+//        double newton2 = (result2 + d/result2)*0.5;
+//        double r3 = Double.longBitsToDouble( ( ( Double.doubleToLongBits( newton2 )-(1L<<52) )>>1 ) + ( 1L<<61 ) );
+//        return r3;
+//    }
+
     public static String toRoman(int number) {
         if (number == 0) return "0";
         if (number == 1) return "I";
@@ -110,12 +119,12 @@ public class Utils {
         List<ItemStack> drops = new ArrayList<>((tool == null) ? block.getDrops() : block.getDrops(tool, player));
         if (!drops.isEmpty()){
             BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(block, block.getState(), player, drops);
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
             if (instantPickup){
                 Map<Integer, ItemStack> excessDrops = player.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
                 dropEvent.getItems().clear();
                 dropEvent.getItems().addAll(excessDrops.values());
             }
+            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
         }
 
         if (!breakEvent.isCancelled()) {

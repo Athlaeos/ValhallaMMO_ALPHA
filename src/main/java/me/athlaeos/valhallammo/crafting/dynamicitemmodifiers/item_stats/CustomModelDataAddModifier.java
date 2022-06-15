@@ -17,7 +17,7 @@ public class CustomModelDataAddModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 25D;
         this.bigStepIncrease = 25D;

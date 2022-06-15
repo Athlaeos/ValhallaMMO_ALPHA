@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.dom.PotionEffect;
 import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityPotionEffectEvent;
 
 import java.util.*;
 
@@ -27,7 +28,7 @@ public class PotionEffectAddReward extends PerkReward {
     public void execute(Player player) {
         if (player == null) return;
         for (PotionEffect e : potionEffects.values()){
-            PotionEffectManager.getInstance().addPotionEffect(player, e, true);
+            PotionEffectManager.getInstance().addPotionEffect(player, e, true, EntityPotionEffectEvent.Cause.PLUGIN, EntityPotionEffectEvent.Action.ADDED);
         }
     }
 

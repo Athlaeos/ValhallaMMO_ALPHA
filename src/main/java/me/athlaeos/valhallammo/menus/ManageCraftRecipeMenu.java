@@ -306,7 +306,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
                                 }
                             } else if (e.getSlot() == 30){
                                 if (e.getCursor().getType().isBlock()){
-                                    Material similarMaterial = ItemUtils.getBaseMaterial(craftStationButton.getType());
+                                    Material similarMaterial = ItemUtils.getBaseMaterial(e.getCursor().getType());
                                     craftStationButton.setType(e.getCursor().getType());
                                     if (similarMaterial != null) {
                                         craftStationButton.setType(similarMaterial);

@@ -5,12 +5,12 @@ import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.items.MaterialClass;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,6 +44,7 @@ public class SmithingProfile extends Profile implements Serializable {
     private double craftingexpmultiplier_netherite = 100D;
     private double craftingexpmultiplier_prismarine = 100D;
     private double craftingexpmultiplier_membrane = 100D;
+    private float craftingtimereduction = 0F;
 
     public SmithingProfile(Player owner){
         super(owner);
@@ -64,6 +65,13 @@ public class SmithingProfile extends Profile implements Serializable {
         }
     }
 
+    public float getCraftingTimeReduction() {
+        return craftingtimereduction;
+    }
+
+    public void setCraftingTimeReduction(float craftingtimereduction) {
+        this.craftingtimereduction = craftingtimereduction;
+    }
 
     public int getCraftingQuality(MaterialClass type){
         if (type == null) return 0;
@@ -180,8 +188,8 @@ public class SmithingProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void createProfileTable(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_smithing (" +
+    public void createProfileTable(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles_smithing (" +
                 "owner VARCHAR(40) PRIMARY KEY," +
                 "level SMALLINT default 0," +
                 "exp DOUBLE default 0," +
@@ -213,11 +221,13 @@ public class SmithingProfile extends Profile implements Serializable {
                 "craftingexpmultiplier_prismarine DOUBLE DEFAULT 100," +
                 "craftingexpmultiplier_membrane DOUBLE DEFAULT 100);");
         stmt.execute();
+
+        conn.addColumnIfNotExists("profiles_smithing", "craftingtimereduction", "FLOAT DEFAULT 0");
     }
 
     @Override
-    public void insertOrUpdateProfile(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(
+    public void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement(
                 "REPLACE INTO profiles_smithing " +
                         "(owner, level, exp, exp_total, craftingquality_all, craftingquality_bow, craftingquality_crossbow, " +
                         "craftingquality_wood, craftingquality_leather, craftingquality_stone, craftingquality_chain, " +
@@ -225,8 +235,9 @@ public class SmithingProfile extends Profile implements Serializable {
                         "craftingquality_prismarine, craftingquality_membrane, craftingexpmultiplier_all, craftingexpmultiplier_bow, " +
                         "craftingexpmultiplier_crossbow, craftingexpmultiplier_wood, craftingexpmultiplier_leather, craftingexpmultiplier_stone, " +
                         "craftingexpmultiplier_chain, craftingexpmultiplier_gold, craftingexpmultiplier_iron, craftingexpmultiplier_diamond, " +
-                        "craftingexpmultiplier_netherite, craftingexpmultiplier_prismarine, craftingexpmultiplier_membrane)" +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        "craftingexpmultiplier_netherite, craftingexpmultiplier_prismarine, craftingexpmultiplier_membrane," +
+                        "craftingtimereduction)" +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
         stmt.setInt(2, level);
         stmt.setDouble(3, exp);
@@ -257,12 +268,13 @@ public class SmithingProfile extends Profile implements Serializable {
         stmt.setDouble(28, craftingexpmultiplier_netherite);
         stmt.setDouble(29, craftingexpmultiplier_prismarine);
         stmt.setDouble(30, craftingexpmultiplier_membrane);
+        stmt.setFloat(31, craftingtimereduction);
         stmt.execute();
     }
 
     @Override
-    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_smithing WHERE owner = ?;");
+    public Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM profiles_smithing WHERE owner = ?;");
         stmt.setString(1, p.getUniqueId().toString());
         ResultSet result = stmt.executeQuery();
         if (result.next()){
@@ -296,6 +308,7 @@ public class SmithingProfile extends Profile implements Serializable {
             profile.setCraftingEXPMultiplier(MaterialClass.NETHERITE, result.getDouble("craftingexpmultiplier_netherite"));
             profile.setCraftingEXPMultiplier(MaterialClass.PRISMARINE, result.getDouble("craftingexpmultiplier_prismarine"));
             profile.setCraftingEXPMultiplier(MaterialClass.MEMBRANE, result.getDouble("craftingexpmultiplier_membrane"));
+            profile.setCraftingTimeReduction(result.getFloat("craftingtimereduction"));
             return profile;
         }
         return null;

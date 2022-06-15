@@ -5,6 +5,8 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierCategory;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
+import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
+import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.skills.smithing.SmithingSkill;
@@ -23,7 +25,7 @@ public class UpgradeNetheriteModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 0D;
         this.bigStepIncrease = 0D;
@@ -71,7 +73,10 @@ public class UpgradeNetheriteModifier extends DynamicItemModifier {
                 case AXE: outputItem.setType(Material.NETHERITE_AXE);
                 break;
             }
-
+            for (AttributeWrapper wrapper : ItemAttributesManager.getInstance().getVanillaStats(outputItem).values()){
+                // The item's vanilla stats are updated to their vanilla values, any added custom attributes are left alone
+                ItemAttributesManager.getInstance().setDefaultAttributeStrength(outputItem, wrapper.getAttribute(), wrapper.getAmount());
+            }
             if (this.use){
                 Skill skill = SkillProgressionManager.getInstance().getSkill("SMITHING");
                 if (skill != null){

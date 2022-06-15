@@ -2,20 +2,30 @@ package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.dom.CombatType;
 import me.athlaeos.valhallammo.dom.PotionEffect;
+import me.athlaeos.valhallammo.events.EntityCustomPotionEffectEvent;
+import me.athlaeos.valhallammo.events.ValhallaEntityStunEvent;
 import me.athlaeos.valhallammo.items.PotionType;
 import me.athlaeos.valhallammo.items.potioneffectwrappers.PotionEffectWrapper;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.EntityEffect;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -52,14 +62,44 @@ public class PotionEffectManager {
         registerPotionEffect(new PotionEffect("WOODCUTTING_EXTRA_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("WOODCUTTING_RARE_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("FORTIFY_ACROBATICS", 0, 0, PotionType.BUFF));
-        registerPotionEffect(new PotionEffect("FORTIFY_TRADING", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("ENTITY_EXTRA_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("INCREASE_EXP", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("INCREASE_VANILLA_EXP", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("MILK", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("CHOCOLATE_MILK", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("LIGHT_ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("HEAVY_ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("LIGHT_ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("HEAVY_ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("DAMAGE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("EXPLOSION_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("FIRE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("MAGIC_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("POISON_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("PROJECTILE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("MELEE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("FALLING_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("KNOCKBACK_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("BLEED_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("CRAFTING_TIME_REDUCTION", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("HUNGER_SAVE_CHANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("DODGE_CHANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("KNOCKBACK_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("COOLDOWN_REDUCTION", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("IMMUNITY_FRAME_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("IMMUNITY_FRAME_MULTIPLIER", 0, 0, PotionType.BUFF)); // TODO new
 
-        registerPotionEffect(new PotionEffect("POISON_ANTI_HEAL", 0, 0, PotionType.DEBUFF));
-        registerPotionEffect(new PotionEffect("POISON_VULNERABLE", 0, 0, PotionType.DEBUFF));
+        registerPotionEffect(new PotionEffect("HEALING_BONUS", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("REFLECT_CHANCE", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("REFLECT_FRACTION", 0, 0, PotionType.BUFF)); // TODO new
+
+
+        registerPotionEffect(new PotionEffect("POISON_ANTI_HEAL", 0, 0, PotionType.DEBUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("POISON_VULNERABLE", 0, 0, PotionType.DEBUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("FRACTION_ARMOR_REDUCTION", 0, 0, PotionType.DEBUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("FLAT_ARMOR_REDUCTION", 0, 0, PotionType.DEBUFF)); // TODO new
 
 
         stunPotionEffects = new HashMap<>();
@@ -75,6 +115,8 @@ public class PotionEffectManager {
                 }
             }
         }
+
+        startBleedingRunnable();
     }
 
     /**
@@ -83,17 +125,34 @@ public class PotionEffectManager {
      * @param entity the entity to stun
      * @param duration the duration (in game-ticks) to stun the entity
      */
-    public void stunTarget(LivingEntity entity, int duration){
-        if (!CooldownManager.getInstance().isCooldownPassed(entity.getUniqueId(), "stun_immunity_frame")) return;
+    public void stunTarget(LivingEntity entity, CombatType cause, int duration){
+        double durationMultiplier = 1 - AccumulativeStatManager.getInstance().getStats("STUN_RESISTANCE", entity, true);
+        ValhallaEntityStunEvent e = new ValhallaEntityStunEvent(entity, cause, durationMultiplier);
+        e.setCancelled(!CooldownManager.getInstance().isCooldownPassed(entity.getUniqueId(), "stun_immunity_frame"));
+        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(e);
+        if (!e.isCancelled()){
+            duration = (int) (duration * e.getDurationMultiplier());
+            for (PotionEffectType type : stunPotionEffects.keySet()){
+                int intensity = stunPotionEffects.get(type);
+                org.bukkit.potion.PotionEffect existingEffect = entity.getPotionEffect(type);
+                if (existingEffect != null) {
+                    if (existingEffect.getAmplifier() > intensity) continue;
+                }
+                entity.addPotionEffect(new org.bukkit.potion.PotionEffect(type, (int) (duration / 50D), intensity, true, false));
+            }
+            CooldownManager.getInstance().setCooldown(entity.getUniqueId(), stun_immunity_frame, "stun_immunity_frame");
+        }
+    }
+
+    public boolean isStunned(LivingEntity entity){
+        if (stunPotionEffects.isEmpty()) return false;
         for (PotionEffectType type : stunPotionEffects.keySet()){
             int intensity = stunPotionEffects.get(type);
             org.bukkit.potion.PotionEffect existingEffect = entity.getPotionEffect(type);
-            if (existingEffect != null) {
-                if (existingEffect.getAmplifier() > intensity) continue;
-            }
-            entity.addPotionEffect(new org.bukkit.potion.PotionEffect(type, duration, intensity, true, false));
+            if (existingEffect == null) return false;
+            if (existingEffect.getAmplifier() != intensity) return false;
         }
-        CooldownManager.getInstance().setCooldown(entity.getUniqueId(), stun_immunity_frame, "stun_immunity_frame");
+        return true;
     }
 
     public void reload(){
@@ -138,30 +197,34 @@ public class PotionEffectManager {
         return potionEffects;
     }
 
-    public void setActivePotionEffects(Entity p, Collection<PotionEffect> effects){
+    public void setActivePotionEffects(LivingEntity p, Collection<PotionEffect> effects){
         for (PotionEffect eff : new HashMap<>(getActivePotionEffects(p)).values()){
             eff.setEffectiveUntil(0);
-            addPotionEffect(p, eff, true);
+            addPotionEffect(p, eff, true, EntityPotionEffectEvent.Cause.PLUGIN, EntityPotionEffectEvent.Action.ADDED);
         }
         if (effects == null) return;
         for (PotionEffect eff : effects){
-            addPotionEffect(p, eff, true);
+            addPotionEffect(p, eff, true, EntityPotionEffectEvent.Cause.PLUGIN, EntityPotionEffectEvent.Action.ADDED);
         }
     }
 
-    public void removePotionEffects(Entity p, Predicate<PotionEffect> filter){
+    public void removePotionEffects(LivingEntity p, EntityPotionEffectEvent.Cause cause, Predicate<PotionEffect> filter){
         for (PotionEffect eff : new HashMap<>(getActivePotionEffects(p)).values()){
             if (filter.test(eff)){
-                eff.setEffectiveUntil(0);
-                addPotionEffect(p, eff, true);
+                EntityCustomPotionEffectEvent event = new EntityCustomPotionEffectEvent(p, eff, null, cause, EntityPotionEffectEvent.Action.REMOVED, true);
+                ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+                if (!event.isCancelled()){
+                    eff.setEffectiveUntil(0);
+                    addPotionEffect(p, eff, true, cause, EntityPotionEffectEvent.Action.REMOVED);
+                }
             }
         }
     }
 
-    public void removePotionEffects(Entity p){
+    public void removePotionEffects(LivingEntity p){
         for (PotionEffect eff : new HashMap<>(getActivePotionEffects(p)).values()){
             eff.setEffectiveUntil(0);
-            addPotionEffect(p, eff, true);
+            addPotionEffect(p, eff, true, EntityPotionEffectEvent.Cause.MILK, EntityPotionEffectEvent.Action.REMOVED);
         }
     }
 
@@ -197,30 +260,34 @@ public class PotionEffectManager {
      *              already has the potion effect but with a stronger amplifier, it is not added
      * @param effect the effect to add to the player
      */
-    public void addPotionEffect(Entity p, PotionEffect effect, boolean force){
+    public void addPotionEffect(LivingEntity p, PotionEffect effect, boolean force, EntityPotionEffectEvent.Cause cause, EntityPotionEffectEvent.Action action){
         if (effect == null) return;
         if (!registeredPotionEffects.containsKey(effect.getName())) {
             ValhallaMMO.getPlugin().getLogger().warning("Attempting to apply potion effect " + effect.getName() + ", but it was not registered");
             return;
         }
         Map<String, PotionEffect> currentPotionEffects = getActivePotionEffects(p);
-        if (!force){
-            if (currentPotionEffects.containsKey(effect.getName())){
-                if (currentPotionEffects.get(effect.getName()).getAmplifier() > effect.getAmplifier()) {
-                    return;
+        EntityCustomPotionEffectEvent event = new EntityCustomPotionEffectEvent(p, currentPotionEffects.get(effect.getName()), effect, cause, action, force);
+        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled()){
+            if (!event.isOverride()){
+                if (currentPotionEffects.containsKey(event.getNewEffect().getName())){
+                    if (currentPotionEffects.get(event.getNewEffect().getName()).getAmplifier() > event.getNewEffect().getAmplifier()) {
+                        return;
+                    }
                 }
             }
-        }
-        if (effect.getEffectiveUntil() != -1){
-            if (effect.getEffectiveUntil() <= 0){
-                currentPotionEffects.remove(effect.getName());
+            if (event.getNewEffect().getEffectiveUntil() != -1){
+                if (event.getNewEffect().getEffectiveUntil() <= 0){
+                    currentPotionEffects.remove(event.getNewEffect().getName());
+                } else {
+                    currentPotionEffects.put(event.getNewEffect().getName(), event.getNewEffect());
+                }
             } else {
-                currentPotionEffects.put(effect.getName(), effect);
+                currentPotionEffects.put(event.getNewEffect().getName(), event.getNewEffect());
             }
-        } else {
-            currentPotionEffects.put(effect.getName(), effect);
+            setPotionEffects(p, new HashSet<>(currentPotionEffects.values()));
         }
-        setPotionEffects(p, new HashSet<>(currentPotionEffects.values()));
     }
 
     /**
@@ -319,6 +386,99 @@ public class PotionEffectManager {
             }
 
             i.setItemMeta(meta);
+        }
+    }
+
+    private final Map<UUID, BleedingInstance> bleedingEntities = new HashMap<>();
+    private void startBleedingRunnable(){
+        int delay = ConfigManager.getInstance().getConfig("config.yml").get().getInt("bleed_delay", 20);
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                for (BleedingInstance instance : bleedingEntities.values()){
+                    if (!instance.getBleedingEntity().isValid() || instance.getBleedingUntil() < System.currentTimeMillis()) {
+                        bleedingEntities.remove(instance.getBleedingEntity().getUniqueId());
+                    } else {
+                        EntityDamageEvent event;
+                        if (instance.getBleedingCausedBy() == null){
+                            event = new EntityDamageEvent(instance.getBleedingEntity(), EntityDamageEvent.DamageCause.STARVATION,
+                                    instance.getBleedingDamage());
+                        } else {
+                            event = new EntityDamageByEntityEvent(instance.getBleedingCausedBy(),
+                                    instance.getBleedingEntity(), EntityDamageEvent.DamageCause.STARVATION, instance.getBleedingDamage());
+                        }
+                        bleedTick.add(instance.getBleedingEntity().getUniqueId());
+                        instance.getBleedingEntity().setLastDamageCause(event);
+                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+                        int particleCount = (int) (3 * Math.min(10, event.getDamage()));
+                        instance.getBleedingEntity().getWorld().spawnParticle(Particle.BLOCK_DUST, instance.getBleedingEntity().getLocation().add(0, 1, 0),
+                                particleCount, 0.4, 0.4, 0.4, Material.REDSTONE_BLOCK.createBlockData());
+                        instance.getBleedingEntity().playEffect(EntityEffect.HURT);
+                    }
+                }
+            }
+        }.runTaskTimer(ValhallaMMO.getPlugin(), 0L, delay);
+    }
+
+    private final Collection<UUID> bleedTick = new HashSet<>();
+
+    public Collection<UUID> getBleedTicks() {
+        return bleedTick;
+    }
+
+    public LivingEntity getBleedingCause(LivingEntity bleeder){
+        BleedingInstance instance = bleedingEntities.get(bleeder.getUniqueId());
+        if (instance == null) return null;
+        return instance.getBleedingCausedBy();
+    }
+
+    public void bleedEntity(LivingEntity bleeder, LivingEntity causedBy, int duration, double damage){
+        if (damage <= 0) return;
+        BleedingInstance instance = bleedingEntities.get(bleeder.getUniqueId());
+        if (instance != null){
+            if (instance.getBleedingDamage() > damage) return;
+        }
+        damage *= (1 - AccumulativeStatManager.getInstance().getStats("BLEED_RESISTANCE", bleeder, causedBy, true));
+        bleedingEntities.put(bleeder.getUniqueId(), new BleedingInstance(bleeder, causedBy, duration, Math.max(0, damage)));
+    }
+
+    public void removeBleeding(LivingEntity bleeder){
+        bleedingEntities.remove(bleeder.getUniqueId());
+    }
+
+    public boolean isBleeding(LivingEntity bleeder){
+        BleedingInstance instance = bleedingEntities.get(bleeder.getUniqueId());
+        if (instance == null) return false;
+        return instance.getBleedingUntil() >= System.currentTimeMillis();
+    }
+
+    private static class BleedingInstance{
+        private final LivingEntity entityBleeding;
+        private final LivingEntity bleedingCausedBy;
+        private final long bleedingUntil;
+        private final double bleedingDamage;
+
+        public BleedingInstance(LivingEntity entityBleeding, LivingEntity bleedingCausedBy, long duration, double bleedingDamage){
+            this.entityBleeding = entityBleeding;
+            this.bleedingCausedBy = bleedingCausedBy;
+            this.bleedingUntil = System.currentTimeMillis() + duration;
+            this.bleedingDamage = bleedingDamage;
+        }
+
+        public LivingEntity getBleedingEntity() {
+            return entityBleeding;
+        }
+
+        public LivingEntity getBleedingCausedBy() {
+            return bleedingCausedBy;
+        }
+
+        public long getBleedingUntil() {
+            return bleedingUntil;
+        }
+
+        public double getBleedingDamage() {
+            return bleedingDamage;
         }
     }
 }

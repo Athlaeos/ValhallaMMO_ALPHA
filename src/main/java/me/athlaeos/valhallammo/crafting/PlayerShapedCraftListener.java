@@ -5,10 +5,7 @@ import me.athlaeos.valhallammo.crafting.recipetypes.DynamicShapedRecipe;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
-import me.athlaeos.valhallammo.managers.CustomRecipeManager;
-import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
-import me.athlaeos.valhallammo.managers.ProfileManager;
-import me.athlaeos.valhallammo.managers.SkillProgressionManager;
+import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.skills.smithing.SmithingSkill;
@@ -75,6 +72,15 @@ public class PlayerShapedCraftListener implements Listener {
 
     @EventHandler
     public void onPlayerCraft(PrepareItemCraftEvent e){
+        if (e.isRepair()){
+            for (ItemStack i : e.getInventory().getMatrix()){
+                if (Utils.isItemEmptyOrNull(i)) continue;
+                if (SmithingItemTreatmentManager.getInstance().isItemCustom(i)) {
+                    e.getInventory().setResult(null);
+                    return;
+                }
+            }
+        }
         CustomRecipeManager manager = CustomRecipeManager.getInstance();
         if (e.getRecipe() instanceof ShapedRecipe){
             if (e.getRecipe() == null) return;

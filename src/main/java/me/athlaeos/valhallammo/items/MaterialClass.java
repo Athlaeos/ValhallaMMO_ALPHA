@@ -1,11 +1,13 @@
 package me.athlaeos.valhallammo.items;
 
+import me.athlaeos.valhallammo.ValhallaMMO;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public enum MaterialClass {
     WOOD(Arrays.asList(Material.WOODEN_PICKAXE, Material.WOODEN_AXE, Material.WOODEN_HOE, Material.WOODEN_SHOVEL,
@@ -75,14 +77,37 @@ public enum MaterialClass {
         return matchingMaterials;
     }
 
-    public void setMatchingMaterials(List<Material> matchingMaterials) {
-        this.matchingMaterials = matchingMaterials;
-    }
+    private final static NamespacedKey materialTypeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "material_type");
 
-    public static MaterialClass getMatchingClass(Material m){
-        for (MaterialClass c : MaterialClass.values()){
-            if (c.getMatchingMaterials().contains(m)) return c;
+    public static MaterialClass getMatchingClass(ItemStack item){
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return null;
+        if (meta.getPersistentDataContainer().has(materialTypeKey, PersistentDataType.STRING)){
+            String value = meta.getPersistentDataContainer().get(materialTypeKey, PersistentDataType.STRING);
+            if (value != null) {
+                try {
+                    return MaterialClass.valueOf(value);
+                } catch (IllegalArgumentException ignored){}
+            }
+        }
+        for (MaterialClass type : values()){
+            if (type.getDefaultTypes().contains(item.getType())) return type;
         }
         return null;
+    }
+
+    public static void setMaterialType(ItemStack item, MaterialClass type){
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return;
+        if (type == null){
+            meta.getPersistentDataContainer().remove(materialTypeKey);
+        } else {
+            meta.getPersistentDataContainer().set(materialTypeKey, PersistentDataType.STRING, type.toString());
+        }
+        item.setItemMeta(meta);
+    }
+
+    public Collection<Material> getDefaultTypes() {
+        return matchingMaterials;
     }
 }

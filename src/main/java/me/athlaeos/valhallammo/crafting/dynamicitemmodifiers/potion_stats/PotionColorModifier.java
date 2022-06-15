@@ -19,7 +19,7 @@ public class PotionColorModifier extends TripleArgDynamicItemModifier implements
         super(name, strength, strength2, strength3, priority);
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_MISC;
 
         this.bigStepDecrease = 25D; // R
         this.bigStepIncrease = 25D;

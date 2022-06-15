@@ -156,7 +156,7 @@ public class CustomDurabilityManager {
 
     public void applyCustomDurability(ItemStack i, int qualityRating){
         if (i == null) return;
-        Scaling scaling = SmithingItemTreatmentManager.getInstance().getScaling(i.getType(), "CUSTOM_MAX_DURABILITY");
+        Scaling scaling = SmithingItemTreatmentManager.getInstance().getScaling(i, "CUSTOM_MAX_DURABILITY");
         if (scaling == null) return;
         assert i.getItemMeta() != null;
         if (i.getItemMeta() instanceof Damageable){

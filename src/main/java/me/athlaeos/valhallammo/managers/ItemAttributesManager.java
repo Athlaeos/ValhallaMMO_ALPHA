@@ -35,11 +35,31 @@ public class ItemAttributesManager {
         registerAttribute(new CustomArrowAccuracyWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new CustomArrowPiercingWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new CustomMaxDurabilityWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomKnockbackWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomStunChanceWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomBleedChanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomBleedDamageWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomBleedDurationWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomCritChanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomCritDamageWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomFlatArmorPenetrationWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomFlatLightArmorPenetrationWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomFlatHeavyArmorPenetrationWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomFractionLightArmorPiercingWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomFractionHeavyArmorPiercingWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomFractionArmorPiercingWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomHeavyArmorDamageWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomLightArmorDamageWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomImmunityFrameBonusWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomImmunityFrameReductionWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomFlatImmunityFrameBonusWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomMeleeDamageWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomWeaponReachWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+        registerAttribute(new CustomVelocityDamageBonusWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 
         registerAttribute(new VanillaArmorToughnessWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaArmorWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaAttackDamageWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-        registerAttribute(new VanillaAttackKnockbackWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaAttackSpeedWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
         registerAttribute(new VanillaKnockbackResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new VanillaMaxHealthWrapper(0D, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
@@ -172,6 +192,21 @@ public class ItemAttributesManager {
 
     public void registerAttribute(AttributeWrapper attribute){
         registeredAttributes.put(attribute.getAttribute(), attribute);
+    }
+
+    public AttributeWrapper getWrapperClone(String wrapper){
+        AttributeWrapper baseWrapper = registeredAttributes.get(wrapper);
+        if (baseWrapper != null) {
+            try {
+                return baseWrapper.clone();
+            } catch (CloneNotSupportedException ignored) {
+            }
+        }
+        return null;
+    }
+
+    public Map<String, AttributeWrapper> getRegisteredAttributes() {
+        return registeredAttributes;
     }
 
     /**
@@ -495,6 +530,36 @@ public class ItemAttributesManager {
                 currentAttribute.setAmount(value);
                 currentStats.put(currentAttribute.getAttribute(), currentAttribute);
                 setStats(i, currentStats);
+            } catch (CloneNotSupportedException ignored){
+                ValhallaMMO.getPlugin().getLogger().warning("Attempted to clone attribute wrapper, but this failed");
+            }
+        }
+    }
+
+    /**
+     * Sets a default attribute's strength to an item only if the type of the item has this attribute by default.
+     * For certain attributes the value is corrected automatically, like attack speed is reduced by 4.0 and attack damage
+     * reduced by 1.0 if their operation equals ADD_NUMBER
+     * @param i the item to add the attribute to
+     * @param attribute the attribute to add to the item
+     * @param value the value to give to the item
+     */
+    public void setDefaultAttributeStrength(ItemStack i, String attribute, double value){
+        if (i == null) return;
+        Map<String, AttributeWrapper> defaultStats = new HashMap<>(getDefaultStats(i));
+        if (defaultStats.containsKey(attribute)){
+            try {
+                AttributeWrapper newDefaultAttribute = defaultStats.get(attribute).clone();
+                if (value < newDefaultAttribute.getMinValue()) {
+                    value = newDefaultAttribute.getMinValue();
+                }
+                if (value > newDefaultAttribute.getMaxValue()){
+                    value = newDefaultAttribute.getMaxValue();
+                }
+                value = Utils.round(value, 4);
+                newDefaultAttribute.setAmount(value);
+                defaultStats.put(newDefaultAttribute.getAttribute(), newDefaultAttribute);
+                setDefaultStats(i, defaultStats);
             } catch (CloneNotSupportedException ignored){
                 ValhallaMMO.getPlugin().getLogger().warning("Attempted to clone attribute wrapper, but this failed");
             }

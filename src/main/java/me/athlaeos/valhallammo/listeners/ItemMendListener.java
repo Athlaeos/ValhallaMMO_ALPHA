@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerItemMendEvent;
 
 public class ItemMendListener implements Listener {
 
-    @EventHandler(priority=EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.NORMAL)
     public void onItemMend(PlayerItemMendEvent e){
         if (e.isCancelled()) return;
         CustomDurabilityManager.getInstance().damageItem(e.getItem(), -e.getRepairAmount());

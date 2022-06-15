@@ -77,6 +77,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
 
     public MiningSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 4;
         ChancedBlockLootTable miningLootTable = LootManager.getInstance().getChancedBlockLootTables().get("mining_mining");
         if (miningLootTable != null){
             if (miningLootTable instanceof ChancedMiningLootTable){
@@ -101,7 +102,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
         expMultiplierMine = progressionConfig.getDouble("experience.exp_multiplier_mine");
         expMultiplierBlast = progressionConfig.getDouble("experience.exp_multiplier_blast");
         veinMineLimit = miningConfig.getInt("break_limit_vein_mining");
-        veinMineInstantPickup = miningConfig.getBoolean("instant_pickup_ultra_harvesting");
+        veinMineInstantPickup = miningConfig.getBoolean("instant_pickup_vein_mining");
         forgivingMultipliers = miningConfig.getBoolean("forgiving_multipliers");
         remove_tnt_chaining = miningConfig.getBoolean("remove_tnt_chaining");
         quickmode_toggle_on = miningConfig.getString("quickmode_toggle_on");
@@ -159,7 +160,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
     @Override
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
-        Profile p = ProfileManager.getManager().getManager().getProfile(event.getPlayer(), "MINING");
+        Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "MINING");
         if (p != null){
             if (p instanceof MiningProfile){
                 // If block is unbreakable, event gets cancelled and nothing else happens.
@@ -463,7 +464,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                 }
                 addEXP(player, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
                 int fortuneLevel = 0;
-                Profile p = ProfileManager.getManager().getManager().getProfile(player, "MINING");
+                Profile p = ProfileManager.getManager().getProfile(player, "MINING");
                 if (p != null){
                     if (p instanceof MiningProfile){
                         fortuneLevel = ((MiningProfile) p).getExplosionFortuneLevel();
@@ -578,7 +579,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                     if (!(p instanceof MiningProfile)) return;
                     MiningProfile profile = (MiningProfile) p;
                     if (profile.getQuickMineCooldown() > 0){
-                        CooldownManager.getInstance().setCooldownIgnoreIfPermission(player, profile.getQuickMineCooldown() * 1000, "cooldown_mining_quickmine");
+                        CooldownManager.getInstance().setCooldownIgnoreIfPermission(player, profile.getQuickMineCooldown(), "cooldown_mining_quickmine");
                     }
                 }
             }

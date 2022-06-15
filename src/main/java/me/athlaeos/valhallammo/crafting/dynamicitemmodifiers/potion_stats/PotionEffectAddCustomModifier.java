@@ -22,7 +22,7 @@ public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
         this.effect = effect;
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_CUSTOM;
 
         this.bigStepDecrease = 15000;
         this.bigStepIncrease = 15000;

@@ -17,7 +17,7 @@ public class ArmorWeightlessModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 0D;
         this.bigStepIncrease = 0D;

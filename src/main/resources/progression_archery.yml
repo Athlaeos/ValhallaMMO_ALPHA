@@ -170,9 +170,9 @@ perks:
       - archery_perk_ranked_1
     name: '&7Primitive Fletching'
     icon: ARROW
-    custom_model_data_unlockable: 3
-    custom_model_data_visible: 3
-    custom_model_data_unlocked: 3
+    custom_model_data_unlockable: 5
+    custom_model_data_visible: 5
+    custom_model_data_unlocked: 5
     description: '&7Unlocks &eStone Arrows&7 for crafting (crafting table)'
     required_lv: 20
     perk_rewards:
@@ -192,9 +192,9 @@ perks:
       - archery_perk_main_1
     name: '&7Medieval Arrows'
     icon: ARROW
-    custom_model_data_unlockable: 5
-    custom_model_data_visible: 5
-    custom_model_data_unlocked: 5
+    custom_model_data_unlockable: 9
+    custom_model_data_visible: 9
+    custom_model_data_unlocked: 9
     description: '&7Unlocks &eCopper and Gold Arrows &7for crafting (anvil)'
     required_lv: 40
     perk_rewards:
@@ -217,9 +217,9 @@ perks:
       - archery_perk_main_2
     name: '&7Modern Arrows'
     icon: ARROW
-    custom_model_data_unlockable: 7
-    custom_model_data_visible: 7
-    custom_model_data_unlocked: 7
+    custom_model_data_unlockable: 11
+    custom_model_data_visible: 11
+    custom_model_data_unlocked: 11
     description: '&7Unlocks &eIron and Carbon Arrows &7for crafting (anvil)'
     required_lv: 60
     perk_rewards:
@@ -242,9 +242,9 @@ perks:
       - archery_perk_main_3
     name: '&7Mystic Arrows'
     icon: ARROW
-    custom_model_data_unlockable: 8
-    custom_model_data_visible: 8
-    custom_model_data_unlocked: 8
+    custom_model_data_unlockable: 15
+    custom_model_data_visible: 15
+    custom_model_data_unlocked: 15
     description: '&7Unlocks &eDiamond and Ender Arrows &7for crafting (anvil)'
     required_lv: 80
     perk_rewards:
@@ -267,9 +267,9 @@ perks:
       - archery_perk_main_4
     name: '&7Unholy Arrows'
     icon: ARROW
-    custom_model_data_unlockable: 10
-    custom_model_data_visible: 10
-    custom_model_data_unlocked: 10
+    custom_model_data_unlockable: 19
+    custom_model_data_visible: 19
+    custom_model_data_unlocked: 19
     description: '&7Is this ethical..?'
     required_lv: 100
     perk_rewards:
@@ -295,9 +295,6 @@ perks:
       - archery_perk_main_2
     name: '&7Shadow Archer'
     icon: BOW
-    custom_model_data_unlockable: 2
-    custom_model_data_visible: 2
-    custom_model_data_unlocked: 2
     description: '&7Shooting an enemy looking away from you has a 100% chance to cause critical damage. Critical hits deal 30% more damage and stun the enemy briefly'
     required_lv: 60
     perk_rewards:
@@ -320,9 +317,6 @@ perks:
       - archery_perk_crit_1
     name: '&7Deadly Shot'
     icon: BOW
-    custom_model_data_unlockable: 3
-    custom_model_data_visible: 3
-    custom_model_data_unlocked: 3
     description: '&7Critical hits now deal &e2x &7damage instead of +30%, and the stun duration is increased to &e1.5 seconds'
     required_lv: 80
     perk_rewards:
@@ -342,9 +336,6 @@ perks:
       - archery_perk_main_2
     name: '&7Charged Shot I'
     icon: BOW
-    custom_model_data_unlockable: 4
-    custom_model_data_visible: 4
-    custom_model_data_unlocked: 4
     description: '&7You unlock &eCharged Shot&7. &eSneak-Left click with the bow &7to activate charged shot and the next shot will deal more damage and knockback. Has a 30 second cooldown'
     required_lv: 60
     perk_rewards:
@@ -369,9 +360,6 @@ perks:
       - archery_perk_special_1
     name: '&7Charged Shot II'
     icon: BOW
-    custom_model_data_unlockable: 5
-    custom_model_data_visible: 5
-    custom_model_data_unlocked: 5
     description: '&7Charged Shot deals &e+20% &7more damage, heavier knockback, and its cooldown is reduced to &e20 seconds'
     required_lv: 80
     perk_rewards:

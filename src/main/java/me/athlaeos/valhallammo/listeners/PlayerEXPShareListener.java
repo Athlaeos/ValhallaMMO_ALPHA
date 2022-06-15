@@ -20,7 +20,7 @@ public class PlayerEXPShareListener implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onPlayerGainEXP(PlayerSkillExperienceGainEvent e){
         if (e.getReason() != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION) return;
         Party party = PartyManager.getInstance().getParty(e.getPlayer());

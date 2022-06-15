@@ -17,7 +17,7 @@ public class AddEnchantmentGlowModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ENCHANTING_STATS;
+        this.category = ModifierCategory.ENCHANTING_MISC;
 
         this.bigStepDecrease = 0;
         this.bigStepIncrease = 0;

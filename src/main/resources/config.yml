@@ -8,11 +8,13 @@ db_host: 'host'
 db_database: 'database'
 db_username: 'username'
 db_password: 'password'
+db_port: 3306
+db_ping_delay: 24000 # delay (in game ticks) where the database is pinged to keep the connection alive
 
 # GENERAL
 
 metrics: true # Allow the plugin to register bStats metrics.
-is_spigot: false # Spigot works slightly differently from its forks, and these differences sometimes break things that would
+is_spigot: true # Spigot works slightly differently from its forks, and these differences sometimes break things that would
 # work on for example PaperMC or Purpur. If you are running on spigot, set this to true. Otherwise you can ignore this.
 # It is recommended to not use Spigot simply for performance reasons
 language: 'en-us' # The language file used. Language files can be found in ValhallaMMO/languages
@@ -31,16 +33,6 @@ skilltree_arrow_data_nw: 3511001
 # If enabled, the player will receive a book (detailed in tutorial_book.yml) on first join. This book will attempt to
 # teach the player some of the plugin's more obscure mechanics, such as the custom crafting mechanics
 book_on_join: true
-
-# Various skills have abilities that may "stun" targets, which are just a collection of potion effects
-# These potion effects are defined as...
-stun_effects:
-  SLOW: 5
-  SLOW_DIGGING: 5
-  BLINDNESS: 5
-  WEAKNESS: 5
-# After a target is stunned, they may not be stunned again for this amount of time (in milliseconds)
-stun_immunity_frame: 5000
 
 # Disabled skills are not registered and thus not visible in the skill trees, you can also not gain EXP for them.
 enabled_skills:
@@ -106,10 +98,46 @@ enabled_listeners:
   breeding: true # Responsible for the farming skill's breeding mechanics
   targeting: true # Responsible for the farming skill's bee aggro immunity mechanics
 
-  movement_update_delay: 5000 # Movement-based stats are updated with a delay to improve performance, low values may
-  # make the plugin lag more. Delay is in milliseconds
+movement_update_delay: 2000 # Movement-based stats are updated with a delay to improve performance, low values may
+# make the plugin lag more. Delay is in milliseconds
 
-# DAMAGE
+# COMBAT & DAMAGE
+
+# Various skills have abilities that may "stun" targets, which are just a collection of potion effects
+# These potion effects are defined as...
+stun_effects:
+  SLOW: 5
+  SLOW_DIGGING: 5
+  BLINDNESS: 5
+  WEAKNESS: 5
+# After a target is stunned, they may not be stunned again for this amount of time (in milliseconds)
+stun_immunity_frame: 5000
+# Non-player enemies might be able to stun as well, but they don't have a profile to base the stun duration off of
+# How long should enemies be able to stun others for? (in ticks)
+default_stun_duration: 20
+
+# Time frame after a combat action the player will still be considered "in combat" in
+combat_time_frame: 5000
+combat_mobs_only: true # If true, only hitting mobs can put you in combat and hitting animals will no longer put you in combat
+
+# Various abilities can cause targets to bleed, how long should the delay between bleed damage ticks be (in minecraft ticks)
+bleed_delay: 40
+
+# ValhallaMMO features a parry system, where a successful parry heavily debuffs the parried enemy and reduces the damage
+# taken from the attack, while a failed one puts the parrier at a temporary vulnerability
+parry_enemy_debuffs: # The debuffs the enemy receives when they got parried. The debuff duration is dependent on parrier's stats
+  FRACTION_ARMOR_REDUCTION: 0.5 # Armor reduced by 50% during duration
+  STUN: 69 # A stun has no amplifier, so it can be any number
+
+parry_failed_debuffs: # The debuffs the parrier receives when they fail the parry. The debuff duration is dependent on parrier's stats
+  FRACTION_ARMOR_REDUCTION: 0.25 # Armor reduced by 25% during duration
+  SLOW: 1 # Slowness II for the duration
+  WEAKNESS: 1 # Weakness II for the duration
+
+parry_sound: BLOCK_IRON_TRAPDOOR_OPEN # Sound that plays when someone attempts a parry
+parry_success_sound: ENTITY_ITEM_BREAK # Sound that plays when a parried target is hit by an attack
+parry_failed_sound: ITEM_SHIELD_BREAK # Sound that plays when the parrier is hit after having failed a parry
+parry_sparks: true # If true, sparks will fly off parried attacks
 
 # Damage calculation for armor and armor toughness. Armor is effective only against the given damage sources,
 # everything else is not mitigated by how many armor points you have.
@@ -172,6 +200,7 @@ light_fire_reduction: 0.00 # Fire damage reduced per piece of light armor
 light_melee_reduction: 0.00 # Melee damage reduced per piece of light armor
 light_magic_reduction: 0.00 # Magic damage reduced per piece of light armor
 light_knockback_reduction: 0.00 # Knockback reduced per piece of light armor
+light_bleeding_reduction: 0.00 # Bleed damage reduction per piece of light armor
 
 heavy_damage_reduction: 0.00 # All damage reduced per piece of heavy armor
 heavy_projectile_reduction: 0.05 # Projectile damage reduced per piece of heavy armor (default up to 20%)
@@ -182,6 +211,7 @@ heavy_fire_reduction: 0.00 # Fire damage reduced per piece of heavy armor
 heavy_melee_reduction: 0.025 # Melee damage reduced per piece of heavy armor (default up to 10%)
 heavy_magic_reduction: 0.00 # Magic damage reduced per piece of heavy armor
 heavy_knockback_reduction: 0.05 # Knockback reduced per piece of heavy armor (default up to 20%)
+heavy_bleeding_reduction: 0.05 # Bleed damage reduction per piece of heavy armor (default up to 20%)
 
 # ValhallaMMO changes trident damage to instead scale off its melee damage
 trident_damage_ranged: 1.3 # Damage multiplier of tridents when thrown
@@ -198,10 +228,11 @@ craft_item_drop: true
 advanced_crafting_preview: true
 # Disable this option if you find the performance hit too much
 
-# Enabling this option will make it so regular right-clicking crafting stations will open the custom menu,
-# and shift-right clicking the crafting stations will open the vanilla menu (if any). Only enable this option
-# if you plan to primarily use the custom crafting system
-swap_crafting_table_functionality: false
+# Any block materials in this list will have its controls "Inverted", meaning regular right click will open the custom
+# crafting menu and shift right click will open its vanilla menu (if any)
+# By default it's just a block that you can't target to begin with, as example/template to go off of
+swap_crafting_table_functionality:
+  - LIGHT
 
 # Disabled crafting recipes
 # An entry in this list is valid if the name equates to a recipe's namespaced key, which in most cases is just
@@ -279,8 +310,8 @@ name_allow_colors: true # If true, party creators may add colors to their party 
 description_allow_colors: true # If true, party creators may add colors to their description
 
 party_capacity_default: 50 # Default member capacity of a party
-exp_sharing_default: true # If disabled, party exp sharing will be disabled by default
-item_sharing_default: true # If disabled, party item sharing will be disabled by default
+exp_sharing_default: true # If false, party exp sharing will be disabled by default
+item_sharing_default: true # If false, party item sharing will be disabled by default
 
 exp_sharing_radius: 25 # Default exp sharing radius
 exp_sharing_multiplier: 1.0 # Default exp sharing fraction

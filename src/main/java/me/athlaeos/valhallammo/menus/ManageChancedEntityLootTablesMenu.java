@@ -734,6 +734,7 @@ public class ManageChancedEntityLootTablesMenu extends Menu {
         icons.put("VEX", validateAndReturnIcon("VEX", "GOLDEN_SWORD"));
         icons.put("VILLAGER", validateAndReturnIcon("VILLAGER", "EMERALD"));
         icons.put("VINDICATOR", validateAndReturnIcon("VINDICATOR", "IRON_AXE"));
+        icons.put("WARDEN", validateAndReturnIcon("WARDEN", "ECHO_SHARD"));
         icons.put("WITCH", validateAndReturnIcon("WITCH", "SPLASH_POTION"));
         icons.put("WITHER", validateAndReturnIcon("WITHER", "NETHER_STAR"));
         icons.put("WITHER_SKELETON", validateAndReturnIcon("WITHER_SKELETON", "COAL"));

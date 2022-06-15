@@ -22,18 +22,19 @@ experience: # Everything about leveling and experience progression for Smithing
     NETHER_QUARTZ_ORE: 5
     NETHER_GOLD_ORE: 7
     OBSIDIAN: 10
-    END_STONE: 1.5
-    STONE: 1
-    DEEPSLATE: 1.2
-    GRANITE: 1
-    ANDESITE: 1
-    DIORITE: 1
-    CALCITE: 1
-    DRIPSTONE_BLOCK: 1.2
-    AMETHYST_BLOCK: 2
-    BLACKSTONE: 1.2
-    BASALT: 1.2
-    SMOOTH_BASALT: 1.2
+    END_STONE: 3
+    STONE: 2
+    DEEPSLATE: 2.5
+    GRANITE: 2
+    ANDESITE: 2
+    DIORITE: 2
+    CALCITE: 2
+    TUFF: 2
+    DRIPSTONE_BLOCK: 2.5
+    AMETHYST_BLOCK: 4
+    BLACKSTONE: 2.5
+    BASALT: 2.5
+    SMOOTH_BASALT: 2.5
     COAL_ORE: 5
     IRON_ORE: 10
     COPPER_ORE: 7

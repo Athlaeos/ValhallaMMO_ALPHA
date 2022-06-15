@@ -20,7 +20,7 @@ public class ArrowExplosiveUpgradeModifier extends TripleArgDynamicItemModifier 
         super(name, strength, strength2, strength3, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 1; // explosion radius
         this.bigStepIncrease = 1;

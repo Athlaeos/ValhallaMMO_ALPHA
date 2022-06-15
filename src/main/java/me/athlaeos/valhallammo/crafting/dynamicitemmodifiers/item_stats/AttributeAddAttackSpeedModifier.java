@@ -21,7 +21,7 @@ public class AttributeAddAttackSpeedModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_VANILLA;
 
         this.bigStepDecrease = 0.5;
         this.bigStepIncrease = 0.5;

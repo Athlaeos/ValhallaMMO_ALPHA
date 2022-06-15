@@ -20,7 +20,7 @@ public class EntityBreedListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onEntityBreed(EntityBreedEvent e){
         if (!e.isCancelled()){
             if (farmingSkill != null){

@@ -21,7 +21,7 @@ public class DynamicModifierMenu extends Menu{
     private final NamespacedKey categoryNameKey = new NamespacedKey(ValhallaMMO.getPlugin(), "button_category_name");
 
     private final List<ItemStack> scrollItems = new ArrayList<>();
-    private final int[] scrollBarIndexes = new int[]{46, 47, 48, 50, 51, 52};
+    private final int[] scrollBarIndexes = new int[]{45, 46, 47, 48, 49, 50, 51, 52, 53};
 
     private ItemStack modifierStrengthButton = Utils.createItemStack(
             Material.NETHER_STAR,
@@ -292,7 +292,7 @@ public class DynamicModifierMenu extends Menu{
     }
 
     private void setPickModifiersView(){
-        for (int i = 0; i < 45; i++){
+        for (int i = 0; i < 36; i++){
             inventory.setItem(i, null);
         }
         Map<String, DynamicItemModifier> modifiers = DynamicItemModifierManager.getInstance().getModifiers();
@@ -319,7 +319,7 @@ public class DynamicModifierMenu extends Menu{
             totalModifierButtons.add(modifierIcon);
         }
         totalModifierButtons.sort(Comparator.comparing(ItemStack::getType));
-        Map<Integer, ArrayList<ItemStack>> pages = Utils.paginateItemStackList(45, totalModifierButtons);
+        Map<Integer, ArrayList<ItemStack>> pages = Utils.paginateItemStackList(36, totalModifierButtons);
 
         if (currentPage > pages.size()) currentPage = pages.size();
         if (currentPage < 1) currentPage = 1;
@@ -330,9 +330,9 @@ public class DynamicModifierMenu extends Menu{
             }
         }
 
-        inventory.setItem(45, previousPageButton);
-        inventory.setItem(53, nextPageButton);
-        inventory.setItem(49, confirmButton);
+        inventory.setItem(36, previousPageButton);
+        inventory.setItem(44, nextPageButton);
+        inventory.setItem(40, confirmButton);
     }
 
     private void setViewModifiersView(){
@@ -364,7 +364,9 @@ public class DynamicModifierMenu extends Menu{
         switch (clickType){
             case LEFT: {
                 switch (priority){
-                    case NEUTRAL: priority = ModifierPriority.SOON;
+                    case NEUTRAL: priority = ModifierPriority.SOONISH;
+                        break;
+                    case SOONISH: priority = ModifierPriority.SOON;
                         break;
                     case SOON: priority = ModifierPriority.SOONEST;
                         break;
@@ -372,22 +374,28 @@ public class DynamicModifierMenu extends Menu{
                         break;
                     case LAST: priority = ModifierPriority.LATER;
                         break;
-                    case LATER: priority = ModifierPriority.NEUTRAL;
+                    case LATER: priority = ModifierPriority.LATERISH;
+                        break;
+                    case LATERISH: priority = ModifierPriority.NEUTRAL;
                         break;
                 }
                 break;
             }
             case RIGHT:{
                 switch (priority){
-                    case NEUTRAL: priority = ModifierPriority.LATER;
+                    case NEUTRAL: priority = ModifierPriority.LATERISH;
                         break;
-                    case SOON: priority = ModifierPriority.NEUTRAL;
+                    case LATERISH: priority = ModifierPriority.LATER;
                         break;
-                    case SOONEST: priority = ModifierPriority.SOON;
+                    case LATER: priority = ModifierPriority.LAST;
                         break;
                     case LAST: priority = ModifierPriority.SOONEST;
                         break;
-                    case LATER: priority = ModifierPriority.LAST;
+                    case SOONEST: priority = ModifierPriority.SOON;
+                        break;
+                    case SOON: priority = ModifierPriority.SOONISH;
+                        break;
+                    case SOONISH: priority = ModifierPriority.NEUTRAL;
                         break;
                 }
                 break;
@@ -565,13 +573,13 @@ public class DynamicModifierMenu extends Menu{
         List<ItemStack> icons = new ArrayList<>(scrollItems);
         int iconsSize = icons.size();
         if (iconsSize > 0){
-            for (int i = 0; i < 6; i++){
-                for (int o = 0; o < 6; o++){
+            for (int i = 0; i < ModifierCategory.values().length; i++){
+                for (int o = 0; o < scrollBarIndexes.length; o++){
                     if (o >= scrollItems.size()) break;
                     ItemStack iconToPut = scrollItems.get(o);
                     inventory.setItem(scrollBarIndexes[o], iconToPut);
                 }
-                ItemStack centerItem = inventory.getItem(48);
+                ItemStack centerItem = inventory.getItem(49);
                 if (centerItem != null){
                     assert centerItem.getItemMeta() != null;
                     if (getItemStoredCategory(centerItem) == this.currentCategory){
@@ -597,9 +605,11 @@ public class DynamicModifierMenu extends Menu{
 
     private String priorityToNumber(ModifierPriority priority){
         switch (priority){
-            case SOONEST: return "5";
-            case SOON: return "4";
-            case NEUTRAL: return "3";
+            case SOONEST: return "7";
+            case SOON: return "6";
+            case SOONISH: return "5";
+            case NEUTRAL: return "4";
+            case LATERISH: return "3";
             case LATER: return "2";
             case LAST: return "1";
         }

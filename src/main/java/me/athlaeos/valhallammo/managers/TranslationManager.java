@@ -51,16 +51,16 @@ public class TranslationManager {
         setSkillTranslation("ACROBATICS", "acrobatics");
         setSkillTranslation("ALCHEMY", "alchemy");
         setSkillTranslation("ARCHERY", "archery");
-        setSkillTranslation("ARMOR_HEAVY", "heavy_armor");
-        setSkillTranslation("ARMOR_LIGHT", "light_armor");
+        setSkillTranslation("HEAVY_ARMOR", "heavy_armor");
+        setSkillTranslation("LIGHT_ARMOR", "light_armor");
         setSkillTranslation("ENCHANTING", "enchanting");
         setSkillTranslation("FARMING", "farming");
         setSkillTranslation("MINING", "mining");
         setSkillTranslation("SMITHING", "smithing");
         setSkillTranslation("TRADING", "trading");
         setSkillTranslation("UNARMED", "unarmed");
-        setSkillTranslation("WEAPONS_HEAVY", "heavy_weapons");
-        setSkillTranslation("WEAPONS_LIGHT", "light_weapons");
+        setSkillTranslation("HEAVY_WEAPONS", "heavy_weapons");
+        setSkillTranslation("LIGHT_WEAPONS", "light_weapons");
         setSkillTranslation("LANDSCAPING", "landscaping");
     }
 

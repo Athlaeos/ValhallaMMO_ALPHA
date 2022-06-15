@@ -5,7 +5,6 @@ import me.athlaeos.valhallammo.dom.ArmorType;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 
 public class LightArmorDefaultEquipmentDamageResistanceSource extends AccumulativeStatSource {
     private final double resistancePerPiece;
@@ -16,7 +15,7 @@ public class LightArmorDefaultEquipmentDamageResistanceSource extends Accumulati
 
     @Override
     public double add(Entity p, boolean use) {
-        if (p instanceof Player){
+        if (p instanceof LivingEntity){
             int lightArmorCount = ArmorType.getArmorTypeCount((LivingEntity) p, ArmorType.LIGHT);
             return lightArmorCount * resistancePerPiece;
         }

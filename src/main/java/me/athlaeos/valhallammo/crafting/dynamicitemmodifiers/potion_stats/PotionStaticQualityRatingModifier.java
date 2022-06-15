@@ -18,7 +18,7 @@ public class PotionStaticQualityRatingModifier extends DynamicItemModifier imple
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_MISC;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;

@@ -4,6 +4,7 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.recipetypes.AbstractCustomCraftingRecipe;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
+import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
 import me.athlaeos.valhallammo.managers.CustomEnchantmentManager;
 import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import org.bukkit.EntityEffect;
@@ -484,6 +485,12 @@ public class ItemUtils {
                         return true;
                     } else {
                         item.setItemMeta(damageable);
+                    }
+                } else {
+                    if (CustomDurabilityManager.getInstance().getDurability(item) <= 0){
+                        item.setType(Material.AIR);
+                        who.playEffect(breakEffect);
+                        return true;
                     }
                 }
             }

@@ -99,7 +99,7 @@ public class ResetProfilesCommand implements Command {
 
 	@Override
 	public String getFailureMessage() {
-		return "&c/valhalla reset <player> [true/false (hard reset)]";
+		return "&c/valhalla reset [false/true (hard reset)] <player>";
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class ResetProfilesCommand implements Command {
 
 	@Override
 	public String getCommand() {
-		return "&c/valhalla reset <player> [true/false (hard reset)]";
+		return "&c/valhalla reset [false/true (hard reset)] <player>";
 	}
 
 	@Override

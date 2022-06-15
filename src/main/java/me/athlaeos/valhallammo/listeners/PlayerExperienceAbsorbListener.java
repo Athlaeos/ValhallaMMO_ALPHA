@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 
 public class PlayerExperienceAbsorbListener implements Listener {
 
-    @EventHandler(priority= EventPriority.LOWEST)
+    @EventHandler(priority=EventPriority.HIGHEST)
     public void onPlayerAbsorb(PlayerExpChangeEvent e){
         if (e.getAmount() > 0){
             double expMultiplier = AccumulativeStatManager.getInstance().getStats("ENCHANTING_VANILLA_EXP_GAIN", e.getPlayer(), true);

@@ -21,7 +21,7 @@ public class MilkToChocolateMilkModifier extends DynamicItemModifier {
         super(name, 0, ModifierPriority.NEUTRAL);
 
         this.name = name;
-        this.category = ModifierCategory.POTION_STATS;
+        this.category = ModifierCategory.POTION_MISC;
 
         this.bigStepDecrease = 0;
         this.bigStepIncrease = 0;

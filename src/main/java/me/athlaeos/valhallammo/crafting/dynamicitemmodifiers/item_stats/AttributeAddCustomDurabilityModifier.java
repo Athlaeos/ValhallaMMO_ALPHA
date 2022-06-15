@@ -23,7 +23,7 @@ public class AttributeAddCustomDurabilityModifier extends DynamicItemModifier im
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_CUSTOM;
 
         this.bigStepDecrease = 25D;
         this.bigStepIncrease = 25D;

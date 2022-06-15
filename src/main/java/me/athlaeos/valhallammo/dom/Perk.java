@@ -61,6 +61,19 @@ public class Perk {
         return false;
     }
 
+    public boolean shouldBeVisible(Player p){
+        Profile profile = ProfileManager.getManager().getProfile(p, "ACCOUNT");
+        if (profile != null){
+            if (profile instanceof AccountProfile){
+                if (((AccountProfile) profile).getUnlockedPerks().contains(this.name)) {
+                    return false;
+                }
+                return metAllPerkRequirement((AccountProfile) profile) && metSinglePerkRequirement((AccountProfile) profile);
+            }
+        }
+        return false;
+    }
+
     /**
      * @return the custom model data on the icon when the perk is unlocked
      */

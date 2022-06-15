@@ -18,7 +18,7 @@ public class AddQualityRatingModifier extends DynamicItemModifier implements Clo
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;

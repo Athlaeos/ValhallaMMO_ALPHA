@@ -64,7 +64,7 @@ public abstract class IProfilePersistency {
             }
             setProfile(p, null, type);
             if (!hardReset && exp > 0){
-                SkillProgressionManager.getInstance().getSkill(type).addEXP(p, exp, true, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+                SkillProgressionManager.getInstance().getSkill(type).addEXP(p, exp, true, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
             }
         }
     }

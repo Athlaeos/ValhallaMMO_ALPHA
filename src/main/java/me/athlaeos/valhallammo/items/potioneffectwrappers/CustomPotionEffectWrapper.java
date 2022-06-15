@@ -15,12 +15,27 @@ public class CustomPotionEffectWrapper extends PotionEffectWrapper{
     private final PotionType type;
     private final String amplifierFormat;
     private final boolean instant;
+    private double multiplyWith = 1;
 
     public CustomPotionEffectWrapper(String potionEffect, double amplifier, int duration, String matchString, String amplifierFormat, boolean instant) {
         super(potionEffect, amplifier, duration);
         this.matchString = matchString;
         this.amplifierFormat = amplifierFormat;
         this.instant = instant;
+        PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(potionEffect);
+        if (basePotionEffect != null){
+            this.type = basePotionEffect.getType();
+        } else {
+            this.type = PotionType.NEUTRAL;
+        }
+    }
+
+    public CustomPotionEffectWrapper(String potionEffect, double amplifier, int duration, String matchString, String amplifierFormat, boolean instant, double multiplyWith) {
+        super(potionEffect, amplifier, duration);
+        this.matchString = matchString;
+        this.amplifierFormat = amplifierFormat;
+        this.instant = instant;
+        this.multiplyWith = multiplyWith;
         PotionEffect basePotionEffect = PotionEffectManager.getInstance().getBasePotionEffect(potionEffect);
         if (basePotionEffect != null){
             this.type = basePotionEffect.getType();
@@ -51,7 +66,7 @@ public class CustomPotionEffectWrapper extends PotionEffectWrapper{
             removeLore(meta);
             return;
         }
-        double amplifier = this.amplifier;
+        double amplifier = this.amplifier * multiplyWith;
         int duration = this.duration;
         if (duration < 0) duration = 0;
 

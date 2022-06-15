@@ -15,6 +15,7 @@ public class AccountSkill extends Skill {
 
     public AccountSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 0;
         YamlConfiguration playerConfig = ConfigManager.getInstance().getConfig("skill_player.yml").get();
         YamlConfiguration playerProgressionConfig = ConfigManager.getInstance().getConfig("progression_player.yml").get();
 

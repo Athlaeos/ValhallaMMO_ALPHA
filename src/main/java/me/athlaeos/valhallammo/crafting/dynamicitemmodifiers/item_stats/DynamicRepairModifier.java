@@ -24,7 +24,7 @@ public class DynamicRepairModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_MISC;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;
@@ -55,7 +55,7 @@ public class DynamicRepairModifier extends DynamicItemModifier {
         Profile profile = ProfileManager.getManager().getProfile(crafter, "SMITHING");
         if (!(meta instanceof Damageable)) return null;
         if (profile == null) return null;
-        MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem.getType());
+        MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem);
         if (materialClass == null) return null;
         int itemDurabiity = CustomDurabilityManager.getInstance().getDurability(outputItem);
         if (itemDurabiity >= CustomDurabilityManager.getInstance().getMaxDurability(outputItem)) return null;

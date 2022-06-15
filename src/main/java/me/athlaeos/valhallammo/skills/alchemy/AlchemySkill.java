@@ -26,6 +26,7 @@ import java.util.List;
 public class AlchemySkill extends Skill implements ProjectileSkill {
     public AlchemySkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 3;
         YamlConfiguration alchemyConfig = ConfigManager.getInstance().getConfig("skill_alchemy.yml").get();
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_alchemy.yml").get();
 

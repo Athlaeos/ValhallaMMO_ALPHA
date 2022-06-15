@@ -100,13 +100,11 @@ public class BlockCraftStateValidationManager {
         if (validation.getBlock() == null){
             genericCraftValidations.put(validation.getName(), validation);
         }
-        Map<String, CraftValidation> validations = new HashMap<>();
-        if (materialCraftValidations.containsKey(validation.getBlock())){
-            validations = materialCraftValidations.get(validation.getBlock());
+        for (Material m : validation.getCompatibleMaterials()){
+            Map<String, CraftValidation> validations = materialCraftValidations.getOrDefault(m, new HashMap<>());
+            validations.put(validation.getName(), validation);
+            materialCraftValidations.put(m, validations);
         }
-        validations.put(validation.getName(), validation);
-
-        materialCraftValidations.put(validation.getBlock(), validations);
     }
 
     public static BlockCraftStateValidationManager getInstance(){

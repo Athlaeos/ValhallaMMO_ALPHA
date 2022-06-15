@@ -18,7 +18,7 @@ public class DynamicKnockbackModifier extends DynamicItemModifier {
         super(name, strength, priority);
 
         this.name = name;
-        this.category = ModifierCategory.ITEM_STATS;
+        this.category = ModifierCategory.ITEM_STATS_VANILLA;
 
         this.bigStepDecrease = 10D;
         this.bigStepIncrease = 10D;
@@ -47,7 +47,7 @@ public class DynamicKnockbackModifier extends DynamicItemModifier {
         if (meta == null) return null;
         int quality = SmithingItemTreatmentManager.getInstance().getItemsQuality(outputItem);
         int finalQuality = (int) Math.round((strength / 100D) * quality);
-        SmithingItemTreatmentManager.getInstance().applyAttributeScaling(outputItem, finalQuality, "GENERIC_ATTACK_KNOCKBACK");
+        SmithingItemTreatmentManager.getInstance().applyAttributeScaling(outputItem, finalQuality, "CUSTOM_KNOCKBACK");
         return outputItem;
     }
 

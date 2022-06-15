@@ -1,0 +1,8 @@
+display_name: '&7Light Weapons'
+icon: IRON_SWORD
+icon_data: 3510001
+description: '&8Light Weapons aren''t very effective against heavy plate armor, but attack much faster and are able to deflect attacks better'
+
+levelbar_title: '&7Light Weapons &eLV %lv_current% &6%exp_current%&7/&6%exp_next%'
+levelbar_color: YELLOW # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
+levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID

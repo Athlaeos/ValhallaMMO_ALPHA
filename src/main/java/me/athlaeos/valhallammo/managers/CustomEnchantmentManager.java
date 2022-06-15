@@ -51,33 +51,45 @@ public class CustomEnchantmentManager {
     public CustomEnchantmentManager(){
         registeredEnchantments = new HashMap<>();
 
-        registerAttribute(new AcrobaticsEnchantment(0D));
-        registerAttribute(new AlchemyBrewSpeedEnchantment(0D));
-        registerAttribute(new AlchemyIngredientSaveEnchantment(0D));
-        registerAttribute(new AlchemyPotionSaveEnchantment(0D));
-        registerAttribute(new AlchemyQualityEnchantment(0D));
-        registerAttribute(new AlchemyThrowVelocityEnchantment(0D));
-        registerAttribute(new ArcheryAccuracyEnchantment(0D));
-        registerAttribute(new ArcheryAmmoSaveEnchantment(0D));
-        registerAttribute(new ArcheryDamageEnchantment(0D));
-        registerAttribute(new DamageDealtEnchantment(0D));
-        registerAttribute(new DamageTakenEnchantment(0D));
-        registerAttribute(new ExpGainSkillEnchantment(0D));
-        registerAttribute(new ExpGainVanillaEnchantment(0D));
-        registerAttribute(new FarmingExtraDropsEnchantment(0D));
-        registerAttribute(new FarmingRareDropsEnchantment(0D));
-        registerAttribute(new FarmingFishingTierEnchantment(0D));
-        registerAttribute(new MiningExtraDropsEnchantment(0D));
-        registerAttribute(new MiningRareDropsEnchantment(0D));
-        registerAttribute(new WoodcuttingExtraDropsEnchantment(0D));
-        registerAttribute(new WoodcuttingRareDropsEnchantment(0D));
-        registerAttribute(new SmithingQualityEnchantment(0D));
-        registerAttribute(new TradingEnchantment(0D));
-        registerAttribute(new UnarmedDamageEnchantment(0D));
-        registerAttribute(new WeaponsDamageEnchantment(0D));
+        registerEnchantment(new AcrobaticsEnchantment(0D));
+        registerEnchantment(new AlchemyBrewSpeedEnchantment(0D));
+        registerEnchantment(new AlchemyIngredientSaveEnchantment(0D));
+        registerEnchantment(new AlchemyPotionSaveEnchantment(0D));
+        registerEnchantment(new AlchemyQualityEnchantment(0D));
+        registerEnchantment(new AlchemyThrowVelocityEnchantment(0D));
+        registerEnchantment(new ArcheryAccuracyEnchantment(0D));
+        registerEnchantment(new ArcheryAmmoSaveEnchantment(0D));
+        registerEnchantment(new ArcheryDamageEnchantment(0D));
+        registerEnchantment(new DamageDealtEnchantment(0D));
+        registerEnchantment(new DamageTakenEnchantment(0D));
+        registerEnchantment(new ExpGainSkillEnchantment(0D));
+        registerEnchantment(new ExpGainVanillaEnchantment(0D));
+        registerEnchantment(new FarmingExtraDropsEnchantment(0D));
+        registerEnchantment(new FarmingRareDropsEnchantment(0D));
+        registerEnchantment(new FarmingFishingTierEnchantment(0D));
+        registerEnchantment(new MiningExtraDropsEnchantment(0D));
+        registerEnchantment(new MiningRareDropsEnchantment(0D));
+        registerEnchantment(new WoodcuttingExtraDropsEnchantment(0D));
+        registerEnchantment(new WoodcuttingRareDropsEnchantment(0D));
+        registerEnchantment(new SmithingQualityEnchantment(0D));
+        registerEnchantment(new TradingEnchantment(0D));
+        registerEnchantment(new UnarmedDamageEnchantment(0D));
+        registerEnchantment(new WeaponsDamageEnchantment(0D));
+
+        registerEnchantment(new DodgeChanceEnchantment(0D));
+        registerEnchantment(new ArmorMultiplierEnchantment(0D));
+        registerEnchantment(new BleedResistanceEnchantment(0D));
+        registerEnchantment(new CooldownReductionEnchantment(0D));
+        registerEnchantment(new CraftingSpeedEnchantment(0D));
+        registerEnchantment(new DiggingExtraDropsEnchantment(0D));
+        registerEnchantment(new DiggingRareDropsEnchantment(0D));
+        registerEnchantment(new HealingBonusEnchantment(0D));
+        registerEnchantment(new HungerSaveChanceEnchantment(0D));
+        registerEnchantment(new MiningExplosionPowerEnchantment(0D));
+        registerEnchantment(new StunResistanceEnchantment(0D));
     }
 
-    public void registerAttribute(EnchantmentWrapper attribute){
+    public void registerEnchantment(EnchantmentWrapper attribute){
         registeredEnchantments.put(attribute.getEnchantment(), attribute);
     }
 

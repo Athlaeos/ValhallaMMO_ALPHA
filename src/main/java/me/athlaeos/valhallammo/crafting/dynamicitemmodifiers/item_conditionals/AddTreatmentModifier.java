@@ -52,7 +52,9 @@ public class AddTreatmentModifier extends DynamicItemModifier {
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;
         if (!this.validate) return outputItem;
-        if (SmithingItemTreatmentManager.getInstance().hasTreatment(outputItem, treatment)) return null;
+        if (SmithingItemTreatmentManager.getInstance().hasTreatment(outputItem, treatment)) {
+            return null;
+        }
         Collection<ItemTreatment> itemTreatments = SmithingItemTreatmentManager.getInstance().getItemsTreatments(outputItem);
         itemTreatments.add(treatment);
         SmithingItemTreatmentManager.getInstance().setItemsTreatments(outputItem, itemTreatments);

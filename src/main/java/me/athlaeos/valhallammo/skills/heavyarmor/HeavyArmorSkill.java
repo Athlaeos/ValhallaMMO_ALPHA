@@ -3,13 +3,13 @@ package me.athlaeos.valhallammo.skills.heavyarmor;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.dom.CombatType;
 import me.athlaeos.valhallammo.dom.Profile;
-import me.athlaeos.valhallammo.events.PlayerEnterCombatEvent;
-import me.athlaeos.valhallammo.events.PlayerLeaveCombatEvent;
-import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
+import me.athlaeos.valhallammo.events.*;
 import me.athlaeos.valhallammo.listeners.EntityDamagedListener;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
 import me.athlaeos.valhallammo.managers.CooldownManager;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.skills.CombatSkill;
 import me.athlaeos.valhallammo.skills.OffensiveSkill;
@@ -36,6 +36,7 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
 
     public HeavyArmorSkill(String type) {
         super(type);
+        skillTreeMenuOrderPriority = 11;
 
         YamlConfiguration heavyArmorConfig = ConfigManager.getInstance().getConfig("skill_heavy_armor.yml").get();
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_heavy_armor.yml").get();
@@ -52,13 +53,20 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
                 continue;
             }
             try {
-                PotionEffectType potionType = PotionEffectType.getByName(args[0]);
-                if (potionType == null) throw new IllegalArgumentException();
+                String effect = args[0];
+                PotionEffectType vanillaEffect = PotionEffectType.getByName(effect);
+                if (vanillaEffect == null && !effect.equals("STUN")){
+                    me.athlaeos.valhallammo.dom.PotionEffect customEffect = PotionEffectManager.getInstance().getBasePotionEffect(effect);
+                    if (customEffect == null){
+                        ValhallaMMO.getPlugin().getServer().getLogger().warning("Could not register Rage potion effect " + effect + ", either it's not a valid potion effect or its arguments are not numbers!");
+                        continue;
+                    }
+                }
                 double baseAmplifier = Double.parseDouble(args[1]);
                 int baseDuration = Integer.parseInt(args[2]);
                 double lvAmplifier = Double.parseDouble(args[3]);
                 int lvDuration = Integer.parseInt(args[4]);
-                ragePotionEffects.add(new RagePotionEffect(potionType, baseAmplifier, baseDuration, lvAmplifier, lvDuration));
+                ragePotionEffects.add(new RagePotionEffect(effect, baseAmplifier, baseDuration, lvAmplifier, lvDuration));
             } catch (IllegalArgumentException ignored){
                 ValhallaMMO.getPlugin().getServer().getLogger().warning("Could not register Rage potion effect " + args[0] + ", either it's not a valid potion effect or its arguments are not numbers!");
             }
@@ -84,6 +92,7 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
     @Override
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
+        if (event.getFinalDamage() == 0) return;
         double originalDamage = event.getDamage();
         Player p = (Player) event.getEntity();
         int heavyArmorCount = ArmorType.getArmorTypeCount(p, ArmorType.HEAVY);
@@ -111,16 +120,7 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
                                 double damageTaken = EntityDamagedListener.getLastDamageTakenMap().getOrDefault(p.getUniqueId(), event.getFinalDamage());
                                 if (p.getHealth() - damageTaken <= maxHealthAttribute.getValue() * ((HeavyArmorProfile) profile).getRageThreshold()){
                                     for (RagePotionEffect effect : ragePotionEffects){
-                                        PotionEffect potionEffectToAdd = effect.getPotionEffect(rageLevel);
-                                        if (potionEffectToAdd == null) continue;
-                                        PotionEffect potionEffectToReplace = p.getPotionEffect(potionEffectToAdd.getType());
-                                        if (potionEffectToReplace != null){
-                                            if (potionEffectToReplace.getDuration() > potionEffectToAdd.getDuration()
-                                                    || potionEffectToReplace.getAmplifier() > potionEffectToAdd.getAmplifier()) continue;
-                                            // if either the player's existing potion effect duration or amplifier exceeds
-                                            // rage's potion effect, it is not replaced.
-                                        }
-                                        p.addPotionEffect(potionEffectToAdd);
+                                        effect.applyPotionEffect(p, rageLevel);
                                     }
                                     CooldownManager.getInstance().setCooldownIgnoreIfPermission(p, rageCooldown, "rage_cooldown");
                                 }
@@ -154,6 +154,11 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
     }
 
     @Override
+    public void onCustomPotionEffect(EntityCustomPotionEffectEvent event) {
+
+    }
+
+    @Override
     public void onPotionSplash(PotionSplashEvent event) {
 
     }
@@ -175,33 +180,65 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
 
     @Override
     public void onCombatLeave(PlayerLeaveCombatEvent event) {
-        long timeInCombat = event.getTimeInCombat(System.currentTimeMillis());
+        long timeInCombat = event.getTimeInCombat();
         int armorCount = ArmorType.getArmorTypeCount(event.getPlayer(), ArmorType.HEAVY);
         int expRewardTimes = (int) (timeInCombat / 1000D);
 
         addEXP(event.getPlayer(), expRewardTimes * armorCount * exp_second_piece, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
     }
 
+    @Override
+    public void onEntityStun(ValhallaEntityStunEvent event) {
+
+    }
+
+    @Override
+    public void onPlayerCriticalStrike(ValhallaEntityCriticalHitEvent event) {
+
+    }
+
     private static class RagePotionEffect{
-        private final PotionEffectType type;
+        private final String baseType;
+        private PotionEffectType vanillaType = null;
         private final double baseAmplifier;
         private final int baseDuration;
         private final double lvAmplifier;
         private final int lvDuration;
 
-        public RagePotionEffect(PotionEffectType type, double baseAmplifier, int baseDuration, double lvAmplifier, int lvDuration){
-            this.type = type;
+        public RagePotionEffect(String type, double baseAmplifier, int baseDuration, double lvAmplifier, int lvDuration){
+            this.baseType = type;
+            this.vanillaType = PotionEffectType.getByName(type);
             this.baseAmplifier = baseAmplifier;
             this.baseDuration = baseDuration;
             this.lvAmplifier = lvAmplifier;
             this.lvDuration = lvDuration;
         }
 
-        public PotionEffect getPotionEffect(int level){
-            int amplifier = (int) Math.floor(baseAmplifier + (lvAmplifier * (level - 1)));
+        public void applyPotionEffect(Player p, int level){
             int duration = baseDuration + (lvDuration * (level - 1));
-            if (amplifier <= 0) return null; // if an amplifier in the config is below 1 it should not apply the effect
-            return new PotionEffect(type, duration, amplifier, true, false, true);
+            if (baseType.equals("STUN")) {
+                PotionEffectManager.getInstance().stunTarget(p, CombatType.MELEE, baseDuration);
+                return;
+            }
+            if (vanillaType != null){
+                int amplifier = (int) Math.floor(baseAmplifier + (lvAmplifier * (level - 1)));
+                if (amplifier <= 0) return;
+                PotionEffect potionEffectToAdd = new PotionEffect(vanillaType, duration, amplifier, true, false, true);
+                PotionEffect potionEffectToReplace = p.getPotionEffect(vanillaType);
+                if (potionEffectToReplace != null){
+                    if (potionEffectToReplace.getDuration() > potionEffectToAdd.getDuration()
+                            || potionEffectToReplace.getAmplifier() > potionEffectToAdd.getAmplifier()) return;
+                    // if either the player's existing potion effect duration or amplifier exceeds
+                    // adrenaline's potion effect, it is not replaced.
+                }
+                p.addPotionEffect(potionEffectToAdd);
+            } else {
+                me.athlaeos.valhallammo.dom.PotionEffect customEffect = PotionEffectManager.getInstance().getBasePotionEffect(baseType);
+                if (customEffect == null) return;
+                PotionEffectManager.getInstance().addPotionEffect(p, new me.athlaeos.valhallammo.dom.PotionEffect(
+                        baseType, duration, baseAmplifier + (lvAmplifier * (level - 1)), customEffect.getType(), customEffect.isRemovable()
+                ), true, EntityPotionEffectEvent.Cause.PLUGIN, EntityPotionEffectEvent.Action.ADDED);
+            }
         }
     }
 }

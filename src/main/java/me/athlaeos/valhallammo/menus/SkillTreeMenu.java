@@ -50,8 +50,10 @@ public class SkillTreeMenu extends Menu{
             currentCenterY = selectedSkill.getCenterY();
         }
 
-        Map<String, Skill> skills = SkillProgressionManager.getInstance().getAllSkills();
-        for (Skill s : skills.values()){
+        List<Skill> skills = new ArrayList<>(SkillProgressionManager.getInstance().getAllSkills().values());
+        skills.sort(Comparator.comparingInt(Skill::getSkillTreeMenuOrderPriority));
+        for (Skill s : skills){
+            if (!s.isActive()) continue;
             ItemStack skillIcon = Utils.createItemStack(s.getIcon(),
                     Utils.chat(s.getDisplayName()),
                     Utils.separateStringIntoLines(Utils.chat(s.getDescription()), 40));
@@ -67,6 +69,7 @@ public class SkillTreeMenu extends Menu{
             skillIcons.add(skillIcon);
             skillTrees.put(s.getType(), getSkillTree(s));
         }
+        // makes sure there are enough items in the skillIcons to fill a 9-item row of icons
         for (int i = 0; i < 9; i++){
             if (skillIcons.size() >= 9) break;
             skillIcons.addAll(new ArrayList<>(skillIcons));
@@ -259,7 +262,7 @@ public class SkillTreeMenu extends Menu{
                     }
                 }
             }
-            for (int i = 0; i  < 9; i++){
+            for (int i = 0; i < SkillProgressionManager.getInstance().getAllSkills().size(); i++){
                 for (int o = 0; o < 9; o++){
                     if (o >= skillIcons.size()) break;
                     ItemStack iconToPut = skillIcons.get(o);
@@ -319,7 +322,7 @@ public class SkillTreeMenu extends Menu{
             Arrays.fill(row, null);
         }
         for (Perk p : skill.getPerks()){
-            if ((!p.isHidden()) || p.canUnlock(playerMenuUtility.getOwner()) || p.hasUnlocked(playerMenuUtility.getOwner())){
+            if ((!p.isHidden()) || p.shouldBeVisible(playerMenuUtility.getOwner()) || p.hasUnlocked(playerMenuUtility.getOwner())){
                 ItemStack perkIcon = Utils.createItemStack(p.getIcon(), Utils.chat(p.getDisplayName()), Utils.separateStringIntoLines(p.getDescription(), 40));
 
                 ItemMeta perkMeta = perkIcon.getItemMeta();
@@ -393,7 +396,7 @@ public class SkillTreeMenu extends Menu{
                     if (p.getCustomModelDataUnlocked() > 0){
                         perkMeta.setCustomModelData(p.getCustomModelDataUnlocked());
                     }
-                } else if (p.canUnlock(playerMenuUtility.getOwner())){
+                } else if (p.shouldBeVisible(playerMenuUtility.getOwner())){
                     perkMeta.addEnchant(Enchantment.DURABILITY, 1, true);
                     perkMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     if (p.getCustomModelDataUnlockable() > 0){

@@ -39,7 +39,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onPistonExtend(BlockPistonExtendEvent event){
         if (!event.isCancelled()){
             for (Block b : event.getBlocks()){
@@ -48,7 +48,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onPistonRetract(BlockPistonRetractEvent event){
         if (!event.isCancelled()){
             for (Block b : event.getBlocks()){
@@ -57,7 +57,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -70,7 +70,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onBlockDamage(BlockDamageEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -90,7 +90,7 @@ public class BlockListener implements Listener {
             "DARK_OAK_WOOD", "ACACIA_WOOD", "CRIMSON_HYPHAE", "WARPED_HYPHAE"
     ));
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -109,7 +109,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onBlockDropItems(BlockDropItemEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -140,7 +140,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onBlockDropItemStack(BlockDropItemStackEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -159,7 +159,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onEntityExplode(EntityExplodeEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -172,7 +172,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onExplosionPrime(ExplosionPrimeEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
@@ -185,7 +185,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority =EventPriority.HIGHEST)
     public void onBlockExplode(BlockExplodeEvent e){
         if (!e.isCancelled()){
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){

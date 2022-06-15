@@ -4,12 +4,12 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -237,8 +237,8 @@ public class ArcheryProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void createProfileTable(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_archery (" +
+    public void createProfileTable(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles_archery (" +
                 "owner VARCHAR(40) PRIMARY KEY," +
                 "level SMALLINT default 0," +
                 "exp DOUBLE default 0," +
@@ -269,8 +269,8 @@ public class ArcheryProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void insertOrUpdateProfile(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(
+    public void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement(
                 "REPLACE INTO profiles_archery " +
                         "(owner, level, exp, exp_total, bowdamagemultiplier, crossbowdamagemultiplier, bowcritchance, " +
                         "crossbowcritchance, ammosavechance, critonfacingaway, critonstandingstill, critonstealth," +
@@ -308,8 +308,8 @@ public class ArcheryProfile extends Profile implements Serializable {
     }
 
     @Override
-    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_archery WHERE owner = ?;");
+    public Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM profiles_archery WHERE owner = ?;");
         stmt.setString(1, p.getUniqueId().toString());
         ResultSet result = stmt.executeQuery();
         if (result.next()){

@@ -21,7 +21,7 @@ public class HeavyArmorRageLevelAddReward extends PerkReward {
         if (profile == null) return;
         if (profile instanceof HeavyArmorProfile){
             HeavyArmorProfile heavyArmorProfile = (HeavyArmorProfile) profile;
-            heavyArmorProfile.setRageLevel(heavyArmorProfile.getLevel() + level);
+            heavyArmorProfile.setRageLevel(heavyArmorProfile.getRageLevel() + level);
             ProfileManager.getManager().setProfile(player, heavyArmorProfile, "HEAVY_ARMOR");
         }
     }

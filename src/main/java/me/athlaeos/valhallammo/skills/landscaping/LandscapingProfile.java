@@ -4,12 +4,12 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
+import me.athlaeos.valhallammo.persistence.DatabaseConnection;
 import me.athlaeos.valhallammo.skills.Skill;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -195,8 +195,8 @@ public class LandscapingProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void createProfileTable(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE IF NOT EXISTS profiles_landscaping (" +
+    public void createProfileTable(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS profiles_landscaping (" +
                 "owner VARCHAR(40) PRIMARY KEY," +
                 "level SMALLINT default 0," +
                 "exp DOUBLE default 0," +
@@ -210,8 +210,8 @@ public class LandscapingProfile extends Profile implements Serializable {
                 "instantgrowthrate FLOAT DEFAULT 0," +
                 "replacesaplings BOOL DEFAULT false," +
                 "blockplacereachbonus FLOAT DEFAULT 0," +
-                "unlockedconversions VARCHAR(16384) default ''," +
-                "validtreecapitatorblocks VARCHAR(16384) DEFAULT ''," +
+                "unlockedconversions TEXT default ''," +
+                "validtreecapitatorblocks TEXT DEFAULT ''," +
                 "woodcuttingexperiencerate FLOAT DEFAULT 0," +
                 "diggingexperiencerate FLOAT DEFAULT 0," +
                 "woodcuttingexpmultiplier DOUBLE DEFAULT 100," +
@@ -222,8 +222,8 @@ public class LandscapingProfile extends Profile implements Serializable {
     }
 
     @Override
-    public void insertOrUpdateProfile(Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(
+    public void insertOrUpdateProfile(DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement(
                 "REPLACE INTO profiles_landscaping " +
                         "(owner, level, exp, exp_total, woodcuttingraredropratemultiplier, woodcuttingdropmultiplier, " +
                         "diggingraredropratemultiplier, diggingdropmultiplier, woodstrippingraredropratemultiplier, " +
@@ -256,8 +256,8 @@ public class LandscapingProfile extends Profile implements Serializable {
     }
 
     @Override
-    public Profile fetchProfile(Player p, Connection conn) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM profiles_landscaping WHERE owner = ?;");
+    public Profile fetchProfile(Player p, DatabaseConnection conn) throws SQLException {
+        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM profiles_landscaping WHERE owner = ?;");
         stmt.setString(1, p.getUniqueId().toString());
         ResultSet result = stmt.executeQuery();
         if (result.next()){

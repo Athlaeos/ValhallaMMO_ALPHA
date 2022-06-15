@@ -22,7 +22,7 @@ public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
         super(name, 0, 0, ModifierPriority.NEUTRAL);
 
         this.name = name;
-        this.category = ModifierCategory.ENCHANTING_STATS;
+        this.category = ModifierCategory.CUSTOM_ENCHANTMENTS;
 
         this.bigStepDecrease = big;
         this.bigStepIncrease = big;

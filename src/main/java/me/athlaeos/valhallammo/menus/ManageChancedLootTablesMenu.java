@@ -129,7 +129,7 @@ public class ManageChancedLootTablesMenu extends Menu {
                 if (clickedItem.equals(nextPageButton)){
                     currentPage++;
                 } else if (clickedItem.equals(drop)) {
-                    if (e.getCursor() != null){
+                    if (!Utils.isItemEmptyOrNull(e.getCursor())){
                         drop = e.getCursor().clone();
                     }
                 } else if (clickedItem.equals(blockButton)) {
@@ -499,7 +499,7 @@ public class ManageChancedLootTablesMenu extends Menu {
                 icon = entry.getLoot();
                 unobtainable = true;
             }
-            if (icon == null) continue;
+            if (Utils.isItemEmptyOrNull(icon)) continue;
             icon = icon.clone();
             ItemMeta meta = icon.getItemMeta();
             assert meta != null;
