@@ -23,6 +23,8 @@ experience: # Everything about leveling and experience progression for Smithing
     NETHER_GOLD_ORE: 7
     OBSIDIAN: 10
     END_STONE: 3
+    COBBLESTONE: 2
+    COBBLED_DEEPSLATE: 2.5
     STONE: 2
     DEEPSLATE: 2.5
     GRANITE: 2
@@ -215,7 +217,9 @@ perks:
   mining_perk_main_1:
     hidden: true
     cost: 1
-    coords: 4,4
+    coords: 4,6
+    requireperk_one:
+      - mining_perk_ranked_1
     name: '&7Vein Mining I'
     icon: GOLD_ORE
     description: '&7Mining &eores &7while sneaking rapidly mines all connected ores up to 64 blocks and puts them in your inventory. &c(10 second cooldown)'
@@ -254,7 +258,7 @@ perks:
   mining_perk_main_2:
     hidden: true
     cost: 1
-    coords: 4,6
+    coords: 4,4
     requireperk_one:
       - mining_perk_main_1
     name: '&7Lesser Endurance'
@@ -426,7 +430,7 @@ perks:
   blast_mining_perk_e_silk:
     hidden: true
     cost: 0
-    coords: 4,2
+    coords: 3,3
     requireperk_all:
       - blast_mining_perk_e
     name: '&7TNT Upgrade: &9Silk Touch'
@@ -444,7 +448,7 @@ perks:
   blast_mining_perk_e_fortune:
     hidden: true
     cost: 0
-    coords: 4,4
+    coords: 5,3
     requireperk_all:
       - blast_mining_perk_e
     name: '&7TNT Upgrade: &9Silk Touch'

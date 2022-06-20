@@ -15,6 +15,7 @@ public class DynamicShapedRecipe implements Cloneable{
     private boolean improveMiddleItem = false;
     private String name;
     private Collection<DynamicItemModifier> modifiers;
+    private boolean unlockedForEveryone = false;
 
     public DynamicShapedRecipe(String name, ShapedRecipe recipe, Map<Integer, ItemStack> exactItems, boolean useMetadata, boolean requireCustomTools, boolean improveMiddleItem, Collection<DynamicItemModifier> modifiers) {
         this.recipe = recipe;
@@ -24,6 +25,14 @@ public class DynamicShapedRecipe implements Cloneable{
         this.improveMiddleItem = improveMiddleItem;
         this.name = name;
         this.modifiers = modifiers;
+    }
+
+    public void setUnlockedForEveryone(boolean unlockedForEveryone) {
+        this.unlockedForEveryone = unlockedForEveryone;
+    }
+
+    public boolean isUnlockedForEveryone() {
+        return unlockedForEveryone;
     }
 
     public ShapedRecipe getRecipe() {

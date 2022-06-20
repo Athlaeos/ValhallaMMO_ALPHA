@@ -22,6 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
+import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -36,6 +37,13 @@ public class BlockListener implements Listener {
         ChancedBlockLootTable table = LootManager.getInstance().getChancedBlockLootTables().get("global_blocks");
         if (table instanceof GlobalChancedBlockLootTable){
             lootTable = (GlobalChancedBlockLootTable) table;
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onBlockForm(BlockFormEvent e){
+        if (!e.isCancelled()){
+            BlockStore.setPlaced(e.getBlock(), false);
         }
     }
 
@@ -64,6 +72,19 @@ public class BlockListener implements Listener {
                 if (s != null){
                     if (s instanceof GatheringSkill){
                         ((GatheringSkill) s).onBlockBreak(e);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler(priority =EventPriority.HIGHEST)
+    public void onBlockHarvest(PlayerHarvestBlockEvent e){
+        if (!e.isCancelled()){
+            for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
+                if (s != null){
+                    if (s instanceof GatheringSkill){
+                        ((GatheringSkill) s).onBlockHarvest(e);
                     }
                 }
             }

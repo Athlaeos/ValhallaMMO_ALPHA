@@ -15,8 +15,8 @@ db_ping_delay: 24000 # delay (in game ticks) where the database is pinged to kee
 
 metrics: true # Allow the plugin to register bStats metrics.
 is_spigot: true # Spigot works slightly differently from its forks, and these differences sometimes break things that would
-# work on for example PaperMC or Purpur. If you are running on spigot, set this to true. Otherwise you can ignore this.
-# It is recommended to not use Spigot simply for performance reasons
+# work on for example PaperMC or Purpur. If you are running on spigot, keep this true. If you are using a fork off spigot,
+# it's recommended to set this to false as it may improve other plugin compatibility
 language: 'en-us' # The language file used. Language files can be found in ValhallaMMO/languages
 profile_version: 0 # The version of profiles used to define player's stats with. If you wish every player to start over,
 # increment this value by 1. If a player's profile version does not match this number, their profiles will be reset upon joining.
@@ -101,7 +101,40 @@ enabled_listeners:
 movement_update_delay: 2000 # Movement-based stats are updated with a delay to improve performance, low values may
 # make the plugin lag more. Delay is in milliseconds
 
+# GAMEPLAY
+
+# Items may be given a property that prevents/punishes players for using equipment that is too far above their own skill
+# level. Example: if a level 0 light weapons player uses a 250 quality netherite sword before level x its effect will be
+# greatly reduced
+# The following formula outputs a multiplier that's applied on the given penalties with the purpose to reduce the
+# penalty the closer the player gets to the intended usage level, and remove them once they've reached it.
+# By default, this formula roughly gives the full penalty until the player has reached half the intended level, then it
+# starts reducing more rapidly. At 90%, this penalty is halved. At 96% it's a quarter, at 98% an eighth.
+# %fraction_level% is equal to PLAYERLEVEL / INTENDEDLEVEL, so if an item's intended level is 70 but the player is only
+# level 35, this will be 0.5.
+# Example: a netherite sword is configured to "require" light weapons level 80 to be used properly, the player is only
+# light weapons level 60 so the player is 75% of the way there. The formula with this number outputs 0.9, so the player's
+# damage is (-0.7 * 0.9) = -0.63 = 63% weaker
+# To make this formula less severe I recommend decreasing the exponent (^8) to a lower positive number
+# The output of this formula can never exceed 1 or go below 0
+overleveled_equipment_effectiveness_formula: '-%fraction_level%^8 + 1'
+overleveled_equipment_penalties:
+  durability: 9 # Overleveled equipment takes 10x the durability
+  damage: -0.7 # Players carrying overleveled equipment will deal 70% less damage
+  speed: -0.5 # Overleveled equipment suffers from -50% attack speed
+  armor: -0.7 # Overleveled armor protects 70% less
+overleveled_warning: 'CHAT' # valid choices are ACTION_BAR, CHAT, or NONE. This determines how players are warned
+# when they are using an overleveled item.
+overleveled_warning_delay: 600000 # Players are warned of their equipment being overleveled every 10 minutes
+
 # COMBAT & DAMAGE
+
+# This affects the "velocity damage multiplier" mechanics specifically
+# The given number is what the entity's velocity is being divided by to determine bonus damage
+# So if an entity gets +10% velocity bonus damage, and their travel velocity is 0.5, having this value set at 0.1 would
+# equate to 0.5/0.1 = 5, 5 * 10% = 50% extra damage.
+# For reference, walking velocity is about 0.23, running speed is 0.3, sprint jumping is 0.37
+velocity_damage_constant: 0.33
 
 # Various skills have abilities that may "stun" targets, which are just a collection of potion effects
 # These potion effects are defined as...
@@ -218,6 +251,9 @@ trident_damage_ranged: 1.3 # Damage multiplier of tridents when thrown
 trident_damage_ranged_loyalty: 1.0 # Damage multiplier of tridents when thrown, but they have loyalty
 
 # CRAFTING
+
+model_data_nextpage: 3511004
+model_data_prevpage: 3511008
 
 # If true, items crafted with a custom crafting method will be dropped on top of the crafting block. If false, they will
 # be added to the player's inventory.

@@ -34,7 +34,6 @@ public class FurnaceListener implements Listener {
     private final Map<Furnace, UUID> furnaceUsers = new HashMap<>();
     private final Map<Campfire, UUID> campFireUsers = new HashMap<>();
     private final Map<Furnace, DynamicCookingRecipe> activeFurnaceRecipes = new HashMap<>();
-    private final Map<Campfire, Map<Integer, DynamicCookingRecipe>> activeCampfireRecipes = new HashMap<>();
 
     @EventHandler
     public void furnaceUserTracker(InventoryClickEvent e){
@@ -69,27 +68,22 @@ public class FurnaceListener implements Listener {
     }
 
     // BURN -> START -> SMELT -> START -> SMELT
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onFurnaceStart(FurnaceStartSmeltEvent e){
-        System.out.println("smelting block type: " + e.getBlock().getType());
+        System.out.println("furnace smelt with HIGHEST");
         DynamicCookingRecipe recipe = CustomRecipeManager.getInstance().getCookingRecipesByKey().get(e.getRecipe().getKey());
-        if (e.getBlock().getState() instanceof Furnace){
-            //activeFurnaceRecipes.put((Furnace) e.getBlock().getState(), recipe);
-            System.out.println("furnace recipe started");
-        }
         if (recipe != null) {
+            System.out.println(recipe.getName() + " started");
+            activeFurnaceRecipes.put((Furnace) e.getBlock().getState(), recipe);
+
         } else {
-            if (e.getBlock().getState() instanceof Campfire){
-                activeCampfireRecipes.remove((Campfire) e.getBlock().getState());
-                System.out.println("campfire recipe overwritten");
-            } else if (e.getBlock().getState() instanceof Furnace){
+            if (e.getBlock().getState() instanceof Furnace){
                 activeFurnaceRecipes.remove((Furnace) e.getBlock().getState());
             }
         }
-        System.out.println("furnace start smelt with HIGH");
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onFurnaceBurn(FurnaceBurnEvent e){
         if (e.getBlock().getState() instanceof Furnace){
             System.out.println("furnace burn with HIGHEST");

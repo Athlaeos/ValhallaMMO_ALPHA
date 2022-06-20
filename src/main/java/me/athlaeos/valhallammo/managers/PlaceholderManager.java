@@ -11,10 +11,13 @@ import me.athlaeos.valhallammo.placeholder.placeholders.archery.*;
 import me.athlaeos.valhallammo.placeholder.placeholders.enchanting.*;
 import me.athlaeos.valhallammo.placeholder.placeholders.farming.*;
 import me.athlaeos.valhallammo.placeholder.placeholders.heavy_armor.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.heavy_weapons.*;
 import me.athlaeos.valhallammo.placeholder.placeholders.landscaping.*;
 import me.athlaeos.valhallammo.placeholder.placeholders.light_armor.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.light_weapons.*;
 import me.athlaeos.valhallammo.placeholder.placeholders.mining.*;
-import me.athlaeos.valhallammo.placeholder.placeholders.smithing.*;
+import me.athlaeos.valhallammo.placeholder.placeholders.smithing.SmithingEXPMultipliers;
+import me.athlaeos.valhallammo.placeholder.placeholders.smithing.SmithingSkill;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -24,16 +27,16 @@ public class PlaceholderManager {
     private static PlaceholderManager manager = null;
     private final Map<String, Placeholder> placeholders = new HashMap<>();
 
-    public static PlaceholderManager getInstance(){
+    public static PlaceholderManager getInstance() {
         if (manager == null) manager = new PlaceholderManager();
         return manager;
     }
 
-    public PlaceholderManager(){
+    public PlaceholderManager() {
         // GENERAL/EVERYTHING
         registerPlaceholder(new SkillEXPMultiplier("%exp_gain%"));
 
-        for (String skill : SkillProgressionManager.getInstance().getAllSkills().keySet()){
+        for (String skill : SkillProgressionManager.getInstance().getAllSkills().keySet()) {
             String name = skill.toLowerCase();
             registerPlaceholder(new EXPCurrent("%" + name + "_exp_current%", skill));
             registerPlaceholder(new EXPNextLevel("%" + name + "_exp_next%", skill));
@@ -41,6 +44,14 @@ public class PlaceholderManager {
             registerPlaceholder(new EXPTotal("%" + name + "_exp_total%", skill));
             registerPlaceholder(new LevelCurrent("%" + name + "_level%", skill));
             registerPlaceholder(new LevelNext("%" + name + "_level_next%", skill));
+        }
+
+        for (String statSource : AccumulativeStatManager.getInstance().getSources().keySet()) {
+            registerPlaceholder(new TotalStatPlaceholder("%stat_source_" + statSource.toLowerCase() + "p0%", statSource, 0));
+            registerPlaceholder(new TotalStatPlaceholder("%stat_source_" + statSource.toLowerCase() + "p1%", statSource, 1));
+            registerPlaceholder(new TotalStatPlaceholder("%stat_source_" + statSource.toLowerCase() + "p2%", statSource, 2));
+            registerPlaceholder(new TotalStatPlaceholder("%stat_source_" + statSource.toLowerCase() + "p3%", statSource, 3));
+            registerPlaceholder(new TotalStatPlaceholder("%stat_source_" + statSource.toLowerCase() + "p4%", statSource, 4));
         }
 
         registerPlaceholder(new GeneralPlayerName("%player_name%"));
@@ -215,6 +226,86 @@ public class PlaceholderManager {
         registerPlaceholder(new HeavyArmorPoisonResistance("%heavy_armor_poison_resistance%"));
         registerPlaceholder(new HeavyArmorProjectileResistance("%heavy_armor_projectile_resistance%"));
 
+        // LIGHT WEAPONS
+        registerPlaceholder(new LightWeaponsAttackSpeedBonus("%light_weapons_attack_speed_bonus%"));
+        registerPlaceholder(new LightWeaponsBleedChance("%light_weapons_bleed_chance%"));
+        registerPlaceholder(new LightWeaponsBleedDamage("%light_weapons_bleed_damage%"));
+        registerPlaceholder(new LightWeaponsBleedDuration("%light_weapons_bleed_duration%"));
+        registerPlaceholder(new LightWeaponsBleedOnCrit("%light_weapons_bleed_on_crit%"));
+        registerPlaceholder(new LightWeaponsCoatingEnemyAmplifierMultiplier("%light_weapons_coating_enemy_amplifier_multiplier%"));
+        registerPlaceholder(new LightWeaponsCoatingEnemyDurationMultiplier("%light_weapons_coating_enemy_duration_multiplier%"));
+        registerPlaceholder(new LightWeaponsCoatingSelfDurationMultiplier("%light_weapons_self_duration_multiplier%"));
+        registerPlaceholder(new LightWeaponsCritChance("%light_weapons_crit_chance%"));
+        registerPlaceholder(new LightWeaponsCritDamageMultiplier("%light_weapons_crit_damage_multiplier%"));
+        registerPlaceholder(new LightWeaponsCritOnBleed("%light_weapons_crit_on_bleed%"));
+        registerPlaceholder(new LightWeaponsCritOnStealth("%light_weapons_crit_on_stealth%"));
+        registerPlaceholder(new LightWeaponsCritOnStun("%light_weapons_crit_on_stun%"));
+        registerPlaceholder(new LightWeaponsDamageMultiplier("%light_weapons_damage_multiplier%"));
+        registerPlaceholder(new LightWeaponsDropBonus("%light_weapons_drops_bonus%"));
+        registerPlaceholder(new LightWeaponsFlatArmorIgnored("%light_weapons_flat_armor_penetration%"));
+        registerPlaceholder(new LightWeaponsFlatLightArmorIgnored("%light_weapons_flat_heavy_armor_penetration%"));
+        registerPlaceholder(new LightWeaponsFlatLightArmorIgnored("%light_weapons_flat_light_armor_penetration%"));
+        registerPlaceholder(new LightWeaponsFractionArmorIgnored("%light_weapons_fraction_armor_penetration%"));
+        registerPlaceholder(new LightWeaponsFractionLightArmorIgnored("%light_weapons_fraction_heavy_armor_penetration%"));
+        registerPlaceholder(new LightWeaponsFractionLightArmorIgnored("%light_weapons_fraction_light_armor_penetration%"));
+        registerPlaceholder(new LightWeaponsLightArmorDamageBonus("%light_weapons_heavy_armor_damage_bonus%"));
+        registerPlaceholder(new LightWeaponsImmunityFrameReduction("%light_weapons_immunity_frame_reduction%"));
+        registerPlaceholder(new LightWeaponsKnockbackBonus("%light_weapons_knockback_bonus%"));
+        registerPlaceholder(new LightWeaponsLightArmorDamageBonus("%light_weapons_light_armor_damage_bonus%"));
+        registerPlaceholder(new LightWeaponsParryCooldown("%light_weapons_parry_cooldown%"));
+        registerPlaceholder(new LightWeaponsParryDamageReduction("%light_weapons_parry_damage_reduction%"));
+        registerPlaceholder(new LightWeaponsParryEnemyDebuffDuration("%light_weapons_parry_enemy_debuff_duration%"));
+        registerPlaceholder(new LightWeaponsParryFailedDebuffDuration("%light_weapons_parry_failed_debuff_duration%"));
+        registerPlaceholder(new LightWeaponsParryTimeFrame("%light_weapons_parry_time_frame%"));
+        registerPlaceholder(new LightWeaponsParryVulnerableTimeFrame("%light_weapons_parry_vulnerable_frame%"));
+        registerPlaceholder(new LightWeaponsRareDropMultiplier("%light_weapons_rare_drops_bonus%"));
+        registerPlaceholder(new LightWeaponsStunChance("%light_weapons_stun_chance%"));
+        registerPlaceholder(new LightWeaponsStunDuration("%light_weapons_stun_duration%"));
+        registerPlaceholder(new LightWeaponsUnlockedWeaponCoating("%light_weapons_unlocked_weapon_coating%"));
+
+        // HEAVY WEAPONS
+        registerPlaceholder(new HeavyWeaponsAttackSpeedBonus("%heavy_weapons_attack_speed_bonus%"));
+        registerPlaceholder(new HeavyWeaponsBleedChance("%heavy_weapons_bleed_chance%"));
+        registerPlaceholder(new HeavyWeaponsBleedDamage("%heavy_weapons_bleed_damage%"));
+        registerPlaceholder(new HeavyWeaponsBleedDuration("%heavy_weapons_bleed_duration%"));
+        registerPlaceholder(new HeavyWeaponsBleedOnCrit("%heavy_weapons_bleed_on_crit%"));
+        registerPlaceholder(new HeavyWeaponsCoatingEnemyAmplifierMultiplier("%heavy_weapons_coating_enemy_amplifier_multiplier%"));
+        registerPlaceholder(new HeavyWeaponsCoatingEnemyDurationMultiplier("%heavy_weapons_coating_enemy_duration_multiplier%"));
+        registerPlaceholder(new HeavyWeaponsCoatingSelfDurationMultiplier("%heavy_weapons_self_duration_multiplier%"));
+        registerPlaceholder(new HeavyWeaponsCritChance("%heavy_weapons_crit_chance%"));
+        registerPlaceholder(new HeavyWeaponsCritDamageMultiplier("%heavy_weapons_crit_damage_multiplier%"));
+        registerPlaceholder(new HeavyWeaponsCritOnBleed("%heavy_weapons_crit_on_bleed%"));
+        registerPlaceholder(new HeavyWeaponsCritOnStealth("%heavy_weapons_crit_on_stealth%"));
+        registerPlaceholder(new HeavyWeaponsCritOnStun("%heavy_weapons_crit_on_stun%"));
+        registerPlaceholder(new HeavyWeaponsCrushingBlowChance("%heavy_weapons_crushing_blow_chance%"));
+        registerPlaceholder(new HeavyWeaponsCrushingBlowCooldown("%heavy_weapons_crushing_blow_cooldown%"));
+        registerPlaceholder(new HeavyWeaponsCrushingBlowDamageMultiplier("%heavy_weapons_crushing_blow_damage_multiplier%"));
+        registerPlaceholder(new HeavyWeaponsCrushingBlowOnCrit("%heavy_weapons_crushing_blow_on_crit%"));
+        registerPlaceholder(new HeavyWeaponsCrushingBlowOnFalling("%heavy_weapons_crushing_blow_on_falling%"));
+        registerPlaceholder(new HeavyWeaponsCrushingBlowRadius("%heavy_weapons_crushing_blow_radius%"));
+        registerPlaceholder(new HeavyWeaponsDamageMultiplier("%heavy_weapons_damage_multiplier%"));
+        registerPlaceholder(new HeavyWeaponsDropBonus("%heavy_weapons_drops_bonus%"));
+        registerPlaceholder(new HeavyWeaponsFlatArmorIgnored("%heavy_weapons_flat_armor_penetration%"));
+        registerPlaceholder(new HeavyWeaponsFlatHeavyArmorIgnored("%heavy_weapons_flat_heavy_armor_penetration%"));
+        registerPlaceholder(new HeavyWeaponsFlatLightArmorIgnored("%heavy_weapons_flat_light_armor_penetration%"));
+        registerPlaceholder(new HeavyWeaponsFractionArmorIgnored("%heavy_weapons_fraction_armor_penetration%"));
+        registerPlaceholder(new HeavyWeaponsFractionHeavyArmorIgnored("%heavy_weapons_fraction_heavy_armor_penetration%"));
+        registerPlaceholder(new HeavyWeaponsFractionLightArmorIgnored("%heavy_weapons_fraction_light_armor_penetration%"));
+        registerPlaceholder(new HeavyWeaponsHeavyArmorDamageBonus("%heavy_weapons_heavy_armor_damage_bonus%"));
+        registerPlaceholder(new HeavyWeaponsImmunityFrameReduction("%heavy_weapons_immunity_frame_reduction%"));
+        registerPlaceholder(new HeavyWeaponsKnockbackBonus("%heavy_weapons_knockback_bonus%"));
+        registerPlaceholder(new HeavyWeaponsLightArmorDamageBonus("%heavy_weapons_light_armor_damage_bonus%"));
+        registerPlaceholder(new HeavyWeaponsParryCooldown("%heavy_weapons_parry_cooldown%"));
+        registerPlaceholder(new HeavyWeaponsParryDamageReduction("%heavy_weapons_parry_damage_reduction%"));
+        registerPlaceholder(new HeavyWeaponsParryEnemyDebuffDuration("%heavy_weapons_parry_enemy_debuff_duration%"));
+        registerPlaceholder(new HeavyWeaponsParryFailedDebuffDuration("%heavy_weapons_parry_failed_debuff_duration%"));
+        registerPlaceholder(new HeavyWeaponsParryTimeFrame("%heavy_weapons_parry_time_frame%"));
+        registerPlaceholder(new HeavyWeaponsParryVulnerableTimeFrame("%heavy_weapons_parry_vulnerable_frame%"));
+        registerPlaceholder(new HeavyWeaponsRareDropMultiplier("%heavy_weapons_rare_drops_bonus%"));
+        registerPlaceholder(new HeavyWeaponsStunChance("%heavy_weapons_stun_chance%"));
+        registerPlaceholder(new HeavyWeaponsStunDuration("%heavy_weapons_stun_duration%"));
+        registerPlaceholder(new HeavyWeaponsUnlockedWeaponCoating("%heavy_weapons_unlocked_weapon_coating%"));
+
         // ACCOUNT
         registerPlaceholder(new Skillpoints("%skillpoints%"));
 
@@ -241,7 +332,7 @@ public class PlaceholderManager {
         registerPlaceholder(new ImmunityFrameBonus("%player_immunity_frame_bonus%"));
     }
 
-    public void registerPlaceholder(Placeholder p){
+    public void registerPlaceholder(Placeholder p) {
         placeholders.put(p.getPlaceholder(), p);
     }
 
@@ -249,9 +340,9 @@ public class PlaceholderManager {
         return placeholders;
     }
 
-    public static String parse(String stringToParse, Player p){
-        for (Placeholder s : PlaceholderManager.getInstance().getPlaceholders().values()){
-            if (stringToParse.contains(s.getPlaceholder())){
+    public static String parse(String stringToParse, Player p) {
+        for (Placeholder s : PlaceholderManager.getInstance().getPlaceholders().values()) {
+            if (stringToParse.contains(s.getPlaceholder())) {
                 stringToParse = s.parse(stringToParse, p);
             }
         }

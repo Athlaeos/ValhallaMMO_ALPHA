@@ -38,6 +38,7 @@ public class ValhallaCommandManager implements TabExecutor {
 		commands.put("globalbuff", new GlobalEffectCommand());
 		commands.put("givebook", new GiveBookCommand());
 		commands.put("reload", new ReloadCommand());
+		commands.put("import", new ImportCommand());
 
 	    ((HelpCommand) commands.get("help")).giveCommandMap(commands);
 

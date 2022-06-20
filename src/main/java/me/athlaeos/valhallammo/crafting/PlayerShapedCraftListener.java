@@ -36,12 +36,14 @@ public class PlayerShapedCraftListener implements Listener {
                 }
                 DynamicShapedRecipe recipe = manager.getDynamicShapedRecipe(((ShapedRecipe) e.getRecipe()).getKey());
                 if (recipe != null){
-                    Profile profile = ProfileManager.getManager().getProfile((Player) e.getWhoClicked(), "ACCOUNT");
-                    if (profile != null){
-                        if (profile instanceof AccountProfile){
-                            if (((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
-                                e.getInventory().setResult(null);
-                                return;
+                    if (!recipe.isUnlockedForEveryone()){
+                        Profile profile = ProfileManager.getManager().getProfile((Player) e.getWhoClicked(), "ACCOUNT");
+                        if (profile != null){
+                            if (profile instanceof AccountProfile){
+                                if (((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
+                                    e.getInventory().setResult(null);
+                                    return;
+                                }
                             }
                         }
                     }

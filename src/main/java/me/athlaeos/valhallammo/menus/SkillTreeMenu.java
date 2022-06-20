@@ -30,7 +30,6 @@ public class SkillTreeMenu extends Menu{
     private final Map<String, ItemStack[][]> skillTrees = new HashMap<>();
     private int currentCenterX;
     private int currentCenterY;
-    private final ItemStack directionButton = Utils.createItemStack(Material.ARROW, " ", null);
 
     private static final int arrowN = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_n", -1);
     private static final int arrowNE = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_ne", -1);
@@ -40,9 +39,29 @@ public class SkillTreeMenu extends Menu{
     private static final int arrowSW = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_sw", -1);
     private static final int arrowW = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_w", -1);
     private static final int arrowNW = ConfigManager.getInstance().getConfig("config.yml").get().getInt("skilltree_arrow_data_nw", -1);
+    private final ItemStack directionN;
+    private final ItemStack directionNE;
+    private final ItemStack directionE;
+    private final ItemStack directionSE;
+    private final ItemStack directionS;
+    private final ItemStack directionSW;
+    private final ItemStack directionW;
+    private final ItemStack directionNW;
+
 
     public SkillTreeMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
+
+        ItemStack plainDirectionButton = Utils.createItemStack(Material.ARROW, " ", null);
+        directionNW = arrowNW > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowNW) : plainDirectionButton;
+        directionN = arrowN > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowN) : plainDirectionButton;
+        directionNE = arrowNE > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowNE) : plainDirectionButton;
+        directionE = arrowE > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowE) : plainDirectionButton;
+        directionSE = arrowSE > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowSE) : plainDirectionButton;
+        directionS = arrowS > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowS) : plainDirectionButton;
+        directionSW = arrowSW > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowSW) : plainDirectionButton;
+        directionW = arrowW > 0 ? Utils.setCustomModelData(plainDirectionButton.clone(), arrowW) : plainDirectionButton;
+
         Skill accountSkill = SkillProgressionManager.getInstance().getSkill("ACCOUNT");
         if (accountSkill != null){
             selectedSkill = accountSkill;
@@ -215,14 +234,14 @@ public class SkillTreeMenu extends Menu{
                 }
             }
         }
-        inventory.setItem(0, arrowNW > 0 ? Utils.setCustomModelData(directionButton, arrowNW) : directionButton);
-        inventory.setItem(4, arrowN > 0 ? Utils.setCustomModelData(directionButton, arrowN) : directionButton);
-        inventory.setItem(8, arrowNE > 0 ? Utils.setCustomModelData(directionButton, arrowNE) : directionButton);
-        inventory.setItem(18, arrowE > 0 ? Utils.setCustomModelData(directionButton, arrowE) : directionButton);
-        inventory.setItem(26, arrowSE > 0 ? Utils.setCustomModelData(directionButton, arrowSE) : directionButton);
-        inventory.setItem(36, arrowS > 0 ? Utils.setCustomModelData(directionButton, arrowS) : directionButton);
-        inventory.setItem(40, arrowSW > 0 ? Utils.setCustomModelData(directionButton, arrowSW) : directionButton);
-        inventory.setItem(44, arrowW > 0 ? Utils.setCustomModelData(directionButton, arrowW) : directionButton);
+        inventory.setItem(0, directionNW);
+        inventory.setItem(4, directionN);
+        inventory.setItem(8, directionNE);
+        inventory.setItem(18, directionW);
+        inventory.setItem(26, directionE);
+        inventory.setItem(36, directionSW);
+        inventory.setItem(40, directionS);
+        inventory.setItem(44, directionSE);
     }
 
     private void setScrollBar(){

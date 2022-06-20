@@ -67,39 +67,39 @@ public class PotionEffectManager {
         registerPotionEffect(new PotionEffect("INCREASE_VANILLA_EXP", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("MILK", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("CHOCOLATE_MILK", 0, 0, PotionType.BUFF));
-        registerPotionEffect(new PotionEffect("ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("LIGHT_ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("HEAVY_ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("LIGHT_ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("HEAVY_ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("DAMAGE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("EXPLOSION_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("FIRE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("MAGIC_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("POISON_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("PROJECTILE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("MELEE_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("FALLING_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("KNOCKBACK_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("BLEED_RESISTANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("CRAFTING_TIME_REDUCTION", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("HUNGER_SAVE_CHANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("DODGE_CHANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("KNOCKBACK_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("COOLDOWN_REDUCTION", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("IMMUNITY_FRAME_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("IMMUNITY_FRAME_MULTIPLIER", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("LIGHT_ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("HEAVY_ARMOR_FLAT_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("LIGHT_ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("HEAVY_ARMOR_FRACTION_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("DAMAGE_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("EXPLOSION_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("FIRE_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("MAGIC_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("POISON_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("PROJECTILE_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("MELEE_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("FALLING_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("KNOCKBACK_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("BLEED_RESISTANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("CRAFTING_TIME_REDUCTION", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("HUNGER_SAVE_CHANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("DODGE_CHANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("KNOCKBACK_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("COOLDOWN_REDUCTION", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("IMMUNITY_FRAME_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("IMMUNITY_FRAME_MULTIPLIER", 0, 0, PotionType.BUFF));
 
-        registerPotionEffect(new PotionEffect("HEALING_BONUS", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("REFLECT_CHANCE", 0, 0, PotionType.BUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("REFLECT_FRACTION", 0, 0, PotionType.BUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("HEALING_BONUS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("REFLECT_CHANCE", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("REFLECT_FRACTION", 0, 0, PotionType.BUFF));
 
 
-        registerPotionEffect(new PotionEffect("POISON_ANTI_HEAL", 0, 0, PotionType.DEBUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("POISON_VULNERABLE", 0, 0, PotionType.DEBUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("FRACTION_ARMOR_REDUCTION", 0, 0, PotionType.DEBUFF)); // TODO new
-        registerPotionEffect(new PotionEffect("FLAT_ARMOR_REDUCTION", 0, 0, PotionType.DEBUFF)); // TODO new
+        registerPotionEffect(new PotionEffect("POISON_ANTI_HEAL", 0, 0, PotionType.DEBUFF));
+        registerPotionEffect(new PotionEffect("POISON_VULNERABLE", 0, 0, PotionType.DEBUFF));
+        registerPotionEffect(new PotionEffect("FRACTION_ARMOR_REDUCTION", 0, 0, PotionType.DEBUFF));
+        registerPotionEffect(new PotionEffect("FLAT_ARMOR_REDUCTION", 0, 0, PotionType.DEBUFF));
 
 
         stunPotionEffects = new HashMap<>();

@@ -11,12 +11,10 @@ import java.util.Map;
 
 public class BlockCraftStateValidationManager {
     private static BlockCraftStateValidationManager manager = null;
-    private final Map<Material, Map<String, CraftValidation>> materialCraftValidations = new HashMap<>();
-    private final Map<String, CraftValidation> genericCraftValidations = new HashMap<>();
     private final Map<String, CraftValidation> allCraftValidations = new HashMap<>();
 
     public BlockCraftStateValidationManager(){
-        genericCraftValidations.put("no_validation", new DefaultValidation());
+        allCraftValidations.put("no_validation", new DefaultValidation());
 
         register(new CauldronConsumesWaterValidation());
         register(new CauldronNeedsWaterValidation());
@@ -39,8 +37,10 @@ public class BlockCraftStateValidationManager {
      * @return true if validation checks out or if validation is null. False if validation does not pass.
      */
     public boolean blockConditionsApply(Block b, CraftValidation validation){
-        if (validation == null) return true;
-        if (validation.getCompatibleMaterials().contains(b.getType())){
+        if (validation == null) {
+            return true;
+        }
+        if (validation.isCompatible(b.getType())){
             return validation.check(b);
         }
 //        if (materialCraftValidations.containsKey(b.getType())){
@@ -54,39 +54,31 @@ public class BlockCraftStateValidationManager {
     }
 
     public CraftValidation getValidation(Material craftStation, String name){
-        if (craftStation != null){
-            if (materialCraftValidations.containsKey(craftStation)){
-                return materialCraftValidations.get(craftStation).get(name);
-            } else {
-                return null;
-            }
-        } else {
-            return genericCraftValidations.get(name);
+        if (name == null) {
+            return allCraftValidations.get("no_validation");
         }
+        CraftValidation validation = allCraftValidations.get(name);
+        if (validation == null) {
+            return allCraftValidations.get("no_validation");
+        }
+        if (validation.isCompatible(craftStation)) {
+            return validation;
+        }
+        return null;
     }
 
     public CraftValidation getDefaultValidation(){
-        return genericCraftValidations.get("no_validation");
+        return allCraftValidations.get("no_validation");
     }
 
-    /**
-     *
-     * @param m
-     * @return
-     */
     public List<CraftValidation> getValidations(Material m){
         List<CraftValidation> validations = new ArrayList<>();
-//        if (materialCraftValidations.containsKey(m)){
-//            validations.addAll(materialCraftValidations.get(m).values());
-//        }
         for (CraftValidation validation : allCraftValidations.values()){
-            if (!genericCraftValidations.containsValue(validation)){ // checks all but generic craft validations
-                if (validation.getCompatibleMaterials().contains(m)){
-                    validations.add(validation);
-                }
+            if (validation.isCompatible(m)){
+                validations.add(validation);
             }
         }
-        validations.addAll(genericCraftValidations.values());
+        validations.add(getDefaultValidation());
         return validations;
     }
 
@@ -97,14 +89,6 @@ public class BlockCraftStateValidationManager {
      */
     public void register(CraftValidation validation){
         allCraftValidations.put(validation.getName(), validation);
-        if (validation.getBlock() == null){
-            genericCraftValidations.put(validation.getName(), validation);
-        }
-        for (Material m : validation.getCompatibleMaterials()){
-            Map<String, CraftValidation> validations = materialCraftValidations.getOrDefault(m, new HashMap<>());
-            validations.put(validation.getName(), validation);
-            materialCraftValidations.put(m, validations);
-        }
     }
 
     public static BlockCraftStateValidationManager getInstance(){

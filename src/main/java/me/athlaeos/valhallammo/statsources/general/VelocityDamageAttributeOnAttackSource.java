@@ -1,5 +1,6 @@
 package me.athlaeos.valhallammo.statsources.general;
 
+import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
 import me.athlaeos.valhallammo.listeners.PlayerMovementListener;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
@@ -14,6 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class VelocityDamageAttributeOnAttackSource extends EvEAccumulativeStatSource {
+    private final double velocity_damage_constant;
+    public VelocityDamageAttributeOnAttackSource(){
+        this.velocity_damage_constant = ConfigManager.getInstance().getConfig("config.yml").get().getDouble("velocity_damage_constant", 0.33);
+    }
 
     @Override
     public double add(Entity p, boolean use) {
@@ -22,16 +27,17 @@ public class VelocityDamageAttributeOnAttackSource extends EvEAccumulativeStatSo
 
     @Override
     public double add(Entity entity, Entity offender, boolean use) {
-        double value = 0;
-        Vector direction;
-        if (offender.getVelocity().length() < 0.001) return 0;
+        double value;
+        Vector facingDirection;
+        Vector movementDirection;
         if (offender instanceof AbstractArrow){
             ItemStack ammo = ItemUtils.getArrowFromEntity((AbstractArrow) offender);
             if (ammo == null) return 0;
             AttributeWrapper wrapper = ItemAttributesManager.getInstance().getAttributeWrapper(ammo, "CUSTOM_VELOCITY_DAMAGE_BONUS");
             if (wrapper == null) return 0;
             value = wrapper.getAmount();
-            direction = offender.getVelocity();
+            facingDirection = offender.getVelocity();
+            movementDirection = offender.getVelocity();
         } else if (offender instanceof LivingEntity){
             EntityEquipment equipment = ((LivingEntity) offender).getEquipment();
             if (equipment == null) return 0;
@@ -40,17 +46,18 @@ public class VelocityDamageAttributeOnAttackSource extends EvEAccumulativeStatSo
             AttributeWrapper wrapper = ItemAttributesManager.getInstance().getAttributeWrapper(weapon, "CUSTOM_VELOCITY_DAMAGE_BONUS");
             if (wrapper == null) return 0;
             value = wrapper.getAmount();
-            direction = ((LivingEntity) offender).getEyeLocation().getDirection();
+            facingDirection = ((LivingEntity) offender).getEyeLocation().getDirection();
+            movementDirection = PlayerMovementListener.getLastMovementVectors().get(offender.getUniqueId());
+            if (movementDirection == null) return 0;
         } else return 0;
         if (value > 0){
-            double multiplier = Math.max(0, direction.dot(offender.getVelocity()));
-            System.out.println(multiplier > 0 ? "Player is moving towards hit target, damage increased x" +multiplier : "Player is moving away from target, damage stays the same");
-            Vector movementDirection = PlayerMovementListener.getLastMovementVectors().get(offender.getUniqueId());
-            if (movementDirection == null) return 0;
             double speed = movementDirection.length();
-            System.out.println("velocity: " + speed);
-            System.out.printf("Speed: %.3f, multiplier: %.3f, attribute: %.2f = %.3f%n", speed, multiplier, value, speed * multiplier * value);
-            return speed * multiplier * value;
+            double multiplier = Math.max(0, facingDirection.clone().normalize().dot(movementDirection.clone().normalize()));
+            if (Double.isNaN(speed) || Double.isNaN(multiplier)) {
+                return 0;
+            }
+            double speedDamageMultiplier = speed / velocity_damage_constant;
+            return speedDamageMultiplier * multiplier * value;
         }
         return 0;
     }

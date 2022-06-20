@@ -16,6 +16,11 @@ public class BlockNeedsWaterloggedValidation extends CraftValidation{
     }
 
     @Override
+    public boolean isCompatible(Material m) {
+        return m.createBlockData() instanceof Waterlogged;
+    }
+
+    @Override
     public boolean check(Block block) {
         if (block.getBlockData() instanceof Waterlogged){
             Waterlogged logged = (Waterlogged) block.getBlockData();

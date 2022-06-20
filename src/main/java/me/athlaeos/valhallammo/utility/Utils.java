@@ -549,6 +549,7 @@ public class Utils {
 
     public static ItemStack setCustomModelData(ItemStack i, int data){
         if (i == null) return null;
+        if (data < 0) return i;
         ItemMeta meta = i.getItemMeta();
         assert meta != null;
         meta.setCustomModelData(data);

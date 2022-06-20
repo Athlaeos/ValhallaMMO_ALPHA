@@ -19,6 +19,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
     protected Collection<DynamicItemModifier> itemModifers = new HashSet<>();
     protected CraftValidation validation = null;
     protected int consecutiveCrafts = 8;
+    protected boolean unlockedForEveryone = false;
 
     public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients){
         this.name = name;
@@ -75,6 +76,14 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         this.itemModifers = itemModifers;
         this.requireExactMeta = requireExactMeta;
         this.consecutiveCrafts = consecutiveCrafts;
+    }
+
+    public void setUnlockedForEveryone(boolean unlockedForEveryone) {
+        this.unlockedForEveryone = unlockedForEveryone;
+    }
+
+    public boolean isUnlockedForEveryone() {
+        return unlockedForEveryone;
     }
 
     public Collection<DynamicItemModifier> getItemModifers() {

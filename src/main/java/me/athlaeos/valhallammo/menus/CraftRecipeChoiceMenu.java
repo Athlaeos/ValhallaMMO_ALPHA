@@ -16,8 +16,10 @@ import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.utility.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
@@ -29,12 +31,15 @@ import java.util.*;
 public class CraftRecipeChoiceMenu extends Menu {
     private static final boolean advanced_crafting_preview = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("advanced_crafting_preview");
 
+    private static final String craftingTitle = TranslationManager.getInstance().getTranslation("translation_recipes");
+    private static final String tinkerTitle = TranslationManager.getInstance().getTranslation("translation_tinker_recipes");
+
     private final NamespacedKey smithingRecipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_recipe_button");
     private AccountProfile profile;
     private List<AbstractCustomCraftingRecipe> unlockedRecipes = new ArrayList<>();
     private int pageNumber = 1;
-    private final ItemStack nextPageButton;
-    private final ItemStack previousPageButton;
+    private ItemStack nextPageButton;
+    private ItemStack previousPageButton;
 
     private final List<String> recipeButtonFormat;
     private final String recipeIngredientFormat;
@@ -45,9 +50,12 @@ public class CraftRecipeChoiceMenu extends Menu {
     private final String statusOneTimeTinkeringRecipeSelected;
     private final String statusCraftingRecipeSelected;
     private final String statusTinkeringRecipeSelected;
+    private final boolean isCrafting;
 
-    public CraftRecipeChoiceMenu(PlayerMenuUtility playerMenuUtility, Collection<AbstractCustomCraftingRecipe> customRecipes) {
+    public CraftRecipeChoiceMenu(PlayerMenuUtility playerMenuUtility, Collection<AbstractCustomCraftingRecipe> customRecipes, boolean isCrafting) {
         super(playerMenuUtility);
+        this.isCrafting = isCrafting;
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("config.yml").get();
         recipeButtonFormat = TranslationManager.getInstance().getList("recipe_button_format");
         recipeIngredientFormat = TranslationManager.getInstance().getTranslation("recipe_ingredient_format");
         recipeNotCraftable = TranslationManager.getInstance().getTranslation("recipe_uncraftable");
@@ -63,13 +71,15 @@ public class CraftRecipeChoiceMenu extends Menu {
         }
         nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat(TranslationManager.getInstance().getTranslation("translation_next_page")), null);
         previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat(TranslationManager.getInstance().getTranslation("translation_previous_page")), null);
+        nextPageButton = Utils.setCustomModelData(nextPageButton, config.getInt("model_data_nextpage", -1));
+        previousPageButton = Utils.setCustomModelData(previousPageButton, config.getInt("model_data_nextpage", -1));
         if (profile != null){
             boolean allowedAllRecipes = playerMenuUtility.getOwner().hasPermission("valhalla.allrecipes");
             if (allowedAllRecipes){
                 unlockedRecipes = new ArrayList<>(customRecipes);
             } else {
                 for (AbstractCustomCraftingRecipe r : customRecipes){
-                    if (profile.getUnlockedRecipes().contains(r.getName())){
+                    if (r.isUnlockedForEveryone() || profile.getUnlockedRecipes().contains(r.getName())){
                         unlockedRecipes.add(r);
                     }
                 }
@@ -89,7 +99,11 @@ public class CraftRecipeChoiceMenu extends Menu {
 
     @Override
     public String getMenuName() {
-        return Utils.chat(TranslationManager.getInstance().getTranslation("translation_recipes"));
+        if (isCrafting){
+            return Utils.chat(craftingTitle);
+        } else {
+            return Utils.chat(tinkerTitle);
+        }
     }
 
     @Override
@@ -131,10 +145,15 @@ public class CraftRecipeChoiceMenu extends Menu {
                 }
             } else {
                 String item = null;
-                if (chosenRecipe instanceof ItemImprovementRecipe){
-                    item = Utils.toPascalCase(((ItemImprovementRecipe) chosenRecipe).getRequiredItemType().toString().replace("_", " "));
-                } else if (chosenRecipe instanceof ItemClassImprovementRecipe){
-                    item = Utils.toPascalCase(((ItemClassImprovementRecipe) chosenRecipe).getRequiredEquipmentClass().toString().replace("_", " "));
+                ItemStack i = playerMenuUtility.getOwner().getInventory().getItemInMainHand();
+                if (!Utils.isItemEmptyOrNull(i)){
+                    item = Utils.getItemName(i);
+                } else {
+                    if (chosenRecipe instanceof ItemImprovementRecipe){
+                        item = Utils.toPascalCase(((ItemImprovementRecipe) chosenRecipe).getRequiredItemType().toString().replace("_", " "));
+                    } else if (chosenRecipe instanceof ItemClassImprovementRecipe){
+                        item = Utils.toPascalCase(((ItemClassImprovementRecipe) chosenRecipe).getRequiredEquipmentClass().toString().replace("_", " "));
+                    }
                 }
                 if (playersWhoReceivedFirstTimeMessage.contains(playerMenuUtility.getOwner().getUniqueId())){
                     playerMenuUtility.getOwner().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
@@ -166,7 +185,7 @@ public class CraftRecipeChoiceMenu extends Menu {
         inventory.clear();
         if (profile != null){
             buildMenuItems(items -> {
-                items.sort(Comparator.comparing(ItemStack::getType));
+                items.sort(Comparator.comparing(ItemStack::getType).thenComparing(item -> ChatColor.stripColor(Utils.getItemName(item))));
 
                 if (items.size() >= 45){
                     Map<Integer, ArrayList<ItemStack>> pages = Utils.paginateItemStackList(45, items);

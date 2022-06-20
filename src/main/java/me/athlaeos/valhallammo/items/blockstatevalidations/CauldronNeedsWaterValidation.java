@@ -18,6 +18,11 @@ public class CauldronNeedsWaterValidation extends CraftValidation {
     }
 
     @Override
+    public boolean isCompatible(Material m) {
+        return compatibleMaterials.contains(m);
+    }
+
+    @Override
     public boolean check(Block block) {
         if (block.getBlockData() instanceof Levelled){
             Levelled cauldron = (Levelled) block.getBlockData();

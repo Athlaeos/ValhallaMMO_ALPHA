@@ -29,6 +29,8 @@ error_command_invalid_argument_type: '&cInvalid argument type, expected %type% b
 error_command_global_buff_expired: '&cThis effect either does not exist or has already expired' # Command error when a global effect is being removed, but it doesn't exist or has already expired
 error_command_givebook: '&cTutorial book not properly configured, check tutorial_book.yml'
 error_command_player_required: '&cPlayer name required' # Command error when a player either needs to send the command or a player name is required
+error_command_import_file_not_found: '&cFile not found or is empty' # Command error when a player attempts to import a recipe file, but the file is empty or doesn't exist
+error_command_import_no_path_given: '&cNo file name given'
 
 status_command_global_buff_removed: '&aGlobal effect removed!'
 status_command_global_buff_applied: '&aGlobal effect %effect% applied for %duration_timestamp%!' # Other valid placeholders are %duration_seconds%, %duration_minutes%, %duration_hours%, and %amplifier%
@@ -45,6 +47,7 @@ status_crafting_recipe_selected: '&7Crafting recipe &a%recipe%&7 selected.'
 status_tinkering_recipe_selected: '&7Tinkering method &a%recipe%&7 selected.'
 status_onetime_crafting_recipe_selected: '&7Crafting recipe &a%recipe%&7 selected. Hold right click on the block to craft!'
 status_onetime_tinkering_recipe_selected: '&7Tinkering method &a%recipe%&7 selected. Hold right click on the block with &a%item% &7to tinker!'
+status_command_import_success: '&aRecipes imported!'
 
 status_command_party_chat_enabled: '&aParty chat enabled'
 status_command_party_chat_disabled: '&7Party chat disabled'
@@ -99,7 +102,10 @@ status_command_party_exp_sharing_radius_set: '&aEXP sharing multiplier set to %v
 
 warning_command_reload: '&cWarning! Changes made to recipes and loot tables will be saved before the reload and will cause a lag spike. Type &4/val reload confirm&c to really reload'
 warning_profile_reset: '&cHold on! A hard reset cannot be undone and will completely reset a player''s progress. Execute this command again to reset, otherwise let the request expire in 10 seconds.'
+warning_command_import: '&cHold on! Importing recipes may cause a lag spike, execute this command again within 10 seconds to proceed anyway.'
 warning_profiles_unloaded: '&cYour stats are not loaded yet'
+warning_item_too_advanced: '&cYour &7%item% &cis too advanced for you until &7%skill% &clevel &7%level%'
+# Error message that appears when an item was attempted to be used, but it had a level requirement that the player didn't meet
 
 description_command_skills: 'Accesses the player''s skill tree' # Description of the '/val skills' command
 description_command_help: 'Shows a list of all your available commands' # Description of the '/val help' command
@@ -113,6 +119,7 @@ description_command_loot: 'Accesses ValhallaMMO''s custom loot table manager' # 
 description_command_globalbuff: 'Add or cancel global effects like increased EXP gain for everyone' # Description of the '/val globalbuff' command
 description_command_reload: 'Reloads all the configs into memory, &cthis saves changes made to recipes and loot tables which may cause a lag spike' # Description of the '/val reload' command
 description_command_givebook: 'Gives you or other players the "getting started" book for ValhallaMMO'
+description_command_import: 'Imports all recipes from a file present in the recipes folder, can override or skip existing recipes.'
 
 status_experience_gained: '&7%skill% &7EXP &6%exp%' # Status message shown to the player whenever they earn EXP. If empty no message is sent.
 status_experience_gained_bossbar: '&7%skill% &6%exp_current%&7/&6%exp_next%' # Status message shown to the player whenever they earn EXP. If empty no message is sent.
@@ -121,7 +128,7 @@ status_cooldown: '&cCooldown: %timestamp%' # Status message shown when the playe
 translation_false: 'No'
 translation_true: 'Yes'
 
-skilltree: '&7Skills'
+skilltree: '&7Skills' # If you are using the resource pack, input '&f\uF808\uF001' for the custom GUI
 warning_not_enough_skillpoints: '&cNot enough skill points'
 
 smithing: 'Smithing'
@@ -203,6 +210,7 @@ stat_positive_prefix: '&9'
 translation_next_page: '&7&lNext Page'
 translation_previous_page: '&7&lPrevious Page'
 translation_recipes: '&7Recipes'
+translation_tinker_recipes: '&7Recipes'
 
 recipe_button_format:
   - '&7Time: &e%crafting_time%s'
@@ -750,3 +758,35 @@ profile_format_heavy_armor:
   - ''
   - '&7Armor For Set Bonus:            &e%heavy_armor_full_set_pieces_required%'
   - '&7Rage Level:                         &e%heavy_armor_rage_level%'
+
+profile_format_light_weapons:
+  - '&e%player_name%''s &7Light Weapons'
+  - '&eLV&e&l%light_weapons_level% &7-> &e%light_weapons_exp_current%&7/&e%light_weapons_exp_next% &7-> &eLV&e&l%light_weapons_level_next%'
+  - ''
+  - '&7Attack Damage:                &e%light_weapons_damage_multiplier%%'
+  - '&7Attack Speed:                  &e%light_weapons_attack_speed_bonus%%'
+  - '&7Attack Knockback:            &e%light_weapons_knockback_bonus%%'
+  - ''
+  - '&7Weapon Coating Enabled:    &e%light_weapons_unlocked_weapon_coating%'
+  - '&7Coating Duration:             &e%light_weapons_self_duration_multiplier% Hits'
+  - '&7Coating Amplifier:             &e%light_weapons_coating_enemy_amplifier_multiplier%x'
+  - ''
+  - '&7Parry Timeframe:             &e%light_weapons_parry_time_frame%s'
+  - '&7Parry Damage Reduction:   x&e%light_weapons_parry_damage_reduction%'
+  - '&7Parry Cooldown:              &e%light_weapons_parry_cooldown%s'
+
+profile_format_heavy_weapons:
+  - '&e%player_name%''s &7Heavy Weapons'
+  - '&eLV&e&l%heavy_weapons_level% &7-> &e%heavy_weapons_exp_current%&7/&e%heavy_weapons_exp_next% &7-> &eLV&e&l%heavy_weapons_level_next%'
+  - ''
+  - '&7Attack Damage:                &e%heavy_weapons_damage_multiplier%%'
+  - '&7Attack Speed:                  &e%heavy_weapons_attack_speed_bonus%%'
+  - '&7Attack Knockback:            &e%heavy_weapons_knockback_bonus%%'
+  - ''
+  - '&7Weapon Coating Enabled:    &e%heavy_weapons_unlocked_weapon_coating%'
+  - '&7Coating Duration:             &e%light_weapons_self_duration_multiplier% Hits'
+  - '&7Coating Amplifier:             &e%heavy_weapons_coating_enemy_amplifier_multiplier%x'
+  - ''
+  - '&7Parry Timeframe:             &e%heavy_weapons_parry_time_frame%s'
+  - '&7Parry Damage Reduction:   x&e%heavy_weapons_parry_damage_reduction%'
+  - '&7Parry Cooldown:              &e%heavy_weapons_parry_cooldown%s'

@@ -12,6 +12,7 @@ public class DynamicBrewingRecipe implements Cloneable{
     private Material applyOn;
     private boolean perfectMeta;
     private Collection<DynamicItemModifier> modifiers;
+    private boolean unlockedForEveryone = false;
 
     public DynamicBrewingRecipe(String name, ItemStack ingredient, Material applyOn, boolean perfect, Collection<DynamicItemModifier> modifiers) {
         this.name = name;
@@ -19,6 +20,14 @@ public class DynamicBrewingRecipe implements Cloneable{
         this.applyOn = applyOn;
         this.perfectMeta = perfect;
         this.modifiers = modifiers;
+    }
+
+    public void setUnlockedForEveryone(boolean unlockedForEveryone) {
+        this.unlockedForEveryone = unlockedForEveryone;
+    }
+
+    public boolean isUnlockedForEveryone() {
+        return unlockedForEveryone;
     }
 
     public boolean isPerfectMeta() {

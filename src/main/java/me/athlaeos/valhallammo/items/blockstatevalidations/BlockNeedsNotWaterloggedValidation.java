@@ -1,6 +1,7 @@
 package me.athlaeos.valhallammo.items.blockstatevalidations;
 
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Waterlogged;
 
@@ -11,6 +12,11 @@ public class BlockNeedsNotWaterloggedValidation extends CraftValidation{
         this.name = "requirement_not_waterlogged";
         this.displayName = Utils.chat("&9Block can't be waterlogged");
         this.description = Utils.chat("&7When crafting, the block needs to not be waterlogged to be used");
+    }
+
+    @Override
+    public boolean isCompatible(Material m) {
+        return m.createBlockData() instanceof Waterlogged;
     }
 
     @Override

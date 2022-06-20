@@ -1,11 +1,13 @@
 package me.athlaeos.valhallammo.statsources.light_armor;
 
 import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.items.OverleveledEquipmentTool;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
 import me.athlaeos.valhallammo.utility.EntityUtils;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class LightArmorEquipmentAttributeSource extends AccumulativeStatSource {
@@ -26,7 +28,14 @@ public class LightArmorEquipmentAttributeSource extends AccumulativeStatSource {
             if (i.getItemMeta() == null) continue;
             if (ArmorType.getArmorType(i) == ArmorType.LIGHT){
                 AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getAnyAttributeWrapper(i, wrapper);
-                if (attributeWrapper != null) combinedStrength += attributeWrapper.getAmount();
+                if (attributeWrapper != null) {
+                    double value = attributeWrapper.getAmount();
+                    if (p instanceof Player){
+                        double penalty = OverleveledEquipmentTool.getTool().getPenalty((Player) p, i, "armor");
+                        value *= (1 + penalty);
+                    }
+                    combinedStrength += value;
+                }
             }
         }
         return combinedStrength;

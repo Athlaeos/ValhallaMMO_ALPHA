@@ -26,12 +26,16 @@ public class AccumulativeStatManager {
     private static AccumulativeStatManager manager = null;
     private final Map<String, Collection<AccumulativeStatSource>> sources;
 
+    public Map<String, Collection<AccumulativeStatSource>> getSources() {
+        return sources;
+    }
+
     public AccumulativeStatManager(){
         sources = new HashMap<>();
 
         register("GLOBAL_EXP_GAIN", new ProfileExpGainSource(), new BuffExpGainSource(), new EnchantmentSkillExpGainSource(), new PermissionExpGainSource(null), new ArbitraryGlobalEffectSource("general_experience"));
         register("DAMAGE_DEALT", new EnchantmentDamageDealtSource());
-        register("MELEE_DAMAGE_DEALT", new ArbitraryAttributeOnAttackSource("CUSTOM_MELEE_DAMAGE", false));
+        register("MELEE_DAMAGE_DEALT", new OverleveledEquipmentMeleeDamagePenaltySource(), new ArbitraryAttributeOnAttackSource("CUSTOM_MELEE_DAMAGE", false));
 
         register("DAMAGE_RESISTANCE", new ArbitraryPotionAmplifierSource("DAMAGE_RESISTANCE", false), new ProfileDamageResistanceSource(), new HeavyArmorProfileEquipmentDamageResistanceSource(), new HeavyArmorDefaultEquipmentDamageResistanceSource(), new BuffResistanceDamageResistanceSource(), new ArbitraryEnchantmentAmplifierSource("DAMAGE_TAKEN"), new EquipmentAttributeSource("CUSTOM_DAMAGE_RESISTANCE"), new LightArmorProfileEquipmentDamageResistanceSource(), new LightArmorDefaultEquipmentDamageResistanceSource(), new EquipmentProtectionEnchantmentDamageResistanceSource(), new ArbitraryPotionAmplifierSource("POISON_VULNERABLE", true));
         register("EXPLOSION_RESISTANCE", new ArbitraryPotionAmplifierSource("EXPLOSION_RESISTANCE", false), new ProfileExplosionResistanceSource(), new HeavyArmorProfileEquipmentExplosionResistanceSource(), new HeavyArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentAttributeSource("CUSTOM_EXPLOSION_RESISTANCE"), new LightArmorProfileEquipmentExplosionResistanceSource(), new LightArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentBlastProtectionEnchantmentExplosionResistanceSource());
@@ -65,16 +69,16 @@ public class AccumulativeStatManager {
         register("TOUGHNESS_BONUS", new ProfileBaseToughnessBonusSource());
         register("HUNGER_SAVE_CHANCE", new ArbitraryEnchantmentAmplifierSource("HUNGER_SAVE_CHANCE"), new ArbitraryPotionAmplifierSource("HUNGER_SAVE_CHANCE", false), new ProfileHungerSaveChanceBonusSource(), new LightArmorProfileFullArmorHungerSaveChanceBonusSource(), new HeavyArmorProfileFullArmorHungerSaveChanceSource());
         register("ATTACK_REACH_BONUS", new EquipmentAttributeSource("CUSTOM_WEAPON_REACH"));
+        register("ATTACK_DAMAGE_BONUS", new ProfileBaseAttackDamageBonusSource());
+        register("ATTACK_SPEED_BONUS", new ProfileBaseAttackSpeedBonusSource(), new HeavyWeaponsProfileAttackSpeedBonusSource(), new LightWeaponsProfileAttackSpeedBonusSource());
         register("DODGE_CHANCE", new ArbitraryPotionAmplifierSource("DODGE_CHANCE", false), new LightArmorProfileFullArmorDodgeChanceBonusEvESource());
         register("MOVEMENT_SPEED_BONUS", new ProfileMovementSpeedBonusSource(), new LightArmorProfileEquipmentMovementSpeedPenaltySource(), new HeavyArmorProfileEquipmentMovementSpeedPenaltySource());
         register("HEALTH_BONUS", new ProfileHealthBonusSource());
         register("KNOCKBACK_BONUS", new ArbitraryAttributeOnAttackSource("CUSTOM_KNOCKBACK", false), new ArbitraryPotionAmplifierSource("KNOCKBACK_BONUS", false), new HeavyWeaponsProfileAttackKnockbackBonusSource(), new LightWeaponsProfileAttackKnockbackBonusSource());
         register("COOLDOWN_REDUCTION", new ArbitraryEnchantmentAmplifierSource("COOLDOWN_REDUCTION"), new ArbitraryPotionAmplifierSource("COOLDOWN_REDUCTION", false), new ProfileCooldownReductionSource());
         register("LUCK_BONUS", new ProfileBaseLuckBonusSource());
-        register("ATTACK_DAMAGE_BONUS", new ProfileBaseAttackDamageBonusSource());
         register("IMMUNITY_FRAME_BONUS", new ArbitraryPotionAmplifierSource("IMMUNITY_FRAME_BONUS", false), new ProfileImmunityFramesBonusSource(), new EquipmentAttributeSource("CUSTOM_FLAT_IMMUNITY_FRAME_BONUS"));
         register("IMMUNITY_FRAME_MULTIPLIER", new ArbitraryPotionAmplifierSource("IMMUNITY_FRAME_MULTIPLIER", false), new LightWeaponsProfileImmunityFrameReductionSource(), new EquipmentAttributeSource("CUSTOM_FRACTION_IMMUNITY_FRAME_BONUS"), new ArbitraryAttributeOnAttackSource("CUSTOM_IMMUNITY_FRAME_REDUCTION", true));
-        register("ATTACK_SPEED_BONUS", new ProfileBaseAttackSpeedBonusSource(), new HeavyWeaponsProfileAttackSpeedBonusSource(), new LightWeaponsProfileAttackSpeedBonusSource());
         register("HEALING_BONUS", new ArbitraryEnchantmentAmplifierSource("HEALING_BONUS"), new ArbitraryPotionAmplifierSource("HEALING_BONUS", false), new ProfileHealthRegenerationBonusSource(), new LightArmorProfileFullArmorHealingBonusSource(), new HeavyArmorProfileFullArmorHealingBonusSource(), new ArbitraryPotionAmplifierSource("POISON_ANTI_HEAL", true));
         register("REFLECT_CHANCE", new ArbitraryPotionAmplifierSource("REFLECT_CHANCE", false), new HeavyArmorProfileFullArmorReflectChanceSource());
         register("REFLECT_FRACTION", new ArbitraryPotionAmplifierSource("REFLECT_FRACTION", false), new HeavyArmorProfileReflectFractionSource());
@@ -85,6 +89,7 @@ public class AccumulativeStatManager {
         register("PARRY_DAMAGE_REDUCTION", new HeavyWeaponsProfileParryDamageReductionSource(), new LightWeaponsProfileParryDamageReductionSource());
         register("PARRY_DEBUFF_DURATION", new HeavyWeaponsProfileParryFailedDebuffDurationSource(), new LightWeaponsProfileParryFailedDebuffDurationSource());
         register("ENTITY_DROP_MULTIPLIER_BONUS", new PotionExtraDropsSource(), new ArbitraryGlobalEffectSource("entity_drops_multiplier"), new FarmingProfileAnimalDropMultiplierSource(), new LightWeaponsProfileDropsBonusSource(), new HeavyWeaponsProfileDropsBonusSource());
+        register("DURABILITY_MULTIPLIER_BONUS");
 
         register("SMITHING_QUALITY_GENERAL", new SmithingProfileQualitySource(null), new SmithingPotionQualitySingleUseSource(), new SmithingPotionQualitySource(), new ArbitraryEnchantmentAmplifierSource("SMITHING_QUALITY"), new ArbitraryGlobalEffectSource("smithing_quality"));
         register("SMITHING_QUALITY_WOOD", new SmithingProfileQualitySource(MaterialClass.WOOD));
@@ -185,7 +190,7 @@ public class AccumulativeStatManager {
         register("LANDSCAPING_EXP_GAIN_WOODSTRIPPING", new LandscapingProfileWoodstrippingEXPSource());
         register("LANDSCAPING_EXP_GAIN_DIGGING", new LandscapingProfileDiggingEXPSource());
 
-        register("ARCHERY_DAMAGE", new ArbitraryOffensiveEnchantmentAmplifierSource("ARCHERY_DAMAGE"), new ArbitraryOffensivePotionAmplifierSource("ARCHERY_DAMAGE", false));
+        register("ARCHERY_DAMAGE", new OverleveledEquipmentArcheryDamagePenaltySource(), new ArbitraryOffensiveEnchantmentAmplifierSource("ARCHERY_DAMAGE"), new ArbitraryOffensivePotionAmplifierSource("ARCHERY_DAMAGE", false));
         register("ARCHERY_BOW_DAMAGE_MULTIPLIER", new ArcheryProfileBowDamageMultiplierSource());
         register("ARCHERY_CROSSBOW_DAMAGE_MULTIPLIER", new ArcheryProfileCrossBowDamageMultiplierSource());
         register("ARCHERY_AMMO_SAVE_CHANCE", new ArbitraryEnchantmentAmplifierSource("ARCHERY_AMMO_SAVE"), new ArbitraryPotionAmplifierSource("ARCHERY_AMMO_SAVE", false), new ArcheryProfileAmmoSaveChanceSource());

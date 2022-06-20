@@ -30,6 +30,19 @@ public class DynamicItemModifierManager {
     private final Map<String, DynamicItemModifier> modifiers = new HashMap<>();
 
     public DynamicItemModifierManager(){
+        register(new SkillLevelRequirementAddModifier("level_requirement_smithing", "SMITHING", Material.ANVIL));
+        register(new SkillLevelRequirementAddModifier("level_requirement_alchemy", "ALCHEMY", Material.BREWING_STAND));
+        register(new SkillLevelRequirementAddModifier("level_requirement_enchanting", "ENCHANTING", Material.ENCHANTING_TABLE));
+        register(new SkillLevelRequirementAddModifier("level_requirement_farming", "FARMING", Material.IRON_HOE));
+        register(new SkillLevelRequirementAddModifier("level_requirement_mining", "MINING", Material.IRON_PICKAXE));
+        register(new SkillLevelRequirementAddModifier("level_requirement_landscaping", "LANDSCAPING", Material.IRON_SHOVEL));
+        register(new SkillLevelRequirementAddModifier("level_requirement_light_weapons", "LIGHT_WEAPONS", Material.IRON_SWORD));
+        register(new SkillLevelRequirementAddModifier("level_requirement_heavy_weapons", "HEAVY_WEAPONS", Material.IRON_AXE));
+        register(new SkillLevelRequirementAddModifier("level_requirement_light_armor", "LIGHT_ARMOR", Material.LEATHER_CHESTPLATE));
+        register(new SkillLevelRequirementAddModifier("level_requirement_heavy_armor", "HEAVY_ARMOR", Material.IRON_CHESTPLATE));
+        register(new SkillLevelRequirementAddModifier("level_requirement_archery", "ARCHERY", Material.BOW));
+        register(new SkillLevelRequirementAddModifier("level_requirement_account", "ACCOUNT", Material.ARMOR_STAND));
+
         // SMITHING
         register(new DynamicDurabilityModifier("dynamic_durability", 0D, ModifierPriority.NEUTRAL));
         register(new DynamicBowStrengthModifier("dynamic_bow_strength", 0D, ModifierPriority.NEUTRAL));

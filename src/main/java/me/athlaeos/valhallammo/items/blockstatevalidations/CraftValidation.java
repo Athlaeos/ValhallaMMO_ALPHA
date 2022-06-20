@@ -14,6 +14,8 @@ public abstract class CraftValidation {
     protected String name;
     protected Collection<Material> compatibleMaterials = new HashSet<>();
 
+    public abstract boolean isCompatible(Material m);
+
     public abstract boolean check(Block block);
     public abstract void executeAfter(Block block);
 

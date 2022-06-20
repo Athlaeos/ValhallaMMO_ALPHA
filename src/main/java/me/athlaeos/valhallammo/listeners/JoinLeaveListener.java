@@ -2,10 +2,10 @@ package me.athlaeos.valhallammo.listeners;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
-import me.athlaeos.valhallammo.managers.ProfileManager;
-import me.athlaeos.valhallammo.managers.ProfileVersionManager;
-import me.athlaeos.valhallammo.managers.TranslationManager;
-import me.athlaeos.valhallammo.managers.TutorialBook;
+import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
+import me.athlaeos.valhallammo.managers.*;
+import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
@@ -45,8 +45,20 @@ public class JoinLeaveListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e){
         ProfileManager.getManager().loadPlayerProfiles(e.getPlayer());
 
-        if (!e.getPlayer().hasPlayedBefore()){
-            if (book_on_join){
+        ProfileVersionManager.getInstance().checkForReset(e.getPlayer());
+        if (book_on_join){
+            boolean giveBook = !e.getPlayer().hasPlayedBefore();
+            if (!giveBook){
+                Profile p = ProfileManager.getManager().getProfile(e.getPlayer(), "ACCOUNT");
+                if (p != null){
+                    if (p.getExp() == 0) {
+                        Skill s = SkillProgressionManager.getInstance().getSkill("ACCOUNT");
+                        if (s != null) s.addEXP(e.getPlayer(), 0.001, true, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
+                        giveBook = true;
+                    }
+                }
+            }
+            if (giveBook){
                 ItemStack book = TutorialBook.getTutorialBookInstance().getBook();
                 if (book != null){
                     e.getPlayer().getInventory().addItem(book.clone());
@@ -55,7 +67,6 @@ public class JoinLeaveListener implements Listener {
                 }
             }
         }
-        ProfileVersionManager.getInstance().checkForReset(e.getPlayer());
     }
 
     @EventHandler

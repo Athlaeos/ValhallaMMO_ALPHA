@@ -37,6 +37,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
@@ -75,20 +76,20 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         super(type);
         skillTreeMenuOrderPriority = 6;
         ChancedBlockLootTable farming = LootManager.getInstance().getChancedBlockLootTables().get("farming_farming");
-        if (farming != null){
-            if (farming instanceof ChancedFarmingCropsLootTable){
+        if (farming != null) {
+            if (farming instanceof ChancedFarmingCropsLootTable) {
                 farmingLootTable = (ChancedFarmingCropsLootTable) farming;
             }
         }
         TieredLootTable fishing = LootManager.getInstance().getTieredLootTables().get("farming_fishing");
-        if (fishing != null){
-            if (fishing instanceof TieredFishingLootTable){
+        if (fishing != null) {
+            if (fishing instanceof TieredFishingLootTable) {
                 this.fishingLootTable = (TieredFishingLootTable) fishing;
             }
         }
         ChancedEntityLootTable animals = LootManager.getInstance().getChancedEntityLootTables().get("farming_animals");
-        if (animals != null){
-            if (animals instanceof ChancedFarmingAnimalLootTable){
+        if (animals != null) {
+            if (animals instanceof ChancedFarmingAnimalLootTable) {
                 this.animalLootTable = (ChancedFarmingAnimalLootTable) animals;
             }
         }
@@ -110,41 +111,41 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         ultra_harvesting_instant = farmingConfig.getBoolean("ultra_harvesting_instant");
 
         ConfigurationSection blockBreakSection = progressionConfig.getConfigurationSection("experience.farming_break");
-        if (blockBreakSection != null){
-            for (String key : blockBreakSection.getKeys(false)){
+        if (blockBreakSection != null) {
+            for (String key : blockBreakSection.getKeys(false)) {
                 try {
                     Material block = Material.valueOf(key);
                     if (!block.isBlock()) throw new IllegalArgumentException();
                     double reward = progressionConfig.getDouble("experience.farming_break." + key);
                     blockBreakEXPReward.put(block, reward);
-                } catch (IllegalArgumentException ignored){
+                } catch (IllegalArgumentException ignored) {
                     ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block break rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
             }
         }
 
         ConfigurationSection blockInteractSection = progressionConfig.getConfigurationSection("experience.farming_interact");
-        if (blockInteractSection != null){
-            for (String key : blockInteractSection.getKeys(false)){
+        if (blockInteractSection != null) {
+            for (String key : blockInteractSection.getKeys(false)) {
                 try {
                     Material block = Material.valueOf(key);
                     if (!block.isBlock()) throw new IllegalArgumentException();
                     double reward = progressionConfig.getDouble("experience.farming_interact." + key);
                     blockInteractEXPReward.put(block, reward);
-                } catch (IllegalArgumentException ignored){
+                } catch (IllegalArgumentException ignored) {
                     ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block interact rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
             }
         }
 
         ConfigurationSection entityBreedSection = progressionConfig.getConfigurationSection("experience.farming_breed");
-        if (entityBreedSection != null){
-            for (String key : entityBreedSection.getKeys(false)){
+        if (entityBreedSection != null) {
+            for (String key : entityBreedSection.getKeys(false)) {
                 try {
                     EntityType entity = EntityType.valueOf(key);
                     double reward = progressionConfig.getDouble("experience.farming_breed." + key);
                     entityBreedEXPReward.put(entity, reward);
-                } catch (IllegalArgumentException ignored){
+                } catch (IllegalArgumentException ignored) {
                     ValhallaMMO.getPlugin().getLogger().warning("invalid entity type given:" + key + " for the entity breed rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
             }
@@ -162,32 +163,32 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     }
 
     @Override
-    public void onFishing(PlayerFishEvent event){
-        if (event.getState() == PlayerFishEvent.State.FISHING){
+    public void onFishing(PlayerFishEvent event) {
+        if (event.getState() == PlayerFishEvent.State.FISHING) {
             double fishingTimeMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_TIME_MULTIPLIER", event.getPlayer(), true);
             event.getHook().setMinWaitTime(Utils.excessChance(fishingTimeMultiplier * event.getHook().getMinWaitTime()));
             event.getHook().setMaxWaitTime(Utils.excessChance(fishingTimeMultiplier * event.getHook().getMaxWaitTime()));
-        } else if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH){
+        } else if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             double fishingEXPMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_VANILLA_EXP_MULTIPLIER", event.getPlayer(), true);
             event.setExpToDrop(Utils.excessChance(event.getExpToDrop() * fishingEXPMultiplier));
             addEXP(event.getPlayer(), fishingEXPReward * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FISHING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
-            if (fishingLootTable != null){
+            if (fishingLootTable != null) {
                 fishingLootTable.onFishEvent(event);
             }
         }
     }
 
-    public void onAnimalBreeding(EntityBreedEvent event){
-        if (event.getBreeder() instanceof Player){
+    public void onAnimalBreeding(EntityBreedEvent event) {
+        if (event.getBreeder() instanceof Player) {
             Player p = (Player) event.getBreeder();
-            if (entityBreedEXPReward.containsKey(event.getEntity().getType())){
+            if (entityBreedEXPReward.containsKey(event.getEntity().getType())) {
                 double exp = entityBreedEXPReward.get(event.getEntity().getType()) * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_BREEDING", p, true) / 100D));
                 this.addEXP(p, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
             int vanillaEXP = Utils.excessChance(event.getExperience() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
             event.setExperience(vanillaEXP);
-            if (event.getEntity() instanceof org.bukkit.entity.Ageable){
+            if (event.getEntity() instanceof org.bukkit.entity.Ageable) {
                 org.bukkit.entity.Ageable animal = (org.bukkit.entity.Ageable) event.getEntity();
                 int newAge = Utils.excessChance(animal.getAge() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_AGE_REDUCTION", p, true)));
                 animal.setAge(newAge);
@@ -210,9 +211,9 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         Block b = event.getBlock();
         if (!blockBreakEXPReward.containsKey(b.getType())) return;
         boolean reward = false;
-        if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_17) && b.getBlockData() instanceof CaveVines){
+        if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_17) && b.getBlockData() instanceof CaveVines) {
             CaveVines vines = (CaveVines) b.getBlockData();
-            if (vines.isBerries()){
+            if (vines.isBerries()) {
                 reward = true;
             }
         } else if (b.getBlockData() instanceof Ageable && !ageableExceptions.contains(b.getType())) {
@@ -223,12 +224,12 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                 reward = true;
             }
         } else {
-            if (!BlockStore.isPlaced(b)){
+            if (!BlockStore.isPlaced(b)) {
                 // reward player farming exp if block is broken and wasn't placed first
                 reward = true;
             }
         }
-        if (reward){
+        if (reward) {
             double amount = blockBreakEXPReward.get(b.getType());
             addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
@@ -238,7 +239,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     }
 
     @Override
-    public void onBlockDamage(BlockDamageEvent event){
+    public void onBlockDamage(BlockDamageEvent event) {
         // do nothing
     }
 
@@ -250,120 +251,118 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             "NETHER_WART", "GLOW_BERRIES", "SUGAR_CANE",
             "CACTUS", "KELP", "SEA_PICKLE"
     ));
+
     @Override
     public void onInteract(PlayerInteractEvent event) {
+        if (event.useInteractedBlock() == Event.Result.DENY) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = event.getClickedBlock();
             assert b != null;
-            if (b.getBlockData() instanceof Ageable){
+            if (b.getBlockData() instanceof Ageable) {
                 if (!legalCrops.contains(b.getType())) return;
                 Ageable data = (Ageable) b.getBlockData();
-                if (data.getAge() >= data.getMaximumAge()){
-                    // crop fully grown
-                    if (Arrays.asList("SWEET_BERRY_BUSH", "GLOW_BERRIES").contains(b.getType().toString())){
-                        // clicked crop is of a type that isn't destroyed when harvested
-                        if (blockInteractEXPReward.containsKey(b.getType())){
-                            BlockStore.setPlaced(b, false);
-                            // reward player farming exp
-                            double amount = blockInteractEXPReward.get(b.getType());
-                            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+                if (data.getAge() >= data.getMaximumAge()) {
 
-                            double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
-                            if (vanillaExpReward > 0){
-                                ExperienceOrb orb = (ExperienceOrb) b.getWorld().spawnEntity(b.getLocation().add(0.5, 0.5, 0.5), EntityType.EXPERIENCE_ORB);
-                                orb.setExperience(Utils.excessChance(vanillaExpReward));
-                            }
+                    // clicked crop is of a type that needs to be destroyed to be harvested
+                    boolean unlockedInstantHarvest = false;
+                    boolean unlockedUltraHarvest = false;
+                    int ultraHarvestCooldown = 0;
+                    Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "FARMING");
+                    if (p != null) {
+                        if (p instanceof FarmingProfile) {
+                            unlockedInstantHarvest = ((FarmingProfile) p).isInstantHarvestingUnlocked();
+                            ultraHarvestCooldown = ((FarmingProfile) p).getUltraHarvestingCooldown();
+                            unlockedUltraHarvest = ultraHarvestCooldown > 0;
                         }
-                    } else {
-                        // clicked crop is of a type that needs to be destroyed to be harvested
-                        boolean unlockedInstantHarvest = false;
-                        boolean unlockedUltraHarvest = false;
-                        int ultraHarvestCooldown = 0;
-                        Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "FARMING");
-                        if (p != null){
-                            if (p instanceof FarmingProfile){
-                                unlockedInstantHarvest = ((FarmingProfile) p).isInstantHarvestingUnlocked();
-                                ultraHarvestCooldown = ((FarmingProfile) p).getUltraHarvestingCooldown();
-                                unlockedUltraHarvest = ultraHarvestCooldown > 0;
-                            }
-                        }
-                        if (unlockedUltraHarvest){
-                            if (event.getPlayer().isSneaking()){
-                                if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest")){
-                                    // trigger ultra harvest special ability
-                                    List<Block> affectedBlocks = Utils.getBlockVein(
-                                            b.getLocation(),
-                                            new HashSet<>(legalCrops),
-                                            ultraBreakLimit,
+                    }
+                    if (unlockedUltraHarvest) {
+                        if (event.getPlayer().isSneaking()) {
+                            if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest")) {
+                                // trigger ultra harvest special ability
+                                List<Block> affectedBlocks = Utils.getBlockVein(
+                                        b.getLocation(),
+                                        new HashSet<>(legalCrops),
+                                        ultraBreakLimit,
+                                        block -> {
+                                            if (block.getBlockData() instanceof Ageable) {
+                                                Ageable d = (Ageable) block.getBlockData();
+                                                return d.getAge() >= d.getMaximumAge();
+                                            }
+                                            return false;
+                                        },
+                                        new Offset(-1, 0, 0), new Offset(0, 0, 1),
+                                        new Offset(1, 0, 0), new Offset(0, 0, -1));
+
+                                if (ultra_harvesting_instant) {
+                                    Utils.alterBlocksInstant(
+                                            "valhalla_ultra_harvest",
+                                            event.getPlayer(),
+                                            affectedBlocks,
+                                            block -> legalCrops.contains(b.getType()),
+                                            null,
                                             block -> {
-                                                if (block.getBlockData() instanceof Ageable){
-                                                    Ageable d = (Ageable) block.getBlockData();
-                                                    return d.getAge() >= d.getMaximumAge();
+                                                if (cosmetic_outline) {
+                                                    Color color = Utils.hexToRgb(outline_color);
+                                                    ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
                                                 }
-                                                return false;
+                                                instantHarvest(event.getPlayer(), block, ultraBreakInstantPickup);
                                             },
-                                            new Offset(-1, 0, 0), new Offset(0, 0, 1),
-                                            new Offset(1, 0, 0), new Offset(0, 0, -1));
-
-                                    if (ultra_harvesting_instant){
-                                        Utils.alterBlocksInstant(
-                                                "valhalla_ultra_harvest",
-                                                event.getPlayer(),
-                                                affectedBlocks,
-                                                block -> legalCrops.contains(b.getType()),
-                                                null,
-                                                block -> {
-                                                    if (cosmetic_outline) {
-                                                        Color color = Utils.hexToRgb(outline_color);
-                                                        ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
-                                                    }
-                                                    instantHarvest(event.getPlayer(), block, ultraBreakInstantPickup);
-                                                },
-                                                null);
-                                    } else {
-                                        Utils.alterBlocks(
-                                                "valhalla_ultra_harvest",
-                                                event.getPlayer(),
-                                                affectedBlocks,
-                                                block -> legalCrops.contains(b.getType()),
-                                                null,
-                                                block -> {
-                                                    if (cosmetic_outline) {
-                                                        Color color = Utils.hexToRgb(outline_color);
-                                                        ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
-                                                    }
-                                                    instantHarvest(event.getPlayer(), block, ultraBreakInstantPickup);
-                                                },
-                                                null);
-                                    }
-                                    CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), ultraHarvestCooldown, "cooldown_ultra_harvest");
+                                            null);
                                 } else {
-                                    int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest");
-                                    event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                            new TextComponent(
-                                                    Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
-                                                    .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
-                                                    .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
-                                                    .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
-                                            ));
+                                    Utils.alterBlocks(
+                                            "valhalla_ultra_harvest",
+                                            event.getPlayer(),
+                                            affectedBlocks,
+                                            block -> legalCrops.contains(b.getType()),
+                                            null,
+                                            block -> {
+                                                if (cosmetic_outline) {
+                                                    Color color = Utils.hexToRgb(outline_color);
+                                                    ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
+                                                }
+                                                instantHarvest(event.getPlayer(), block, ultraBreakInstantPickup);
+                                            },
+                                            null);
                                 }
-                                return;
+                                CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), ultraHarvestCooldown, "cooldown_ultra_harvest");
+                            } else {
+                                int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_ultra_harvest");
+                                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                        new TextComponent(
+                                                Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
+                                                        .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
+                                                        .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
+                                                        .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
+                                        ));
                             }
+                            return;
                         }
-                        if (unlockedInstantHarvest){
-                            instantHarvest(event.getPlayer(), b, false);
-                        }
+                    }
+                    if (unlockedInstantHarvest) {
+                        instantHarvest(event.getPlayer(), b, false);
                     }
                 }
             }
-            if (b.getBlockData() instanceof Beehive){
+            if (b.getBlockData() instanceof Beehive) {
                 Beehive hive = (Beehive) b.getBlockData();
-                if (hive.getHoneyLevel() >= hive.getMaximumHoneyLevel()){
+                if (hive.getHoneyLevel() >= hive.getMaximumHoneyLevel()) {
+                    if (blockInteractEXPReward.containsKey(b.getType())) {
+                        BlockStore.setPlaced(b, false);
+                        // reward player farming exp
+                        double amount = blockInteractEXPReward.get(b.getType());
+                        addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
+                        double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
+                        if (vanillaExpReward > 0) {
+                            ExperienceOrb orb = (ExperienceOrb) b.getWorld().spawnEntity(b.getLocation().add(0.5, 0.5, 0.5), EntityType.EXPERIENCE_ORB);
+                            orb.setExperience(Utils.excessChance(vanillaExpReward));
+                        }
+                    }
                     // hive full of honey
                     double notConsumeChance = AccumulativeStatManager.getInstance().getStats("FARMING_HONEY_SAVE_CHANCE", event.getPlayer(), true);
-                    if (Utils.getRandom().nextDouble() <= notConsumeChance){
+                    if (Utils.getRandom().nextDouble() <= notConsumeChance) {
                         // honey not consumed
-                        new BukkitRunnable(){
+                        new BukkitRunnable() {
                             @Override
                             public void run() {
                                 hive.setHoneyLevel(hive.getMaximumHoneyLevel());
@@ -376,8 +375,8 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         }
     }
 
-    private void instantHarvest(Player p, Block b, boolean toInventory){
-        if (!(b.getBlockData() instanceof Ageable)){
+    private void instantHarvest(Player p, Block b, boolean toInventory) {
+        if (!(b.getBlockData() instanceof Ageable)) {
             return;
         }
         Ageable data = (Ageable) b.getBlockData();
@@ -401,7 +400,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             if (breakEvent.isCancelled()) return;
             BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(b, b.getState(), p, new ArrayList<>((tool == null) ? b.getDrops() : b.getDrops(tool, p)));
             ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
-            if (toInventory){
+            if (toInventory) {
                 Map<Integer, ItemStack> excessDrops = p.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
                 dropEvent.getItems().clear();
                 dropEvent.getItems().addAll(excessDrops.values());
@@ -424,12 +423,28 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     @Override
     public void onBlockPlaced(BlockPlaceEvent event) {
         Block b = event.getBlock();
-        if (b.getBlockData() instanceof Ageable){
+        if (b.getBlockData() instanceof Ageable) {
             double growthRate = AccumulativeStatManager.getInstance().getStats("FARMING_INSTANT_GROWTH_RATE", event.getPlayer(), true);
             int stages = Utils.excessChance(growthRate);
             Ageable crop = (Ageable) b.getBlockData();
             crop.setAge(Math.min(crop.getAge() + stages, crop.getMaximumAge()));
             b.setBlockData(crop);
+        }
+    }
+
+    @Override
+    public void onBlockHarvest(PlayerHarvestBlockEvent event) {
+        if (blockInteractEXPReward.containsKey(event.getHarvestedBlock().getType())) {
+            BlockStore.setPlaced(event.getHarvestedBlock(), false);
+            // reward player farming exp
+            double amount = blockInteractEXPReward.get(event.getHarvestedBlock().getType());
+            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
+            double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
+            if (vanillaExpReward > 0) {
+                ExperienceOrb orb = (ExperienceOrb) event.getHarvestedBlock().getWorld().spawnEntity(event.getHarvestedBlock().getLocation().add(0.5, 0.5, 0.5), EntityType.EXPERIENCE_ORB);
+                orb.setExperience(Utils.excessChance(vanillaExpReward));
+            }
         }
     }
 
@@ -443,18 +458,18 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
                 ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
 
-                if (!event.getItems().isEmpty()){
+                if (!event.getItems().isEmpty()) {
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
                     farmingLootTable.onItemDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
                 }
                 event.getItems().clear();
-                if (!handleDropsSelf){
+                if (!handleDropsSelf) {
                     event.getItems().addAll(newItems);
                 }
-                if (!handleDropsSelf){ // not spigot
+                if (!handleDropsSelf) { // not spigot
                     event.getItems().addAll(newItems);
                 } else {
-                    for (Item i : newItems){
+                    for (Item i : newItems) {
                         event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
                     }
                 }
@@ -472,7 +487,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
                 ItemUtils.multiplyItemStacks(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
 
-                if (!event.getItems().isEmpty()){
+                if (!event.getItems().isEmpty()) {
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
                     farmingLootTable.onItemStackDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
                 }
@@ -490,15 +505,15 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void onEntityKilled(EntityDeathEvent event) {
-        if (event.getEntity().getKiller() != null){
+        if (event.getEntity().getKiller() != null) {
             Player killer = event.getEntity().getKiller();
-            if (entityBreedEXPReward.containsKey(event.getEntityType())){
+            if (entityBreedEXPReward.containsKey(event.getEntityType())) {
                 List<ItemStack> newItems = new ArrayList<>(event.getDrops());
                 //double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_ANIMAL_DROP_MULTIPLIER", killer, true);
 
                 //ItemUtils.multiplyItemStacks(event.getDrops(), newItems, dropMultiplier, forgivingMultipliers);
 
-                if (!event.getDrops().isEmpty()){
+                if (!event.getDrops().isEmpty()) {
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_ANIMAL_RARE_DROP_CHANCE_MULTIPLIER", killer, true);
                     animalLootTable.onEntityKilled(event.getEntity(), newItems, rareDropMultiplier);
                     event.getDrops().clear();
@@ -534,19 +549,19 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void onHungerChange(FoodLevelChangeEvent event) {
-        if (!event.isCancelled()){
+        if (!event.isCancelled()) {
             ItemStack food = event.getItem();
             if (food == null) return;
             float multiplier = 1F;
-            if (fish.contains(food.getType())){
+            if (fish.contains(food.getType())) {
                 multiplier = (float) AccumulativeStatManager.getInstance().getStats("FARMING_HUNGER_MULTIPLIER_FISH", event.getEntity(), true);
-            } else if (vegetarian.contains(food.getType())){
+            } else if (vegetarian.contains(food.getType())) {
                 multiplier = (float) AccumulativeStatManager.getInstance().getStats("FARMING_HUNGER_MULTIPLIER_VEGETARIAN", event.getEntity(), true);
-            } else if (meats.contains(food.getType())){
+            } else if (meats.contains(food.getType())) {
                 multiplier = (float) AccumulativeStatManager.getInstance().getStats("FARMING_HUNGER_MULTIPLIER_MEAT", event.getEntity(), true);
-            } else if (garbage.contains(food.getType())){
+            } else if (garbage.contains(food.getType())) {
                 multiplier = (float) AccumulativeStatManager.getInstance().getStats("FARMING_HUNGER_MULTIPLIER_GARBAGE", event.getEntity(), true);
-            } else if (magical.contains(food.getType())){
+            } else if (magical.contains(food.getType())) {
                 multiplier = (float) AccumulativeStatManager.getInstance().getStats("FARMING_HUNGER_MULTIPLIER_MAGICAL", event.getEntity(), true);
             }
 
@@ -561,16 +576,16 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void onPotionEffect(EntityPotionEffectEvent event) {
-        if (event.getEntity() instanceof Player){
-            if (!event.isCancelled()){
-                if (event.getCause() == EntityPotionEffectEvent.Cause.FOOD){
-                    if (event.getNewEffect() != null){
-                        if (PotionType.getClass(event.getNewEffect().getType()) == PotionType.DEBUFF){
+        if (event.getEntity() instanceof Player) {
+            if (!event.isCancelled()) {
+                if (event.getCause() == EntityPotionEffectEvent.Cause.FOOD) {
+                    if (event.getNewEffect() != null) {
+                        if (PotionType.getClass(event.getNewEffect().getType()) == PotionType.DEBUFF) {
                             Player target = (Player) event.getEntity();
                             Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
-                            if (p != null){
-                                if (p instanceof FarmingProfile){
-                                    if (((FarmingProfile) p).isBadFoodImmune()){
+                            if (p != null) {
+                                if (p instanceof FarmingProfile) {
+                                    if (((FarmingProfile) p).isBadFoodImmune()) {
                                         event.setCancelled(true);
                                     }
                                 }
@@ -584,16 +599,16 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void onCustomPotionEffect(EntityCustomPotionEffectEvent event) {
-        if (event.getEntity() instanceof Player){
-            if (!event.isCancelled()){
-                if (event.getCause() == EntityPotionEffectEvent.Cause.FOOD){
-                    if (event.getNewEffect() != null){
-                        if (event.getNewEffect().getType() == PotionType.DEBUFF){
+        if (event.getEntity() instanceof Player) {
+            if (!event.isCancelled()) {
+                if (event.getCause() == EntityPotionEffectEvent.Cause.FOOD) {
+                    if (event.getNewEffect() != null) {
+                        if (event.getNewEffect().getType() == PotionType.DEBUFF) {
                             Player target = (Player) event.getEntity();
                             Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
-                            if (p != null){
-                                if (p instanceof FarmingProfile){
-                                    if (((FarmingProfile) p).isBadFoodImmune()){
+                            if (p != null) {
+                                if (p instanceof FarmingProfile) {
+                                    if (((FarmingProfile) p).isBadFoodImmune()) {
                                         event.setCancelled(true);
                                     }
                                 }
@@ -617,14 +632,14 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void onEntityTargetEntity(EntityTargetLivingEntityEvent event) {
-        if (event.getEntity().getType() == EntityType.BEE){
-            if (event.getTarget() instanceof Player){
-                if (event.getReason() == EntityTargetEvent.TargetReason.CLOSEST_PLAYER){
+        if (event.getEntity().getType() == EntityType.BEE) {
+            if (event.getTarget() instanceof Player) {
+                if (event.getReason() == EntityTargetEvent.TargetReason.CLOSEST_PLAYER) {
                     Player target = (Player) event.getTarget();
                     Profile p = ProfileManager.getManager().getProfile(target, "FARMING");
-                    if (p != null){
-                        if (p instanceof FarmingProfile){
-                            if (((FarmingProfile) p).isHiveBeeAggroImmune()){
+                    if (p != null) {
+                        if (p instanceof FarmingProfile) {
+                            if (((FarmingProfile) p).isHiveBeeAggroImmune()) {
                                 event.setCancelled(true);
                             }
                         }

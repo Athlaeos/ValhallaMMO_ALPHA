@@ -101,7 +101,7 @@ public class InteractListener implements Listener {
                                     }
                                     return true;
                                 }).collect(Collectors.toList());
-                                CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes);
+                                CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes, true);
                                 e.setCancelled(true);
                                 e.setUseItemInHand(Event.Result.DENY);
                                 menu.open();
@@ -109,7 +109,7 @@ public class InteractListener implements Listener {
                         } else {
                             if (CustomRecipeManager.getInstance().getItemImprovementRecipes().containsKey(clickedBlockType) || CustomRecipeManager.getInstance().getItemClassImprovementRecipes().containsKey(clickedBlockType)){
                                 Collection<AbstractCustomCraftingRecipe> availableRecipes = CustomRecipeManager.getInstance().getRecipesByCraftingStation(clickedBlockType, e.getPlayer().getInventory().getItemInMainHand().getType());
-                                CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes);
+                                CraftRecipeChoiceMenu menu = new CraftRecipeChoiceMenu(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes, false);
                                 e.setCancelled(true);
                                 e.setUseItemInHand(Event.Result.DENY);
                                 menu.open();

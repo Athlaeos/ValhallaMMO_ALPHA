@@ -17,6 +17,11 @@ public class CauldronFillsWaterValidation extends CraftValidation {
     }
 
     @Override
+    public boolean isCompatible(Material m) {
+        return compatibleMaterials.contains(m);
+    }
+
+    @Override
     public boolean check(Block block) {
         return true;
     }

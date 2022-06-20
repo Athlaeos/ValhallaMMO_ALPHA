@@ -75,6 +75,11 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             Utils.chat("&7&lRequire exact meta:"),
             new ArrayList<>()
     );
+    private final ItemStack unlockedForEveryoneButton = Utils.createItemStack(
+            Material.ARMOR_STAND,
+            Utils.chat("&7&lUnlocked for everyone:"),
+            new ArrayList<>()
+    );
     private final ItemStack timeButton = Utils.createItemStack(
             Material.CLOCK,
             Utils.chat("&e&lTime to craft"),
@@ -117,6 +122,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
     private int craftTime = 2500;
     private int consecutiveCrafts = 8;
     private boolean exactMeta = true;
+    private boolean unlockedForEveryone = false;
     private Material craftStation = Material.CRAFTING_TABLE;
     private Collection<ItemStack> customRecipeIngredients = new ArrayList<>();
     private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
@@ -143,6 +149,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             this.consecutiveCrafts = recipe.getConsecutiveCrafts();
             this.toolIDRequired = recipe.getRequiredToolId();
             this.toolRequiredType = recipe.getToolRequirementType();
+            this.unlockedForEveryone = recipe.isUnlockedForEveryone();
         }
     }
 
@@ -212,6 +219,9 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             } else if (e.getCurrentItem().equals(exactMetaButton)) {
                 exactMeta = !exactMeta;
                 current_craft_recipe.setRequireExactMeta(exactMeta);
+            } else if (e.getCurrentItem().equals(unlockedForEveryoneButton)) {
+                unlockedForEveryone = !unlockedForEveryone;
+                current_craft_recipe.setUnlockedForEveryone(unlockedForEveryone);
             } else if (e.getCurrentItem().equals(consecutiveCraftsButton)) {
                 handleConsecutiveCraftsButton(e.getClick());
             } else if (e.getCurrentItem().equals(dynamicModifierButton)){
@@ -279,12 +289,14 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             } else if (e.getCurrentItem().equals(craftValidationButton)){
                 List<CraftValidation> availableValidations = BlockCraftStateValidationManager.getInstance().getValidations(craftStation);
                 if (!availableValidations.isEmpty()){
+                    currentValidationIndex = Math.max(0, availableValidations.indexOf(currentValidation));
                     if (currentValidationIndex + 1 < availableValidations.size()){
                         currentValidationIndex += 1;
                     } else {
                         currentValidationIndex = 0;
                     }
                     currentValidation = availableValidations.get(currentValidationIndex);
+                    current_craft_recipe.setValidation(currentValidation);
                 }
             } else if (e.getCurrentItem().equals(cancelButton)){
                 if (view == View.CREATE_RECIPE) {
@@ -385,6 +397,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             breakStation = current_craft_recipe.breakStation();
             consecutiveCrafts = current_craft_recipe.getConsecutiveCrafts();
             exactMeta = current_craft_recipe.requireExactMeta();
+            unlockedForEveryone = current_craft_recipe.isUnlockedForEveryone();
             currentValidation = current_craft_recipe.getValidation();
             toolIDRequired = current_craft_recipe.getRequiredToolId();
             toolRequiredType = current_craft_recipe.getToolRequirementType();
@@ -515,25 +528,32 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
         requireExactMetaMeta.setDisplayName(Utils.chat(String.format("&e&lRequire exact meta: %s", ((exactMeta) ? "Yes" : "No"))));
         exactMetaButton.setItemMeta(requireExactMetaMeta);
 
+        ItemMeta unlockedForEveryoneMeta = unlockedForEveryoneButton.getItemMeta();
+        assert unlockedForEveryoneMeta != null;
+        unlockedForEveryoneMeta.setDisplayName(Utils.chat(String.format("&e&lUnlocked for everyone: %s", ((unlockedForEveryone) ? "Yes" : "No"))));
+        unlockedForEveryoneButton.setItemMeta(unlockedForEveryoneMeta);
+
         ItemMeta breakStationMeta = breakStationButton.getItemMeta();
         assert breakStationMeta != null;
         breakStationMeta.setDisplayName(Utils.chat("&c&lBreak station after use: " + ((breakStation) ? "Yes" : "No")));
         breakStationButton.setItemMeta(breakStationMeta);
 
-        List<String> validationButtonLore = new ArrayList<>();
-        ItemMeta validationButtonMeta = craftValidationButton.getItemMeta();
-        assert validationButtonMeta != null;
+        List<String> validationButtonLore;
+        String validatioButtonDisplayName;
         if (this.currentValidation != null){
-            validationButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat(this.currentValidation.getDescription()), 40));
-            validationButtonMeta.setDisplayName(Utils.chat(this.currentValidation.getDisplayName()));
+            validationButtonLore = Utils.separateStringIntoLines(Utils.chat(this.currentValidation.getDescription()), 40);
+            validatioButtonDisplayName = Utils.chat(this.currentValidation.getDisplayName());
             craftValidationButton.setType(this.currentValidation.getIcon());
         } else {
-            validationButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat(
+            validationButtonLore = Utils.separateStringIntoLines(Utils.chat(
                     "&7No validation available and default is not set, this is not intended and you should contact the developer- but it should still work."
-            ), 40));
-            validationButtonMeta.setDisplayName(Utils.chat("&7No validation, block state ignored"));
+            ), 40);
+            validatioButtonDisplayName = Utils.chat("&7No validation, block state ignored");
             craftValidationButton.setType(Material.BARRIER);
         }
+        ItemMeta validationButtonMeta = craftValidationButton.getItemMeta();
+        assert validationButtonMeta != null;
+        validationButtonMeta.setDisplayName(validatioButtonDisplayName);
         validationButtonMeta.setLore(validationButtonLore);
         craftValidationButton.setItemMeta(validationButtonMeta);
 
@@ -542,6 +562,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
         inventory.setItem(11, exactMetaButton);
         inventory.setItem(12, ingredientsButton);
         inventory.setItem(14, craftResultButton);
+        inventory.setItem(16, unlockedForEveryoneButton);
         inventory.setItem(19, cancelButton);
         inventory.setItem(25, confirmButton);
         inventory.setItem(29, craftValidationButton);

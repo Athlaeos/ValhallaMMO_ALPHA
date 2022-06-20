@@ -35,6 +35,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
+import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -370,6 +371,11 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
 
     @Override
     public void onBlockPlaced(BlockPlaceEvent event) {
+
+    }
+
+    @Override
+    public void onBlockHarvest(PlayerHarvestBlockEvent event) {
 
     }
 

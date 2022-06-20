@@ -15,6 +15,11 @@ public class DefaultValidation extends CraftValidation {
     }
 
     @Override
+    public boolean isCompatible(Material m) {
+        return true;
+    }
+
+    @Override
     public boolean check(Block block) {
         return true;
     }

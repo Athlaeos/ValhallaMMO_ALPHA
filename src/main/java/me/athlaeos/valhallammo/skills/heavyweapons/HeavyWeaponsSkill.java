@@ -228,6 +228,7 @@ public class HeavyWeaponsSkill extends Skill implements OffensiveSkill, Interact
             Collection<Entity> entities = event.getDamager().getWorld().getNearbyEntities(((LivingEntity) attacker).getEyeLocation(),
                     crushingRadius, crushingRadius, crushingRadius, entity -> entity instanceof LivingEntity);
             entities.remove(event.getEntity());
+            entities.remove(event.getDamager());
             for (Entity e : entities){
                 ((LivingEntity) e).damage(crushingDamageMultiplier * event.getDamage(), attacker);
             }

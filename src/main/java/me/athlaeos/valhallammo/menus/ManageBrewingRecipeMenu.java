@@ -48,6 +48,13 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
                     " using custom materials. -n" +
                     "If false, only the item types will need to match. Meta is ignored."), 40)
     );
+    private final ItemStack unlockedForEveryoneButton = Utils.createItemStack(
+            Material.ARMOR_STAND,
+            Utils.chat("&7&lUnlocked For Everyone"),
+            Utils.separateStringIntoLines(Utils.chat("&7If true, this recipe will be usable for everyone" +
+                    " regardless if the recipe is unlocked or not. -n" +
+                    "If false, this recipe will need to be configured to be unlocked through other means."), 40)
+    );
     private final ItemStack returnToMenuButton = Utils.createItemStack(
             Material.WRITABLE_BOOK,
             Utils.chat("&7&lReturn to menu"),
@@ -57,6 +64,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
     private ItemStack ingredient = null;
     private Material applyOn = Material.GLASS_BOTTLE;
     private boolean requireExactMeta = false;
+    private boolean unlockedForEveryone = false;
     private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
 
     public ManageBrewingRecipeMenu(PlayerMenuUtility playerMenuUtility) {
@@ -81,6 +89,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
             ingredient = recipe.getIngredient();
             applyOn = recipe.getRequiredType();
             requireExactMeta = recipe.isPerfectMeta();
+            unlockedForEveryone = recipe.isUnlockedForEveryone();
         } else {
             DynamicItemModifier modifier = DynamicItemModifierManager.getInstance().createModifier("exp_bonus_alchemy", 100, ModifierPriority.LAST);
             if (modifier != null){
@@ -121,6 +130,11 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
                 requireExactMeta = !requireExactMeta;
                 if (currentRecipe != null){
                     currentRecipe.setPerfectMeta(requireExactMeta);
+                }
+            } else if (clickedItem.equals(unlockedForEveryoneButton)){
+                unlockedForEveryone = !unlockedForEveryone;
+                if (currentRecipe != null){
+                    currentRecipe.setUnlockedForEveryone(unlockedForEveryone);
                 }
             } else if (clickedItem.equals(confirmButton)){
                 if (view == View.CREATE_RECIPE) {
@@ -226,6 +240,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
     private void setCreateBrewingRecipeView(){
         if (currentRecipe != null){
             requireExactMeta = currentRecipe.isPerfectMeta();
+            unlockedForEveryone = currentRecipe.isUnlockedForEveryone();
             ingredient = currentRecipe.getIngredient();
             applyOn = currentRecipe.getRequiredType();
             currentModifiers = new HashSet<>(currentRecipe.getItemModifiers());
@@ -247,6 +262,11 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
         requireExactMetaButtonMeta.setDisplayName(Utils.chat("&7Require exact item meta: &e" + ((requireExactMeta) ? "Yes" : "No")));
         requireExactMetaButton.setItemMeta(requireExactMetaButtonMeta);
 
+        ItemMeta unlockedForEveryoneMeta = unlockedForEveryoneButton.getItemMeta();
+        assert unlockedForEveryoneMeta != null;
+        unlockedForEveryoneMeta.setDisplayName(Utils.chat("&7Unlocked for everyone: &e" + ((unlockedForEveryone) ? "Yes" : "No")));
+        unlockedForEveryoneButton.setItemMeta(unlockedForEveryoneMeta);
+
         ItemStack requiredTypeButton;
         if (applyOn != null) {
             requiredTypeButton = new ItemStack(applyOn);
@@ -260,6 +280,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
             inventory.setItem(13, ingredient);
         }
         inventory.setItem(14, requireExactMetaButton);
+        inventory.setItem(16, requireExactMetaButton);
         inventory.setItem(22, Utils.createItemStack(Material.ORANGE_STAINED_GLASS_PANE, Utils.chat("&8 "), null));
         inventory.setItem(29, Utils.createItemStack(Material.ORANGE_STAINED_GLASS_PANE, Utils.chat("&8 "), null));
         inventory.setItem(30, Utils.createItemStack(Material.ORANGE_STAINED_GLASS_PANE, Utils.chat("&8 "), null));
@@ -287,6 +308,9 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
             resultMeta.setDisplayName(recipe.getName());
             List<String> resultLore = new ArrayList<>();
             resultLore.add(Utils.chat("&e" + Utils.getItemName(recipe.getIngredient())));
+            if (unlockedForEveryone){
+                resultLore.add(Utils.chat("&eThis recipe is unlocked for everyone"));
+            }
             resultLore.add(Utils.chat("&8&m                                      "));
             List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
             modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));

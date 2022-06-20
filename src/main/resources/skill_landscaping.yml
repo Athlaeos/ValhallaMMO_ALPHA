@@ -1,6 +1,6 @@
 display_name: '&7Landscaping'
 icon: IRON_AXE
-icon_data: 3510001
+icon_data: 3510002
 description: '&8Practice Landscaping to increase your wood harvesting, to find rare drops in the dirt, and to augment your building skills'
 
 levelbar_title: '&7Landscaping &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'

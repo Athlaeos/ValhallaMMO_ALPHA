@@ -109,11 +109,13 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                 ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
                 if (!Utils.isItemEmptyOrNull(mainHandItem)){
                     if (mainHandItem.getType() == Material.BOW || mainHandItem.getType() == Material.CROSSBOW){
-                        if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_charged_shot")){
-                            int cooldown = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_CHARGED_SHOT_COOLDOWN", event.getPlayer(), true);
-                            chargedShotUsers.add(event.getPlayer().getUniqueId());
-                            CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), cooldown, "cooldown_charged_shot");
-                            event.getPlayer().playSound(event.getPlayer().getLocation(), charged_shot_sound, 0.6F, 1F);
+                        int cooldown = (int) AccumulativeStatManager.getInstance().getStats("ARCHERY_CHARGED_SHOT_COOLDOWN", event.getPlayer(), true);
+                        if (cooldown >= 0){
+                            if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_charged_shot")){
+                                chargedShotUsers.add(event.getPlayer().getUniqueId());
+                                CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), cooldown, "cooldown_charged_shot");
+                                event.getPlayer().playSound(event.getPlayer().getLocation(), charged_shot_sound, 0.6F, 1F);
+                            }
                         }
                     }
                 }
@@ -121,7 +123,11 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
         }
     }
 
-    private final Map<UUID, ItemStack> bowsUsedInShooting = new HashMap<>();
+    private static final Map<UUID, ItemStack> bowsUsedInShooting = new HashMap<>();
+
+    public static Map<UUID, ItemStack> getBowsUsedInShooting() {
+        return bowsUsedInShooting;
+    }
 
     @Override
     public void onEntityDamage(EntityDamageByEntityEvent event) {

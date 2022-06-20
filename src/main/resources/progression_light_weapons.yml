@@ -180,6 +180,10 @@ perks:
       - '&7You''ve unlocked &eLight Weapon Arsenal I'
       - '&7You unlock &eDaggers &7for crafting at'
       - '&7the anvil'
+      - '&eDaggers:'
+      - '&a+15% crit chance'
+      - '&c-0.75 attack reach'
+      - '&cRemoved knockback'
       - ' '
   light_weapons_perk_weapons_2:
     hidden: true
@@ -207,6 +211,10 @@ perks:
       - '&7You''ve unlocked &eLight Weapon Arsenal II'
       - '&7You unlock &eRapiers &7and &eMaces &7for '
       - '&7crafting at the anvil'
+      - '&eMaces:'
+      - '&a+50% knockback'
+      - '&a+10% stun chance'
+      - '&c-10% crit chance'
       - ' '
   light_weapons_perk_main_1:
     hidden: true

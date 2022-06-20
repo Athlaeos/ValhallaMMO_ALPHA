@@ -147,7 +147,7 @@ public final class ValhallaMMO extends JavaPlugin {
         breedListener = (EntityBreedListener) registerListener(new EntityBreedListener(), "breeding");
         entityTargetingListener = (EntityTargetingListener) registerListener(new EntityTargetingListener(), "targeting");
         healingListener = (HealingListener) registerListener(new HealingListener(), "healing");
-        this.getServer().getPluginManager().registerEvents(new FurnaceListener(), this);
+        //this.getServer().getPluginManager().registerEvents(new FurnaceListener(), this);
 
         if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("parties")){
             chatListener = (ChatListener) registerListener(new ChatListener(), "player_chat");

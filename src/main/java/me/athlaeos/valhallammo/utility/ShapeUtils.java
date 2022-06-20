@@ -4,6 +4,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,6 +38,17 @@ public class ShapeUtils {
         square.addAll(getPointsInLine(p4, p8, lineDensity));
 
         return square;
+    }
+
+    public static void drawLine(Location startingLocation, Vector direction, double length, double space){
+        if (startingLocation.getWorld() == null) return;
+        for (double i = 1; i <= length; i += space) {
+            direction.multiply(i);
+            startingLocation.add(direction);
+            startingLocation.getWorld().spawnParticle(Particle.FLAME, startingLocation, 0, 0, 0, 0);
+            startingLocation.subtract(direction);
+            direction.normalize();
+        }
     }
 
     public static void outlineBlock(Block b, int lineDensity, float particleSize, int red, int green, int blue){

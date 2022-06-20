@@ -32,6 +32,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.*;
+import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -535,6 +536,11 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 }.runTaskLater(ValhallaMMO.getPlugin(), 1L);
             }
         }
+    }
+
+    @Override
+    public void onBlockHarvest(PlayerHarvestBlockEvent event) {
+
     }
 
     @Override

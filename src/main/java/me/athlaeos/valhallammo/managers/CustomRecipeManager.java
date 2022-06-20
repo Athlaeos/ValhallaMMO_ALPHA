@@ -61,6 +61,7 @@ public class CustomRecipeManager {
         }
         shapedRecipes.put(recipe.getName(), recipe);
         shapedRecipesByKey.put(recipe.getRecipe().getKey(), recipe);
+        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getRecipe().getKey());
         ValhallaMMO.getPlugin().getServer().addRecipe(recipe.getRecipe());
         return true;
     }
@@ -499,6 +500,7 @@ public class CustomRecipeManager {
             config.set(root + recipe.getName() + ".required_class", ((ItemClassImprovementRecipe) recipe).getRequiredEquipmentClass().toString());
         }
         if (root != null){
+            config.set(root + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
             config.set(root + recipe.getName() + ".craft_block", recipe.getCraftingBlock().toString());
             config.set(root + recipe.getName() + ".craft_time", recipe.getCraftingTime());
             config.set(root + recipe.getName() + ".consecutive_crafts", recipe.getConsecutiveCrafts());
@@ -565,6 +567,13 @@ public class CustomRecipeManager {
         if (!Utils.doesPathExist(config, "", "improve")) {
             config = ConfigManager.getInstance().getConfig("recipes/improvement_recipes.yml").get();
         }
+        for (ItemImprovementRecipe recipe : getImprovementRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    public Collection<ItemImprovementRecipe> getImprovementRecipesFromConfig(YamlConfiguration config){
+        Collection<ItemImprovementRecipe> recipes = new HashSet<>();
         ConfigurationSection section = config.getConfigurationSection("improve");
         if (section != null){
             for (String recipe : section.getKeys(false)){
@@ -607,7 +616,7 @@ public class CustomRecipeManager {
                     requiredItem = Material.valueOf(requiredItemString);
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting material for " + recipe + ".required_type : " + requiredItemString + ", cancelled crafting recipe");
-                    return;
+                    continue;
                 }
                 Material craftBlock;
                 String craftBlockString = config.getString("improve." + recipe + ".craft_block");
@@ -616,7 +625,7 @@ public class CustomRecipeManager {
                     if (!craftBlock.isBlock()) throw new IllegalArgumentException();
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting material for " + recipe + ".craft_block : " + craftBlockString + ", cancelled crafting recipe");
-                    return;
+                    continue;
                 }
 
                 List<ItemStack> ingredients = new ArrayList<>();
@@ -633,6 +642,7 @@ public class CustomRecipeManager {
                 int time = config.getInt("improve." + recipe + ".craft_time");
                 boolean breakStation = config.getBoolean("improve." + recipe + ".break_station");
                 boolean exactMeta = config.getBoolean("improve." + recipe + ".exact_meta", true);
+                boolean unlockedForEveryone = config.getBoolean("improve." + recipe + ".unlocked_for_everyone");
                 int consecutiveCrafts = config.getInt("improve." + recipe + ".consecutive_crafts", 8);
 
                 ItemImprovementRecipe newRecipe = new ItemImprovementRecipe(recipe, displayName, requiredItem, craftBlock, ingredients, time, breakStation, modifiers, exactMeta, consecutiveCrafts);
@@ -640,9 +650,11 @@ public class CustomRecipeManager {
                 if (validation != null){
                     newRecipe.setValidation(validation);
                 }
-                register(newRecipe);
+                newRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                recipes.add(newRecipe);
             }
         }
+        return recipes;
     }
 
     private void loadItemClassImprovementRecipes(){
@@ -650,6 +662,13 @@ public class CustomRecipeManager {
         if (!Utils.doesPathExist(config, "", "class_improve")) {
             config = ConfigManager.getInstance().getConfig("recipes/class_improvement_recipes.yml").get();
         }
+        for (ItemClassImprovementRecipe recipe : getItemClassImprovementRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    public Collection<ItemClassImprovementRecipe> getItemClassImprovementRecipesFromConfig(YamlConfiguration config){
+        Collection<ItemClassImprovementRecipe> recipes = new HashSet<>();
         ConfigurationSection section = config.getConfigurationSection("class_improve");
         if (section != null){
             for (String recipe : section.getKeys(false)){
@@ -692,7 +711,7 @@ public class CustomRecipeManager {
                     requiredClass = EquipmentClass.valueOf(requiredItemString);
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("Invalid equipment class for " + recipe + ".required_class : " + requiredItemString + ", cancelled crafting recipe");
-                    return;
+                    continue;
                 }
                 Material craftBlock;
                 String craftBlockString = config.getString("class_improve." + recipe + ".craft_block");
@@ -701,7 +720,7 @@ public class CustomRecipeManager {
                     if (!craftBlock.isBlock()) throw new IllegalArgumentException();
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting material for " + recipe + ".craft_block : " + craftBlockString + ", cancelled crafting recipe");
-                    return;
+                    continue;
                 }
 
                 List<ItemStack> ingredients = new ArrayList<>();
@@ -717,6 +736,7 @@ public class CustomRecipeManager {
 
                 int time = config.getInt("class_improve." + recipe + ".craft_time");
                 boolean breakStation = config.getBoolean("class_improve." + recipe + ".break_station");
+                boolean unlockedForEveryone = config.getBoolean("class_improve." + recipe + ".unlocked_for_everyone");
                 boolean exactMeta = config.getBoolean("class_improve." + recipe + ".exact_meta", true);
                 int consecutiveCrafts = config.getInt("class_improve." + recipe + ".consecutive_crafts", 8);
 
@@ -725,9 +745,11 @@ public class CustomRecipeManager {
                 if (validation != null){
                     newRecipe.setValidation(validation);
                 }
-                register(newRecipe);
+                newRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                recipes.add(newRecipe);
             }
         }
+        return recipes;
     }
 
     private void loadItemCraftingRecipes(){
@@ -735,6 +757,13 @@ public class CustomRecipeManager {
         if (!Utils.doesPathExist(config, "", "craft")) {
             config = ConfigManager.getInstance().getConfig("recipes/crafting_recipes.yml").get();
         }
+        for (ItemCraftingRecipe recipe : getItemCraftingRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    public Collection<ItemCraftingRecipe> getItemCraftingRecipesFromConfig(YamlConfiguration config){
+        Collection<ItemCraftingRecipe> recipes = new HashSet<>();
         ConfigurationSection section = config.getConfigurationSection("craft");
         if (section != null){
             for (String recipe : section.getKeys(false)){
@@ -779,7 +808,7 @@ public class CustomRecipeManager {
                     if (!craftBlock.isBlock()) throw new IllegalArgumentException();
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting material for " + recipe + ".craft_block : " + craftBlockString + ", cancelled crafting recipe");
-                    return;
+                    continue;
                 }
                 String displayName = config.getString("craft." + recipe + ".display_name");
                 if (displayName == null){
@@ -799,6 +828,7 @@ public class CustomRecipeManager {
                 int time = config.getInt("craft." + recipe + ".craft_time");
                 boolean breakStation = config.getBoolean("craft." + recipe + ".break_station");
                 boolean exactMeta = config.getBoolean("craft." + recipe + ".exact_meta", true);
+                boolean unlockedForEveryone = config.getBoolean("craft." + recipe + ".unlocked_for_everyone");
                 int consecutiveCrafts = config.getInt("craft." + recipe + ".consecutive_crafts", 8);
                 int tool_id = config.getInt("craft." + recipe + ".tool_id", -1);
                 int tool_requirement_type = config.getInt("craft." + recipe + ".tool_requirement_type", 0);
@@ -808,13 +838,15 @@ public class CustomRecipeManager {
                         result, craftBlock, ingredients, time, breakStation, modifiers, exactMeta, consecutiveCrafts);
                 newRecipe.setRequiredToolId(tool_id);
                 newRecipe.setToolRequirementType(tool_requirement_type);
-                CraftValidation validation = BlockCraftStateValidationManager.getInstance().getValidation(craftBlock, config.getString("improve." + recipe + ".validation"));
+                CraftValidation validation = BlockCraftStateValidationManager.getInstance().getValidation(craftBlock, config.getString("craft." + recipe + ".validation"));
                 if (validation != null){
                     newRecipe.setValidation(validation);
                 }
-                register(newRecipe);
+                newRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                recipes.add(newRecipe);
             }
         }
+        return recipes;
     }
 
     public void disableRecipes(){
@@ -844,6 +876,13 @@ public class CustomRecipeManager {
      */
     private void loadDynamicShapedRecipes(){
         YamlConfiguration config = ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get();
+        for (DynamicShapedRecipe recipe : getDynamicShapedRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    public Collection<DynamicShapedRecipe> getDynamicShapedRecipesFromConfig(YamlConfiguration config){
+        Collection<DynamicShapedRecipe> recipes = new HashSet<>();
         ConfigurationSection section = config.getConfigurationSection("shaped");
         if (section != null){
             recipeLoop:
@@ -854,6 +893,7 @@ public class CustomRecipeManager {
                 ShapedRecipe r = new ShapedRecipe(recipeKey, result);
                 boolean requireCustomTools = config.getBoolean("shaped." + recipe + ".require_custom_tools");
                 boolean useMetaData = config.getBoolean("shaped." + recipe + ".use_meta");
+                boolean unlockedForEveryone = config.getBoolean("shaped." + recipe + ".unlocked_for_everyone");
                 boolean improveMiddleItem = config.getBoolean("shaped." + recipe + ".improve_center_item");
                 Map<Integer, ItemStack> exactIngredients = new HashMap<>();
 
@@ -932,13 +972,22 @@ public class CustomRecipeManager {
                 }
 
                 DynamicShapedRecipe finalRecipe = new DynamicShapedRecipe(recipe, r, exactIngredients, useMetaData, requireCustomTools, improveMiddleItem, modifiers);
-                register(finalRecipe);
+                finalRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                recipes.add(finalRecipe);
             }
         }
+        return recipes;
     }
 
     private void loadDynamicCookingRecipes(){
         YamlConfiguration config = ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").get();
+        for (DynamicCookingRecipe<?> recipe : getCookingRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    public Collection<DynamicCookingRecipe<?>> getCookingRecipesFromConfig(YamlConfiguration config){
+        Collection<DynamicCookingRecipe<?>> recipes = new HashSet<>();
         Collection<String> validCookingTypes = new HashSet<>(Arrays.asList("campfire", "furnace", "blasting", "smoking"));
         ConfigurationSection section = config.getConfigurationSection("cooking");
         if (section != null){
@@ -947,6 +996,7 @@ public class CustomRecipeManager {
                 String type = config.getString("cooking." + recipe + ".type");
                 if (type == null || !validCookingTypes.contains(type)) continue;
                 int cookingTime = config.getInt("cooking." + recipe + ".time");
+                boolean unlockedForEveryone = config.getBoolean("cooking." + recipe + ".unlocked_for_everyone");
                 float experience = (float) config.getDouble("cooking." + recipe + ".exp");
                 ItemStack exactItemRequirement = config.getItemStack("cooking." + recipe + ".required");
                 if (exactItemRequirement == null) continue;
@@ -998,7 +1048,8 @@ public class CustomRecipeManager {
                                 experience, cookingTime);
                         DynamicCookingRecipe<CampfireRecipe> r = new DynamicCampfireRecipe(recipe, campfireRecipe, exactItemRequirement,
                                 result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
-                        register(r);
+                        r.setUnlockedForEveryone(unlockedForEveryone);
+                        recipes.add(r);
                         break;
                     }
                     case "furnace": {
@@ -1006,7 +1057,8 @@ public class CustomRecipeManager {
                                 experience, cookingTime);
                         DynamicCookingRecipe<FurnaceRecipe> r = new DynamicFurnaceRecipe(recipe, furnaceRecipe, exactItemRequirement,
                                 result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
-                        register(r);
+                        r.setUnlockedForEveryone(unlockedForEveryone);
+                        recipes.add(r);
                         break;
                     }
                     case "blasting": {
@@ -1014,7 +1066,8 @@ public class CustomRecipeManager {
                                 experience, cookingTime);
                         DynamicCookingRecipe<BlastingRecipe> r = new DynamicBlastingRecipe(recipe, blastingRecipe, exactItemRequirement,
                                 result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
-                        register(r);
+                        r.setUnlockedForEveryone(unlockedForEveryone);
+                        recipes.add(r);
                         break;
                     }
                     case "smoking": {
@@ -1022,12 +1075,14 @@ public class CustomRecipeManager {
                                 experience, cookingTime);
                         DynamicCookingRecipe<SmokingRecipe> r = new DynamicSmokingRecipe(recipe, smokingRecipe, exactItemRequirement,
                                 result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
-                        register(r);
+                        r.setUnlockedForEveryone(unlockedForEveryone);
+                        recipes.add(r);
                         break;
                     }
                 }
             }
         }
+        return recipes;
     }
 
     private <T extends CookingRecipe<T>> void saveRecipe(DynamicCookingRecipe<T> recipe, YamlConfiguration config){
@@ -1044,6 +1099,7 @@ public class CustomRecipeManager {
         config.set("cooking." + recipe.getName() + ".type", type);
         config.set("cooking." + recipe.getName() + ".time", recipe.getRecipe().getCookingTime());
         config.set("cooking." + recipe.getName() + ".exp", recipe.getRecipe().getExperience());
+        config.set("cooking." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
         config.set("cooking." + recipe.getName() + ".required", recipe.getExactItem());
         config.set("cooking." + recipe.getName() + ".result", recipe.getRecipe().getResult());
         if (recipe.getModifiers().size() > 0){
@@ -1073,6 +1129,13 @@ public class CustomRecipeManager {
         if (!Utils.doesPathExist(config, "", "brewing")) {
             config = ConfigManager.getInstance().getConfig("recipes/brewing_recipes.yml").get();
         }
+        for (DynamicBrewingRecipe recipe : getBrewingRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    public Collection<DynamicBrewingRecipe> getBrewingRecipesFromConfig(YamlConfiguration config){
+        Collection<DynamicBrewingRecipe> recipes = new HashSet<>();
         ConfigurationSection section = config.getConfigurationSection("brewing");
         if (section != null){
             for (String recipe : section.getKeys(false)){
@@ -1121,14 +1184,17 @@ public class CustomRecipeManager {
                         }
                     }
                 }
+                boolean unlockedForEveryone = config.getBoolean("brewing." + recipe + ".unlocked_for_everyone");
 
                 ItemStack ingredient = config.getItemStack("brewing." + recipe + ".ingredient");
                 if (ingredient == null) continue;
 
                 DynamicBrewingRecipe finalRecipe = new DynamicBrewingRecipe(recipe, ingredient, applyOn, useMetaData, modifiers);
-                register(finalRecipe);
+                finalRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                recipes.add(finalRecipe);
             }
         }
+        return recipes;
     }
 
     private void saveRecipe(DynamicShapedRecipe recipe, YamlConfiguration config){
@@ -1173,6 +1239,7 @@ public class CustomRecipeManager {
         }
         config.set("shaped." + recipe.getName() + ".require_custom_tools", recipe.isRequireCustomTools());
         config.set("shaped." + recipe.getName() + ".use_meta", recipe.isUseMetadata());
+        config.set("shaped." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
         config.set("shaped." + recipe.getName() + ".improve_center_item", recipe.isTinkerFirstItem());
         ConfigManager.getInstance().saveConfig("recipes/shaped_recipes.yml");
     }
@@ -1193,6 +1260,7 @@ public class CustomRecipeManager {
             }
         }
         config.set("brewing." + recipe.getName() + ".ingredient", recipe.getIngredient());
+        config.set("brewing." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
         config.set("brewing." + recipe.getName() + ".use_meta", recipe.isPerfectMeta());
         ConfigManager.getInstance().saveConfig("recipes/brewing_recipes.yml");
     }
@@ -1273,7 +1341,9 @@ public class CustomRecipeManager {
             for (DynamicBrewingRecipe r : specificRecipes){
                 if (!r.isPerfectMeta()) continue; // If a recipe in specific brewing recipes is not specific in meta,
                 if (!allowedAllRecipes){
-                    if (!unlockedRecipes.contains(r.getName())) continue;
+                    if (!r.isUnlockedForEveryone()){
+                        if (!unlockedRecipes.contains(r.getName())) continue;
+                    }
                 }
                 // something went wrong.
                 for (int i = 0; i < 3; i++){

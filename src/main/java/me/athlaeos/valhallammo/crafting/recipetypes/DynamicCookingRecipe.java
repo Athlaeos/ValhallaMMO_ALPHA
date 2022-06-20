@@ -15,6 +15,7 @@ public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> {
     private boolean useMetadata = true;
     private boolean requireCustomTools = true;
     private Collection<DynamicItemModifier> modifiers;
+    private boolean unlockedForEveryone = false;
 
     public DynamicCookingRecipe(String name, ItemStack exactItem, ItemStack result, boolean sameResultAsInput, boolean useMetadata, boolean requireCustomTools, Collection<DynamicItemModifier> modifiers){
         this.name = name;
@@ -24,6 +25,14 @@ public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> {
         this.useMetadata = useMetadata;
         this.requireCustomTools = requireCustomTools;
         this.modifiers = modifiers;
+    }
+
+    public void setUnlockedForEveryone(boolean unlockedForEveryone) {
+        this.unlockedForEveryone = unlockedForEveryone;
+    }
+
+    public boolean isUnlockedForEveryone() {
+        return unlockedForEveryone;
     }
 
     public abstract CookingRecipe<T> getRecipe();

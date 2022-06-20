@@ -35,7 +35,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -327,14 +327,17 @@ public class EntityDamagedListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onIncreasedRangeAttack(PlayerInteractEvent e){
-        if (e.useItemInHand() == Event.Result.DENY) return;
+        e.getPlayer().sendMessage("PlayerInteractEvent " + e.getAction());
+        if (e.useItemInHand() == Event.Result.DENY) {
+            return;
+        }
         if (e.getAction() == Action.LEFT_CLICK_AIR && e.getHand() == EquipmentSlot.HAND){
             AttributeInstance damageInstance = e.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
             if (damageInstance != null){
                 double reach = AccumulativeStatManager.getInstance().getStats("ATTACK_REACH_BONUS", e.getPlayer(), true);
                 if (reach <= 0) return;
                 RayTraceResult rayTrace = e.getPlayer().getWorld().rayTrace(e.getPlayer().getEyeLocation(),
-                        e.getPlayer().getEyeLocation().getDirection(), 2.9 + reach, FluidCollisionMode.NEVER, true, 0.1, (entity) -> !entity.equals(e.getPlayer()));
+                        e.getPlayer().getEyeLocation().getDirection(), 2.9 + reach, FluidCollisionMode.NEVER, true, 0, (entity) -> !entity.equals(e.getPlayer()));
                 if (rayTrace != null){
                     Entity hitEntity = rayTrace.getHitEntity();
                     if (hitEntity != null){
@@ -381,10 +384,11 @@ public class EntityDamagedListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamagedByEntity(EntityDamageByEntityEvent e){
+        e.getDamager().sendMessage("EntityDamageByEntityEvent " + e.getCause());
         double reach = AccumulativeStatManager.getInstance().getStats("ATTACK_REACH_BONUS", e.getDamager(), true);
         if (reach < 0 && e.getDamager() instanceof LivingEntity){
             RayTraceResult rayTrace = e.getDamager().getWorld().rayTrace(((LivingEntity) e.getDamager()).getEyeLocation(),
-                    ((LivingEntity) e.getDamager()).getEyeLocation().getDirection(), 2.9 + reach, FluidCollisionMode.NEVER, true, 0.1, (entity) -> !entity.equals(e.getDamager()));
+                    ((LivingEntity) e.getDamager()).getEyeLocation().getDirection(), 2.9 + reach, FluidCollisionMode.NEVER, true, 0, (entity) -> !entity.equals(e.getDamager()));
             if (rayTrace == null || rayTrace.getHitEntity() == null) {
                 e.setCancelled(true);
                 return;

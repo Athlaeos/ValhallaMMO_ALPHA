@@ -18,12 +18,15 @@ public class CampfireNeedsLitValidation extends CraftValidation {
     }
 
     @Override
+    public boolean isCompatible(Material m) {
+        return compatibleMaterials.contains(m);
+    }
+
+    @Override
     public boolean check(Block block) {
-        if (block.getType() == Material.CAMPFIRE){
-            if (block.getState() instanceof Lightable){
-                Lightable campfire = (Lightable) block.getState();
-                return campfire.isLit();
-            }
+        if (block.getBlockData() instanceof Lightable){
+            Lightable campfire = (Lightable) block.getBlockData();
+            return campfire.isLit();
         }
         return true;
     }
