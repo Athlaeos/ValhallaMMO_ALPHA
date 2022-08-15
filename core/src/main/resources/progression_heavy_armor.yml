@@ -1,0 +1,295 @@
+starting_perks:
+  heavy_armor_armor_multiplier_set: 0.7
+  heavy_armor_movement_speed_penalty_set: 0.075 # reduces speed by 7.5% per piece of heavy armor (full set slows 30%)
+
+experience: # Everything about leveling and experience progression for Heavy Armor
+  max_level: 100 # Max level for heavy armor, players can still gain exp after reaching 100
+  exp_level_curve: '0.25 * (%level% + 300 * 2^(%level%/7.6)) + 300' # Here the x-axis represents level and the y-axis is the exp required to
+  # progress to that level.
+  # The area under this graph from point a to point b represents the total amount of experience needed to get from level
+  # a to b. You don't have to work with this, it's only for those who really want to make this progression their own.
+  # By default, it takes about 4300 exp to get from 0 to 20, 27,000 to get from 20 to 40, 164,000 from 40 to 60,
+  # 1,000,000 from 60 to 80, and 6,300,000 from 80 to 100- or 7,500,000 from 0 to 100.
+  exp_damage_piece: 4 # amount of exp gained per point of damage per piece of heavy armor
+  exp_second_piece: 1 # amount of EXP gained per second in combat per piece of heavy armor
+
+special_perks: # Perks, commands, and messages executed when a player reaches a specific level
+  # If you don't know how to format this, refer to other progression configs (such as smithing) for reference
+  # because I don't know of any perks i wanna put here
+
+commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name
+  # and %level% for the player's new level
+  - '' # I didn't want commands by default, but you can put them here if you do
+
+messages: # Messages to send to the player every time the player levels this skill.
+  # Use %player% as placeholder for the player's name and %level% for the player's new level
+  - '&cHeavy Armor&7 leveled up to &c%level%'
+
+leveling_perks: # Perk rewards executed on the player every time they level
+  heavy_armor_multiplier_add: 0.005 # heavy armor value gradually increases from 0.7-1.2x
+
+starting_coordinates: '4,5' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+perks:
+  heavy_armor_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
+    # That also means changing this identifier name will break the ones currently existing on players
+    name: '&7Rage I' # Name of the icon within the skill tree
+    icon: GOLDEN_CHESTPLATE # Icon itself within the skill tree
+    coords: 4,5 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
+    cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
+    description: '&7When you hit 20% health or lower while wearing full heavy armor &eRage &7activates, giving you &eStrength &7and &eHaste&7. Has a &e20 minute cooldown'
+    required_lv: 0 # Required smithing level to unlock
+    perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
+      heavy_armor_rage_cooldown_set: 1200000
+      heavy_armor_rage_level_set: 1
+      heavy_armor_rage_threshold_set: 0.2
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eRage I'
+      - '&7Hitting low health while wearing'
+      - '&7full heavy armor briefly gives you'
+      - '&eStrength &7and &eHaste&7.'
+      - '&cHas 20 minute cooldown'
+      - ' '
+  heavy_armor_perk_ranked_2:
+    hidden: true
+    cost: 1
+    coords: 4,5
+    requireperk_one:
+      - heavy_armor_perk_ranked_1
+    name: '&7Rage II'
+    icon: GOLDEN_CHESTPLATE
+    description: '&7Rage becomes more effective, gaining &eAbsorption&7, and its cooldown is reduced to &e16 minutes'
+    required_lv: 20
+    perk_rewards:
+      heavy_armor_rage_cooldown_set: 960000
+      heavy_armor_rage_level_set: 2
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eRage II'
+      - '&7Rage gains &eAbsorption&7,'
+      - '&7and its cooldown is reduced to'
+      - '&e16 minutes'
+      - ' '
+  heavy_armor_perk_ranked_3:
+    hidden: true
+    cost: 1
+    coords: 4,5
+    requireperk_one:
+      - heavy_armor_perk_ranked_2
+    name: '&7Rage III'
+    icon: IRON_CHESTPLATE
+    description: '&7Rage becomes more effective, providing &eStrength II &7and &eHaste II&7, and its cooldown is reduced to &e12 minutes'
+    required_lv: 40
+    perk_rewards:
+      heavy_armor_rage_cooldown_set: 720000
+      heavy_armor_rage_level_set: 3
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eRage III'
+      - '&7Rage''s &eStrength &7and &eHaste'
+      - '&7effects are &e1 amplifier &7stronger,'
+      - '&7and its cooldown is reduced to &e12 minutes'
+      - ' '
+  heavy_armor_perk_ranked_4:
+    hidden: true
+    cost: 1
+    coords: 4,5
+    requireperk_one:
+      - heavy_armor_perk_ranked_3
+    name: '&7Rage IV'
+    icon: IRON_CHESTPLATE
+    description: '&7Rage becomes more effective, providing &eAbsorption II&7, and its cooldown is reduced to &e8 minutes'
+    required_lv: 60
+    perk_rewards:
+      heavy_armor_rage_cooldown_set: 480000
+      heavy_armor_rage_level_set: 4
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eRage IV'
+      - '&7Rage''s &eAbsorption'
+      - '&7effect is &e1 amplifier &7stronger,'
+      - '&7and its cooldown is reduced to &e8 minutes'
+      - ' '
+  heavy_armor_perk_ranked_5:
+    hidden: true
+    cost: 1
+    coords: 4,5
+    requireperk_one:
+      - heavy_armor_perk_ranked_4
+    name: '&7Fight For A Place In Valhalla'
+    icon: NETHERITE_CHESTPLATE
+    description: '&7Rage becomes more effective, providing &eStrength III &7and &eHaste III&7, its cooldown is reduced to &e4 minutes, and it now triggers at &e30% health &7instead of 20%'
+    required_lv: 80
+    perk_rewards:
+      heavy_armor_rage_cooldown_set: 240000
+      heavy_armor_rage_level_set: 5
+      heavy_armor_rage_threshold_set: 0.3
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eRage V'
+      - '&7Rage''s &eStrength &7and &eHaste'
+      - '&7effects are &e1 amplifier &7stronger,'
+      - '&7its cooldown is reduced to &e4 minutes,'
+      - '&7and it now triggers at &e30% health'
+      - ' '
+  heavy_armor_perk_set_1:
+    hidden: true
+    cost: 1
+    coords: 2,4
+    requireperk_one:
+      - heavy_armor_perk_ranked_1
+    name: '&7Battle-Hardened'
+    icon: GOLDEN_APPLE
+    description: '&7While wearing a full set of heavy armor, your healing is amplified by 10%'
+    required_lv: 20
+    perk_rewards:
+      heavy_armor_set_bonus_healing_bonus_set: 0.1
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eBattle-Hardened'
+      - '&7Your healing is &e10% &7stronger'
+      - '&7while wearing a full set of heavy'
+      - '&7armor'
+      - ' '
+  heavy_armor_perk_set_2:
+    hidden: true
+    cost: 1
+    coords: 2,2
+    requireperk_one:
+      - heavy_armor_perk_set_1
+    name: '&7Knight In Shining Armor'
+    icon: PUFFERFISH
+    description: '&7While wearing a full set of heavy armor, you gain a &e10% chance &7to reflect &e30% &7of damage taken'
+    required_lv: 40
+    perk_rewards:
+      heavy_armor_set_bonus_reflect_chance_set: 0.1
+      heavy_armor_reflect_fraction_set: 0.3
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eKnight In Shining Armor'
+      - '&7You gain a &e10% &7chance to reflect'
+      - '&e30% &7of damage taken while wearing a full'
+      - '&7set of heavy armor'
+      - ' '
+  heavy_armor_perk_set_3:
+    hidden: true
+    cost: 1
+    coords: 1,1
+    requireperk_one:
+      - heavy_armor_perk_set_2
+    name: '&7Titan'
+    icon: IRON_HELMET
+    description: '&7You now only need to wear &e3 pieces &7of heavy armor to benefit from &e''set bonus'' &7perks'
+    required_lv: 60
+    perk_rewards:
+      heavy_armor_set_bonus_pieces_required_set: 3
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eTitan'
+      - '&7You now only need to wear &e3 pieces'
+      - '&7of heavy armor to benefit from'
+      - '&7set bonusses'
+      - ' '
+  heavy_armor_perk_set_4:
+    hidden: true
+    cost: 1
+    coords: 6,4
+    requireperk_one:
+      - heavy_armor_perk_ranked_1
+    name: '&7Invigorate'
+    icon: IRON_LEGGINGS
+    description: '&7Heavy armor weighs significantly less and doesn''t slow you down as much when worn'
+    required_lv: 20
+    perk_rewards:
+      heavy_armor_movement_speed_penalty_set: 0.05
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eInvigorate'
+      - '&7Heavy armor is significantly'
+      - '&7lighter, and slows you &e40% &7less'
+      - ' '
+  heavy_armor_perk_set_5:
+    hidden: true
+    cost: 1
+    coords: 6,2
+    requireperk_one:
+      - heavy_armor_perk_set_4
+    name: '&7Juggernaut'
+    icon: IRON_CHESTPLATE
+    description: '&7Heavy armor becomes &e20% &7more protective while wearing a full set'
+    required_lv: 40
+    perk_rewards:
+      heavy_armor_set_bonus_armor_set: 0.2
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eJuggernaut'
+      - '&7Heavy armor is &e20% &7more '
+      - '&7protective while you''re wearing'
+      - '&7a full set of heavy armor'
+      - ' '
+  heavy_armor_perk_set_6:
+    hidden: true
+    cost: 1
+    coords: 7,1
+    requireperk_one:
+      - heavy_armor_perk_set_5
+    name: '&7Unburdened'
+    icon: NETHERITE_LEGGINGS
+    description: '&7Heavy armor slows you down even less while worn'
+    required_lv: 60
+    perk_rewards:
+      heavy_armor_movement_speed_penalty_set: 0.025
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eUnburdened'
+      - '&7Heavy armor weighs even less'
+      - '&7and doesn''t slow you as much'
+      - ' '
+  heavy_armor_perk_immunity_1:
+    hidden: true
+    cost: 1
+    coords: 3,0
+    requireperk_all:
+      - heavy_armor_perk_set_3
+      - heavy_armor_perk_set_6
+    name: '&7Unstoppable'
+    icon: DIAMOND_CHESTPLATE
+    description: '&7You become completely immune against &eSlowness &7and &eWeakness &7while wearing a full set of heavy armor'
+    required_lv: 80
+    perk_rewards:
+      heavy_armor_immune_potion_effects_add:
+        - SLOW
+        - WEAKNESS
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eUnstoppable'
+      - '&7You gain immunity against &eSlowness'
+      - '&7and &eNausea &7potion effects'
+      - ' '
+  heavy_armor_perk_immunity_2:
+    hidden: true
+    cost: 1
+    coords: 5,0
+    requireperk_one:
+      - heavy_armor_perk_immunity_1
+    name: '&7Extreme Insulation'
+    icon: DIAMOND_CHESTPLATE
+    description: '&7You gain significant resistance against &eFire and Magic Damage&7 for each piece of heavy armor you wear. Additionally, you gain immunity against &eNausea &7and &eBlindness &7while wearing a full set of heavy armor'
+    required_lv: 100
+    perk_rewards:
+      heavy_armor_immune_potion_effects_add:
+        - CONFUSION
+        - BLINDNESS
+      heavy_armor_magic_resistance_add: 0.075 # provides up to 30% magic and fire resistance with 4 pieces
+      heavy_armor_fire_resistance_add: 0.075
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eExtreme Insulation'
+      - '&7You gain &e7.5% &7magic and fire damage'
+      - '&7resistance &efor each piece of heavy armor'
+      - '&7you wear. Additionally, you are immune'
+      - '&7against &eNausea &7and &eBlindness &7potion'
+      - '&7effects'
+      - ' '

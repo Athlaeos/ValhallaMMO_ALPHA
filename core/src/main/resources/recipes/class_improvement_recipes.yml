@@ -1,0 +1,474 @@
+class_improve:
+  enchantment_helmet_fortify_alchemy:
+    required_class: HELMET
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eFortify Alchemy'
+    modifiers:
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_add_alchemy_quality:
+        strength2: 100.0
+        strength: 1.0
+        priority: SOON
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      exp_cost_points:
+        strength: 250.0
+        priority: NEUTRAL
+    ingredients:
+      '0': &id28891
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LAPIS_LAZULI
+        amount: 3
+      '1': &id28892
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: EMERALD
+  enchantment_chestplate_fortify_smithing:
+    required_class: CHESTPLATE
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eFortify Smithing'
+    modifiers:
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_cost_points:
+        strength: 250.0
+        priority: NEUTRAL
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_add_smithing_quality:
+        strength2: 100.0
+        strength: 1.0
+        priority: SOON
+    ingredients:
+      '0': *id28891
+      '1': *id28892
+  enchantment_boots_brewing_speed:
+    required_class: BOOTS
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eBrewing Speed'
+    modifiers:
+      enchantment_add_alchemy_brew_speed:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      exp_cost_points:
+        strength: 250.0
+        priority: NEUTRAL
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_boots_skill_exp:
+    required_class: BOOTS
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eSkill EXP+'
+    modifiers:
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_add_exp_gain_skill:
+        strength2: 100.0
+        strength: 1.0
+        priority: SOON
+      enchantment_add_damage_taken:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_chestplate_skill_exp:
+    required_class: CHESTPLATE
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eSkill EXP+'
+    modifiers:
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_add_exp_gain_skill:
+        strength2: 100.0
+        strength: 1.0
+        priority: SOON
+      enchantment_add_damage_taken:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_chestplate_brewing_speed:
+    required_class: CHESTPLATE
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eBrewing Speed'
+    modifiers:
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      exp_cost_points:
+        strength: 250.0
+        priority: NEUTRAL
+      enchantment_add_alchemy_brew_speed:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_helmet_brewing_speed:
+    required_class: HELMET
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eBrewing Speed'
+    modifiers:
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      exp_cost_points:
+        strength: 250.0
+        priority: NEUTRAL
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_add_alchemy_brew_speed:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_helmet_skill_exp:
+    required_class: HELMET
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eSkill EXP+'
+    modifiers:
+      enchantment_add_damage_taken:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_add_exp_gain_skill:
+        strength2: 100.0
+        strength: 1.0
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_leggings_brewing_speed:
+    required_class: LEGGINGS
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eBrewing Speed'
+    modifiers:
+      exp_cost_points:
+        strength: 250.0
+        priority: NEUTRAL
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_add_alchemy_brew_speed:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_leggings_skill_exp:
+    required_class: LEGGINGS
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eSkill EXP+'
+    modifiers:
+      enchantment_add_exp_gain_skill:
+        strength2: 100.0
+        strength: 1.0
+        priority: SOON
+      enchantment_add_damage_taken:
+        strength2: 100.0
+        strength: 0.01
+        priority: SOON
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+    ingredients:
+      '0': *id28892
+      '1': *id28891
+  enchantment_boots_vanilla_exp:
+    required_class: BOOTS
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eVanilla EXP+'
+    modifiers:
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_add_exp_gain_vanilla:
+        strength2: 100.0
+        strength: 0.010000000000000139
+        priority: SOON
+      enchantment_add_damage_dealt:
+        strength2: -1.0
+        strength: -0.19999999999999948
+        priority: SOON
+    ingredients:
+      '0': *id28891
+      '1': *id28892
+  enchantment_chestplate_vanilla_exp:
+    required_class: CHESTPLATE
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eVanilla EXP+'
+    modifiers:
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+      enchantment_add_exp_gain_vanilla:
+        strength2: 100.0
+        strength: 0.010000000000000139
+        priority: SOON
+      enchantment_add_damage_dealt:
+        strength2: -1.0
+        strength: -0.19999999999999948
+        priority: SOON
+    ingredients:
+      '0': *id28891
+      '1': *id28892
+  enchantment_helmet_vanilla_exp:
+    required_class: HELMET
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eVanilla EXP+'
+    modifiers:
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+      enchantment_add_exp_gain_vanilla:
+        strength2: 100.0
+        strength: 0.010000000000000139
+        priority: SOON
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      enchantment_add_damage_dealt:
+        strength2: -1.0
+        strength: -0.19999999999999948
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+    ingredients:
+      '0': *id28891
+      '1': *id28892
+  enchantment_leggings_vanilla_exp:
+    required_class: LEGGINGS
+    craft_block: ENCHANTING_TABLE
+    craft_time: 0
+    consecutive_crafts: 8
+    exact_meta: true
+    break_station: false
+    display_name: '&bEnchant: &eVanilla EXP+'
+    modifiers:
+      enchantment_counter_increment:
+        strength: 1.0
+        priority: SOON
+      exp_cost_points:
+        strength: 400.0
+        priority: NEUTRAL
+      enchantment_glimmer_add:
+        strength: 0.0
+        priority: NEUTRAL
+      enchantment_add_damage_dealt:
+        strength2: -1.0
+        strength: -0.19999999999999948
+        priority: SOON
+      enchantment_cancel_if_counter_increment_exceeds:
+        strength: 1.0
+        priority: SOONEST
+      enchantment_add_exp_gain_vanilla:
+        strength2: 100.0
+        strength: 0.010000000000000139
+        priority: SOON
+      exp_bonus_enchanting:
+        strength: 300.0
+        priority: LAST
+    ingredients:
+      '0': *id28891
+      '1': *id28892

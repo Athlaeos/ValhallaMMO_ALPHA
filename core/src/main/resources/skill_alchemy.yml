@@ -1,0 +1,576 @@
+display_name: '&7Alchemy'
+icon: BREWING_STAND
+icon_data: 3510001
+description: '&8Practice Alchemy to make potions and poisons of extreme potency, and learn how to transmute materials'
+
+levelbar_title: '&7Alchemy &dLV %lv_current% &5%exp_current%&7/&5%exp_next%'
+levelbar_color: PURPLE # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
+levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
+
+radius_transmutation_liquid: 2 # Radius of the transmutation potion explosion
+transmutation_liquid_flash: true
+transmutation_sound: BLOCK_ENCHANTMENT_TABLE_USE
+
+# If true, whenever the player duplicates an ingredient using the "save ingredient" passive the item spawns on top of the brewing stand instead of staying in the stand
+save_ingredient_spawn_on_top_of_stand: true
+
+# Treatments
+hide_treatment_lore: false # If true, treatment lore does not appear on items at all
+quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
+  # If left empty, they won't appear.
+  0: '&cRancid'
+  50: '&7Tainted'
+  100: '&7Dirty'
+  150: '&7Cloudy'
+  200: '&bClear'
+  250: '&bRefined'
+  300: '&f&lPure'
+
+effects_inverted: # Specific for the potion modifier "invert effects", essentially the equivalent to using a fermented
+  # spider eye to invert a potion's effects. If this modifier is applied to a potion effect, these potion effects are inverted.
+  HEAL:
+    inverted_effect: HARM
+    color: '#220045'
+    duration: 1
+    amplifier: 0
+  SPEED:
+    inverted_effect: SLOW
+    color: '#6a869e'
+    duration: 1800
+    amplifier: 0
+  NIGHT_VISION:
+    inverted_effect: INVISIBILITY
+    color: '#78d6bd'
+    duration: 3600
+    amplifier: 0
+  POISON:
+    inverted_effect: HARM
+    color: '#220045'
+    duration: 1
+    amplifier: 0
+  FIRE_RESISTANCE:
+    inverted_effect: SLOW
+    color: '#6a869e'
+    duration: 1800
+    amplifier: 0
+  INCREASE_DAMAGE:
+    inverted_effect: WEAKNESS
+    color: '#86aac2'
+    duration: 1800
+    amplifier: 0
+
+# These treatments include TEMPERING, SHARPENING_FINE, ENGRAVING, and LEATHER_BINDING. As well as ARMOR_FITTING for armor,
+# WAX_COATING for wooden and stone tools,
+treatment_lore: # The treatment lores displayed on the item if hide_treatment_lore is false. If one is left empty, it does not appear.
+  CONCENTRATED: '&7Concentrated'
+  DILUTED: '&7Diluted'
+  FILTERED: '&7Filtered'
+  EMPOWERED: '&7Empowered'
+  IMBUED: '&7Imbued'
+  ENCHANTED: '&7Enchanted'
+  POLLUTED: '&7Polluted'
+  TRANSMUTATION: '&eShimmering'
+
+  # Vanilla potions, because they can only have whole number strengths, will have whatever the outcome of a scaling
+  # formula rounded DOWNWARDS
+# Here you can fill in the formulas used for calculating the durations of potions brewed
+scaling_duration:
+  # Certain potions, like instant health, instant damage, or midas will always have a duration of 0, so they are excluded.
+  regeneration:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER' # The scaling mode, MULTIPLIER multiplies the potion's base attribute value by the outcome of the scaling.
+    # ADD_ON_DEFAULT instead adds the outcome of the scaling to the attribute's base value.
+    lower_bound: 0 # The outcome of the scaling can't go below this value. If not a number, there is no lower bound.
+    upper_bound: none # The outcome of the scaling can't go above this value. If not a number, there is no upper bound.
+  resistance:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  haste:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  fire_resistance:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  health_boost:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  strength:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  invisibility:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  jump_boost:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  luck:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  night_vision:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  saturation:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  speed_boost:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  water_breathing:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  conduit_power:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  hero_of_the_village:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  wither:
+    scaling: '(2/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2.3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  bad_luck:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  weakness:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  mining_fatigue:
+    scaling: '(2/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2.3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  slowness:
+    scaling: '(2/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2.3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  hunger:
+    scaling: '(2/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2.3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  nausea:
+    scaling: '(1.4/300) * %rating% + 0.1' # This default formula results in a duration multiplier of 0.1x-1.5x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  blindness:
+    scaling: '(1.4/300) * %rating% + 0.1' # This default formula results in a duration multiplier of 0.1x-1.5x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  poison:
+    scaling: '(2/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2.3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  bad_omen:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-3x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  # CUSTOM POTION EFFECT SECTION
+  fortify_enchanting: # Enhances enchanting skill
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  fortify_smithing: # Enhances smithing skill
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  masterpiece_smithing: # Enhances smithing skill but only for one use
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  masterpiece_enchanting: # Enhances smithing skill but only for one use
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  masterpiece_alchemy: # Enhances smithing skill but only for one use
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_speed: # Speeds up brewing
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_ingredient_save: # Increases the chance to not consume ingredients while brewing
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_potion_save: # Increases the chance to not consume potions while drinking or throwing
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_potion_velocity: # Increases the velocity of thrown potions
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  archery_accuracy: # Increases shot accuracy with archery
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  archery_strength: # Increases shot damage with archery
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  archery_ammo_save: # Increases the chance to not consume ammo with archery
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  damage_unarmed: # Increases unarmed damage
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  damage_weapons: # Increases weapon damage with both light and heavy weapons
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  mining_extra_drops: # Increases drop multiplier for mining
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  mining_rare_drops: # Increases rare drop rate multiplier for mining
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  farming_extra_drops: # Increases drop multiplier for farming
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  farming_rare_drops: # Increases rare drop rate multiplier for farming
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  woodcutting_extra_drops: # Increases drop multiplier for woodcutting
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  woodcutting_rare_drops: # Increases rare drop rate multiplier for woodcutting
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  fortify_acrobatics: # Increases acrobatics skill
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  fortify_trading: # Increases trading skill
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  increase_exp_skill: # Increases skill experience obtained from all sources
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  increase_exp_vanilla: # Increases vanilla experience obtained from all sources
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  poison_anti_heal: # Reduces healing on those afflicted
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  poison_vulnerable: # Increases damage taken from all sources on those afflicted
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in a duration multiplier of 0.3x-2x linearly from 0-300 pts.
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+
+# The same as duration, but for a potion's strength.
+# Vanilla potions will have the outcome of this formula rounded downwards, so if a vanilla potion's strength would be
+# 2.5 according to the formula, it will instead be 2 (or II)
+# Custom potion effects will not go through this same process, as their potency can be much more precise.
+scaling_amplifier:
+  # Certain potions, like fire resistance or night vision, have no difference in effect for any level higher than 1,
+  # so they are excluded.
+  # For vanilla potions their amplifier will always be at least 1
+  regeneration:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT' # The scaling mode, MULTIPLIER multiplies the potion's base attribute value by the outcome of the scaling.
+    # ADD_ON_DEFAULT instead adds the outcome of the scaling to the attribute's base value.
+    lower_bound: 0 # The outcome of the scaling can't go below this value. If not a number, there is no lower bound.
+    upper_bound: none # The outcome of the scaling can't go above this value. If not a number, there is no upper bound.
+  resistance:
+    scaling: '(0.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-I from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  haste:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  health_boost:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  instant_health:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  instant_damage:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  strength:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  jump_boost:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  luck:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  saturation:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  speed_boost:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  hero_of_the_village:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  wither:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  bad_luck:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  weakness:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  mining_fatigue:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  slowness:
+    scaling: '(1.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-II from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  hunger:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  poison:
+    scaling: '(2.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-III from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  bad_omen:
+    scaling: '(3.7/300) * %rating% + 0.3' # This default formula results in an additional strength +0-IV from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  # CUSTOM POTION EFFECT SECTION
+  fortify_enchanting: # Enhances enchanting skill
+    scaling: '(45/300) * %rating%' # This default formula results in an additional strength of +0-45 from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'         # On an item, this will result in about 0-50 skill points being added to the enchant strength
+    lower_bound: 0
+    upper_bound: 75
+  fortify_smithing: # Enhances smithing skill
+    scaling: '(45/300) * %rating%' # This default formula results in an additional strength of +0-45 from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'         # On an item, this will result in about 0-50 quality points added to the item
+    lower_bound: 0
+    upper_bound: none
+  masterpiece_smithing: # Enhances smithing skill but only one time
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  masterpiece_enchanting: # Enhances smithing skill but only one time
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  masterpiece_alchemy: # Enhances smithing skill but only one time
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_speed: # Speeds up brewing
+    scaling: '(45/300) * %rating%' # This default formula results in an additional brewing duration reduction of +0-45% from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_ingredient_saving: # Increases the chance to not consume ingredients while brewing
+    scaling: '(25/300) * %rating%' # This default formula results in an additional ingredient saving of +0-25% from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_potion_saving: # Increases the chance to not consume potions while drinking or throwing
+    scaling: '1' # Does not scale
+    mode: 'MULTIPLIER'
+    lower_bound: 0
+    upper_bound: none
+  alchemy_potion_velocity: # Increases the speed of thrown potions
+    scaling: '(45/300) * %rating%' # This default formula results in an additional throw velocity of +0-45% from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  archery_accuracy: # Increases shot accuracy with archery
+    scaling: '(45/300) * %rating%' # This default formula results in an additional accuracy of +0-45pts from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  archery_strength: # Increases shot damage with archery
+    scaling: '(20/300) * %rating%' # This default formula results in an additional strength of +0-20% damage from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  ammo_efficiency: # Increases the chance to not consume ammo with archery
+    scaling: '(25/300) * %rating%' # This default formula results in an additional ammo saving of +0-25% from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  unarmed_strength: # Increases unarmed damage
+    scaling: '(95/300) * %rating%' # This default formula results in an additional strength of +0-95% damage from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  weapon_strength: # Increases weapon damage with both light and heavy weapons
+    scaling: '(20/300) * %rating%' # This default formula results in an additional strength of +0-20% damage from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  mining_extra_drops: # Increases increases drops for mining
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% drops from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  mining_rare_drops: # Increases rare drops for mining
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% drops from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  farming_extra_drops: # Increases rare drops for farming
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% drops from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  farming_rare_drops: # Increases rare drops for mining
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% drops from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  woodcutting_extra_drops: # Increases rare drops for farming
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% drops from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  woodcutting_rare_drops: # Increases rare drops for mining
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% drops from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  acrobatics_strength: # Increases acrobatics skill
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45 skill points from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  trading_strength: # Increases trading skill
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45 skill points from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  increase_exp_skill: # Increases skill experience obtained from all sources
+    scaling: '(45/300) * %rating%' # This default formula results in an additional +0-45% EXP obtained from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  increase_exp_vanilla: # Increases vanilla experience obtained from all sources
+    scaling: '(95/300) * %rating%' # This default formula results in an additional +0-95% EXP obtained from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  counterheal_poison: # Reduces healing on those afflicted
+    scaling: '(0.7/300) * %rating%' # This default formula results in an additional +0-70% healing reduced from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  vulnerability_poison: # Increases damage taken from all sources on those afflicted
+    scaling: '(0.3/300) * %rating%' # This default formula results in an additional +0-30% damage taken from 0-300 pts.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none

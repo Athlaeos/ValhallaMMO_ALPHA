@@ -1,8 +1,0 @@
-display_name: '&7Heavy Weapons'
-icon: IRON_AXE
-icon_data: 3510001
-description: '&8Heavy Weapons aren''t very effective at blocking incoming attacks, but hit much harder and are more effective against armor'
-
-levelbar_title: '&7Heavy Weapons &eLV %lv_current% &4%exp_current%&7/&4%exp_next%'
-levelbar_color: RED # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
-levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
