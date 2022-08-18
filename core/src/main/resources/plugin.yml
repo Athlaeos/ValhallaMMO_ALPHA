@@ -1,5 +1,5 @@
 name: ValhallaMMO
-version: ALPHA_1.7.1
+version: ALPHA_1.7.2
 main: me.athlaeos.valhallammo.ValhallaMMO
 api-version: 1.14
 authors: [Athlaeos]

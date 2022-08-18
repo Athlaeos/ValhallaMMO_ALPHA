@@ -278,6 +278,9 @@ public class AccumulativeStatManager {
         Collection<AccumulativeStatSource> existingSources = sources.get(stat);
         double value = 0;
         for (AccumulativeStatSource s : existingSources){
+//            if (stat.equals("DAMAGE_RESISTANCE") && p instanceof Player && p.getName().equals("Athlaeos")){
+//                System.out.println("damage resistance " + value + " added from " + s.getClass().getSimpleName());
+//            }
             value += s.add(p, use);
         }
         return Utils.round(value, 6);
@@ -313,8 +316,14 @@ public class AccumulativeStatManager {
         double value = 0;
         for (AccumulativeStatSource s : existingSources){
             if (s instanceof EvEAccumulativeStatSource){
+//                if (stat.equals("DAMAGE_RESISTANCE") && p instanceof Player && p.getName().equals("Athlaeos")){
+//                    System.out.println("damage resistance " + value + " added from " + s.getClass().getSimpleName());
+//                }
                 value += ((EvEAccumulativeStatSource) s).add(p, e, use);
             } else {
+//                if (stat.equals("DAMAGE_RESISTANCE") && p instanceof Player && p.getName().equals("Athlaeos")){
+//                    System.out.println("damage resistance " + value + " added from " + s.getClass().getSimpleName());
+//                }
                 value += s.add(p, use);
             }
         }

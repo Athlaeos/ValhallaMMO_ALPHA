@@ -586,6 +586,7 @@ public class Utils {
 
     public static double eval(String expression) {
         String str = expression.replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
+        if (expression.length() <= 0) return 0;
         return new Object() {
             int pos = -1, ch;
 

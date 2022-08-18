@@ -214,8 +214,8 @@ public class PotionAttributesManager {
     public Collection<PotionEffectWrapper> getCurrentStats(ItemStack i) {
         if (i == null) return null;
         Collection<PotionEffectWrapper> attributes = new HashSet<>();
-        assert i.getItemMeta() != null;
         ItemMeta meta = i.getItemMeta();
+        if (meta == null) return attributes;
         if (meta.getPersistentDataContainer().has(customPotionEffectsKey, PersistentDataType.STRING)) {
             String customPotionsString = meta.getPersistentDataContainer().get(customPotionEffectsKey, PersistentDataType.STRING);
             if (customPotionsString != null) {

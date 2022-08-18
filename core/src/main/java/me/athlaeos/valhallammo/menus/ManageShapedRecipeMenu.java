@@ -113,6 +113,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             requireCustomTools = recipe.isRequireCustomTools();
             tinkerFirstItem = recipe.isTinkerFirstItem();
             unlockedForEveryone = recipe.isUnlockedForEveryone();
+            result = recipe.getRecipe().getResult();
 
             int index = 0;
             for (Integer i : recipe.getExactItems().keySet()){
@@ -181,6 +182,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                         currentRecipe = generateRecipe();
                         if (currentRecipe != null) {
                             CustomRecipeManager.getInstance().update(oldRecipe, currentRecipe);
+                            currentRecipe.setUnlockedForEveryone(unlockedForEveryone);
                             currentRecipe = null;
                             view = View.VIEW_RECIPES;
                         } else {
@@ -209,6 +211,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                         requireCustomTools = shapedRecipe.isRequireCustomTools();
                         tinkerFirstItem = shapedRecipe.isTinkerFirstItem();
                         unlockedForEveryone = shapedRecipe.isUnlockedForEveryone();
+                        result = shapedRecipe.getRecipe().getResult();
 
                         int index = 0;
                         for (Integer i : shapedRecipe.getExactItems().keySet()) {

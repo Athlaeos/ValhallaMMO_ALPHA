@@ -67,7 +67,7 @@ public class PotionEffectListener implements Listener {
     @EventHandler(priority=EventPriority.NORMAL)
     public void onPotionSplash(PotionSplashEvent e){
         if (ValhallaMMO.isWorldBlacklisted(e.getEntity().getWorld().getName())) return;
-        if (!e.isCancelled()){
+        if (!e.isCancelled() && !Utils.isItemEmptyOrNull(e.getPotion().getItem())){
             Collection<PotionEffectWrapper> storedPotionEffects = PotionAttributesManager.getInstance().getCurrentStats(e.getPotion().getItem());
             for (LivingEntity entity : e.getAffectedEntities()){
                 double intensity = e.getIntensity(entity);

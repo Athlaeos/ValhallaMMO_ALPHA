@@ -109,7 +109,7 @@ public class EntityDamagedListener implements Listener {
 
         String scaling = config.getString("damage_formula_physical", "");
 
-        physicalDamageScalingSetMode = config.getString("damage_formula_mode", "").equalsIgnoreCase("set");
+        physicalDamageScalingSetMode = config.getString("damage_formula_mode", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)").equalsIgnoreCase("set");
         physicalDamageReductionCap = config.getDouble("damage_reduction_cap");
         physicalDamageScaling = new Scaling(scaling, null, 0, 0, false, false);
         double facing_angle = config.getDouble("facing_angle");

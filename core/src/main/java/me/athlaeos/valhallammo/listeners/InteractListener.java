@@ -137,10 +137,12 @@ public class InteractListener implements Listener {
                         } else {
                             Collection<AbstractCustomCraftingRecipe> availableRecipes = CustomRecipeManager.getInstance().getAllCustomRecipes().values();
                             availableRecipes = availableRecipes.stream().filter(abstractCustomCraftingRecipe -> abstractCustomCraftingRecipe.getCraftingBlock() == baseVersion).collect(Collectors.toList());
-                            CraftRecipeChoiceMenuUpdated menu = new CraftRecipeChoiceMenuUpdated(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes, Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()));
-                            e.setCancelled(true);
-                            e.setUseItemInHand(Event.Result.DENY);
-                            menu.open();
+                            if (!availableRecipes.isEmpty()) {
+                                CraftRecipeChoiceMenuUpdated menu = new CraftRecipeChoiceMenuUpdated(PlayerMenuUtilManager.getInstance().getPlayerMenuUtility(e.getPlayer()), availableRecipes, Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()));
+                                e.setCancelled(true);
+                                e.setUseItemInHand(Event.Result.DENY);
+                                menu.open();
+                            }
                         }
                     }
                 }

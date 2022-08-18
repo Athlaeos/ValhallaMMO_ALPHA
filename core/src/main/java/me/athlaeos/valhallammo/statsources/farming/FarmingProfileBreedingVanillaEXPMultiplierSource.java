@@ -18,6 +18,6 @@ public class FarmingProfileBreedingVanillaEXPMultiplierSource extends Accumulati
             FarmingProfile farmingProfile = (FarmingProfile) profile;
             return farmingProfile.getBreedingVanillaExpMultiplier();
         }
-        return 0;
+        return 1;
     }
 }

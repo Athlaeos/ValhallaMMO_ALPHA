@@ -186,6 +186,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                 double exp = entityBreedEXPReward.get(event.getEntity().getType()) * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_BREEDING", p, true) / 100D));
                 this.addEXP(p, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
+            System.out.printf("exp dropped: %d, multiplier: %.2f%n", event.getExperience(), (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
             int vanillaEXP = Utils.excessChance(event.getExperience() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
             event.setExperience(vanillaEXP);
             if (event.getEntity() instanceof org.bukkit.entity.Ageable) {

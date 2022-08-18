@@ -16,12 +16,12 @@ import java.util.UUID;
 
 public class PartySpyCommand implements CommandExecutor {
     private static final Collection<UUID> partySpies = new HashSet<>();
-    private final String stutus_command_party_spy_enabled;
-    private final String stutus_command_party_spy_disabled;
+    private final String status_command_party_spy_enabled;
+    private final String status_command_party_spy_disabled;
 
     public PartySpyCommand() {
-        stutus_command_party_spy_enabled = TranslationManager.getInstance().getTranslation("stutus_command_party_spy_enabled");
-        stutus_command_party_spy_disabled = TranslationManager.getInstance().getTranslation("stutus_command_party_spy_disabled");
+        status_command_party_spy_enabled = TranslationManager.getInstance().getTranslation("status_command_party_spy_enabled");
+        status_command_party_spy_disabled = TranslationManager.getInstance().getTranslation("status_command_party_spy_disabled");
 
         PluginCommand command = ValhallaMMO.getPlugin().getCommand("partyspy");
         assert command != null;
@@ -39,10 +39,10 @@ public class PartySpyCommand implements CommandExecutor {
         }
         if (partySpies.contains(((Player) sender).getUniqueId())){
             partySpies.remove(((Player) sender).getUniqueId());
-            sender.sendMessage(Utils.chat(stutus_command_party_spy_disabled));
+            sender.sendMessage(Utils.chat(status_command_party_spy_disabled));
         } else {
             partySpies.add(((Player) sender).getUniqueId());
-            sender.sendMessage(Utils.chat(stutus_command_party_spy_enabled));
+            sender.sendMessage(Utils.chat(status_command_party_spy_enabled));
         }
         return true;
     }
