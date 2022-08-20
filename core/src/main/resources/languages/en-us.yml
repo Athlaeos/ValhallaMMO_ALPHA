@@ -821,3 +821,12 @@ profile_format_heavy_weapons:
   - '&7Parry Timeframe:             &e%heavy_weapons_parry_time_frame%s'
   - '&7Parry Damage Reduction:   x&e%heavy_weapons_parry_damage_reduction%'
   - '&7Parry Cooldown:              &e%heavy_weapons_parry_cooldown%s'
+
+placeholders:
+  enchanted-gold-block-lore:
+    - '<lang.smithing-treatment-enchanted>'
+  fat-coin-name: '&6&lFat&e&lCoin'
+  fat-coin-lore:
+    - '&7&l===[1 FatCoin]==='
+    - '&7Original FatCoin'
+    - '&7By &6Fat &7& &eCo.'
