@@ -111,6 +111,7 @@ public class TranslationManager {
 
     public List<String> translateListPlaceholders(List<String> originalList){
         List<String> newList = new ArrayList<>();
+
         for (String l : originalList) {
             String subString = StringUtils.substringBetween(l, "<lang.", ">");
             if (subString == null) {

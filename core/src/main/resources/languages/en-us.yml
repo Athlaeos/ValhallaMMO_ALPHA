@@ -822,7 +822,6 @@ profile_format_heavy_weapons:
   - '&7Parry Damage Reduction:   x&e%heavy_weapons_parry_damage_reduction%'
   - '&7Parry Cooldown:              &e%heavy_weapons_parry_cooldown%s'
 
-
 placeholders:
   enchanted-gold-block-lore:
     - '<lang.smithing-treatment-enchanted>'
