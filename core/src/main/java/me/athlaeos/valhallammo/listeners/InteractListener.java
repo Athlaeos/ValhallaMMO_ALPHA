@@ -112,7 +112,7 @@ public class InteractListener implements Listener {
                         if (old_menu){
                             int toolId = SmithingItemTreatmentManager.getInstance().getItemsToolId(e.getPlayer().getInventory().getItemInMainHand());
                             if (Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()) || toolId >= 0){
-                                if (CustomRecipeManager.getInstance().getCraftingStationRecipes().containsKey(baseVersion)){ // TODO
+                                if (CustomRecipeManager.getInstance().getCraftingStationRecipes().containsKey(baseVersion)){
                                     Collection<AbstractCustomCraftingRecipe> availableRecipes = CustomRecipeManager.getInstance().getRecipesByCraftingStation(clickedBlockType);
                                     availableRecipes = availableRecipes.stream().filter(abstractCustomCraftingRecipe -> {
                                         if (abstractCustomCraftingRecipe instanceof ItemCraftingRecipe){

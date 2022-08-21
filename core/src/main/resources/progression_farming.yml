@@ -17,51 +17,51 @@ experience: # Everything about leveling and experience progression for Smithing
   # By default, it takes about 4300 exp to get from 0 to 20, 27,000 to get from 20 to 40, 164,000 from 40 to 60,
   # 1,000,000 from 60 to 80, and 6,300,000 from 80 to 100- or 7,500,000 from 0 to 100.
   farming_interact:
-    BEEHIVE: 100
-    BEE_NEST: 100
-    SWEET_BERRY_BUSH: 10
-    CAVE_VINES_PLANT: 12
+    BEEHIVE: 200
+    BEE_NEST: 200
+    SWEET_BERRY_BUSH: 20
+    CAVE_VINES_PLANT: 24
   farming_break:
-    WHEAT: 12
-    POTATOES: 10
-    CARROTS: 10
-    BEETROOTS: 14
-    COCOA: 20
-    MELON: 20
-    PUMPKIN: 20
-    NETHER_WART: 10
-    BROWN_MUSHROOM: 20
-    RED_MUSHROOM: 20
-    SUGAR_CANE: 8
-    WARPED_FUNGUS: 24
-    CRIMSON_FUNGUS: 24
-    SWEET_BERRY_BUSH: 15
-    CAVE_VINES: 20
+    WHEAT: 24
+    POTATOES: 20
+    CARROTS: 20
+    BEETROOTS: 28
+    COCOA: 40
+    MELON: 40
+    PUMPKIN: 40
+    NETHER_WART: 20
+    BROWN_MUSHROOM: 40
+    RED_MUSHROOM: 40
+    SUGAR_CANE: 16
+    WARPED_FUNGUS: 48
+    CRIMSON_FUNGUS: 48
+    SWEET_BERRY_BUSH: 30
+    CAVE_VINES: 40
   farming_breed:
-    FROG: 40
-    MUSHROOM_COW: 35
-    HOGLIN: 50
-    OCELOT: 45
-    TURTLE: 45
-    CAT: 40
-    AXOLOTL: 40
-    STRIDER: 40
-    FOX: 40
-    WOLF: 40
-    DONKEY: 35
-    GOAT: 35
-    HORSE: 35
-    LLAMA: 35
-    MULE: 35
-    TRADER_LLAMA: 35
-    PANDA: 35
-    COW: 30
-    SHEEP: 30
-    RABBIT: 30
-    PIG: 25
-    BEE: 25
-    CHICKEN: 15
-  farming_fishing: 100
+    FROG: 80
+    MUSHROOM_COW: 70
+    HOGLIN: 100
+    OCELOT: 90
+    TURTLE: 90
+    CAT: 80
+    AXOLOTL: 80
+    STRIDER: 80
+    FOX: 80
+    WOLF: 80
+    DONKEY: 70
+    GOAT: 70
+    HORSE: 70
+    LLAMA: 70
+    MULE: 70
+    TRADER_LLAMA: 70
+    PANDA: 70
+    COW: 60
+    SHEEP: 60
+    RABBIT: 60
+    PIG: 50
+    BEE: 50
+    CHICKEN: 30
+  farming_fishing: 200
 
 special_perks: # Perks, commands, and messages executed when a player reaches a specific level
   # If you don't know how to format this, refer to other progression configs (such as smithing) for reference
@@ -296,7 +296,7 @@ perks:
     description: '&7You gain &e2x&7 the enchanting experience from breeding animals, and baby animals grow up much faster. Meat feeds you even more'
     required_lv: 60
     perk_rewards:
-      farming_breeding_vanilla_exp_multiplier_set: 2
+      farming_breeding_vanilla_exp_multiplier_set: 2.0
       farming_baby_animal_age_multiplier_add: -0.4
       farming_carnivorous_food_multiplier_add: 0.4
     messages:

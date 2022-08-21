@@ -186,7 +186,6 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                 double exp = entityBreedEXPReward.get(event.getEntity().getType()) * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_BREEDING", p, true) / 100D));
                 this.addEXP(p, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
-            System.out.printf("exp dropped: %d, multiplier: %.2f%n", event.getExperience(), (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
             int vanillaEXP = Utils.excessChance(event.getExperience() * (AccumulativeStatManager.getInstance().getStats("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", p, true)));
             event.setExperience(vanillaEXP);
             if (event.getEntity() instanceof org.bukkit.entity.Ageable) {
@@ -403,6 +402,8 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             BlockBreakEvent breakEvent = new BlockBreakEvent(b, p);
             ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
             if (breakEvent.isCancelled()) return;
+            ExperienceOrb orb = breakEvent.getBlock().getWorld().spawn(breakEvent.getBlock().getLocation().add(0.5, 0.5, 0.5), ExperienceOrb.class);
+            orb.setExperience(breakEvent.getExpToDrop());
             BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(b, b.getState(), p, new ArrayList<>((tool == null) ? b.getDrops() : b.getDrops(tool, p)));
             ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
             if (toInventory) {

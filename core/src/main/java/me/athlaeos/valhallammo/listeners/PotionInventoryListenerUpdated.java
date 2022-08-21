@@ -14,11 +14,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BrewingStand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -42,6 +42,7 @@ public class PotionInventoryListenerUpdated implements Listener {
     @EventHandler
     public void onInv(InventoryClickEvent e) {
         if (e.getClickedInventory() == null) return;
+        if (ValhallaMMO.isWorldBlacklisted(e.getWhoClicked().getWorld().getName())) return;
         if (e.getView().getTopInventory() instanceof BrewerInventory){
             if (CustomRecipeManager.getInstance().getBrewingRecipes().isEmpty()) return;
             BrewerInventory inventory = (BrewerInventory) e.getView().getTopInventory();
@@ -93,54 +94,103 @@ public class PotionInventoryListenerUpdated implements Listener {
                     e.setCancelled(true);
                 }
             }
-            ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
-                final ItemStack ingredient = inventory.getItem(3);
-                if (Utils.isItemEmptyOrNull(ingredient)) {
+
+            updateBrewingStand(inventory, location, player);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void potionItemPlacer(InventoryDragEvent e) {
+        if (ValhallaMMO.isWorldBlacklisted(e.getWhoClicked().getWorld().getName())) return;
+        if (!e.isCancelled()){
+            if (!(e.getWhoClicked() instanceof Player)) return;
+            Player player = (Player) e.getWhoClicked();
+            if (e.getView().getTopInventory().getType() != InventoryType.BREWING) {
+                return;
+            }
+            for (Integer i : e.getRawSlots()){
+                // if one of the dragged slots is a player inventory slot
+                if (i > 4) return;
+            }
+            if (e.getRawSlots().size() != 1) {
+                return;
+            }
+
+            int slot = new ArrayList<>(e.getRawSlots()).get(0);
+
+            e.setCancelled(true);
+            e.setResult(Event.Result.ALLOW);
+
+            switch (e.getType()){
+                case EVEN:{
+                    ItemUtils.calculateClickedSlot(new InventoryClickEvent(e.getView(), InventoryType.SlotType.CONTAINER, slot, ClickType.LEFT, InventoryAction.DROP_ALL_SLOT));
+                    break;
+                }
+                case SINGLE:{
+                    ItemUtils.calculateClickedSlot(new InventoryClickEvent(e.getView(), InventoryType.SlotType.CONTAINER, slot, ClickType.RIGHT, InventoryAction.DROP_ALL_SLOT));
+                    break;
+                }
+                default: {
+                    e.setCancelled(false);
                     return;
                 }
-                BrewingStand brewingStand = inventory.getHolder();
-                if (brewingStand != null) {
-                    Map<Integer, DynamicBrewingRecipe> brewingRecipeList = CustomRecipeManager.getInstance().getBrewingRecipes(inventory, player);
-                    if (brewingRecipeList.isEmpty()) {
-                        if (activeBrewingStands.containsKey(location)) {
-                            //Cancel current running tasks and removing the brewing operation from the location
-                            activeBrewingStands.get(location).getKey().cancel();
-                            activeBrewingStands.remove(location);
-                        }
-                    } else if (!activeBrewingStands.containsKey(location)) {
-                        brewingStand.setBrewingTime(400);
-                        brewingStand.setFuelLevel(brewingStand.getFuelLevel() - 1);
+            }
 
-                        if (brewingStand.getFuelLevel() > 0) {
-                            double speed = AccumulativeStatManager.getInstance().getStats("ALCHEMY_BREW_SPEED", player, true);
-                            double baseTime = Math.max(1, speed <= 0 ? 4000 : 400 / speed);
-                            BrewingTask runnable = new BrewingTask(player, inventory, baseTime);
-                            runnable.runTaskTimer(ValhallaMMO.getPlugin(), 2, 1);
-                            activeBrewingStands.put(location, new Map.Entry<BrewingTask, Map<Integer, DynamicBrewingRecipe>>() {
-                                @Override
-                                public BrewingTask getKey() { return runnable; }
-                                @Override
-                                public Map<Integer, DynamicBrewingRecipe> getValue() { return brewingRecipeList; }
-                                @Override
-                                public Map<Integer, DynamicBrewingRecipe> setValue(Map<Integer, DynamicBrewingRecipe> value) { return null; }
-                            });
-                        }
-                    } else {
-                        //Put new brewing recipes to map, but keep current active task
-                        Map.Entry<BrewingTask, Map<Integer, DynamicBrewingRecipe>> currentEntry = activeBrewingStands.get(location);
-                        currentEntry.getKey().updateTask(inventory);
+            BrewerInventory inventory = (BrewerInventory) e.getView().getTopInventory();
+            Location location = inventory.getLocation();
+
+            updateBrewingStand(inventory, location, player);
+        }
+    }
+
+    private void updateBrewingStand(BrewerInventory inventory, Location location, Player player){
+        ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
+            final ItemStack ingredient = inventory.getItem(3);
+            if (Utils.isItemEmptyOrNull(ingredient)) {
+                return;
+            }
+            BrewingStand brewingStand = inventory.getHolder();
+            if (brewingStand != null) {
+                Map<Integer, DynamicBrewingRecipe> brewingRecipeList = CustomRecipeManager.getInstance().getBrewingRecipes(inventory, player);
+                if (brewingRecipeList.isEmpty()) {
+                    if (activeBrewingStands.containsKey(location)) {
+                        //Cancel current running tasks and removing the brewing operation from the location
+                        activeBrewingStands.get(location).getKey().cancel();
+                        activeBrewingStands.remove(location);
+                    }
+                } else if (!activeBrewingStands.containsKey(location)) {
+                    brewingStand.setBrewingTime(400);
+                    brewingStand.setFuelLevel(brewingStand.getFuelLevel() - 1);
+
+                    if (brewingStand.getFuelLevel() > 0) {
+                        double speed = AccumulativeStatManager.getInstance().getStats("ALCHEMY_BREW_SPEED", player, true);
+                        double baseTime = Math.max(1, speed <= 0 ? 4000 : 400 / speed);
+                        BrewingTask runnable = new BrewingTask(player, inventory, baseTime);
+                        runnable.runTaskTimer(ValhallaMMO.getPlugin(), 2, 1);
                         activeBrewingStands.put(location, new Map.Entry<BrewingTask, Map<Integer, DynamicBrewingRecipe>>() {
                             @Override
-                            public BrewingTask getKey() { return currentEntry.getKey(); }
+                            public BrewingTask getKey() { return runnable; }
                             @Override
                             public Map<Integer, DynamicBrewingRecipe> getValue() { return brewingRecipeList; }
                             @Override
                             public Map<Integer, DynamicBrewingRecipe> setValue(Map<Integer, DynamicBrewingRecipe> value) { return null; }
                         });
                     }
+                } else {
+                    //Put new brewing recipes to map, but keep current active task
+                    Map.Entry<BrewingTask, Map<Integer, DynamicBrewingRecipe>> currentEntry = activeBrewingStands.get(location);
+                    currentEntry.getKey().updateTask(inventory);
+                    activeBrewingStands.put(location, new Map.Entry<BrewingTask, Map<Integer, DynamicBrewingRecipe>>() {
+                        @Override
+                        public BrewingTask getKey() { return currentEntry.getKey(); }
+                        @Override
+                        public Map<Integer, DynamicBrewingRecipe> getValue() { return brewingRecipeList; }
+                        @Override
+                        public Map<Integer, DynamicBrewingRecipe> setValue(Map<Integer, DynamicBrewingRecipe> value) { return null; }
+                    });
                 }
-            }, 2);
-        }
+            }
+        }, 2);
     }
 
     private class BrewingTask extends BukkitRunnable{

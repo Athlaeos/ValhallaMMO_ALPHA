@@ -70,10 +70,10 @@ public class DynamicAmountModifier extends DuoArgDynamicItemModifier {
     public ItemStack processItem(Player crafter, ItemStack outputItem) {
         if (outputItem == null) return null;
         double materialSkill = 0;
-        double generalSkill = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("SMITHING_QUALITY_GENERAL", crafter, 2000, this.use);
+        double generalSkill = AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_GENERAL", crafter, this.use);
         MaterialClass materialClass = MaterialClass.getMatchingClass(outputItem);
         if (materialClass != null){
-            materialSkill = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("SMITHING_QUALITY_" + materialClass, crafter, 2000, this.use);
+            materialSkill = AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_" + materialClass, crafter, this.use);
         }
         int originalAmount = outputItem.getAmount();
         int minimumAmount = Math.max(1, (int) (originalAmount * strength2));

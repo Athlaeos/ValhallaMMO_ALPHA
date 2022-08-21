@@ -37,6 +37,10 @@ public class MiningBlastDropMultiplierAddReward extends PerkReward {
                 double temp = (Double) argument;
                 exp = (float) temp;
             }
+            if (argument instanceof Integer){
+                int temp = (Integer) argument;
+                exp = (float) temp;
+            }
         }
     }
 

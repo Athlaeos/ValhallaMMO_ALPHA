@@ -365,6 +365,10 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                     return;
                 }
                 event.setInstaBreak(true);
+                // possible ghost block fix
+//                ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
+//                    event.getPlayer().sendBlockChange(event.getBlock().getLocation(), event.getBlock().getBlockData());
+//                }, 1L);
             }
         }
     }

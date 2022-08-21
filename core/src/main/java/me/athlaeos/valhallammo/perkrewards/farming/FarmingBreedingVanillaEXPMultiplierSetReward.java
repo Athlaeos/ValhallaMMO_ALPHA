@@ -21,7 +21,6 @@ public class FarmingBreedingVanillaEXPMultiplierSetReward extends PerkReward {
         if (profile == null) return;
         if (profile instanceof FarmingProfile){
             FarmingProfile farmingProfile = (FarmingProfile) profile;
-            System.out.println("setting exp multiplier to " + exp);
             farmingProfile.setBreedingVanillaExpMultiplier(exp);
             ProfileManager.getManager().setProfile(player, farmingProfile, "FARMING");
         }
@@ -31,11 +30,16 @@ public class FarmingBreedingVanillaEXPMultiplierSetReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            
             if (argument instanceof Float){
                 exp = (float) argument;
             }
             if (argument instanceof Double){
                 double temp = (Double) argument;
+                exp = (float) temp;
+            }
+            if (argument instanceof Integer){
+                int temp = (Integer) argument;
                 exp = (float) temp;
             }
         }

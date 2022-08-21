@@ -59,7 +59,7 @@ public class DynamicRepairModifier extends DynamicItemModifier {
         if (materialClass == null) return null;
         int itemDurabiity = CustomDurabilityManager.getInstance().getDurability(outputItem);
         if (itemDurabiity >= CustomDurabilityManager.getInstance().getMaxDurability(outputItem)) return null;
-        double generalSkill = Math.round((strength/100D) * AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("SMITHING_QUALITY_GENERAL", crafter, 2000, this.use));
+        double generalSkill = Math.round((strength/100D) * AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_GENERAL", crafter, this.use));
         if (itemDurabiity > 0){
             // Item has custom durability
             int maxDurability = CustomDurabilityManager.getInstance().getMaxDurability(outputItem);

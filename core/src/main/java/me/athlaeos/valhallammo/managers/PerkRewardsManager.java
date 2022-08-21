@@ -644,9 +644,6 @@ public class PerkRewardsManager {
             if (perkRewards.get(name) == null) return null;
             PerkReward modifier = perkRewards.get(name).clone();
             modifier.setArgument(argument);
-            if (name.equals("farming_breeding_vanilla_exp_multiplier_set")){
-                System.out.println("argument afterwards is " + modifier.getArgument()); // TODO
-            }
             return modifier;
         } catch (CloneNotSupportedException ignored){
             ValhallaMMO.getPlugin().getLogger().severe("Could not clone PerkReward, notify plugin author");

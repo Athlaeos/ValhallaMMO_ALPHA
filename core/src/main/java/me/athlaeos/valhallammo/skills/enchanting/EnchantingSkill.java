@@ -8,6 +8,7 @@ import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.items.ItemTreatment;
 import me.athlaeos.valhallammo.items.MaterialClass;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
+import me.athlaeos.valhallammo.managers.CooldownManager;
 import me.athlaeos.valhallammo.managers.EnchantingItemEnchantmentsManager;
 import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import me.athlaeos.valhallammo.skills.EnchantmentApplicationSkill;
@@ -23,16 +24,20 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-public class EnchantingSkill extends Skill implements OffensiveSkill, EnchantmentApplicationSkill {
+public class EnchantingSkill extends Skill implements OffensiveSkill, EnchantmentApplicationSkill, Listener {
     private final Map<Enchantment, Double> enchantmentBaseValues;
     private final Map<Integer, Double> enchantmentLevelMultipliers;
     private final Map<MaterialClass, Double> enchantmentMaterialClassMultipliers;
@@ -128,6 +133,13 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
                     ValhallaMMO.getPlugin().getLogger().warning("invalid Equipment Class given at skill_enchanting.yml experience.exp_gain.enchantment_level_multiplier." + s);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onGrindstoneUsage(InventoryClickEvent e){
+        if (e.getClickedInventory() instanceof GrindstoneInventory && !e.isCancelled()){
+            CooldownManager.getInstance().setCooldown(e.getWhoClicked().getUniqueId(), 5000, "valhalla_enchanting_vanilla_exp_multiplier_prevention");
         }
     }
 
