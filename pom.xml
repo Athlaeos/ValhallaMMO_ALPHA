@@ -76,6 +76,10 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>me.athlaeos.valhallammo.bstats</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>com.jeff_media.customblockdata</pattern>
+                            <shadedPattern>me.athlaeos.valhallammo.customblockdata</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
             </plugin>

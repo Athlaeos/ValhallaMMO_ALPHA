@@ -1,14 +1,20 @@
 package me.athlaeos.valhallammo.managers;
 
+import com.jeff_media.customblockdata.CustomBlockData;
+import me.athlaeos.valhallammo.ValhallaMMO;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class BlockStore {
+    private static final NamespacedKey blockPlacedKey = new NamespacedKey(ValhallaMMO.getPlugin(), "block_placement_status");
     private static Map<Location, UUID> placedBlocks = new HashMap<>();
 
     private static final Map<Location, BreakReason> brokenBlocks = new HashMap<>();
@@ -19,6 +25,11 @@ public class BlockStore {
      * @return true if placed, false if not
      */
     public static boolean isPlaced(Block b){
+        PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
+        if (customBlockData.has(blockPlacedKey, PersistentDataType.INTEGER)) {
+            System.out.println("block is placed by PSD");
+            return true;
+        }
         return placedBlocks.containsKey(b.getLocation());
     }
 
@@ -47,9 +58,12 @@ public class BlockStore {
      * @param placed the placement status
      */
     public static void setPlaced(Block b, boolean placed){
+        PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
         if (placed){
+            customBlockData.remove(blockPlacedKey);
             placedBlocks.put(b.getLocation(), null);
         } else {
+            customBlockData.set(blockPlacedKey, PersistentDataType.INTEGER, 1);
             placedBlocks.remove(b.getLocation());
         }
     }

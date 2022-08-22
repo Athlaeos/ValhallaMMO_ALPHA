@@ -74,10 +74,8 @@ experience: # Everything about leveling and experience progression for Smithing
   exp_gain: 100 # Experience gained whenever the player levels any skill
 
 special_perks: # Perks, commands, and messages executed when a player reaches a specific level
-  20:
-    commands: 'broadcast &6%player% &7reached level &620'
-  40:
-    commands: 'broadcast &6%player% &7reached level &640'
+  100:
+    commands: 'broadcast &6%player% &7reached level &6100'
 
 commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name
   # and %level% for the player's new level

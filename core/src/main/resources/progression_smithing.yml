@@ -127,6 +127,7 @@ perks:
       smithing_craftskill_stone_add: 50
       smithing_craftskill_chainmail_add: 50
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &eApprentice Smithing'
       - '&7You can now craft &estone &7and &echainmail &7items with'
       - '&e+50 &7extra quality'
@@ -145,6 +146,7 @@ perks:
     description: '&7You are able to craft items of &eTier III&7 materials of much higher quality'
     required_lv: 40
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &eAdept Smithing'
       - '&7You can now craft &eiron &7and &egold &7items with'
       - '&e+50 &7extra quality'
@@ -166,6 +168,7 @@ perks:
       unlock_recipes:
         - craft_trident
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &9Prismarine Smithing'
       - '&7You can now craft &etridents &7with'
       - '&e+50 &7extra quality'
@@ -182,6 +185,7 @@ perks:
     perk_rewards:
       smithing_craftskill_diamond_add: 50
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &eExpert Smithing'
       - '&7You can now craft &ediamond &7items with'
       - '&e+50 &7extra quality'
@@ -201,6 +205,7 @@ perks:
         - craft_elytra
         - craft_shulker_shell
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &dEnderic Smithing'
       - '&7You can now craft &delytras &7and &dshulker shells&7, with'
       - '&e+50 &7extra quality'
@@ -214,6 +219,7 @@ perks:
     hidden: false
     description: '&7You are able to craft items of &eTier V&7 materials of much higher quality'
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &eMaster Smithing'
       - '&7You can now craft &enetherite &7items with'
       - '&e+50 &7extra quality'
@@ -231,6 +237,7 @@ perks:
     description: '&7You pour your heart and soul into your next creation, gaining +50 to crafting quality. You will not be able to repeat this feat.'
     required_lv: 100
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &eMasterpiece'
       - '&7Only your next creation will benefit'
       - '&7from an additional &e+50 &7quality.'
@@ -251,6 +258,7 @@ perks:
     description: '&7Having truly mastered your craft, all your creations benefit from &e+25&7 crafting quality.'
     required_lv: 100
     messages:
+      - '&8&m                           '
       - '&7You''ve unlocked &eAspect of Durin'
       - '&7You''ve become a truly legendary'
       - '&7blacksmith. All your creations'
@@ -275,6 +283,10 @@ perks:
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eFletcher I'
+      - '&7Bows crafted gain &e+15 &7extra quality'
   smithing_perk_specialisation_bow_2:
     hidden: true
     cost: 1
@@ -288,6 +300,10 @@ perks:
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eFletcher II'
+      - '&7Bows crafted gain &e+30 &7extra quality'
   smithing_perk_specialisation_bow_3:
     hidden: true
     cost: 1
@@ -301,6 +317,10 @@ perks:
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eFletcher III'
+      - '&7Bows crafted gain &e+45 &7extra quality'
   smithing_perk_specialisation_bow_4:
     hidden: true
     cost: 1
@@ -314,6 +334,10 @@ perks:
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eFletcher IV'
+      - '&7Bows crafted gain &e+60 &7extra quality'
   smithing_perk_specialisation_bow_5:
     hidden: true
     cost: 1
@@ -327,3 +351,7 @@ perks:
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
+    messages:
+      - '&8&m                           '
+      - '&7You''ve unlocked &eFletcher V'
+      - '&7Bows crafted gain &e+75 &7extra quality'
