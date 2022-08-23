@@ -361,7 +361,7 @@ disabled:
   - netherite_hoe
   - netherite_sword
 
-# PARTIES (NOT IMPLEMENTED YET!!)
+# PARTIES
 
 parties: true # If disabled, all party functionality is disabled
 item_sharing: true # If disabled, item sharing will not be possible

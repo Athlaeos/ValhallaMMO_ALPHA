@@ -13,8 +13,8 @@ hide_durability: false
 
 quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
   # If left empty, they won't appear.
-  0: '&cPoor'
-  50: '&7Decent'
+  0:   '&cPoor'
+  50:  '&7Decent'
   100: '&7Great'
   150: '&eEpic'
   200: '&eLegendary'

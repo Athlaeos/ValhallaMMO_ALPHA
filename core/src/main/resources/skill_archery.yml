@@ -17,7 +17,7 @@ prevent_crits_facing_shooter: true # If enabled, no matter what, the shooter wil
 facing_angle: 70 # The angle between the target's line of vision and to the shooter which the plugin would consider
 # the target to be "facing" the shooter, the effective angle of vision is double this value.
 # example: if this value is 90, the shooter can be anywhere within 180 degrees in front of the target for the target to
-# "see" the shooter. Anywhere outside of that front 180 degrees will be considered "facing away"
+# "see" the shooter. Anywhere outside that front 180 degrees will be considered "facing away"
 
 # Sound that plays when the player activates charged shot. If this is invalid, no sound is made
 charged_shot_prefire_sound: ENTITY_BLAZE_SHOOT
