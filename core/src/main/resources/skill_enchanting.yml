@@ -1,9 +1,9 @@
-display_name: '&7Enchanting'
+display_name: '<lang.skill-enchanting-displayname>'
 icon: ENCHANTING_TABLE
 icon_data: 3510001
-description: '&8Practice Enchanting to grant your equipment enchantments of epic strength'
+description: '<lang.skill-enchanting-description>'
 
-levelbar_title: '&7Enchanting &bLV&b%lv_current% &9%exp_current%&7/&9%exp_next%'
+levelbar_title: '<lang.skill-enchanting-level-bar>'
 levelbar_color: BLUE # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 

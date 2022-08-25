@@ -11,6 +11,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class ItemDictionaryManager {
+    private static boolean shouldSaveItems = false;
+
+    public static void shouldSaveItems() {
+        shouldSaveItems = true;
+    }
+
+    public static boolean isShouldSaveItems(){
+        return shouldSaveItems;
+    }
     private static ItemDictionaryManager manager = null;
 
     private final TreeMap<Integer, ItemStack> itemDictionary = new TreeMap<>();
@@ -43,6 +52,7 @@ public class ItemDictionaryManager {
     }
 
     public int addItem(ItemStack i){
+        shouldSaveItems();
         int id = getNextAvailableID();
         itemDictionary.put(id, i);
         return id;
@@ -58,6 +68,7 @@ public class ItemDictionaryManager {
     }
 
     public void removeItem(int id){
+        shouldSaveItems();
         itemDictionary.remove(id);
     }
 
@@ -70,6 +81,7 @@ public class ItemDictionaryManager {
                     int i = Integer.parseInt(id);
                     ItemStack item = config.getItemStack("items." + id);
                     if (!Utils.isItemEmptyOrNull(item)){
+                        item = TranslationManager.getInstance().translateItemStack(item);
                         itemDictionary.put(i, item);
                     } else {
                         ValhallaMMO.getPlugin().getServer().getLogger().warning("Invalid item in item_dictionary.yml: " + id + ", " + (item == null ? "null" : "AIR"));

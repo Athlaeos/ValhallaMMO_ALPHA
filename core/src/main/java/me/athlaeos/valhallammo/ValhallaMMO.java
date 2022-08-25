@@ -157,7 +157,7 @@ public final class ValhallaMMO extends JavaPlugin {
         entityDamagedListener = (EntityDamagedListener) registerListener(new EntityDamagedListener(), "entity_damaged");
 //        potionInventoryListener = (PotionInventoryListener) registerListener(new PotionInventoryListener(), "potion_inventory");
         potionInventoryListenerUpdated = (PotionInventoryListenerUpdated) registerListener(new PotionInventoryListenerUpdated(), "potion_inventory");
-//        potionBrewListener = (PotionBrewListener) registerListener(new PotionBrewListener(), "potion_brew");
+        potionBrewListener = (PotionBrewListener) registerListener(new PotionBrewListener(), "potion_brew");
         itemConsumeListener = (ItemConsumeListener) registerListener(new ItemConsumeListener(), "item_consume");
         potionSplashListener = (PotionEffectListener) registerListener(new PotionEffectListener(), "potion_splash");
         playerEnchantListener = (PlayerEnchantListener) registerListener(new PlayerEnchantListener(), "player_enchant");
@@ -233,8 +233,16 @@ public final class ValhallaMMO extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        ItemDictionaryManager.getInstance().saveItems();
-        CustomRecipeManager.getInstance().saveRecipes(false);
+        if (ItemDictionaryManager.isShouldSaveItems()){
+            ItemDictionaryManager.getInstance().saveItems();
+        } else {
+            ValhallaMMO.getPlugin().getServer().getLogger().info("No item adjustments detected, not saving indexed items!");
+        }
+        if (CustomRecipeManager.isShouldSaveRecipes()){
+            CustomRecipeManager.getInstance().saveRecipes(false);
+        } else {
+            ValhallaMMO.getPlugin().getServer().getLogger().info("No recipe adjustments detected, not saving recipes!");
+        }
         LootManager.getInstance().saveLootTables();
 
         ProfileManager.getManager().savePlayerProfiles();

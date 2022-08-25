@@ -73,7 +73,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&aFarming&7 leveled up to &a%level%'
+  - '<lang.skill-level-up-farming>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   farming_drop_multiplier_add: 0.01 # amount of drops gradually increases from 1-2x drops
@@ -93,337 +93,243 @@ starting_coordinates: '4,9' # The coordinates in the skill tree the player sees 
 perks:
   farming_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Gardener' # Name of the icon within the skill tree
+    name: '<lang.skill-farming-perk-main-1-display-name>' # Name of the icon within the skill tree
     icon: WHEAT_SEEDS # Icon itself within the skill tree
     coords: 4,9 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7You start gaining a little bit of enchanting experience while farming crops.'
+    description: '<lang.skill-farming-perk-main-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       farming_vanilla_exp_reward_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eGardner'
-      - '&7You gain a little bit of enchanting'
-      - '&7experience while farming crops.'
-      - ' '
+      - '<lang.skill-farming-perk-main-1-messages>'
   farming_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,7
     requireperk_one:
       - farming_perk_main_1
-    name: '&7Cultivator'
+    name: '<lang.skill-farming-perk-main-2-display-name>'
     icon: WHEAT
-    description: '&7Planted crops gain a &e25% &7chance to immediately grow a stage, and grown food feeds you more'
+    description: '<lang.skill-farming-perk-main-2-description>'
     required_lv: 20
     perk_rewards:
       farming_instant_growth_rate_set: 0.25
       farming_vegetarian_food_multiplier_add: 0.3
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eCultivator'
-      - '&7Planted crops gain a &e25% &7chance'
-      - '&7to immediately grow a stage.'
-      - '&7Grown food is more nutritious to you'
-      - ' '
+      - '<lang.skill-farming-perk-main-2-messages>'
   farming_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - farming_perk_main_2
-    name: '&7Botanist'
+    name: '<lang.skill-farming-perk-main-3-display-name>'
     icon: BEETROOT
-    description: '&7You gain a small chance to receive rare drops from harvested crops. These crops can be used for things like alchemy and crafting. You also gain slightly more experience for harvested crops.'
+    description: '<lang.skill-farming-perk-main-3-description>'
     required_lv: 40
     perk_rewards:
       farming_vanilla_exp_reward_add: 0.1
       farming_rare_drop_rate_multiplier_set: 1.0
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBotanist'
-      - '&7You gain a small chance to receive'
-      - '&7rare drops from harvested crops. These'
-      - '&7drops can be used for alchemy and'
-      - '&7crafting.'
-      - '&7Increases your (average) enchanting'
-      - '&7experience per crop from &e0.1 &7to &e0.2'
-      - ' '
+      - '<lang.skill-farming-perk-main-3-messages>'
   farming_perk_main_4:
     hidden: true
     cost: 1
     coords: 4,3
     requireperk_one:
       - farming_perk_main_3
-    name: '&7Green Thumb'
+    name: '<lang.skill-farming-perk-main-4-display-name>'
     icon: POTATO
-    description: '&7Right-clicking on a crop will now instantly harvest and replant it, and planted crops will now have a &e75% &7chance to immediately grow a stage. Grown food feeds you even more'
+    description: '<lang.skill-farming-perk-main-4-description>'
     required_lv: 60
     perk_rewards:
       farming_instant_growth_rate_set: 0.75
       farming_instant_harvesting: true
       farming_vegetarian_food_multiplier_add: 0.4
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eGreen Thumb'
-      - '&7Right-clicking crops will now instantly'
-      - '&7harvest and replant them.'
-      - '&7Planted crops now have a &e75% &7chance to'
-      - '&7immediately grow a stage.'
-      - '&7Grown nourishes you even more'
-      - ' '
+      - '<lang.skill-farming-perk-main-4-messages>'
   farming_perk_main_5:
     hidden: true
     cost: 1
     coords: 4,1
     requireperk_one:
       - farming_perk_main_4
-    name: '&7Exotic Botanist'
+    name: '<lang.skill-farming-perk-main-5-display-name>'
     icon: CARROT
-    description: '&7Your chance to gain rare drops from crops is &etripled&7. You gain more enchanting experience from crops, and planted crops will now &ealways&7 grow &e1&7 stage with a &e25%&7 chance to grow a second one.'
+    description: '<lang.skill-farming-perk-main-5-description>'
     required_lv: 80
     perk_rewards:
       farming_instant_growth_rate_set: 1.25
       farming_rare_drop_rate_multiplier_set: 3.0
       farming_vanilla_exp_reward_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExotic Botanist'
-      - '&7Your chance to gain rare drops from'
-      - '&7crops is &etripled&7.'
-      - '&7Increases your (average) enchanting'
-      - '&7experience per crop from &e0.2 &7to &e0.3'
-      - '&7Planted crops will now &ealways&7 grow'
-      - '&7at least &e1 &7stage, with a &e25%'
-      - '&7chance to grow a &esecond &7stage.'
-      - ' '
+      - '<lang.skill-farming-perk-main-5-messages>'
   farming_perk_main_6a:
     hidden: true
     cost: 1
     coords: 3,0
     requireperk_one:
       - farming_perk_main_5
-    name: '&7Aspect of Demeter'
+    name: '<lang.skill-farming-perk-main-6a-display-name>'
     icon: NETHERITE_HOE
-    description: '&7Every 5 minutes by shift-right-clicking a crop you are able to harvest up to 128 crops around the initial crop almost instantly'
+    description: '<lang.skill-farming-perk-main-6a-description>'
     required_lv: 100
     perk_rewards:
       farming_ultra_harvest_cooldown_set: 300000 # if the cooldown of this ability is lower than 0, it is disabled.
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAspect of Demeter'
-      - '&7Shift-right-click on a crop to harvest'
-      - '&7up to &e128 &7crops (if within a radius'
-      - '&7of 16 blocks) almost immediately.'
-      - '&7This ability has a cooldown of &e5 minutes'
-      - ' '
+      - '<lang.skill-farming-perk-main-6a-messages>'
   farming_perk_main_6b:
     hidden: true
     cost: 1
     coords: 5,0
     requireperk_one:
       - farming_perk_main_5
-    name: '&7Masterful Botany'
+    name: '<lang.skill-farming-perk-main-6b-display-name>'
     icon: GOLDEN_HOE
-    description: '&7Planted crops now have a &e75% &7chance to grow a &esecond&7 stage, you gain more enchanting experience for harvesting crops, and you gain a &e50% &7chance to drop &e3x&7 items instead of &e2x'
+    description: '<lang.skill-farming-perk-main-6b-description>'
     required_lv: 100
     perk_rewards:
       farming_instant_growth_rate_set: 1.75
       farming_drop_multiplier_add: 0.5
       farming_vanilla_exp_reward_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMasterful Botany'
-      - '&7You gain a &e50% &7chance to have your'
-      - '&ecrop drops be tripled&7 instead of &edoubled&7.'
-      - '&7Increases your (average) enchanting'
-      - '&7experience per crop from &e0.3 &7to &e0.4'
-      - '&7Planted crops will now have a &e75%'
-      - '&7chance to grow a &esecond &7stage.'
-      - ' '
+      - '<lang.skill-farming-perk-main-6b-messages>'
   farming_perk_animals_1:
     hidden: true
     cost: 1
     coords: 3,8
     requireperk_one:
       - farming_perk_main_1
-    name: '&7Amateur Husbandry'
+    name: '<lang.skill-farming-perk-animals-1-display-name>'
     icon: CHICKEN
-    description: '&7You gain &e30% &7more enchanting experience from breeding animals. Animals grow up slightly faster and meat feeds you more'
+    description: '<lang.skill-farming-perk-animals-1-description>'
     required_lv: 20
     perk_rewards:
       farming_breeding_vanilla_exp_multiplier_add: 0.3
       farming_baby_animal_age_multiplier_add: -0.1
       farming_carnivorous_food_multiplier_add: 0.3
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAmateur Husbandry'
-      - '&7You gain &e30% &7more enchanting experience'
-      - '&7from breeding animals. Baby animals also'
-      - '&7grow up slightly faster'
-      - '&7Meat becomes more nourishing to you'
-      - ' '
+      - '<lang.skill-farming-perk-animals-1-messages>'
   farming_perk_animals_2:
     hidden: true
     cost: 1
     coords: 0,7
     requireperk_one:
       - farming_perk_animals_1
-    name: '&7Butcher Skills'
+    name: '<lang.skill-farming-perk-animals-2-display-name>'
     icon: BEEF
-    description: '&7You gain &e50% &7more drops from livestock. You do &e100% &7more damage against animals.'
+    description: '<lang.skill-farming-perk-animals-2-description>'
     required_lv: 40
     perk_rewards:
       farming_animal_drop_multiplier_add: 0.5
       farming_animal_damage_multiplier_add: 1.0
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eButcher Skills'
-      - '&7You gain &e50% &7more drops from'
-      - '&7animals. And you deal &e100%'
-      - '&7more damage against them.'
-      - ' '
+      - '<lang.skill-farming-perk-animals-2-messages>'
   farming_perk_animals_3:
     hidden: true
     cost: 1
     coords: 2,6
     requireperk_one:
       - farming_perk_animals_2
-    name: '&7Experienced Husbandry'
+    name: '<lang.skill-farming-perk-animals-3-display-name>'
     icon: SPLASH_POTION
-    description: '&7You gain &e2x&7 the enchanting experience from breeding animals, and baby animals grow up much faster. Meat feeds you even more'
+    description: '<lang.skill-farming-perk-animals-3-description>'
     required_lv: 60
     perk_rewards:
       farming_breeding_vanilla_exp_multiplier_set: 2.0
       farming_baby_animal_age_multiplier_add: -0.4
       farming_carnivorous_food_multiplier_add: 0.4
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExperienced Husbandry'
-      - '&7You gain &e2x &7the enchanting experience'
-      - '&7from breeding animals, and baby animals'
-      - '&7grow up &etwice&7 as fast.'
-      - '&7Meat nourishes you even more'
-      - ' '
+      - '<lang.skill-farming-perk-animals-3-messages>'
   farming_perk_animals_4:
     hidden: true
     cost: 1
     coords: 3,2
     requireperk_one:
       - farming_perk_animals_3
-    name: '&7Iron Stomach'
+    name: '<lang.skill-farming-perk-animals-4-display-name>'
     icon: MILK_BUCKET
-    description: '&7You gain complete immunity to all negative effects if they come from food, and garbage foods feed you 3x more'
+    description: '<lang.skill-farming-perk-animals-4-description>'
     required_lv: 80
     perk_rewards:
       farming_garbage_food_multiplier_set: 3.0
       farming_bad_food_immunity: true
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eIron Stomach'
-      - '&7You gain complete immunity to to all'
-      - '&7negative effects from food, and '
-      - '&7garbage foods feed you 3x more now.'
-      - '&e(Rotten Flesh, Spider Eye, Pufferfish)'
-      - ' '
+      - '<lang.skill-farming-perk-animals-4-messages>'
   farming_perk_bees:
     hidden: true
     cost: 1
     coords: 1,4
-    name: '&7Beekeeping'
+    name: '<lang.skill-farming-perk-bees-display-name>'
     icon: HONEY_BOTTLE
-    description: '&7Hives gain a &e50% &7chance to not be "emptied" when harvesting honey or honeycomb from them. Bees will also not be aggressive towards you.'
+    description: '<lang.skill-farming-perk-bees-description>'
     required_lv: 40
     perk_rewards:
       farming_hive_honey_not_consume_chance_add: 0.5
       farming_bee_aggro_immunity: true
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBeekeeping'
-      - '&7Hives gain a &e50% &7chance to not consume'
-      - '&7their honey when harvested.'
-      - '&7Bees also like you now :)'
-      - ' '
+      - '<lang.skill-farming-perk-bees-messages>'
   farming_perk_fishing_1:
     hidden: true
     cost: 1
     coords: 5,8
     requireperk_one:
       - farming_perk_main_1
-    name: '&7Hobby Fisherman'
+    name: '<lang.skill-farming-perk-fishing-1-display-name>'
     icon: FISHING_ROD
-    description: '&7You gain &e30% &7more enchanting experience from fishing, you catch fish slightly faster, and fish feeds you more'
+    description: '<lang.skill-farming-perk-fishing-1-description>'
     required_lv: 20
     perk_rewards:
       farming_fishing_vanilla_experience_multiplier_add: 0.3
       farming_fishing_time_multiplier_add: -0.1
       farming_pescotarian_food_multiplier_add: 0.3
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eHobby Fisherman'
-      - '&7You gain &e30% &7 more experience from'
-      - '&7fishing, and you catch fish slightly'
-      - '&7faster.'
-      - '&7Also, fish nourishes you more'
-      - ' '
+      - '<lang.skill-farming-perk-fishing-1-messages>'
   farming_perk_fishing_2:
     hidden: true
     cost: 1
     coords: 8,7
     requireperk_one:
       - farming_perk_fishing_1
-    name: '&7Improved Bait'
+    name: '<lang.skill-farming-perk-fishing-2-display-name>'
     icon: SALMON
-    description: '&7Your catches improve in quality, and you catch fish slightly faster'
+    description: '<lang.skill-farming-perk-fishing-2-description>'
     required_lv: 40
     perk_rewards:
       farming_fishing_reward_tier_add: 0.50
       farming_fishing_time_multiplier_add: -0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eImproved Bait'
-      - '&7Your fishing luck increases by 0.5'
-      - '&7and you catch fish slightly faster.'
-      - ' '
+      - '<lang.skill-farming-perk-fishing-2-messages>'
   farming_perk_fishing_3:
     hidden: true
     cost: 1
     coords: 6,6
     requireperk_one:
       - farming_perk_fishing_2
-    name: '&7Magnetic Hook'
+    name: '<lang.skill-farming-perk-fishing-3-display-name>'
     icon: PUFFERFISH
-    description: '&7Your catches improve in quality greatly, you catch fish slightly faster, and fish feeds you even more'
+    description: '<lang.skill-farming-perk-fishing-3-description>'
     required_lv: 60
     perk_rewards:
       farming_fishing_reward_tier_add: 1.00
       farming_fishing_time_multiplier_add: -0.1
       farming_pescotarian_food_multiplier_add: 0.4
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMagnetic Hook'
-      - '&7Your fishing luck increases by 0.5'
-      - '&7and you catch fish slightly faster.'
-      - '&7Fish nourishes you even more'
-      - ' '
+      - '<lang.skill-farming-perk-fishing-3-messages>'
   farming_perk_fishing_4:
     hidden: true
     cost: 1
     coords: 5,2
     requireperk_one:
       - farming_perk_fishing_3
-    name: '&7Enchanted Bait'
+    name: '<lang.skill-farming-perk-fishing-4-display-name>'
     icon: TROPICAL_FISH
-    description: '&7Your catches improve in quality, you now catch fish twice as fast'
+    description: '<lang.skill-farming-perk-fishing-4-description>'
     required_lv: 80
     perk_rewards:
       farming_fishing_reward_tier_add: 1.0
       farming_fishing_time_multiplier_add: -0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eEnchanted Bait'
-      - '&7Your fishing luck increases by 1.0'
-      - '&7and you catch fish twice as fast now.'
-      - ' '
+      - '<lang.skill-farming-perk-fishing-4-messages>'

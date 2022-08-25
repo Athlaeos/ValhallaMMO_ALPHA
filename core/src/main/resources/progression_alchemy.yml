@@ -67,7 +67,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&dAlchemy&7 leveled up to &d%level%'
+  - '<lang.skill-level-up-alchemy>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   alchemy_quality_general_add: 2
@@ -77,12 +77,12 @@ starting_coordinates: '3,8' # The coordinates in the skill tree the player sees 
 perks:
   alchemy_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Novice Alchemy' # Name of the icon within the skill tree
+    name: '<lang.skill-alchemy-perk-main-1-display-name>' # Name of the icon within the skill tree
     icon: POTION # Icon itself within the skill tree
     coords: 3,8 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potions of &eLuck&7 and &eNight Vision&7'
+    description: '<lang.skill-alchemy-perk-main-1-description>'
     required_lv: 0 # Required alchemy level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       alchemy_quality_general_add: 10
@@ -94,24 +94,16 @@ perks:
         - brew_potion_night_vision_splash
         - brew_potion_night_vision_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eNovice Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality.'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eLuck &7(Tropical Fish)'
-      - '&7- &eNight Vision &7(Golden Carrot)'
-      - ' '
+      - '<lang.skill-alchemy-perk-main-1-messages>'
   alchemy_perk_main_2:
     hidden: true
     cost: 1
     coords: 3,8
     requireperk_one:
       - alchemy_perk_main_1
-    name: '&7Apprentice Alchemy'
+    name: '<lang.skill-alchemy-perk-main-2-display-name>'
     icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potions of &eEfficient Brewing&7 and &eConduit Power'
+    description: '<lang.skill-alchemy-perk-main-2-description>'
     required_lv: 20
     perk_rewards:
       alchemy_quality_general_add: 10
@@ -123,24 +115,16 @@ perks:
         - brew_potion_conduit_power_splash
         - brew_potion_conduit_power_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eApprentice Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eEfficient Brewing &7(Chorus Fruit)'
-      - '&7- &eConduit Power &7(Nautilus Shell)'
-      - ' '
+      - '<lang.skill-alchemy-perk-main-2-messages>'
   alchemy_perk_main_3:
     hidden: true
     cost: 1
     coords: 3,8
     requireperk_one:
       - alchemy_perk_main_2
-    name: '&7Adept Alchemy'
+    name: '<lang.skill-alchemy-perk-main-3-display-name>'
     icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potions of &eRapid Brewing&7 and &eHaste'
+    description: '<lang.skill-alchemy-perk-main-3-description>'
     required_lv: 40
     perk_rewards:
       alchemy_quality_general_add: 10
@@ -152,24 +136,16 @@ perks:
         - brew_potion_haste_splash
         - brew_potion_haste_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdept Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eRapid Brewing &7(Blaze Rod)'
-      - '&7- &eHaste &7(Nether Quartz)'
-      - ' '
+      - '<lang.skill-alchemy-perk-main-3-messages>'
   alchemy_perk_main_4:
     hidden: true
     cost: 1
     coords: 3,8
     requireperk_one:
       - alchemy_perk_main_3
-    name: '&7Expert Alchemy'
+    name: '<lang.skill-alchemy-perk-main-4-display-name>'
     icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potion of &eWisdom'
+    description: '<lang.skill-alchemy-perk-main-4-description>'
     required_lv: 60
     perk_rewards:
       alchemy_quality_general_add: 10
@@ -181,23 +157,16 @@ perks:
         - brew_potion_increase_vanilla_exp_splash
         - brew_potion_increase_vanilla_exp_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExpert Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eWisdom &7(Nether Star)'
-      - ' '
+      - '<lang.skill-alchemy-perk-main-4-messages>'
   alchemy_perk_main_5:
     hidden: true
     cost: 1
     coords: 3,8
     requireperk_one:
       - alchemy_perk_main_4
-    name: '&7Master Alchemy'
+    name: '<lang.skill-alchemy-perk-main-5-display-name>'
     icon: POTION
-    description: '&7All your brewed potions gain an extra &e+10&7 points to their quality. Unlocks potion of &eHealth Boost'
+    description: '<lang.skill-alchemy-perk-main-5-description>'
     required_lv: 80
     perk_rewards:
       alchemy_quality_general_add: 10
@@ -206,14 +175,7 @@ perks:
         - brew_potion_health_boost_splash
         - brew_potion_health_boost_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMaster Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+10 &7quality'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eHealth Boost &7(Sweet Berries)'
-      - ' '
+      - '<lang.skill-alchemy-perk-main-5-messages>'
   alchemy_perk_main_6:
     hidden: true
     cost: 1
@@ -223,9 +185,9 @@ perks:
       - alchemy_perk_transmutation_2
       - alchemy_perk_debuff_3
       - alchemy_perk_buff_3
-    name: '&7Ascended Alchemy'
+    name: '<lang.skill-alchemy-perk-main-6-display-name>'
     icon: POTION
-    description: '&7All your brewed potions gain an extra &e+25&7 points to their quality. Unlocks Potion of &eWar.'
+    description: '<lang.skill-alchemy-perk-main-6-description>'
     required_lv: 100
     perk_rewards:
       alchemy_quality_general_add: 25
@@ -234,23 +196,16 @@ perks:
         - brew_potion_bad_omen_splash
         - brew_potion_bad_omen_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAscended Alchemy'
-      - '&7Your &epotions &7benefit from an'
-      - '&7additional &e+25 &7quality. '
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eWar &7(Totem of Undying)'
-      - ' '
+      - '<lang.skill-alchemy-perk-main-6-messages>'
   alchemy_perk_debuff_1:
     hidden: true
     cost: 1
     coords: 1,7
     requireperk_one:
       - alchemy_perk_main_1
-    name: '&7Beginner Poisoncraft'
+    name: '<lang.skill-alchemy-perk-debuff-1-display-name>'
     icon: SPLASH_POTION
-    description: '&7All your brewed poisons gain an additional &e+10&7 points to their quality. Unlocks Potion of &eMining Fatigue &7and &eStrong Arm.'
+    description: '<lang.skill-alchemy-perk-debuff-1-description>'
     required_lv: 30
     perk_rewards:
       alchemy_quality_debuff_add: 10
@@ -262,24 +217,16 @@ perks:
         - brew_potion_mining_fatigue_splash
         - brew_potion_mining_fatigue_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBeginner Poisoncraft'
-      - '&7Your &epoisons &7benefit from an additional'
-      - '&e+10 &7quality.'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eStrong Arm &7(Egg)'
-      - '&7- &eMining Fatigue &7(Sponge)'
-      - ' '
+      - '<lang.skill-alchemy-perk-debuff-1-messages>'
   alchemy_perk_debuff_2:
     hidden: true
     cost: 1
     coords: 0,5
     requireperk_one:
       - alchemy_perk_debuff_1
-    name: '&7Witchcraft'
+    name: '<lang.skill-alchemy-perk-debuff-2-display-name>'
     icon: CAULDRON
-    description: '&7You throw potions 50% further. Unlocks potions of &eWither &7and &eBlindness'
+    description: '<lang.skill-alchemy-perk-debuff-2-description>'
     required_lv: 50
     perk_rewards:
       alchemy_throw_velocity_add: 0.5
@@ -291,45 +238,32 @@ perks:
         - brew_potion_wither_splash
         - brew_potion_wither_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eWitchcraft'
-      - '&7You can throw potions 50% further'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eWither &7(Wither Rose)'
-      - '&7- &eBlindness &7(Ink Sac)'
-      - ' '
+      - '<lang.skill-alchemy-perk-debuff-2-messages>'
   alchemy_perk_debuff_3:
     hidden: true
     cost: 1
     coords: 1,3
     requireperk_one:
       - alchemy_perk_debuff_2
-    name: '&7Double Toil and Trouble'
+    name: '<lang.skill-alchemy-perk-debuff-3-display-name>'
     icon: SPLASH_POTION
-    description: '&7All your brewed poisons gain an additional &e+15&7 points to their quality. You gain a &e33% &7chance to not consume an ingredient during brewing and a &e20% &7chance to re-use potions on throwing or drinking'
+    description: '<lang.skill-alchemy-perk-debuff-3-description>'
     required_lv: 70
     perk_rewards:
       alchemy_quality_debuff_add: 15
       alchemy_ingredient_save_chance_add: 0.33
       alchemy_potion_save_chance_add: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eDouble Toil and Trouble'
-      - '&7Your &epoisons &7benefit from an additional'
-      - '&e+15 &7quality. Whenever you brew, you have a'
-      - '&e33% &7chance to not consume the ingredient.'
-      - '&7You also have a &e20% &7chance to not use'
-      - '&7a thrown or drunk potion.'
+      - '<lang.skill-alchemy-perk-debuff-3-messages>'
   alchemy_perk_buff_1:
     hidden: true
     cost: 1
     coords: 5,7
     requireperk_one:
       - alchemy_perk_main_1
-    name: '&7Beginner Medicationcraft'
+    name: '<lang.skill-alchemy-perk-buff-1-display-name>'
     icon: LINGERING_POTION
-    description: '&7All your brewed beneficial potions gain an additional &e+10&7 points to their quality. Unlocks Potion of &eRegeneration &7and &eInstant Health.'
+    description: '<lang.skill-alchemy-perk-buff-1-description>'
     required_lv: 30
     perk_rewards:
       alchemy_quality_buff_add: 10
@@ -341,24 +275,16 @@ perks:
         - brew_potion_instant_health_splash
         - brew_potion_instant_health_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBeginner Medicationcraft'
-      - '&7Your &epotions &7benefit from an additional'
-      - '&e+10 &7quality. '
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eRegeneration &7(Ghast Tear)'
-      - '&7- &eInstant Health &7(Glistering Melon)'
-      - ' '
+      - '<lang.skill-alchemy-perk-buff-1-messages>'
   alchemy_perk_buff_2:
     hidden: true
     cost: 1
     coords: 6,5
     requireperk_one:
       - alchemy_perk_buff_1
-    name: '&7Efficient Alchemist'
+    name: '<lang.skill-alchemy-perk-buff-2-display-name>'
     icon: BREWING_STAND
-    description: '&7Your brewing stands brews &e+30%&7 faster. Unlocks potions of &eSaturation &7and &eStrength'
+    description: '<lang.skill-alchemy-perk-buff-2-description>'
     required_lv: 50
     perk_rewards:
       alchemy_speed_multiplier_add: 0.3
@@ -370,23 +296,16 @@ perks:
         - brew_potion_strength_splash
         - brew_potion_strength_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eRapid Burn'
-      - '&7You brew all potions &e+30% &7faster'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eStrength &7(Blaze Powder)'
-      - '&7- &eSaturation &7(Honey)'
-      - ' '
+      - '<lang.skill-alchemy-perk-buff-2-messages>'
   alchemy_perk_buff_3:
     hidden: true
     cost: 1
     coords: 5,3
     requireperk_one:
       - alchemy_perk_buff_2
-    name: '&7Great Power'
+    name: '<lang.skill-alchemy-perk-buff-3-display-name>'
     icon: LINGERING_POTION
-    description: '&7All your brewed beneficial potions gain an additional &e+15&7 points to their quality. Unlocks all skill fortification potions.'
+    description: '<lang.skill-alchemy-perk-buff-3-description>'
     required_lv: 70
     perk_rewards:
       alchemy_quality_buff_add: 15
@@ -428,25 +347,7 @@ perks:
         - brew_potion_fortify_acrobatics_splash
         - brew_potion_fortify_acrobatics_lingering
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdvanced Medicationcraft'
-      - '&7Your &epotions &7benefit from an additional'
-      - '&e+15 &7quality. '
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eFortify Smithing &7(Iron Ingot)'
-      - '&7- &eFortify Enchanting &7(Bottle ''o'' Enchanting)'
-      - '&7- &eFortify Farming &7(Beetroot)'
-      - '&7- &eFortify Woodcutting &7(Dark Oak Sapling)'
-      - '&7- &eFortify Mining &7(Brown Mushroom)'
-      - '&7- &eFortify Trading &7(Emerald)'
-      - '&7- &eFortify Acrobatics &7(Feather)'
-      - '&7- &eSharpshooting &7(Bone)'
-      - '&7- &ePhantom Arrows &7(Spectral Arrow)'
-      - '&7- &eEagle Eye &7(Carrot)'
-      - '&7- &eBrawling &7(Red Mushroom)'
-      - '&7- &eBerserk &7(Crimson Fungus)'
-      - ' '
+      - '<lang.skill-alchemy-perk-buff-3-messages>'
   alchemy_perk_transmutation_1:
     hidden: true
     cost: 1
@@ -454,9 +355,9 @@ perks:
     requireperk_all:
       - alchemy_perk_buff_3
       - alchemy_perk_debuff_3
-    name: '&7The Secrets of Transmutation'
+    name: '<lang.skill-alchemy-perk-transmutation-1-display-name>'
     icon: GOLD_BLOCK
-    description: '&7Unlocks &eAlchemic Precursor &7that, when thrown on something, may transmute it to something else. Probably not good to drink though...'
+    description: '<lang.skill-alchemy-perk-transmutation-1-description>'
     required_lv: 90
     perk_rewards:
       unlock_recipes:
@@ -475,23 +376,16 @@ perks:
         - midas_9
         - midas_10
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eThe Secrets of Transmutation'
-      - '&7You unlock &eAlchemic Precursor'
-      - '&7which you can brew with Enchanted Gold Blocks.'
-      - '&7Alchemic Precursor can change blocks'
-      - '&7when thrown on top of.'
-      - '&7Blocks of gold may be enchanted by infusing them'
-      - '&7with &eBottle ''o'' Enchanting, and 25 Levels.'
+      - '<lang.skill-alchemy-perk-transmutation-1-messages>'
   alchemy_perk_transmutation_2:
     hidden: true
     cost: 1
     coords: 3,0
     requireperk_one:
       - alchemy_perk_transmutation_1
-    name: '&7Magnum Opus'
+    name: '<lang.skill-alchemy-perk-transmutation-2-display-name>'
     icon: ENCHANTED_GOLDEN_APPLE
-    description: '&7Your &eAlchemic Precursor&7 can transform copper to iron, iron to gold, and emerald to diamond. Unlocks Potion of Ambrosia'
+    description: '<lang.skill-alchemy-perk-transmutation-2-description>'
     required_lv: 100
     perk_rewards:
       unlock_recipes:
@@ -510,12 +404,4 @@ perks:
         - midas_9
         - midas_10
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMagnum Opus'
-      - '&7Your &eAlchemic Precursor &7can'
-      - '&7now transmute copper to iron, iron to gold,'
-      - '&7and emerald to diamond.'
-      - ' '
-      - '&7Unlocks Potion Recipes:'
-      - '&7- &eAmbrosia &7(Enchanted Golden Apple)'
-      - ' '
+      - '<lang.skill-alchemy-perk-transmutation-2-messages>'

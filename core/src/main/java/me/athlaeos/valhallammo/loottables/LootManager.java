@@ -13,6 +13,7 @@ import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.ChancedHeavyW
 import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.ChancedLightWeaponsLootTable;
 import me.athlaeos.valhallammo.loottables.chance_based_entity_loot.GlobalChancedEntityLootTable;
 import me.athlaeos.valhallammo.loottables.tiered_loot_tables.TieredFishingLootTable;
+import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -108,6 +109,7 @@ public class LootManager {
                 if (name == null) throw new IllegalStateException("Loot entry name cannot be null");
                 ItemStack drop = config.getItemStack("entries." + entry + ".drop");
                 if (drop == null) throw new IllegalStateException("Loot entry drop cannot be null");
+                drop = TranslationManager.getInstance().translateItemStack(drop);
                 Set<Biome> biomeFilter = new HashSet<>();
                 for (String s : config.getStringList("entries." + entry + ".biome_filter")){
                     try {
@@ -192,6 +194,7 @@ public class LootManager {
                 if (name == null) throw new IllegalStateException("Loot entry name cannot be null");
                 ItemStack drop = config.getItemStack("entries." + entry + ".drop");
                 if (drop == null) throw new IllegalStateException("Loot entry drop cannot be null");
+                drop = TranslationManager.getInstance().translateItemStack(drop);
                 Set<Biome> biomeFilter = new HashSet<>();
                 for (String s : config.getStringList("entries." + entry + ".biome_filter")){
                     try {
@@ -275,6 +278,7 @@ public class LootManager {
                 if (name == null) throw new IllegalStateException("Loot entry name cannot be null");
                 ItemStack drop = config.getItemStack("entries." + entry + ".drop");
                 if (drop == null) throw new IllegalStateException("Loot entry drop cannot be null");
+                drop = TranslationManager.getInstance().translateItemStack(drop);
                 Set<Biome> biomeFilter = new HashSet<>();
                 for (String s : config.getStringList("entries." + entry + ".biome_filter")){
                     try {

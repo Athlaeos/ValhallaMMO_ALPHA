@@ -124,7 +124,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&bEnchanting&7 leveled up to &b%level%'
+  - '<lang.skill-level-up-enchanting>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   enchanting_quality_general_add: 2
@@ -141,94 +141,72 @@ starting_coordinates: '4,6' # The coordinates in the skill tree the player sees 
 perks:
   enchanting_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Novice Enchanting' # Name of the icon within the skill tree
+    name: '<lang.skill-enchanting-perk-main-1-display-name>' # Name of the icon within the skill tree
     icon: ENCHANTED_BOOK # Icon itself within the skill tree
     coords: 4,6 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7Your enchanting is &e10&7 points more potent'
+    description: '<lang.skill-enchanting-perk-main-1-description>'
     required_lv: 0 # Required alchemy level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       enchanting_quality_general_add: 10
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eNovice Enchanting'
-      - '&7Your enchantments are &e+10 points'
-      - '&7more potent'
-      - ' '
+      - '<lang.skill-enchanting-perk-main-1-messages>'
   enchanting_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - enchanting_perk_main_1
-    name: '&7Apprentice Enchanting'
+    name: '<lang.skill-enchanting-perk-main-2-display-name>'
     icon: ENCHANTED_BOOK
-    description: '&7Your enchanting is &e10&7 points more potent'
+    description: '<lang.skill-enchanting-perk-main-2-description>'
     required_lv: 20
     perk_rewards:
       enchanting_quality_general_add: 10
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eApprentice Enchanting'
-      - '&7Your enchantments are &e+10 points'
-      - '&7more potent'
-      - ' '
+      - '<lang.skill-enchanting-perk-main-2-messages>'
   enchanting_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - enchanting_perk_main_2
-    name: '&7Adept Enchanting'
+    name: '<lang.skill-enchanting-perk-main-3-display-name>'
     icon: ENCHANTED_BOOK
-    description: '&7Your enchanting is &e10&7 points more potent, unlocks enchantment of &eFortify Alchemy'
+    description: '<lang.skill-enchanting-perk-main-3-description>'
     required_lv: 40
     perk_rewards:
       enchanting_quality_general_add: 10
       unlock_recipes:
         - enchantment_helmet_fortify_alchemy
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdept Enchanting'
-      - '&7Your enchantments are &e+10 points'
-      - '&7more potent'
-      - ' '
-      - '&7Unlocks Enchantments:'
-      - '&7- &eFortify Alchemy'
-      - ' '
+      - '<lang.skill-enchanting-perk-main-3-messages>'
   enchanting_perk_main_4:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - enchanting_perk_main_3
-    name: '&7Expert Enchanting'
+    name: '<lang.skill-enchanting-perk-main-4-display-name>'
     icon: ENCHANTED_BOOK
-    description: '&7Your enchanting is &e10&7 points more potent, unlocks enchantment of &eFortify Smithing'
+    description: '<lang.skill-enchanting-perk-main-4-description>'
     required_lv: 60
     perk_rewards:
       enchanting_quality_general_add: 10
       unlock_recipes:
         - enchantment_chestplate_fortify_smithing
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExpert Enchanting'
-      - '&7Your enchantments are &e+10 points'
-      - '&7more potent'
-      - ' '
-      - '&7Unlocks Enchantments:'
-      - '&7- &eFortify Smithing'
-      - ' '
+      - '<lang.skill-enchanting-perk-main-4-messages>'
   enchanting_perk_main_5:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - enchanting_perk_main_4
-    name: '&7Master Enchanting'
+    name: '<lang.skill-enchanting-perk-main-5-display-name>'
     icon: ENCHANTED_BOOK
-    description: '&7Your enchanting is &e10&7 points more potent, unlocks enchantments of &eDestruction'
+    description: '<lang.skill-enchanting-perk-main-5-description>'
     required_lv: 80
     perk_rewards:
       enchanting_quality_general_add: 10
@@ -237,43 +215,31 @@ perks:
         - enchantment_shovel_mining_aoe
         - enchantment_axe_mining_aoe
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMaster Enchanting'
-      - '&7Your enchantments are &e+10 points'
-      - '&7more potent'
-      - ' '
-      - '&7Unlocks Enchantments:'
-      - '&7- &eDestruction <not yet implemented haha :)>'
-      - ' '
+      - '<lang.skill-enchanting-perk-main-5-messages>'
   enchanting_perk_vanilla_1:
     hidden: true
     cost: 1
     coords: 2,5
     requireperk_one:
       - enchanting_perk_main_1
-    name: '&7Essence Extraction I'
+    name: '<lang.skill-enchanting-perk-vanilla-1-display-name>'
     icon: EXPERIENCE_BOTTLE
-    description: '&7You gain &e33% &7more (vanilla) experience from all sources. Increases your standard enchanting potency by &e+20'
+    description: '<lang.skill-enchanting-perk-vanilla-1-description>'
     required_lv: 30
     perk_rewards:
       enchanting_quality_vanilla_add: 20
       enchanting_vanilla_expgain_add: 0.33
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eEssence Extraction I'
-      - '&7Your enchantments are &e+20 &7points more'
-      - '&7potent. Also, you gain &e33% &7more experience'
-      - '&7from monsters, ores, furnaces, etc.'
-      - ' '
+      - '<lang.skill-enchanting-perk-vanilla-1-messages>'
   enchanting_perk_vanilla_2:
     hidden: true
     cost: 1
     coords: 0,4
     requireperk_one:
       - enchanting_perk_vanilla_1
-    name: '&7Essence Extraction II'
+    name: '<lang.skill-enchanting-perk-vanilla-2-display-name>'
     icon: EMERALD
-    description: '&7You gain a &e25%&7 chance to be refunded &e50% &7of your experience when enchanting. You unlock enchantment of &eExperience.'
+    description: '<lang.skill-enchanting-perk-vanilla-2-description>'
     required_lv: 50
     perk_rewards:
       enchanting_exprefund_chance_set: 0.25
@@ -284,64 +250,46 @@ perks:
         - enchantment_chestplate_vanilla_exp
         - enchantment_leggings_vanilla_exp
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eEssence Extraction II'
-      - '&7You gain a &e25% &7chance to be refunded'
-      - '&e50%&7 of your spent levels (average) upon'
-      - '&7enchanting'
-      - ' '
-      - '&7Unlocks Enchantments:'
-      - '&7- &eExperience'
-      - ' '
+      - '<lang.skill-enchanting-perk-vanilla-2-messages>'
   enchanting_perk_vanilla_3:
     hidden: true
     cost: 1
     coords: 2,3
     requireperk_one:
       - enchanting_perk_vanilla_2
-    name: '&7Essence Extraction III'
+    name: '<lang.skill-enchanting-perk-vanilla-3-display-name>'
     icon: EMERALD_BLOCK
-    description: '&7You gain &e+50%&7 more (vanilla) experience. Increases your standard enchanting potency by &e+30'
+    description: '<lang.skill-enchanting-perk-vanilla-3-description>'
     required_lv: 70
     perk_rewards:
       enchanting_quality_vanilla_add: 30
       enchanting_vanilla_expgain_add: 0.50
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eEssence Extraction III'
-      - '&7Your enchantments are &e+30 &7points more'
-      - '&7potent. Also, you gain &e50% &7more experience'
-      - '&7from monsters, ores, furnaces, etc.'
-      - ' '
+      - '<lang.skill-enchanting-perk-vanilla-3-messages>'
   enchanting_perk_custom_1:
     hidden: true
     cost: 1
     coords: 6,5
     requireperk_one:
       - enchanting_perk_main_1
-    name: '&7Learning I'
+    name: '<lang.skill-enchanting-perk-custom-1-display-name>'
     icon: BOOK
-    description: '&7All skills level &e+5%&7 faster. Increases your special enchanting potency by &e+20'
+    description: '<lang.skill-enchanting-perk-custom-1-description>'
     required_lv: 30
     perk_rewards:
       enchanting_quality_custom_add: 20
       expgain_add: 5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eLearning I'
-      - '&7Your special enchantments are &e+20 &7points'
-      - '&7stronger. Also, your skills level &e5%'
-      - '&7faster'
-      - ' '
+      - '<lang.skill-enchanting-perk-custom-1-messages>'
   enchanting_perk_custom_2:
     hidden: true
     cost: 1
     coords: 8,4
     requireperk_one:
       - enchanting_perk_custom_1
-    name: '&7Learning II'
+    name: '<lang.skill-enchanting-perk-custom-2-display-name>'
     icon: WRITABLE_BOOK
-    description: '&7You gain &e25%&7 more special enchanting (skill) experience. You unlock enchantments of &eLearning.'
+    description: '<lang.skill-enchanting-perk-custom-2-description>'
     required_lv: 50
     perk_rewards:
       enchanting_skill_expgain_custom_add: 0.25
@@ -351,34 +299,22 @@ perks:
         - enchantment_chestplate_skill_exp
         - enchantment_leggings_skill_exp
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eLearning II'
-      - '&7You gain a &e25% &7more special'
-      - '&7enchanting (skill) experience'
-      - ' '
-      - '&7Unlocks Enchantments:'
-      - '&7- &eLearning'
-      - ' '
+      - '<lang.skill-enchanting-perk-custom-2-messages>'
   enchanting_perk_custom_3:
     hidden: true
     cost: 1
     coords: 6,3
     requireperk_one:
       - enchanting_perk_custom_2
-    name: '&7Learning III'
+    name: '<lang.skill-enchanting-perk-custom-3-display-name>'
     icon: WRITTEN_BOOK
-    description: '&7All skills level &e+10%&7 faster. Increases your special enchanting potency by &e+30'
+    description: '<lang.skill-enchanting-perk-custom-3-description>'
     required_lv: 70
     perk_rewards:
       enchanting_quality_custom_add: 30
       expgain_add: 10
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eLearning III'
-      - '&7Your special enchantments are &e+30 &7points'
-      - '&7stronger. Also, your skills level &e10%'
-      - '&7faster'
-      - ' '
+      - '<lang.skill-enchanting-perk-custom-3-messages>'
   enchanting_perk_spellbinder:
     hidden: true
     cost: 1
@@ -386,49 +322,39 @@ perks:
     requireperk_all:
       - enchanting_perk_custom_3
       - enchanting_perk_vanilla_3
-    name: '&7Spellbinder'
+    name: '<lang.skill-enchanting-perk-spellbinder-display-name>'
     icon: ENCHANTING_TABLE
-    description: '&7Enchantment table enchantments now have a &e100% &7chance to be amplified(or reduced) rather than &e80%&7. Your experience refund chance increases to &e50%, and you have a &e33% &7chance to be refunded lapis lazuli on enchanting'
+    description: '<lang.skill-enchanting-perk-spellbinder-description>'
     required_lv: 90
     perk_rewards:
       enchanting_amplify_chance_set: 1.0
       enchanting_lapis_refund_chance_set: 0.33
       enchanting_exprefund_chance_set: 0.2
     messages:
-      - '&8&m                           '
-      - '&7Your enchantments now have a &e100%'
-      - '&7chance to be amplified rather than'
-      - '&e80%&7. Your experience refund chance'
-      - '&7is increased to &e50%&7, and you get a'
-      - '&e33% &7chance to be refunded lapis lazuli'
-      - ' '
+      - '<lang.skill-enchanting-perk-spellbinder-messages>'
   enchanting_perk_double:
     hidden: true
     cost: 1
     coords: 4,0
     requireperk_one:
       - enchanting_perk_spellbinder
-    name: '&7Grand Magus'
+    name: '<lang.skill-enchanting-perk-double-display-name>'
     icon: DRAGON_EGG
-    description: '&7You are now able to apply &e2 &7special enchantments on an item instead of &e1'
+    description: '<lang.skill-enchanting-perk-double-description>'
     required_lv: 100
     perk_rewards:
       enchanting_max_custom_allowed_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You are now able to apply &e2'
-      - '&7special enchantments to an item'
-      - '&7instead of &e1'
-      - ' '
+      - '<lang.skill-enchanting-perk-double-messages>'
   enchanting_perk_masterpiece:
     hidden: true
     cost: 1
     coords: 4,4
     requireperk_one:
       - enchanting_perk_double
-    name: '&7Miracle'
+    name: '<lang.skill-enchanting-perk-masterpiece-display-name>'
     icon: NETHER_STAR
-    description: '&7Your next special enchantment receives an additional potency of &e+50&7, this can only occur once.'
+    description: '<lang.skill-enchanting-perk-masterpiece-description>'
     required_lv: 100
     perk_rewards:
       potion_effects_add:
@@ -436,8 +362,4 @@ perks:
         - '-1'
         - '50'
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMiracle'
-      - '&7Only your next special enchantment '
-      - '&7will benefit from an additional potency'
-      - '&7of &e+50&7.'
+      - '<lang.skill-enchanting-perk-masterpiece-messages>'

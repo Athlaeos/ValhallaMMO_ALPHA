@@ -27,7 +27,6 @@ public class BlockStore {
     public static boolean isPlaced(Block b){
         PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
         if (customBlockData.has(blockPlacedKey, PersistentDataType.INTEGER)) {
-            System.out.println("block is placed by PSD");
             return true;
         }
         return placedBlocks.containsKey(b.getLocation());
@@ -60,10 +59,10 @@ public class BlockStore {
     public static void setPlaced(Block b, boolean placed){
         PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
         if (placed){
-            customBlockData.remove(blockPlacedKey);
+            customBlockData.set(blockPlacedKey, PersistentDataType.INTEGER, 1);
             placedBlocks.put(b.getLocation(), null);
         } else {
-            customBlockData.set(blockPlacedKey, PersistentDataType.INTEGER, 1);
+            customBlockData.remove(blockPlacedKey);
             placedBlocks.remove(b.getLocation());
         }
     }

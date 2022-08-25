@@ -27,10 +27,10 @@ public class TutorialBook {
     public void loadBookContents(){
         YamlConfiguration bookConfig = ConfigManager.getInstance().getConfig("tutorial_book.yml").get();
 
-        String title = bookConfig.getString("title");
-        String author = bookConfig.getString("author");
+        String title = TranslationManager.getInstance().translatePlaceholders(bookConfig.getString("title"));
+        String author = TranslationManager.getInstance().translatePlaceholders(bookConfig.getString("author"));
         int model_data = bookConfig.getInt("model_data");
-        List<String> contents = bookConfig.getStringList("pages");
+        List<String> contents = TranslationManager.getInstance().translateListPlaceholders(bookConfig.getStringList("pages"));
         if (contents.isEmpty() || title == null || author == null) return;
         List<String> coloredContents = new ArrayList<>();
         for (String s : contents){

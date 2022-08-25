@@ -23,7 +23,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&eLight Armor&7 leveled up to &e%level%'
+  - '<lang.skill-level-up-light-armor>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   light_armor_multiplier_add: 0.005 # light armor value gradually increases from 0.7-1.2x
@@ -33,220 +33,164 @@ starting_coordinates: '4,5' # The coordinates in the skill tree the player sees 
 perks:
   light_armor_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Adrenaline I' # Name of the icon within the skill tree
+    name: '<lang.skill-light-armor-perk-ranked-1-display-name>' # Name of the icon within the skill tree
     icon: LEATHER_CHESTPLATE # Icon itself within the skill tree
     coords: 4,5 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7When you hit 20% health or lower while wearing full light armor &eAdrenaline &7activates, giving you &eSpeed &7and &eJump Boost&7. Has a &e20 minute cooldown'
+    description: '<lang.skill-light-armor-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       light_armor_adrenaline_cooldown_set: 1200000
       light_armor_adrenaline_level_set: 1
       light_armor_adrenaline_threshold_set: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdrenaline I'
-      - '&7Hitting low health while wearing'
-      - '&7full light armor briefly gives you'
-      - '&eSpeed &7and &eJump Boost&7.'
-      - '&cHas 20 minute cooldown'
-      - ' '
+      - '<lang.skill-light-armor-perk-ranked-1-messages>'
   light_armor_perk_ranked_2:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - light_armor_perk_ranked_1
-    name: '&7Adrenaline II'
+    name: '<lang.skill-light-armor-perk-ranked-2-display-name>'
     icon: LEATHER_CHESTPLATE
-    description: '&7Adrenaline becomes more effective, gaining &eRegeneration&7, and its cooldown is reduced to &e16 minutes'
+    description: '<lang.skill-light-armor-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
       light_armor_adrenaline_cooldown_set: 960000
       light_armor_adrenaline_level_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdrenaline II'
-      - '&7Adrenaline gains &eRegeneration&7,'
-      - '&7and its cooldown is reduced to'
-      - '&e16 minutes'
-      - ' '
+      - '<lang.skill-light-armor-perk-ranked-2-messages>'
   light_armor_perk_ranked_3:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - light_armor_perk_ranked_2
-    name: '&7Adrenaline III'
+    name: '<lang.skill-light-armor-perk-ranked-3-display-name>'
     icon: CHAINMAIL_CHESTPLATE
-    description: '&7Adrenaline becomes more effective, providing &eSpeed II &7and &eJump Boost II&7, and its cooldown is reduced to &e12 minutes'
+    description: '<lang.skill-light-armor-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
       light_armor_adrenaline_cooldown_set: 720000
       light_armor_adrenaline_level_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdrenaline III'
-      - '&7Adrenaline''s &eSpeed &7and &eJump Boost'
-      - '&7effects are &e1 amplifier &7stronger,'
-      - '&7and its cooldown is reduced to &e12 minutes'
-      - ' '
+      - '<lang.skill-light-armor-perk-ranked-3-messages>'
   light_armor_perk_ranked_4:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - light_armor_perk_ranked_3
-    name: '&7Adrenaline IV'
+    name: '<lang.skill-light-armor-perk-ranked-4-display-name>'
     icon: CHAINMAIL_CHESTPLATE
-    description: '&7Adrenaline becomes more effective, providing &eRegeneration II&7, and its cooldown is reduced to &e8 minutes'
+    description: '<lang.skill-light-armor-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
       light_armor_adrenaline_cooldown_set: 480000
       light_armor_adrenaline_level_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdrenaline IV'
-      - '&7Adrenaline''s &eRegeneration'
-      - '&7effect is &e1 amplifier &7stronger,'
-      - '&7and its cooldown is reduced to &e8 minutes'
-      - ' '
+      - '<lang.skill-light-armor-perk-ranked-4-messages>'
   light_armor_perk_ranked_5:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - light_armor_perk_ranked_4
-    name: '&7Live To Fight Another Day'
+    name: '<lang.skill-light-armor-perk-ranked-5-display-name>'
     icon: DIAMOND_CHESTPLATE
-    description: '&7Adrenaline becomes more effective, providing &eSpeed III &7and &eJump Boost III&7, its cooldown is reduced to &e4 minutes, and it now triggers at &e30% health &7instead of 20%'
+    description: '<lang.skill-light-armor-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
       light_armor_adrenaline_cooldown_set: 240000
       light_armor_adrenaline_level_add: 1
       light_armor_adrenaline_threshold_set: 0.3
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdrenaline V'
-      - '&7Adrenaline''s &eSpeed &7and &eJump Boost'
-      - '&7effects are &e1 amplifier &7stronger,'
-      - '&7its cooldown is reduced to &e4 minutes,'
-      - '&7and it now triggers at &e30% health'
-      - ' '
+      - '<lang.skill-light-armor-perk-ranked-5-messages>'
   light_armor_perk_set_1:
     hidden: true
     cost: 1
     coords: 2,4
     requireperk_one:
       - light_armor_perk_ranked_1
-    name: '&7Comfortable Fit'
+    name: '<lang.skill-light-armor-perk-set-1-display-name>'
     icon: COOKED_BEEF
-    description: '&7While wearing a full set of light armor, you lose hunger &e20% &7slower'
+    description: '<lang.skill-light-armor-perk-set-1-description>'
     required_lv: 20
     perk_rewards:
       light_armor_set_bonus_hunger_save_chance_set: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eComfortable Fit'
-      - '&7You lose hunger &e20% &7slower'
-      - '&7while wearing a full set of light'
-      - '&7armor'
-      - ' '
+      - '<lang.skill-light-armor-perk-set-1-messages>'
   light_armor_perk_set_2:
     hidden: true
     cost: 1
     coords: 2,2
     requireperk_one:
       - light_armor_perk_set_1
-    name: '&7Spatial Awareness'
+    name: '<lang.skill-light-armor-perk-set-2-display-name>'
     icon: FEATHER
-    description: '&7While wearing a full set of light armor, you gain a &e10% chance &7to dodge attacks (must be able to see attacker for this)'
+    description: '<lang.skill-light-armor-perk-set-2-description>'
     required_lv: 40
     perk_rewards:
       light_armor_set_bonus_dodge_chance_set: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSpatial Awareness'
-      - '&7You gain a &e10% &7dodge chance'
-      - '&7while wearing a full set of light'
-      - '&7armor, as long as you are facing the'
-      - '&7attacker'
-      - ' '
+      - '<lang.skill-light-armor-perk-set-2-messages>'
   light_armor_perk_set_3:
     hidden: true
     cost: 1
     coords: 1,1
     requireperk_one:
       - light_armor_perk_set_2
-    name: '&7Improvisation'
+    name: '<lang.skill-light-armor-perk-set-3-display-name>'
     icon: LEATHER_HELMET
-    description: '&7You now only need to wear &e3 pieces &7of light armor to benefit from &e''set bonus'' &7perks'
+    description: '<lang.skill-light-armor-perk-set-3-description>'
     required_lv: 60
     perk_rewards:
       light_armor_set_bonus_pieces_required_set: 3
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eImprovisation'
-      - '&7You now only need to wear &e3 pieces'
-      - '&7of light armor to benefit from'
-      - '&7set bonusses'
-      - ' '
+      - '<lang.skill-light-armor-perk-set-3-messages>'
   light_armor_perk_set_4:
     hidden: true
     cost: 1
     coords: 6,4
     requireperk_one:
       - light_armor_perk_ranked_1
-    name: '&7Fleeting'
+    name: '<lang.skill-light-armor-perk-set-4-display-name>'
     icon: LEATHER_LEGGINGS
-    description: '&7Light armor weighs significantly less and doesn''t slow you down as much when worn'
+    description: '<lang.skill-light-armor-perk-set-4-description>'
     required_lv: 20
     perk_rewards:
       light_armor_movement_speed_penalty_set: 0.03
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFleeting'
-      - '&7Light armor is significantly'
-      - '&7lighter, and slows you &e40% &7less'
-      - ' '
+      - '<lang.skill-light-armor-perk-set-4-messages>'
   light_armor_perk_set_5:
     hidden: true
     cost: 1
     coords: 6,2
     requireperk_one:
       - light_armor_perk_set_4
-    name: '&7Custom Fit'
+    name: '<lang.skill-light-armor-perk-set-5-display-name>'
     icon: CHAINMAIL_CHESTPLATE
-    description: '&7Light armor becomes &e20% &7more protective while wearing a full set'
+    description: '<lang.skill-light-armor-perk-set-5-description>'
     required_lv: 40
     perk_rewards:
       light_armor_set_bonus_armor_set: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eCustom Fit'
-      - '&7Light armor is &e20% &7more '
-      - '&7protective while you''re wearing'
-      - '&7a full set of light armor'
-      - ' '
+      - '<lang.skill-light-armor-perk-set-5-messages>'
   light_armor_perk_set_6:
     hidden: true
     cost: 1
     coords: 7,1
     requireperk_one:
       - light_armor_perk_set_5
-    name: '&7Unhindered'
+    name: '<lang.skill-light-armor-perk-set-6-display-name>'
     icon: CHAINMAIL_LEGGINGS
-    description: '&7Light armor weighs nothing, and no longer slows you down when worn'
+    description: '<lang.skill-light-armor-perk-set-6-description>'
     required_lv: 60
     perk_rewards:
       light_armor_movement_speed_penalty_set: 0
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eUnhindered'
-      - '&7Light armor weighs nothing'
-      - '&7and no longer slows you down'
-      - ' '
+      - '<lang.skill-light-armor-perk-set-6-messages>'
   light_armor_perk_immunity_1:
     hidden: true
     cost: 1
@@ -254,39 +198,29 @@ perks:
     requireperk_all:
       - light_armor_perk_set_3
       - light_armor_perk_set_6
-    name: '&7Dragonskin'
+    name: '<lang.skill-light-armor-perk-immunity-1-display-name>'
     icon: DIAMOND_CHESTPLATE
-    description: '&7You become completely immune against &ePoison &7and &eWithering &7while wearing a full set of light armor'
+    description: '<lang.skill-light-armor-perk-immunity-1-description>'
     required_lv: 80
     perk_rewards:
       light_armor_immune_potion_effects_add:
         - POISON
         - WITHER
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eDragonskin'
-      - '&7You gain immunity against &ePoison'
-      - '&7and &eWither &7potion effects'
-      - ' '
+      - '<lang.skill-light-armor-perk-immunity-1-messages>'
   light_armor_perk_immunity_2:
     hidden: true
     cost: 1
     coords: 4,0
     requireperk_one:
       - light_armor_perk_immunity_1
-    name: '&7Coat of Warding'
+    name: '<lang.skill-light-armor-perk-immunity-2-display-name>'
     icon: DIAMOND_CHESTPLATE
-    description: '&7You gain significant resistance against &eMagic Damage&7 for each piece of light armor you wear. Additionally, you gain immunity against &eMining Fatigue &7while wearing a full set of light armor'
+    description: '<lang.skill-light-armor-perk-immunity-2-description>'
     required_lv: 100
     perk_rewards:
       light_armor_immune_potion_effects_add:
         - SLOW_DIGGING
       light_armor_magic_resistance_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eCoat of Warding'
-      - '&7You gain &e10% &7magic damage resistance'
-      - '&efor each piece of light armor &7you wear.'
-      - '&7Additionally, you are immune against'
-      - '&eMining Fatigue &7potion effects.'
-      - ' '
+      - '<lang.skill-light-armor-perk-immunity-2-messages>'

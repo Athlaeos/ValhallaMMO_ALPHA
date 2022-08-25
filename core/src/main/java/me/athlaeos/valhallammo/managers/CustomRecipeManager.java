@@ -25,6 +25,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 
 public class CustomRecipeManager {
+    private static boolean shouldSaveRecipes = false;
+
+    public static void shouldSaveRecipes() {
+        shouldSaveRecipes = true;
+    }
+
+    public static boolean isShouldSaveRecipes(){
+        return shouldSaveRecipes;
+    }
+
     private static CustomRecipeManager manager = null;
     private final List<NamespacedKey> disabledRecipes = new ArrayList<>();
 
@@ -169,6 +179,7 @@ public class CustomRecipeManager {
             unregister(oldRecipe);
         }
         register(newRecipe);
+        CustomRecipeManager.shouldSaveRecipes();
     }
 
     /**
@@ -186,6 +197,7 @@ public class CustomRecipeManager {
         }
         register(newRecipe);
         saveRecipe(newRecipe, ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get());
+        CustomRecipeManager.shouldSaveRecipes();
     }
 
     public <T extends CookingRecipe<T>> void update(DynamicCookingRecipe<T> oldRecipe, DynamicCookingRecipe<T> newRecipe){
@@ -197,6 +209,7 @@ public class CustomRecipeManager {
         }
         register(newRecipe);
         saveRecipe(newRecipe, ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").get());
+        CustomRecipeManager.shouldSaveRecipes();
     }
 
     /**
@@ -214,6 +227,7 @@ public class CustomRecipeManager {
         }
         register(newRecipe);
         saveRecipe(newRecipe, ConfigManager.getInstance().getConfig("recipes/brewing_recipes.yml").get());
+        CustomRecipeManager.shouldSaveRecipes();
     }
 
     /**
@@ -609,7 +623,7 @@ public class CustomRecipeManager {
                         }
                     }
                 }
-                String displayName = config.getString("improve." + recipe + ".display_name");
+                String displayName = TranslationManager.getInstance().translatePlaceholders(config.getString("improve." + recipe + ".display_name"));
                 Material requiredItem;
                 String requiredItemString = config.getString("improve." + recipe + ".required_type");
                 try {
@@ -634,6 +648,7 @@ public class CustomRecipeManager {
                     for (String ingredientIndex : ingredientSection.getKeys(false)){
                         ItemStack ingredient = config.getItemStack("improve." + recipe + ".ingredients." + ingredientIndex);
                         if (ingredient != null){
+                            ingredient = TranslationManager.getInstance().translateItemStack(ingredient);
                             ingredients.add(ingredient);
                         }
                     }
@@ -704,7 +719,7 @@ public class CustomRecipeManager {
                         }
                     }
                 }
-                String displayName = config.getString("class_improve." + recipe + ".display_name");
+                String displayName = TranslationManager.getInstance().translatePlaceholders(config.getString("class_improve." + recipe + ".display_name"));
                 EquipmentClass requiredClass;
                 String requiredItemString = config.getString("class_improve." + recipe + ".required_class");
                 try {
@@ -729,6 +744,7 @@ public class CustomRecipeManager {
                     for (String ingredientIndex : ingredientSection.getKeys(false)){
                         ItemStack ingredient = config.getItemStack("class_improve." + recipe + ".ingredients." + ingredientIndex);
                         if (ingredient != null){
+                            ingredient = TranslationManager.getInstance().translateItemStack(ingredient);
                             ingredients.add(ingredient);
                         }
                     }
@@ -801,6 +817,7 @@ public class CustomRecipeManager {
                 }
                 ItemStack result = config.getItemStack("craft." + recipe + ".result");
                 if (result == null) continue;
+                result = TranslationManager.getInstance().translateItemStack(result);
                 Material craftBlock;
                 String craftBlockString = config.getString("craft." + recipe + ".craft_block");
                 try {
@@ -810,7 +827,7 @@ public class CustomRecipeManager {
                     ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting material for " + recipe + ".craft_block : " + craftBlockString + ", cancelled crafting recipe");
                     continue;
                 }
-                String displayName = config.getString("craft." + recipe + ".display_name");
+                String displayName = TranslationManager.getInstance().translatePlaceholders(config.getString("craft." + recipe + ".display_name"));
                 if (displayName == null){
                     displayName = "&f" + recipe;
                 }
@@ -819,6 +836,7 @@ public class CustomRecipeManager {
                 if (ingredientSection != null){
                     for (String ingredientIndex : ingredientSection.getKeys(false)){
                         ItemStack ingredient = config.getItemStack("craft." + recipe + ".ingredients." + ingredientIndex);
+                        ingredient = TranslationManager.getInstance().translateItemStack(ingredient);
                         if (ingredient != null){
                             ingredients.add(ingredient);
                         }
@@ -889,6 +907,7 @@ public class CustomRecipeManager {
             for (String recipe : section.getKeys(false)){
                 ItemStack result = config.getItemStack("shaped." + recipe + ".result");
                 if (result == null) continue;
+                result = TranslationManager.getInstance().translateItemStack(result);
                 NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + recipe);
                 ShapedRecipe r = new ShapedRecipe(recipeKey, result);
                 boolean requireCustomTools = config.getBoolean("shaped." + recipe + ".require_custom_tools");
@@ -944,7 +963,7 @@ public class CustomRecipeManager {
                         s = s.substring(0, gridSize);
                         for (Character c : s.toCharArray()){
                             if (c.equals(' ')) {
-                                exactIngredients.put(index, null);
+                                //exactIngredients.put(index, null);
                                 index++;
                                 continue;
                             }
@@ -960,8 +979,13 @@ public class CustomRecipeManager {
                                     continue recipeLoop;
                                 }
                             }
+                            charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
                             exactIngredients.put(index, charItemStack);
-                            r.setIngredient(c, charItemStack.getType());
+                            if (useMetaData){
+                                r.setIngredient(c, new RecipeChoice.ExactChoice(charItemStack));
+                            } else {
+                                r.setIngredient(c, charItemStack.getType());
+                            }
                             index++;
                         }
                     }
@@ -1000,12 +1024,14 @@ public class CustomRecipeManager {
                 float experience = (float) config.getDouble("cooking." + recipe + ".exp");
                 ItemStack exactItemRequirement = config.getItemStack("cooking." + recipe + ".required");
                 if (exactItemRequirement == null) continue;
+                exactItemRequirement = TranslationManager.getInstance().translateItemStack(exactItemRequirement);
                 ItemStack result = config.getItemStack("cooking." + recipe + ".result");
 
                 boolean sameResultAsInput = config.getBoolean("cooking." + recipe + ".tinker_mode");
                 boolean exactMeta = config.getBoolean("cooking." + recipe + ".exact_meta");
                 boolean requireCustomTool = config.getBoolean("cooking." + recipe + ".require_custom_tool");
                 if (result == null) continue;
+                result = TranslationManager.getInstance().translateItemStack(result);
                 if (sameResultAsInput) result = exactItemRequirement.clone();
 
                 List<DynamicItemModifier> modifiers = new ArrayList<>();
@@ -1189,6 +1215,8 @@ public class CustomRecipeManager {
                 ItemStack ingredient = config.getItemStack("brewing." + recipe + ".ingredient");
                 if (ingredient == null) continue;
 
+                ingredient = TranslationManager.getInstance().translateItemStack(ingredient);
+                ItemDictionaryManager.getInstance().addItem(ingredient);
                 DynamicBrewingRecipe finalRecipe = new DynamicBrewingRecipe(recipe, ingredient, applyOn, useMetaData, modifiers);
                 finalRecipe.setUnlockedForEveryone(unlockedForEveryone);
                 recipes.add(finalRecipe);
@@ -1335,6 +1363,10 @@ public class CustomRecipeManager {
         assert inventory.getIngredient() != null;
 
         ItemStack ingredient = inventory.getIngredient();
+        if (!Utils.isItemEmptyOrNull(ingredient)) {
+            ingredient = ingredient.clone();
+            ingredient.setAmount(1);
+        }
         Collection<DynamicBrewingRecipe> specificRecipes = specificBrewingRecipes.get(ingredient);
         if (specificRecipes != null){
             recipeLoop:

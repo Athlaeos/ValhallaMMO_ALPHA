@@ -62,12 +62,7 @@ special_perks: # Perks, commands, and messages executed when a player reaches a 
       # starting with 6 points equates to about 250 blocks mined on a full stomach with full health, or about 10 obsidian blocks
       mining_quickmode_cooldown_set: 60000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &cOverdrive&7.'
-      - '&cShift-right click &7with a pickaxe'
-      - '&7to toggle &cOverdrive Mode&7.'
-      - '&cConsumes hunger/health while active'
-      - '&8&m                           '
+      - '<lang.skill-mining-automatic-unlock-overdrive>'
   60:
     perk_rewards:
       mining_quickmode_rate_add: 1
@@ -93,7 +88,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&cMining&7 leveled up to &c%level%'
+  - '<lang.skill-level-up-mining>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   mining_drop_multiplier_add: 0.008 # amount of drops gradually increases from 0.7-1.5x drops
@@ -115,114 +110,89 @@ starting_coordinates: '4,8' # The coordinates in the skill tree the player sees 
 perks:
   mining_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Sifting' # Name of the icon within the skill tree
+    name: '<lang.skill-mining-perk-ranked-1-display-name>' # Name of the icon within the skill tree
     icon: WOODEN_PICKAXE # Icon itself within the skill tree
     coords: 4,8 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7You''ll occasionally start finding rare minerals while mining rock, ores like coal grant more enchanting experience.'
+    description: '<lang.skill-mining-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       mining_ore_experience_multiplier_add: 0.5
       mining_rare_drop_rate_multiplier_add: 0.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSifter'
-      - '&7You start finding rare minerals in'
-      - '&7rock, and ores like coal or diamond'
-      - '&7give more enchanting experience.'
-      - ' '
+      - '<lang.skill-mining-perk-ranked-1-messages>'
   mining_perk_ranked_2:
-    name: '&7Refiner'
+    name: '<lang.skill-mining-perk-ranked-2-display-name>'
     icon: STONE_PICKAXE
     requireperk_one:
       - mining_perk_ranked_1
     coords: 4,8
     hidden: true
     cost: 1
-    description: '&7Rare minerals become more common, and you start gaining a little bit of enchanting experience while mining rock.'
+    description: '<lang.skill-mining-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
       mining_block_experience_rate_add: 0.05 # 0.05 equals to about 1 in every 20 blocks giving 1 point of experience
       mining_rare_drop_rate_multiplier_add: 0.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eRefiner'
-      - '&7Rare materials become more common,'
-      - '&7and you gain a little bit of enchanting'
-      - '&7experience from mining rock.'
-      - ' '
+      - '<lang.skill-mining-perk-ranked-2-messages>'
   mining_perk_ranked_3:
-    name: '&7Extractor'
+    name: '<lang.skill-mining-perk-ranked-3-display-name>'
     icon: IRON_PICKAXE
     requireperk_one:
       - mining_perk_ranked_2
     coords: 4,8
     hidden: true
     cost: 1
-    description: '&7Rare minerals become even more common, and you gain an extra &e20% &7chance to get 2x resources'
+    description: '<lang.skill-mining-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
       mining_drop_multiplier_add: 0.2
       mining_rare_drop_rate_multiplier_add: 0.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExtractor'
-      - '&7Rare materials become more common,'
-      - '&7and you gain a &e+20% &7chance to'
-      - '&7get double drops.'
-      - ' '
+      - '<lang.skill-mining-perk-ranked-3-messages>'
   mining_perk_ranked_4:
-    name: '&7Archaeologist'
+    name: '<lang.skill-mining-perk-ranked-4-display-name>'
     icon: GOLDEN_PICKAXE
     requireperk_one:
       - mining_perk_ranked_3
     coords: 4,8
     hidden: true
     cost: 1
-    description: '&7Rare minerals become even more common, as well as the experience gained from mining rock and ores'
+    description: '<lang.skill-mining-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
       mining_block_experience_rate_add: 0.05
       mining_rare_drop_rate_multiplier_add: 0.5
       mining_ore_experience_multiplier_add: 1.0
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eArchaeologist'
-      - '&7Rare materials become more common,'
-      - '&7as well as the experience gained'
-      - '&7from mining rock and ores.'
-      - ' '
+      - '<lang.skill-mining-perk-ranked-4-messages>'
   mining_perk_ranked_5:
-    name: '&7Full Extraction'
+    name: '<lang.skill-mining-perk-ranked-5-display-name>'
     icon: DIAMOND_PICKAXE
     requireperk_one:
       - mining_perk_ranked_4
     coords: 4,8
     hidden: true
     cost: 1
-    description: '&7Rare minerals become much more common, you gain a &e+30% &7chance to get double drops, and you get much more enchanting experience from mining rock.'
+    description: '<lang.skill-mining-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
       mining_block_experience_rate_add: 0.1
       mining_drop_multiplier_add: 0.3
       mining_rare_drop_rate_multiplier_add: 1.0
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMaximum Efficiency'
-      - '&7Rare materials become much more common,'
-      - '&7and you gain a &e+30% &7chance to'
-      - '&7get double drops.'
-      - ' '
+      - '<lang.skill-mining-perk-ranked-5-messages>'
   mining_perk_main_1:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - mining_perk_ranked_1
-    name: '&7Vein Mining I'
+    name: '<lang.skill-mining-perk-main-1-display-name>'
     icon: GOLD_ORE
-    description: '&7Mining &eores &7while sneaking rapidly mines all connected ores up to 64 blocks and puts them in your inventory. &c(10 second cooldown)'
+    description: '<lang.skill-mining-perk-main-1-description>'
     required_lv: 40
     perk_rewards:
       mining_vein_mining_cooldown_set: 10000
@@ -247,63 +217,46 @@ perks:
         - NETHER_GOLD_ORE
         - ANCIENT_DEBRIS
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eVein Mining I'
-      - '&7Mining &eores &7while sneaking quickly.'
-      - '&7mines all connected ores and deposits'
-      - '&7them in your inventory. If your inventory'
-      - '&7is full they drop on the ground'
-      - '&c(10 second cooldown)'
-      - ' '
+      - '<lang.skill-mining-perk-main-1-messages>'
   mining_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,4
     requireperk_one:
       - mining_perk_main_1
-    name: '&7Lesser Endurance'
+    name: '<lang.skill-mining-perk-main-2-display-name>'
     icon: BLAZE_POWDER
-    description: '&7You can mine a couple more blocks with &cOverdrive &7before losing hunger or health. Also, you don''t need to rest as long after using the ability'
+    description: '<lang.skill-mining-perk-main-2-description>'
     required_lv: 60
     perk_rewards:
       mining_quickmode_rate_add: 2
       mining_quickmode_cooldown_set: 45000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eLesser Endurance'
-      - '&7You can mine more blocks with'
-      - '&cOverdrive &7before losing hunger'
-      - '&7or health'
-      - ' '
+      - '<lang.skill-mining-perk-main-2-messages>'
   mining_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,2
     requireperk_one:
       - mining_perk_main_2
-    name: '&7Greater Endurance'
+    name: '<lang.skill-mining-perk-main-3-display-name>'
     icon: BLAZE_ROD
-    description: '&7You can mine even more blocks with &cOverdrive &7before losing hunger or health. Also, you need even less time to rest after using the ability'
+    description: '<lang.skill-mining-perk-main-3-description>'
     required_lv: 80
     perk_rewards:
       mining_quickmode_rate_add: 4
       mining_quickmode_cooldown_set: 30000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eGreater Endurance'
-      - '&7You can mine even more blocks with'
-      - '&cOverdrive &7before losing hunger'
-      - '&7or health'
-      - ' '
+      - '<lang.skill-mining-perk-main-3-messages>'
   mining_perk_main_4:
     hidden: true
     cost: 1
     coords: 4,0
     requireperk_one:
       - mining_perk_main_3
-    name: '&7Vein Miner II'
+    name: '<lang.skill-mining-perk-main-4-display-name>'
     icon: DIAMOND_ORE
-    description: '&7Vein Miner now additionally works on &eAndesite&7, &eGranite&7, &eDiorite&7, &eCalcite&7, and &eBlackstone&7. but not Stone, Deepslate, Obsidian, Netherrack, or End Stone'
+    description: '<lang.skill-mining-perk-main-4-description>'
     required_lv: 100
     perk_rewards:
       mining_vein_mining_blocks_add:
@@ -314,98 +267,67 @@ perks:
         - SMOOTH_BLACKSTONE
         - CALCITE
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eVein Miner II'
-      - '&7Vein Miner now also works on '
-      - '&7semi-common blocks like &eAndesite,'
-      - '&eGranite&7, &eDiorite&7, &eCalcite&7, and'
-      - '&eBlackstone'
-      - ' '
+      - '<lang.skill-mining-perk-main-4-messages>'
   blast_mining_perk_a:
     hidden: true
     cost: 1
     coords: 2,8
     requireperk_one:
       - mining_perk_ranked_1
-    name: '&7Blast Mining'
+    name: '<lang.skill-mining-perk-blast-mining-a-display-name>'
     icon: FLINT_AND_STEEL
-    description: '&7TNT is &e50%&7 more powerful, and you also take &e50%&7 less explosion damage from TNT'
+    description: '<lang.skill-mining-perk-blast-mining-a-description>'
     required_lv: 30
     perk_rewards:
       blast_mining_tnt_radius_multiplier_add: 0.5
       blast_mining_tnt_damage_multiplier_add: -0.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eDemolist'
-      - '&7Your TNT is &e50% &7more destructive,'
-      - '&7but the damage you receive from TNT is'
-      - '&7also reduced by &e50%&7.'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-a-messages>'
   blast_mining_perk_b:
     hidden: true
     cost: 1
     coords: 1,7
     requireperk_one:
       - blast_mining_perk_a
-    name: '&7Explosion Expert'
+    name: '<lang.skill-mining-perk-blast-mining-b-display-name>'
     icon: TNT
-    description: '&7You unlock a recipe that allows you to craft 3 tnt for just 1 extra gunpowder'
+    description: '<lang.skill-mining-perk-blast-mining-b-description>'
     required_lv: 50
     perk_rewards:
       unlock_recipes:
         - craft_multiple_tnt
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExplosion Expert'
-      - '&7You unlock a recipe that allows you'
-      - '&7to craft 3 tnt for 1 extra gunpowder.'
-      - '&7Use the following shape:'
-      - '&7|&eG&7|&eS&7|&eG&7|'
-      - '&7|&eG&7|&eS&7|&eG&7|'
-      - '&7|&eG&7|&eS&7|&eG&7|'
-      - '&eG &7= &eGUNPOWDER'
-      - '&eS &7= &eSAND'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-b-messages>'
   blast_mining_perk_c:
     hidden: true
     cost: 1
     coords: 6,8
     requireperk_one:
       - mining_perk_ranked_1
-    name: '&7Blast Efficiency I'
+    name: '<lang.skill-mining-perk-blast-mining-c-display-name>'
     icon: IRON_BLOCK
-    description: '&7You gain &e20% &7more drops from TNT-exploded blocks, as well as more rare drops'
+    description: '<lang.skill-mining-perk-blast-mining-c-description>'
     required_lv: 30
     perk_rewards:
       blast_mining_drop_multiplier_add: 0.2
       blast_mining_rare_drop_multiplier_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBlast Efficiency I'
-      - '&7You gain &e20% &7more drops from TNT-'
-      - '&7exploded blocks, as well as more'
-      - '&7rare drops.'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-c-messages>'
   blast_mining_perk_d:
     hidden: true
     cost: 1
     coords: 7,7
     requireperk_one:
       - blast_mining_perk_c
-    name: '&7Blast Efficiency II'
+    name: '<lang.skill-mining-perk-blast-mining-d-display-name>'
     icon: GOLD_BLOCK
-    description: '&7You gain &e30% &7more drops from TNT-exploded blocks, as well as much more rare drops'
+    description: '<lang.skill-mining-perk-blast-mining-d-description>'
     required_lv: 50
     perk_rewards:
       blast_mining_drop_multiplier_add: 0.3
       blast_mining_rare_drop_multiplier_add: 2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBlast Efficiency II'
-      - '&7You gain &e30% &7more drops from TNT-'
-      - '&7exploded blocks, as well as much more'
-      - '&7rare drops.'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-d-messages>'
   blast_mining_perk_e:
     hidden: true
     cost: 1
@@ -413,53 +335,44 @@ perks:
     requireperk_all:
       - blast_mining_perk_b
       - blast_mining_perk_d
-    name: '&7Aspect of Shiva'
+    name: '<lang.skill-mining-perk-blast-mining-e-display-name>'
     icon: OBSIDIAN
-    description: '&7TNT is &etwice&7 as powerful, and you are completely immune to explosion damage from TNT. You may also choose to enhance your TNT with either Fortune or Silk Touch without spending skill points'
+    description: '<lang.skill-mining-perk-blast-mining-e-description>'
     required_lv: 70
     perk_rewards:
       blast_mining_tnt_radius_multiplier_set: 2.0
       blast_mining_tnt_damage_multiplier_set: 0
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAspect of Shiva'
-      - '&7Your TNT is &e50% &7more destructive,'
-      - '&7but the damage you receive from TNT is'
-      - '&7also reduced by &e50%&7.'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-e-messages>'
   blast_mining_perk_e_silk:
     hidden: true
     cost: 0
     coords: 3,3
     requireperk_all:
       - blast_mining_perk_e
-    name: '&7TNT Upgrade: &9Silk Touch'
+    name: '<lang.skill-mining-perk-blast-mining-e-silk-display-name>'
     icon: FEATHER
-    description: '&7Blocks destroyed by TNT will drop as if they were broken with a &9Silk Touch &7enchantment. Overrides &eFortune &7if previously chosen'
+    description: '<lang.skill-mining-perk-blast-mining-e-silk-description>'
     required_lv: 0
     perk_rewards:
       blast_mining_fortune_level_set: -1
       remove_perks:
         - blast_mining_perk_e_fortune
     messages:
-      - '&8&m                           '
-      - '&7Your TNT is now enchanted with &9Silk Touch'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-e-silk-messages>'
   blast_mining_perk_e_fortune:
     hidden: true
     cost: 0
     coords: 5,3
     requireperk_all:
       - blast_mining_perk_e
-    name: '&7TNT Upgrade: &9Silk Touch'
+    name: '<lang.skill-mining-perk-blast-mining-e-fortune-display-name>'
     icon: LAPIS_LAZULI
-    description: '&7Blocks destroyed by TNT will drop as if they were broken with a &eFortune III &7enchantment. Overrides &9Silk Touch &7if previously chosen'
+    description: '<lang.skill-mining-perk-blast-mining-e-fortune-description>'
     required_lv: 0
     perk_rewards:
       blast_mining_fortune_level_set: 3
       remove_perks:
         - blast_mining_perk_e_silk
     messages:
-      - '&8&m                           '
-      - '&7Your TNT is now enchanted with &eFortune III'
-      - ' '
+      - '<lang.skill-mining-perk-blast-mining-e-fortune-messages>'

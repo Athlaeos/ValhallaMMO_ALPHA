@@ -175,10 +175,10 @@ public class PartyManager {
         partyDescriptionCharacterLimit = config.getInt("description_character_limit");
         partyChatFormat = config.getString("party_chat_format");
         partySpyChatFormat = config.getString("party_spy_chat_format");
-        partyInfoFormat = config.getStringList("party_info");
+        partyInfoFormat = TranslationManager.getInstance().translateListPlaceholders(config.getStringList("party_info"));
         allowPartyNameColorCodes = config.getBoolean("name_allow_colors");
         allowPartyDescriptionColorCodes = config.getBoolean("description_allow_colors");
-        leaderTitle = config.getString("leader_title", "");
+        leaderTitle = TranslationManager.getInstance().translatePlaceholders(config.getString("leader_title", ""));
 
         enableParties = config.getBoolean("parties");
         enableEXPSharing = config.getBoolean("exp_sharing");
@@ -197,7 +197,7 @@ public class PartyManager {
             String defaultRank = config.getString("default_rank");
             boolean defaultFirst = !ranksSection.getKeys(false).contains(defaultRank);
             for (String rank : ranksSection.getKeys(false)){
-                String title = config.getString("ranks." + rank + ".title", "");
+                String title = TranslationManager.getInstance().translatePlaceholders(config.getString("ranks." + rank + ".title", ""));
                 List<String> permissions = config.getStringList("ranks." + rank + ".permissions");
                 int rating = config.getInt("ranks." + rank + ".rating", 0);
                 Party.PermissionGroup r = new Party.PermissionGroup(rank, title, rating, permissions);

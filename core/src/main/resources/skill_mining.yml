@@ -1,9 +1,9 @@
-display_name: '&7Mining'
+display_name: '<lang.skill-mining-displayname>'
 icon: IRON_PICKAXE
 icon_data: 3510001
-description: '&8Practice Mining to increase your ore extraction, increase the effectiveness of blast mining, and to gain rare minerals useful in crafting'
+description: '<lang.skill-mining-description>'
 
-levelbar_title: '&7Mining &cLV %lv_current% &4%exp_current%&7/&4%exp_next%'
+levelbar_title: '<lang.skill-mining-level-bar>'
 levelbar_color: RED # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 
@@ -11,8 +11,8 @@ vein_mining_instant: false # If true, vein mining breaks blocks instantly
 break_limit_vein_mining: 64 # Maximum amount of blocks the Vein Mining special ability is allowed to break
 instant_pickup_vein_mining: true # If true, drops from vein mining are transferred to the player immediately. If false, they drop normally.
 
-quickmode_toggle_on: '&cOverdrive enabled'
-quickmode_toggle_off: '&cOverdrive disabled'
+quickmode_toggle_on: '<lang.skill-mining-overdrive-enabled>'
+quickmode_toggle_off: '<lang.skill-mining-overdrive-disabled>'
 
 forgiving_multipliers: true # drop multipliers below 0 will, if false, sometimes cause blocks mined to not drop anything.
 # if true, the drop amount can not go below 1 so only blocks that drop multiple items (such as redstone ore, lapis lazuli ore,

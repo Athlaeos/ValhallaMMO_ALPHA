@@ -74,6 +74,7 @@ public class ImportCommand implements Command {
 								}
 								CustomRecipeManager.getInstance().register(recipe);
 							}
+							CustomRecipeManager.shouldSaveRecipes();
 							break;
 						}
 						case "cooking":{
@@ -87,6 +88,7 @@ public class ImportCommand implements Command {
 								}
 								CustomRecipeManager.getInstance().register(recipe);
 							}
+							CustomRecipeManager.shouldSaveRecipes();
 							break;
 						}
 						case "shaped":{
@@ -100,6 +102,7 @@ public class ImportCommand implements Command {
 								}
 								CustomRecipeManager.getInstance().register(recipe);
 							}
+							CustomRecipeManager.shouldSaveRecipes();
 							break;
 						}
 						case "craft":
@@ -115,6 +118,7 @@ public class ImportCommand implements Command {
 								}
 								CustomRecipeManager.getInstance().register(recipe);
 							}
+							CustomRecipeManager.shouldSaveRecipes();
 							break;
 						}
 						default:{

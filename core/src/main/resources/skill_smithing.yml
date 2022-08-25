@@ -1,9 +1,9 @@
-display_name: '&7Smithing'
+display_name: '<lang.skill-smithing-displayname>'
 icon: ANVIL
 icon_data: 3510001
-description: '&8Practice Smithing to make tools and equipment of increasingly superior quality'
+description: '<lang.skill-smithing-description>'
 
-levelbar_title: '&7Smithing &eLV&e%lv_current% &6%exp_current%&7/&6%exp_next%'
+levelbar_title: '<lang.skill-smithing-level-bar>'
 levelbar_color: YELLOW # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 
@@ -13,13 +13,13 @@ hide_durability: false
 
 quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
   # If left empty, they won't appear.
-  0:   '&cPoor'
-  50:  '&7Decent'
-  100: '&7Great'
-  150: '&eEpic'
-  200: '&eLegendary'
-  250: '&6&lDivine'
-  300: '&8&lIncomprehensible'
+  0:   '<lang.smithing-quality-poor>'
+  50:  '<lang.smithing-quality-decent>'
+  100: '<lang.smithing-quality-great>'
+  150: '<lang.smithing-quality-epic>'
+  200: '<lang.smithing-quality-legendary>'
+  250: '<lang.smithing-quality-divine>'
+  300: '<lang.smithing-quality-incomprehensible>'
 
 # Treatments
 hide_treatment_lore: false # If true, treatment lore does not appear on items at all
@@ -29,15 +29,15 @@ treatment_lore: # The treatment lores displayed on the item if hide_treatment_lo
   # QUENCHING: '&cQuenched'
   # TEMPERING: '&7Tempered'
   # SHARPENING_ROUGH: '&8Rough Sharpened'
-  SHARPENING_FINE: '&7Razor Sharp'
+  SHARPENING_FINE: '<lang.smithing-treatment-razor-sharp>'
   # POLISHING: '&7Polished'
   # ENGRAVING: '&aEngraved'
   # LEATHER_BINDING: '&6Leather bound'
   # WAX_COATING: '&eWaxed'
-  ARMOR_FITTING: '&7Well-Fit'
-  HEATING: '&6Red-Hot'
-  SUPERHEATING: '&eWhite-Hot'
-  UNENCHANTABLE: '&cUnenchantable'
+  ARMOR_FITTING: '<lang.smithing-treatment-well-fit>'
+  HEATING: '<lang.smithing-treatment-red-hot>'
+  SUPERHEATING: '<lang.smithing-treatment-white-hot>'
+  UNENCHANTABLE: '<lang.smithing-treatment-unenchantable>'
 
 scaling_quantity: '0.7/300 * %rating%' # Quantity
 scaling_minimum: 0

@@ -129,7 +129,7 @@ public class EntityDamagedListener implements Listener {
             }
         }
 
-        dodgeMessage = config.getString("dodge_message");
+        dodgeMessage = TranslationManager.getInstance().translatePlaceholders(config.getString("dodge_message"));
         try {
             dodgeParticle = Particle.valueOf(config.getString("dodge_effect"));
         } catch (IllegalArgumentException ignored) {

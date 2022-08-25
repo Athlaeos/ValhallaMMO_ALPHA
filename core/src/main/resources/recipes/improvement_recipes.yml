@@ -5,7 +5,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Axe'
+    display_name: '<lang.recipe-sharpen-diamond-axe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -21,7 +21,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Hoe'
+    display_name: '<lang.recipe-sharpen-diamond-hoe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -37,7 +37,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Pickaxe'
+    display_name: '<lang.recipe-sharpen-diamond-pickaxe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -53,7 +53,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Shovel'
+    display_name: '<lang.recipe-sharpen-diamond-shovel>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -69,7 +69,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Sword'
+    display_name: '<lang.recipe-sharpen-diamond-sword>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -88,7 +88,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Axe'
+    display_name: '<lang.recipe-sharpen-gold-axe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -104,7 +104,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Hoe'
+    display_name: '<lang.recipe-sharpen-gold-hoe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -120,7 +120,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Pickaxe'
+    display_name: '<lang.recipe-sharpen-gold-pickaxe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -136,7 +136,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Shovel'
+    display_name: '<lang.recipe-sharpen-gold-shovel>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -152,7 +152,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Sword'
+    display_name: '<lang.recipe-sharpen-gold-sword>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -171,7 +171,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Axe'
+    display_name: '<lang.recipe-sharpen-iron-axe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -187,7 +187,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Hoe'
+    display_name: '<lang.recipe-sharpen-iron-hoe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -203,7 +203,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Pickaxe'
+    display_name: '<lang.recipe-sharpen-iron-pickaxe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -219,7 +219,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Shovel'
+    display_name: '<lang.recipe-sharpen-iron-shovel>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -235,7 +235,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Sword'
+    display_name: '<lang.recipe-sharpen-iron-sword>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -254,7 +254,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Axe'
+    display_name: '<lang.recipe-sharpen-netherite-axe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -270,7 +270,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Hoe'
+    display_name: '<lang.recipe-sharpen-netherite-hoe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -286,7 +286,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Pickaxe'
+    display_name: '<lang.recipe-sharpen-netherite-pickaxe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -302,7 +302,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Shovel'
+    display_name: '<lang.recipe-sharpen-netherite-shovel>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -318,7 +318,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Sword'
+    display_name: '<lang.recipe-sharpen-netherite-sword>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -337,7 +337,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Axe'
+    display_name: '<lang.recipe-sharpen-stone-axe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -353,7 +353,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Hoe'
+    display_name: '<lang.recipe-sharpen-stone-hoe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -369,7 +369,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Shovel'
+    display_name: '<lang.recipe-sharpen-stone-shovel>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -385,9 +385,9 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Sword'
+    display_name: '<lang.recipe-sharpen-stone-sword>'
     modifiers:
-      treatment_add_sharpening_rough:
+      treatment-add_sharpening_rough:
         strength: 70.0
         priority: SOONEST
       dynamic_damage:
@@ -404,7 +404,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Pickaxe'
+    display_name: '<lang.recipe-sharpen-stone-pickaxe>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -420,7 +420,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Axe'
+    display_name: '<lang.recipe-sharpen-wooden-axe>'
     modifiers:
       treatment_remove_wax_coating:
         strength: 0.0
@@ -442,7 +442,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Hoe'
+    display_name: '<lang.recipe-sharpen-wooden-hoe>'
     modifiers:
       treatment_remove_wax_coating:
         strength: 0.0
@@ -464,7 +464,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Pickaxe'
+    display_name: '<lang.recipe-sharpen-wooden-pickaxe>'
     modifiers:
       treatment_remove_wax_coating:
         strength: 0.0
@@ -486,7 +486,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Shovel'
+    display_name: '<lang.recipe-sharpen-wooden-shovel>'
     modifiers:
       treatment_remove_wax_coating:
         strength: 0.0
@@ -508,7 +508,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Sword'
+    display_name: '<lang.recipe-sharpen-wooden-sword>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 0.0
@@ -533,7 +533,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Shovel'
+    display_name: '<lang.recipe-temper-iron-shovel>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -556,7 +556,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Axe'
+    display_name: '<lang.recipe-temper-stone-axe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -579,7 +579,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Hoe'
+    display_name: '<lang.recipe-temper-stone-hoe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -602,7 +602,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Pickaxe'
+    display_name: '<lang.recipe-temper-stone-pickaxe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -625,7 +625,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Shovel'
+    display_name: '<lang.recipe-temper-stone-shovel>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -649,7 +649,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Axe'
+    display_name: '<lang.recipe-heat-diamond-axe>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -675,7 +675,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Hoe'
+    display_name: '<lang.recipe-heat-diamond-hoe>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -701,7 +701,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Pickaxe'
+    display_name: '<lang.recipe-heat-diamond-pickaxe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -727,7 +727,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Shovel'
+    display_name: '<lang.recipe-heat-diamond-shovel>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -753,7 +753,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Sword'
+    display_name: '<lang.recipe-heat-diamond-sword>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -782,7 +782,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Pickaxe'
+    display_name: '<lang.recipe-heat-gold-pickaxe>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -808,7 +808,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Axe'
+    display_name: '<lang.recipe-heat-gold-axe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -834,7 +834,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Hoe'
+    display_name: '<lang.recipe-heat-gold-hoe>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -860,7 +860,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Shovel'
+    display_name: '<lang.recipe-heat-gold-shovel>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -886,7 +886,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Sword'
+    display_name: '<lang.recipe-heat-gold-sword>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -915,7 +915,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Axe'
+    display_name: '<lang.recipe-heat-iron-axe>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -941,7 +941,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Hoe'
+    display_name: '<lang.recipe-heat-iron-hoe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -967,7 +967,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Pickaxe'
+    display_name: '<lang.recipe-heat-iron-pickaxe>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -993,7 +993,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Shovel'
+    display_name: '<lang.recipe-heat-iron-shovel>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1019,7 +1019,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Sword'
+    display_name: '<lang.recipe-heat-iron-sword>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1048,7 +1048,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Axe'
+    display_name: '<lang.recipe-heat-netherite-axe>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1074,7 +1074,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Hoe'
+    display_name: '<lang.recipe-heat-netherite-hoe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1100,7 +1100,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Pickaxe'
+    display_name: '<lang.recipe-heat-netherite-pickaxe>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1126,7 +1126,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Shovel'
+    display_name: '<lang.recipe-heat-netherite-shovel>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1152,7 +1152,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Sword'
+    display_name: '<lang.recipe-heat-netherite-sword>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1181,7 +1181,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Axe'
+    display_name: '<lang.recipe-heat-stone-axe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1207,7 +1207,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Hoe'
+    display_name: '<lang.recipe-heat-stone-hoe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1233,7 +1233,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Pickaxe'
+    display_name: '<lang.recipe-heat-stone-pickaxe>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1259,7 +1259,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Shovel'
+    display_name: '<lang.recipe-heat-stone-shovel>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1284,7 +1284,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Axe'
+    display_name: '<lang.recipe-temper-diamond-axe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -1307,7 +1307,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Hoe'
+    display_name: '<lang.recipe-temper-diamond-hoe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -1330,7 +1330,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Pickaxe'
+    display_name: '<lang.recipe-temper-diamond-pickaxe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -1353,7 +1353,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Shovel'
+    display_name: '<lang.recipe-temper-diamond-shovel>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -1376,7 +1376,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Axe'
+    display_name: '<lang.recipe-temper-gold-axe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -1399,7 +1399,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Hoe'
+    display_name: '<lang.recipe-temper-gold-hoe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -1422,7 +1422,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Pickaxe'
+    display_name: '<lang.recipe-temper-gold-pickaxe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -1445,7 +1445,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Shovel'
+    display_name: '<lang.recipe-temper-gold-shovel>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -1468,7 +1468,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Axe'
+    display_name: '<lang.recipe-temper-iron-axe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -1491,7 +1491,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Hoe'
+    display_name: '<lang.recipe-temper-iron-hoe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -1514,7 +1514,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Pickaxe'
+    display_name: '<lang.recipe-temper-iron-pickaxe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -1537,7 +1537,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Axe'
+    display_name: '<lang.recipe-temper-netherite-axe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_super_heating:
@@ -1560,7 +1560,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Hoe'
+    display_name: '<lang.recipe-temper-netherite-hoe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -1583,7 +1583,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Pickaxe'
+    display_name: '<lang.recipe-temper-netherite-pickaxe>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_super_heating:
@@ -1606,7 +1606,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Shovel'
+    display_name: '<lang.recipe-temper-netherite-shovel>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -1630,7 +1630,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Sword'
+    display_name: '<lang.recipe-heat-stone-sword>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1659,7 +1659,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Chainmail Boots'
+    display_name: '<lang.recipe-heat-chainmail-boots>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1679,7 +1679,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Chainmail Chestplate'
+    display_name: '<lang.recipe-heat-chainmail-chestplate>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1699,7 +1699,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Chainmail Helmet'
+    display_name: '<lang.recipe-heat-chainmail-helmet>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1719,7 +1719,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Chainmail Leggings'
+    display_name: '<lang.recipe-heat-chainmail-leggings>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1739,7 +1739,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Boots'
+    display_name: '<lang.recipe-heat-diamond-boots>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1759,7 +1759,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Chestplate'
+    display_name: '<lang.recipe-heat-diamond-chestplate>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1779,7 +1779,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Helmet'
+    display_name: '<lang.recipe-heat-diamond-helmet>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1799,7 +1799,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Leggings'
+    display_name: '<lang.recipe-heat-diamond-leggings>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1819,7 +1819,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Boots'
+    display_name: '<lang.recipe-heat-gold-boots>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1839,7 +1839,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Chestplate'
+    display_name: '<lang.recipe-heat-gold-chestplate>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1859,7 +1859,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Helmet'
+    display_name: '<lang.recipe-heat-gold-helmet>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1879,7 +1879,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Leggings'
+    display_name: '<lang.recipe-heat-gold-leggings>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1899,7 +1899,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Boots'
+    display_name: '<lang.recipe-heat-iron-boots>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -1919,7 +1919,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Chestplate'
+    display_name: '<lang.recipe-heat-iron-chestplate>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1939,7 +1939,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Helmet'
+    display_name: '<lang.recipe-heat-iron-helmet>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1959,7 +1959,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Leggings'
+    display_name: '<lang.recipe-heat-iron-leggings>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -1979,7 +1979,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Boots'
+    display_name: '<lang.recipe-heat-netherite-boots>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -1999,7 +1999,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Chestplate'
+    display_name: '<lang.recipe-heat-netherite-chestplate>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -2019,7 +2019,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Helmet'
+    display_name: '<lang.recipe-heat-netherite-helmet>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -2039,7 +2039,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&6Heat Netherite Leggings'
+    display_name: '<lang.recipe-heat-netherite-leggings>'
     modifiers:
       treatment_cancel_if_tempering:
         strength: 0.0
@@ -2058,7 +2058,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Chainmail Boots'
+    display_name: '<lang.recipe-temper-chainmail-boots>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -2081,7 +2081,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Chainmail Chestplate'
+    display_name: '<lang.recipe-temper-chainmail-chestplate>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -2104,7 +2104,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Chainmail Helmet'
+    display_name: '<lang.recipe-temper-chainmail-helmet>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2127,7 +2127,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Chainmail Leggings'
+    display_name: '<lang.recipe-temper-chainmail-leggings>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -2150,7 +2150,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Boots'
+    display_name: '<lang.recipe-temper-diamond-boots>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2173,7 +2173,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Chestplate'
+    display_name: '<lang.recipe-temper-diamond-chestplate>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2196,7 +2196,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Helmet'
+    display_name: '<lang.recipe-temper-diamond-helmet>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -2219,7 +2219,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Leggings'
+    display_name: '<lang.recipe-temper-diamond-leggings>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -2242,7 +2242,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Boots'
+    display_name: '<lang.recipe-temper-gold-boots>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -2265,7 +2265,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Chestplate'
+    display_name: '<lang.recipe-temper-gold-chestplate>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -2288,7 +2288,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Helmet'
+    display_name: '<lang.recipe-temper-gold-helmet>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2311,7 +2311,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Leggings'
+    display_name: '<lang.recipe-temper-gold-leggings>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2334,7 +2334,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Boots'
+    display_name: '<lang.recipe-temper-iron-boots>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -2357,7 +2357,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Chestplate'
+    display_name: '<lang.recipe-temper-iron-chestplate>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2380,7 +2380,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Helmet'
+    display_name: '<lang.recipe-temper-iron-helmet>'
     validation: requirement_cauldron_water_consume
     modifiers:
       dynamic_durability:
@@ -2403,7 +2403,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Boots'
+    display_name: '<lang.recipe-temper-netherite-boots>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_super_heating:
@@ -2426,7 +2426,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Chestplate'
+    display_name: '<lang.recipe-temper-netherite-chestplate>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_super_heating:
@@ -2449,7 +2449,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Helmet'
+    display_name: '<lang.recipe-temper-netherite-helmet>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_add_tempering:
@@ -2472,7 +2472,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Leggings'
+    display_name: '<lang.recipe-temper-netherite-leggings>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_super_heating:
@@ -2495,7 +2495,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Shears'
+    display_name: '<lang.recipe-temper-shears>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -2519,7 +2519,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Shears'
+    display_name: '<lang.recipe-heat-shears>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -2544,7 +2544,7 @@ improve:
     craft_time: 400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Trident'
+    display_name: '<lang.recipe-temper-trident>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_remove_heating:
@@ -2568,7 +2568,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Trident'
+    display_name: '<lang.recipe-heat-trident>'
     modifiers:
       dynamic_attack_speed:
         strength: 60.0
@@ -2593,7 +2593,7 @@ improve:
     craft_time: 1400
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Trident'
+    display_name: '<lang.recipe-sharpen-trident>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -2611,7 +2611,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Axe'
+    display_name: '<lang.recipe-leatherbind-diamond-axe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -2635,7 +2635,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Hoe'
+    display_name: '<lang.recipe-leatherbind-diamond-hoe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2659,7 +2659,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Pickaxe'
+    display_name: '<lang.recipe-leatherbind-diamond-pickaxe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2683,7 +2683,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Shovel'
+    display_name: '<lang.recipe-leatherbind-diamond-shovel>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2707,7 +2707,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Sword'
+    display_name: '<lang.recipe-leatherbind-diamond-sword>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2734,7 +2734,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Axe'
+    display_name: '<lang.recipe-leatherbind-gold-axe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2758,7 +2758,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Hoe'
+    display_name: '<lang.recipe-leatherbind-gold-hoe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2782,7 +2782,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Pickaxe'
+    display_name: '<lang.recipe-leatherbind-gold-pickaxe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2806,7 +2806,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Shovel'
+    display_name: '<lang.recipe-leatherbind-gold-shovel>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2830,7 +2830,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Sword'
+    display_name: '<lang.recipe-leatherbind-gold-sword>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -2857,7 +2857,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Axe'
+    display_name: '<lang.recipe-leatherbind-iron-axe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -2881,7 +2881,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Hoe'
+    display_name: '<lang.recipe-leatherbind-iron-hoe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -2905,7 +2905,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Pickaxe'
+    display_name: '<lang.recipe-leatherbind-iron-pickaxe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -2929,7 +2929,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Shovel'
+    display_name: '<lang.recipe-leatherbind-iron-shovel>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2953,7 +2953,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Sword'
+    display_name: '<lang.recipe-leatherbind-iron-sword>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -2980,7 +2980,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Axe'
+    display_name: '<lang.recipe-leatherbind-netherite-axe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3004,7 +3004,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Hoe'
+    display_name: '<lang.recipe-leatherbind-netherite-hoe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3028,7 +3028,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Pickaxe'
+    display_name: '<lang.recipe-leatherbind-netherite-pickaxe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3052,7 +3052,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Shovel'
+    display_name: '<lang.recipe-leatherbind-netherite-shovel>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3076,7 +3076,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Sword'
+    display_name: '<lang.recipe-leatherbind-netherite-sword>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3103,7 +3103,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Axe'
+    display_name: '<lang.recipe-leatherbind-stone-axe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3127,7 +3127,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Hoe'
+    display_name: '<lang.recipe-leatherbind-stone-hoe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3151,7 +3151,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Pickaxe'
+    display_name: '<lang.recipe-leatherbind-stone-pickaxe>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3175,7 +3175,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Shovel'
+    display_name: '<lang.recipe-leatherbind-stone-shovel>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3199,7 +3199,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Sword'
+    display_name: '<lang.recipe-leatherbind-stone-sword>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3226,7 +3226,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeather-Bind Trident'
+    display_name: '<lang.recipe-leather-bind-trident>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -3250,7 +3250,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Axe'
+    display_name: '<lang.recipe-leatherbind-wooden-axe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3274,7 +3274,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Hoe'
+    display_name: '<lang.recipe-leatherbind-wooden-hoe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3298,7 +3298,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Pickaxe'
+    display_name: '<lang.recipe-leatherbind-wooden-pickaxe>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3322,7 +3322,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Shovel'
+    display_name: '<lang.recipe-leatherbind-wooden-shovel>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -3346,7 +3346,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Leggings'
+    display_name: '<lang.recipe-temper-iron-leggings>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -3369,7 +3369,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Chainmail Boots'
+    display_name: '<lang.recipe-fit-chainmail-boots>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3400,7 +3400,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Chainmail Chestplate'
+    display_name: '<lang.recipe-fit-chainmail-chestplate>'
     modifiers:
       dynamic_armor:
         strength: 100.0
@@ -3431,7 +3431,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Chainmail Helmet'
+    display_name: '<lang.recipe-fit-chainmail-helmet>'
     modifiers:
       dynamic_knockback_resistance:
         strength: 100.0
@@ -3462,7 +3462,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Chainmail Leggings'
+    display_name: '<lang.recipe-fit-chainmail-leggings>'
     modifiers:
       dynamic_knockback_resistance:
         strength: 100.0
@@ -3493,7 +3493,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Diamond Boots'
+    display_name: '<lang.recipe-fit-diamond-boots>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3518,8 +3518,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   fit_diamond_chestplate:
     required_type: DIAMOND_CHESTPLATE
@@ -3529,7 +3528,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Diamond Chestplate'
+    display_name: '<lang.recipe-fit-diamond-chestplate>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -3554,8 +3553,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   fit_diamond_helmet:
     required_type: DIAMOND_HELMET
@@ -3565,7 +3563,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Diamond Helmet'
+    display_name: '<lang.recipe-fit-diamond-helmet>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -3590,8 +3588,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   fit_diamond_leggings:
     required_type: DIAMOND_LEGGINGS
@@ -3601,7 +3598,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Diamond Leggings'
+    display_name: '<lang.recipe-fit-diamond-leggings>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3626,8 +3623,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   fit_gold_boots:
     required_type: GOLDEN_BOOTS
@@ -3637,7 +3633,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Gold Boots'
+    display_name: '<lang.recipe-fit-gold-boots>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -3662,8 +3658,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_gold_chestplate:
     required_type: GOLDEN_CHESTPLATE
@@ -3673,7 +3668,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Gold Chestplate'
+    display_name: '<lang.recipe-fit-gold-chestplate>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3698,8 +3693,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_gold_helmet:
     required_type: GOLDEN_HELMET
@@ -3709,7 +3703,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Gold Helmet'
+    display_name: '<lang.recipe-fit-gold-helmet>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3734,8 +3728,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_gold_leggings:
     required_type: GOLDEN_LEGGINGS
@@ -3745,7 +3738,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Gold Leggings'
+    display_name: '<lang.recipe-fit-gold-leggings>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -3770,8 +3763,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_iron_boots:
     required_type: IRON_BOOTS
@@ -3781,7 +3773,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Iron Boots'
+    display_name: '<lang.recipe-fit-iron-boots>'
     modifiers:
       dynamic_knockback_resistance:
         strength: 100.0
@@ -3806,8 +3798,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_iron_chestplate:
     required_type: IRON_CHESTPLATE
@@ -3817,7 +3808,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Iron Chestplate'
+    display_name: '<lang.recipe-fit-iron-chestplate>'
     modifiers:
       dynamic_armor:
         strength: 100.0
@@ -3842,8 +3833,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_iron_helmet:
     required_type: IRON_HELMET
@@ -3853,7 +3843,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Iron Helmet'
+    display_name: '<lang.recipe-fit-iron-helmet>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -3878,8 +3868,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_iron_leggings:
     required_type: IRON_LEGGINGS
@@ -3889,7 +3878,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Iron Leggings'
+    display_name: '<lang.recipe-fit-iron-leggings>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3914,8 +3903,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_leather_boots:
     required_type: LEATHER_BOOTS
@@ -3925,7 +3913,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Leather Boots'
+    display_name: '<lang.recipe-fit-leather-boots>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -3955,7 +3943,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Leather Chestplate'
+    display_name: '<lang.recipe-fit-leather-chestplate>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -3985,7 +3973,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Leather Helmet'
+    display_name: '<lang.recipe-fit-leather-helmet>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -4015,7 +4003,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Leather Leggings'
+    display_name: '<lang.recipe-fit-leather-leggings>'
     modifiers:
       dynamic_knockback_resistance:
         strength: 100.0
@@ -4045,7 +4033,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Netherite Boots'
+    display_name: '<lang.recipe-fit-netherite-boots>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -4070,8 +4058,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_netherite_chestplate:
     required_type: NETHERITE_CHESTPLATE
@@ -4081,7 +4068,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Netherite Chestplate'
+    display_name: '<lang.recipe-fit-netherite-chestplate>'
     modifiers:
       dynamic_armor:
         strength: 100.0
@@ -4106,8 +4093,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_netherite_helmet:
     required_type: NETHERITE_HELMET
@@ -4117,7 +4103,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Netherite Helmet'
+    display_name: '<lang.recipe-fit-netherite-helmet>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -4142,8 +4128,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   fit_netherite_leggings:
     required_type: NETHERITE_LEGGINGS
@@ -4153,7 +4138,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fImprove Fitting on Netherite Leggings'
+    display_name: '<lang.recipe-fit-netherite-leggings>'
     modifiers:
       dynamic_knockback_resistance:
         strength: 100.0
@@ -4178,8 +4163,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   plate_elytra:
     required_type: ELYTRA
@@ -4189,7 +4173,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fPlate Elytra'
+    display_name: '<lang.recipe-plate-elytra>'
     modifiers:
       treatment_add_armor_fitting:
         strength: 0.0
@@ -4209,8 +4193,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   reinforce_elytra:
     required_type: ELYTRA
@@ -4220,7 +4203,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fReinforce Elytra'
+    display_name: '<lang.recipe-reinforce-elytra>'
     modifiers:
       treatment_add_generic_improvement:
         strength: 0.0
@@ -4239,8 +4222,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_bow:
     required_type: BOW
@@ -4250,7 +4232,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Bow'
+    display_name: '<lang.recipe-repair-bow>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4277,7 +4259,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Chainmail Boots'
+    display_name: '<lang.recipe-repair-chainmail-boots>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4299,7 +4281,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Chainmail Chainmail'
+    display_name: '<lang.recipe-repair-chainmail-chainmail>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4321,7 +4303,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Chainmail Helmet'
+    display_name: '<lang.recipe-repair-chainmail-helmet>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4343,7 +4325,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Chainmail Leggings'
+    display_name: '<lang.recipe-repair-chainmail-leggings>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4365,7 +4347,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Crossbow'
+    display_name: '<lang.recipe-repair-crossbow>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4392,7 +4374,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Axe'
+    display_name: '<lang.recipe-repair-diamond-axe>'
     modifiers:
       repair_dynamic:
         strength: 150.0
@@ -4408,8 +4390,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_boots:
     required_type: DIAMOND_BOOTS
@@ -4419,7 +4400,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Boots'
+    display_name: '<lang.recipe-repair-diamond-boots>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4435,8 +4416,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_chestplate:
     required_type: DIAMOND_CHESTPLATE
@@ -4446,7 +4426,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Chestplate'
+    display_name: '<lang.recipe-repair-diamond-chestplate>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4462,8 +4442,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_helmet:
     required_type: DIAMOND_HELMET
@@ -4473,7 +4452,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Helmet'
+    display_name: '<lang.recipe-repair-diamond-helmet>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4489,8 +4468,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_hoe:
     required_type: DIAMOND_HOE
@@ -4500,7 +4478,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Hoe'
+    display_name: '<lang.recipe-repair-diamond-hoe>'
     modifiers:
       repair_dynamic:
         strength: 150.0
@@ -4516,8 +4494,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_leggings:
     required_type: DIAMOND_LEGGINGS
@@ -4527,7 +4504,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Leggings'
+    display_name: '<lang.recipe-repair-diamond-leggings>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4543,8 +4520,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_pickaxe:
     required_type: DIAMOND_PICKAXE
@@ -4554,7 +4530,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Pickaxe'
+    display_name: '<lang.recipe-repair-diamond-pickaxe>'
     modifiers:
       repair_dynamic:
         strength: 150.0
@@ -4570,8 +4546,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_shovel:
     required_type: DIAMOND_SHOVEL
@@ -4581,7 +4556,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Shovel'
+    display_name: '<lang.recipe-repair-diamond-shovel>'
     modifiers:
       repair_dynamic:
         strength: 150.0
@@ -4597,8 +4572,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_gold_axe:
     required_type: GOLDEN_AXE
@@ -4608,7 +4582,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Axe'
+    display_name: '<lang.recipe-repair-gold-axe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4624,8 +4598,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_boots:
     required_type: GOLDEN_BOOTS
@@ -4635,7 +4608,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Boots'
+    display_name: '<lang.recipe-repair-gold-boots>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4651,8 +4624,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_chestplate:
     required_type: GOLDEN_CHESTPLATE
@@ -4662,7 +4634,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Chestplate'
+    display_name: '<lang.recipe-repair-gold-chestplate>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4678,8 +4650,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_helmet:
     required_type: GOLDEN_HELMET
@@ -4689,7 +4660,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Helmet'
+    display_name: '<lang.recipe-repair-gold-helmet>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4705,8 +4676,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_hoe:
     required_type: GOLDEN_HOE
@@ -4716,7 +4686,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Hoe'
+    display_name: '<lang.recipe-repair-gold-hoe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4732,8 +4702,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_leggings:
     required_type: GOLDEN_LEGGINGS
@@ -4743,7 +4712,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Leggings'
+    display_name: '<lang.recipe-repair-gold-leggings>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4759,8 +4728,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_pickaxe:
     required_type: GOLDEN_PICKAXE
@@ -4770,7 +4738,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Pickaxe'
+    display_name: '<lang.recipe-repair-gold-pickaxe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4786,8 +4754,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_shovel:
     required_type: GOLDEN_SHOVEL
@@ -4797,7 +4764,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Shovel'
+    display_name: '<lang.recipe-repair-gold-shovel>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4813,8 +4780,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_axe:
     required_type: IRON_AXE
@@ -4824,7 +4790,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Axe'
+    display_name: '<lang.recipe-repair-iron-axe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4840,8 +4806,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_boots:
     required_type: IRON_BOOTS
@@ -4851,7 +4816,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Boots'
+    display_name: '<lang.recipe-repair-iron-boots>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4867,8 +4832,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_chestplate:
     required_type: IRON_CHESTPLATE
@@ -4878,7 +4842,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Chestplate'
+    display_name: '<lang.recipe-repair-iron-chestplate>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4894,8 +4858,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_helmet:
     required_type: IRON_HELMET
@@ -4905,7 +4868,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Helmet'
+    display_name: '<lang.recipe-repair-iron-helmet>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4921,8 +4884,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_hoe:
     required_type: IRON_HOE
@@ -4932,7 +4894,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Hoe'
+    display_name: '<lang.recipe-repair-iron-hoe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4948,8 +4910,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_leggings:
     required_type: IRON_LEGGINGS
@@ -4959,7 +4920,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Leggings'
+    display_name: '<lang.recipe-repair-iron-leggings>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -4975,8 +4936,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_pickaxe:
     required_type: IRON_PICKAXE
@@ -4986,7 +4946,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Pickaxe'
+    display_name: '<lang.recipe-repair-iron-pickaxe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5002,8 +4962,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_shovel:
     required_type: IRON_SHOVEL
@@ -5013,7 +4972,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Shovel'
+    display_name: '<lang.recipe-repair-iron-shovel>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5029,8 +4988,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_leather_boots:
     required_type: LEATHER_BOOTS
@@ -5040,7 +4998,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Leather Boots'
+    display_name: '<lang.recipe-repair-leather-boots>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5061,7 +5019,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Leather Chestplate'
+    display_name: '<lang.recipe-repair-leather-chestplate>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5082,7 +5040,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Leather Helmet'
+    display_name: '<lang.recipe-repair-leather-helmet>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5103,7 +5061,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Leather Leggings'
+    display_name: '<lang.recipe-repair-leather-leggings>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5124,7 +5082,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Axe'
+    display_name: '<lang.recipe-repair-netherite-axe>'
     modifiers:
       repair_dynamic:
         strength: 200.0
@@ -5140,8 +5098,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_boots:
     required_type: NETHERITE_BOOTS
@@ -5151,7 +5108,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Boots'
+    display_name: '<lang.recipe-repair-netherite-boots>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5167,8 +5124,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_chestplate:
     required_type: NETHERITE_CHESTPLATE
@@ -5178,7 +5134,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Chestplate'
+    display_name: '<lang.recipe-repair-netherite-chestplate>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5194,8 +5150,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_helmet:
     required_type: NETHERITE_HELMET
@@ -5205,7 +5160,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Helmet'
+    display_name: '<lang.recipe-repair-netherite-helmet>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5221,8 +5176,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_hoe:
     required_type: NETHERITE_HOE
@@ -5232,7 +5186,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Hoe'
+    display_name: '<lang.recipe-repair-netherite-hoe>'
     modifiers:
       repair_dynamic:
         strength: 200.0
@@ -5248,8 +5202,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_leggings:
     required_type: NETHERITE_LEGGINGS
@@ -5259,7 +5212,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Leggings'
+    display_name: '<lang.recipe-repair-netherite-leggings>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5275,8 +5228,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_pickaxe:
     required_type: NETHERITE_PICKAXE
@@ -5286,7 +5238,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Pickaxe'
+    display_name: '<lang.recipe-repair-netherite-pickaxe>'
     modifiers:
       repair_dynamic:
         strength: 200.0
@@ -5302,8 +5254,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_shovel:
     required_type: NETHERITE_SHOVEL
@@ -5313,7 +5264,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Shovel'
+    display_name: '<lang.recipe-repair-netherite-shovel>'
     modifiers:
       repair_dynamic:
         strength: 200.0
@@ -5329,8 +5280,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_stone_axe:
     required_type: STONE_AXE
@@ -5340,7 +5290,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Axe'
+    display_name: '<lang.recipe-repair-stone-axe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5361,7 +5311,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Hoe'
+    display_name: '<lang.recipe-repair-stone-hoe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5382,7 +5332,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Pickaxe'
+    display_name: '<lang.recipe-repair-stone-pickaxe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5403,7 +5353,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Shovel'
+    display_name: '<lang.recipe-repair-stone-shovel>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5424,7 +5374,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Axe'
+    display_name: '<lang.recipe-repair-wooden-axe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5445,7 +5395,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Hoe'
+    display_name: '<lang.recipe-repair-wooden-hoe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5466,7 +5416,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Pickaxe'
+    display_name: '<lang.recipe-repair-wooden-pickaxe>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5487,7 +5437,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Shovel'
+    display_name: '<lang.recipe-repair-wooden-shovel>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5508,7 +5458,7 @@ improve:
     consecutive_crafts: 8
     exact_meta: false
     break_station: false
-    display_name: '&rRepair Shield'
+    display_name: '<lang.recipe-repair-shield>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -5529,7 +5479,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fStrengthen Bow'
+    display_name: '<lang.recipe-strengthen-bow>'
     modifiers:
       dynamic_bow_strength:
         strength: 100.0
@@ -5554,7 +5504,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fStrengthen Crossbow'
+    display_name: '<lang.recipe-strengthen-crossbow>'
     modifiers:
       dynamic_bow_strength:
         strength: 100.0
@@ -5579,7 +5529,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fStud Leather Boots'
+    display_name: '<lang.recipe-stud-leather-boots>'
     modifiers:
       treatment_add_studding:
         strength: 0.0
@@ -5607,7 +5557,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fStud Leather Chestplate'
+    display_name: '<lang.recipe-stud-leather-chestplate>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -5635,7 +5585,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fStud Leather Helmet'
+    display_name: '<lang.recipe-stud-leather-helmet>'
     modifiers:
       treatment_add_studding:
         strength: 0.0
@@ -5663,7 +5613,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fStud Leather Leggings'
+    display_name: '<lang.recipe-stud-leather-leggings>'
     modifiers:
       dynamic_armor_toughness:
         strength: 100.0
@@ -5691,7 +5641,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Bow'
+    display_name: '<lang.recipe-wax-coat-bow>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -5710,7 +5660,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_crossbow:
     required_type: CROSSBOW
@@ -5720,7 +5670,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Crossbow'
+    display_name: '<lang.recipe-wax-coat-crossbow>'
     modifiers:
       dynamic_durability:
         strength: 100.0
@@ -5739,7 +5689,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_fishing_rod:
     required_type: FISHING_ROD
@@ -5749,7 +5699,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Fishing Rod'
+    display_name: '<lang.recipe-wax-coat-fishing-rod>'
     modifiers:
       dynamic_durability:
         strength: 100.0
@@ -5768,7 +5718,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_leather_boots:
     required_type: LEATHER_BOOTS
@@ -5778,7 +5728,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Leather Boots'
+    display_name: '<lang.recipe-wax-coat-leather-boots>'
     modifiers:
       dynamic_durability:
         strength: 100.0
@@ -5797,7 +5747,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_leather_chestplate:
     required_type: LEATHER_CHESTPLATE
@@ -5807,7 +5757,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Leather Chestplate'
+    display_name: '<lang.recipe-wax-coat-leather-chestplate>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -5826,7 +5776,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_leather_helmet:
     required_type: LEATHER_HELMET
@@ -5836,7 +5786,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Leather Helmet'
+    display_name: '<lang.recipe-wax-coat-leather-helmet>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -5855,7 +5805,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_leather_leggings:
     required_type: LEATHER_LEGGINGS
@@ -5865,7 +5815,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Leather Leggings'
+    display_name: '<lang.recipe-wax-coat-leather-leggings>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -5884,7 +5834,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_axe:
     required_type: WOODEN_AXE
@@ -5894,7 +5844,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Axe'
+    display_name: '<lang.recipe-wax-coat-wooden-axe>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -5913,7 +5863,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_hoe:
     required_type: WOODEN_HOE
@@ -5923,7 +5873,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Hoe'
+    display_name: '<lang.recipe-wax-coat-wooden-hoe>'
     modifiers:
       dynamic_durability:
         strength: 100.0
@@ -5942,7 +5892,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_pickaxe:
     required_type: WOODEN_PICKAXE
@@ -5952,7 +5902,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Pickaxe'
+    display_name: '<lang.recipe-wax-coat-wooden-pickaxe>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -5971,7 +5921,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_shovel:
     required_type: WOODEN_SHOVEL
@@ -5981,7 +5931,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Shovel'
+    display_name: '<lang.recipe-wax-coat-wooden-shovel>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -6000,7 +5950,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_sword:
     required_type: WOODEN_SWORD
@@ -6010,7 +5960,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Sword'
+    display_name: '<lang.recipe-wax-coat-wooden-sword>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -6032,7 +5982,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   whetstone_diamond_axe:
     required_type: DIAMOND_AXE
@@ -6042,7 +5992,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Axe'
+    display_name: '<lang.recipe-whetstone-diamond-axe>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6069,7 +6019,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Hoe'
+    display_name: '<lang.recipe-whetstone-diamond-hoe>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6096,7 +6046,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Pickaxe'
+    display_name: '<lang.recipe-whetstone-diamond-pickaxe>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6123,7 +6073,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Shovel'
+    display_name: '<lang.recipe-whetstone-diamond-shovel>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6150,7 +6100,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Sword'
+    display_name: '<lang.recipe-whetstone-diamond-sword>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6180,7 +6130,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Axe'
+    display_name: '<lang.recipe-whetstone-gold-axe>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6207,7 +6157,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Hoe'
+    display_name: '<lang.recipe-whetstone-gold-hoe>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6234,7 +6184,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Pickaxe'
+    display_name: '<lang.recipe-whetstone-gold-pickaxe>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6261,7 +6211,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Shovel'
+    display_name: '<lang.recipe-whetstone-gold-shovel>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6288,7 +6238,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Sword'
+    display_name: '<lang.recipe-whetstone-gold-sword>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6318,7 +6268,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Axe'
+    display_name: '<lang.recipe-whetstone-iron-axe>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6345,7 +6295,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Hoe'
+    display_name: '<lang.recipe-whetstone-iron-hoe>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6372,7 +6322,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Pickaxe'
+    display_name: '<lang.recipe-whetstone-iron-pickaxe>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6399,7 +6349,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Shovel'
+    display_name: '<lang.recipe-whetstone-iron-shovel>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6426,7 +6376,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Sword'
+    display_name: '<lang.recipe-whetstone-iron-sword>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6456,7 +6406,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Axe'
+    display_name: '<lang.recipe-whetstone-netherite-axe>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6483,7 +6433,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Hoe'
+    display_name: '<lang.recipe-whetstone-netherite-hoe>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6510,7 +6460,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Pickaxe'
+    display_name: '<lang.recipe-whetstone-netherite-pickaxe>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6537,7 +6487,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Shovel'
+    display_name: '<lang.recipe-whetstone-netherite-shovel>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6564,7 +6514,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Sword'
+    display_name: '<lang.recipe-whetstone-netherite-sword>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6594,7 +6544,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Axe'
+    display_name: '<lang.recipe-whetstone-stone-axe>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -6621,7 +6571,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Hoe'
+    display_name: '<lang.recipe-whetstone-stone-hoe>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6648,7 +6598,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Pickaxe'
+    display_name: '<lang.recipe-whetstone-stone-pickaxe>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -6675,7 +6625,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Shovel'
+    display_name: '<lang.recipe-whetstone-stone-shovel>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6702,7 +6652,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Sword'
+    display_name: '<lang.recipe-whetstone-stone-sword>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6732,7 +6682,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Trident'
+    display_name: '<lang.recipe-whetstone-trident>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -6759,7 +6709,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Axe'
+    display_name: '<lang.recipe-reinforce-diamond-axe>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -6787,8 +6737,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_hoe:
     required_type: DIAMOND_HOE
@@ -6798,7 +6747,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Hoe'
+    display_name: '<lang.recipe-reinforce-diamond-hoe>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -6826,8 +6775,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_pickaxe:
     required_type: DIAMOND_PICKAXE
@@ -6837,7 +6785,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Pickaxe'
+    display_name: '<lang.recipe-reinforce-diamond-pickaxe>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -6865,8 +6813,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_shovel:
     required_type: DIAMOND_SHOVEL
@@ -6876,7 +6823,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Shovel'
+    display_name: '<lang.recipe-reinforce-diamond-shovel>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -6904,8 +6851,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_boots:
     required_type: DIAMOND_BOOTS
@@ -6915,7 +6861,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Boots'
+    display_name: '<lang.recipe-reinforce-diamond-boots>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -6946,8 +6892,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_chestplate:
     required_type: DIAMOND_CHESTPLATE
@@ -6957,7 +6902,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Chestplate'
+    display_name: '<lang.recipe-reinforce-diamond-chestplate>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -6988,8 +6933,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_helmet:
     required_type: DIAMOND_HELMET
@@ -6999,7 +6943,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Helmet'
+    display_name: '<lang.recipe-reinforce-diamond-helmet>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -7030,8 +6974,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_leggings:
     required_type: DIAMOND_LEGGINGS
@@ -7041,7 +6984,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Leggings'
+    display_name: '<lang.recipe-reinforce-diamond-leggings>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -7072,8 +7015,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_sword:
     required_type: DIAMOND_SWORD
@@ -7083,7 +7025,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Sword'
+    display_name: '<lang.recipe-reinforce-diamond-sword>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -7114,8 +7056,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   bind_wooden_sword:
     required_type: WOODEN_SWORD
@@ -7125,7 +7066,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Sword'
+    display_name: '<lang.recipe-leatherbind-wooden-sword>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -7152,7 +7093,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Dagger'
+    display_name: '<lang.recipe-reinforce-diamond-dagger>'
     modifiers:
       treatment_remove_all:
         strength: 0.0
@@ -7189,8 +7130,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_mace:
     required_type: DIAMOND_SWORD
@@ -7200,7 +7140,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&9Reinforce Diamond Mace'
+    display_name: '<lang.recipe-reinforce-diamond-mace>'
     modifiers:
       dynamic_durability:
         strength: 60.0
@@ -7231,8 +7171,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   craft_netherite_warhammer:
     required_type: DIAMOND_SWORD
@@ -7242,7 +7181,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Warhammer'
+    display_name: '<lang.recipe-reinforce-diamond-warhammer>'
     modifiers:
       dynamic_quality:
         strength: 100.0
@@ -7279,8 +7218,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   bind_diamond_dagger:
     required_type: DIAMOND_SWORD
@@ -7290,7 +7228,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Dagger'
+    display_name: '<lang.recipe-leatherbind-diamond-dagger>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -7317,7 +7255,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Dagger'
+    display_name: '<lang.recipe-leatherbind-gold-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -7344,7 +7282,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Dagger'
+    display_name: '<lang.recipe-leatherbind-iron-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -7371,7 +7309,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Dagger'
+    display_name: '<lang.recipe-leatherbind-netherite-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -7398,7 +7336,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Dagger'
+    display_name: '<lang.recipe-leatherbind-stone-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -7425,7 +7363,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Dagger'
+    display_name: '<lang.recipe-leatherbind-wooden-dagger>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -7452,7 +7390,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&8Reinforce Diamond Spear'
+    display_name: '<lang.recipe-reinforce-diamond-spear>'
     modifiers:
       dynamic_attack_speed:
         strength: 60.0
@@ -7489,8 +7427,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   heat_diamond_dagger:
     required_type: DIAMOND_SWORD
@@ -7501,7 +7438,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Sword'
+    display_name: '<lang.recipe-heat-diamond-dagger>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -7530,7 +7467,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Sword'
+    display_name: '<lang.recipe-heat-gold-dagger>'
     modifiers:
       dynamic_attack_speed:
         strength: 60.0
@@ -7559,7 +7496,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Sword'
+    display_name: '<lang.recipe-heat-iron-dagger>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -7588,7 +7525,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Sword'
+    display_name: '<lang.recipe-heat-netherite-dagger>'
     modifiers:
       dynamic_attack_speed:
         strength: 60.0
@@ -7617,7 +7554,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Sword'
+    display_name: '<lang.recipe-heat-stone-dagger>'
     modifiers:
       dynamic_attack_speed:
         strength: 60.0
@@ -7645,7 +7582,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Dagger'
+    display_name: '<lang.recipe-sharpen-diamond-dagger>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -7664,7 +7601,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Dagger'
+    display_name: '<lang.recipe-sharpen-gold-dagger>'
     modifiers:
       dynamic_damage:
         strength: 80.0
@@ -7683,7 +7620,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Dagger'
+    display_name: '<lang.recipe-sharpen-iron-dagger>'
     modifiers:
       dynamic_damage:
         strength: 80.0
@@ -7702,7 +7639,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Dagger'
+    display_name: '<lang.recipe-sharpen-netherite-dagger>'
     modifiers:
       dynamic_damage:
         strength: 80.0
@@ -7721,7 +7658,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Dagger'
+    display_name: '<lang.recipe-sharpen-stone-dagger>'
     modifiers:
       dynamic_damage:
         strength: 80.0
@@ -7740,7 +7677,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Dagger'
+    display_name: '<lang.recipe-wax-coat-wooden-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -7762,7 +7699,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   whetstone_diamond_dagger:
     required_type: DIAMOND_SWORD
@@ -7772,7 +7709,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Dagger'
+    display_name: '<lang.recipe-whetstone-diamond-dagger>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -7802,7 +7739,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Dagger'
+    display_name: '<lang.recipe-whetstone-gold-dagger>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -7832,7 +7769,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Dagger'
+    display_name: '<lang.recipe-whetstone-iron-dagger>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -7862,7 +7799,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Dagger'
+    display_name: '<lang.recipe-whetstone-netherite-dagger>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -7892,7 +7829,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Dagger'
+    display_name: '<lang.recipe-whetstone-stone-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 50.0
@@ -7922,7 +7859,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Mace'
+    display_name: '<lang.recipe-leatherbind-diamond-mace>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -7949,7 +7886,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Spear'
+    display_name: '<lang.recipe-leatherbind-diamond-spear>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -7976,7 +7913,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Diamond Warhammer'
+    display_name: '<lang.recipe-leatherbind-diamond-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -8003,7 +7940,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Mace'
+    display_name: '<lang.recipe-leatherbind-gold-mace>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -8030,7 +7967,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Spear'
+    display_name: '<lang.recipe-leatherbind-gold-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -8057,7 +7994,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Gold Warhammer'
+    display_name: '<lang.recipe-leatherbind-gold-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -8084,7 +8021,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Mace'
+    display_name: '<lang.recipe-leatherbind-iron-mace>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -8111,7 +8048,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Spear'
+    display_name: '<lang.recipe-leatherbind-iron-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -8138,7 +8075,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Iron Warhammer'
+    display_name: '<lang.recipe-leatherbind-iron-warhammer>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -8165,7 +8102,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Mace'
+    display_name: '<lang.recipe-leatherbind-netherite-mace>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -8192,7 +8129,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Spear'
+    display_name: '<lang.recipe-leatherbind-netherite-spear>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -8219,7 +8156,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Netherite Warhammer'
+    display_name: '<lang.recipe-leatherbind-netherite-warhammer>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -8246,7 +8183,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Mace'
+    display_name: '<lang.recipe-leatherbind-stone-mace>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -8273,7 +8210,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Spear'
+    display_name: '<lang.recipe-leatherbind-stone-spear>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -8300,7 +8237,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Stone Warhammer'
+    display_name: '<lang.recipe-leatherbind-stone-warhammer>'
     modifiers:
       dynamic_attack_speed:
         strength: 100.0
@@ -8327,7 +8264,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Mace'
+    display_name: '<lang.recipe-leatherbind-wooden-mace>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -8354,7 +8291,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Spear'
+    display_name: '<lang.recipe-leatherbind-wooden-spear>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -8381,7 +8318,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fLeatherbind Wooden Warhammer'
+    display_name: '<lang.recipe-leatherbind-wooden-warhammer>'
     modifiers:
       treatment_add_leather_binding:
         strength: 0.0
@@ -8409,7 +8346,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Mace'
+    display_name: '<lang.recipe-heat-diamond-mace>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -8438,7 +8375,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Spear'
+    display_name: '<lang.recipe-heat-diamond-spear>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -8467,7 +8404,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Diamond Warhammer'
+    display_name: '<lang.recipe-heat-diamond-warhammer>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -8496,7 +8433,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Mace'
+    display_name: '<lang.recipe-heat-gold-mace>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -8525,7 +8462,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Spear'
+    display_name: '<lang.recipe-heat-gold-spear>'
     modifiers:
       treatment_remove_leather_binding:
         strength: 0.0
@@ -8554,7 +8491,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Gold Warhammer'
+    display_name: '<lang.recipe-heat-gold-warhammer>'
     modifiers:
       dynamic_attack_speed:
         strength: 60.0
@@ -8583,7 +8520,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Mace'
+    display_name: '<lang.recipe-heat-iron-mace>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -8612,7 +8549,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Spear'
+    display_name: '<lang.recipe-heat-iron-spear>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -8641,7 +8578,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Iron Warhammer'
+    display_name: '<lang.recipe-heat-iron-warhammer>'
     modifiers:
       treatment_remove_leather_binding:
         strength: 0.0
@@ -8670,7 +8607,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Mace'
+    display_name: '<lang.recipe-heat-netherite-mace>'
     modifiers:
       treatment_add_super_heating:
         strength: 100.0
@@ -8699,7 +8636,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Spear'
+    display_name: '<lang.recipe-heat-netherite-spear>'
     modifiers:
       treatment_remove_leather_binding:
         strength: 0.0
@@ -8728,7 +8665,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_soul_campfire_lit'
-    display_name: '&6Heat Netherite Warhammer'
+    display_name: '<lang.recipe-heat-netherite-warhammer>'
     modifiers:
       treatment_remove_leather_binding:
         strength: 0.0
@@ -8757,7 +8694,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Mace'
+    display_name: '<lang.recipe-heat-stone-mace>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -8786,7 +8723,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Spear'
+    display_name: '<lang.recipe-heat-stone-spear>'
     modifiers:
       treatment_add_heating:
         strength: 100.0
@@ -8815,7 +8752,7 @@ improve:
     break_station: false
     unlocked_for_everyone: true
     validation: 'requirement_campfire_lit'
-    display_name: '&6Heat Stone Warhammer'
+    display_name: '<lang.recipe-heat-stone-warhammer>'
     modifiers:
       dynamic_durability:
         strength: 20.0
@@ -8843,7 +8780,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Dagger'
+    display_name: '<lang.recipe-repair-diamond-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 400.0
@@ -8862,8 +8799,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_mace:
     required_type: DIAMOND_SWORD
@@ -8873,7 +8809,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Mace'
+    display_name: '<lang.recipe-repair-diamond-mace>'
     modifiers:
       exp_bonus_smithing:
         strength: 400.0
@@ -8892,8 +8828,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_spear:
     required_type: DIAMOND_SWORD
@@ -8903,7 +8838,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Spear'
+    display_name: '<lang.recipe-repair-diamond-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 400.0
@@ -8922,8 +8857,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_sword:
     required_type: DIAMOND_SWORD
@@ -8933,7 +8867,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Sword'
+    display_name: '<lang.recipe-repair-diamond-sword>'
     modifiers:
       exp_bonus_smithing:
         strength: 400.0
@@ -8952,8 +8886,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_diamond_warhammer:
     required_type: DIAMOND_SWORD
@@ -8963,7 +8896,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Diamond Warhammer'
+    display_name: '<lang.recipe-repair-diamond-warhammer>'
     modifiers:
       repair_dynamic:
         strength: 150.0
@@ -8982,8 +8915,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"Unstable
-            Diamond"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
           custom-model-data: 1
   repair_gold_dagger:
     required_type: GOLDEN_SWORD
@@ -8993,7 +8925,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Dagger'
+    display_name: '<lang.recipe-repair-gold-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 200.0
@@ -9012,8 +8944,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_mace:
     required_type: GOLDEN_SWORD
@@ -9023,7 +8954,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Mace'
+    display_name: '<lang.recipe-repair-gold-mace>'
     modifiers:
       exp_bonus_smithing:
         strength: 200.0
@@ -9042,8 +8973,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_spear:
     required_type: GOLDEN_SWORD
@@ -9053,7 +8983,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Spear'
+    display_name: '<lang.recipe-repair-gold-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 200.0
@@ -9072,8 +9002,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_sword:
     required_type: GOLDEN_SWORD
@@ -9083,7 +9012,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Sword'
+    display_name: '<lang.recipe-repair-gold-sword>'
     modifiers:
       exp_bonus_smithing:
         strength: 200.0
@@ -9102,8 +9031,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_gold_warhammer:
     required_type: GOLDEN_SWORD
@@ -9113,7 +9041,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Gold Warhammer'
+    display_name: '<lang.recipe-repair-gold-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 200.0
@@ -9132,8 +9060,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Gold
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_dagger:
     required_type: IRON_SWORD
@@ -9143,7 +9070,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Dagger'
+    display_name: '<lang.recipe-repair-iron-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 175.0
@@ -9162,8 +9089,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_mace:
     required_type: IRON_SWORD
@@ -9173,7 +9099,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Mace'
+    display_name: '<lang.recipe-repair-iron-mace>'
     modifiers:
       exp_bonus_smithing:
         strength: 175.0
@@ -9192,8 +9118,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_spear:
     required_type: IRON_SWORD
@@ -9203,7 +9128,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Spear'
+    display_name: '<lang.recipe-repair-iron-spear>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -9222,8 +9147,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_sword:
     required_type: IRON_SWORD
@@ -9233,7 +9157,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Sword'
+    display_name: '<lang.recipe-repair-iron-sword>'
     modifiers:
       exp_bonus_smithing:
         strength: 175.0
@@ -9252,8 +9176,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_iron_warhammer:
     required_type: IRON_SWORD
@@ -9263,7 +9186,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Iron Warhammer'
+    display_name: '<lang.recipe-repair-iron-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 175.0
@@ -9282,8 +9205,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_dagger:
     required_type: NETHERITE_SWORD
@@ -9293,7 +9215,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Dagger'
+    display_name: '<lang.recipe-repair-netherite-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 1500.0
@@ -9312,8 +9234,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_mace:
     required_type: NETHERITE_SWORD
@@ -9323,7 +9244,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Mace'
+    display_name: '<lang.recipe-repair-netherite-mace>'
     modifiers:
       repair_dynamic:
         strength: 200.0
@@ -9342,8 +9263,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_spear:
     required_type: NETHERITE_SWORD
@@ -9353,7 +9273,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Spear'
+    display_name: '<lang.recipe-repair-netherite-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 1500.0
@@ -9372,8 +9292,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_sword:
     required_type: NETHERITE_SWORD
@@ -9383,7 +9302,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Sword'
+    display_name: '<lang.recipe-repair-netherite-sword>'
     modifiers:
       exp_bonus_smithing:
         strength: 1500.0
@@ -9402,8 +9321,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_netherite_warhammer:
     required_type: NETHERITE_SWORD
@@ -9413,7 +9331,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Netherite Warhammer'
+    display_name: '<lang.recipe-repair-netherite-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 1500.0
@@ -9432,8 +9350,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   repair_stone_dagger:
     required_type: STONE_SWORD
@@ -9443,7 +9360,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Dagger'
+    display_name: '<lang.recipe-repair-stone-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 100.0
@@ -9467,7 +9384,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Mace'
+    display_name: '<lang.recipe-repair-stone-mace>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -9491,7 +9408,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Spear'
+    display_name: '<lang.recipe-repair-stone-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 100.0
@@ -9515,7 +9432,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Sword'
+    display_name: '<lang.recipe-repair-stone-sword>'
     modifiers:
       exp_bonus_smithing:
         strength: 100.0
@@ -9539,7 +9456,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Stone Warhammer'
+    display_name: '<lang.recipe-repair-stone-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 100.0
@@ -9563,7 +9480,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Dagger'
+    display_name: '<lang.recipe-repair-wooden-dagger>'
     modifiers:
       exp_bonus_smithing:
         strength: 50.0
@@ -9587,7 +9504,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Mace'
+    display_name: '<lang.recipe-repair-wooden-mace>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -9611,7 +9528,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Spear'
+    display_name: '<lang.recipe-repair-wooden-spear>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -9635,7 +9552,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Sword'
+    display_name: '<lang.recipe-repair-wooden-sword>'
     modifiers:
       exp_bonus_smithing:
         strength: 50.0
@@ -9659,7 +9576,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fRepair Wooden Warhammer'
+    display_name: '<lang.recipe-repair-wooden-warhammer>'
     modifiers:
       repair_dynamic:
         strength: 100.0
@@ -9683,7 +9600,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Diamond Spear'
+    display_name: '<lang.recipe-sharpen-diamond-spear>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -9702,7 +9619,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Gold Spear'
+    display_name: '<lang.recipe-sharpen-gold-spear>'
     modifiers:
       dynamic_damage:
         strength: 80.0
@@ -9721,7 +9638,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Iron Spear'
+    display_name: '<lang.recipe-sharpen-iron-spear>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -9740,7 +9657,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Netherite Spear'
+    display_name: '<lang.recipe-sharpen-netherite-spear>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -9759,7 +9676,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Stone Spear'
+    display_name: '<lang.recipe-sharpen-stone-spear>'
     modifiers:
       treatment_add_sharpening_rough:
         strength: 70.0
@@ -9778,7 +9695,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Dagger'
+    display_name: '<lang.recipe-sharpen-wooden-dagger>'
     modifiers:
       treatment_remove_wax_coating:
         strength: 0.0
@@ -9803,7 +9720,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Wooden Spear'
+    display_name: '<lang.recipe-sharpen-wooden-spear>'
     modifiers:
       dynamic_durability:
         strength: 70.0
@@ -9828,7 +9745,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Mace'
+    display_name: '<lang.recipe-wax-coat-wooden-mace>'
     modifiers:
       treatment_add_wax_coating:
         strength: 0.0
@@ -9850,7 +9767,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_spear:
     required_type: WOODEN_SWORD
@@ -9860,7 +9777,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Spear'
+    display_name: '<lang.recipe-wax-coat-wooden-spear>'
     modifiers:
       dynamic_durability:
         strength: 100.0
@@ -9882,7 +9799,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   wax_wooden_warhammer:
     required_type: WOODEN_SWORD
@@ -9892,7 +9809,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWax-Coat Wooden Warhammer'
+    display_name: '<lang.recipe-wax-coat-wooden-warhammer>'
     modifiers:
       exp_bonus_smithing:
         strength: 75.0
@@ -9914,7 +9831,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Melted Wax"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
           custom-model-data: 1
   whetstone_diamond_spear:
     required_type: DIAMOND_SWORD
@@ -9924,7 +9841,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Diamond Spear'
+    display_name: '<lang.recipe-whetstone-diamond-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 50.0
@@ -9954,7 +9871,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Gold Spear'
+    display_name: '<lang.recipe-whetstone-gold-spear>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -9984,7 +9901,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Iron Spear'
+    display_name: '<lang.recipe-whetstone-iron-spear>'
     modifiers:
       treatment_add_sharpening_fine:
         strength: 0.0
@@ -10014,7 +9931,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Netherite Spear'
+    display_name: '<lang.recipe-whetstone-netherite-spear>'
     modifiers:
       treatment_requirement_sharpening_rough:
         strength: 0.0
@@ -10044,7 +9961,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fWhetstone Stone Spear'
+    display_name: '<lang.recipe-whetstone-stone-spear>'
     modifiers:
       exp_bonus_smithing:
         strength: 50.0
@@ -10074,7 +9991,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Dagger'
+    display_name: '<lang.recipe-temper-diamond-dagger>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10100,7 +10017,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Mace'
+    display_name: '<lang.recipe-temper-diamond-mace>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10126,7 +10043,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Spear'
+    display_name: '<lang.recipe-temper-diamond-spear>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10152,7 +10069,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Sword'
+    display_name: '<lang.recipe-temper-diamond-sword>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10178,7 +10095,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Diamond Warhammer'
+    display_name: '<lang.recipe-temper-diamond-warhammer>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10204,7 +10121,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Dagger'
+    display_name: '<lang.recipe-temper-gold-dagger>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10230,7 +10147,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Mace'
+    display_name: '<lang.recipe-temper-gold-mace>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10256,7 +10173,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Spear'
+    display_name: '<lang.recipe-temper-gold-spear>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10282,7 +10199,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Sword'
+    display_name: '<lang.recipe-temper-gold-sword>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10308,7 +10225,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Gold Warhammer'
+    display_name: '<lang.recipe-temper-gold-warhammer>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10334,7 +10251,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Dagger'
+    display_name: '<lang.recipe-temper-iron-dagger>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_requirement_heating:
@@ -10360,7 +10277,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Mace'
+    display_name: '<lang.recipe-temper-iron-mace>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10386,7 +10303,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Spear'
+    display_name: '<lang.recipe-temper-iron-spear>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10412,7 +10329,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Sword'
+    display_name: '<lang.recipe-temper-iron-sword>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10438,7 +10355,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Iron Warhammer'
+    display_name: '<lang.recipe-temper-iron-warhammer>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10464,7 +10381,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Dagger'
+    display_name: '<lang.recipe-temper-netherite-dagger>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10490,7 +10407,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Mace'
+    display_name: '<lang.recipe-temper-netherite-mace>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10516,7 +10433,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Spear'
+    display_name: '<lang.recipe-temper-netherite-spear>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10542,7 +10459,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Sword'
+    display_name: '<lang.recipe-temper-netherite-sword>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10568,7 +10485,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Netherite Warhammer'
+    display_name: '<lang.recipe-temper-netherite-warhammer>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10594,7 +10511,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Dagger'
+    display_name: '<lang.recipe-temper-stone-dagger>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10620,7 +10537,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Mace'
+    display_name: '<lang.recipe-temper-stone-mace>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10646,7 +10563,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Spear'
+    display_name: '<lang.recipe-temper-stone-spear>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10672,7 +10589,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Sword'
+    display_name: '<lang.recipe-temper-stone-sword>'
     validation: requirement_cauldron_water_consume
     modifiers:
       treatment_remove_heating:
@@ -10698,7 +10615,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fTemper Stone Warhammer'
+    display_name: '<lang.recipe-temper-stone-warhammer>'
     validation: requirement_cauldron_water_consume
     modifiers:
       require_weapon_id:
@@ -10724,7 +10641,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fBattleshield Upgrade'
+    display_name: '<lang.recipe-battleshield-upgrade>'
     modifiers:
       treatment_add_generic_improvement:
         strength: 0.0
@@ -10756,8 +10673,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"Blazing
-            Netherite Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
           custom-model-data: 1
   sharpen_battleshield:
     required_type: SHIELD
@@ -10767,7 +10683,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fSharpen Battleshield'
+    display_name: '<lang.recipe-sharpen-battleshield>'
     modifiers:
       dynamic_damage:
         strength: 100.0
@@ -10786,7 +10702,7 @@ improve:
     exact_meta: true
     break_station: false
     unlocked_for_everyone: true
-    display_name: '&fShell Upgrade'
+    display_name: '<lang.recipe-shell-upgrade>'
     modifiers:
       default_attribute_knockback_resist_add:
         strength: 0.05
@@ -10811,8 +10727,7 @@ improve:
         meta:
           ==: ItemMeta
           meta-type: UNSPECIFIC
-          display-name: '{"extra":[{"italic":false,"color":"gold","text":"Hot Iron
-            Ingot"}],"text":""}'
+          display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
           custom-model-data: 1
       '1':
         ==: org.bukkit.inventory.ItemStack

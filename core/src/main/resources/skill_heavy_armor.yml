@@ -1,9 +1,9 @@
-display_name: '&7Heavy Armor'
+display_name: '<lang.skill-heavy-armor-displayname>'
 icon: IRON_CHESTPLATE
 icon_data: 3510001
-description: '&8Practice Heavy Armor to greatly reduce damage taken, and become an undefeatable menace'
+description: '<lang.skill-heavy-armor-description>'
 
-levelbar_title: '&7Heavy Armor &eLV %lv_current% &4%exp_current%&7/&4%exp_next%'
+levelbar_title: '<lang.skill-heavy-armor-level-bar>'
 levelbar_color: RED # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 

@@ -1,9 +1,9 @@
-display_name: '&7Landscaping'
+display_name: '<lang.skill-landscaping-displayname>'
 icon: IRON_AXE
 icon_data: 3510002
-description: '&8Practice Landscaping to increase your wood harvesting, to find rare drops in the dirt, and to augment your building skills'
+description: '<lang.skill-landscaping-description>'
 
-levelbar_title: '&7Landscaping &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'
+levelbar_title: '<lang.skill-landscaping-level-bar>'
 levelbar_color: GREEN # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 

@@ -31,7 +31,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&eLight Weapons&7 leveled up to &e%level%'
+  - '<lang.skill-level-up-light-weapons>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   light_weapons_damage_multiplier_add: 0.005 # light weapon damage value gradually increases from 0.8-1.3x
@@ -41,54 +41,41 @@ starting_coordinates: '4,10' # The coordinates in the skill tree the player sees
 perks:
   light_weapons_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Squire' # Name of the icon within the skill tree
+    name: '<lang.skill-light-weapons-perk-ranked-1-display-name>' # Name of the icon within the skill tree
     icon: WOODEN_SWORD # Icon itself within the skill tree
     coords: 4,10 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7You gain a &e10%&7 chance to inflict a critical hit and attack a little bit faster'
+    description: '<lang.skill-light-weapons-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       light_weapons_crit_chance_add: 0.1
       light_weapons_attack_speed_bonus_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSquire'
-      - '&7You gain &e10% &7extra attack speed '
-      - '&7with light weapons and critical strike '
-      - '&7chance. Critical Strikes deal &e30% '
-      - '&7more damage.'
-      - ' '
+      - '<lang.skill-light-weapons-perk-ranked-1-messages>'
   light_weapons_perk_ranked_2:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - light_weapons_perk_ranked_1
-    name: '&7Battle Scars'
+    name: '<lang.skill-light-weapons-perk-ranked-2-display-name>'
     icon: STONE_SWORD
-    description: '&7Critical strikes inflict &eBleeding&7, which deals 1 heart of damage every 2 seconds, 3 times. Bleeding damage ignores armor'
+    description: '<lang.skill-light-weapons-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
       light_weapons_bleed_on_crit: true
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBattle Scars'
-      - '&7Critical hits cause the target to'
-      - '&eBleed&7, which does 3 hearts of'
-      - '&7damage over the course of 3 ticks.'
-      - '&7Bleeding damage occurs every 2 seconds,'
-      - '&7and ignores armor.'
-      - ' '
+      - '<lang.skill-light-weapons-perk-ranked-2-messages>'
   light_weapons_perk_ranked_3:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - light_weapons_perk_ranked_2
-    name: '&7Knight'
+    name: '<lang.skill-light-weapons-perk-ranked-3-display-name>'
     icon: IRON_SWORD
-    description: '&7Unlocks &eParry&7, which allows you to deflect enemy attacks and stun them when you do.'
+    description: '<lang.skill-light-weapons-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
       light_weapons_parry_fail_debuff_duration_set: 1000
@@ -98,48 +85,31 @@ perks:
       light_weapons_parry_vulnerable_frame_set: 667
       light_weapons_parry_cooldown_set: 10000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eKnight'
-      - '&7You gain the ability to &eParry&7.'
-      - '&eRight-Click&7 with a light weapon to parry.'
-      - '&7For a short moment you deflect the next'
-      - '&7enemy melee attack, taking &e50% &7less damage.'
-      - '&7A successful parry stuns and weakens the enemy'
-      - '&7for &e1 second&7, but if you get hit quickly'
-      - '&7after the duration ends you get weakened instead.'
-      - '&cYou need your weapon in full swing to parry'
-      - '&cHas a 10 second cooldown'
-      - ' '
+      - '<lang.skill-light-weapons-perk-ranked-3-messages>'
   light_weapons_perk_ranked_4:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - light_weapons_perk_ranked_3
-    name: '&7Clean Cuts'
+    name: '<lang.skill-light-weapons-perk-ranked-4-display-name>'
     icon: DIAMOND_SWORD
-    description: '&7Bleeding inflicted by you lasts 2 ticks longer. Additionally, your chance to critically strike increases by &e10%.'
+    description: '<lang.skill-light-weapons-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
       light_weapons_crit_chance_add: 0.1
       light_weapons_bleed_duration_add: 4000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eClean Cut'
-      - '&7Bleeding inflicted by you lasts &e2 ticks'
-      - '&7longer, dealing &e5 hearts of damage&7 instead'
-      - '&7of 3. Additionally, you gain &e10% &7extra'
-      - '&7crit chance'
-      - ' '
+      - '<lang.skill-light-weapons-perk-ranked-4-messages>'
   light_weapons_perk_ranked_5:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - light_weapons_perk_ranked_4
-    name: '&7Templar'
+    name: '<lang.skill-light-weapons-perk-ranked-5-display-name>'
     icon: NETHERITE_SWORD
-    description: '&7Parrying becomes much easier, cancels &eall &7damage, and can be done every &e6&7 seconds.'
+    description: '<lang.skill-light-weapons-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
       light_weapons_parry_fail_debuff_duration_set: 1000
@@ -149,24 +119,19 @@ perks:
       light_weapons_parry_vulnerable_frame_set: 1000
       light_weapons_parry_cooldown_set: 6000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eTemplar'
-      - '&7Parrying becomes much easier, reduces'
-      - '&e100% &7of damage taken, and its cooldown'
-      - '&7is reduced to &e6 seconds&7.'
-      - ' '
+      - '<lang.skill-light-weapons-perk-ranked-5-messages>'
   light_weapons_perk_weapons_1:
     hidden: true
     cost: 1
     coords: 2,8
     requireperk_one:
       - light_weapons_perk_ranked_1
-    name: '&7Light Weapon Arsenal I'
+    name: '<lang.skill-light-weapons-perk-weapons-1-display-name>'
     icon: IRON_SWORD
     custom_model_data_unlockable: 1
     custom_model_data_visible: 1
     custom_model_data_unlocked: 1
-    description: '&7Unlocks &eDaggers&7 for crafting at the anvil. Daggers benefit from high attack speed and crit chance, but lower reach and no knockback'
+    description: '<lang.skill-light-weapons-perk-weapons-1-description>'
     required_lv: 40
     perk_rewards:
       unlock_recipes:
@@ -177,27 +142,19 @@ perks:
         - craft_diamond_dagger
         - craft_netherite_dagger
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eLight Weapon Arsenal I'
-      - '&7You unlock &eDaggers &7for crafting at'
-      - '&7the anvil'
-      - '&eDaggers:'
-      - '&a+15% crit chance'
-      - '&c-0.75 attack reach'
-      - '&cRemoved knockback'
-      - ' '
+      - '<lang.skill-light-weapons-perk-weapons-1-messages>'
   light_weapons_perk_weapons_2:
     hidden: true
     cost: 1
     coords: 6,8
     requireperk_one:
       - light_weapons_perk_weapons_1
-    name: '&7Light Weapon Arsenal II'
+    name: '<lang.skill-light-weapons-perk-weapons-2-display-name>'
     icon: IRON_SWORD
     custom_model_data_unlockable: 2
     custom_model_data_visible: 2
     custom_model_data_unlocked: 2
-    description: '&7Unlocks &eMaces&7 for crafting at the anvil. Maces benefit from increased knockback and stun chance, but reduced crit chance and slower attack speed'
+    description: '<lang.skill-light-weapons-perk-weapons-2-description>'
     required_lv: 80
     perk_rewards:
       unlock_recipes:
@@ -208,44 +165,31 @@ perks:
         - craft_diamond_mace
         - craft_netherite_mace
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eLight Weapon Arsenal II'
-      - '&7You unlock &eRapiers &7and &eMaces &7for '
-      - '&7crafting at the anvil'
-      - '&eMaces:'
-      - '&a+50% knockback'
-      - '&a+10% stun chance'
-      - '&c-10% crit chance'
-      - ' '
+      - '<lang.skill-light-weapons-perk-weapons-2-messages>'
   light_weapons_perk_main_1:
     hidden: true
     cost: 1
     coords: 4,8
     requireperk_one:
       - light_weapons_perk_ranked_1
-    name: '&7Swift Strikes'
+    name: '<lang.skill-light-weapons-perk-main-1-display-name>'
     icon: FEATHER
-    description: '&7Your melee attacks become a &e10%&7 faster, and the enemy is immune for a shorter duration after being struck'
+    description: '<lang.skill-light-weapons-perk-main-1-description>'
     required_lv: 20
     perk_rewards:
       light_weapons_attack_speed_bonus_add: 0.1
       light_weapons_immunity_frame_reduction_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSwift Strikes'
-      - '&7You gain &e10% &7light weapon attack'
-      - '&7speed, and enemies are immune for'
-      - '&7a shorter duration after being struck'
-      - ' '
+      - '<lang.skill-light-weapons-perk-main-1-messages>'
   light_weapons_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - light_weapons_perk_main_1
-    name: '&7Toxic Blade'
+    name: '<lang.skill-light-weapons-perk-main-2-display-name>'
     icon: POTION
-    description: '&7You gain the ability to coat weapons with a negative potion effect, applying it on the next 3 hits at half strength and a quarter of the duration'
+    description: '<lang.skill-light-weapons-perk-main-2-description>'
     required_lv: 40
     perk_rewards:
       light_weapons_coating_enemy_amplifier_add: 0.5
@@ -253,75 +197,50 @@ perks:
       light_weapons_coating_self_duration_add: -3
       light_weapons_unlocked_weapon_coating: true
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eToxic Blade'
-      - '&7Drinking a negative potion coats your last'
-      - '&7swung light weapon in the toxin, not poisoning'
-      - '&7you. Your next &e3&7 hits apply the potion effect'
-      - '&7to the hit target at &e50%&7 strength and &e25%&7 duration'
-      - '&7Drinking another potion washes away the previous coating'
-      - ' '
+      - '<lang.skill-light-weapons-perk-main-2-messages>'
   light_weapons_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,4
     requireperk_one:
       - light_weapons_perk_main_2
-    name: '&7Weak Spot'
+    name: '<lang.skill-light-weapons-perk-main-3-display-name>'
     icon: QUARTZ
-    description: '&7Enemy light armor is &e5&7 points less effective by your attacks, and your critical hits do &e20% &7more damage'
+    description: '<lang.skill-light-weapons-perk-main-3-description>'
     required_lv: 60
     perk_rewards:
       light_weapons_flat_light_armor_ignored_add: 5
       light_weapons_crit_damage_multiplier_add: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eWeak Spot'
-      - '&7Any light armor the enemy is wearing'
-      - '&7is &e5 points &7less effective, and your'
-      - '&7critical hits deal &e20% &7more damage'
-      - '&7(130% --> 150%)'
-      - ' '
+      - '<lang.skill-light-weapons-perk-main-3-messages>'
   light_weapons_perk_main_4:
     hidden: true
     cost: 1
     coords: 4,2
     requireperk_one:
       - light_weapons_perk_main_3
-    name: '&7Frenzy'
+    name: '<lang.skill-light-weapons-perk-main-4-display-name>'
     icon: BLAZE_POWDER
-    description: '&7Your melee attacks become a &e10%&7 faster, and the enemy is immune for a shorter duration after being struck, and you deal a little bit more knockback'
+    description: '<lang.skill-light-weapons-perk-main-4-description>'
     required_lv: 80
     perk_rewards:
       light_weapons_attack_speed_bonus_add: 0.1
       light_weapons_immunity_frame_reduction_add: 0.1
       light_weapons_knockback_bonus_add: 0.15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFrenzy'
-      - '&7You gain &e10% &7light weapon attack'
-      - '&7speed, enemies are immune for'
-      - '&7a shorter duration after being struck,'
-      - '&7and you deal &e15% &7more knockback'
-      - ' '
+      - '<lang.skill-light-weapons-perk-main-4-messages>'
   light_weapons_perk_main_5:
     hidden: true
     cost: 1
     coords: 4,0
     requireperk_one:
       - light_weapons_perk_main_4
-    name: '&7Witchblade'
+    name: '<lang.skill-light-weapons-perk-main-5-display-name>'
     icon: ENDER_EYE
-    description: '&7Your weapon coatings now last for &e10 &7hits and effects last &etwice &7as long'
+    description: '<lang.skill-light-weapons-perk-main-5-description>'
     required_lv: 100
     perk_rewards:
       light_weapons_coating_enemy_duration_add: 0.25
       light_weapons_coating_self_duration_add: -7
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eWitchblade'
-      - '&7Your weapon coatings last for'
-      - '&e10 &7hits instead of 3, and the effects'
-      - '&7left on enemies last &etwice &7as'
-      - '&7long'
-      - ' '
+      - '<lang.skill-light-weapons-perk-main-5-messages>'

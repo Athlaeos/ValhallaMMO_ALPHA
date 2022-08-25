@@ -7,12 +7,14 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier
 import me.athlaeos.valhallammo.crafting.recipetypes.DynamicShapedRecipe;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -462,7 +464,11 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
 
         shapedRecipe.shape(shape);
         for (Character c : ingredientMap.keySet()){
-            shapedRecipe.setIngredient(c, ingredientMap.get(c).getType());
+            if (requireExactMeta){
+                shapedRecipe.setIngredient(c, new RecipeChoice.ExactChoice(ingredientMap.get(c)));
+            } else {
+                shapedRecipe.setIngredient(c, ingredientMap.get(c).getType());
+            }
         }
 
         return new DynamicShapedRecipe(currentRecipe.getName(), shapedRecipe, exactItems, requireExactMeta, requireCustomTools, tinkerFirstItem, currentModifiers);
@@ -472,7 +478,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         BiMap<Character, ItemStack> ingredientMap = HashBiMap.create();
         for (ItemStack i : items){
             if (Utils.isItemEmptyOrNull(i)) continue;
-            char possibleCharacter = Utils.getItemName(i).toUpperCase().charAt(0);
+            char possibleCharacter = ChatColor.stripColor(Utils.getItemName(i)).toUpperCase().charAt(0);
             if (ingredientMap.containsKey(possibleCharacter)){
                 possibleCharacter = i.getType().toString().toUpperCase().charAt(0);
                 if (ingredientMap.containsKey(possibleCharacter)){

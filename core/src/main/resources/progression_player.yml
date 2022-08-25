@@ -83,7 +83,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&7You leveled up to &e%level%'
+  - '<lang.skill-level-up-account>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   skillpoints_add: 1

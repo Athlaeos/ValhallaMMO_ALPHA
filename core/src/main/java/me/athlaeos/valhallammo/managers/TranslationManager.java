@@ -2,7 +2,7 @@ package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
-import me.athlaeos.valhallammo.config.ConfigUpdater;
+import me.athlaeos.valhallammo.utility.Utils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
@@ -11,8 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TranslationManager {
 
@@ -62,7 +64,7 @@ public class TranslationManager {
         ConfigurationSection placeholderSection = config.getConfigurationSection("placeholders");
         if (placeholderSection != null){
             for (String key : placeholderSection.getKeys(false)){
-                Object value = config.get(key);
+                Object value = config.get("placeholders." + key);
                 if (value != null){
                     if (value instanceof List){
                         if (!((List<?>) value).isEmpty()){
@@ -102,48 +104,90 @@ public class TranslationManager {
 
     public String translatePlaceholders(String originalString){
         String[] matches = StringUtils.substringsBetween(originalString, "<lang.", ">");
-        if (matches == null) return originalString;
+        if (matches == null) {
+            return originalString;
+        }
         for (String s : matches){
-            originalString = originalString.replace("<lang." + s + ">", placeholderTranslations.getOrDefault(s, ""));
+            String replacement = placeholderTranslations.getOrDefault(s, "");
+            originalString = originalString.replace("<lang." + s + ">", replacement); //getTranslation(s)
         }
         return originalString;
     }
 
     public List<String> translateListPlaceholders(List<String> originalList){
         List<String> newList = new ArrayList<>();
+        if (originalList == null) return newList;
 
         for (String l : originalList) {
             String subString = StringUtils.substringBetween(l, "<lang.", ">");
             if (subString == null) {
                 // list does not contain placeholder match, string is added normally
-                newList.add(l);
+                newList.add(translatePlaceholders(Utils.chat(l)));
             } else {
                 // list has a line matching the placeholder format, placeholder is replaced with associated value
                 List<String> placeholderList = placeholderListTranslationMap.getOrDefault(subString, new ArrayList<>());
-                for (String s : placeholderList) {
-                    // each line in the associated list is once again passed through the translation method
-                    newList.add(translatePlaceholders(s));
+                if (placeholderList.isEmpty()){
+                    newList.add(translatePlaceholders(Utils.chat(l)));
+                } else {
+                    for (String s : placeholderList) {
+                        // each line in the associated list is once again passed through the translation method
+                        newList.add(translatePlaceholders(Utils.chat(s)));
+                    }
                 }
             }
         }
         return newList;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
     /**
      * Replaces any language placeholders in the display name and lore to their translated versions
      * @param i the item to translate
      */
-    public void translateItemStack(ItemStack i){
-        if (i == null) return;
+    public ItemStack translateItemStack(ItemStack i){
+        if (i == null) return null;
         ItemMeta iMeta = i.getItemMeta();
-        if (iMeta == null) return;
+        if (iMeta == null) return null;
         if (iMeta.hasDisplayName()){
-            iMeta.setDisplayName(translatePlaceholders(iMeta.getDisplayName()));
+            if (iMeta.getDisplayName().contains("<lang.")){
+                iMeta.setDisplayName(Utils.chat(translatePlaceholders(Utils.chat(iMeta.getDisplayName()))));
+            }
         }
         if (iMeta.hasLore() && iMeta.getLore() != null){
-            iMeta.setLore(translateListPlaceholders(iMeta.getLore()));
+            List<String> newLore = new ArrayList<>();
+            if (iMeta.getLore().stream().anyMatch(s -> s.contains("<lang."))){
+                for (String s : translateListPlaceholders(iMeta.getLore())){
+                    newLore.add(Utils.chat(s));
+                }
+            }
+
+            iMeta.setLore(newLore);
         }
         i.setItemMeta(iMeta);
+        i = reSetItemText(i);
+        return i;
+    }
+
+    public ItemStack reSetItemText(ItemStack i){
+        if (i == null) return null;
+        ItemMeta iMeta = i.getItemMeta();
+        if (iMeta == null) return null;
+//        if (iMeta.hasDisplayName()){
+//            iMeta.setDisplayName(Utils.chat(iMeta.getDisplayName()));
+//        }
+        if (iMeta.hasLore() && iMeta.getLore() != null){
+            List<String> newLore = new ArrayList<>();
+            for (String s : iMeta.getLore()){
+                newLore.add(Utils.chat(s));
+            }
+
+            iMeta.setLore(newLore);
+        }
+        i.setItemMeta(iMeta);
+        return i;
     }
 
     public Map<String, String> getSkillTranslations() {
@@ -179,7 +223,9 @@ public class TranslationManager {
 
     public String getTranslation(String key){
         String translation = translationMap.get(key);
-        if (translation == null) return "";
+        if (translation == null) {
+            return "";
+        }
         return StringEscapeUtils.unescapeJava(translation);
     }
 

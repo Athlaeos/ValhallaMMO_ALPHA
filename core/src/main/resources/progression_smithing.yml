@@ -92,7 +92,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&eSmithing&7 leveled up to &e%level%'
+  - '<lang.skill-level-up-smithing>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   smithing_craftskill_general_add: 2
@@ -100,37 +100,31 @@ leveling_perks: # Perk rewards executed on the player every time they level
 perks:
   smithing_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Novice Smithing' # Name of the icon within the skill tree
+    name: '<lang.skill-smithing-perk-main-1-display-name>' # Name of the icon within the skill tree
     icon: 'WOODEN_AXE' # Icon itself within the skill tree
     coords: 3,6 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7You are able to craft items of &eTier I&7 materials of much higher quality.'
+    description: '<lang.skill-smithing-perk-main-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       smithing_craftskill_wood_add: 50
       smithing_craftskill_leather_add: 50
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eNovice Smithing'
-      - '&7You can now craft &ewooden &7and &eleather &7items with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-main-1-messages>'
   smithing_perk_main_2:
-    name: '&7Apprentice Smithing'
+    name: '<lang.skill-smithing-perk-main-2-display-name>'
     icon: STONE_AXE
     coords: '1,5'
     hidden: false
     cost: 1
-    description: '&7You are able to craft items of &eTier II&7 materials of much higher quality.'
+    description: '<lang.skill-smithing-perk-main-2-description>'
     required_lv: 20
     perk_rewards:
       smithing_craftskill_stone_add: 50
       smithing_craftskill_chainmail_add: 50
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eApprentice Smithing'
-      - '&7You can now craft &estone &7and &echainmail &7items with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-main-2-messages>'
         # To have a perk be unlockable, all conditions must be met:
         # - The player must have the same or higher levels than is required
         # - The player must have at least one perk unlocked of requireperk_one, or none if it is empty or doesn't exist
@@ -138,66 +132,57 @@ perks:
     requireperk_one: # with requireperk_one the player requires to have unlocked ONE of the perks in this list to be able to unlock this perk
       - smithing_perk_main_1
   smithing_perk_main_3:
-    name: '&7Adept Smithing'
+    name: '<lang.skill-smithing-perk-main-3-display-name>'
     icon: IRON_AXE
     coords: '5,5'
     cost: 1
     hidden: false
-    description: '&7You are able to craft items of &eTier III&7 materials of much higher quality'
+    description: '<lang.skill-smithing-perk-main-3-description>'
     required_lv: 40
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAdept Smithing'
-      - '&7You can now craft &eiron &7and &egold &7items with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-main-3-messages>'
     perk_rewards:
       smithing_craftskill_iron_add: 50
       smithing_craftskill_gold_add: 50
     requireperk_one:
       - smithing_perk_main_2
   perk_prismarine:
-    name: '&9Prismarine Smithing'
+    name: '<lang.skill-smithing-perk-prismarine-display-name>'
     icon: TRIDENT
     coords: '1,1'
     cost: 1
     hidden: false
-    description: '&7Unlocks the Trident recipe for you, and you can craft them with increased quality.'
+    description: '<lang.skill-smithing-perk-prismarine-description>'
     required_lv: 50
     perk_rewards:
       smithing_craftskill_prismarine_add: 50
       unlock_recipes:
         - craft_trident
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &9Prismarine Smithing'
-      - '&7You can now craft &etridents &7with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-prismarine-messages>'
     requireperk_one:
       - smithing_perk_main_3
   smithing_perk_main_4:
-    name: '&7Expert Smithing'
+    name: '<lang.skill-smithing-perk-main-4-display-name>'
     icon: DIAMOND_AXE
     coords: '0,3'
     cost: 1
     hidden: false
-    description: '&7You are able to craft items of &eTier IV&7 materials of much higher quality'
+    description: '<lang.skill-smithing-perk-main-4-description>'
     required_lv: 60
     perk_rewards:
       smithing_craftskill_diamond_add: 50
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExpert Smithing'
-      - '&7You can now craft &ediamond &7items with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-main-4-messages>'
     requireperk_one:
       - smithing_perk_main_3
   perk_ender:
-    name: '&9Enderic Smithing'
+    name: '<lang.skill-smithing-perk-ender-display-name>'
     icon: ENDER_PEARL
     cost: 1
     coords: '5,1'
     hidden: false
-    description: '&7Unlocks the Elytra recipe for you, and you can craft them with increased quality.'
+    description: '<lang.skill-smithing-perk-ender-description>'
     required_lv: 70
     perk_rewards:
       smithing_craftskill_membrane_add: 50
@@ -205,43 +190,33 @@ perks:
         - craft_elytra
         - craft_shulker_shell
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &dEnderic Smithing'
-      - '&7You can now craft &delytras &7and &dshulker shells&7, with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-ender-messages>'
     requireperk_one:
       - smithing_perk_main_4
   smithing_perk_main_5:
-    name: '&7Master Smithing'
+    name: '<lang.skill-smithing-perk-main-5-display-name>'
     icon: NETHERITE_AXE
     coords: '6,3'
     cost: 1
     hidden: false
-    description: '&7You are able to craft items of &eTier V&7 materials of much higher quality'
+    description: '<lang.skill-smithing-perk-main-5-description>'
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMaster Smithing'
-      - '&7You can now craft &enetherite &7items with'
-      - '&e+50 &7extra quality'
+      - '<lang.skill-smithing-perk-main-5-messages>'
     required_lv: 80
     perk_rewards:
       smithing_craftskill_netherite_add: 50
     requireperk_one:
       - smithing_perk_main_4
   perk_main_final:
-    name: '&7Masterpiece'
+    name: '<lang.skill-smithing-perk-final-display-name>'
     icon: NETHER_STAR
     coords: '3,0'
     hidden: true
     cost: 1
-    description: '&7You pour your heart and soul into your next creation, gaining +50 to crafting quality. You will not be able to repeat this feat.'
+    description: '<lang.skill-smithing-perk-final-description>'
     required_lv: 100
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMasterpiece'
-      - '&7Only your next creation will benefit'
-      - '&7from an additional &e+50 &7quality.'
-      - '&7Use it wisely.'
+      - '<lang.skill-smithing-perk-final-messages>'
     perk_rewards:
       potion_effects_add:
         - 'MASTERPIECE_SMITHING'
@@ -250,19 +225,15 @@ perks:
     requireperk_one:
       - smithing_perk_main_5
   smithing_perk_special:
-    name: '&6Aspect of Durin'
+    name: '<lang.skill-smithing-perk-special-display-name>'
     icon: NETHER_STAR
     coords: '3,3'
     cost: 1
     hidden: true
-    description: '&7Having truly mastered your craft, all your creations benefit from &e+25&7 crafting quality.'
+    description: '<lang.skill-smithing-perk-special-description>'
     required_lv: 100
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eAspect of Durin'
-      - '&7You''ve become a truly legendary'
-      - '&7blacksmith. All your creations'
-      - '&7gain an additional &e+25 &7quality.'
+      - '<lang.skill-smithing-perk-special-messages>'
     perk_rewards:
       smithing_craftskill_general_add: 25
     requireperk_all:
@@ -276,82 +247,72 @@ perks:
     coords: '3,5'
     requireperk_one:
       - smithing_perk_main_1
-    name: '&7Fletcher I'
+    name: '<lang.skill-smithing-perk-specialisation-bow-1-display-name>'
     icon: BOW
-    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+15&7 to their quality. Better quality bows shoot arrows with greater velocity and gain better durability.'
+    description: '<lang.skill-smithing-perk-specialisation-bow-1-description>'
     required_lv: 20
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFletcher I'
-      - '&7Bows crafted gain &e+15 &7extra quality'
+      - '<lang.skill-smithing-perk-specialisation-bow-1-messages>'
   smithing_perk_specialisation_bow_2:
     hidden: true
     cost: 1
     coords: '3,5'
     requireperk_one:
       - smithing_perk_specialisation_bow_1
-    name: '&7Fletcher II'
+    name: '<lang.skill-smithing-perk-specialisation-bow-2-display-name>'
     icon: BOW
-    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+30&7 to their quality. Better quality bows shoot arrows with greater velocity and gain better durability.'
+    description: '<lang.skill-smithing-perk-specialisation-bow-2-description>'
     required_lv: 40
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFletcher II'
-      - '&7Bows crafted gain &e+30 &7extra quality'
+      - '<lang.skill-smithing-perk-specialisation-bow-2-messages>'
   smithing_perk_specialisation_bow_3:
     hidden: true
     cost: 1
     coords: '3,5'
     requireperk_one:
       - smithing_perk_specialisation_bow_2
-    name: '&7Fletcher III'
+    name: '<lang.skill-smithing-perk-specialisation-bow-3-display-name>'
     icon: BOW
-    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+45&7 to their quality. Better quality bows shoot arrows with greater velocity and gain better durability.'
+    description: '<lang.skill-smithing-perk-specialisation-bow-3-description>'
     required_lv: 60
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFletcher III'
-      - '&7Bows crafted gain &e+45 &7extra quality'
+      - '<lang.skill-smithing-perk-specialisation-bow-3-messages>'
   smithing_perk_specialisation_bow_4:
     hidden: true
     cost: 1
     coords: '3,5'
     requireperk_one:
       - smithing_perk_specialisation_bow_3
-    name: '&7Fletcher IV'
+    name: '<lang.skill-smithing-perk-specialisation-bow-4-display-name>'
     icon: BOW
-    description: '&7You specialize in crafting bows/crossbows. Bows you craft gain &e+60&7 to their quality. Better quality bows shoot arrows with greater velocity and gain better durability.'
+    description: '<lang.skill-smithing-perk-specialisation-bow-4-description>'
     required_lv: 80
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFletcher IV'
-      - '&7Bows crafted gain &e+60 &7extra quality'
+      - '<lang.skill-smithing-perk-specialisation-bow-4-messages>'
   smithing_perk_specialisation_bow_5:
     hidden: true
     cost: 1
     coords: '3,5'
     requireperk_one:
       - smithing_perk_specialisation_bow_4
-    name: '&7Fletcher V'
+    name: '<lang.skill-smithing-perk-specialisation-bow-5-display-name>'
     icon: BOW
-    description: '&7You master crafting bows/crossbows. Bows you craft gain &e+75&7 to their quality. '
+    description: '<lang.skill-smithing-perk-specialisation-bow-5-description>'
     required_lv: 100
     perk_rewards:
       smithing_craftskill_bow_add: 15
       smithing_craftskill_crossbow_add: 15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFletcher V'
-      - '&7Bows crafted gain &e+75 &7extra quality'
+      - '<lang.skill-smithing-perk-specialisation-bow-5-messages>'

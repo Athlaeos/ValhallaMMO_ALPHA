@@ -40,13 +40,15 @@ public class PlayerShapedCraftListener implements Listener {
                 }
                 DynamicShapedRecipe recipe = manager.getDynamicShapedRecipe(((ShapedRecipe) e.getRecipe()).getKey());
                 if (recipe != null){
-                    if (!recipe.isUnlockedForEveryone()){
-                        Profile profile = ProfileManager.getManager().getProfile((Player) e.getWhoClicked(), "ACCOUNT");
-                        if (profile != null){
-                            if (profile instanceof AccountProfile){
-                                if (!((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
-                                    e.getInventory().setResult(null);
-                                    return;
+                    if (!e.getViewers().get(0).hasPermission("valhalla.allrecipes")){
+                        if (!recipe.isUnlockedForEveryone()){
+                            Profile profile = ProfileManager.getManager().getProfile((Player) e.getWhoClicked(), "ACCOUNT");
+                            if (profile != null){
+                                if (profile instanceof AccountProfile){
+                                    if (!((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
+                                        e.getInventory().setResult(null);
+                                        return;
+                                    }
                                 }
                             }
                         }
@@ -106,13 +108,15 @@ public class PlayerShapedCraftListener implements Listener {
                     ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getInventory().getResult());
                     if (result != null){
                         if (e.getViewers().size() > 0){
-                            if (!recipe.isUnlockedForEveryone()){
-                                Profile profile = ProfileManager.getManager().getProfile((Player) e.getViewers().get(0), "ACCOUNT");
-                                if (profile != null){
-                                    if (profile instanceof AccountProfile){
-                                        if (!((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
-                                            e.getInventory().setResult(null);
-                                            return;
+                            if (!e.getViewers().get(0).hasPermission("valhalla.allrecipes")){
+                                if (!recipe.isUnlockedForEveryone()){
+                                    Profile profile = ProfileManager.getManager().getProfile((Player) e.getViewers().get(0), "ACCOUNT");
+                                    if (profile != null){
+                                        if (profile instanceof AccountProfile){
+                                            if (!((AccountProfile) profile).getUnlockedRecipes().contains(recipe.getName())){
+                                                e.getInventory().setResult(null);
+                                                return;
+                                            }
                                         }
                                     }
                                 }

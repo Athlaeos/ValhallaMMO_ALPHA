@@ -3424,7 +3424,7 @@ brewing:
         ==: ItemMeta
         meta-type: UNSPECIFIC
         lore:
-          - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Enchanted"}],"text":""}'
+          - '{"extra":[{"italic":false,"color":"gray","text":"<lang.alchemy-treatment-enchanted>"}],"text":""}'
         enchants:
           valhalla glow: 0
         PublicBukkitValues:

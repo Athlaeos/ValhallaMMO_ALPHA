@@ -1,9 +1,9 @@
-display_name: '&7Farming'
+display_name: '<lang.skill-farming-displayname>'
 icon: IRON_HOE
 icon_data: 3510001
-description: '&8Practice Farming to increase your harvest''s bounty, to collect rare plants and ingredients, and to improve your fishing and livestock farming.'
+description: '<lang.skill-farming-description>'
 
-levelbar_title: '&7Farming &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'
+levelbar_title: '<lang.skill-farming-level-bar>'
 levelbar_color: GREEN # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 

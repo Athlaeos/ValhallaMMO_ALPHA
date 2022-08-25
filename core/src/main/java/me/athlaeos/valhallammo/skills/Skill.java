@@ -113,19 +113,19 @@ public abstract class Skill {
      * @param progressionConfig the intended skill progression config, containing details about the skill's progression
      */
     public void loadCommonConfig(YamlConfiguration baseSkillConfig, YamlConfiguration progressionConfig){
-        this.displayName = Utils.chat(baseSkillConfig.getString("display_name"));
-        this.description = Utils.chat(baseSkillConfig.getString("description"));
+        this.displayName = Utils.chat(TranslationManager.getInstance().translatePlaceholders(baseSkillConfig.getString("display_name")));
+        this.description = Utils.chat(TranslationManager.getInstance().translatePlaceholders(baseSkillConfig.getString("description")));
         try {
-            this.icon = Material.valueOf(baseSkillConfig.getString("icon"));
+            this.icon = Material.valueOf((baseSkillConfig.getString("icon")));
         } catch (IllegalArgumentException ignored){
-            ValhallaMMO.getPlugin().getLogger().warning("invalid icon given for the " + Utils.toPascalCase(this.type.toString()) + " skill tree in " + baseSkillConfig.getName() + ".yml, defaulting to BARRIER");
+            ValhallaMMO.getPlugin().getLogger().warning("invalid icon given for the " + Utils.toPascalCase(this.type) + " skill tree in " + baseSkillConfig.getName() + ".yml, defaulting to BARRIER");
             this.icon = Material.BARRIER;
         }
         this.iconCustomModelData = baseSkillConfig.getInt("icon_data", -1);
 
         this.expCurve = progressionConfig.getString("experience.exp_level_curve");
         this.max_level = progressionConfig.getInt("experience.max_level");
-        this.messages = progressionConfig.getStringList("messages");
+        this.messages = TranslationManager.getInstance().translateListPlaceholders(progressionConfig.getStringList("messages"));
         this.commands = progressionConfig.getStringList("commands");
 
         try {
@@ -168,8 +168,8 @@ public abstract class Skill {
         ConfigurationSection perksSection = progressionConfig.getConfigurationSection("perks");
         if (perksSection != null){
             for (String perkName : perksSection.getKeys(false)){
-                String displayName = progressionConfig.getString("perks." + perkName + ".name");
-                String description = progressionConfig.getString("perks." + perkName + ".description");
+                String displayName = TranslationManager.getInstance().translatePlaceholders(progressionConfig.getString("perks." + perkName + ".name"));
+                String description = TranslationManager.getInstance().translatePlaceholders(progressionConfig.getString("perks." + perkName + ".description"));
                 Material perkIcon = Material.BOOK;
                 try {
                     String stringIcon = progressionConfig.getString("perks." + perkName + ".icon");
@@ -224,7 +224,7 @@ public abstract class Skill {
                     }
                 }
 
-                List<String> perkMessages = progressionConfig.getStringList("perks." + perkName + ".messages");
+                List<String> perkMessages = TranslationManager.getInstance().translateListPlaceholders(progressionConfig.getStringList("perks." + perkName + ".messages"));
                 List<String> commands = progressionConfig.getStringList("perks." + perkName + ".commands");
                 List<String> requirementSkillOne = progressionConfig.getStringList("perks." + perkName + ".requireperk_one");
                 List<String> requirementSkillAll = progressionConfig.getStringList("perks." + perkName + ".requireperk_all");
@@ -255,7 +255,7 @@ public abstract class Skill {
                 }
 
                 specialLevelingCommands.put(level, progressionConfig.getStringList("special_perks." + stringLevel + ".commands"));
-                specialLevelingMessages.put(level, progressionConfig.getStringList("special_perks." + stringLevel + ".messages"));
+                specialLevelingMessages.put(level, TranslationManager.getInstance().translateListPlaceholders(progressionConfig.getStringList("special_perks." + stringLevel + ".messages")));
                 List<PerkReward> specialPerkRewards = new ArrayList<>();
 
                 ConfigurationSection perkSection = progressionConfig.getConfigurationSection("special_perks." + stringLevel + ".perk_rewards");
@@ -274,7 +274,7 @@ public abstract class Skill {
             }
         }
 
-        this.barTitle = baseSkillConfig.getString("levelbar_title", "");
+        this.barTitle = TranslationManager.getInstance().translatePlaceholders(baseSkillConfig.getString("levelbar_title", ""));
         try {
             this.barColor = BarColor.valueOf(baseSkillConfig.getString("levelbar_color", "YELLOW"));
         } catch (IllegalArgumentException ignored){

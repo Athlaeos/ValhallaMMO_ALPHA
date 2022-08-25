@@ -6,7 +6,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eFortify Alchemy'
+    display_name: '<lang.recipe-enchantment-helmet-fortify-alchemy>'
     modifiers:
       enchantment_cancel_if_counter_increment_exceeds:
         strength: 1.0
@@ -44,7 +44,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eFortify Smithing'
+    display_name: '<lang.recipe-enchantment-chestplate-fortify-smithing>'
     modifiers:
       enchantment_glimmer_add:
         strength: 0.0
@@ -75,7 +75,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eBrewing Speed'
+    display_name: '<lang.recipe-enchantment-boots-brewing-speed>'
     modifiers:
       enchantment_add_alchemy_brew_speed:
         strength2: 100.0
@@ -106,7 +106,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eSkill EXP+'
+    display_name: '<lang.recipe-enchantment-boots-skill-exp>'
     modifiers:
       exp_bonus_enchanting:
         strength: 300.0
@@ -141,7 +141,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eSkill EXP+'
+    display_name: '<lang.recipe-enchantment-chestplate-skill-exp>'
     modifiers:
       exp_bonus_enchanting:
         strength: 300.0
@@ -176,7 +176,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eBrewing Speed'
+    display_name: '<lang.recipe-enchantment-chestplate-brewing-speed>'
     modifiers:
       enchantment_counter_increment:
         strength: 1.0
@@ -207,7 +207,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eBrewing Speed'
+    display_name: '<lang.recipe-enchantment-helmet-brewing-speed>'
     modifiers:
       enchantment_cancel_if_counter_increment_exceeds:
         strength: 1.0
@@ -238,7 +238,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eSkill EXP+'
+    display_name: '<lang.recipe-enchantment-helmet-skill-exp>'
     modifiers:
       enchantment_add_damage_taken:
         strength2: 100.0
@@ -273,7 +273,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eBrewing Speed'
+    display_name: '<lang.recipe-enchantment-leggings-brewing-speed>'
     modifiers:
       exp_cost_points:
         strength: 250.0
@@ -304,7 +304,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eSkill EXP+'
+    display_name: '<lang.recipe-enchantment-leggings-skill-exp>'
     modifiers:
       enchantment_add_exp_gain_skill:
         strength2: 100.0
@@ -339,7 +339,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eVanilla EXP+'
+    display_name: '<lang.recipe-enchantment-boots-vanilla-exp>'
     modifiers:
       enchantment_glimmer_add:
         strength: 0.0
@@ -374,7 +374,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eVanilla EXP+'
+    display_name: '<lang.recipe-enchantment-chestplate-vanilla-exp>'
     modifiers:
       exp_cost_points:
         strength: 400.0
@@ -409,7 +409,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eVanilla EXP+'
+    display_name: '<lang.recipe-enchantment-helmet-vanilla-exp>'
     modifiers:
       enchantment_cancel_if_counter_increment_exceeds:
         strength: 1.0
@@ -444,7 +444,7 @@ class_improve:
     consecutive_crafts: 8
     exact_meta: true
     break_station: false
-    display_name: '&bEnchant: &eVanilla EXP+'
+    display_name: '<lang.recipe-enchantment-leggings-vanilla-exp>'
     modifiers:
       enchantment_counter_increment:
         strength: 1.0

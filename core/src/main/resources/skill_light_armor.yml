@@ -1,9 +1,9 @@
-display_name: '&7Light Armor'
+display_name: '<lang.skill-light-armor-displayname>'
 icon: LEATHER_CHESTPLATE
 icon_data: 3510001
-description: '&8Practice Light Armor to improve your evasion and stay protected without sacrificing much mobility.'
+description: '<lang.skill-light-armor-description>'
 
-levelbar_title: '&7Light Armor &eLV %lv_current% &6%exp_current%&7/&6%exp_next%'
+levelbar_title: '<lang.skill-light-armor-level-bar>'
 levelbar_color: YELLOW # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 

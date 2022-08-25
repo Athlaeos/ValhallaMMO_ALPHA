@@ -32,7 +32,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&cHeavy Weapons&7 leveled up to &c%level%'
+  - '<lang.skill-level-up-heavy-weapons>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   heavy_weapons_damage_multiplier_add: 0.005 # heavy weapon damage value gradually increases from 0.8-1.3x
@@ -42,54 +42,41 @@ starting_coordinates: '4,10' # The coordinates in the skill tree the player sees
 perks:
   heavy_weapons_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Viking' # Name of the icon within the skill tree
+    name: '<lang.skill-heavy-weapons-perk-ranked-1-display-name>' # Name of the icon within the skill tree
     icon: WOODEN_AXE # Icon itself within the skill tree
     coords: 4,10 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7You gain a &e10%&7 chance to inflict a critical hit and your knockback is increased'
+    description: '<lang.skill-heavy-weapons-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       heavy_weapons_crit_chance_add: 0.1
       heavy_weapons_knockback_bonus_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBarbarian'
-      - '&7You gain &e10% &7extra knockback '
-      - '&7with heavy weapons and critical strike '
-      - '&7chance. Critical Strikes deal &e30% '
-      - '&7more damage.'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-ranked-1-messages>'
   heavy_weapons_perk_ranked_2:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - heavy_weapons_perk_ranked_1
-    name: '&7Brutality'
+    name: '<lang.skill-heavy-weapons-perk-ranked-2-display-name>'
     icon: STONE_AXE
-    description: '&7Critical strikes inflict &eBleeding&7, which deals 1 heart of damage every 2 seconds, 3 times. Bleeding damage ignores armor'
+    description: '<lang.skill-heavy-weapons-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
       heavy_weapons_bleed_on_crit: true
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBrutality'
-      - '&7Critical hits cause the target to'
-      - '&eBleed&7, which does 3 hearts of'
-      - '&7damage over the course of 3 ticks.'
-      - '&7Bleeding damage occurs every 2 seconds,'
-      - '&7and ignores armor.'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-ranked-2-messages>'
   heavy_weapons_perk_ranked_3:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - heavy_weapons_perk_ranked_2
-    name: '&7Barbarian'
+    name: '<lang.skill-heavy-weapons-perk-ranked-3-display-name>'
     icon: IRON_AXE
-    description: '&7Unlocks &eCrushing Blow&7, a powerful attack activating when you attack while falling which does &e50% &7of the damage to all enemies in a &e1.5 &7block radius'
+    description: '<lang.skill-heavy-weapons-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
       heavy_weapons_crushing_blow_cooldown_set: 0
@@ -97,67 +84,49 @@ perks:
       heavy_weapons_crushing_blow_on_falling: true
       heavy_weapons_crushing_blow_radius_set: 1.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBarbarian'
-      - '&7You gain the &eCrushing Blow&7 attack.'
-      - '&7Attacking while falling creates an'
-      - '&7explosive attack, doing &e50% &7of the'
-      - '&7initial damage to all enemies in a &e1.5'
-      - '&7block radius'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-ranked-3-messages>'
   heavy_weapons_perk_ranked_4:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - heavy_weapons_perk_ranked_3
-    name: '&7Fatality'
+    name: '<lang.skill-heavy-weapons-perk-ranked-4-display-name>'
     icon: DIAMOND_AXE
-    description: '&7Bleeding inflicted by you lasts 2 ticks longer. Additionally, your chance to critically strike increases by &e10%.'
+    description: '<lang.skill-heavy-weapons-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
       heavy_weapons_crit_chance_add: 0.1
       heavy_weapons_bleed_duration_add: 4000
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFatality'
-      - '&7Bleeding inflicted by you lasts &e2 ticks'
-      - '&7longer, dealing &e5 hearts of damage&7 instead'
-      - '&7of 3. Additionally, you gain &e10% &7extra'
-      - '&7crit chance'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-ranked-4-messages>'
   heavy_weapons_perk_ranked_5:
     hidden: true
     cost: 1
     coords: 4,10
     requireperk_one:
       - heavy_weapons_perk_ranked_4
-    name: '&7Berserker'
+    name: '<lang.skill-heavy-weapons-perk-ranked-5-display-name>'
     icon: NETHERITE_AXE
-    description: '&7Crushing Blow now does &e100% &7of the initial damage, and its attack affects a bigger radius.'
+    description: '<lang.skill-heavy-weapons-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
       heavy_weapons_crushing_blow_radius_add: 0.5
       heavy_weapons_crushing_blow_damage_multiplier_add: 0.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBerserker'
-      - '&7Crushing blow does &e100% &7of the'
-      - '&7initial damage, and its attack affects'
-      - '&7a bigger radius.'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-ranked-5-messages>'
   heavy_weapons_perk_weapons_1:
     hidden: true
     cost: 1
     coords: 2,8
     requireperk_one:
       - heavy_weapons_perk_ranked_1
-    name: '&7Heavy Weapon Arsenal I'
+    name: '<lang.skill-heavy-weapons-perk-weapons-1-display-name>'
     icon: IRON_AXE
     custom_model_data_unlockable: 1
     custom_model_data_visible: 1
     custom_model_data_unlocked: 1
-    description: '&7Unlocks &eWarhammers&7 for crafting at the anvil. Warhammers benefit from added stun chance and ignore some armor(blunt force), but lower damage and reduced crit chance'
+    description: '<lang.skill-heavy-weapons-perk-weapons-1-description>'
     required_lv: 40
     perk_rewards:
       unlock_recipes:
@@ -168,28 +137,19 @@ perks:
         - craft_diamond_warhammer
         - craft_netherite_warhammer
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eHeavy Weapon Arsenal I'
-      - '&7You unlock &eWarhammers &7for crafting at'
-      - '&7the anvil.'
-      - '&eWarhammers:'
-      - '&a+10% stun chance'
-      - '&a+15% armor ignored'
-      - '&c-2 damage compared to axes'
-      - '&c-10% crit chance'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-weapons-1-messages>'
   heavy_weapons_perk_weapons_2:
     hidden: true
     cost: 1
     coords: 6,8
     requireperk_one:
       - heavy_weapons_perk_weapons_1
-    name: '&7Heavy Weapon Arsenal II'
+    name: '<lang.skill-heavy-weapons-perk-weapons-2-display-name>'
     icon: IRON_AXE
     custom_model_data_unlockable: 2
     custom_model_data_visible: 2
     custom_model_data_unlocked: 2
-    description: '&7Unlocks &eSpears&7 for crafting at the anvil. Spears benefit from added attack reach, ignore some armor and gain damage based on your speed, but have far slower attack speed'
+    description: '<lang.skill-heavy-weapons-perk-weapons-2-description>'
     required_lv: 80
     perk_rewards:
       unlock_recipes:
@@ -200,45 +160,31 @@ perks:
         - craft_diamond_spear
         - craft_netherite_spear
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eHeavy Weapon Arsenal II'
-      - '&7You unlock &eSpears &7for crafting at'
-      - '&7the anvil'
-      - '&eSpears:'
-      - '&a+1.5 reach'
-      - '&a+10% armor ignored'
-      - '&a+20% more damage per 0.33 speed'
-      - '&cBase attack speed of 0.6'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-weapons-2-messages>'
   heavy_weapons_perk_main_1:
     hidden: true
     cost: 1
     coords: 4,8
     requireperk_one:
       - heavy_weapons_perk_ranked_1
-    name: '&7Heavy Strikes'
+    name: '<lang.skill-heavy-weapons-perk-main-1-display-name>'
     icon: ANVIL
-    description: '&7Your melee attacks do &e10% &7more damage, and enemy light armor is &e10% &7less effective'
+    description: '<lang.skill-heavy-weapons-perk-main-1-description>'
     required_lv: 20
     perk_rewards:
       heavy_weapons_damage_multiplier_add: 0.1
       heavy_weapons_fraction_light_armor_ignored_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eHeavy Strikes'
-      - '&7Your attacks damage &e10% &7more,'
-      - '&and enemy light armor is &e10% &7less'
-      - '&7effective'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-main-1-messages>'
   heavy_weapons_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,6
     requireperk_one:
       - heavy_weapons_perk_main_1
-    name: '&7Bioweapon'
+    name: '<lang.skill-heavy-weapons-perk-main-2-display-name>'
     icon: POTION
-    description: '&7You gain the ability to coat weapons with a negative potion effect, applying it on the next 2 hits at a tenth of the duration'
+    description: '<lang.skill-heavy-weapons-perk-main-2-description>'
     required_lv: 40
     perk_rewards:
       heavy_weapons_unlocked_weapon_coating: true
@@ -246,74 +192,50 @@ perks:
       heavy_weapons_coating_enemy_duration_add: 0.1
       heavy_weapons_coating_self_duration_add: -2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBioweapon'
-      - '&7Drinking a negative potion coats your last'
-      - '&7swung heavy weapon in the toxin, not poisoning'
-      - '&7you. Your next &e2&7 hits apply the potion effect'
-      - '&7to the hit target at &e100%&7 strength and &e20%&7 duration'
-      - '&7Drinking another potion washes away the previous coating'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-main-2-messages>'
   heavy_weapons_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,4
     requireperk_one:
       - heavy_weapons_perk_main_2
-    name: '&7Shattering'
+    name: '<lang.skill-heavy-weapons-perk-main-3-display-name>'
     icon: QUARTZ
-    description: '&7Enemy armor is &e10%&7 less effective by your attacks, and your critical hits do &e20% &7more damage'
+    description: '<lang.skill-heavy-weapons-perk-main-3-description>'
     required_lv: 60
     perk_rewards:
       heavy_weapons_fraction_armor_ignored_add: 0.1
       heavy_weapons_crit_damage_multiplier_add: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eShattering'
-      - '&7Any armor the enemy is wearing is'
-      - '&e10% points &7less effective, and your'
-      - '&7critical hits deal &e20% &7more damage'
-      - '&7(130% --> 150%)'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-main-3-messages>'
   heavy_weapons_perk_main_4:
     hidden: true
     cost: 1
     coords: 4,2
     requireperk_one:
       - heavy_weapons_perk_main_3
-    name: '&7Enraged'
+    name: '<lang.skill-heavy-weapons-perk-main-4-display-name>'
     icon: BLAZE_POWDER
-    description: '&7Your melee attacks do &e10%&7 more damage, gain &e10% &7stun chance, and any armor the enemy is wearing is &e10% &7less effective'
+    description: '<lang.skill-heavy-weapons-perk-main-4-description>'
     required_lv: 80
     perk_rewards:
       heavy_weapons_stun_chance_add: 0.1
       heavy_weapons_damage_multiplier_add: 0.1
       heavy_weapons_fraction_armor_ignored_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eEnraged'
-      - '&7You gain &e10% &7heavy weapon attack'
-      - '&7damage and stun chance, and enemy armor'
-      - '&7is &e10% &7less effective'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-main-4-messages>'
   heavy_weapons_perk_main_5:
     hidden: true
     cost: 1
     coords: 4,0
     requireperk_one:
       - heavy_weapons_perk_main_4
-    name: '&7Chemical Warfare'
+    name: '<lang.skill-heavy-weapons-perk-main-5-display-name>'
     icon: SKELETON_SKULL
-    description: '&7Your weapon coatings now last for &e5 &7hits and effects last &etwice &7as long'
+    description: '<lang.skill-heavy-weapons-perk-main-5-description>'
     required_lv: 100
     perk_rewards:
       heavy_weapons_coating_enemy_duration_add: 0.1
       heavy_weapons_coating_self_duration_add: -3
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eChemical Warfare'
-      - '&7Your weapon coatings last for'
-      - '&e5 &7hits instead of 2, and the effects'
-      - '&7left on enemies last &etwice &7as'
-      - '&7long'
-      - ' '
+      - '<lang.skill-heavy-weapons-perk-main-5-messages>'

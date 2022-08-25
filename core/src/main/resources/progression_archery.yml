@@ -43,7 +43,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&eArchery&7 leveled up to &e%level%'
+  - '<lang.skill-level-up-archery>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   archery_bow_damage_multiplier_add: 0.008 # bow damage gradually increases from 0.7-1.5x
@@ -67,137 +67,108 @@ starting_coordinates: '4,9' # The coordinates in the skill tree the player sees 
 perks:
   archery_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Stable Hand' # Name of the icon within the skill tree
+    name: '<lang.skill-archery-perk-ranked-1-display-name>' # Name of the icon within the skill tree
     icon: TARGET # Icon itself within the skill tree
     coords: 4,9 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7Your hand becomes significantly more stable, increasing your accuracy.'
+    description: '<lang.skill-archery-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       archery_inaccuracy_add: -1.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eStable Hand'
-      - '&7Your shooting becomes significantly'
-      - '&7more accurate.'
-      - ' '
+      - '<lang.skill-archery-perk-ranked-1-messages>'
   archery_perk_ranked_2:
     hidden: true
     cost: 1
     coords: 4,9
     requireperk_one:
       - archery_perk_ranked_1
-    name: '&7Hunter'
+    name: '<lang.skill-archery-perk-ranked-2-display-name>'
     icon: ARROW
-    description: '&7Your arrows hurt more the further they fly, and you gain a &e10% &7chance to not consume ammo when shooting'
+    description: '<lang.skill-archery-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
       archery_damage_distance_multiplier_add: 0.05
       archery_ammo_save_chance_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eHunter'
-      - '&7Arrows hurt &e5% &7more per 10 blocks'
-      - '&7they fly, and you gain a &e10% &7chance'
-      - '&7to not consume ammo when shooting.'
-      - '&e(up to +25% more damage at 50 blocks)'
-      - ' '
+      - '<lang.skill-archery-perk-ranked-2-messages>'
   archery_perk_ranked_3:
     hidden: true
     cost: 1
     coords: 4,9
     requireperk_one:
       - archery_perk_ranked_2
-    name: '&7Marksman'
+    name: '<lang.skill-archery-perk-ranked-3-display-name>'
     icon: TARGET
-    description: '&7Your accuracy increases further and your arrows deal &e10% &7more damage overall'
+    description: '<lang.skill-archery-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
       archery_damage_distance_base_multiplier_add: 0.1
       archery_inaccuracy_add: -1.5
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMarksman'
-      - '&7Your accuracy increases further, '
-      - '&7and shot arrows deal &e10% &7more damage'
-      - ' '
+      - '<lang.skill-archery-perk-ranked-3-messages>'
   archery_perk_ranked_4:
     hidden: true
     cost: 1
     coords: 4,9
     requireperk_one:
       - archery_perk_ranked_3
-    name: '&7Endless Barrage'
+    name: '<lang.skill-archery-perk-ranked-4-display-name>'
     icon: SPECTRAL_ARROW
-    description: '&7The damage penalty on arrows shot by Infinity enchanted bows is reduced by half, and you gain an extra &e20% &7chance to not consume arrows shot'
+    description: '<lang.skill-archery-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
       archery_ammo_save_chance_add: 0.2
       archery_infinity_damage_multiplier_add: 0.15
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &ePhantom Arrows'
-      - '&7Arrows shot with Infinity enchanted'
-      - '&7bows have their damage penalty reduced'
-      - '&7by half, and you gain an extra'
-      - '&e20% &7chance to not consume arrows.'
-      - ' '
+      - '<lang.skill-archery-perk-ranked-4-messages>'
   archery_perk_ranked_5:
     hidden: true
     cost: 1
     coords: 4,9
     requireperk_one:
       - archery_perk_ranked_4
-    name: '&7Sniper'
+    name: '<lang.skill-archery-perk-ranked-5-display-name>'
     icon: TARGET
-    description: '&7Arrows hurt &e20% &7more and gain more damage the further away they''re shot from'
+    description: '<lang.skill-archery-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
       archery_damage_distance_multiplier_add: 0.05
       archery_damage_distance_base_multiplier_add: 0.2
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSniper'
-      - '&7Arrows hurt &e20% &7more and gain'
-      - '&7more damage the further away they''re'
-      - '&7shot from'
-      - '&e(+25% damage at 50 blocks distance)'
-      - ' '
+      - '<lang.skill-archery-perk-ranked-5-messages>'
   archery_perk_main_1:
     hidden: true
     cost: 1
     coords: 4,7
     requireperk_one:
       - archery_perk_ranked_1
-    name: '&7Primitive Fletching'
+    name: '<lang.skill-archery-perk-main-1-display-name>'
     icon: ARROW
     custom_model_data_unlockable: 5
     custom_model_data_visible: 5
     custom_model_data_unlocked: 5
-    description: '&7Unlocks &eStone Arrows&7 for crafting (crafting table)'
+    description: '<lang.skill-archery-perk-main-1-description>'
     required_lv: 20
     perk_rewards:
       unlock_recipes:
         - craft_stone_feather_arrows
         - craft_stone_paper_arrows
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &ePrimitive Fletching'
-      - '&7You unlocked Stone Arrows for crafting'
-      - ' '
+      - '<lang.skill-archery-perk-main-1-messages>'
   archery_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - archery_perk_main_1
-    name: '&7Medieval Arrows'
+    name: '<lang.skill-archery-perk-main-2-display-name>'
     icon: ARROW
     custom_model_data_unlockable: 9
     custom_model_data_visible: 9
     custom_model_data_unlocked: 9
-    description: '&7Unlocks &eCopper and Gold Arrows &7for crafting (anvil)'
+    description: '<lang.skill-archery-perk-main-2-description>'
     required_lv: 40
     perk_rewards:
       unlock_recipes:
@@ -206,23 +177,19 @@ perks:
         - craft_gold_feather_arrows
         - craft_gold_paper_arrows
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMedieval Arrows'
-      - '&7You unlocked &eCopper and Gold'
-      - '&eArrows &7for crafting.'
-      - ' '
+      - '<lang.skill-archery-perk-main-2-messages>'
   archery_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,3
     requireperk_one:
       - archery_perk_main_2
-    name: '&7Modern Arrows'
+    name: '<lang.skill-archery-perk-main-3-display-name>'
     icon: ARROW
     custom_model_data_unlockable: 11
     custom_model_data_visible: 11
     custom_model_data_unlocked: 11
-    description: '&7Unlocks &eIron and Carbon Arrows &7for crafting (anvil)'
+    description: '<lang.skill-archery-perk-main-3-description>'
     required_lv: 60
     perk_rewards:
       unlock_recipes:
@@ -231,23 +198,19 @@ perks:
         - craft_carbon_feather_arrows
         - craft_carbon_paper_arrows
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eModern Arrows'
-      - '&7You unlocked &eIron and Carbon'
-      - '&eArrows &7for crafting.'
-      - ' '
+      - '<lang.skill-archery-perk-main-3-messages>'
   archery_perk_main_4:
     hidden: true
     cost: 1
     coords: 4,1
     requireperk_one:
       - archery_perk_main_3
-    name: '&7Mystic Arrows'
+    name: '<lang.skill-archery-perk-main-4-display-name>'
     icon: ARROW
     custom_model_data_unlockable: 15
     custom_model_data_visible: 15
     custom_model_data_unlocked: 15
-    description: '&7Unlocks &eDiamond and Ender Arrows &7for crafting (anvil)'
+    description: '<lang.skill-archery-perk-main-4-description>'
     required_lv: 80
     perk_rewards:
       unlock_recipes:
@@ -256,23 +219,19 @@ perks:
         - craft_ender_feather_arrows
         - craft_ender_paper_arrows
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eMystic Arrows'
-      - '&7You unlocked &eDiamond and Ender'
-      - '&eArrows for crafting.'
-      - ' '
+      - '<lang.skill-archery-perk-main-4-messages>'
   archery_perk_main_5:
     hidden: true
     cost: 1
     coords: 4,0
     requireperk_one:
       - archery_perk_main_4
-    name: '&7Unholy Arrows'
+    name: '<lang.skill-archery-perk-main-5-display-name>'
     icon: ARROW
     custom_model_data_unlockable: 19
     custom_model_data_visible: 19
     custom_model_data_unlocked: 19
-    description: '&7Is this ethical..?'
+    description: '<lang.skill-archery-perk-main-5-description>'
     required_lv: 100
     perk_rewards:
       unlock_recipes:
@@ -282,63 +241,47 @@ perks:
         - craft_netherite_arrows
         - craft_unholy_arrows
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eUnholy Arrows'
-      - '&7You unlocked &eIncendiary, Explosive'
-      - '&eUnholy, Lightning, and Netherite Arrows'
-      - '&7for crafting.'
-      - '&7(anvil)'
-      - ' '
+      - '<lang.skill-archery-perk-main-5-messages>'
   archery_perk_crit_1:
     hidden: true
     cost: 1
     coords: 2,5
     requireperk_one:
       - archery_perk_main_2
-    name: '&7Shadow Archer'
+    name: '<lang.skill-archery-perk-crit-1-display-name>'
     icon: BOW
-    description: '&7Shooting an enemy looking away from you has a 100% chance to cause critical damage. Critical hits deal 30% more damage and stun the enemy briefly'
+    description: '<lang.skill-archery-perk-crit-1-description>'
     required_lv: 60
     perk_rewards:
       archery_crit_on_facing_away: true
       archery_stun_on_crit: true
       archery_stun_duration_set: 10
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eShadow Archer'
-      - '&7Shooting an enemy looking away from'
-      - '&7you is guaranteed to cause a critical'
-      - '&7hit, doing &e30%&7 more damage and stunning'
-      - '&7the enemy for &e0.5&7 seconds.'
-      - ' '
+      - '<lang.skill-archery-perk-crit-1-messages>'
   archery_perk_crit_2:
     hidden: true
     cost: 1
     coords: 0,6
     requireperk_one:
       - archery_perk_crit_1
-    name: '&7Deadly Shot'
+    name: '<lang.skill-archery-perk-crit-2-display-name>'
     icon: BOW
-    description: '&7Critical hits now deal &e2x &7damage instead of +30%, and the stun duration is increased to &e1.5 seconds'
+    description: '<lang.skill-archery-perk-crit-2-description>'
     required_lv: 80
     perk_rewards:
       archery_crit_damage_multiplier_set: 2.0
       archery_stun_duration_set: 30
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eDeadly Shot'
-      - '&7Critical hits now deal &e2x'
-      - '&7damage instead of just +30%'
-      - ' '
+      - '<lang.skill-archery-perk-crit-2-messages>'
   archery_perk_special_1:
     hidden: true
     cost: 1
     coords: 6,5
     requireperk_one:
       - archery_perk_main_2
-    name: '&7Charged Shot I'
+    name: '<lang.skill-archery-perk-special-1-display-name>'
     icon: BOW
-    description: '&7You unlock &eCharged Shot&7. &eActivating it grants you 3 charges of Charged Shot, each flying 30% faster, improved knockback, and piercing 1 target. Has a 30 second cooldown'
+    description: '<lang.skill-archery-perk-special-1-description>'
     required_lv: 60
     perk_rewards:
       archery_charged_shot_velocity_bonus_add: 0.3
@@ -347,24 +290,16 @@ perks:
       archery_charged_shot_knockback_set: 1
       archery_charged_shot_piercing_bonus_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eCharged Shot I'
-      - '&eSneak-Left clicking with a bow'
-      - '&7activates Charged Shot.'
-      - '&7Your next 3 arrow shots fly &e+30%'
-      - '&7faster, deal heavier knockback,'
-      - '&7and pierce through 1 target.'
-      - '&c(30 second cooldown)'
-      - ' '
+      - '<lang.skill-archery-perk-special-1-messages>'
   archery_perk_special_2:
     hidden: true
     cost: 1
     coords: 8,6
     requireperk_one:
       - archery_perk_special_1
-    name: '&7Charged Shot II'
+    name: '<lang.skill-archery-perk-special-2-display-name>'
     icon: BOW
-    description: '&7Charged Shot gains &e2 &7extra charges and each shot is fired at full velocity regardless of how long the bow was drawn back, its cooldown is reduced to &e20 seconds &7and can pierce 1 more target'
+    description: '<lang.skill-archery-perk-special-2-description>'
     required_lv: 80
     perk_rewards:
       archery_charged_shot_full_velocity: true
@@ -372,10 +307,4 @@ perks:
       archery_charged_shot_charges_add: 2
       archery_charged_shot_piercing_bonus_add: 1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eCharged Shot II'
-      - '&7Charged shot gain &e2 &7more charges'
-      - '&7and each shot fires at full speed.'
-      - '&7Charged Shots also pierce &e1 &7more target'
-      - '&7and have their cooldown reduced to &e20 seconds'
-      - ' '
+      - '<lang.skill-archery-perk-special-2-messages>'

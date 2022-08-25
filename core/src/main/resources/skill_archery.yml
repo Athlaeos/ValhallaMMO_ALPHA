@@ -1,9 +1,9 @@
-display_name: '&7Archery'
+display_name: '<lang.skill-archery-displayname>'
 icon: BOW
 icon_data: 3510001
-description: '&8Practice Archery to increase your ranged damage, improve your accuracy, and kill targets consistently at a safe distance.'
+description: '<lang.skill-archery-description>'
 
-levelbar_title: '&7Archery &eLV %lv_current% &6%exp_current%&7/&6%exp_next%'
+levelbar_title: '<lang.skill-archery-level-bar>'
 levelbar_color: YELLOW # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 

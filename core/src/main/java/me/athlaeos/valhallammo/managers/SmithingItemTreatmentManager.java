@@ -303,7 +303,7 @@ public class SmithingItemTreatmentManager {
             for (String rating : sectionCosmetic.getKeys(false)){
                 try {
                     int intRating = Integer.parseInt(rating);
-                    String quality = config.getString("quality_cosmetic." + rating);
+                    String quality = TranslationManager.getInstance().translatePlaceholders(config.getString("quality_cosmetic." + rating));
                     if (quality == null) throw new IllegalArgumentException();
                     cosmeticQualityModifiers.put(intRating, Utils.chat(quality));
                 } catch (IllegalArgumentException ignored){
@@ -316,7 +316,7 @@ public class SmithingItemTreatmentManager {
             for (String t : sectionTreatments.getKeys(false)){
                 try {
                     ItemTreatment treatment = ItemTreatment.valueOf(t);
-                    String name = config.getString("treatment_lore." + t);
+                    String name = TranslationManager.getInstance().translatePlaceholders(config.getString("treatment_lore." + t));
                     if (name == null) throw new IllegalArgumentException();
                     treatmentTranslations.put(treatment, Utils.chat(name));
                 } catch (IllegalArgumentException ignored){

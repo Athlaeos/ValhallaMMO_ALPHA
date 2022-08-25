@@ -23,15 +23,11 @@ public class SkillLevelsAddReward extends PerkReward {
         if (levels <= 0) return;
         Profile p = ProfileManager.getManager().getProfile(player, skill.getType());
         if (p == null) return;
-        double totalExpRequired = 0;
+        double totalExpRequired =  -p.getExp();
         for (int level = p.getLevel() + 1; level <= p.getLevel() + levels; level++){
-            if (level == p.getLevel()) {
-                totalExpRequired += skill.expForlevel(level) - p.getExp();
-            } else {
-                totalExpRequired += skill.expForlevel(level);
-            }
+            totalExpRequired += skill.expForlevel(level);
         }
-        skill.addEXP(player, totalExpRequired, true, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
+        skill.addEXP(player, Math.max(0, Math.ceil(totalExpRequired)), true, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
     }
 
     @Override

@@ -81,7 +81,7 @@ commands: # Commands executed every time a player levels this skill. Use %player
 
 messages: # Messages to send to the player every time the player levels this skill.
   # Use %player% as placeholder for the player's name and %level% for the player's new level
-  - '&aLandscaping&7 leveled up to &a%level%'
+  - '<lang.skill-level-up-landscaping>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
   woodcutting_drop_multiplier_add: 0.01 # amounts of drops gradually increase from 1-2x drops
@@ -92,133 +92,103 @@ starting_coordinates: '4,6' # The coordinates in the skill tree the player sees 
 perks:
   landscaping_digging_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
-    name: '&7Sifter' # Name of the icon within the skill tree
+    name: '<lang.skill-landscaping-perk-digging-ranked-1-display-name>' # Name of the icon within the skill tree
     icon: WOODEN_SHOVEL # Icon itself within the skill tree
     coords: 5,6 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
-    description: '&7You start getting some rare resources from the ground, and you gain a little bit of enchanting experience from it.'
+    description: '<lang.skill-landscaping-perk-digging-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
       digging_rare_drop_rate_multiplier_set: 0.5
       digging_experience_rate_set: 0.05 # 0.05 equals to about 1 in every 20 blocks giving 1 point of experience
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSifter'
-      - '&7You gain a little bit of enchanting'
-      - '&7experience while digging and sometimes'
-      - '&7dig up rare materials.'
-      - ' '
+      - '<lang.skill-landscaping-perk-digging-ranked-1-messages>'
   landscaping_digging_ranked_2:
     hidden: true
     cost: 1
     coords: 5,6
     requireperk_one:
       - landscaping_digging_ranked_1
-    name: '&7Refiner'
+    name: '<lang.skill-landscaping-perk-digging-ranked-2-display-name>'
     icon: IRON_SHOVEL
-    description: '&7You get rare resources from the ground more frequently, and you gain more enchanting experience from it.'
+    description: '<lang.skill-landscaping-perk-digging-ranked-2-description>'
     required_lv: 40
     perk_rewards:
       digging_rare_drop_rate_multiplier_add: 1.0
       digging_experience_rate_add: 0.05
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eRefiner'
-      - '&7You gain more enchanting experience'
-      - '&7while digging and more frequently'
-      - '&7dig up rare materials.'
-      - ' '
+      - '<lang.skill-landscaping-perk-digging-ranked-2-messages>'
   landscaping_digging_ranked_3:
     hidden: true
     cost: 1
     coords: 5,6
     requireperk_one:
       - landscaping_digging_ranked_2
-    name: '&7Archaeologist'
+    name: '<lang.skill-landscaping-perk-digging-ranked-3-display-name>'
     icon: DIAMOND_SHOVEL
-    description: '&7You get rare resources from the ground a lot more frequently, and you gain more enchanting experience from it.'
+    description: '<lang.skill-landscaping-perk-digging-ranked-3-description>'
     required_lv: 80
     perk_rewards:
       digging_rare_drop_rate_multiplier_add: 1.5
       digging_experience_rate_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eRefiner'
-      - '&7You gain more enchanting experience'
-      - '&7while digging and more frequently'
-      - '&7dig up rare materials.'
-      - ' '
+      - '<lang.skill-landscaping-perk-digging-ranked-3-messages>'
   landscaping_woodcutting_ranked_1:
-    name: '&7Forester'
+    name: '<lang.skill-landscaping-perk-woodcutting-ranked-1-display-name>'
     icon: WOODEN_AXE
     coords: 3,6
     hidden: false
     cost: 1
-    description: '&7You start getting some rare resources from logs, and you gain a little bit of enchanting experience from them.'
+    description: '<lang.skill-landscaping-perk-woodcutting-ranked-1-description>'
     required_lv: 0
     perk_rewards:
       woodcutting_rare_drop_rate_multiplier_set: 0.5
       woodstripping_rare_drop_rate_multiplier_add: 0.5
       woodcutting_experience_rate_set: 0.05
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eForester'
-      - '&7You gain a little bit of enchanting'
-      - '&7experience while cutting logs and '
-      - '&7sometimes find rare materials.'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-ranked-1-messages>'
   landscaping_woodcutting_ranked_2:
     hidden: true
     cost: 1
     coords: 3,6
     requireperk_one:
       - landscaping_woodcutting_ranked_1
-    name: '&7Woodcutter'
+    name: '<lang.skill-landscaping-perk-woodcutting-ranked-2-display-name>'
     icon: IRON_AXE
-    description: '&7You get rare resources from logs more frequently, and you gain more enchanting experience from them.'
+    description: '<lang.skill-landscaping-perk-woodcutting-ranked-2-description>'
     required_lv: 40
     perk_rewards:
       woodcutting_rare_drop_rate_multiplier_add: 1.0
       woodstripping_rare_drop_rate_multiplier_add: 1.0
       woodcutting_experience_rate_add: 0.05
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eWoodcutter'
-      - '&7You gain more enchanting experience'
-      - '&7from cutting logs and more frequently'
-      - '&7find rare materials.'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-ranked-2-messages>'
   landscaping_woodcutting_ranked_3:
     hidden: true
     cost: 1
     coords: 3,6
     requireperk_one:
       - landscaping_woodcutting_ranked_2
-    name: '&7Carpenter'
+    name: '<lang.skill-landscaping-perk-woodcutting-ranked-3-display-name>'
     icon: DIAMOND_AXE
-    description: '&7You get rare resources from logs a lot more frequently, and you gain more enchanting experience from them.'
+    description: '<lang.skill-landscaping-perk-woodcutting-ranked-3-description>'
     required_lv: 80
     perk_rewards:
       woodcutting_rare_drop_rate_multiplier_add: 1.5
       woodstripping_rare_drop_rate_multiplier_add: 1.5
       woodcutting_experience_rate_add: 0.1
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eCarpenter'
-      - '&7You gain more enchanting experience'
-      - '&7from woodcutting and frequently'
-      - '&7find rare materials.'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-ranked-3-messages>'
   landscaping_woodcutting_perk_main_1:
     hidden: true
     cost: 1
     coords: 4,5
     requireperk_one:
       - landscaping_woodcutting_ranked_1
-    name: '&7Felling I'
+    name: '<lang.skill-landscaping-perk-woodcutting-main-1-display-name>'
     icon: OAK_LOG
-    description: '&7Cutting oak trees while sneaking now destroys the entire tree. Planted saplings grow slightly faster'
+    description: '<lang.skill-landscaping-perk-woodcutting-main-1-description>'
     required_lv: 20
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
@@ -227,23 +197,16 @@ perks:
         - OAK_LOG
         - OAK_WOOD
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFelling I'
-      - '&7Cutting oak trees while sneaking'
-      - '&7now destroys the whole tree, and'
-      - '&7planted saplings grow slightly'
-      - '&7faster. Tree Feller has a cooldown'
-      - '&7of 60 seconds.'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-main-1-messages>'
   landscaping_woodcutting_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,3
     requireperk_one:
       - landscaping_woodcutting_perk_main_1
-    name: '&7Felling II'
+    name: '<lang.skill-landscaping-perk-woodcutting-main-2-display-name>'
     icon: BIRCH_LOG
-    description: '&7Tree Feller now also fells birch trees and acacia trees. Planted saplings grow even faster'
+    description: '<lang.skill-landscaping-perk-woodcutting-main-2-description>'
     required_lv: 40
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
@@ -253,22 +216,16 @@ perks:
         - ACACIA_LOG
         - ACACIA_WOOD
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFelling II'
-      - '&7Tree feller now also fells'
-      - '&7birch trees and acacia trees, '
-      - '&7and planted saplings grow even '
-      - '&7faster.'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-main-2-messages>'
   landscaping_woodcutting_perk_main_3:
     hidden: true
     cost: 1
     coords: 4,1
     requireperk_one:
       - landscaping_woodcutting_perk_main_2
-    name: '&7Felling III'
+    name: '<lang.skill-landscaping-perk-woodcutting-main-3-display-name>'
     icon: DARK_OAK_LOG
-    description: '&7Tree Feller now also fells dark oak trees and has its cooldown reduced to 30 seconds. Planted saplings grow even faster'
+    description: '<lang.skill-landscaping-perk-woodcutting-main-3-description>'
     required_lv: 60
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
@@ -276,23 +233,16 @@ perks:
         - DARK_OAK_LOG
         - DARK_OAK_WOOD
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFelling III'
-      - '&7Tree feller now also fells'
-      - '&7dark oak trees, planted saplings'
-      - '&7grow even faster, and Tree Feller''s'
-      - '&7cooldown is reduced from 60 seconds'
-      - '&7to 30 seconds'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-main-3-messages>'
   landscaping_woodcutting_perk_main_4:
     hidden: true
     cost: 1
     coords: 3,0
     requireperk_one:
       - landscaping_woodcutting_perk_main_3
-    name: '&7Sustainable Woodcutting'
+    name: '<lang.skill-landscaping-perk-woodcutting-main-4-display-name>'
     icon: OAK_SAPLING
-    description: '&7Saplings are automatically replanted after cutting down a tree, and Tree Feller now also works on spruce and jungle trees.'
+    description: '<lang.skill-landscaping-perk-woodcutting-main-4-description>'
     required_lv: 80
     perk_rewards:
       landscaping_sapling_auto_replace: true
@@ -302,22 +252,16 @@ perks:
         - JUNGLE_LOG
         - JUNGLE_WOOD
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eSustainable Woodcutting'
-      - '&7Saplings are now automatically replanted'
-      - '&7after cutting a tree, and Tree Feller'
-      - '&7will now also cut down spruce trees'
-      - '&7and jungle trees.'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-main-4-messages>'
   landscaping_woodcutting_perk_main_5:
     hidden: true
     cost: 1
     coords: 5,0
     requireperk_one:
       - landscaping_woodcutting_perk_main_4
-    name: '&7Exotic Wood'
+    name: '<lang.skill-landscaping-perk-woodcutting-main-5-display-name>'
     icon: WARPED_FUNGUS
-    description: '&7Tree Feller now also fells warped and crimson large fungi and has its cooldown reduced to 15 seconds. Planted saplings grow even faster'
+    description: '<lang.skill-landscaping-perk-woodcutting-main-5-description>'
     required_lv: 100
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
@@ -328,23 +272,16 @@ perks:
         - WARPED_STEM
         - WARPED_HYPHAE
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eExotic Wood'
-      - '&7Tree feller now also fells'
-      - '&7crimson and warped large fungi, '
-      - '&7planted saplings grow even faster, '
-      - '&7and Tree Feller''s cooldown is reduced '
-      - '&7from 30 seconds to 15 seconds'
-      - ' '
+      - '<lang.skill-landscaping-perk-woodcutting-main-5-messages>'
   landscaping_digging_perk_main_1:
     hidden: true
     cost: 1
     coords: 2,4
     requireperk_one:
       - landscaping_digging_ranked_1
-    name: '&7Green Touch'
+    name: '<lang.skill-landscaping-perk-digging-main-1-display-name>'
     icon: MOSSY_STONE_BRICKS
-    description: '&7Grants you the ability to convert blocks like cobblestone, stone, dirt, and stone bricks to their mossy/overgrown variants.'
+    description: '<lang.skill-landscaping-perk-digging-main-1-description>'
     required_lv: 20
     perk_rewards:
       landscaping_unlock_conversions:
@@ -353,26 +290,16 @@ perks:
         - grow_grass_block
         - mossify_bricks
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eGreen Touch'
-      - '&7Grants you the ability to convert'
-      - '&7cobblestone to mossy cobblestone,'
-      - '&7stone to moss, dirt to grass,'
-      - '&7and stone bricks to mossy stone bricks'
-      - '&7by right-clicking them with either'
-      - '&7wheat seeds, bone meal, or kelp.'
-      - '&7(this effect can be avoided by'
-      - '&7sneak-right clicking)'
-      - ' '
+      - '<lang.skill-landscaping-perk-digging-main-1-messages>'
   landscaping_digging_perk_main_2:
     hidden: true
     cost: 1
     coords: 4,4
     requireperk_one:
       - landscaping_digging_perk_main_1
-    name: '&7Fracturing Touch'
+    name: '<lang.skill-landscaping-perk-digging-main-2-display-name>'
     icon: CRACKED_STONE_BRICKS
-    description: '&7Grants you the ability to damage blocks like stone, stone bricks, cobblestone, and others to their damaged variants (stone bricks -> cracked stone bricks).'
+    description: '<lang.skill-landscaping-perk-digging-main-2-description>'
     required_lv: 40
     perk_rewards:
       landscaping_unlock_conversions:
@@ -388,25 +315,16 @@ perks:
         - damage_end_stone_bricks
         - damage_blackstone_bricks
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eFracturing Touch'
-      - '&7Grants you the ability to convert'
-      - '&7various stone-type blocks to their'
-      - '&7cracked, damaged, or unpolished'
-      - '&7types (such as stone bricks)'
-      - '&7by right-clicking them with a pickaxe'
-      - '&7(this effect can be avoided by'
-      - '&7sneak-right clicking)'
-      - ' '
+      - '<lang.skill-landscaping-perk-digging-main-2-messages>'
   landscaping_digging_perk_main_3:
     hidden: true
     cost: 1
     coords: 6,4
     requireperk_one:
       - landscaping_digging_perk_main_2
-    name: '&7Blazing Touch'
+    name: '<lang.skill-landscaping-perk-digging-main-3-display-name>'
     icon: GLASS
-    description: '&7Grants you the ability to melt blocks like glass or clay into sand and terracotta'
+    description: '<lang.skill-landscaping-perk-digging-main-3-description>'
     required_lv: 60
     perk_rewards:
       landscaping_unlock_conversions:
@@ -418,12 +336,4 @@ perks:
         - melt_quartz_block
         - melt_clay
     messages:
-      - '&8&m                           '
-      - '&7You''ve unlocked &eBlazing Touch'
-      - '&7Grants you the ability to convert'
-      - '&7various blocks like sand, clay,'
-      - '&7raw iron blocks, quartz blocks,'
-      - '&7and netherrack into its smelted'
-      - '&7type by right-clicking them with'
-      - '&7blaze powder.'
-      - ' '
+      - '<lang.skill-landscaping-perk-digging-main-3-messages>'

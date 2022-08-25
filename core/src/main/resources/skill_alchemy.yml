@@ -1,9 +1,9 @@
-display_name: '&7Alchemy'
+display_name: '<lang.skill-alchemy-displayname>'
 icon: BREWING_STAND
 icon_data: 3510001
-description: '&8Practice Alchemy to make potions and poisons of extreme potency, and learn how to transmute materials'
+description: '<lang.skill-alchemy-description>'
 
-levelbar_title: '&7Alchemy &dLV %lv_current% &5%exp_current%&7/&5%exp_next%'
+levelbar_title: '<lang.skill-alchemy-level-bar>'
 levelbar_color: PURPLE # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 
@@ -18,13 +18,13 @@ save_ingredient_spawn_on_top_of_stand: true
 hide_treatment_lore: false # If true, treatment lore does not appear on items at all
 quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
   # If left empty, they won't appear.
-  0: '&cRancid'
-  50: '&7Tainted'
-  100: '&7Dirty'
-  150: '&7Cloudy'
-  200: '&bClear'
-  250: '&bRefined'
-  300: '&f&lPure'
+  0: '<lang.alchemy-quality-rancid>'
+  50: '<lang.alchemy-quality-tainted>'
+  100: '<lang.alchemy-quality-dirty>'
+  150: '<lang.alchemy-quality-cloudy>'
+  200: '<lang.alchemy-quality-clear>'
+  250: '<lang.alchemy-quality-refined>'
+  300: '<lang.alchemy-quality-pure>'
 
 effects_inverted: # Specific for the potion modifier "invert effects", essentially the equivalent to using a fermented
   # spider eye to invert a potion's effects. If this modifier is applied to a potion effect, these potion effects are inverted.
@@ -62,14 +62,14 @@ effects_inverted: # Specific for the potion modifier "invert effects", essential
 # These treatments include TEMPERING, SHARPENING_FINE, ENGRAVING, and LEATHER_BINDING. As well as ARMOR_FITTING for armor,
 # WAX_COATING for wooden and stone tools,
 treatment_lore: # The treatment lores displayed on the item if hide_treatment_lore is false. If one is left empty, it does not appear.
-  CONCENTRATED: '&7Concentrated'
-  DILUTED: '&7Diluted'
-  FILTERED: '&7Filtered'
-  EMPOWERED: '&7Empowered'
-  IMBUED: '&7Imbued'
-  ENCHANTED: '&7Enchanted'
-  POLLUTED: '&7Polluted'
-  TRANSMUTATION: '&eShimmering'
+  CONCENTRATED: '<lang.alchemy-treatment-concentrated>'
+  DILUTED: '<lang.alchemy-treatment-diluted>'
+  FILTERED: '<lang.alchemy-treatment-filtered>'
+  EMPOWERED: '<lang.alchemy-treatment-empowered>'
+  IMBUED: '<lang.alchemy-treatment-imbued>'
+  ENCHANTED: '<lang.alchemy-treatment-enchanted>'
+  POLLUTED: '<lang.alchemy-treatment-polluted>'
+  TRANSMUTATION: '<lang.alchemy-treatment-transmutation>'
 
   # Vanilla potions, because they can only have whole number strengths, will have whatever the outcome of a scaling
   # formula rounded DOWNWARDS
