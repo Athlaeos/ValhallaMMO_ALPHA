@@ -506,8 +506,10 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
         if (!CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "delay_block_interact_conversion")) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
             BlockConversionManager.getInstance().triggerInteractConversion(event.getPlayer(), b, unlockedConversions);
+            event.setCancelled(true);
         } else if (event.getAction() == Action.LEFT_CLICK_BLOCK){
             BlockConversionManager.getInstance().triggerDamageConversion(event.getPlayer(), b);
+            event.setCancelled(true);
         }
         CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), 200, "delay_block_interact_conversion");
     }
