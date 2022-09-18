@@ -68,6 +68,7 @@ public class ItemAttributesManager {
 
         registerAttribute(new CustomDamageResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomExplosionResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
+        registerAttribute(new CustomFallingResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomFireResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomMagicResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
         registerAttribute(new CustomPoisonResistanceWrapper(0D, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));

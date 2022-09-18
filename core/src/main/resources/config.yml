@@ -26,6 +26,14 @@ profile_version: 0 # The version of profiles used to define player's stats with.
 world_blacklist: # If a world name is in this list, ValhallaMMO has absolutely no influence here.
   - exampleworldlol
 
+# The way boss bars are presented for active global buffs
+# Each global buff is presented for an amount of time, then continues to the next, and once all buffs are presented it clears the bar for
+# another period after which the cycle repeats
+# so BUFF1, BUFF2, BUFF3, nothing, BUFF1, BUFF2, ...
+globalbuff_bossbar_duration: 10 # Each buff is shown for this amount of seconds before moving on to the next
+globalbuff_cycle_pause: 300 # After each buff is shown, nothing will be shown for this amount of seconds, in this case 5 minutes
+# The boss bar is also shown to players if they just joined the server or if a global buff has just been activated
+
 skilltree_arrow_data_n: 3511002 # Custom model data of the NORTHERN arrow in the skill tree
 skilltree_arrow_data_ne: 3511003 # Custom model data of the NORTHEASTERN arrow in the skill tree
 skilltree_arrow_data_e: 3511004 # Custom model data of the EASTERN arrow in the skill tree

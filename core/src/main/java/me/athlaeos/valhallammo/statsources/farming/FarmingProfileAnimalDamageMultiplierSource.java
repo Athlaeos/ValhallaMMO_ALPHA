@@ -18,11 +18,11 @@ public class FarmingProfileAnimalDamageMultiplierSource extends EvEAccumulativeS
     public double add(Entity entity, Entity p, boolean use) {
         if (p instanceof Player){
             Profile profile = ProfileManager.getManager().getProfile((Player) p, "FARMING");
-            if (profile == null) return 0;
-            if (!(profile instanceof FarmingProfile)) return 0;
+            if (profile == null) return 1;
+            if (!(profile instanceof FarmingProfile)) return 1;
             FarmingProfile farmingProfile = (FarmingProfile) profile;
             return farmingProfile.getAnimalDamageMultiplier();
         }
-        return 0;
+        return 1;
     }
 }

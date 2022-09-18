@@ -34,7 +34,7 @@ public class AccumulativeStatManager {
         sources = new HashMap<>();
 
         register("GLOBAL_EXP_GAIN", new ProfileExpGainSource(), new BuffExpGainSource(), new EnchantmentSkillExpGainSource(), new PermissionExpGainSource(null), new ArbitraryGlobalEffectSource("general_experience"));
-        register("DAMAGE_DEALT", new EnchantmentDamageDealtSource());
+        register("DAMAGE_DEALT", new VelocityDamageAttributeOnAttackSource(), new EnchantmentDamageDealtSource());
         register("MELEE_DAMAGE_DEALT", new OverleveledEquipmentMeleeDamagePenaltySource(), new ArbitraryAttributeOnAttackSource("CUSTOM_MELEE_DAMAGE", false));
 
         register("DAMAGE_RESISTANCE", new ArbitraryPotionAmplifierSource("CUSTOM_DAMAGE_RESISTANCE", false), new ProfileDamageResistanceSource(), new HeavyArmorProfileEquipmentDamageResistanceSource(), new HeavyArmorDefaultEquipmentDamageResistanceSource(), new BuffResistanceDamageResistanceSource(), new ArbitraryEnchantmentAmplifierSource("DAMAGE_TAKEN", true), new EquipmentAttributeSource("CUSTOM_DAMAGE_RESISTANCE"), new LightArmorProfileEquipmentDamageResistanceSource(), new LightArmorDefaultEquipmentDamageResistanceSource(), new EquipmentProtectionEnchantmentDamageResistanceSource(), new ArbitraryPotionAmplifierSource("POISON_VULNERABLE", true));
@@ -223,14 +223,14 @@ public class AccumulativeStatManager {
 
         register("LIGHT_WEAPONS_CRIT_CHANCE", new LightWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false));
         register("LIGHT_WEAPONS_CRIT_DAMAGE", new LightWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false));
-        register("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", new VelocityDamageAttributeOnAttackSource(), new LightWeaponsProfileDamageMultiplierSource(), new LightWeaponsProfileHeavyArmorDamageBonusSource(), new LightWeaponsProfileLightArmorDamageBonusSource());
+        register("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", new LightWeaponsProfileDamageMultiplierSource(), new LightWeaponsProfileHeavyArmorDamageBonusSource(), new LightWeaponsProfileLightArmorDamageBonusSource());
         register("LIGHT_WEAPONS_EXP_GAIN", new LightWeaponsEXPSource());
         register("LIGHT_WEAPONS_STUN_CHANCE", new LightWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false));
         register("LIGHT_WEAPONS_RARE_DROP_MULTIPLIER", new LightWeaponsProfileRareDropMultiplierSource());
 
         register("HEAVY_WEAPONS_CRIT_CHANCE", new HeavyWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false));
         register("HEAVY_WEAPONS_CRIT_DAMAGE", new HeavyWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false));
-        register("HEAVY_WEAPONS_DAMAGE_MULTIPLIER", new VelocityDamageAttributeOnAttackSource(), new HeavyWeaponsProfileDamageMultiplierSource(), new HeavyWeaponsProfileHeavyArmorDamageBonusSource(), new HeavyWeaponsProfileLightArmorDamageBonusSource());
+        register("HEAVY_WEAPONS_DAMAGE_MULTIPLIER", new HeavyWeaponsProfileDamageMultiplierSource(), new HeavyWeaponsProfileHeavyArmorDamageBonusSource(), new HeavyWeaponsProfileLightArmorDamageBonusSource());
         register("HEAVY_WEAPONS_EXP_GAIN", new HeavyWeaponsEXPSource());
         register("HEAVY_WEAPONS_STUN_CHANCE", new HeavyWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false));
         register("HEAVY_WEAPONS_RARE_DROP_MULTIPLIER", new HeavyWeaponsProfileRareDropMultiplierSource());

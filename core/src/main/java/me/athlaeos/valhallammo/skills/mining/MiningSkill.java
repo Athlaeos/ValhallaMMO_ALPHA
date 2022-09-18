@@ -49,7 +49,7 @@ import java.util.*;
 public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill, OffensiveSkill, InteractSkill {
     private final Map<UUID, PlayerModeData> quickModeData;
 
-    private final Map<Material, Double> blockBreakEXPReward;
+    private final Map<Material, Double> blockDropEXPReward;
     private final Map<Material, Integer> quickModeBlockWorth;
 
     private ChancedMiningLootTable miningLootTable = null;
@@ -72,8 +72,8 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
     private final boolean cosmetic_outline;
     private final String outline_color;
 
-    public Map<Material, Double> getBlockBreakEXPReward() {
-        return blockBreakEXPReward;
+    public Map<Material, Double> getBlockDropEXPReward() {
+        return blockDropEXPReward;
     }
 
     public MiningSkill(String type) {
@@ -93,7 +93,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
         }
 
         this.quickModeData = new HashMap<>();
-        this.blockBreakEXPReward = new HashMap<>();
+        this.blockDropEXPReward = new HashMap<>();
         this.quickModeBlockWorth = new HashMap<>();
         YamlConfiguration miningConfig = ConfigManager.getInstance().getConfig("skill_mining.yml").get();
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_mining.yml").get();
@@ -117,11 +117,10 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
             for (String key : blockBreakSection.getKeys(false)){
                 try {
                     Material block = Material.valueOf(key);
-                    if (!block.isBlock()) throw new IllegalArgumentException();
                     double reward = progressionConfig.getDouble("experience.mining_break." + key);
-                    blockBreakEXPReward.put(block, reward);
+                    blockDropEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
-                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block break rewards in progression_farming.yml, no reward set for this type until corrected.");
+                    ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block break rewards in progression_mining.yml, no reward set for this type until corrected.");
                 }
             }
         }
@@ -171,7 +170,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                 }
             }
         }
-        if (!blockBreakEXPReward.containsKey(b.getType())) return;
+        if (!blockDropEXPReward.containsKey(b.getType())) return;
         // Nothing is going to happen if the player isn't using a pickaxe
         ItemStack pickaxe = EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE);
         if (pickaxe == null) {
@@ -215,11 +214,6 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
         }
 
         if (!BlockStore.isPlaced(b)){
-            // reward player experience for mining a block
-            double amount = blockBreakEXPReward.get(b.getType());
-            double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", event.getPlayer(), true) / 100D));
-            addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
-
             // multiply/add experience for the block broken
             double expMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_ORE_EXPERIENCE_MULTIPLIER", event.getPlayer(), true);
             if (event.getExpToDrop() > 0){
@@ -256,7 +250,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                 b.getLocation(),
                                 new HashSet<>(Collections.singletonList(event.getBlock().getType())),
                                 veinMineLimit,
-                                block -> blockBreakEXPReward.containsKey(block.getType()),
+                                block -> blockDropEXPReward.containsKey(block.getType()),
                                 new Offset(-1, 1, -1), new Offset(-1, 1, 0), new Offset(-1, 1, 1),
                                 new Offset(0, 1, -1), new Offset(0, 1, 0), new Offset(0, 1, 1),
                                 new Offset(1, 1, -1), new Offset(1, 1, 0), new Offset(1, 1, 1),
@@ -275,7 +269,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     "valhalla_vein_miner",
                                     event.getPlayer(),
                                     affectedBlocks,
-                                    block -> blockBrokenType == block.getType() && blockBreakEXPReward.containsKey(block.getType()),
+                                    block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
                                         Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup);
@@ -297,7 +291,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     "valhalla_vein_miner",
                                     event.getPlayer(),
                                     affectedBlocks,
-                                    block -> blockBrokenType == block.getType() && blockBreakEXPReward.containsKey(block.getType()),
+                                    block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
                                         Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup);
@@ -352,7 +346,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
 
     @Override
     public void onBlockDamage(BlockDamageEvent event) {
-        if (!blockBreakEXPReward.containsKey(event.getBlock().getType())) return;
+        if (!blockDropEXPReward.containsKey(event.getBlock().getType())) return;
         if (!event.isCancelled()){
             if (event.getBlock().getType().getHardness() > 100000 || event.getBlock().getType().getHardness() < 0) return;
             ItemStack pickaxe = EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE);
@@ -386,11 +380,11 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
     @Override
     public void onItemsDropped(BlockDropItemEvent event) {
         if (!BlockStore.isPlaced(event.getBlock())) {
-            if (blockBreakEXPReward.containsKey(event.getBlockState().getType())) {
+            if (blockDropEXPReward.containsKey(event.getBlockState().getType())) {
                 List<Item> newItems = new ArrayList<>();
                 double dropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_MINING_DROP_MULTIPLIER", event.getPlayer(), true);
 
-                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers, blockDropEXPReward.keySet());
 
                 if (!event.getItems().isEmpty()){
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_MINING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
@@ -407,6 +401,17 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                         event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
                     }
                 }
+
+                // reward player experience for mining a block
+                double amount = 0;
+                for (Item i : newItems){
+                    if (i == null) continue;
+                    if (Utils.isItemEmptyOrNull(i.getItemStack())) continue;
+                    amount += blockDropEXPReward.getOrDefault(i.getItemStack().getType(), 0D) * i.getItemStack().getAmount();
+                }
+                double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", event.getPlayer(), true) / 100D));
+                addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
                 BlockStore.setPlaced(event.getBlock(), false);
             }
         }
@@ -418,20 +423,30 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
         // if a block is broken because of an explosion it should multiply the rewards, but otherwise not because
         // this has been done in the onItemDropped() method
         if (!BlockStore.isPlaced(event.getBlock())) {
-            if (blockBreakEXPReward.containsKey(event.getBlockState().getType())) {
+            if (blockDropEXPReward.containsKey(event.getBlockState().getType())) {
                 List<ItemStack> newItems = new ArrayList<>();
                 BlockStore.BreakReason reason = BlockStore.getBreakReason(event.getBlock());
                 if (reason == BlockStore.BreakReason.EXPLOSION){
                     double dropMultiplier = AccumulativeStatManager.getInstance().getStats("MINING_BLAST_DROP_MULTIPLIER", event.getPlayer(), true);
 
-                    ItemUtils.multiplyItemStacks(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+                    ItemUtils.multiplyItemStacks(event.getItems(), newItems, dropMultiplier, forgivingMultipliers, blockDropEXPReward.keySet());
 
                     event.getItems().clear();
                     event.getItems().addAll(newItems);
                 }
+
+                // reward player experience for mining a block
+                double amount = 0;
+                for (ItemStack i : newItems){
+                    if (Utils.isItemEmptyOrNull(i)) continue;
+                    amount += blockDropEXPReward.getOrDefault(i.getType(), 0D) * i.getAmount();
+                }
+                double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", event.getPlayer(), true) / 100D));
+                addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
+                BlockStore.setPlaced(event.getBlock(), false);
             }
         }
-        BlockStore.setPlaced(event.getBlock(), false);
     }
 
     private PlayerModeData getData(Player p){
@@ -468,8 +483,8 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                 double exp = 0;
                 double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_BLAST", player, true) / 100D));
                 for (Block b : event.blockList()){
-                    if (blockBreakEXPReward.containsKey(b.getType())){
-                        exp += expMultiplierBlast * blockBreakEXPReward.get(b.getType()) * multiplier;
+                    if (blockDropEXPReward.containsKey(b.getType())){
+                        exp += expMultiplierBlast * blockDropEXPReward.get(b.getType()) * multiplier;
                     }
                 }
                 addEXP(player, exp, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);

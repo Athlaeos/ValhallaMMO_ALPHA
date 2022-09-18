@@ -275,6 +275,7 @@ public class CustomRecipeManager {
                 }
             }
         }
+        shouldSaveRecipes();
         return true;
     }
 
@@ -294,6 +295,7 @@ public class CustomRecipeManager {
         ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get().set("shaped." + recipe.getName(), null);
         ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").save();
         ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getRecipe().getKey());
+        shouldSaveRecipes();
         return true;
     }
 
@@ -307,6 +309,7 @@ public class CustomRecipeManager {
         ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").get().set("cooking." + recipe.getName(), null);
         ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").save();
         ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getRecipe().getKey());
+        shouldSaveRecipes();
         return true;
     }
 
@@ -336,6 +339,7 @@ public class CustomRecipeManager {
         }
         ConfigManager.getInstance().getConfig("recipes/brewing_recipes.yml").get().set("brewing." + recipe.getName(), null);
         ConfigManager.getInstance().getConfig("recipes/brewing_recipes.yml").save();
+        shouldSaveRecipes();
         return true;
     }
 
@@ -908,6 +912,7 @@ public class CustomRecipeManager {
                 ItemStack result = config.getItemStack("shaped." + recipe + ".result");
                 if (result == null) continue;
                 result = TranslationManager.getInstance().translateItemStack(result);
+
                 NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + recipe);
                 ShapedRecipe r = new ShapedRecipe(recipeKey, result);
                 boolean requireCustomTools = config.getBoolean("shaped." + recipe + ".require_custom_tools");

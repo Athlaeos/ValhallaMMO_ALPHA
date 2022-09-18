@@ -68,6 +68,8 @@ public class JoinLeaveListener implements Listener {
                 }
             }
         }
+
+        GlobalEffectManager.getInstance().temporarilyRevealBossBar(e.getPlayer());
     }
 
     @EventHandler

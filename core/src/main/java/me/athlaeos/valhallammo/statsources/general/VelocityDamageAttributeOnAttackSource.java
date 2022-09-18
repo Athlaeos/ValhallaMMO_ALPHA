@@ -57,6 +57,7 @@ public class VelocityDamageAttributeOnAttackSource extends EvEAccumulativeStatSo
                 return 0;
             }
             double speedDamageMultiplier = speed / velocity_damage_constant;
+
             return speedDamageMultiplier * multiplier * value;
         }
         return 0;

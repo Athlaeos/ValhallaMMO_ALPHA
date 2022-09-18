@@ -30,6 +30,9 @@ public class ArcheryChargedShotDamageMultiplierAddReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                multiplier = (float) (Integer) argument;
+            }
             if (argument instanceof Float){
                 multiplier = (float) argument;
             }

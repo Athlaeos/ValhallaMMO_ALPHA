@@ -45,9 +45,9 @@ import java.util.List;
 import java.util.*;
 
 public class LandscapingSkill extends Skill implements GatheringSkill, InteractSkill {
-    private final Map<Material, Double> woodcuttingBreakEXPReward;
+    private final Map<Material, Double> woodcuttingDropEXPReward;
     private final Map<Material, Double> woodcuttingStripEXPReward;
-    private final Map<Material, Double> diggingBreakEXPReward;
+    private final Map<Material, Double> diggingDropEXPReward;
     private ChancedWoodcuttingLootTable woodcuttingLootTable = null;
     private ChancedWoodstrippingLootTable woodstrippingLootTable = null;
     private ChancedDiggingLootTable diggingLootTable = null;
@@ -62,12 +62,12 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
 
     private final boolean handleDropsSelf = ValhallaMMO.isSpigot();
 
-    public Map<Material, Double> getDiggingBreakEXPReward() {
-        return diggingBreakEXPReward;
+    public Map<Material, Double> getDiggingDropEXPReward() {
+        return diggingDropEXPReward;
     }
 
-    public Map<Material, Double> getWoodcuttingBreakEXPReward() {
-        return woodcuttingBreakEXPReward;
+    public Map<Material, Double> getWoodcuttingDropEXPReward() {
+        return woodcuttingDropEXPReward;
     }
 
     public Map<Material, Double> getWoodcuttingStripEXPReward() {
@@ -96,9 +96,9 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
             }
         }
 
-        this.woodcuttingBreakEXPReward = new HashMap<>();
+        this.woodcuttingDropEXPReward = new HashMap<>();
         this.woodcuttingStripEXPReward = new HashMap<>();
-        this.diggingBreakEXPReward = new HashMap<>();
+        this.diggingDropEXPReward = new HashMap<>();
 
         YamlConfiguration landscapingConfig = ConfigManager.getInstance().getConfig("skill_landscaping.yml").get();
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_landscaping.yml").get();
@@ -118,9 +118,8 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
             for (String key : woodcuttingBreakSection.getKeys(false)){
                 try {
                     Material block = Material.valueOf(key);
-                    if (!block.isBlock()) throw new IllegalArgumentException();
                     double reward = progressionConfig.getDouble("experience.woodcutting_break." + key);
-                    woodcuttingBreakEXPReward.put(block, reward);
+                    woodcuttingDropEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the woodcutting block break rewards in progression_landscaping.yml, no reward set for this type until corrected.");
                 }
@@ -146,9 +145,8 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
             for (String key : diggingBreakSection.getKeys(false)){
                 try {
                     Material block = Material.valueOf(key);
-                    if (!block.isBlock()) throw new IllegalArgumentException();
                     double reward = progressionConfig.getDouble("experience.digging_break." + key);
-                    diggingBreakEXPReward.put(block, reward);
+                    diggingDropEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the digging block break rewards in progression_landscaping.yml, no reward set for this type until corrected.");
                 }
@@ -176,23 +174,14 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
         if (b.getType().isAir()) return;
-        if (!(woodcuttingBreakEXPReward.containsKey(b.getType()) || diggingBreakEXPReward.containsKey(b.getType()))) {
+        if (!(woodcuttingDropEXPReward.containsKey(b.getType()) || diggingDropEXPReward.containsKey(b.getType()))) {
             return;
         }
         if (!BlockStore.isPlaced(b)){
-            double amount = 0;
-            String expMultiplierStat = "";
-            if (woodcuttingBreakEXPReward.containsKey(b.getType())){
-                amount = woodcuttingBreakEXPReward.get(b.getType());
-                expMultiplierStat = "LANDSCAPING_EXP_GAIN_WOODCUTTING";
+            if (woodcuttingDropEXPReward.containsKey(b.getType())){
                 event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_VANILLA_EXP_REWARD", event.getPlayer(), true)));
-            } else if (diggingBreakEXPReward.containsKey(b.getType())){
-                amount = diggingBreakEXPReward.get(b.getType());
-                expMultiplierStat = "LANDSCAPING_EXP_GAIN_DIGGING";
+            } else if (diggingDropEXPReward.containsKey(b.getType())){
                 event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_VANILLA_EXP_REWARD", event.getPlayer(), true)));
-            }
-            if (amount > 0){
-                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats(expMultiplierStat, event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
             }
         }
 
@@ -505,11 +494,13 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
         Collection<String> unlockedConversions = ((LandscapingProfile) p).getUnlockedConversions();
         if (!CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "delay_block_interact_conversion")) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
-            BlockConversionManager.getInstance().triggerInteractConversion(event.getPlayer(), b, unlockedConversions);
-            event.setCancelled(true);
+            if (BlockConversionManager.getInstance().triggerInteractConversion(event.getPlayer(), b, unlockedConversions)){
+                event.setCancelled(true);
+            }
         } else if (event.getAction() == Action.LEFT_CLICK_BLOCK){
-            BlockConversionManager.getInstance().triggerDamageConversion(event.getPlayer(), b);
-            event.setCancelled(true);
+            if (BlockConversionManager.getInstance().triggerDamageConversion(event.getPlayer(), b)){
+                event.setCancelled(true);
+            }
         }
         CooldownManager.getInstance().setCooldown(event.getPlayer().getUniqueId(), 200, "delay_block_interact_conversion");
     }
@@ -548,25 +539,45 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
     @Override
     public void onItemsDropped(BlockDropItemEvent event) {
         if (!BlockStore.isPlaced(event.getBlock())) {
-            if (woodcuttingBreakEXPReward.containsKey(event.getBlockState().getType()) || diggingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+            if (woodcuttingDropEXPReward.containsKey(event.getBlockState().getType()) || diggingDropEXPReward.containsKey(event.getBlockState().getType())) {
                 List<Item> newItems = new ArrayList<>();
+                double rareDropMultiplier;
                 double dropMultiplier;
-                if (woodcuttingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+                ChancedBlockLootTable table;
+//                if (woodcuttingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+//                    dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_DROP_MULTIPLIER", event.getPlayer(), true);
+//                } else if (diggingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+//                    dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_DROP_MULTIPLIER", event.getPlayer(), true);
+//                } else {
+//                    return;
+//                }
+
+                //ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+
+                if (woodcuttingDropEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_DROP_MULTIPLIER", event.getPlayer(), true);
-                } else if (diggingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
+                    table = woodcuttingLootTable;
+                } else if (diggingDropEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_DROP_MULTIPLIER", event.getPlayer(), true);
+                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
+                    table = diggingLootTable;
                 } else {
                     return;
                 }
 
-                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
-
+                Set<Material> filter = new HashSet<>(woodcuttingDropEXPReward.keySet());
+                filter.addAll(diggingDropEXPReward.keySet());
+                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers, filter);
                 if (!event.getItems().isEmpty()){
-                    double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
-                    woodcuttingLootTable.onItemDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
-                    // if the event's dropped items isn't empty it implies the block dropped something
-                    // (stone harvested by hand will not trigger the loot table)
+                    table.onItemDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
                 }
+//                if (!event.getItems().isEmpty()){
+//                    rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
+//                    woodcuttingLootTable.onItemDrop(event.getBlockState(), newItems, event.getPlayer(), rareDropMultiplier);
+//                    // if the event's dropped items isn't empty it implies the block dropped something
+//                    // (stone harvested by hand will not trigger the loot table)
+//                }
                 // spigot is incompatible with adding new items to drops directly, its forks aren't.
                 // if on spigot items should be dropped by the plugin here, if not, items can be added.
                 // drops are cleared and re-added if not on spigot, or cleared and dropped manually if on spigot
@@ -580,6 +591,28 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                         event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
                     }
                 }
+
+                double amount = 0;
+                String expMultiplierStat = "";
+                if (woodcuttingDropEXPReward.containsKey(event.getBlockState().getType())){
+                    for (Item i : newItems){
+                        if (i == null) continue;
+                        if (Utils.isItemEmptyOrNull(i.getItemStack())) continue;
+                        amount += woodcuttingDropEXPReward.getOrDefault(i.getItemStack().getType(), 0D) * i.getItemStack().getAmount();
+                    }
+                    expMultiplierStat = "LANDSCAPING_EXP_GAIN_WOODCUTTING";
+                } else if (diggingDropEXPReward.containsKey(event.getBlockState().getType())){
+                    for (Item i : newItems){
+                        if (i == null) continue;
+                        if (Utils.isItemEmptyOrNull(i.getItemStack())) continue;
+                        amount += diggingDropEXPReward.getOrDefault(i.getItemStack().getType(), 0D) * i.getItemStack().getAmount();
+                    }
+                    expMultiplierStat = "LANDSCAPING_EXP_GAIN_DIGGING";
+                }
+                if (amount > 0){
+                    addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats(expMultiplierStat, event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+                }
+
                 BlockStore.setPlaced(event.getBlock(), false);
             }
         }
@@ -588,16 +621,16 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
     @Override
     public void onItemStacksDropped(BlockDropItemStackEvent event) {
         if (!BlockStore.isPlaced(event.getBlock())) {
-            if (woodcuttingBreakEXPReward.containsKey(event.getBlockState().getType()) || diggingBreakEXPReward.containsKey(event.getBlockState().getType()) || woodcuttingStripEXPReward.containsKey(event.getBlockState().getType())) {
+            if (woodcuttingDropEXPReward.containsKey(event.getBlockState().getType()) || diggingDropEXPReward.containsKey(event.getBlockState().getType()) || woodcuttingStripEXPReward.containsKey(event.getBlockState().getType())) {
                 List<ItemStack> newItems = new ArrayList<>();
                 double dropMultiplier;
                 double rareDropMultiplier;
                 ChancedBlockLootTable table;
-                if (woodcuttingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+                if (woodcuttingDropEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_DROP_MULTIPLIER", event.getPlayer(), true);
                     rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     table = woodcuttingLootTable;
-                } else if (diggingBreakEXPReward.containsKey(event.getBlockState().getType())) {
+                } else if (diggingDropEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_DROP_MULTIPLIER", event.getPlayer(), true);
                     rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     table = diggingLootTable;

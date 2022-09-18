@@ -57,6 +57,8 @@ status_command_resourcepack_enabled: '&aDefault resource pack configuration enab
 status_command_resourcepack_disabled: '&7Default resource pack configuration disabled'
 status_command_item_indexed: '&aItem indexed! ID is &2%id%'
 status_command_item_removed: '&aItem removed!'
+status_command_bossbars_hidden: '&7Experience bars are now hidden'
+status_command_bossbars_shown: '&7Experience bars are now shown'
 
 status_command_party_chat_enabled: '&aParty chat enabled'
 status_command_party_chat_disabled: '&7Party chat disabled'
@@ -133,10 +135,16 @@ description_command_givebook: 'Gives you or other players the "getting started" 
 description_command_import: 'Imports all recipes from a file present in the recipes folder, can override or skip existing recipes.'
 description_command_resourcepack: 'Use &edownload &7 to download a copy of the ValhallaMMO resource pack or use &esetup &7to both download and install the pack onto the server. This overrides any resource pack changes in server.properties'
 description_command_itemindex: 'Save an item under an ID so it may later be used in recipe modifiers'
+description_command_hidebossbars: 'Toggles the visibility of boss bars to indicate experience gain for a player'
 
 status_experience_gained: '&7%skill% &7EXP &6%exp%' # Status message shown to the player whenever they earn EXP. If empty no message is sent.
 status_experience_gained_bossbar: '&7%skill% &6%exp_current%&7/&6%exp_next%' # Status message shown to the player whenever they earn EXP. If empty no message is sent.
 status_cooldown: '&cCooldown: %timestamp%' # Status message shown when the player attempts to use an ability, but it is on cooldown. Other placeholders available are %time_seconds% and %time_minutes%
+
+timeformat_days: '%days%d, %hours%h' # Timestamp format if duration is more than 1 day
+timeformat_hours: '%hours%h, %minutes%m' # Timestamp format if duration is less than 1 day but more than 1 hour
+timeformat_minutes: '%minutes%m, %seconds%s' # Timestamp format if duration is less than 1 hour but more than 1 minute
+timeformat_seconds: '%seconds%' # Timestamp format if duration is less than 1 minute but more than 1 second
 
 translation_false: 'No'
 translation_true: 'Yes'
@@ -217,6 +225,7 @@ translation_magic_resistance: 'Magic Resistance'
 translation_damage_resistance: 'Damage Resistance'
 translation_poison_resistance: 'Poison Resistance'
 translation_explosion_resistance: 'Explosion Resistance'
+translation_falling_resistance: 'Falling Resistance'
 
 stat_negative_prefix: '&c'
 stat_positive_prefix: '&9'
@@ -1126,7 +1135,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-light-weapons-displayname: '&7Light Weapons'
   skill-light-weapons-level-bar: '&7Light Weapons &eLV %lv_current% &6%exp_current%&7/&6%exp_next%'
   skill-level-up-light-weapons:
-    - '&eLight Armor&7 leveled up to &e%level%'
+    - '&eLight Weapons&7 leveled up to &e%level%'
   skill-light-weapons-perk-ranked-1-display-name: '&7Squire'
   skill-light-weapons-perk-ranked-1-description: '&7You gain a &e10%&7 chance to inflict a critical hit and attack a little bit faster'
   skill-light-weapons-perk-ranked-1-messages:
@@ -1148,7 +1157,7 @@ placeholders: # These translations can be used as placeholders in other files, a
     - '&7Bleeding damage occurs every 2 seconds,'
     - '&7and ignores armor.'
     - ' '
-  skill-light-weapons-perk-ranked-3-display-name: '7Knight'
+  skill-light-weapons-perk-ranked-3-display-name: '&7Knight'
   skill-light-weapons-perk-ranked-3-description: '&7Unlocks &eParry&7, which allows you to deflect enemy attacks and stun them when you do.'
   skill-light-weapons-perk-ranked-3-messages:
     - '&8&m                           '
@@ -1385,7 +1394,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-landscaping-displayname: '&7Landscaping'
   skill-landscaping-level-bar: '&7Landscaping &aLV %lv_current% &2%exp_current%&7/&2%exp_next%'
   skill-level-up-landscaping:
-    - '&cHeavy Armor&7 leveled up to &c%level%'
+    - '&bLandscaping&7 leveled up to &c%level%'
   skill-landscaping-perk-digging-ranked-1-display-name: '&7Sifter'
   skill-landscaping-perk-digging-ranked-1-description: '&7You start getting some rare resources from the ground, and you gain a little bit of enchanting experience from it.'
   skill-landscaping-perk-digging-ranked-1-messages:
@@ -1537,7 +1546,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-heavy-weapons-displayname: '&7Heavy Weapons'
   skill-heavy-weapons-level-bar: '&7Heavy Weapons &cLV %lv_current% &4%exp_current%&7/&4%exp_next%'
   skill-level-up-heavy-weapons:
-    - '&cHeavy Armor&7 leveled up to &c%level%'
+    - '&cHeavy Weapons&7 leveled up to &c%level%'
   skill-heavy-weapons-perk-ranked-1-display-name: '&7Viking'
   skill-heavy-weapons-perk-ranked-1-description: '&7You gain a &e10%&7 chance to inflict a critical hit and your knockback is increased'
   skill-heavy-weapons-perk-ranked-1-messages:

@@ -20,15 +20,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 public final class ValhallaMMO extends JavaPlugin {
     private static ValhallaMMO plugin;
     private static boolean metrics_enabled;
     private static Metrics metrics = null;
-    private static NMS nms;
+    private static NMS nms = null;
     private static boolean is_spigot;
     private static boolean pack_enabled = false;
     private static boolean trinketsHooked = false;
@@ -66,18 +64,19 @@ public final class ValhallaMMO extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         pack_enabled = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("resource_pack_config_override");
-//        if (!setupNMS()){
-//            this.getLogger().severe("This version of ValhallaMMO is not compatible, versions at or under 1.16.4 are not supported.");
-//            this.getServer().getPluginManager().disablePlugin(this);
-//            return;
-//        } else {
-//            this.getServer().getPluginManager().registerEvents(nms, this);
-//        }
+        if (!setupNMS()){
+            this.getLogger().severe("This version of ValhallaMMO is not compatible, versions at or under 1.16.4 are not supported. Certain features are disabled");
+        } else {
+            this.getServer().getPluginManager().registerEvents(nms, this);
+        }
+        saveAndUpdateConfig("config.yml");
+        String language = ConfigManager.getInstance().getConfig("config.yml").get().getString("language");
+        saveAndUpdateConfig("languages/" + language + ".yml");
+        TranslationManager.getInstance();
 
         this.getServer().getConsoleSender().sendMessage(Utils.chat("&6[&eValhallaMMO&6] &fEnabling ValhallaMMO, this might take a bit..."));
         ArtificialGlow.registerGlow();
 
-        saveAndUpdateConfig("config.yml");
         saveConfig("recipes/brewing_recipes.yml");
         saveConfig("recipes/improvement_recipes.yml");
         saveConfig("recipes/class_improvement_recipes.yml");
@@ -86,18 +85,18 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("recipes/cooking_recipes.yml");
         saveConfig("sounds.yml");
         saveConfig("tutorial_book.yml");
-        saveAndUpdateConfig("skill_smithing.yml");
+        saveAndUpdateConfig("skill_alchemy.yml", Arrays.asList("effects_inverted", "quality_cosmetic"));
         saveAndUpdateConfig("skill_archery.yml");
-        saveAndUpdateConfig("skill_alchemy.yml");
         saveAndUpdateConfig("skill_enchanting.yml");
-        saveAndUpdateConfig("skill_player.yml");
         saveAndUpdateConfig("skill_farming.yml");
-        saveAndUpdateConfig("skill_mining.yml");
+        saveAndUpdateConfig("skill_heavy_armor.yml");
+        saveAndUpdateConfig("skill_heavy_weapons.yml");
         saveAndUpdateConfig("skill_landscaping.yml");
         saveAndUpdateConfig("skill_light_armor.yml");
-        saveAndUpdateConfig("skill_heavy_armor.yml");
         saveAndUpdateConfig("skill_light_weapons.yml");
-        saveAndUpdateConfig("skill_heavy_weapons.yml");
+        saveAndUpdateConfig("skill_mining.yml", Collections.singletonList("quickmode_block_values"));
+        saveAndUpdateConfig("skill_player.yml");
+        saveAndUpdateConfig("skill_smithing.yml", Arrays.asList("quality_cosmetic", "treatment_lore"));
         saveConfig("progression_archery.yml");
         saveConfig("progression_smithing.yml");
         saveConfig("progression_alchemy.yml");
@@ -114,7 +113,6 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("alchemy_transmutations.yml");
         saveConfig("block_interact_conversions.yml");
 
-        saveAndUpdateConfig("languages/en-us.yml");
 
         saveConfig("loot_tables/farming_fishing.yml");
         saveConfig("loot_tables/landscaping_digging.yml");
@@ -135,6 +133,7 @@ public final class ValhallaMMO extends JavaPlugin {
 
         PerkRewardsManager.getInstance();
         BlockConversionManager.getInstance();
+        GlobalEffectManager.getInstance().loadActiveGlobalEffects();
         TutorialBook.getTutorialBookInstance().loadBookContents();
         ItemDictionaryManager.getInstance().loadItemsAsync();
         CustomRecipeManager.getInstance().loadRecipesAsync();
@@ -218,6 +217,11 @@ public final class ValhallaMMO extends JavaPlugin {
         updateConfig(config);
     }
 
+    private void saveAndUpdateConfig(String config, List<String> excludedSections){
+        saveConfig(config);
+        updateConfig(config, excludedSections);
+    }
+
     private Listener registerListener(Listener l, String key){
         YamlConfiguration config = ConfigManager.getInstance().getConfig("config.yml").get();
         if (config.getBoolean("enabled_listeners." + key, true)){
@@ -244,6 +248,7 @@ public final class ValhallaMMO extends JavaPlugin {
             ValhallaMMO.getPlugin().getServer().getLogger().info("No recipe adjustments detected, not saving recipes!");
         }
         LootManager.getInstance().saveLootTables();
+        GlobalEffectManager.getInstance().saveActiveGlobalEffects();
 
         ProfileManager.getManager().savePlayerProfiles();
 
@@ -364,6 +369,15 @@ public final class ValhallaMMO extends JavaPlugin {
         File configFile = new File(getDataFolder(), name);
         try {
             ConfigUpdater.update(plugin, name, configFile, new ArrayList<>());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateConfig(String name, List<String> excludedSections){
+        File configFile = new File(getDataFolder(), name);
+        try {
+            ConfigUpdater.update(plugin, name, configFile, excludedSections);
         } catch (IOException e) {
             e.printStackTrace();
         }

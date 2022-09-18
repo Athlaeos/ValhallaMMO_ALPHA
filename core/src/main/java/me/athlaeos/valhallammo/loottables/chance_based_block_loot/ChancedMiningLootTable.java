@@ -37,7 +37,7 @@ public class ChancedMiningLootTable extends ChancedBlockLootTable {
         Skill s = SkillProgressionManager.getInstance().getSkill("MINING");
         if (s != null){
             if (s instanceof MiningSkill){
-                return ((MiningSkill) s).getBlockBreakEXPReward().keySet();
+                return ((MiningSkill) s).getBlockDropEXPReward().keySet();
             }
         }
         return new HashSet<>();

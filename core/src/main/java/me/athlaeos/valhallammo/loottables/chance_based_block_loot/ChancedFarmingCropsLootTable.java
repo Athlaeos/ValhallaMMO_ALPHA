@@ -37,7 +37,7 @@ public class ChancedFarmingCropsLootTable extends ChancedBlockLootTable {
         Skill s = SkillProgressionManager.getInstance().getSkill("FARMING");
         if (s != null){
             if (s instanceof FarmingSkill){
-                return ((FarmingSkill) s).getBlockBreakEXPReward().keySet();
+                return ((FarmingSkill) s).getBlockDropEXPReward().keySet();
             }
         }
         return new HashSet<>();

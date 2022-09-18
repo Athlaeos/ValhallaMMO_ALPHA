@@ -107,7 +107,7 @@ public class EntityDamagedListener implements Listener {
             lootTable = (GlobalChancedEntityLootTable) table;
         }
 
-        String scaling = config.getString("damage_formula_physical", "");
+        String scaling = config.getString("damage_formula_physical", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)");
 
         physicalDamageScalingSetMode = config.getString("damage_formula_mode", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)").equalsIgnoreCase("set");
         physicalDamageReductionCap = config.getDouble("damage_reduction_cap");
@@ -193,6 +193,7 @@ public class EntityDamagedListener implements Listener {
 
     public static double getCustomDamage(EntityDamageEvent e) {
         Entity lastDamagedBy = null;
+        System.out.println("original damage: " + e.getDamage());
         if (Arrays.asList("ENTITY_ATTACK", "ENTITY_SWEEP_ATTACK", "PROJECTILE", "ENTITY_EXPLOSION").contains(e.getCause().toString())) {
             lastDamagedBy = lastDamagedByMap.get(e.getEntity().getUniqueId());
         } else {
@@ -280,11 +281,12 @@ public class EntityDamagedListener implements Listener {
 //                    .replace("%damage%", "" + Utils.round(damageWithResistances, 3))
 //                    .replace("%armor%", "" + Utils.round(totalArmor, 3))
 //                    .replace("%toughness%", "" + Utils.round(toughness, 3)));
-            double scalingResult = Utils.eval(physicalDamageScaling.getScaling()
-                    .replace("%damage%", "" + Utils.round(damageWithResistances, 3))
-                    .replace("%armor%", "" + Utils.round(totalArmor, 3))
-                    .replace("%toughness%", "" + Utils.round(toughness, 3)));
+            double scalingResult = Utils.evalBigDouble(physicalDamageScaling.getScaling()
+                    .replace("%damage%", String.format("%.4f", damageWithResistances))
+                    .replace("%armor%", String.format("%.4f", totalArmor))
+                    .replace("%toughness%", String.format("%.4f", toughness)));
 
+            System.out.println("new damage: " + scalingResult + " with scaling " + physicalDamageScaling.getScaling());
             if (physicalDamageScalingSetMode) {
                 double minimumDamage = damageWithResistances * physicalDamageReductionCap;
                 return Math.max(minimumDamage, scalingResult);
@@ -341,6 +343,7 @@ public class EntityDamagedListener implements Listener {
                     }
                     ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(),
                             () -> {
+                                System.out.println(" custom damage : " + customDamage);
                                 if (!finalCancelImmunityDueToOverride) ((LivingEntity) e.getEntity()).setNoDamageTicks(finalIFrames);
                                 AttributeInstance maxHealthAttribute = ((LivingEntity) e.getEntity()).getAttribute(Attribute.GENERIC_MAX_HEALTH);
                                 double maxHealth = -1;

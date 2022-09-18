@@ -54,22 +54,23 @@ experience: # Everything about leveling and experience progression for Landscapi
     WARPED_HYPHAE: 20
     CRIMSON_HYPHAE: 20
   digging_break:
-    SNOW: 2
-    FARMLAND: 2
-    DIRT: 2
-    SAND: 2
-    RED_SAND: 2
-    COARSE_DIRT: 4
+    SNOW: 0.2
+    FARMLAND: 4
+    DIRT: 4
+    SAND: 4
+    RED_SAND: 4
+    COARSE_DIRT: 8
     SNOW_BLOCK: 4
-    SOUL_SAND: 4
-    SOUL_SOIL: 4
-    GRASS_BLOCK: 4
-    DIRT_PATH: 4
-    MYCELIUM: 4
-    GRAVEL: 4
-    PODZOL: 4
-    CLAY: 6
-    MUD: 6
+    SOUL_SAND: 8
+    SOUL_SOIL: 8
+    GRASS_BLOCK: 8
+    DIRT_PATH: 8
+    MYCELIUM: 8
+    GRAVEL: 8
+    PODZOL: 8
+    CLAY: 12
+    CLAY_BALL: 3
+    MUD: 12
 
 special_perks: # Perks, commands, and messages executed when a player reaches a specific level
   # If you don't know how to format this, refer to other progression configs (such as smithing) for reference

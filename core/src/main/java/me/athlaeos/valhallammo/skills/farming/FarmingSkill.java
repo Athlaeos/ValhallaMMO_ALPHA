@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.*;
 
 public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkill, ItemConsumptionSkill, PotionEffectSkill, EntityTargetingSkill, FishingSkill, InteractSkill {
-    private final Map<Material, Double> blockBreakEXPReward;
+    private final Map<Material, Double> blockDropEXPReward;
     private final Map<Material, Double> blockInteractEXPReward;
     private final Map<EntityType, Double> entityBreedEXPReward;
     private final double fishingEXPReward;
@@ -64,8 +64,8 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     private final String outline_color;
     private final boolean ultra_harvesting_instant;
 
-    public Map<Material, Double> getBlockBreakEXPReward() {
-        return blockBreakEXPReward;
+    public Map<Material, Double> getBlockDropEXPReward() {
+        return blockDropEXPReward;
     }
 
     public Map<EntityType, Double> getEntityBreedEXPReward() {
@@ -94,7 +94,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             }
         }
 
-        this.blockBreakEXPReward = new HashMap<>();
+        this.blockDropEXPReward = new HashMap<>();
         this.blockInteractEXPReward = new HashMap<>();
         this.entityBreedEXPReward = new HashMap<>();
         YamlConfiguration farmingConfig = ConfigManager.getInstance().getConfig("skill_farming.yml").get();
@@ -115,9 +115,8 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             for (String key : blockBreakSection.getKeys(false)) {
                 try {
                     Material block = Material.valueOf(key);
-                    if (!block.isBlock()) throw new IllegalArgumentException();
                     double reward = progressionConfig.getDouble("experience.farming_break." + key);
-                    blockBreakEXPReward.put(block, reward);
+                    blockDropEXPReward.put(block, reward);
                 } catch (IllegalArgumentException ignored) {
                     ValhallaMMO.getPlugin().getLogger().warning("invalid block type given:" + key + " for the block break rewards in " + progressionConfig.getName() + ".yml, no reward set for this type until corrected.");
                 }
@@ -209,7 +208,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     @Override
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
-        if (!blockBreakEXPReward.containsKey(b.getType())) return;
+        if (!blockDropEXPReward.containsKey(b.getType())) return;
         boolean reward = false;
         if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_17) && b.getBlockData() instanceof CaveVines) {
             CaveVines vines = (CaveVines) b.getBlockData();
@@ -230,9 +229,6 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             }
         }
         if (reward) {
-            double amount = blockBreakEXPReward.get(b.getType());
-            addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
-
             double vanillaExpReward = AccumulativeStatManager.getInstance().getStats("FARMING_VANILLA_EXP_REWARD", event.getPlayer(), true);
             event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(vanillaExpReward));
         }
@@ -243,14 +239,23 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         // do nothing
     }
 
-    private final Collection<Material> legalCrops = ItemUtils.getMaterialList(Arrays.asList(
-            "WHEAT", "POTATOES", "CARROTS",
-            "SWEET_BERRY_BUSH", "BEETROOTS", "MELON",
-            "PUMPKIN", "COCOA", "BROWN_MUSHROOM",
-            "RED_MUSHROOM", "CRIMSON_FUNGUS", "WARPED_FUNGUS",
-            "NETHER_WART", "GLOW_BERRIES", "SUGAR_CANE",
-            "CACTUS", "KELP", "SEA_PICKLE"
-    ));
+    private final Collection<Material> legalCrops = new HashSet<>(
+            ItemUtils.getMaterialList(Arrays.asList(
+                    "WHEAT", "POTATOES", "CARROTS",
+                    "SWEET_BERRY_BUSH", "BEETROOTS", "MELON",
+                    "PUMPKIN", "COCOA", "BROWN_MUSHROOM",
+                    "RED_MUSHROOM", "CRIMSON_FUNGUS", "WARPED_FUNGUS",
+                    "NETHER_WART", "GLOW_BERRIES", "SUGAR_CANE",
+                    "CACTUS", "KELP", "SEA_PICKLE"
+            ))
+    );
+
+    private final Collection<Material> growableCrops = new HashSet<>(
+            ItemUtils.getMaterialList(Arrays.asList(
+                    "WHEAT", "POTATOES", "CARROTS", "BEETROOTS", "COCOA",
+                    "NETHER_WART"
+            ))
+    );
 
     @Override
     public void onInteract(PlayerInteractEvent event) {
@@ -385,7 +390,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
         }
         Ageable data = (Ageable) b.getBlockData();
         if (data.getAge() < data.getMaximumAge()) return;
-        if (blockBreakEXPReward.containsKey(b.getType())) {
+        if (blockDropEXPReward.containsKey(b.getType())) {
             // trigger instant harvest/replant mechanic
             EquipmentSlot usedSlot;
             ItemStack tool;
@@ -404,6 +409,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             if (breakEvent.isCancelled()) return;
             ExperienceOrb orb = breakEvent.getBlock().getWorld().spawn(breakEvent.getBlock().getLocation().add(0.5, 0.5, 0.5), ExperienceOrb.class);
             orb.setExperience(breakEvent.getExpToDrop());
+
             BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(b, b.getState(), p, new ArrayList<>((tool == null) ? b.getDrops() : b.getDrops(tool, p)));
             ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
             if (toInventory) {
@@ -457,12 +463,23 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     @Override
     public void onItemsDropped(BlockDropItemEvent event) {
         if (!BlockStore.isPlaced(event.getBlock())) {
-            if (blockBreakEXPReward.containsKey(event.getBlockState().getType()) || blockInteractEXPReward.containsKey(event.getBlockState().getType())) {
+            if (blockDropEXPReward.containsKey(event.getBlockState().getType()) || blockInteractEXPReward.containsKey(event.getBlockState().getType())) {
                 List<Item> newItems = new ArrayList<>();
                 boolean handleDropsSelf = ValhallaMMO.isSpigot();
                 double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_DROP_MULTIPLIER", event.getPlayer(), true);
 
-                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+                if (event.getBlock().getType() == Material.POTATOES || event.getBlock().getType() == Material.CARROTS){
+                    for (Item i : event.getItems()){
+                        if (i == null) continue;
+                        if (Utils.isItemEmptyOrNull(i.getItemStack())) continue;
+                        if (i.getItemStack().getAmount() == 1) {
+                            event.getItems().remove(i);
+                            break;
+                        }
+                    }
+                }
+
+                ItemUtils.multiplyItems(event.getItems(), newItems, dropMultiplier, forgivingMultipliers, blockDropEXPReward.keySet());
 
                 if (!event.getItems().isEmpty()) {
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
@@ -479,6 +496,15 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                         event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
                     }
                 }
+
+                double amount = 0;
+                for (Item i : newItems){
+                    if (i == null) continue;
+                    if (Utils.isItemEmptyOrNull(i.getItemStack())) continue;
+                    amount += blockDropEXPReward.getOrDefault(i.getItemStack().getType(), 0D) * i.getItemStack().getAmount();
+                }
+                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
                 BlockStore.setPlaced(event.getBlock(), false);
             }
         }
@@ -487,11 +513,20 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     @Override
     public void onItemStacksDropped(BlockDropItemStackEvent event) {
         if (!BlockStore.isPlaced(event.getBlock())) {
-            if (blockBreakEXPReward.containsKey(event.getBlockState().getType()) || blockInteractEXPReward.containsKey(event.getBlockState().getType())) {
+            if (blockDropEXPReward.containsKey(event.getBlockState().getType()) || blockInteractEXPReward.containsKey(event.getBlockState().getType())) {
                 List<ItemStack> newItems = new ArrayList<>();
                 double dropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_DROP_MULTIPLIER", event.getPlayer(), true);
 
-                ItemUtils.multiplyItemStacks(event.getItems(), newItems, dropMultiplier, forgivingMultipliers);
+                if (event.getBlock().getType() == Material.POTATOES || event.getBlock().getType() == Material.CARROTS){
+                    for (ItemStack i : event.getItems()){
+                        if (i.getAmount() == 1) {
+                            event.getItems().remove(i);
+                            break;
+                        }
+                    }
+                }
+
+                ItemUtils.multiplyItemStacks(event.getItems(), newItems, dropMultiplier, forgivingMultipliers, blockDropEXPReward.keySet());
 
                 if (!event.getItems().isEmpty()) {
                     double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_RARE_DROP_CHANCE_MULTIPLIER", event.getPlayer(), true);
@@ -499,6 +534,14 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                 }
                 event.getItems().clear();
                 event.getItems().addAll(newItems);
+
+                double amount = 0;
+                for (ItemStack i : newItems){
+                    if (Utils.isItemEmptyOrNull(i)) continue;
+                    amount += blockDropEXPReward.getOrDefault(i.getType(), 0D) * i.getAmount();
+                }
+                addEXP(event.getPlayer(), amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_FARMING", event.getPlayer(), true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+
                 BlockStore.setPlaced(event.getBlock(), false);
             }
         }

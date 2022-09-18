@@ -24,18 +24,24 @@ experience: # Everything about leveling and experience progression for Smithing
   farming_break:
     WHEAT: 24
     POTATOES: 20
+    POTATO: 5
     CARROTS: 20
+    CARROT: 5
     BEETROOTS: 28
+    BEETROOT: 14
     COCOA: 40
+    COCOA_BEANS: 10
     MELON: 40
+    MELON_SLICE: 8
     PUMPKIN: 40
-    NETHER_WART: 20
+    NETHER_WART: 10
     BROWN_MUSHROOM: 40
     RED_MUSHROOM: 40
     SUGAR_CANE: 16
     WARPED_FUNGUS: 48
     CRIMSON_FUNGUS: 48
     SWEET_BERRY_BUSH: 30
+    SWEET_BERRIES: 10
     CAVE_VINES: 40
   farming_breed:
     FROG: 80

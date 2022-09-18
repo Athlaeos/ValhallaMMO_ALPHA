@@ -30,6 +30,9 @@ public class LightWeaponsParryDamageReductionSetReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                reduction = (float) (Integer) argument;
+            }
             if (argument instanceof Float){
                 reduction = (float) argument;
             }

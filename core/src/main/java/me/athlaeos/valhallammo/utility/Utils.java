@@ -324,7 +324,7 @@ public class Utils {
      * @param base base to represent a second (example, if 20 is 1 second give a base of 20, if 1 is 1 second give 1.)
      * @return a timestamp in a hh:mm:ss format (or mm:ss if not enough ticks for an hour are given), or ∞ if ticks is < 0
      */
-    public static String toTimeStamp(int ticks, int base){
+    public static String toTimeStamp(long ticks, long base){
         if (ticks == 0) return "0:00";
         if (ticks < 0) return "∞";
         int hours = (int) Math.floor(ticks / (3600D * base));
@@ -354,6 +354,47 @@ public class Utils {
             }
         }
     }
+
+    private static final String daysFormat = TranslationManager.getInstance().getTranslation("timeformat_days");
+    private static final String hoursFormat = TranslationManager.getInstance().getTranslation("timeformat_hours");
+    private static final String minutesFormat = TranslationManager.getInstance().getTranslation("timeformat_minutes");
+    private static final String secondsFormat = TranslationManager.getInstance().getTranslation("timeformat_seconds");
+    public static String toTimeStamp2(long ticks, long base){
+        if (ticks < 0) return "∞";
+        int days = (int) Math.floor(ticks / (3600D * 24 * base));
+        ticks %= (base * (3600 * 24));
+        int hours = (int) Math.floor(ticks / (3600D * base));
+        ticks %= (base * 3600);
+        int minutes = (int) Math.floor(ticks / (60D * base));
+        ticks %= (base * 60);
+        int seconds = (int) Math.floor(ticks / (double) base);
+        if (days > 0){
+            return daysFormat
+                    .replace("%days%", "" + days)
+                    .replace("%hours%", "" + hours)
+                    .replace("%minutes%", "" + minutes)
+                    .replace("%seconds%", "" + seconds);
+        } else if (hours > 0){
+            return hoursFormat
+                    .replace("%days%", "" + days)
+                    .replace("%hours%", "" + hours)
+                    .replace("%minutes%", "" + minutes)
+                    .replace("%seconds%", "" + seconds);
+        } else if (minutes > 0){
+            return minutesFormat
+                    .replace("%days%", "" + days)
+                    .replace("%hours%", "" + hours)
+                    .replace("%minutes%", "" + minutes)
+                    .replace("%seconds%", "" + seconds);
+        } else {
+            return secondsFormat
+                    .replace("%days%", "" + days)
+                    .replace("%hours%", "" + hours)
+                    .replace("%minutes%", "" + minutes)
+                    .replace("%seconds%", "" + seconds);
+        }
+    }
+
 
     public static String toPascalCase(String s){
         if (s == null) return null;
@@ -491,6 +532,8 @@ public class Utils {
         assert i.getItemMeta() != null;
         if (i.getItemMeta().hasDisplayName()){
             name = Utils.chat(i.getItemMeta().getDisplayName());
+        } else if (TranslationManager.getInstance().getLocalizedMaterialNames().containsKey(i.getType())){
+            name = Utils.chat(TranslationManager.getInstance().getLocalizedMaterialNames().get(i.getType()));
         } else if (i.getItemMeta().hasLocalizedName()){
             name = Utils.chat(i.getItemMeta().getLocalizedName());
         } else {
@@ -586,7 +629,7 @@ public class Utils {
 
     public static double eval(String expression) {
         String str = expression.replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
-        if (expression.length() <= 0) return 0;
+        if (str.length() <= 0) return 0;
         return new Object() {
             int pos = -1, ch;
 
@@ -606,7 +649,9 @@ public class Utils {
             double parse() {
                 nextChar();
                 double x = parseExpression();
-                if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
+                if (pos < str.length()) {
+                    throw new RuntimeException("Unexpected: " + (char)ch + " while trying to parse formula " + expression);
+                }
                 return x;
             }
 
@@ -664,6 +709,112 @@ public class Utils {
                 return x;
             }
         }.parse();
+    }
+
+    public static double evalBigDouble(String expression) {
+        String str = expression.replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
+        if (str.length() <= 0) return 0;
+        return new Object() {
+            int pos = -1, ch;
+
+            void nextChar() {
+                ch = (++pos < str.length()) ? str.charAt(pos) : -1;
+            }
+
+            boolean eat(int charToEat) {
+                while (ch == ' ') nextChar();
+                if (ch == charToEat) {
+                    nextChar();
+                    return true;
+                }
+                return false;
+            }
+
+            BigDecimal parse() {
+                nextChar();
+                BigDecimal x = parseExpression();
+                if (pos < str.length()) {
+                    throw new RuntimeException("Unexpected: " + (char)ch + " while trying to parse formula " + expression);
+                }
+                return x;
+            }
+
+            // Grammar:
+            // expression = term | expression `+` term | expression `-` term
+            // term = factor | term `*` factor | term `/` factor
+            // factor = `+` factor | `-` factor | `(` expression `)`
+            //        | number | functionName factor | factor `^` factor
+
+            BigDecimal parseExpression() {
+                BigDecimal x = parseTerm();
+                for (;;) {
+                    if      (eat('+')) x = x.add(parseTerm()); // addition
+                    else if (eat('-')) x = x.subtract(parseTerm()); // subtraction
+                    else return x;
+                }
+            }
+
+            BigDecimal parseTerm() {
+                BigDecimal x = parseFactor();
+                for (;;) {
+                    if      (eat('*')) x = x.multiply(parseFactor()); // multiplication
+                    else if (eat('/')) x = x.divide(parseFactor(), 10, RoundingMode.HALF_DOWN); // division
+                    else return x;
+                }
+            }
+
+            BigDecimal parseFactor() {
+                if (eat('+')) return parseFactor(); // unary plus
+                if (eat('-')) return parseFactor().negate(); // unary minus
+
+                BigDecimal x;
+                int startPos = this.pos;
+                if (eat('(')) { // parentheses
+                    x = parseExpression();
+                    eat(')');
+                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                    while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
+                    x = BigDecimal.valueOf(Double.parseDouble(str.substring(startPos, this.pos)));
+                } else if (ch >= 'a' && ch <= 'z') { // functions
+                    while (ch >= 'a' && ch <= 'z') nextChar();
+                    String func = str.substring(startPos, this.pos);
+                    x = parseFactor();
+                    if (func.equals("sqrt")) x = BigDecimal.valueOf(Math.sqrt(x.doubleValue()));
+                    else if (func.equals("sin")) x = BigDecimal.valueOf(Math.sin(Math.toRadians(x.doubleValue())));
+                    else if (func.equals("cos")) x = BigDecimal.valueOf(Math.cos(Math.toRadians(x.doubleValue())));
+                    else if (func.equals("tan")) x = BigDecimal.valueOf(Math.tan(Math.toRadians(x.doubleValue())));
+                    else throw new RuntimeException("Unknown function: " + func + " while trying to parse formula " + expression);
+                } else {
+                    throw new RuntimeException("Unexpected: " + (char)ch + " while trying to parse formula " + expression);
+                }
+
+                if (eat('^')) x = pow(x, parseFactor()); // exponentiation
+
+                return x;
+            }
+        }.parse().doubleValue();
+    }
+
+    public static BigDecimal pow(BigDecimal base, BigDecimal exponent) {
+        BigDecimal result = BigDecimal.ZERO;
+        int signOf2 = exponent.signum();
+
+        // Perform X^(A+B)=X^A*X^B (B = remainder)
+        double dn1 = base.doubleValue();
+        // Compare the same row of digits according to context
+        BigDecimal n2 = exponent.multiply(new BigDecimal(signOf2)); // n2 is now positive
+        BigDecimal remainderOf2 = n2.remainder(BigDecimal.ONE);
+        BigDecimal n2IntPart = n2.subtract(remainderOf2);
+        // Calculate big part of the power using context -
+        // bigger range and performance but lower accuracy
+        BigDecimal intPow = base.pow(n2IntPart.intValueExact());
+        BigDecimal doublePow = new BigDecimal(Math.pow(dn1, remainderOf2.doubleValue()));
+        result = intPow.multiply(doublePow);
+
+        // Fix negative power
+        if (signOf2 == -1)
+            result = BigDecimal.ONE.divide(result, 4);
+        return result;
     }
 
     public static List<String> separateStringIntoLines(String string, int maxLength){

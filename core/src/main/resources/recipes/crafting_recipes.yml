@@ -3230,11 +3230,11 @@ craft:
         display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-diamond-dagger>"}],"text":""}'
         lore:
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"+15.0%
-          Crit Chance"}],"text":""}'
+          <lang.translation_crit_chance>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-200.0%
-          Knockback"}],"text":""}'
+          <lang.translation_knockback>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-0.75
-          Attack Reach"}],"text":""}'
+          <lang.translation_weaponreach>"}],"text":""}'
         custom-model-data: 1
         attribute-modifiers:
           GENERIC_ATTACK_DAMAGE:
@@ -3302,11 +3302,11 @@ craft:
         display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-gold-dagger>"}],"text":""}'
         lore:
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"+15.0%
-          Crit Chance"}],"text":""}'
+          <lang.translation_crit_chance>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-200.0%
-          Knockback"}],"text":""}'
+          <lang.translation_knockback>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-0.75
-          Attack Reach"}],"text":""}'
+          <lang.translation_weaponreach>"}],"text":""}'
         custom-model-data: 1
         attribute-modifiers:
           GENERIC_ATTACK_DAMAGE:
@@ -3374,11 +3374,11 @@ craft:
         display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-iron-dagger>"}],"text":""}'
         lore:
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"+15.0%
-          Crit Chance"}],"text":""}'
+          <lang.translation_crit_chance>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-200.0%
-          Knockback"}],"text":""}'
+          <lang.translation_knockback>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-0.75
-          Attack Reach"}],"text":""}'
+          <lang.translation_weaponreach>"}],"text":""}'
         custom-model-data: 1
         attribute-modifiers:
           GENERIC_ATTACK_DAMAGE:
@@ -3446,11 +3446,11 @@ craft:
         display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-stone-dagger>"}],"text":""}'
         lore:
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"+15.0%
-          Crit Chance"}],"text":""}'
+          <lang.translation_crit_chance>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-200.0%
-          Knockback"}],"text":""}'
+          <lang.translation_knockback>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-0.75
-          Attack Reach"}],"text":""}'
+          <lang.translation_weaponreach>"}],"text":""}'
         custom-model-data: 1
         attribute-modifiers:
           GENERIC_ATTACK_DAMAGE:
@@ -3513,11 +3513,11 @@ craft:
         display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-wooden-dagger>"}],"text":""}'
         lore:
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"blue","text":"+15.0%
-          Crit Chance"}],"text":""}'
+          <lang.translation_crit_chance>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-200.0%
-          Knockback"}],"text":""}'
+          <lang.translation_knockback>"}],"text":""}'
           - '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"red","text":"-0.75
-          Attack Reach"}],"text":""}'
+          <lang.translation_weaponreach>"}],"text":""}'
         custom-model-data: 1
         attribute-modifiers:
           GENERIC_ATTACK_DAMAGE:
@@ -4669,7 +4669,7 @@ craft:
     unlocked_for_everyone: true
     display_name: '<lang.recipe-craft-shield>'
     modifiers:
-      dynamicHquality:
+      dynamic_quality:
         strength: 100.0
         priority: SOONEST
       dynamic_durability:

@@ -1,6 +1,7 @@
 package me.athlaeos.valhallammo.skills;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.commands.valhalla_commands.HideBossBarsCommand;
 import me.athlaeos.valhallammo.dom.Perk;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
@@ -500,7 +501,9 @@ public abstract class Skill {
                                 .replace("%skill%", event.getLeveledSkill().getDisplayName())
                                 .replace("%exp%", ((statusAmount >= 0) ? "+" : "") + (String.format("%,.2f", statusAmount).replace("-", ""))))));
                     }
-                    showBossBar(p, profile);
+                    if (HideBossBarsCommand.showBossBars(p)){
+                        showBossBar(p, profile);
+                    }
                 }
 
                 ProfileManager.getManager().setProfile(p, profile,  event.getLeveledSkill().getType());

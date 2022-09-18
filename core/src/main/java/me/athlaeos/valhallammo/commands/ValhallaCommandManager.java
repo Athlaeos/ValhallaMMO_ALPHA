@@ -41,6 +41,7 @@ public class ValhallaCommandManager implements TabExecutor {
 		commands.put("import", new ImportCommand());
 		commands.put("itemindex", new ItemDictionaryCommand());
 		commands.put("resourcepack", new SetupResourcePackCommand());
+		commands.put("toggleexp", new HideBossBarsCommand());
 
 	    ((HelpCommand) commands.get("help")).giveCommandMap(commands);
 
@@ -71,10 +72,14 @@ public class ValhallaCommandManager implements TabExecutor {
 		for (String subCommand : commands.keySet()) {
 			if (args[0].equalsIgnoreCase(subCommand)) {
 				boolean hasPermission = false;
-				for (String permission : commands.get(subCommand).getRequiredPermission()){
-					if (sender.hasPermission(permission)){
-						hasPermission = true;
-						break;
+				if (commands.get(subCommand).getRequiredPermission().length == 0) {
+					hasPermission = true;
+				} else {
+					for (String permission : commands.get(subCommand).getRequiredPermission()){
+						if (sender.hasPermission(permission)){
+							hasPermission = true;
+							break;
+						}
 					}
 				}
 				if (!hasPermission){
@@ -94,7 +99,20 @@ public class ValhallaCommandManager implements TabExecutor {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command cmd, String name, String[] args) {
 		if (args.length == 1) {
-			return new ArrayList<>(commands.keySet());
+			List<String> allowedCommands = new ArrayList<>();
+			for (String arg : commands.keySet()) {
+				Command command = commands.get(arg);
+				if (command.getRequiredPermission().length == 0) {
+					allowedCommands.add(arg);
+				} else {
+					for (String permission : command.getRequiredPermission()){
+						if (sender.hasPermission(permission)) {
+							allowedCommands.add(arg);
+						}
+					}
+				}
+			}
+			return allowedCommands;
 		} else if (args.length > 1) {
 			commandLoop:
 			for (String arg : commands.keySet()) {

@@ -45,30 +45,6 @@ public class ReloadCommand implements Command {
 					ConfigManager.getInstance().getConfig(config).save();
 				}
 
-//				ConfigManager.getInstance().getConfig("config.yml").reload();
-//				ConfigManager.getInstance().getConfig("sounds.yml").reload();
-//				ConfigManager.getInstance().getConfig("villagers.yml").reload();
-//				ConfigManager.getInstance().getConfig("block_interact_conversions.yml").reload();
-//				ConfigManager.getInstance().getConfig("alchemy_transmutations.yml").reload();
-//				ConfigManager.getInstance().getConfig("tutorial_book.yml").reload();
-//
-//				ConfigManager.getInstance().getConfig("recipes/improvement_recipes.yml").reload();
-//				ConfigManager.getInstance().getConfig("recipes/crafting_recipes.yml").reload();
-//				ConfigManager.getInstance().getConfig("recipes/brewing_recipes.yml").reload();
-//				ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").reload();
-//				ConfigManager.getInstance().getConfig("recipes/class_improvement_recipes.yml").reload();
-//
-//				ConfigManager.getInstance().getConfig("loot_tables/farming_farming.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/farming_fishing.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/farming_animals.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/global_entities.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/global_blocks.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/mining_blast.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/mining_mining.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/landscaping_digging.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/landscaping_woodcutting.yml").reload();
-//				ConfigManager.getInstance().getConfig("loot_tables/landscaping_woodstripping.yml").reload();
-
 				TutorialBook.getTutorialBookInstance().reload();
 				MaterialCosmeticManager.getInstance().reload();
 				SkillProgressionManager.getInstance().reload();

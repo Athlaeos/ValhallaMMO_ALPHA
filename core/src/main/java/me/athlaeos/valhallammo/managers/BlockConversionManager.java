@@ -85,13 +85,13 @@ public class BlockConversionManager {
      * @param who the player damaging the block
      * @param b the block damaged
      */
-    public void triggerDamageConversion(Player who, Block b){
+    public boolean triggerDamageConversion(Player who, Block b){
         ItemStack tool = who.getInventory().getItemInMainHand();
-        if (Utils.isItemEmptyOrNull(tool)) return;
-        if (tool.getItemMeta() == null) return;
+        if (Utils.isItemEmptyOrNull(tool)) return false;
+        if (tool.getItemMeta() == null) return false;
         // contains all block conversions where its FROM block matches the trigger block, and where its compatible tools contains the trigger tool type
         Collection<BlockConversion> conversions = damageConversions.values().stream().filter(blockConversion -> blockConversion.getFrom() == b.getType() && blockConversion.getCompatibleItems().containsKey(tool.getType())).collect(Collectors.toSet());
-        if (conversions.isEmpty()) return;
+        if (conversions.isEmpty()) return false;
         // contains all above block conversions where the custom model data, if required, matches.
         Collection<BlockConversion> conversion = conversions.stream().filter(blockConversion -> {
             BlockConversion.BlockConversionData data = blockConversion.getCompatibleItems().get(tool.getType());
@@ -133,8 +133,10 @@ public class BlockConversionManager {
                         }
                     }
                 }
+                return true;
             }
         }
+        return false;
     }
 
     /**
@@ -146,13 +148,13 @@ public class BlockConversionManager {
      * @param who the player damaging the block
      * @param b the block damaged
      */
-    public void triggerInteractConversion(Player who, Block b, Collection<String> possibleConversions){
+    public boolean triggerInteractConversion(Player who, Block b, Collection<String> possibleConversions){
         ItemStack t = who.getInventory().getItemInMainHand();
-        if (Utils.isItemEmptyOrNull(t) || t.getItemMeta() == null) return;
+        if (Utils.isItemEmptyOrNull(t) || t.getItemMeta() == null) return false;
         // contains all block conversions where its FROM block matches the trigger block, and where its compatible tools contains the trigger tool type
         Collection<BlockConversion> conversions = interactConversions.values().stream().filter(blockConversion -> blockConversion.getFrom() == b.getType() && blockConversion.getCompatibleItems().containsKey(t.getType())).collect(Collectors.toSet());
         if (conversions.isEmpty()) {
-            return;
+            return false;
 //            t = who.getInventory().getItemInOffHand();
 //            if (Utils.isItemEmptyOrNull(t)) return;
 //            if (t.getItemMeta() == null) return;
@@ -200,8 +202,10 @@ public class BlockConversionManager {
                         }
                     }
                 }
+                return true;
             }
         }
+        return false;
     }
 
     public void reload(){

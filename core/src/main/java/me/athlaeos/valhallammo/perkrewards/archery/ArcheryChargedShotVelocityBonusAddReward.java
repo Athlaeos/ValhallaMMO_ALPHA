@@ -30,6 +30,9 @@ public class ArcheryChargedShotVelocityBonusAddReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                bonus = (float) (Integer) argument;
+            }
             if (argument instanceof Float){
                 bonus = (float) argument;
             }

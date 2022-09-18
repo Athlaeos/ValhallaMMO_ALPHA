@@ -103,12 +103,12 @@ public class InteractListener implements Listener {
                     if (swap_crafting_table_functionality && PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer()) != null){
                         open_custom = false;
                     }
+                    Material clickedBlockType = e.getClickedBlock().getType();
+                    Material baseVersion = Optional.ofNullable(ItemUtils.getBaseMaterial(clickedBlockType)).orElse(clickedBlockType);
 
                     if (open_custom && e.getHand() == EquipmentSlot.HAND){
                         // Opening a recipe picking menu
                         CooldownManager.getInstance().startTimer(e.getPlayer().getUniqueId(), "benchmark");
-                        Material clickedBlockType = e.getClickedBlock().getType();
-                        Material baseVersion = Optional.ofNullable(ItemUtils.getBaseMaterial(clickedBlockType)).orElse(clickedBlockType);
                         if (old_menu){
                             int toolId = SmithingItemTreatmentManager.getInstance().getItemsToolId(e.getPlayer().getInventory().getItemInMainHand());
                             if (Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()) || toolId >= 0){
@@ -156,6 +156,8 @@ public class InteractListener implements Listener {
         }
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
             if (e.getClickedBlock() != null){
+                Material baseVersion = Optional.ofNullable(ItemUtils.getBaseMaterial(e.getClickedBlock().getType())).orElse(e.getClickedBlock().getType());
+
                 // Tracking how long players held a mouse button
                 CooldownManager cooldownManager = CooldownManager.getInstance();
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
@@ -209,7 +211,7 @@ public class InteractListener implements Listener {
                                                 PlayerCraftChoiceManager.getInstance().setPlayerCurrentRecipe(e.getPlayer(), null);
                                             } else {
                                                 if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(ItemUtils.getBaseMaterial(e.getClickedBlock().getType()));
+                                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(baseVersion);
                                                     if (sound != null){
                                                         e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .3F, 1F);
                                                     }
@@ -233,7 +235,7 @@ public class InteractListener implements Listener {
                                             cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
                                         } else {
                                             if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                                Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(baseVersion);
                                                 if (sound != null){
                                                     e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .3F, 1F);
                                                 }
@@ -255,7 +257,7 @@ public class InteractListener implements Listener {
                             }
                         }
                     } else if (currentRecipe instanceof ItemImprovementRecipe || currentRecipe instanceof ItemClassImprovementRecipe) {
-                        if (heldItem.getType() != Material.AIR){
+                        if (!heldItem.getType().isAir()){
                             if (SmithingItemTreatmentManager.getInstance().isItemCustom(heldItem)){
                                 boolean itemMatch = false;
                                 if (currentRecipe instanceof ItemImprovementRecipe){ // [CHANGE] attempted fix to prevent improvement recipes being applied on unintended item types
@@ -283,7 +285,7 @@ public class InteractListener implements Listener {
                                                     cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
                                                 } else {
                                                     if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                                        Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                        Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(baseVersion);
                                                         if (sound != null){
                                                             e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .3F, 1F);
                                                         }
@@ -308,7 +310,7 @@ public class InteractListener implements Listener {
                                                 cooldownManager.startTimer(e.getPlayer().getUniqueId(), "time_held_right_click");
                                             } else {
                                                 if (cooldownManager.isCooldownPassed(e.getPlayer().getUniqueId(), "sound_craft")){
-                                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(e.getClickedBlock().getType());
+                                                    Sound sound = MaterialCosmeticManager.getInstance().getCraftWorkSound(baseVersion);
                                                     if (sound != null){
                                                         e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), sound, .3F, 1F);
                                                     }

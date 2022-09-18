@@ -5,6 +5,7 @@ import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -25,6 +26,7 @@ public class TranslationManager {
     private final Map<String, String> skillTranslations;
     private final Map<String, String> placeholderTranslations;
     private final Map<String, List<String>> placeholderListTranslationMap;
+    private final Map<Material, String> localizedMaterialNames;
 
     private static TranslationManager manager = null;
     private final String language;
@@ -36,13 +38,18 @@ public class TranslationManager {
         skillTranslations = new HashMap<>();
         placeholderTranslations = new HashMap<>();
         placeholderListTranslationMap = new HashMap<>();
+        localizedMaterialNames = new HashMap<>();
 
         String language = ConfigManager.getInstance().getConfig("config.yml").get().getString("language");
         this.language = language;
         this.config = new File(ValhallaMMO.getPlugin().getDataFolder(), "languages/" + language + ".yml");
 
-        YamlConfiguration config = ConfigManager.getInstance().getConfig("languages/" + language + ".yml").get();
+        String targetConfig = "languages/" + language + ".yml";
+        if (!ConfigManager.getInstance().getConfigs().containsKey(targetConfig)){
+            targetConfig = "languages/en-us.yml";
+        }
 
+        YamlConfiguration config = ConfigManager.getInstance().getConfig(targetConfig).get();
         ConfigurationSection section = config.getConfigurationSection("");
         if (section != null){
             for (String key : section.getKeys(false)){
@@ -79,6 +86,13 @@ public class TranslationManager {
             }
         }
 
+        YamlConfiguration materialConfig = ConfigManager.getInstance().getConfig("languages/materials/" + language + ".yml").get();
+        for (Material m : Material.values()){
+            String translation = materialConfig.getString(m.toString());
+            if (translation == null) continue;
+            localizedMaterialNames.put(m, translation);
+        }
+
         setSkillTranslation("ACCOUNT", "account");
         setSkillTranslation("ACROBATICS", "acrobatics");
         setSkillTranslation("ALCHEMY", "alchemy");
@@ -102,13 +116,17 @@ public class TranslationManager {
         return translation;
     }
 
+    public Map<Material, String> getLocalizedMaterialNames() {
+        return localizedMaterialNames;
+    }
+
     public String translatePlaceholders(String originalString){
         String[] matches = StringUtils.substringsBetween(originalString, "<lang.", ">");
         if (matches == null) {
             return originalString;
         }
         for (String s : matches){
-            String replacement = placeholderTranslations.getOrDefault(s, "");
+            String replacement = placeholderTranslations.getOrDefault(s, translationMap.getOrDefault(s, ""));
             originalString = originalString.replace("<lang." + s + ">", replacement); //getTranslation(s)
         }
         return originalString;
@@ -162,7 +180,7 @@ public class TranslationManager {
                 for (String s : translateListPlaceholders(iMeta.getLore())){
                     newLore.add(Utils.chat(s));
                 }
-            }
+            } else newLore = iMeta.getLore();
 
             iMeta.setLore(newLore);
         }
@@ -185,6 +203,9 @@ public class TranslationManager {
             }
 
             iMeta.setLore(newLore);
+        }
+        if (iMeta.hasDisplayName()){
+            iMeta.setDisplayName(iMeta.getDisplayName());
         }
         i.setItemMeta(iMeta);
         return i;

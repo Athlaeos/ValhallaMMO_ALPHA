@@ -190,8 +190,8 @@ public class PerkRewardsManager {
         register(new EnchantingRefundAmountSetReward("enchanting_exprefund_amount_set", 0F));
         register(new EnchantingRefundChanceAddReward("enchanting_exprefund_chance_add", 0F));
         register(new EnchantingRefundChanceSetReward("enchanting_exprefund_chance_set", 0F));
-        register(new EnchantingLapisSaveChanceAddReward("enchanting_lapis_save_chance_add", 0F));
-        register(new EnchantingLapisSaveChanceSetReward("enchanting_lapis_save_chance_set", 0F));
+        register(new EnchantingLapisSaveChanceAddReward("enchanting_lapis_refund_chance_add", 0F));
+        register(new EnchantingLapisSaveChanceSetReward("enchanting_lapis_refund_chance_set", 0F));
         register(new EnchantingSkillAddReward("enchanting_quality_general_add", 0F, null));
         register(new EnchantingSkillAddReward("enchanting_quality_vanilla_add", 0F, EnchantmentType.VANILLA));
         register(new EnchantingSkillAddReward("enchanting_quality_custom_add", 0F, EnchantmentType.CUSTOM));

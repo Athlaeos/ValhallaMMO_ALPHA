@@ -155,6 +155,7 @@ public class DynamicItemModifierManager {
         register(new AttributeAddPoisonResistanceModifier("default_attribute_poison_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddProjectileResistanceModifier("default_attribute_projectile_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddMeleeResistanceModifier("default_attribute_melee_resistance_add", 0D, ModifierPriority.NEUTRAL));
+        register(new AttributeAddFallingResistanceModifier("default_attribute_falling_resistance_add", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddDrawStrengthModifier("draw_strength_static", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddCustomDurabilityModifier("durability_static", 0D, ModifierPriority.NEUTRAL));
         register(new AttributeAddArrowStrengthModifier("arrow_damage", 0D, ModifierPriority.NEUTRAL));

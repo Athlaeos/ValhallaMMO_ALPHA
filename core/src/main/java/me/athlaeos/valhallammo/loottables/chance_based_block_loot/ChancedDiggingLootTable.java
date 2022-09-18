@@ -37,7 +37,7 @@ public class ChancedDiggingLootTable extends ChancedBlockLootTable {
         Skill s = SkillProgressionManager.getInstance().getSkill("LANDSCAPING");
         if (s != null){
             if (s instanceof LandscapingSkill){
-                return ((LandscapingSkill) s).getDiggingBreakEXPReward().keySet();
+                return ((LandscapingSkill) s).getDiggingDropEXPReward().keySet();
             }
         }
         return new HashSet<>();

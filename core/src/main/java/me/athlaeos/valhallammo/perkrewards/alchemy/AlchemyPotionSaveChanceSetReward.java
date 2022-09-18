@@ -38,6 +38,9 @@ public class AlchemyPotionSaveChanceSetReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                chance = (float) (Integer) argument;
+            }
             if (argument instanceof Float){
                 chance = (float) argument;
             }

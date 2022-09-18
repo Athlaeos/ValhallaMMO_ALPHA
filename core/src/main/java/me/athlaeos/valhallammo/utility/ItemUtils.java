@@ -173,7 +173,17 @@ public class ItemUtils {
             ItemStack compareItem = i.clone();
             boolean has;
             if (useMeta){
-                has = inventory.containsAtLeast(i, i.getAmount());
+                has = ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(inventory.getContents()), i, i.getAmount()) : inventory.containsAtLeast(i, i.getAmount());
+                if (!has){
+                    for (ItemStack item : inventory.getContents()){
+                        if (Utils.isItemEmptyOrNull(item)) continue;
+                        if (i.getType() != item.getType()) continue;
+                        if (!Utils.getItemName(item).equals(Utils.getItemName(i))) continue;
+                        System.out.println("ingredient \n" + i + "\ninventory item:\n" + item + "\nare they the same? " + i.toString().equals(item.toString()));
+                    }
+                } else {
+                    System.out.println("player has required item :)");
+                }
             } else {
                 has = inventory.contains(i.getType(), i.getAmount());
             }
@@ -202,6 +212,57 @@ public class ItemUtils {
         return canCraft;
     }
 
+    // does not work should be fixed
+    public static boolean containsAtLeast(Collection<ItemStack> inventory, ItemStack item, int amount){
+        if (Utils.isItemEmptyOrNull(item)) return false;
+        Map<ItemStack, Integer> totalContents = getItemTotals(inventory);
+        ItemStack itemClone = item.clone();
+        itemClone.setAmount(1);
+        System.out.println("inventory contains " + Utils.getItemName(item) + "? " + totalContents.getOrDefault(itemClone, 0));
+        return totalContents.getOrDefault(itemClone, 0) > amount;
+    }
+
+    public static void removeItem(Inventory inventory, ItemStack item){
+        if (Utils.isItemEmptyOrNull(item)) return;
+        int required = item.getAmount();
+        for (int i = 0; i < inventory.getContents().length; i++){
+            ItemStack indexItem = inventory.getItem(i);
+            if (Utils.isItemEmptyOrNull(indexItem)) continue;
+            if (indexItem.isSimilar(item)){
+                if (indexItem.getAmount() < required){
+                    required -= indexItem.getAmount();
+                    inventory.setItem(i, null);
+                    System.out.println("stack successfully reduced, removing next :)");
+                } else if (indexItem.getAmount() == required){
+                    System.out.println("stack successfully removed :)");
+                    inventory.setItem(i, null);
+                    return;
+                } else {
+                    System.out.println("stack successfully reduced :)");
+                    indexItem.setAmount(indexItem.getAmount() - required);
+                    return;
+                }
+            } else if (inventory.getItem(i) != null && !Utils.getItemName(inventory.getItem(i)).equals(Utils.getItemName(item))){
+                System.out.println("items are not similar, but share the same name:\nslot item: " + inventory.getItem(i) + "\nrequired item:\n" + item);
+            }
+        }
+
+    }
+
+    public static Map<ItemStack, Integer> getItemTotals(Collection<ItemStack> items){
+        Map<ItemStack, Integer> totals = new HashMap<>();
+        for (ItemStack i : items){
+            if (Utils.isItemEmptyOrNull(i)) continue;
+            ItemStack clone = i.clone();
+            int itemAmount = i.getAmount();
+            clone.setAmount(1);
+            int existingAmount = totals.getOrDefault(clone, 0);
+            totals.put(clone, existingAmount + itemAmount);
+            System.out.println("inserted " + Utils.getItemName(clone) + " x " + itemAmount);
+        }
+        return totals;
+    }
+
     public static void removeItems(Player p, Collection<ItemStack> items, boolean perfectMeta){
         registerMaterials();
         if (p.getGameMode() == GameMode.CREATIVE) return;
@@ -210,7 +271,11 @@ public class ItemUtils {
             boolean contains = (perfectMeta) ? p.getInventory().containsAtLeast(ingredient, ingredient.getAmount()) : p.getInventory().contains(ingredient.getType());
             if (contains){
                 if (perfectMeta){
-                    p.getInventory().removeItem(ingredient);
+                    if (ValhallaMMO.isSpigot()){
+                        removeItem(p.getInventory(), ingredient);
+                    } else {
+                        p.getInventory().removeItem(ingredient);
+                    }
                     if (filledBuckets.contains(ingredient.getType())){
                         p.getInventory().addItem(new ItemStack(Material.BUCKET, ingredient.getAmount()));
                     }
@@ -233,7 +298,11 @@ public class ItemUtils {
                         boolean contains2 = (perfectMeta) ? p.getInventory().containsAtLeast(compareItem, compareItem.getAmount()) : p.getInventory().contains(compareItem.getType());
                         if (contains2){
                             if (perfectMeta){
-                                p.getInventory().removeItem(compareItem);
+                                if (ValhallaMMO.isSpigot()){
+                                    removeItem(p.getInventory(), compareItem);
+                                } else {
+                                    p.getInventory().removeItem(compareItem);
+                                }
                                 if (filledBuckets.contains(ingredient.getType())){
                                     p.getInventory().addItem(new ItemStack(Material.BUCKET, ingredient.getAmount()));
                                 }
@@ -705,52 +774,68 @@ public class ItemUtils {
         }
     }
 
-    public static void multiplyItems(List<Item> eventItems, List<Item> newItems, double multiplier, boolean forgiving){
+    public static void multiplyItems(List<Item> eventItems, List<Item> newItems, double multiplier, boolean forgiving, Collection<Material> filter){
         Location dropLocation = null;
         for (Item i : eventItems){
             if (dropLocation == null) dropLocation = i.getLocation();
             if (dropLocation.getWorld() == null) return;
             ItemStack item = i.getItemStack();
-            int newAmount = Utils.excessChance(item.getAmount() * multiplier);
-            if (forgiving) newAmount = Math.max(1, newAmount);
-            if (newAmount > item.getMaxStackSize()){
-                int limit = 4;
-                while(newAmount > item.getMaxStackSize()){
-                    if (limit <= 0) break;
-                    ItemStack drop = item.clone();
-                    drop.setAmount(item.getMaxStackSize());
-                    newItems.add(
-                            dropLocation.getWorld().dropItem(dropLocation, drop)
-                    );
-                    newAmount -= item.getMaxStackSize();
-                    limit--;
+            if (filter.isEmpty() || filter.contains(item.getType())) {
+                int newAmount = Utils.excessChance(item.getAmount() * multiplier);
+                if (forgiving) newAmount = Math.max(1, newAmount);
+                if (newAmount > item.getMaxStackSize()){
+                    int limit = 4;
+                    while(newAmount > item.getMaxStackSize()){
+                        if (limit <= 0) break;
+                        ItemStack drop = item.clone();
+                        drop.setAmount(item.getMaxStackSize());
+                        newItems.add(
+                                dropLocation.getWorld().dropItem(dropLocation, drop)
+                        );
+                        newAmount -= item.getMaxStackSize();
+                        limit--;
+                    }
                 }
-            }
-            if (newAmount > 0){
-                item.setAmount(newAmount);
-                i.setItemStack(item);
+                if (newAmount > 0){
+                    item.setAmount(newAmount);
+                    i.setItemStack(item);
+                    newItems.add(i);
+                }
+            } else {
                 newItems.add(i);
             }
         }
     }
 
+    public static void multiplyItems(List<Item> eventItems, List<Item> newItems, double multiplier, boolean forgiving){
+        multiplyItems(eventItems, newItems, multiplier, forgiving, new HashSet<>());
+    }
+
     public static void multiplyItemStacks(List<ItemStack> eventItems, List<ItemStack> newItems, double multiplier, boolean forgiving){
+        multiplyItemStacks(eventItems, newItems, multiplier, forgiving, new HashSet<>());
+    }
+
+    public static void multiplyItemStacks(List<ItemStack> eventItems, List<ItemStack> newItems, double multiplier, boolean forgiving, Collection<Material> filter){
         for (ItemStack i : eventItems){
-            int newAmount = Utils.excessChance(i.getAmount() * multiplier);
-            if (forgiving) newAmount = Math.max(1, newAmount);
-            if (newAmount > i.getMaxStackSize()){
-                int limit = 4;
-                while(newAmount > i.getMaxStackSize()){
-                    if (limit <= 0) break;
-                    ItemStack drop = i.clone();
-                    drop.setAmount(i.getMaxStackSize());
-                    newItems.add(drop);
-                    newAmount -= i.getMaxStackSize();
-                    limit--;
+            if (filter.isEmpty() || filter.contains(i.getType())){
+                int newAmount = Utils.excessChance(i.getAmount() * multiplier);
+                if (forgiving) newAmount = Math.max(1, newAmount);
+                if (newAmount > i.getMaxStackSize()){
+                    int limit = 4;
+                    while(newAmount > i.getMaxStackSize()){
+                        if (limit <= 0) break;
+                        ItemStack drop = i.clone();
+                        drop.setAmount(i.getMaxStackSize());
+                        newItems.add(drop);
+                        newAmount -= i.getMaxStackSize();
+                        limit--;
+                    }
                 }
-            }
-            if (newAmount > 0){
-                i.setAmount(newAmount);
+                if (newAmount > 0){
+                    i.setAmount(newAmount);
+                    newItems.add(i);
+                }
+            } else {
                 newItems.add(i);
             }
         }

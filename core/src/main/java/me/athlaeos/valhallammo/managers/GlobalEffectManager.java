@@ -1,19 +1,183 @@
 package me.athlaeos.valhallammo.managers;
 
+import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.EffectAdditionMode;
+import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class GlobalEffectManager {
+public class GlobalEffectManager extends BukkitRunnable {
     private static GlobalEffectManager manager = null;
 
-    private final Map<String, Pair<Long, Double>> activeGlobalEffects = new HashMap<>();
+    private final Map<String, EffectProperties> activeGlobalEffects = new HashMap<>();
     private final Collection<String> validEffects = new HashSet<>();
+    private final int globalbuff_bossbar_duration = ConfigManager.getInstance().getConfig("config.yml").get().getInt("globalbuff_bossbar_duration", 10);
+    private final int globalbuff_cycle_pause = ConfigManager.getInstance().getConfig("config.yml").get().getInt("globalbuff_cycle_pause", 300);
 
     public GlobalEffectManager(){
+        this.runTaskTimer(ValhallaMMO.getPlugin(), 1L, 20L);
+    }
+
+
+    private List<EffectProperties> currentLoopEffects = new ArrayList<>();
+    private int currentLoopIndex = 0;
+    private final BossBar bossBar = ValhallaMMO.getPlugin().getServer().createBossBar("", BarColor.BLUE, BarStyle.SOLID);
+    private int timer = 0;
+
+    @Override
+    public void run() {
+        if (timer == 0){
+            // at the start of a cycle, the list is refreshed
+            currentLoopEffects = activeGlobalEffects.values().stream().filter(effectProperties -> effectProperties.bossBar != null && isActive(effectProperties.effect)).collect(Collectors.toList());
+        }
+        if (!currentLoopEffects.isEmpty()){
+            if (currentLoopIndex < currentLoopEffects.size()){
+                EffectProperties currentEffect = currentLoopEffects.get(currentLoopIndex);
+                long l = getDuration(currentEffect.effect);
+                long lastsFor = l == -1 ? -1 : Math.max(0, l);
+                long originalDuration = getOriginalDuration(currentEffect.effect);
+
+                ValhallaMMO.getPlugin().getServer().getOnlinePlayers().forEach(player -> {
+                    if (!temporarilyExcludePlayers.contains(player)){
+                        bossBar.addPlayer(player);
+                    }
+                });
+                bossBar.setTitle(Utils.chat(currentEffect.bossBar
+                        .replace("%time%", Utils.toTimeStamp2(lastsFor, 1000))
+                        .replace("%time2%", Utils.toTimeStamp(lastsFor, 1000))));
+                bossBar.setColor(currentEffect.color);
+                bossBar.setStyle(currentEffect.style);
+
+                if (originalDuration > 0){
+                    bossBar.setProgress(Math.max(0, Math.min(1, (double) (lastsFor) / (double) (originalDuration))));
+                }
+                if (timer >= (currentLoopIndex + 1) * globalbuff_bossbar_duration){
+                    currentLoopIndex++;
+                }
+            } else {
+                new ArrayList<>(bossBar.getPlayers()).forEach(player -> {
+                    if (!temporarilyExcludePlayers.contains(player)){
+                        bossBar.removePlayer(player);
+                    }
+                });
+                // pause phase
+            }
+            timer++;
+            if (timer >= globalbuff_cycle_pause + (currentLoopEffects.size() * globalbuff_bossbar_duration)) {
+                timer = 0;
+                currentLoopIndex = 0;
+            }
+        }
+    }
+
+    private final Collection<Player> temporarilyExcludePlayers = new HashSet<>();
+    public void temporarilyRevealBossBar(Player p){
+        temporarilyExcludePlayers.add(p);
+        new BukkitRunnable(){
+            private List<EffectProperties> currentLoopEffects = new ArrayList<>();
+            private int currentLoopIndex = 0;
+            private int timer = 0;
+            @Override
+            public void run() {
+                if (!p.isOnline()) {
+                    temporarilyExcludePlayers.remove(p);
+                    cancel();
+                    return;
+                }
+                if (timer == 0){
+                    // at the start of a cycle, the list is refreshed
+                    currentLoopEffects = activeGlobalEffects.values().stream().filter(effectProperties -> effectProperties.bossBar != null && isActive(effectProperties.effect)).collect(Collectors.toList());
+                    if (currentLoopEffects.isEmpty()){
+                        temporarilyExcludePlayers.remove(p);
+                        cancel();
+                        return;
+                    }
+                }
+                if (currentLoopIndex < currentLoopEffects.size()){
+                    EffectProperties currentEffect = currentLoopEffects.get(currentLoopIndex);
+                    long l = getDuration(currentEffect.effect);
+                    long lastsFor = l == -1 ? -1 : Math.max(0, l);
+                    long originalDuration = getDuration(currentEffect.effect);
+
+                    bossBar.addPlayer(p);
+                    bossBar.setTitle(Utils.chat(currentEffect.bossBar
+                            .replace("%time%", Utils.toTimeStamp2(lastsFor, 1000))
+                            .replace("%time2%", Utils.toTimeStamp(lastsFor, 1000))));
+                    bossBar.setColor(currentEffect.color);
+                    bossBar.setStyle(currentEffect.style);
+
+                    if (originalDuration > 0){
+                        bossBar.setProgress(Math.max(0, Math.min(1, (double) (lastsFor) / (double) (originalDuration))));
+                    }
+                    if (timer >= (currentLoopIndex + 1) * globalbuff_bossbar_duration){
+                        currentLoopIndex++;
+                    }
+                } else {
+                    bossBar.removeAll();
+                    // pause phase
+                }
+                timer++;
+                if (timer >= (currentLoopEffects.size() * globalbuff_bossbar_duration)) {
+                    temporarilyExcludePlayers.remove(p);
+                    cancel();
+                }
+            }
+        }.runTaskTimer(ValhallaMMO.getPlugin(), 1L, 20L);
+    }
+
+    public void saveActiveGlobalEffects(){
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("global_effects.yml").get();
+        ConfigurationSection section = config.getConfigurationSection("active_effects");
+        if (section != null){
+            section.getKeys(false).forEach(s -> config.set("active_effects." + s, null));
+        }
+        for (String s : activeGlobalEffects.keySet()){
+            EffectProperties details = activeGlobalEffects.get(s);
+            if (details.effectiveUntil != -1 && details.effectiveUntil < System.currentTimeMillis()) continue;
+            config.set("active_effects." + s + ".lasts_until", details.effectiveUntil);
+            config.set("active_effects." + s + ".original_duration", details.getOriginalLength());
+            config.set("active_effects." + s + ".amplifier", details.amplifier);
+            if (details.bossBar != null){
+                config.set("active_effects." + s + ".boss_bar", details.bossBar);
+                config.set("active_effects." + s + ".bar_color", details.color.toString());
+                config.set("active_effects." + s + ".bar_style", details.style.toString());
+            }
+        }
+        ConfigManager.getInstance().saveConfig("global_effects.yml");
+    }
+
+    public void loadActiveGlobalEffects(){
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("global_effects.yml").get();
+        ConfigurationSection section = config.getConfigurationSection("active_effects");
+        if (section != null){
+            for (String effect : section.getKeys(false)){
+                long lasts_until = config.getLong("active_effects." + effect + ".lasts_until");
+                if (lasts_until != -1 && lasts_until < System.currentTimeMillis()) continue;
+                long original_duration = config.getLong("active_effects." + effect + ".original_duration");
+                double amplifier = config.getDouble("active_effects." + effect + ".amplifier");
+                String bossBar = config.getString("active_effects." + effect + ".boss_bar");
+                if (bossBar != null){
+                    try {
+                        BarColor color = BarColor.valueOf(config.getString("active_effects." + effect + ".bar_color"));
+                        BarStyle style = BarStyle.valueOf(config.getString("active_effects." + effect + ".bar_style"));
+                        activeGlobalEffects.put(effect, new EffectProperties(effect, original_duration, lasts_until, amplifier, bossBar, color, style));
+                    } catch (IllegalArgumentException ignored){
+                        ValhallaMMO.getPlugin().getLogger().warning("Invalid BarColor or BarStyle for " + effect + " in global_effects.yml");
+                    }
+                } else {
+                    activeGlobalEffects.put(effect, new EffectProperties(effect, original_duration, lasts_until, amplifier, null, null, null));
+                }
+            }
+        }
     }
 
     /**
@@ -31,18 +195,23 @@ public class GlobalEffectManager {
      * @param amplifier the amplifier of the effect
      * @param mode the mode the effect will be added in
      */
-    public void addEffect(String effect, long duration, double amplifier, EffectAdditionMode mode){
+    public void addEffect(String effect, long duration, double amplifier, EffectAdditionMode mode, String bossBar, BarColor barColor, BarStyle barStyle){
         double existingAmplifier = getAmplifier(effect);
         long existingDuration = getDuration(effect);
+        long originalDuration = getOriginalDuration(effect);
+        if (originalDuration == 0) originalDuration = duration;
         switch (mode){
             case ADDITIVE_BOTH: {
                 existingAmplifier += amplifier;
-                existingDuration += duration;
+                if (existingDuration != -1)
+                    existingDuration += duration;
+
                 break;
             }
             case ADDITIVE_DURATION: {
-                existingDuration += duration;
                 existingAmplifier = amplifier;
+                if (existingDuration != -1)
+                    existingDuration += duration;
                 break;
             }
             case ADDITIVE_AMPLIFIER: {
@@ -56,8 +225,16 @@ public class GlobalEffectManager {
                 break;
             }
         }
-        existingDuration += System.currentTimeMillis();
-        activeGlobalEffects.put(effect, new Pair<>(existingDuration, existingAmplifier));
+        if (existingDuration != -1){
+            originalDuration = Math.max(existingDuration, originalDuration);
+            existingDuration += System.currentTimeMillis();
+        } else {
+            originalDuration = -1;
+        }
+        timer = 0;
+        currentLoopIndex = 0;
+
+        activeGlobalEffects.put(effect, new EffectProperties(effect, originalDuration, existingDuration, existingAmplifier, bossBar, barColor, barStyle));
     }
 
     /**
@@ -67,7 +244,8 @@ public class GlobalEffectManager {
      */
     public boolean isActive(String buff){
         if (activeGlobalEffects.containsKey(buff)){
-            return activeGlobalEffects.get(buff).getKey() > System.currentTimeMillis();
+            if (activeGlobalEffects.get(buff).effectiveUntil == -1) return true;
+            return activeGlobalEffects.get(buff).effectiveUntil > System.currentTimeMillis();
         }
         return false;
     }
@@ -79,10 +257,26 @@ public class GlobalEffectManager {
      * @return the remaining duration (in milliseconds) of the effect
      */
     public long getDuration(String buff){
-        if (activeGlobalEffects.containsKey(buff)){
-            return Math.max(0, activeGlobalEffects.get(buff).getKey() - System.currentTimeMillis());
+        if (isActive(buff)){
+            if (activeGlobalEffects.get(buff).effectiveUntil == -1) return -1;
+            return Math.max(0, activeGlobalEffects.get(buff).effectiveUntil - System.currentTimeMillis());
         }
         return 0;
+    }
+
+    public long getOriginalDuration(String buff){
+        if (isActive(buff)){
+            if (activeGlobalEffects.get(buff).getOriginalLength() == -1) return -1;
+            return Math.max(0, activeGlobalEffects.get(buff).getOriginalLength());
+        }
+        return 0;
+    }
+
+    public String getBossBarTitle(String buff){
+        if (isActive(buff)){
+            return activeGlobalEffects.get(buff).bossBar;
+        }
+        return null;
     }
 
     /**
@@ -92,8 +286,8 @@ public class GlobalEffectManager {
      * @return the amplifier of the effect
      */
     public double getAmplifier(String buff){
-        if (activeGlobalEffects.containsKey(buff)){
-            return Math.max(0, activeGlobalEffects.get(buff).getValue());
+        if (isActive(buff)){
+            return Math.max(0, activeGlobalEffects.get(buff).amplifier);
         }
         return 0;
     }
@@ -115,32 +309,34 @@ public class GlobalEffectManager {
         validEffects.remove(effect);
     }
 
-    public Map<String, Pair<Long, Double>> getActiveGlobalEffects() {
+    public Map<String, EffectProperties> getActiveGlobalEffects() {
         return activeGlobalEffects;
     }
 
-    private static class Pair<K, V>{
-        private K key;
-        private V value;
-        public Pair(K key, V value){
-            this.key = key;
-            this.value = value;
+    private static class EffectProperties{
+        private final String effect;
+        private final long effectiveUntil;
+        private long originalLength;
+        private final double amplifier;
+        private final String bossBar;
+        private final BarColor color;
+        private final BarStyle style;
+        public EffectProperties(String effect, long originalLength, long effectiveUntil, double amplifier, String bossBar, BarColor color, BarStyle style){
+            this.effect = effect;
+            this.originalLength = originalLength;
+            this.effectiveUntil = effectiveUntil;
+            this.amplifier = amplifier;
+            this.bossBar = bossBar;
+            this.color = color;
+            this.style = style;
         }
 
-        public K getKey() {
-            return key;
+        public long getOriginalLength() {
+            return originalLength;
         }
 
-        public V getValue() {
-            return value;
-        }
-
-        public void setKey(K key) {
-            this.key = key;
-        }
-
-        public void setValue(V value) {
-            this.value = value;
+        public void setOriginalLength(long originalLength) {
+            this.originalLength = originalLength;
         }
     }
 }
