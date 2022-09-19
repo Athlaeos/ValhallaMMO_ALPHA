@@ -174,16 +174,6 @@ public class ItemUtils {
             boolean has;
             if (useMeta){
                 has = ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(inventory.getContents()), i, i.getAmount()) : inventory.containsAtLeast(i, i.getAmount());
-                if (!has){
-                    for (ItemStack item : inventory.getContents()){
-                        if (Utils.isItemEmptyOrNull(item)) continue;
-                        if (i.getType() != item.getType()) continue;
-                        if (!Utils.getItemName(item).equals(Utils.getItemName(i))) continue;
-                        System.out.println("ingredient \n" + i + "\ninventory item:\n" + item + "\nare they the same? " + i.toString().equals(item.toString()));
-                    }
-                } else {
-                    System.out.println("player has required item :)");
-                }
             } else {
                 has = inventory.contains(i.getType(), i.getAmount());
             }
@@ -215,11 +205,11 @@ public class ItemUtils {
     // does not work should be fixed
     public static boolean containsAtLeast(Collection<ItemStack> inventory, ItemStack item, int amount){
         if (Utils.isItemEmptyOrNull(item)) return false;
-        Map<ItemStack, Integer> totalContents = getItemTotals(inventory);
+        Map<String, Integer> totalContents = getItemTotals(inventory);
         ItemStack itemClone = item.clone();
         itemClone.setAmount(1);
-        System.out.println("inventory contains " + Utils.getItemName(item) + "? " + totalContents.getOrDefault(itemClone, 0));
-        return totalContents.getOrDefault(itemClone, 0) > amount;
+        int count = totalContents.getOrDefault(itemClone.toString(), 0);
+        return count >= amount;
     }
 
     public static void removeItem(Inventory inventory, ItemStack item){
@@ -228,37 +218,40 @@ public class ItemUtils {
         for (int i = 0; i < inventory.getContents().length; i++){
             ItemStack indexItem = inventory.getItem(i);
             if (Utils.isItemEmptyOrNull(indexItem)) continue;
-            if (indexItem.isSimilar(item)){
+            if (isSimilar(item, indexItem)){
                 if (indexItem.getAmount() < required){
                     required -= indexItem.getAmount();
                     inventory.setItem(i, null);
-                    System.out.println("stack successfully reduced, removing next :)");
                 } else if (indexItem.getAmount() == required){
-                    System.out.println("stack successfully removed :)");
                     inventory.setItem(i, null);
                     return;
                 } else {
-                    System.out.println("stack successfully reduced :)");
                     indexItem.setAmount(indexItem.getAmount() - required);
+                    inventory.setItem(i, indexItem);
                     return;
                 }
-            } else if (inventory.getItem(i) != null && !Utils.getItemName(inventory.getItem(i)).equals(Utils.getItemName(item))){
-                System.out.println("items are not similar, but share the same name:\nslot item: " + inventory.getItem(i) + "\nrequired item:\n" + item);
             }
         }
-
     }
 
-    public static Map<ItemStack, Integer> getItemTotals(Collection<ItemStack> items){
-        Map<ItemStack, Integer> totals = new HashMap<>();
+    public static boolean isSimilar(ItemStack i1, ItemStack i2){
+        if (Utils.isItemEmptyOrNull(i1) || Utils.isItemEmptyOrNull(i2)) return false;
+        ItemStack item1 = i1.clone();
+        ItemStack item2 = i2.clone();
+        item1.setAmount(1);
+        item2.setAmount(1);
+        return item1.toString().equalsIgnoreCase(item2.toString());
+    }
+
+    public static Map<String, Integer> getItemTotals(Collection<ItemStack> items){
+        Map<String, Integer> totals = new HashMap<>();
         for (ItemStack i : items){
             if (Utils.isItemEmptyOrNull(i)) continue;
             ItemStack clone = i.clone();
             int itemAmount = i.getAmount();
             clone.setAmount(1);
-            int existingAmount = totals.getOrDefault(clone, 0);
-            totals.put(clone, existingAmount + itemAmount);
-            System.out.println("inserted " + Utils.getItemName(clone) + " x " + itemAmount);
+            int existingAmount = totals.getOrDefault(clone.toString(), 0);
+            totals.put(clone.toString(), existingAmount + itemAmount);
         }
         return totals;
     }
@@ -268,7 +261,7 @@ public class ItemUtils {
         if (p.getGameMode() == GameMode.CREATIVE) return;
         mainIngredientLoop:
         for (ItemStack ingredient : items){
-            boolean contains = (perfectMeta) ? p.getInventory().containsAtLeast(ingredient, ingredient.getAmount()) : p.getInventory().contains(ingredient.getType());
+            boolean contains = (perfectMeta) ? (ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(p.getInventory().getContents()), ingredient, ingredient.getAmount()) : p.getInventory().containsAtLeast(ingredient, ingredient.getAmount())) : p.getInventory().contains(ingredient.getType());
             if (contains){
                 if (perfectMeta){
                     if (ValhallaMMO.isSpigot()){
