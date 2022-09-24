@@ -70,8 +70,13 @@ public class CustomRecipeManager {
             return false;
         }
         shapedRecipes.put(recipe.getName(), recipe);
-        shapedRecipesByKey.put(recipe.getRecipe().getKey(), recipe);
-        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getRecipe().getKey());
+        if (recipe.getRecipe() instanceof ShapedRecipe){
+            shapedRecipesByKey.put(((ShapedRecipe) recipe.getRecipe()).getKey(), recipe);
+            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapedRecipe) recipe.getRecipe()).getKey());
+        } else if (recipe.getRecipe() instanceof ShapelessRecipe){
+            shapedRecipesByKey.put(((ShapelessRecipe) recipe.getRecipe()).getKey(), recipe);
+            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapelessRecipe) recipe.getRecipe()).getKey());
+        }
         ValhallaMMO.getPlugin().getServer().addRecipe(recipe.getRecipe());
         return true;
     }
@@ -291,10 +296,15 @@ public class CustomRecipeManager {
             return false;
         }
         shapedRecipes.remove(recipe.getName());
-        shapedRecipesByKey.remove(recipe.getRecipe().getKey());
+        if (recipe.getRecipe() instanceof ShapedRecipe){
+            shapedRecipesByKey.remove(((ShapedRecipe) recipe.getRecipe()).getKey());
+            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapedRecipe) recipe.getRecipe()).getKey());
+        } else if (recipe.getRecipe() instanceof ShapelessRecipe){
+            shapedRecipesByKey.remove(((ShapelessRecipe) recipe.getRecipe()).getKey());
+            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapelessRecipe) recipe.getRecipe()).getKey());
+        }
         ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get().set("shaped." + recipe.getName(), null);
         ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").save();
-        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getRecipe().getKey());
         shouldSaveRecipes();
         return true;
     }
@@ -914,11 +924,14 @@ public class CustomRecipeManager {
                 result = TranslationManager.getInstance().translateItemStack(result);
 
                 NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + recipe);
-                ShapedRecipe r = new ShapedRecipe(recipeKey, result);
                 boolean requireCustomTools = config.getBoolean("shaped." + recipe + ".require_custom_tools");
                 boolean useMetaData = config.getBoolean("shaped." + recipe + ".use_meta");
                 boolean unlockedForEveryone = config.getBoolean("shaped." + recipe + ".unlocked_for_everyone");
+                boolean isShapeless = config.getBoolean("shaped." + recipe + ".shapeless");
                 boolean improveMiddleItem = config.getBoolean("shaped." + recipe + ".improve_center_item");
+
+                Recipe r = isShapeless ? new ShapelessRecipe(recipeKey, result) : new ShapedRecipe(recipeKey, result);
+
                 Map<Integer, ItemStack> exactIngredients = new HashMap<>();
 
                 List<DynamicItemModifier> modifiers = new ArrayList<>();
@@ -958,10 +971,12 @@ public class CustomRecipeManager {
                 List<String> shape = config.getStringList("shaped." + recipe + ".shape");
                 int gridSize = shape.size();
                 try {
-                    if (gridSize == 2) {
-                        r.shape(shape.get(0).substring(0, 2), shape.get(1).substring(0, 2));
-                    } else if (gridSize == 3){
-                        r.shape(shape.get(0).substring(0, 3), shape.get(1).substring(0, 3), shape.get(2).substring(0, 3));
+                    if (!isShapeless){
+                        if (gridSize == 2) {
+                            ((ShapedRecipe) r).shape(shape.get(0).substring(0, 2), shape.get(1).substring(0, 2));
+                        } else if (gridSize == 3){
+                            ((ShapedRecipe) r).shape(shape.get(0).substring(0, 3), shape.get(1).substring(0, 3), shape.get(2).substring(0, 3));
+                        }
                     }
                     int index = 0;
                     for (String s : shape){
@@ -986,10 +1001,14 @@ public class CustomRecipeManager {
                             }
                             charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
                             exactIngredients.put(index, charItemStack);
-                            if (useMetaData){
-                                r.setIngredient(c, new RecipeChoice.ExactChoice(charItemStack));
+                            if (!isShapeless){
+                                if (useMetaData){
+                                    ((ShapedRecipe) r).setIngredient(c, new RecipeChoice.ExactChoice(charItemStack));
+                                } else {
+                                    ((ShapedRecipe) r).setIngredient(c, charItemStack.getType());
+                                }
                             } else {
-                                r.setIngredient(c, charItemStack.getType());
+                                ((ShapelessRecipe) r).addIngredient(charItemStack.getType());
                             }
                             index++;
                         }
@@ -1000,7 +1019,7 @@ public class CustomRecipeManager {
                     continue;
                 }
 
-                DynamicShapedRecipe finalRecipe = new DynamicShapedRecipe(recipe, r, exactIngredients, useMetaData, requireCustomTools, improveMiddleItem, modifiers);
+                DynamicShapedRecipe finalRecipe = new DynamicShapedRecipe(recipe, r, exactIngredients, useMetaData, requireCustomTools, improveMiddleItem, isShapeless, shape, modifiers);
                 finalRecipe.setUnlockedForEveryone(unlockedForEveryone);
                 recipes.add(finalRecipe);
             }
@@ -1231,16 +1250,17 @@ public class CustomRecipeManager {
     }
 
     private void saveRecipe(DynamicShapedRecipe recipe, YamlConfiguration config){
-        config.set("shaped." + recipe.getName() + ".shape", recipe.getRecipe().getShape());
         Map<Integer, ItemStack> ingredientMap = recipe.getExactItems();
         int index = 0;
+        config.set("shaped." + recipe.getName() + ".shape", recipe.getShape());
         Map<Integer, Character> charLayout = new HashMap<>();
-        for (String shape : recipe.getRecipe().getShape()){
+        for (String shape : recipe.getShape()){
             for (char c : shape.toCharArray()){
                 charLayout.put(index, c);
                 index++;
             }
         }
+
         if (ingredientMap.size() != charLayout.size()) {
             ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
             return;
@@ -1274,6 +1294,7 @@ public class CustomRecipeManager {
         config.set("shaped." + recipe.getName() + ".use_meta", recipe.isUseMetadata());
         config.set("shaped." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
         config.set("shaped." + recipe.getName() + ".improve_center_item", recipe.isTinkerFirstItem());
+        config.set("shaped." + recipe.getName() + ".shapeless", recipe.isShapeless());
         ConfigManager.getInstance().saveConfig("recipes/shaped_recipes.yml");
     }
 
