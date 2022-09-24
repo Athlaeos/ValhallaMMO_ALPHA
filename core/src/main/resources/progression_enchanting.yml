@@ -128,6 +128,7 @@ messages: # Messages to send to the player every time the player levels this ski
 
 leveling_perks: # Perk rewards executed on the player every time they level
   enchanting_quality_general_add: 2
+  enchanting_quality_anvil_add: 2
 
 ###########
 #####8#####
@@ -344,6 +345,7 @@ perks:
     required_lv: 100
     perk_rewards:
       enchanting_max_custom_allowed_add: 1
+      enchanting_quality_anvil_add: 100
     messages:
       - '<lang.skill-enchanting-perk-double-messages>'
   enchanting_perk_masterpiece:

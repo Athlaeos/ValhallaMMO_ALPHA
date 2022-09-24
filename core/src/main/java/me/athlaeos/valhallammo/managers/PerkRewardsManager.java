@@ -195,9 +195,11 @@ public class PerkRewardsManager {
         register(new EnchantingSkillAddReward("enchanting_quality_general_add", 0F, null));
         register(new EnchantingSkillAddReward("enchanting_quality_vanilla_add", 0F, EnchantmentType.VANILLA));
         register(new EnchantingSkillAddReward("enchanting_quality_custom_add", 0F, EnchantmentType.CUSTOM));
+        register(new EnchantingAnvilSkillAddReward("enchanting_quality_anvil_add", 0F));
         register(new EnchantingSkillSetReward("enchanting_quality_general_set", 0F, null));
         register(new EnchantingSkillSetReward("enchanting_quality_vanilla_set", 0F, EnchantmentType.VANILLA));
         register(new EnchantingSkillSetReward("enchanting_quality_custom_set", 0F, EnchantmentType.CUSTOM));
+        register(new EnchantingAnvilSkillSetReward("enchanting_quality_anvil_set", 0F));
         register(new EnchantingSkillExpGainAddReward("enchanting_skill_expgain_general_add", 0F, null));
         register(new EnchantingSkillExpGainAddReward("enchanting_skill_expgain_vanilla_add", 0F, EnchantmentType.VANILLA));
         register(new EnchantingSkillExpGainAddReward("enchanting_skill_expgain_custom_add", 0F, EnchantmentType.CUSTOM));

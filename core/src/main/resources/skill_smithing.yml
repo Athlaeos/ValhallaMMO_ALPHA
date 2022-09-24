@@ -38,6 +38,7 @@ treatment_lore: # The treatment lores displayed on the item if hide_treatment_lo
   HEATING: '<lang.smithing-treatment-red-hot>'
   SUPERHEATING: '<lang.smithing-treatment-white-hot>'
   UNENCHANTABLE: '<lang.smithing-treatment-unenchantable>'
+  UNMENDABLE: '<lang.smithing-treatment-unmendable>'
 
 scaling_quantity: '0.7/300 * %rating%' # Quantity
 scaling_minimum: 0

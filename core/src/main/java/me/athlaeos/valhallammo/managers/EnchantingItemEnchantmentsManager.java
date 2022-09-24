@@ -228,6 +228,42 @@ public class EnchantingItemEnchantmentsManager {
         return changedEnchantment;
     }
 
+    public Map<Enchantment, Integer> getAnvilMaxLevels(int skill){
+        Map<Enchantment, Integer> anvilMaxLevels = new HashMap<>();
+        for (Enchantment enchantment : Enchantment.values()){
+            Scaling scaling = getScaling(enchantment);
+            if (scaling == null) {
+                anvilMaxLevels.put(enchantment, enchantment.getMaxLevel());
+                continue;
+            }
+
+            try {
+                double scalingResult = Utils.eval(scaling.getScaling().replace("%rating%", "" + skill));
+                double finalResult = 0;
+                if (scaling.getScalingType() == ScalingMode.MULTIPLIER){
+                    finalResult = Utils.round(enchantment.getMaxLevel() * scalingResult, 3);
+                } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
+                    finalResult = Utils.round(enchantment.getMaxLevel() + scalingResult, 3);
+                }
+                if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+                if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
+//            if (i.getItemMeta() instanceof EnchantmentStorageMeta){
+//                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) i.getItemMeta();
+//                meta.addStoredEnchant(enchantment, Math.max(1, (int) Math.floor(finalResult)), true);
+//                i.setItemMeta(meta);
+//            } else {
+                anvilMaxLevels.put(enchantment, Math.max(1, (int) Math.floor(finalResult)));
+//                i.addUnsafeEnchantment(enchantment, Math.max(1, (int) Math.floor(finalResult)));
+//            }
+            } catch (RuntimeException e){
+                ValhallaMMO.getPlugin().getLogger().severe("Attempting to parse formula " + scaling + ", but something went wrong. ");
+                e.printStackTrace();
+            }
+        }
+
+        return anvilMaxLevels;
+    }
+
     public static EnchantingItemEnchantmentsManager getInstance(){
         if (manager == null){
             manager = new EnchantingItemEnchantmentsManager();

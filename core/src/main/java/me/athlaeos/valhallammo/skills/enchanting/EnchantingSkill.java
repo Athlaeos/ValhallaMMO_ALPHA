@@ -34,6 +34,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.*;
 
@@ -330,39 +331,138 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
         }
     }
 
+    private final Map<UUID, Map<Enchantment, Integer>> anvilMaxLevelCache = new HashMap<>();
+
     @Override
     public void onAnvilUsage(PrepareAnvilEvent event) {
+        Player combiner = (Player) event.getView().getPlayer();
         ItemStack item1 = event.getInventory().getItem(0);
-        if (Utils.isItemEmptyOrNull(item1)) return;
         ItemStack item2 = event.getInventory().getItem(1);
-        if (Utils.isItemEmptyOrNull(item2)) return;
         ItemStack result = event.getResult();
-        if (Utils.isItemEmptyOrNull(result)) return;
+        if (!Utils.isItemEmptyOrNull(item1) && !Utils.isItemEmptyOrNull(item2) && !Utils.isItemEmptyOrNull(result)) {
+            // If item 1 or item 2 have the UNENCHANTABLE tag, and the result has different enchantments from item1 it implies
+            // the player attempted to combine items that are unenchantable and should therefore not be combined
+            // if the result ends up having the same enchantments as item 1 it can be assumed no enchantments are added to
+            // the item, and so this event should not be interfered with. if any of the items in the anvil are empty,
+            // nothing is being combined(successfully) and so nothing is wrong
+            if (SmithingItemTreatmentManager.getInstance().hasTreatment(item1, ItemTreatment.UNENCHANTABLE)
+                    || SmithingItemTreatmentManager.getInstance().hasTreatment(item2, ItemTreatment.UNENCHANTABLE)){
+                boolean matches = result.getEnchantments().size() == item1.getEnchantments().size();
+                if (matches){
+                    for (Enchantment e : item1.getEnchantments().keySet()){
+                        if (!result.getEnchantments().containsKey(e)){
+                            matches = false;
+                            break;
+                        }
+                        if (result.getEnchantments().get(e).intValue() != item1.getEnchantments().get(e).intValue()){
+                            matches = false;
+                            break;
+                        }
+                    }
+                }
 
-        // If item 1 or item 2 have the UNENCHANTABLE tag, and the result has different enchantments from item1 it implies
-        // the player attempted to combine items that are unenchantable and should therefore not be combined
-        // if the result ends up having the same enchantments as item 1 it can be assumed no enchantments are added to
-        // the item, and so this event should not be interfered with. if any of the items in the anvil are empty,
-        // nothing is being combined(successfully) and so nothing is wrong
-        if (SmithingItemTreatmentManager.getInstance().hasTreatment(item1, ItemTreatment.UNENCHANTABLE)
-        || SmithingItemTreatmentManager.getInstance().hasTreatment(item2, ItemTreatment.UNENCHANTABLE)){
-            boolean matches = result.getEnchantments().size() == item1.getEnchantments().size();
-            if (matches){
-                for (Enchantment e : item1.getEnchantments().keySet()){
-                    if (!result.getEnchantments().containsKey(e)){
-                        matches = false;
-                        break;
-                    }
-                    if (result.getEnchantments().get(e).intValue() != item1.getEnchantments().get(e).intValue()){
-                        matches = false;
-                        break;
-                    }
+                if (!matches){
+                    event.setResult(null);
+                    return;
                 }
             }
 
-            if (!matches){
-                event.setResult(null);
+            if (item2.getItemMeta() instanceof EnchantmentStorageMeta){
+                if (((EnchantmentStorageMeta) item2.getItemMeta()).getStoredEnchants().isEmpty()) return;
+            } else if (item2.getEnchantments().isEmpty()) return;
+
+            Map<Enchantment, Integer> maxLevels;
+            if (!anvilMaxLevelCache.containsKey(combiner.getUniqueId())){
+                int playerAnvilSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_ANVIL", combiner, true);
+                maxLevels = EnchantingItemEnchantmentsManager.getInstance().getAnvilMaxLevels(playerAnvilSkill);
+                anvilMaxLevelCache.put(combiner.getUniqueId(), maxLevels);
+            } else {
+                maxLevels = anvilMaxLevelCache.get(combiner.getUniqueId());
+                ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(
+                        ValhallaMMO.getPlugin(),
+                        () -> anvilMaxLevelCache.remove(combiner.getUniqueId()),
+                        5L);
+            }
+            event.getInventory().setMaximumRepairCost(Integer.MAX_VALUE);
+            combiner.updateInventory();
+
+            Map<Enchantment, Integer> item1Enchantments = new HashMap<>();
+            Map<Enchantment, Integer> item2Enchantments = new HashMap<>();
+            Map<Enchantment, Integer> resultEnchantments = new HashMap<>();
+            if (item1.getItemMeta() instanceof EnchantmentStorageMeta){
+                item1Enchantments.putAll(((EnchantmentStorageMeta) item1.getItemMeta()).getStoredEnchants());
+            } else {
+                item1Enchantments.putAll(item1.getEnchantments());
+            }
+
+            if (item2.getItemMeta() instanceof EnchantmentStorageMeta){
+                item2Enchantments.putAll(((EnchantmentStorageMeta) item2.getItemMeta()).getStoredEnchants());
+            } else {
+                item2Enchantments.putAll(item2.getEnchantments());
+            }
+
+            if (result.getItemMeta() instanceof EnchantmentStorageMeta){
+                resultEnchantments.putAll(((EnchantmentStorageMeta) result.getItemMeta()).getStoredEnchants());
+            } else {
+                resultEnchantments.putAll(result.getEnchantments());
+            }
+            Map<Enchantment, Integer> newEnchantments = combineEnchantments(item1Enchantments, item2Enchantments, maxLevels);
+            for (Enchantment e : resultEnchantments.keySet()){
+                if (!newEnchantments.containsKey(e)) continue;
+                resultEnchantments.put(e, newEnchantments.get(e));
+            }
+
+            if (result.getItemMeta() instanceof EnchantmentStorageMeta){
+                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) result.getItemMeta();
+                for (Enchantment e : meta.getStoredEnchants().keySet()){
+                    meta.removeStoredEnchant(e);
+                }
+                for (Enchantment e : resultEnchantments.keySet()){
+                    meta.addStoredEnchant(e, resultEnchantments.get(e), true);
+                }
+                result.setItemMeta(meta);
+            } else {
+                for (Enchantment e : result.getEnchantments().keySet()){
+                    result.removeEnchantment(e);
+                }
+                result.addUnsafeEnchantments(resultEnchantments);
+            }
+            event.setResult(result);
+
+            if (event.getInventory().getRepairCost() >= 40){
+                event.getInventory().setRepairCost(40);
+            }
+
+            combiner.updateInventory();
+        }
+    }
+
+    private Map<Enchantment, Integer> combineEnchantments(Map<Enchantment, Integer> item1Enchantments, Map<Enchantment, Integer> item2Enchantments, Map<Enchantment, Integer> maxAllowed){
+        Map<Enchantment, Integer> newEnchantments = new HashMap<>();
+
+        for (Enchantment e : item1Enchantments.keySet()){
+            int level = item1Enchantments.get(e);
+            int maxLevel = maxAllowed.getOrDefault(e, e.getMaxLevel());
+            if (item2Enchantments.containsKey(e)){
+                int compareLevel = item2Enchantments.get(e);
+                if (level == compareLevel){
+                    newEnchantments.put(e, Math.min(maxLevel, level + 1));
+                } else {
+                    newEnchantments.put(e, Math.min(maxLevel, Math.max(level, compareLevel)));
+                }
+            } else {
+                newEnchantments.put(e, Math.min(maxLevel, level));
             }
         }
+
+        for (Enchantment e : item2Enchantments.keySet()){
+            int level = item2Enchantments.get(e);
+            int maxLevel = maxAllowed.getOrDefault(e, e.getMaxLevel());
+            if (!item1Enchantments.containsKey(e)){
+                newEnchantments.put(e, Math.min(maxLevel, level));
+            }
+        }
+
+        return newEnchantments;
     }
 }

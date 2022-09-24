@@ -44,6 +44,7 @@ public class PotionEffectManager {
         registerPotionEffect(new PotionEffect("MASTERPIECE_ENCHANTING", 0, 0, PotionType.BUFF, false));
         registerPotionEffect(new PotionEffect("MASTERPIECE_ALCHEMY", 0, 0, PotionType.BUFF, false));
         registerPotionEffect(new PotionEffect("FORTIFY_ENCHANTING", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("FORTIFY_ANVIL_COMBINING", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("FORTIFY_SMITHING", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("ALCHEMY_BREW_SPEED", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("ALCHEMY_INGREDIENT_SAVE", 0, 0, PotionType.BUFF));

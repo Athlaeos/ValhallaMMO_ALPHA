@@ -71,6 +71,7 @@ public class DynamicItemModifierManager {
         register(new AddTreatmentModifier("treatment_add_studding", 0D, ModifierPriority.NEUTRAL, ItemTreatment.STUDDING, Material.IRON_NUGGET));
         register(new AddTreatmentModifier("treatment_add_generic_improvement", 0D, ModifierPriority.NEUTRAL, ItemTreatment.GENERIC_IMPROVEMENT, Material.GOLD_INGOT));
         register(new AddTreatmentModifier("treatment_add_unenchantable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.BOOK));
+        register(new AddTreatmentModifier("treatment_add_unmendable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNMENDABLE, Material.EXPERIENCE_BOTTLE));
 
         register(new RemoveTreatmentModifier("treatment_remove_tempering", 0D, ModifierPriority.NEUTRAL, ItemTreatment.TEMPERING, Material.IRON_INGOT));
         register(new RemoveTreatmentModifier("treatment_remove_quenching", 0D, ModifierPriority.NEUTRAL, ItemTreatment.QUENCHING, Material.NETHERITE_INGOT));
@@ -86,6 +87,7 @@ public class DynamicItemModifierManager {
         register(new RemoveTreatmentModifier("treatment_remove_studding", 0D, ModifierPriority.NEUTRAL, ItemTreatment.STUDDING, Material.IRON_NUGGET));
         register(new RemoveTreatmentModifier("treatment_remove_generic_improvement", 0D, ModifierPriority.NEUTRAL, ItemTreatment.GENERIC_IMPROVEMENT, Material.GOLD_INGOT));
         register(new RemoveTreatmentModifier("treatment_remove_unenchantable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.BOOK));
+        register(new RemoveTreatmentModifier("treatment_remove_unmendable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.EXPERIENCE_BOTTLE));
 
         register(new RemoveAllTreatmentsModifier("treatment_remove_all", 0D, ModifierPriority.NEUTRAL));
 
@@ -103,6 +105,7 @@ public class DynamicItemModifierManager {
         register(new RequireTreatmentModifier("treatment_requirement_studding", 0D, ModifierPriority.NEUTRAL, ItemTreatment.STUDDING, Material.IRON_NUGGET));
         register(new RequireTreatmentModifier("treatment_requirement_generic_improvement", 0D, ModifierPriority.NEUTRAL, ItemTreatment.GENERIC_IMPROVEMENT, Material.GOLD_INGOT));
         register(new RequireTreatmentModifier("treatment_requirement_unenchantable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.BOOK));
+        register(new RequireTreatmentModifier("treatment_requirement_unmendable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.EXPERIENCE_BOTTLE));
 
         register(new CancelIfTreatmentModifier("treatment_cancel_if_tempering", 0D, ModifierPriority.NEUTRAL, ItemTreatment.TEMPERING, Material.IRON_INGOT));
         register(new CancelIfTreatmentModifier("treatment_cancel_if_quenching", 0D, ModifierPriority.NEUTRAL, ItemTreatment.QUENCHING, Material.NETHERITE_INGOT));
@@ -118,6 +121,7 @@ public class DynamicItemModifierManager {
         register(new CancelIfTreatmentModifier("treatment_cancel_if_studding", 0D, ModifierPriority.NEUTRAL, ItemTreatment.STUDDING, Material.IRON_NUGGET));
         register(new CancelIfTreatmentModifier("treatment_cancel_if_generic_improvement", 0D, ModifierPriority.NEUTRAL, ItemTreatment.GENERIC_IMPROVEMENT, Material.GOLD_INGOT));
         register(new CancelIfTreatmentModifier("treatment_cancel_if_unenchantable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.BOOK));
+        register(new CancelIfTreatmentModifier("treatment_cancel_if_unmendable", 0D, ModifierPriority.NEUTRAL, ItemTreatment.UNENCHANTABLE, Material.EXPERIENCE_BOTTLE));
 
         register(new UpgradeNetheriteModifier("upgrade_equipment_netherite", 0D, ModifierPriority.NEUTRAL));
         register(new UpgradeDiamondModifier("upgrade_equipment_diamond", 0D, ModifierPriority.NEUTRAL));
@@ -241,6 +245,8 @@ public class DynamicItemModifierManager {
 
         register(new CustomModelDataAddModifier("custom_model_data_add", 0D, ModifierPriority.NEUTRAL));
         register(new CustomModelDataRequirementModifier("custom_model_data_require", 0D, ModifierPriority.NEUTRAL));
+
+        register(new AddPlayerSignatureModifier("add_signature", 0D, ModifierPriority.NEUTRAL));
 
         register(new FlagAddHideAttributeModifier("flag_add_hide_attributes", 0D, ModifierPriority.NEUTRAL));
         register(new FlagAddHidePotionEffectsModifier("flag_add_hide_potion_effects", 0D, ModifierPriority.NEUTRAL));

@@ -193,7 +193,6 @@ public class EntityDamagedListener implements Listener {
 
     public static double getCustomDamage(EntityDamageEvent e) {
         Entity lastDamagedBy = null;
-        System.out.println("original damage: " + e.getDamage());
         if (Arrays.asList("ENTITY_ATTACK", "ENTITY_SWEEP_ATTACK", "PROJECTILE", "ENTITY_EXPLOSION").contains(e.getCause().toString())) {
             lastDamagedBy = lastDamagedByMap.get(e.getEntity().getUniqueId());
         } else {
@@ -286,7 +285,6 @@ public class EntityDamagedListener implements Listener {
                     .replace("%armor%", String.format("%.4f", totalArmor))
                     .replace("%toughness%", String.format("%.4f", toughness)));
 
-            System.out.println("new damage: " + scalingResult + " with scaling " + physicalDamageScaling.getScaling());
             if (physicalDamageScalingSetMode) {
                 double minimumDamage = damageWithResistances * physicalDamageReductionCap;
                 return Math.max(minimumDamage, scalingResult);
@@ -343,7 +341,6 @@ public class EntityDamagedListener implements Listener {
                     }
                     ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(),
                             () -> {
-                                System.out.println(" custom damage : " + customDamage);
                                 if (!finalCancelImmunityDueToOverride) ((LivingEntity) e.getEntity()).setNoDamageTicks(finalIFrames);
                                 AttributeInstance maxHealthAttribute = ((LivingEntity) e.getEntity()).getAttribute(Attribute.GENERIC_MAX_HEALTH);
                                 double maxHealth = -1;
@@ -354,6 +351,9 @@ public class EntityDamagedListener implements Listener {
                                             ((LivingEntity) e.getEntity()).setHealth(Math.max(0, currentHealth - customDamage - 1));
                                             throw new IllegalArgumentException("GENERIC_MAX_HEALTH is still null");
                                         }
+//                                        if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent){
+//                                            ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager().sendMessage(Utils.chat("custom damage " + customDamage + " dealt, current health was " + currentHealth));
+//                                        }
                                         ((LivingEntity) e.getEntity()).setHealth(Math.max(0, Math.min(maxHealth, currentHealth - customDamage)));
                                     } catch (IllegalArgumentException ignored) {
                                         // this should never happen because the generic max health attribute should never be null

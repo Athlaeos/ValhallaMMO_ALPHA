@@ -202,7 +202,6 @@ public class ItemUtils {
         return canCraft;
     }
 
-    // does not work should be fixed
     public static boolean containsAtLeast(Collection<ItemStack> inventory, ItemStack item, int amount){
         if (Utils.isItemEmptyOrNull(item)) return false;
         Map<String, Integer> totalContents = getItemTotals(inventory);

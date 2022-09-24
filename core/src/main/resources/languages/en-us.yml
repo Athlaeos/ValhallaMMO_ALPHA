@@ -189,6 +189,8 @@ perk_format_separator: '&8&m                               '
 
 max_level: 'MAX'
 
+format_signature: '&8- %player%' # format for the line of lore added with the "add signature" modifier
+
 translation_durability: '&7Durability:'
 translation_drawstrength: 'Draw Strength'
 translation_arrowstrength: 'Arrow Damage'
@@ -865,6 +867,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   smithing-quality-legendary: '&eLegendary'
   smithing-quality-divine: '&6&lDivine'
   smithing-quality-incomprehensible: '&8&lIncomprehensible'
+  smithing-treatment-unmendable: '&cUnmendable'
   smithing-treatment-unenchantable: '&cUnenchantable'
   smithing-treatment-razor-sharp: '&7Razor Sharp'
   smithing-treatment-well-fit: '&7Well-Fit'
@@ -2086,12 +2089,14 @@ placeholders: # These translations can be used as placeholders in other files, a
     - '&e33% &7chance to be refunded lapis lazuli'
     - ' '
   skill-enchanting-perk-double-display-name: '&7Grand Magus'
-  skill-enchanting-perk-double-description: '&7You are now able to apply &e2 &7special enchantments on an item instead of &e1'
+  skill-enchanting-perk-double-description: '&7You are now able to apply &e2 &7special enchantments on an item instead of &e1&7, and your ability to combine enchantments in the anvil greatly improves'
   skill-enchanting-perk-double-messages:
     - '&8&m                           '
     - '&7You are now able to apply &e2'
     - '&7special enchantments to an item'
-    - '&7instead of &e1'
+    - '&7instead of &e1&7, and your enchantment-'
+    - '&7combining ability with the anvil '
+    - '&7greatly improves'
     - ' '
   skill-enchanting-perk-masterpiece-display-name: '&7Miracle'
   skill-enchanting-perk-masterpiece-description: '&7Your next special enchantment receives an additional potency of &e+50&7, this can only occur once.'

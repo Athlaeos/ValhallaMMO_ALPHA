@@ -28,6 +28,7 @@ public class EnchantingProfile extends Profile implements Serializable {
     private int enchantingquality_general = 0; // general enchanting skill
     private int enchantingquality_vanilla = 0; // vanilla enchanting skill
     private int enchantingquality_custom = 0; // custom enchanting skill
+    private int anvilquality = 0; // custom anvil enchantment combining skill (higher skill = higher max lv enchantment combining)
 
     private double enchantingexpmultiplier_general = 100D;
     private double enchantingexpmultiplier_custom = 100D;
@@ -53,6 +54,8 @@ public class EnchantingProfile extends Profile implements Serializable {
                 "enchantingexpmultiplier_custom DOUBLE DEFAULT 100," +
                 "enchantingexpmultiplier_vanilla DOUBLE DEFAULT 100);");
         stmt.execute();
+
+        conn.addColumnIfNotExists("profiles_enchanting", "anvilquality", "SMALLINT DEFAULT 0");
     }
 
     @Override
@@ -61,7 +64,7 @@ public class EnchantingProfile extends Profile implements Serializable {
                 "REPLACE INTO profiles_enchanting " +
                         "(owner, level, exp, exp_total, vanillaenchantmentamplifychance, maxcustomenchantmentsallowed, " +
                         "lapissavechance, exprefundchance, exprefundfraction, vanillaexpgainmultiplier, enchantingquality_general, " +
-                        "enchantingquality_vanilla, enchantingquality_custom, enchantingexpmultiplier_general, " +
+                        "enchantingquality_vanilla, enchantingquality_custom, anvilquality, enchantingexpmultiplier_general, " +
                         "enchantingexpmultiplier_custom, enchantingexpmultiplier_vanilla) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
@@ -77,9 +80,10 @@ public class EnchantingProfile extends Profile implements Serializable {
         stmt.setInt(11, enchantingquality_general);
         stmt.setInt(12, enchantingquality_vanilla);
         stmt.setInt(13, enchantingquality_custom);
-        stmt.setDouble(14, enchantingexpmultiplier_general);
-        stmt.setDouble(15, enchantingexpmultiplier_custom);
-        stmt.setDouble(16, enchantingexpmultiplier_vanilla);
+        stmt.setInt(14, anvilquality);
+        stmt.setDouble(15, enchantingexpmultiplier_general);
+        stmt.setDouble(16, enchantingexpmultiplier_custom);
+        stmt.setDouble(17, enchantingexpmultiplier_vanilla);
         stmt.execute();
     }
 
@@ -102,6 +106,7 @@ public class EnchantingProfile extends Profile implements Serializable {
             profile.setEnchantingSkill(null, result.getInt("enchantingquality_general"));
             profile.setEnchantingSkill(EnchantmentType.VANILLA, result.getInt("enchantingquality_vanilla"));
             profile.setEnchantingSkill(EnchantmentType.CUSTOM, result.getInt("enchantingquality_custom"));
+            profile.setAnvilQuality(result.getInt("anvilquality"));
             profile.setEnchantingExpMultiplier(null, result.getDouble("enchantingexpmultiplier_general"));
             profile.setEnchantingExpMultiplier(EnchantmentType.CUSTOM, result.getDouble("enchantingexpmultiplier_custom"));
             profile.setEnchantingExpMultiplier(EnchantmentType.VANILLA, result.getDouble("enchantingexpmultiplier_vanilla"));
@@ -127,6 +132,14 @@ public class EnchantingProfile extends Profile implements Serializable {
                 }
             }
         }
+    }
+
+    public void setAnvilQuality(int anvilquality) {
+        this.anvilquality = anvilquality;
+    }
+
+    public int getAnvilQuality() {
+        return anvilquality;
     }
 
     public float getLapisSaveChance() {
