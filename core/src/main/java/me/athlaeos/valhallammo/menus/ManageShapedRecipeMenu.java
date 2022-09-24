@@ -6,16 +6,14 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.recipetypes.DynamicShapedRecipe;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
+import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -64,19 +62,23 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                     " to have ValhallaMMO custom characteristics. Such as quality, durability, or custom attributes." +
                     " If 'Require Precise Meta' is also enabled, these tools/armor pieces will be ignored and do not" +
                     " need to exactly match.-n" +
-                    " If false, any tool/armor piece can be used even if they have no custom traits.-n" +
-                    " Tools/Armor need to be fully repaired regardless of the option used for crafting."), 40)
+                    " If false, any tool/armor piece can be used even if they have no custom traits.-n"), 40)
     );
     private final ItemStack tinkerFirstItemButton = Utils.createItemStack(
             Material.ANVIL,
-            Utils.chat("&7&lTinker First Item"),
+            Utils.chat("&7&lTinker First Tool"),
             Utils.separateStringIntoLines(Utils.chat("&7If true, instead of crafting a new item all-together " +
-                    "the first item in the crafting grid is used to produce an output. This is the " +
+                    "the first tool found in the crafting grid is used to produce an output. This is the " +
                     "vanilla crafting table alternative for ValhallaMMO's custom tinkering mechanic. "), 40)
     );
     private final ItemStack returnToMenuButton = Utils.createItemStack(
             Material.WRITABLE_BOOK,
             Utils.chat("&7&lReturn to menu"),
+            new ArrayList<>()
+    );
+    private final ItemStack shapelessRecipeButton = Utils.createItemStack(
+            Material.SLIME_BALL,
+            Utils.chat("&7&lShapeless:"),
             new ArrayList<>()
     );
 
@@ -88,10 +90,12 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
 
     private final Integer[] grid3x3 = new Integer[]{10, 11, 12, 19, 20, 21, 28, 29, 30};
     private final Integer[] grid2x2 = new Integer[]{10, 11, 19, 20};
+    private List<String> shape = new ArrayList<>(Arrays.asList("   ", "   ", "   "));
     private boolean requireExactMeta = false;
     private boolean requireCustomTools = true;
     private boolean tinkerFirstItem = false;
     private boolean unlockedForEveryone = false;
+    private boolean shapeless = false;
     private final Map<Integer, ItemStack> exactItems = new HashMap<>();
     private ItemStack result = new ItemStack(Material.WOODEN_SWORD);
     private boolean is3x3 = true;
@@ -116,14 +120,16 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             tinkerFirstItem = recipe.isTinkerFirstItem();
             unlockedForEveryone = recipe.isUnlockedForEveryone();
             result = recipe.getRecipe().getResult();
+            shapeless = recipe.isShapeless();
+            shape = recipe.getShape();
+
+            is3x3 = shape.size() == 3;
 
             int index = 0;
             for (Integer i : recipe.getExactItems().keySet()){
                 exactItems.put(grid3x3[index], recipe.getExactItems().get(i));
                 index++;
             }
-
-            is3x3 = recipe.getExactItems().size() == 9 || recipe.getExactItems().size() == 0;
         }
     }
 
@@ -151,6 +157,11 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                 unlockedForEveryone = !unlockedForEveryone;
                 if (currentRecipe != null){
                     currentRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                }
+            } else if (clickedItem.equals(shapelessRecipeButton)){
+                shapeless = !shapeless;
+                if (currentRecipe != null){
+                    currentRecipe.setShapeless(shapeless);
                 }
             } else if (clickedItem.equals(nextPageButton)){
                 currentPage++;
@@ -185,6 +196,8 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                         if (currentRecipe != null) {
                             CustomRecipeManager.getInstance().update(oldRecipe, currentRecipe);
                             currentRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                            currentRecipe.setShapeless(shapeless);
+                            currentRecipe.setShape(shape);
                             currentRecipe = null;
                             view = View.VIEW_RECIPES;
                         } else {
@@ -210,8 +223,10 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                         oldRecipe = shapedRecipe.clone();
                         view = View.CREATE_RECIPE;
                         requireExactMeta = shapedRecipe.isUseMetadata();
+                        shapeless = shapedRecipe.isShapeless();
                         requireCustomTools = shapedRecipe.isRequireCustomTools();
                         tinkerFirstItem = shapedRecipe.isTinkerFirstItem();
+                        shape = shapedRecipe.getShape();
                         unlockedForEveryone = shapedRecipe.isUnlockedForEveryone();
                         result = shapedRecipe.getRecipe().getResult();
 
@@ -221,7 +236,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                             index++;
                         }
 
-                        is3x3 = shapedRecipe.getExactItems().size() == 9 || shapedRecipe.getExactItems().size() == 0;
+                        is3x3 = shape.size() == 3;
                     }
                 }
             }
@@ -333,13 +348,18 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
 
         ItemMeta centerTinkerButtonMeta = tinkerFirstItemButton.getItemMeta();
         assert centerTinkerButtonMeta != null;
-        centerTinkerButtonMeta.setDisplayName(Utils.chat("&7Tinker Center Item: &e" + ((tinkerFirstItem) ? "Yes" : "No")));
+        centerTinkerButtonMeta.setDisplayName(Utils.chat("&7Tinker First Tool: &e" + ((tinkerFirstItem) ? "Yes" : "No")));
         tinkerFirstItemButton.setItemMeta(centerTinkerButtonMeta);
 
         ItemMeta unlockedForEveryoneMeta = unlockedForEveryoneButton.getItemMeta();
         assert unlockedForEveryoneMeta != null;
         unlockedForEveryoneMeta.setDisplayName(Utils.chat("&7Unlocked for everyone: &e" + ((unlockedForEveryone) ? "Yes" : "No")));
         unlockedForEveryoneButton.setItemMeta(unlockedForEveryoneMeta);
+
+        ItemMeta shapelessMeta = shapelessRecipeButton.getItemMeta();
+        assert shapelessMeta != null;
+        shapelessMeta.setDisplayName(Utils.chat("&7Shapeless: &e" + ((shapeless) ? "Yes" : "No")));
+        shapelessRecipeButton.setItemMeta(shapelessMeta);
 
         // 10,11,12, 19,20,21, 28,29,30
         for (Integer i : grid3x3){
@@ -355,6 +375,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         if (!tinkerFirstItem) inventory.setItem(22, result);
         inventory.setItem(14, unlockedForEveryoneButton);
         inventory.setItem(31, toggleGridSizeButton);
+        inventory.setItem(40, shapelessRecipeButton);
         inventory.setItem(24, dynamicModifierButton);
         inventory.setItem(25, requireExactMetaButton);
         inventory.setItem(33, requireCustomToolsButton);
@@ -375,12 +396,22 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             assert resultMeta != null;
             resultMeta.setDisplayName(recipe.getName());
             List<String> resultLore = new ArrayList<>();
-            for (String shapeLine : recipe.getRecipe().getShape()){
-                resultLore.add(Utils.chat("&7[&e" + shapeLine + "&7]&7"));
-            }
-            for (Character c : recipe.getRecipe().getIngredientMap().keySet()){
-                if (recipe.getRecipe().getIngredientMap().get(c) == null) continue;
-                resultLore.add(Utils.chat("&e" + c + "&7: &e" + Utils.getItemName(recipe.getRecipe().getIngredientMap().get(c))));
+            if (shapeless){
+                // TODO
+                Map<ItemStack, Integer> contents = ItemUtils.getItemTotals(recipe.getExactItems().values());
+                for (ItemStack item : recipe.getExactItems().values()){
+                    resultLore.add(Utils.chat("&e" + contents.getOrDefault(item, 0) + "&7x &e" + Utils.getItemName(item)));
+                }
+            } else {
+                if (recipe.getRecipe() instanceof ShapedRecipe){
+                    for (String shapeLine : ((ShapedRecipe) recipe.getRecipe()).getShape()){
+                        resultLore.add(Utils.chat("&7[&e" + shapeLine + "&7]&7"));
+                    }
+                    for (Character c : ((ShapedRecipe) recipe.getRecipe()).getIngredientMap().keySet()){
+                        if (((ShapedRecipe) recipe.getRecipe()).getIngredientMap().get(c) == null) continue;
+                        resultLore.add(Utils.chat("&e" + c + "&7: &e" + Utils.getItemName(((ShapedRecipe) recipe.getRecipe()).getIngredientMap().get(c))));
+                    }
+                }
             }
             resultLore.add(Utils.chat("&8&m                                      "));
             List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
@@ -431,8 +462,6 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         if (this.exactItems.size() == 0) {
             return null;
         }
-        NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + currentRecipe.getName());
-        ShapedRecipe shapedRecipe = new ShapedRecipe(recipeKey, result);
 
         Map<Integer, ItemStack> exactItems = new HashMap<>();
         List<Integer> grid = (is3x3) ? Arrays.asList(grid3x3) : Arrays.asList(grid2x2);
@@ -462,19 +491,33 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             shape[row] = rowShape.toString();
         }
 
-        shapedRecipe.shape(shape);
-        for (Character c : ingredientMap.keySet()){
-            if (requireExactMeta){
-                shapedRecipe.setIngredient(c, new RecipeChoice.ExactChoice(ingredientMap.get(c)));
-            } else {
-                shapedRecipe.setIngredient(c, ingredientMap.get(c).getType());
+        this.shape = Arrays.asList(shape);
+
+        NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + currentRecipe.getName());
+        Recipe recipe = null;
+        if (shapeless){
+            recipe = new ShapelessRecipe(recipeKey, result);
+
+            for (ItemStack ingredient : this.exactItems.values()){
+                ((ShapelessRecipe) recipe).addIngredient(ingredient.getType());
+            }
+        } else {
+            recipe = new ShapedRecipe(recipeKey, result);
+
+            ((ShapedRecipe) recipe).shape(shape);
+            for (Character c : ingredientMap.keySet()){
+                if (requireExactMeta){
+                    ((ShapedRecipe) recipe).setIngredient(c, new RecipeChoice.ExactChoice(ingredientMap.get(c)));
+                } else {
+                    ((ShapedRecipe) recipe).setIngredient(c, ingredientMap.get(c).getType());
+                }
             }
         }
 
-        return new DynamicShapedRecipe(currentRecipe.getName(), shapedRecipe, exactItems, requireExactMeta, requireCustomTools, tinkerFirstItem, currentModifiers);
+        return new DynamicShapedRecipe(currentRecipe.getName(), recipe, exactItems, requireExactMeta, requireCustomTools, tinkerFirstItem, shapeless, this.shape, currentModifiers);
     }
 
-    private BiMap<Character, ItemStack> getIngredientMap(Set<ItemStack> items){
+    public static BiMap<Character, ItemStack> getIngredientMap(Set<ItemStack> items){
         BiMap<Character, ItemStack> ingredientMap = HashBiMap.create();
         for (ItemStack i : items){
             if (Utils.isItemEmptyOrNull(i)) continue;

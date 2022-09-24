@@ -2,22 +2,27 @@ package me.athlaeos.valhallammo.crafting.recipetypes;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class DynamicShapedRecipe implements Cloneable{
-    private final ShapedRecipe recipe;
+    private final Recipe recipe;
     private Map<Integer, ItemStack> exactItems;
     private boolean useMetadata = true;
     private boolean requireCustomTools = true;
     private boolean improveMiddleItem = false;
+    private boolean shapeless = false;
+    private List<String> shape = new ArrayList<>();
     private String name;
     private Collection<DynamicItemModifier> modifiers;
     private boolean unlockedForEveryone = false;
 
-    public DynamicShapedRecipe(String name, ShapedRecipe recipe, Map<Integer, ItemStack> exactItems, boolean useMetadata, boolean requireCustomTools, boolean improveMiddleItem, Collection<DynamicItemModifier> modifiers) {
+    public DynamicShapedRecipe(String name, Recipe recipe, Map<Integer, ItemStack> exactItems, boolean useMetadata, boolean requireCustomTools, boolean improveMiddleItem, boolean shapeless, List<String> shape, Collection<DynamicItemModifier> modifiers) {
         this.recipe = recipe;
         this.exactItems = exactItems;
         this.useMetadata = useMetadata;
@@ -25,6 +30,8 @@ public class DynamicShapedRecipe implements Cloneable{
         this.improveMiddleItem = improveMiddleItem;
         this.name = name;
         this.modifiers = modifiers;
+        this.shapeless = shapeless;
+        this.shape = shape;
     }
 
     public void setUnlockedForEveryone(boolean unlockedForEveryone) {
@@ -35,8 +42,16 @@ public class DynamicShapedRecipe implements Cloneable{
         return unlockedForEveryone;
     }
 
-    public ShapedRecipe getRecipe() {
+    public Recipe getRecipe() {
         return recipe;
+    }
+
+    public List<String> getShape() {
+        return shape;
+    }
+
+    public void setShape(List<String> shape) {
+        this.shape = shape;
     }
 
     public Map<Integer, ItemStack> getExactItems() {
@@ -85,6 +100,14 @@ public class DynamicShapedRecipe implements Cloneable{
 
     public void setImproveMiddleItem(boolean improveMiddleItem) {
         this.improveMiddleItem = improveMiddleItem;
+    }
+
+    public boolean isShapeless() {
+        return shapeless;
+    }
+
+    public void setShapeless(boolean shapeless) {
+        this.shapeless = shapeless;
     }
 
     @Override

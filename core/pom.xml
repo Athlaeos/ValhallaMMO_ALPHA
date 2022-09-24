@@ -55,8 +55,7 @@
             <groupId>me.athlaeos</groupId>
             <artifactId>valhallatrinkets</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/ValhallaTrinkets.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.jeff_media</groupId>
