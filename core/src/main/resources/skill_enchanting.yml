@@ -7,6 +7,8 @@ levelbar_title: '<lang.skill-enchanting-level-bar>'
 levelbar_color: BLUE # You can choose between BLUE, YELLOW, GREEN, PINK, PURPLE, RED, WHITE
 levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20, and SOLID
 
+anvil_downgrading: false # If true, when combining an item with another its enchantments can be downgraded if the player doesn't have sufficient skill
+
 # Here you can fill in the formulas used for calculating the amplifiers of vanilla and custom enchantments
 # The output will be applied on the item's default enchantment amplifiers
 # "rating" refers to the player's skill points. Which will be general skill points + specific skill points.

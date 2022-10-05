@@ -330,7 +330,7 @@ perks:
     perk_rewards:
       enchanting_amplify_chance_set: 1.0
       enchanting_lapis_refund_chance_set: 0.33
-      enchanting_exprefund_chance_set: 0.2
+      enchanting_exprefund_chance_add: 0.25
     messages:
       - '<lang.skill-enchanting-perk-spellbinder-messages>'
   enchanting_perk_double:

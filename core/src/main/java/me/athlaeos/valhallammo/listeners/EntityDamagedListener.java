@@ -465,7 +465,7 @@ public class EntityDamagedListener implements Listener {
         double reach = AccumulativeStatManager.getInstance().getStats("ATTACK_REACH_BONUS", e.getDamager(), true);
         if (reach < 0 && e.getDamager() instanceof LivingEntity) {
             RayTraceResult rayTrace = e.getDamager().getWorld().rayTrace(((LivingEntity) e.getDamager()).getEyeLocation(),
-                    ((LivingEntity) e.getDamager()).getEyeLocation().getDirection(), 2.9 + reach, FluidCollisionMode.NEVER, true, 0.5, (entity) -> !(entity.equals(e.getDamager()) || entity.equals(e.getDamager().getVehicle())));
+                    ((LivingEntity) e.getDamager()).getEyeLocation().getDirection(), 2.5 + reach, FluidCollisionMode.NEVER, true, 0.5, (entity) -> !(entity.equals(e.getDamager()) || entity.equals(e.getDamager().getVehicle())));
             if (rayTrace == null || rayTrace.getHitEntity() == null) {
                 e.setCancelled(true);
                 return;
@@ -509,7 +509,7 @@ public class EntityDamagedListener implements Listener {
                 double knockbackResistance = AccumulativeStatManager.getInstance().getStats("KNOCKBACK_RESISTANCE", e.getEntity(), e.getDamager(), true);
                 double knockbackBonus = AccumulativeStatManager.getInstance().getStats("KNOCKBACK_BONUS", e.getEntity(), e.getDamager(), true);
                 if (knockbackBonus < 0) {
-                    knockbackResistance += -knockbackBonus;
+                    knockbackResistance -= knockbackBonus;
                 } else {
                     knockbackBonus *= (1 - knockbackResistance);
                 }

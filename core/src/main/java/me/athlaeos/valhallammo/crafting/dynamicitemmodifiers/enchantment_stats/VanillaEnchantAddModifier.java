@@ -65,7 +65,7 @@ public class VanillaEnchantAddModifier extends DuoArgDynamicItemModifier {
             if (strength2 > 0){
                 if (crafter == null) return null;
                 int enchantingSkill = (int) ((strength2 / 100) * Math.floor(AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("ENCHANTING_QUALITY_GENERAL", crafter, 2000, this.use) + AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_VANILLA", crafter, this.use)));
-                Map<Enchantment, Integer> enchant = EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(outputItem, enchantingSkill, enchantment, (int) Math.floor(strength));
+                Map<Enchantment, Integer> enchant = EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(enchantingSkill, enchantment, (int) Math.floor(strength));
                 Enchantment enchantment = null;
                 int level = 0;
                 for (Enchantment e : enchant.keySet()){

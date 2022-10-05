@@ -181,11 +181,21 @@ skilltree_perk_format:
   - '&8&m                               '
   - '%requirements_one%'
   - '%requirements_all%'
+  - '%warning_levels%'
+  - '%warning_perks%'
+  - '%warning_cost%'
+  - '%status_unlockable%'
+  - '%status_unlocked%'
 
-perk_format_requirement_one: '&7Requires one unlocked of:'
-perk_format_requirement_all: '&7Requires all unlocked of:'
+perk_format_requirement_one: '&7Requires:'
+perk_format_requirement_all: '&7Requires:'
 perk_format_requirement: '&7- %perk_required%'
 perk_format_separator: '&8&m                               '
+perk_requirement_warning_levels: '&cInsufficient level'
+perk_requirement_warning_perks: '&cRequired perks not unlocked'
+perk_requirement_warning_cost: '&cYou do not have enough skill points'
+perk_requirement_status_unlockable: '&aClick to unlock this perk'
+perk_requirement_status_unlocked: '&aPerk unlocked'
 
 max_level: 'MAX'
 

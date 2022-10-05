@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.items.EnchantmentType;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
 import me.athlaeos.valhallammo.skills.enchanting.EnchantingProfile;
+import me.athlaeos.valhallammo.skills.enchanting.EnchantingSkill;
 import org.bukkit.entity.Player;
 
 public class EnchantingSkillSetReward extends PerkReward {
@@ -37,6 +38,7 @@ public class EnchantingSkillSetReward extends PerkReward {
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
             enchantingProfile.setEnchantingSkill(enchantmentType, points);
             ProfileManager.getManager().setProfile(player, enchantingProfile, "ENCHANTING");
+            EnchantingSkill.resetPlayerEnchantmentCache(player);
         }
     }
 

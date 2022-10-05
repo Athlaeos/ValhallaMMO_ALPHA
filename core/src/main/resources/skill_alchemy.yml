@@ -14,6 +14,9 @@ transmutation_sound: BLOCK_ENCHANTMENT_TABLE_USE
 # If true, whenever the player duplicates an ingredient using the "save ingredient" passive the item spawns on top of the brewing stand instead of staying in the stand
 save_ingredient_spawn_on_top_of_stand: true
 
+# If true, players are able to instantly empty potions when clicking them on a cauldron
+quick_empty_potions: true
+
 # Treatments
 hide_treatment_lore: false # If true, treatment lore does not appear on items at all
 quality_cosmetic: # Cosmetic quality placed on the item as lore once its quality rating exceeds one of these.
