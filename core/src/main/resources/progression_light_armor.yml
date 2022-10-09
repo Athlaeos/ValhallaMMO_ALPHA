@@ -1,6 +1,6 @@
 starting_perks:
-  light_armor_armor_multiplier_set: 0.7
-  light_armor_movement_speed_penalty_set: 0.0375 # reduces speed by 3.75% per piece of light armor
+  light_armor_armor_multiplier_add: -0.3 # default 1, now 0.7
+  light_armor_movement_speed_penalty_add: 0.0375 # default 0, now 0.0375. reduces speed by 3.75% per piece of light armor
 
 experience: # Everything about leveling and experience progression for Light Armor
   max_level: 100 # Max level for light armor, players can still gain exp after reaching 100
@@ -41,9 +41,9 @@ perks:
     description: '<lang.skill-light-armor-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
-      light_armor_adrenaline_cooldown_set: 1200000
-      light_armor_adrenaline_level_set: 1
-      light_armor_adrenaline_threshold_set: 0.2
+      light_armor_adrenaline_cooldown_add: 1200001 # default -1, now 1200000
+      light_armor_adrenaline_level_add: 1 # default 0, now 1
+      light_armor_adrenaline_threshold_add: 0.2 # default 0, now 0.2
     messages:
       - '<lang.skill-light-armor-perk-ranked-1-messages>'
   light_armor_perk_ranked_2:
@@ -57,7 +57,7 @@ perks:
     description: '<lang.skill-light-armor-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
-      light_armor_adrenaline_cooldown_set: 960000
+      light_armor_adrenaline_cooldown_add: -240000 # was 1200000, now 960000
       light_armor_adrenaline_level_add: 1
     messages:
       - '<lang.skill-light-armor-perk-ranked-2-messages>'
@@ -72,7 +72,7 @@ perks:
     description: '<lang.skill-light-armor-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
-      light_armor_adrenaline_cooldown_set: 720000
+      light_armor_adrenaline_cooldown_add: -240000 # was 960000, now 720000
       light_armor_adrenaline_level_add: 1
     messages:
       - '<lang.skill-light-armor-perk-ranked-3-messages>'
@@ -87,7 +87,7 @@ perks:
     description: '<lang.skill-light-armor-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
-      light_armor_adrenaline_cooldown_set: 480000
+      light_armor_adrenaline_cooldown_add: -240000 # was 720000, now 480000
       light_armor_adrenaline_level_add: 1
     messages:
       - '<lang.skill-light-armor-perk-ranked-4-messages>'
@@ -102,9 +102,9 @@ perks:
     description: '<lang.skill-light-armor-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
-      light_armor_adrenaline_cooldown_set: 240000
+      light_armor_adrenaline_cooldown_add: -240000 # was 480000, now 240000
       light_armor_adrenaline_level_add: 1
-      light_armor_adrenaline_threshold_set: 0.3
+      light_armor_adrenaline_threshold_add: 0.1 # was 0.2, now 0.3
     messages:
       - '<lang.skill-light-armor-perk-ranked-5-messages>'
   light_armor_perk_set_1:
@@ -118,7 +118,7 @@ perks:
     description: '<lang.skill-light-armor-perk-set-1-description>'
     required_lv: 20
     perk_rewards:
-      light_armor_set_bonus_hunger_save_chance_set: 0.2
+      light_armor_set_bonus_hunger_save_chance_add: 0.2 # default 0, now 0.2
     messages:
       - '<lang.skill-light-armor-perk-set-1-messages>'
   light_armor_perk_set_2:
@@ -132,7 +132,7 @@ perks:
     description: '<lang.skill-light-armor-perk-set-2-description>'
     required_lv: 40
     perk_rewards:
-      light_armor_set_bonus_dodge_chance_set: 0.1
+      light_armor_set_bonus_dodge_chance_set: 0.1 # default 0, now 0.1
     messages:
       - '<lang.skill-light-armor-perk-set-2-messages>'
   light_armor_perk_set_3:
@@ -146,7 +146,7 @@ perks:
     description: '<lang.skill-light-armor-perk-set-3-description>'
     required_lv: 60
     perk_rewards:
-      light_armor_set_bonus_pieces_required_set: 3
+      light_armor_set_bonus_pieces_required_add: -1 # default 4, now 3
     messages:
       - '<lang.skill-light-armor-perk-set-3-messages>'
   light_armor_perk_set_4:
@@ -160,7 +160,7 @@ perks:
     description: '<lang.skill-light-armor-perk-set-4-description>'
     required_lv: 20
     perk_rewards:
-      light_armor_movement_speed_penalty_set: 0.03
+      light_armor_movement_speed_penalty_add: -0.01875 # was 0.0375, now 0.01875
     messages:
       - '<lang.skill-light-armor-perk-set-4-messages>'
   light_armor_perk_set_5:
@@ -174,7 +174,7 @@ perks:
     description: '<lang.skill-light-armor-perk-set-5-description>'
     required_lv: 40
     perk_rewards:
-      light_armor_set_bonus_armor_set: 0.2
+      light_armor_set_bonus_armor_add: 0.2 # default 0, now 0.2
     messages:
       - '<lang.skill-light-armor-perk-set-5-messages>'
   light_armor_perk_set_6:
@@ -188,7 +188,7 @@ perks:
     description: '<lang.skill-light-armor-perk-set-6-description>'
     required_lv: 60
     perk_rewards:
-      light_armor_movement_speed_penalty_set: 0
+      light_armor_movement_speed_penalty_add: -0.01875 # was 0.01875, now 0
     messages:
       - '<lang.skill-light-armor-perk-set-6-messages>'
   light_armor_perk_immunity_1:

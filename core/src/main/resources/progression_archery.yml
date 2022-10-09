@@ -1,11 +1,11 @@
 starting_perks:
-  archery_bow_damage_multiplier_set: 0.7
-  archery_crossbow_damage_multiplier_set: 0.7
-  archery_crit_damage_multiplier_set: 1.3
-  archery_damage_distance_base_multiplier_set: 0.7
-  archery_damage_distance_multiplier_set: 0.15
-  archery_inaccuracy_set: 5
-  archery_infinity_damage_multiplier_set: 0.7
+  archery_bow_damage_multiplier_add: -0.3 # default 1.0, now 0.7
+  archery_crossbow_damage_multiplier_add: -0.3 # default 1.0, now 0.7
+  archery_crit_damage_multiplier_add: 0.3 # default 1, now 1.3
+  archery_damage_distance_base_multiplier_add: -0.3 # default 1.0, now 0.7
+  archery_damage_distance_multiplier_add: 0.15 # default 0, now 0.15
+  archery_inaccuracy_add: 8 # default 0, now 8
+  archery_infinity_damage_multiplier_add: -0.3 # default 1.0, now 0.7
   unlock_recipes:
     - craft_wooden_feather_arrows
     - craft_wooden_paper_arrows
@@ -51,18 +51,6 @@ leveling_perks: # Perk rewards executed on the player every time they level
   archery_inaccuracy_add: -0.02 # bow inaccuracy gradually decreases from 5 to 3
 
 starting_coordinates: '4,9' # The coordinates in the skill tree the player sees first when switching to the skill tree
-
-#   0123456789
-# 0 ####5#####
-# 1 ####4#####
-# 2 ##########
-# 3 ####3#####
-# 4 ##########
-# 5 ##A#2#a###
-# 6 B#######b#
-# 7 ####1#####
-# 8 ##########
-# 9 ####R#####
 
 perks:
   archery_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
@@ -269,8 +257,8 @@ perks:
     description: '<lang.skill-archery-perk-crit-2-description>'
     required_lv: 80
     perk_rewards:
-      archery_crit_damage_multiplier_set: 2.0
-      archery_stun_duration_set: 30
+      archery_crit_damage_multiplier_add: 0.7 # previously 1.3, now 2.0
+      archery_stun_duration_add: 30 # default 0, now 30
     messages:
       - '<lang.skill-archery-perk-crit-2-messages>'
   archery_perk_special_1:
@@ -285,9 +273,9 @@ perks:
     required_lv: 60
     perk_rewards:
       archery_charged_shot_velocity_bonus_add: 0.3
-      archery_charged_shot_cooldown_set: 30000
+      archery_charged_shot_cooldown_add: 30001 # default -1, now 30000
       archery_charged_shot_charges_add: 3
-      archery_charged_shot_knockback_set: 1
+      archery_charged_shot_knockback_add: 1 # default 0, now 1
       archery_charged_shot_piercing_bonus_add: 1
     messages:
       - '<lang.skill-archery-perk-special-1-messages>'
@@ -303,7 +291,7 @@ perks:
     required_lv: 80
     perk_rewards:
       archery_charged_shot_full_velocity: true
-      archery_charged_shot_cooldown_set: 20000
+      archery_charged_shot_cooldown_add: -10000 # previously 30000, now 20000
       archery_charged_shot_charges_add: 2
       archery_charged_shot_piercing_bonus_add: 1
     messages:

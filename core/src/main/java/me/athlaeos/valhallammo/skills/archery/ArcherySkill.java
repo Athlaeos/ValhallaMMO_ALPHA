@@ -56,6 +56,8 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
     private static boolean special_arrow_trails = true;
     private static double special_arrow_trail_duration = 3;
 
+    private final double inaccuracy_value;
+
     public double getFacing_angle() {
         return facing_angle;
     }
@@ -77,6 +79,8 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_archery.yml").get();
 
         this.loadCommonConfig(archeryConfig, progressionConfig);
+
+        inaccuracy_value = archeryConfig.getDouble("inaccuracy_value");
 
         bow_exp_base = progressionConfig.getDouble("experience.bow_exp_base");
         crossbow_exp_base = progressionConfig.getDouble("experience.crossbow_exp_base");
@@ -357,9 +361,9 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                 aV.multiply(strength); // restore the initial speed to the arrow
 
                 inaccuracy = Math.max(0, inaccuracy);
-                aV.setX(aV.getX() + Utils.getRandom().nextGaussian() * 0.0075 * inaccuracy);
-                aV.setY(aV.getY() + Utils.getRandom().nextGaussian() * 0.0075 * inaccuracy);
-                aV.setY(aV.getY() + Utils.getRandom().nextGaussian() * 0.0075 * inaccuracy);
+                aV.setX(aV.getX() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
+                aV.setY(aV.getY() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
+                aV.setY(aV.getY() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
 
                 arrow.setVelocity(aV);
             }

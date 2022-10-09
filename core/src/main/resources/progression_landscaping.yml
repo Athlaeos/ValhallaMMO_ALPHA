@@ -1,10 +1,7 @@
 starting_perks:
-  digging_drop_multiplier_set: 1.0
-  digging_rare_drop_rate_multiplier_set: 0.0
-  woodcutting_drop_multiplier_set: 1.0
-  woodcutting_rare_drop_rate_multiplier_set: 0.0
-  woodstripping_rare_drop_rate_multiplier_set: 0.0
-  landscaping_tree_capitator_cooldown_set: -1
+  digging_rare_drop_rate_multiplier_add: -1 # default 1, now 0
+  woodcutting_rare_drop_rate_multiplier_add: -1 # default 1, now 0
+  woodstripping_rare_drop_rate_multiplier_add: -1 # default 1, now 0
 
 experience: # Everything about leveling and experience progression for Landscaping
   max_level: 100 # Max level for landscaping, players can still gain exp after reaching 100
@@ -101,8 +98,8 @@ perks:
     description: '<lang.skill-landscaping-perk-digging-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
-      digging_rare_drop_rate_multiplier_set: 0.5
-      digging_experience_rate_set: 0.05 # 0.05 equals to about 1 in every 20 blocks giving 1 point of experience
+      digging_rare_drop_rate_multiplier_add: 0.5 # was 0, now 0.5
+      digging_experience_rate_add: 0.05 # default 0, now 0.5. 0.05 equals to about 1 in every 20 blocks giving 1 point of experience
     messages:
       - '<lang.skill-landscaping-perk-digging-ranked-1-messages>'
   landscaping_digging_ranked_2:
@@ -144,9 +141,9 @@ perks:
     description: '<lang.skill-landscaping-perk-woodcutting-ranked-1-description>'
     required_lv: 0
     perk_rewards:
-      woodcutting_rare_drop_rate_multiplier_set: 0.5
+      woodcutting_rare_drop_rate_multiplier_add: 0.5 # was 0, now 0.5
       woodstripping_rare_drop_rate_multiplier_add: 0.5
-      woodcutting_experience_rate_set: 0.05
+      woodcutting_experience_rate_add: 0.05 # default 0, now 0.5
     messages:
       - '<lang.skill-landscaping-perk-woodcutting-ranked-1-messages>'
   landscaping_woodcutting_ranked_2:
@@ -193,7 +190,7 @@ perks:
     required_lv: 20
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
-      landscaping_tree_capitator_cooldown_set: 60000
+      landscaping_tree_capitator_cooldown_add: 10001 # default -1, now 10001
       landscaping_tree_capitator_blocks_add:
         - OAK_LOG
         - OAK_WOOD
@@ -230,6 +227,7 @@ perks:
     required_lv: 60
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
+      landscaping_tree_capitator_cooldown_add: -5000 # was 10000, now 5000
       landscaping_tree_capitator_blocks_add:
         - DARK_OAK_LOG
         - DARK_OAK_WOOD
@@ -266,7 +264,7 @@ perks:
     required_lv: 100
     perk_rewards:
       landscaping_instant_growth_rate_add: 0.5
-      landscaping_tree_capitator_cooldown_set: 15000
+      landscaping_tree_capitator_cooldown_add: -5000 # was 5000, now 0
       landscaping_tree_capitator_blocks_add:
         - CRIMSON_STEM
         - CRIMSON_HYPHAE

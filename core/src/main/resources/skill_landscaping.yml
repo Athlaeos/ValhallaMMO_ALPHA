@@ -10,6 +10,7 @@ levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, 
 tree_capitator_instant: true # If true, tree capitator breaks trees instantly
 break_limit_tree_capitator: 128 # Maximum amount of blocks the Ultra Harvesting special ability is allowed to break
 leaf_decay_limit_tree_capitator: 384 # The max amount of leaves tree capitator will attempt to decay after treecapitator. If 0, this is disabled
+instant_pickup_tree_capitator: true # If true, blocks broken from tree capitator are instantly added to the player's inventory if they have space
 
 forgiving_multipliers: true # drop multipliers below 0 will, if false, sometimes cause blocks mined to not drop anything.
 # if true, the drop amount can not go below 1 so only blocks that drop multiple items (such as redstone ore, lapis lazuli ore,

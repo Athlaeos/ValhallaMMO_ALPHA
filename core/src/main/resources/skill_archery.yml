@@ -13,6 +13,8 @@ levelbar_style: SEGMENTED_6 # You can choose between SEGMENTED_6, SEGMENTED_10, 
 # Distances beyond this amount will not affect the damage of shots further
 distance_limit: 50
 
+inaccuracy_value: 0.015 # The strength of the inaccuracy stat,
+
 prevent_crits_facing_shooter: true # If enabled, no matter what, the shooter will never be able to stun if the shot enemy is facing the shooter
 facing_angle: 70 # The angle between the target's line of vision and to the shooter which the plugin would consider
 # the target to be "facing" the shooter, the effective angle of vision is double this value.

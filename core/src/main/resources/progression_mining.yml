@@ -1,10 +1,8 @@
 starting_perks:
-  mining_rare_drop_rate_multiplier_set: 0.0
-  blast_mining_rare_drop_rate_multiplier_set: 0.0
-  mining_drop_multiplier_set: 0.7
-  blast_mining_drop_multiplier_set: 1.0
-  blast_mining_tnt_radius_multiplier_set: 1.0
-  mining_ore_experience_multiplier_set: 0.5
+  mining_rare_drop_rate_multiplier_add: -1.0 # default 1, now 0
+  blast_mining_rare_drop_rate_multiplier_add: -1.0 # default 1, now 0
+  mining_drop_multiplier_add: -0.3 # default 1, now 0.7
+  mining_ore_experience_multiplier_add: -0.5 # default 1, now 0.5
 
 experience: # Everything about leveling and experience progression for Smithing
   max_level: 100 # Max level for alchemy, players can still gain exp after reaching 100
@@ -74,7 +72,7 @@ special_perks: # Perks, commands, and messages executed when a player reaches a 
     perk_rewards:
       mining_quickmode_rate_set: 6 # every 6 blocks the player instant mines they lose 1 saturation, then hunger, then health
       # starting with 6 points equates to about 250 blocks mined on a full stomach with full health, or about 10 obsidian blocks
-      mining_quickmode_cooldown_set: 60000
+      mining_quickmode_cooldown_add: 60001 # default -1, now 60000
     messages:
       - '<lang.skill-mining-automatic-unlock-overdrive>'
   60:
@@ -108,17 +106,6 @@ leveling_perks: # Perk rewards executed on the player every time they level
   mining_drop_multiplier_add: 0.008 # amount of drops gradually increases from 0.7-1.5x drops
   blast_mining_drop_multiplier_add: 0.01 # amount of drops gradually increases from 1-2x drops
 
-#   012345678 14-16 perks/skill
-#0  ######### 1-5 efficiency 20-40-60-80-100
-#1  ####9#### 6 quickmine endurance 40
-#2  ######### 7 vein mine I 60
-#3  ####8#### 8 quickmine endurance 80
-#4  ######### 9 vein mine II 100
-#5  ####7#### a blast radius/blast protection+ 30
-#6  ######### b blast (rare) drops+ 30
-#7  ####6#### c better tnt recipe unlock 50
-#8  #b#####d# d blast (rare) drops+ 50
-#9  ##a#5#c## e blast radius/blast protection max 90
 starting_coordinates: '4,8' # The coordinates in the skill tree the player sees first when switching to the skill tree
 
 perks:
@@ -209,7 +196,7 @@ perks:
     description: '<lang.skill-mining-perk-main-1-description>'
     required_lv: 40
     perk_rewards:
-      mining_vein_mining_cooldown_set: 10000
+      mining_vein_mining_cooldown_add: 1 # default -1, now 0
       mining_vein_mining_blocks_add:
         - COAL_ORE
         - DEEPSLATE_COAL_ORE
@@ -244,7 +231,7 @@ perks:
     required_lv: 60
     perk_rewards:
       mining_quickmode_rate_add: 2
-      mining_quickmode_cooldown_set: 45000
+      mining_quickmode_cooldown_add: -15000 # was 60000, now 45000
     messages:
       - '<lang.skill-mining-perk-main-2-messages>'
   mining_perk_main_3:
@@ -259,7 +246,7 @@ perks:
     required_lv: 80
     perk_rewards:
       mining_quickmode_rate_add: 4
-      mining_quickmode_cooldown_set: 30000
+      mining_quickmode_cooldown_add: -15000 # was 45000, now 30000
     messages:
       - '<lang.skill-mining-perk-main-3-messages>'
   mining_perk_main_4:
@@ -354,8 +341,8 @@ perks:
     description: '<lang.skill-mining-perk-blast-mining-e-description>'
     required_lv: 70
     perk_rewards:
-      blast_mining_tnt_radius_multiplier_set: 2.0
-      blast_mining_tnt_damage_multiplier_set: 0
+      blast_mining_tnt_radius_multiplier_add: 0.5 # was 1.5, now 2
+      blast_mining_tnt_damage_multiplier_add: -1 # default 1, now 0
     messages:
       - '<lang.skill-mining-perk-blast-mining-e-messages>'
   blast_mining_perk_e_silk:

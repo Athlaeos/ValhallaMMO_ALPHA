@@ -25,7 +25,7 @@ public class ArcheryProfile extends Profile implements Serializable {
     private boolean critonfacingaway = false;
     private boolean critonstandingstill = false;
     private boolean critonstealth = false;
-    private float critdamagemultiplier = 1.5f;
+    private float critdamagemultiplier = 1f;
     private float inaccuracy = 0f;
     private float damagedistancebasemultiplier = 1f;
     private float damagedistancemultiplier = 0f;
