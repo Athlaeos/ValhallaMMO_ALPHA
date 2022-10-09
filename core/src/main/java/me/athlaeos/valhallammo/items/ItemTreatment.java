@@ -20,5 +20,6 @@ public enum ItemTreatment {
     SUPERHEATING,
     STUDDING,
     GENERIC_IMPROVEMENT,
-    UNENCHANTABLE
+    UNENCHANTABLE,
+    UNMENDABLE
 }

@@ -341,7 +341,6 @@ public class EntityDamagedListener implements Listener {
                     }
                     ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(),
                             () -> {
-                                System.out.println(" custom damage : " + customDamage);
                                 if (!finalCancelImmunityDueToOverride) ((LivingEntity) e.getEntity()).setNoDamageTicks(finalIFrames);
                                 AttributeInstance maxHealthAttribute = ((LivingEntity) e.getEntity()).getAttribute(Attribute.GENERIC_MAX_HEALTH);
                                 double maxHealth = -1;
@@ -352,6 +351,9 @@ public class EntityDamagedListener implements Listener {
                                             ((LivingEntity) e.getEntity()).setHealth(Math.max(0, currentHealth - customDamage - 1));
                                             throw new IllegalArgumentException("GENERIC_MAX_HEALTH is still null");
                                         }
+//                                        if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent){
+//                                            ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager().sendMessage(Utils.chat("custom damage " + customDamage + " dealt, current health was " + currentHealth));
+//                                        }
                                         ((LivingEntity) e.getEntity()).setHealth(Math.max(0, Math.min(maxHealth, currentHealth - customDamage)));
                                     } catch (IllegalArgumentException ignored) {
                                         // this should never happen because the generic max health attribute should never be null
@@ -463,7 +465,7 @@ public class EntityDamagedListener implements Listener {
         double reach = AccumulativeStatManager.getInstance().getStats("ATTACK_REACH_BONUS", e.getDamager(), true);
         if (reach < 0 && e.getDamager() instanceof LivingEntity) {
             RayTraceResult rayTrace = e.getDamager().getWorld().rayTrace(((LivingEntity) e.getDamager()).getEyeLocation(),
-                    ((LivingEntity) e.getDamager()).getEyeLocation().getDirection(), 2.9 + reach, FluidCollisionMode.NEVER, true, 0.5, (entity) -> !(entity.equals(e.getDamager()) || entity.equals(e.getDamager().getVehicle())));
+                    ((LivingEntity) e.getDamager()).getEyeLocation().getDirection(), 2.5 + reach, FluidCollisionMode.NEVER, true, 0.5, (entity) -> !(entity.equals(e.getDamager()) || entity.equals(e.getDamager().getVehicle())));
             if (rayTrace == null || rayTrace.getHitEntity() == null) {
                 e.setCancelled(true);
                 return;
@@ -507,7 +509,7 @@ public class EntityDamagedListener implements Listener {
                 double knockbackResistance = AccumulativeStatManager.getInstance().getStats("KNOCKBACK_RESISTANCE", e.getEntity(), e.getDamager(), true);
                 double knockbackBonus = AccumulativeStatManager.getInstance().getStats("KNOCKBACK_BONUS", e.getEntity(), e.getDamager(), true);
                 if (knockbackBonus < 0) {
-                    knockbackResistance += -knockbackBonus;
+                    knockbackResistance -= knockbackBonus;
                 } else {
                     knockbackBonus *= (1 - knockbackResistance);
                 }

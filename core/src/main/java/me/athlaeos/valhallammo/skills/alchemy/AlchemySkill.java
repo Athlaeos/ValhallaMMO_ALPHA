@@ -5,17 +5,22 @@ import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
+import me.athlaeos.valhallammo.skills.InteractSkill;
 import me.athlaeos.valhallammo.skills.ProjectileSkill;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupArrowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -23,12 +28,15 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.List;
 
-public class AlchemySkill extends Skill implements ProjectileSkill {
+public class AlchemySkill extends Skill implements ProjectileSkill, InteractSkill {
+
+    private final boolean quick_empty_potions;
     public AlchemySkill(String type) {
         super(type);
         skillTreeMenuOrderPriority = 3;
         YamlConfiguration alchemyConfig = ConfigManager.getInstance().getConfig("skill_alchemy.yml").get();
         YamlConfiguration progressionConfig = ConfigManager.getInstance().getConfig("progression_alchemy.yml").get();
+        quick_empty_potions = alchemyConfig.getBoolean("quick_empty_potions");
 
         this.loadCommonConfig(alchemyConfig, progressionConfig);
     }
@@ -119,5 +127,27 @@ public class AlchemySkill extends Skill implements ProjectileSkill {
     @Override
     public void onArrowPickup(PlayerPickupArrowEvent event) {
 
+    }
+
+    @Override
+    public void onEntityInteract(PlayerInteractEntityEvent event) {
+
+    }
+
+    @Override
+    public void onAtEntityInteract(PlayerInteractAtEntityEvent event) {
+
+    }
+
+    @Override
+    public void onInteract(PlayerInteractEvent event) {
+        if (!quick_empty_potions) return;
+        if (event.getClickedBlock() != null && (event.getClickedBlock().getType() == Material.CAULDRON || event.getClickedBlock().getType().toString().equals("WATER_CAULDRON"))){
+            ItemStack inHandItem = event.getPlayer().getInventory().getItemInMainHand();
+            if (Utils.isItemEmptyOrNull(inHandItem) || inHandItem.getType() != Material.POTION) return;
+            inHandItem.setType(Material.GLASS_BOTTLE);
+            event.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.GLASS_BOTTLE, inHandItem.getAmount()));
+            event.getClickedBlock().getWorld().playSound(event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5), Sound.BLOCK_BREWING_STAND_BREW, 1F, 1F);
+        }
     }
 }

@@ -106,6 +106,7 @@ public class PlaceholderManager {
         registerPlaceholder(new EnchantingRefundAmount("%enchanting_refund_amount%"));
         registerPlaceholder(new EnchantingVanillaEXPMultiplier("%enchanting_vanilla_exp_multiplier%"));
         registerPlaceholder(new EnchantingAmplifyChance("%enchanting_amplify_chance%"));
+        registerPlaceholder(new EnchantingAnvilSkill("%enchanting_skill_anvil%"));
 
         // FARMING
         registerPlaceholder(new FarmingAnimalDamageMultiplier("%farming_animal_damage_multiplier%"));

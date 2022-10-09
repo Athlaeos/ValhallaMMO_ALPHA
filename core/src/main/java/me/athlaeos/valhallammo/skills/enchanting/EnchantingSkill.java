@@ -21,6 +21,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -34,6 +35,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.*;
 
@@ -45,6 +47,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
 
     private final double diminishingReturnsMultiplier;
     private final int diminishingReturnsCount;
+    private final boolean anvil_downgrading;
     private final List<EntityType> diminishingReturnsEntities = new ArrayList<>();
     private final Map<EntityType, Double> entityEXPMultipliers = new HashMap<>();
     private final Map<UUID, Integer> diminishingReturnTallyCounter = new HashMap<>();
@@ -61,6 +64,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
 
         this.loadCommonConfig(enchantmentConfig, progressionConfig);
 
+        this.anvil_downgrading = enchantmentConfig.getBoolean("anvil_downgrading");
         this.diminishingReturnsMultiplier = progressionConfig.getDouble("experience.diminishing_returns.multiplier");
         this.diminishingReturnsCount = progressionConfig.getInt("experience.diminishing_returns.amount");
         for (String s : progressionConfig.getStringList("experience.diminishing_returns.on")){
@@ -266,14 +270,28 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
             event.setCancelled(true);
             return;
         }
+
         int generalSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_GENERAL", enchanter, true);
         int vanillaSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_VANILLA", enchanter, true);
         double chance = AccumulativeStatManager.getInstance().getStats("ENCHANTING_AMPLIFY_CHANCE", enchanter, true);
 
         for (Enchantment en : event.getEnchantsToAdd().keySet()){
             if (Utils.getRandom().nextDouble() <= chance){
-                Map<Enchantment, Integer> newEnchantments = EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(item, generalSkill + vanillaSkill, en, event.getEnchantsToAdd().get(en));
+                Map<Enchantment, Integer> newEnchantments = EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentScaling(generalSkill + vanillaSkill, en, event.getEnchantsToAdd().get(en));
                 event.getEnchantsToAdd().putAll(newEnchantments);
+            }
+        }
+
+
+        Map<Integer, EnchantmentOffer[]> cachedOffers = storedEnchantmentOffers.getOrDefault(enchanter.getUniqueId(), new HashMap<>()).getOrDefault(event.getItem().getType(), new HashMap<>());
+        if (enchantmentOfferSkillLevels.getOrDefault(enchanter.getUniqueId(), 0) == (vanillaSkill + generalSkill)) {
+            offersLoop: for (EnchantmentOffer[] offers : cachedOffers.values()){
+                for (EnchantmentOffer offer : offers){
+                    if (offer.getCost() == event.getExpLevelCost() && event.getEnchantsToAdd().containsKey(offer.getEnchantment())) {
+                        event.getEnchantsToAdd().put(offer.getEnchantment(), offer.getEnchantmentLevel());
+                        break offersLoop;
+                    }
+                }
             }
         }
 
@@ -313,56 +331,195 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
             }
         }
 
-        if (Utils.getRandom().nextDouble() <= AccumulativeStatManager.getInstance().getStats("ENCHANTING_REFUND_CHANCE", event.getEnchanter(), true)){
+        double refundChance = AccumulativeStatManager.getInstance().getStats("ENCHANTING_REFUND_CHANCE", event.getEnchanter(), true);
+        if (Utils.getRandom().nextDouble() <= refundChance){
             double refundAmount = Math.max(0, Math.min(AccumulativeStatManager.getInstance().getStats("ENCHANTING_REFUND_AMOUNT", event.getEnchanter(), true), 1D));
             // refundAmount is now a value between 0 and 1
-            int refunded = Utils.excessChance(consumed * refundAmount);
-            event.getEnchanter().giveExpLevels(refunded);
+            int expSpent = Utils.getTotalExperience(enchanter.getLevel()) - Utils.getTotalExperience(enchanter.getLevel() - (event.whichButton() + 1));
+
+            int refunded = Utils.excessChance(expSpent * refundAmount);
+            event.getEnchanter().giveExp(Math.max(0, refunded));
         }
 
         rewardEXPForEnchantments(enchanter, item, event.getEnchantsToAdd());
+        resetPlayerEnchantmentCache(enchanter);
+    }
+
+    private static final Map<UUID, Map<Material, Map<Integer, EnchantmentOffer[]>>> storedEnchantmentOffers = new HashMap<>();
+    private static final Map<UUID, Integer> enchantmentOfferSkillLevels = new HashMap<>();
+
+    public static void resetPlayerEnchantmentCache(Player p){
+        storedEnchantmentOffers.remove(p.getUniqueId());
+        enchantmentOfferSkillLevels.remove(p.getUniqueId());
     }
 
     @Override
     public void onPrepareEnchant(PrepareItemEnchantEvent event) {
         if (SmithingItemTreatmentManager.getInstance().hasTreatment(event.getItem(), ItemTreatment.UNENCHANTABLE)) {
             event.setCancelled(true);
+            return;
+        }
+        Map<Material, Map<Integer, EnchantmentOffer[]>> existingMaterialOffers = storedEnchantmentOffers.getOrDefault(event.getEnchanter().getUniqueId(), new HashMap<>());
+        Map<Integer, EnchantmentOffer[]> existingLevelOffers = existingMaterialOffers.getOrDefault(event.getItem().getType(), new HashMap<>());
+        if (!existingLevelOffers.containsKey(event.getEnchantmentBonus())){
+            int generalSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_GENERAL", event.getEnchanter(), true);
+            int vanillaSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_VANILLA", event.getEnchanter(), true);
+            double chance = AccumulativeStatManager.getInstance().getStats("ENCHANTING_AMPLIFY_CHANCE", event.getEnchanter(), true);
+
+            EnchantingItemEnchantmentsManager.getInstance().applyEnchantmentOffersScaling(generalSkill + vanillaSkill, event.getOffers(), chance);
+
+            existingLevelOffers.put(event.getEnchantmentBonus(), event.getOffers());
+            existingMaterialOffers.put(event.getItem().getType(), existingLevelOffers);
+            enchantmentOfferSkillLevels.put(event.getEnchanter().getUniqueId(), generalSkill + vanillaSkill);
+            storedEnchantmentOffers.put(event.getEnchanter().getUniqueId(), existingMaterialOffers);
+        } else {
+            EnchantmentOffer[] storedOffers = existingLevelOffers.get(event.getEnchantmentBonus());
+            for (int i = 0; i < storedOffers.length && i < event.getOffers().length; i++){
+                event.getOffers()[i] = storedOffers[i];
+            }
         }
     }
 
+
+    private final Map<UUID, Map<Enchantment, Integer>> anvilMaxLevelCache = new HashMap<>();
+
     @Override
     public void onAnvilUsage(PrepareAnvilEvent event) {
+        Player combiner = (Player) event.getView().getPlayer();
         ItemStack item1 = event.getInventory().getItem(0);
-        if (Utils.isItemEmptyOrNull(item1)) return;
         ItemStack item2 = event.getInventory().getItem(1);
-        if (Utils.isItemEmptyOrNull(item2)) return;
         ItemStack result = event.getResult();
-        if (Utils.isItemEmptyOrNull(result)) return;
+        if (!Utils.isItemEmptyOrNull(item1) && !Utils.isItemEmptyOrNull(item2) && !Utils.isItemEmptyOrNull(result)) {
+            // If item 1 or item 2 have the UNENCHANTABLE tag, and the result has different enchantments from item1 it implies
+            // the player attempted to combine items that are unenchantable and should therefore not be combined
+            // if the result ends up having the same enchantments as item 1 it can be assumed no enchantments are added to
+            // the item, and so this event should not be interfered with. if any of the items in the anvil are empty,
+            // nothing is being combined(successfully) and so nothing is wrong
+            if (SmithingItemTreatmentManager.getInstance().hasTreatment(item1, ItemTreatment.UNENCHANTABLE)
+                    || SmithingItemTreatmentManager.getInstance().hasTreatment(item2, ItemTreatment.UNENCHANTABLE)){
+                boolean matches = result.getEnchantments().size() == item1.getEnchantments().size();
+                if (matches){
+                    for (Enchantment e : item1.getEnchantments().keySet()){
+                        if (!result.getEnchantments().containsKey(e)){
+                            matches = false;
+                            break;
+                        }
+                        if (result.getEnchantments().get(e).intValue() != item1.getEnchantments().get(e).intValue()){
+                            matches = false;
+                            break;
+                        }
+                    }
+                }
 
-        // If item 1 or item 2 have the UNENCHANTABLE tag, and the result has different enchantments from item1 it implies
-        // the player attempted to combine items that are unenchantable and should therefore not be combined
-        // if the result ends up having the same enchantments as item 1 it can be assumed no enchantments are added to
-        // the item, and so this event should not be interfered with. if any of the items in the anvil are empty,
-        // nothing is being combined(successfully) and so nothing is wrong
-        if (SmithingItemTreatmentManager.getInstance().hasTreatment(item1, ItemTreatment.UNENCHANTABLE)
-        || SmithingItemTreatmentManager.getInstance().hasTreatment(item2, ItemTreatment.UNENCHANTABLE)){
-            boolean matches = result.getEnchantments().size() == item1.getEnchantments().size();
-            if (matches){
-                for (Enchantment e : item1.getEnchantments().keySet()){
-                    if (!result.getEnchantments().containsKey(e)){
-                        matches = false;
-                        break;
-                    }
-                    if (result.getEnchantments().get(e).intValue() != item1.getEnchantments().get(e).intValue()){
-                        matches = false;
-                        break;
-                    }
+                if (!matches){
+                    event.setResult(null);
+                    return;
                 }
             }
 
-            if (!matches){
-                event.setResult(null);
+            if (item2.getItemMeta() instanceof EnchantmentStorageMeta){
+                if (((EnchantmentStorageMeta) item2.getItemMeta()).getStoredEnchants().isEmpty()) return;
+            } else if (item2.getEnchantments().isEmpty()) return;
+
+            Map<Enchantment, Integer> maxLevels;
+            if (!anvilMaxLevelCache.containsKey(combiner.getUniqueId())){
+                if (combiner.getGameMode() == GameMode.CREATIVE){
+                    maxLevels = new HashMap<>();
+                    for (Enchantment e : Enchantment.values()){
+                        maxLevels.put(e, e.getMaxLevel() == 1 ? 1 : Integer.MAX_VALUE);
+                    }
+                } else {
+                    int playerAnvilSkill = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_QUALITY_ANVIL", combiner, true);
+                    maxLevels = EnchantingItemEnchantmentsManager.getInstance().getAnvilMaxLevels(playerAnvilSkill);
+                    anvilMaxLevelCache.put(combiner.getUniqueId(), maxLevels);
+                }
+            } else {
+                maxLevels = anvilMaxLevelCache.get(combiner.getUniqueId());
+                ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(
+                        ValhallaMMO.getPlugin(),
+                        () -> anvilMaxLevelCache.remove(combiner.getUniqueId()),
+                        5L);
+            }
+            event.getInventory().setMaximumRepairCost(Integer.MAX_VALUE);
+            combiner.updateInventory();
+
+            Map<Enchantment, Integer> item1Enchantments = new HashMap<>();
+            Map<Enchantment, Integer> item2Enchantments = new HashMap<>();
+            Map<Enchantment, Integer> resultEnchantments = new HashMap<>();
+            if (item1.getItemMeta() instanceof EnchantmentStorageMeta){
+                item1Enchantments.putAll(((EnchantmentStorageMeta) item1.getItemMeta()).getStoredEnchants());
+            } else {
+                item1Enchantments.putAll(item1.getEnchantments());
+            }
+
+            if (item2.getItemMeta() instanceof EnchantmentStorageMeta){
+                item2Enchantments.putAll(((EnchantmentStorageMeta) item2.getItemMeta()).getStoredEnchants());
+            } else {
+                item2Enchantments.putAll(item2.getEnchantments());
+            }
+
+            if (result.getItemMeta() instanceof EnchantmentStorageMeta){
+                resultEnchantments.putAll(((EnchantmentStorageMeta) result.getItemMeta()).getStoredEnchants());
+            } else {
+                resultEnchantments.putAll(result.getEnchantments());
+            }
+            Map<Enchantment, Integer> newEnchantments = combineEnchantments(item1Enchantments, item2Enchantments, maxLevels);
+            for (Enchantment e : resultEnchantments.keySet()){
+                if (!newEnchantments.containsKey(e)) continue;
+                resultEnchantments.put(e, newEnchantments.get(e));
+            }
+
+            if (result.getItemMeta() instanceof EnchantmentStorageMeta){
+                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) result.getItemMeta();
+                for (Enchantment e : meta.getStoredEnchants().keySet()){
+                    meta.removeStoredEnchant(e);
+                }
+                for (Enchantment e : resultEnchantments.keySet()){
+                    meta.addStoredEnchant(e, resultEnchantments.get(e), true);
+                }
+                result.setItemMeta(meta);
+            } else {
+                for (Enchantment e : result.getEnchantments().keySet()){
+                    result.removeEnchantment(e);
+                }
+                result.addUnsafeEnchantments(resultEnchantments);
+            }
+            event.setResult(result);
+
+            if (event.getInventory().getRepairCost() >= 40){
+                event.getInventory().setRepairCost(39);
+            }
+
+            combiner.updateInventory();
+        }
+    }
+
+    private Map<Enchantment, Integer> combineEnchantments(Map<Enchantment, Integer> item1Enchantments, Map<Enchantment, Integer> item2Enchantments, Map<Enchantment, Integer> maxAllowed){
+        Map<Enchantment, Integer> newEnchantments = new HashMap<>();
+
+        for (Enchantment e : item1Enchantments.keySet()){
+            int level = item1Enchantments.get(e);
+            int maxLevel = maxAllowed.getOrDefault(e, e.getMaxLevel());
+            if (item2Enchantments.containsKey(e)){
+                int compareLevel = item2Enchantments.get(e);
+                if (level == compareLevel){
+                    newEnchantments.put(e, (!anvil_downgrading && maxLevel <= level ? level : Math.min(maxLevel, level + 1)));
+                } else {
+                    newEnchantments.put(e, (!anvil_downgrading && maxLevel <= level ? level : Math.min(maxLevel, Math.max(level, compareLevel))));
+                }
+            } else {
+                newEnchantments.put(e, (!anvil_downgrading && maxLevel <= level ? level : Math.min(maxLevel, level)));
             }
         }
+
+        for (Enchantment e : item2Enchantments.keySet()){
+            int level = item2Enchantments.get(e);
+            int maxLevel = maxAllowed.getOrDefault(e, e.getMaxLevel());
+            if (!item1Enchantments.containsKey(e)){
+                newEnchantments.put(e, (!anvil_downgrading && maxLevel <= level ? level : Math.min(maxLevel, level)));
+            }
+        }
+
+        return newEnchantments;
     }
 }

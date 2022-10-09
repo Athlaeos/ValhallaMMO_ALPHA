@@ -51,6 +51,7 @@ public class PotionInventoryListenerUpdated implements Listener {
             if (e.getClickedInventory() instanceof BrewerInventory) {
                 if (location == null) return;
                 if (e.getClickedInventory().getType() != InventoryType.BREWING) return;
+
                 if (e.getSlot() <= 3 && e.getSlot() >= 0) {
                     //Make it possible to place in everything into the ingredient slot
                     if (e.isRightClick()) {
@@ -78,20 +79,21 @@ public class PotionInventoryListenerUpdated implements Listener {
                 }
             } else if (e.getClickedInventory() instanceof PlayerInventory && e.getClick().isShiftClick() && !Utils.isItemEmptyOrNull(e.getCurrentItem())){
                 int inputSlot = Utils.isItemEmptyOrNull(inventory.getItem(3)) ? 3 : inventory.firstEmpty();
-                if (inputSlot < 0) return;
-                if (!(e.getCurrentItem().getType() != Material.BLAZE_POWDER && inputSlot == 4)){
-                    // item material is a special case where it prefers to be in a different item slot (such as blaze powder in the fuel slot)
-                    if (preferredMaterialSlots.containsKey(e.getCurrentItem().getType())){
-                        for (int slot : preferredMaterialSlots.get(e.getCurrentItem().getType())){
-                            if (Utils.isItemEmptyOrNull(inventory.getItem(slot))) {
-                                inputSlot = slot;
-                                break;
+                if (inputSlot >= 0) {
+                    if (!(e.getCurrentItem().getType() != Material.BLAZE_POWDER && inputSlot == 4)){
+                        // item material is a special case where it prefers to be in a different item slot (such as blaze powder in the fuel slot)
+                        if (preferredMaterialSlots.containsKey(e.getCurrentItem().getType())){
+                            for (int slot : preferredMaterialSlots.get(e.getCurrentItem().getType())){
+                                if (Utils.isItemEmptyOrNull(inventory.getItem(slot))) {
+                                    inputSlot = slot;
+                                    break;
+                                }
                             }
                         }
+                        inventory.setItem(inputSlot, e.getCurrentItem().clone());
+                        e.setCurrentItem(null);
+                        e.setCancelled(true);
                     }
-                    inventory.setItem(inputSlot, e.getCurrentItem().clone());
-                    e.setCurrentItem(null);
-                    e.setCancelled(true);
                 }
             }
 
@@ -157,12 +159,13 @@ public class PotionInventoryListenerUpdated implements Listener {
                         //Cancel current running tasks and removing the brewing operation from the location
                         activeBrewingStands.get(location).getKey().cancel();
                         activeBrewingStands.remove(location);
+                        brewingStand.setBrewingTime(0);
                     }
                 } else if (!activeBrewingStands.containsKey(location)) {
                     brewingStand.setBrewingTime(400);
                     brewingStand.setFuelLevel(brewingStand.getFuelLevel() - 1);
 
-                    if (brewingStand.getFuelLevel() > 0) {
+                    if (brewingStand.getFuelLevel() >= 0) {
                         double speed = AccumulativeStatManager.getInstance().getStats("ALCHEMY_BREW_SPEED", player, true);
                         double baseTime = Math.max(1, speed <= 0 ? 4000 : 400 / speed);
                         BrewingTask runnable = new BrewingTask(player, inventory, baseTime);

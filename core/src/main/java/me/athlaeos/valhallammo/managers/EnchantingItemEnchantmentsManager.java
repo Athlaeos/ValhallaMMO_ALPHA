@@ -8,6 +8,7 @@ import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -185,21 +186,15 @@ public class EnchantingItemEnchantmentsManager {
     }
 
     /**
-     * Scales an item's custom enchantment according to the given skill points
-     * @param i the ItemStack to update its attribute scaling strength
+     * Scales an an enchantment according to the given skill points
      * @param skill the amount of skill points to use with the item's enchantment scaling
      * @param enchantment the enchantment to scale
+     * @param baseValue the base level of the enchantment
      */
-    public Map<Enchantment, Integer> applyEnchantmentScaling(ItemStack i, int skill, Enchantment enchantment, int baseValue){
+    public Map<Enchantment, Integer> applyEnchantmentScaling(int skill, Enchantment enchantment, int baseValue){
         Map<Enchantment, Integer> changedEnchantment = new HashMap<>();
-        if (i == null) {
-            return changedEnchantment;
-        }
         Scaling scaling = getScaling(enchantment);
         if (scaling == null) {
-            return changedEnchantment;
-        }
-        if (i.getItemMeta() == null) {
             return changedEnchantment;
         }
 
@@ -213,19 +208,85 @@ public class EnchantingItemEnchantmentsManager {
             }
             if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
             if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
-//            if (i.getItemMeta() instanceof EnchantmentStorageMeta){
-//                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) i.getItemMeta();
-//                meta.addStoredEnchant(enchantment, Math.max(1, (int) Math.floor(finalResult)), true);
-//                i.setItemMeta(meta);
-//            } else {
-                changedEnchantment.put(enchantment, Math.max(1, (int) Math.floor(finalResult)));
-//                i.addUnsafeEnchantment(enchantment, Math.max(1, (int) Math.floor(finalResult)));
-//            }
+
+            changedEnchantment.put(enchantment, Math.max(1, (int) Math.floor(finalResult)));
         } catch (RuntimeException e){
             ValhallaMMO.getPlugin().getLogger().severe("Attempting to parse formula " + scaling + ", but something went wrong. ");
             e.printStackTrace();
         }
         return changedEnchantment;
+    }
+
+    /**
+     * Scales an enchanting session's enchantment offers according to the given skill points
+     * @param skill the amount of skill points to use with the item's enchantment scaling
+     * @param enchantments the enchantment offers to scale
+     */
+    public void applyEnchantmentOffersScaling(int skill, EnchantmentOffer[] enchantments, double chanceForApplication){
+        for (EnchantmentOffer offer : enchantments) {
+            if (offer == null) continue;
+            if (Utils.getRandom().nextDouble() <= chanceForApplication){
+                Scaling scaling = getScaling(offer.getEnchantment());
+                if (scaling == null) {
+                    continue;
+                }
+
+                try {
+                    double scalingResult = Utils.eval(scaling.getScaling().replace("%rating%", "" + skill));
+                    double finalResult = 0;
+                    if (scaling.getScalingType() == ScalingMode.MULTIPLIER) {
+                        finalResult = Utils.round(offer.getEnchantmentLevel() * scalingResult, 3);
+                    } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT) {
+                        finalResult = Utils.round(offer.getEnchantmentLevel() + scalingResult, 3);
+                    }
+                    if (!scaling.doIgnoreUpper())
+                        if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+                    if (!scaling.doIgnoreLower())
+                        if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
+
+                    offer.setEnchantmentLevel(Math.max(1, (int) Math.floor(finalResult)));
+                } catch (RuntimeException e) {
+                    ValhallaMMO.getPlugin().getLogger().severe("Attempting to parse formula " + scaling + ", but something went wrong. ");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public Map<Enchantment, Integer> getAnvilMaxLevels(int skill){
+        Map<Enchantment, Integer> anvilMaxLevels = new HashMap<>();
+        for (Enchantment enchantment : Enchantment.values()){
+            Scaling scaling = getScaling(enchantment);
+            if (scaling == null) {
+                anvilMaxLevels.put(enchantment, enchantment.getMaxLevel());
+                continue;
+            }
+
+            try {
+                double scalingResult = Utils.eval(scaling.getScaling().replace("%rating%", "" + skill));
+                double finalResult = 0;
+                if (scaling.getScalingType() == ScalingMode.MULTIPLIER){
+                    finalResult = Utils.round(enchantment.getMaxLevel() * scalingResult, 3);
+                } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
+                    finalResult = Utils.round(enchantment.getMaxLevel() + scalingResult, 3);
+                }
+                if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+                if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
+//            if (i.getItemMeta() instanceof EnchantmentStorageMeta){
+//                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) i.getItemMeta();
+//                meta.addStoredEnchant(enchantment, Math.max(1, (int) Math.floor(finalResult)), true);
+//                i.setItemMeta(meta);
+//            } else {
+                anvilMaxLevels.put(enchantment, Math.max(1, (int) Math.floor(finalResult)));
+//                i.addUnsafeEnchantment(enchantment, Math.max(1, (int) Math.floor(finalResult)));
+//            }
+            } catch (RuntimeException e){
+                ValhallaMMO.getPlugin().getLogger().severe("Attempting to parse formula " + scaling + ", but something went wrong. ");
+                e.printStackTrace();
+            }
+        }
+
+        return anvilMaxLevels;
     }
 
     public static EnchantingItemEnchantmentsManager getInstance(){

@@ -39,7 +39,7 @@ public class ExplodingArrow extends CustomArrowAttribute {
             Location hit = e.getEntity().getLocation();
             if (e.getHitBlock() != null){
                 if (e.getHitBlockFace() != null){
-                    hit = e.getHitBlock().getRelative(e.getHitBlockFace()).getLocation();
+                    hit = e.getHitBlock().getRelative(e.getHitBlockFace()).getLocation().add(0.5, 0.5, 0.5);
                 } else {
                     hit = e.getHitBlock().getLocation().add(0.5, 0.5, 0.5);
                 }

@@ -354,6 +354,19 @@ public class SkillTreeMenu extends Menu{
                     String requirementAll = TranslationManager.getInstance().getTranslation("perk_format_requirement_all");
                     String requirement = TranslationManager.getInstance().getTranslation("perk_format_requirement");
                     String separator = TranslationManager.getInstance().getTranslation("perk_format_separator");
+                    String perk_requirement_warning_levels = TranslationManager.getInstance().getTranslation("perk_requirement_warning_levels");
+                    String perk_requirement_warning_perks = TranslationManager.getInstance().getTranslation("perk_requirement_warning_perks");
+                    String perk_requirement_status_unlockable = TranslationManager.getInstance().getTranslation("perk_requirement_status_unlockable");
+                    String perk_requirement_status_unlocked = TranslationManager.getInstance().getTranslation("perk_requirement_status_unlocked");
+                    String perk_requirement_warning_cost = TranslationManager.getInstance().getTranslation("perk_requirement_warning_cost");
+                    Profile profile = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), skill.getType());
+                    Profile tempProfile = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
+                    AccountProfile account = null;
+                    if (tempProfile != null){
+                        if (tempProfile instanceof AccountProfile){
+                            account = (AccountProfile) tempProfile;
+                        }
+                    }
                     for (String l : TranslationManager.getInstance().getList("skilltree_perk_format")){
                         if (l.contains("%requirements_one%")){
                             if (p.getRequirement_perk_one().size() > 0){
@@ -400,6 +413,46 @@ public class SkillTreeMenu extends Menu{
                                                 iconLore.add(Utils.chat(separator));
                                             }
                                         }
+                                    }
+                                }
+                            }
+                        } else if (profile != null && l.contains("%warning_levels%")){
+                            if (!p.metLevelRequirement(playerMenuUtility.getOwner())){
+                                if (perk_requirement_warning_levels != null){
+                                    if (!perk_requirement_warning_levels.equals("")){
+                                        iconLore.add(Utils.chat(perk_requirement_warning_levels));
+                                    }
+                                }
+                            }
+                        } else if (profile != null && l.contains("%warning_perks%")){
+                            if (account != null && !p.metAllPerkRequirement(account) && !p.metSinglePerkRequirement(account)){
+                                if (perk_requirement_warning_perks != null){
+                                    if (!perk_requirement_warning_perks.equals("")){
+                                        iconLore.add(Utils.chat(perk_requirement_warning_perks));
+                                    }
+                                }
+                            }
+                        } else if (profile != null && l.contains("%warning_cost%")){
+                            if (account != null && p.getCost() > account.getSpendableSkillPoints()){
+                                if (perk_requirement_warning_cost != null){
+                                    if (!perk_requirement_warning_cost.equals("")){
+                                        iconLore.add(Utils.chat(perk_requirement_warning_cost));
+                                    }
+                                }
+                            }
+                        } else if (profile != null && l.contains("%status_unlocked%")){
+                            if (account != null && p.hasUnlocked(playerMenuUtility.getOwner())){
+                                if (perk_requirement_status_unlocked != null){
+                                    if (!perk_requirement_status_unlocked.equals("")){
+                                        iconLore.add(Utils.chat(perk_requirement_status_unlocked));
+                                    }
+                                }
+                            }
+                        } else if (profile != null && l.contains("%status_unlockable%")){
+                            if (p.canUnlock(playerMenuUtility.getOwner())){
+                                if (perk_requirement_status_unlockable != null){
+                                    if (!perk_requirement_status_unlockable.equals("")){
+                                        iconLore.add(Utils.chat(perk_requirement_status_unlockable));
                                     }
                                 }
                             }

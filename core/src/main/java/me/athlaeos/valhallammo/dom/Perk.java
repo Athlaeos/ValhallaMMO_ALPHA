@@ -117,7 +117,7 @@ public class Perk {
         return false;
     }
 
-    private boolean metLevelRequirement(Player p){
+    public boolean metLevelRequirement(Player p){
         int currentLevel = 0;
         Profile profile = ProfileManager.getManager().getProfile(p, skill);
         if (profile != null){
@@ -126,7 +126,7 @@ public class Perk {
         return currentLevel >= requirement_level;
     }
 
-    private boolean metSinglePerkRequirement(AccountProfile p){
+    public boolean metSinglePerkRequirement(AccountProfile p){
         if (p != null){
             if (requirement_perk_one != null){
                 if (requirement_perk_one.size() > 0){
@@ -145,7 +145,7 @@ public class Perk {
         return false;
     }
 
-    private boolean metAllPerkRequirement(AccountProfile p){
+    public boolean metAllPerkRequirement(AccountProfile p){
         if (p != null){
             if (requirement_perk_all != null){
                 if (requirement_perk_all.size() > 0){

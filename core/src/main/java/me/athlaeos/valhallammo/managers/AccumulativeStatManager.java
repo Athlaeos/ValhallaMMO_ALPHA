@@ -141,6 +141,7 @@ public class AccumulativeStatManager {
         register("ENCHANTING_LAPIS_SAVE_CHANCE", new EnchantingProfileLapisSaveChanceSource(), new ArbitraryGlobalEffectSource("enchanting_lapis_save_chance"));
         register("ENCHANTING_REFUND_CHANCE", new EnchantingProfileRefundChanceSource(), new ArbitraryGlobalEffectSource("enchanting_exp_refund_chance"));
         register("ENCHANTING_REFUND_AMOUNT", new EnchantingProfileRefundFractionSource(), new ArbitraryGlobalEffectSource("enchanting_exp_refund_amount"));
+        register("ENCHANTING_QUALITY_ANVIL", new EnchantingProfileAnvilQualitySource(), new EnchantingPotionAnvilQualitySource());
 
         register("FARMING_BREEDING_AGE_REDUCTION", new FarmingProfileBabyAnimalAgeMultiplierSource(), new ArbitraryGlobalEffectSource("farming_animal_age_reduction"));
         register("FARMING_DAMAGE_ANIMAL_MULTIPLIER", new FarmingProfileAnimalDamageMultiplierSource());
