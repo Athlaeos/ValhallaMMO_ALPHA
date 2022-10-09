@@ -70,8 +70,7 @@ public final class ValhallaMMO extends JavaPlugin {
             this.getServer().getPluginManager().registerEvents(nms, this);
         }
         saveAndUpdateConfig("config.yml");
-        String language = ConfigManager.getInstance().getConfig("config.yml").get().getString("language");
-        saveAndUpdateConfig("languages/" + language + ".yml");
+        saveAndUpdateConfig("languages/en-us.yml");
         TranslationManager.getInstance();
 
         this.getServer().getConsoleSender().sendMessage(Utils.chat("&6[&eValhallaMMO&6] &fEnabling ValhallaMMO, this might take a bit..."));
