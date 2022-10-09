@@ -1,6 +1,6 @@
 starting_perks:
-  heavy_armor_armor_multiplier_set: 0.7
-  heavy_armor_movement_speed_penalty_set: 0.075 # reduces speed by 7.5% per piece of heavy armor (full set slows 30%)
+  heavy_armor_armor_multiplier_add: -0.3 # default 1.0, now 0.7
+  heavy_armor_movement_speed_penalty_add: 0.075 # default 0, now 0.075. reduces speed by 7.5% per piece of heavy armor (full set slows 30%)
 
 experience: # Everything about leveling and experience progression for Heavy Armor
   max_level: 100 # Max level for heavy armor, players can still gain exp after reaching 100
@@ -41,9 +41,9 @@ perks:
     description: '<lang.skill-heavy-armor-perk-ranked-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
-      heavy_armor_rage_cooldown_set: 1200000
-      heavy_armor_rage_level_set: 1
-      heavy_armor_rage_threshold_set: 0.2
+      heavy_armor_rage_cooldown_add: 1200001 # default -1, now 1200000
+      heavy_armor_rage_level_add: 1 # default 0, now 1
+      heavy_armor_rage_threshold_add: 0.2 # default 0, now 0.2
     messages:
       - '<lang.skill-heavy-armor-perk-ranked-1-messages>'
   heavy_armor_perk_ranked_2:
@@ -57,8 +57,8 @@ perks:
     description: '<lang.skill-heavy-armor-perk-ranked-2-description>'
     required_lv: 20
     perk_rewards:
-      heavy_armor_rage_cooldown_set: 960000
-      heavy_armor_rage_level_set: 2
+      heavy_armor_rage_cooldown_add: -240000 # was 1200000, now 960000
+      heavy_armor_rage_level_add: 1 # was 1, now 2
     messages:
       - '<lang.skill-heavy-armor-perk-ranked-2-messages>'
   heavy_armor_perk_ranked_3:
@@ -72,8 +72,8 @@ perks:
     description: '<lang.skill-heavy-armor-perk-ranked-3-description>'
     required_lv: 40
     perk_rewards:
-      heavy_armor_rage_cooldown_set: 720000
-      heavy_armor_rage_level_set: 3
+      heavy_armor_rage_cooldown_add: -240000 # was 960000, now 720000
+      heavy_armor_rage_level_add: 1 # was 2, now 3
     messages:
       - '<lang.skill-heavy-armor-perk-ranked-3-messages>'
   heavy_armor_perk_ranked_4:
@@ -87,8 +87,8 @@ perks:
     description: '<lang.skill-heavy-armor-perk-ranked-4-description>'
     required_lv: 60
     perk_rewards:
-      heavy_armor_rage_cooldown_set: 480000
-      heavy_armor_rage_level_set: 4
+      heavy_armor_rage_cooldown_add: -240000 # was 720000, now 480000
+      heavy_armor_rage_level_add: 1 # was 3, now 4
     messages:
       - '<lang.skill-heavy-armor-perk-ranked-4-messages>'
   heavy_armor_perk_ranked_5:
@@ -102,9 +102,9 @@ perks:
     description: '<lang.skill-heavy-armor-perk-ranked-5-description>'
     required_lv: 80
     perk_rewards:
-      heavy_armor_rage_cooldown_set: 240000
-      heavy_armor_rage_level_set: 5
-      heavy_armor_rage_threshold_set: 0.3
+      heavy_armor_rage_cooldown_add: -240000 # was 720000, now 240000
+      heavy_armor_rage_level_add: 1
+      heavy_armor_rage_threshold_add: 0.1 # was 0.2, now 0.3
     messages:
       - '<lang.skill-heavy-armor-perk-ranked-5-messages>'
   heavy_armor_perk_set_1:
@@ -118,7 +118,7 @@ perks:
     description: '<lang.skill-heavy-armor-perk-perk-set-1-description>'
     required_lv: 20
     perk_rewards:
-      heavy_armor_set_bonus_healing_bonus_set: 0.1
+      heavy_armor_set_bonus_healing_bonus_add: 0.1 # default 0, now 0.1
     messages:
       - '<lang.skill-heavy-armor-perk-perk-set-1-messages>'
   heavy_armor_perk_set_2:
@@ -132,8 +132,8 @@ perks:
     description: '<lang.skill-heavy-armor-perk-perk-set-2-description>'
     required_lv: 40
     perk_rewards:
-      heavy_armor_set_bonus_reflect_chance_set: 0.1
-      heavy_armor_reflect_fraction_set: 0.3
+      heavy_armor_set_bonus_reflect_chance_add: 0.1 # default 0, now 0.1
+      heavy_armor_reflect_fraction_add: 0.3 # default 0, now 0.3
     messages:
       - '<lang.skill-heavy-armor-perk-perk-set-2-messages>'
   heavy_armor_perk_set_3:
@@ -147,7 +147,7 @@ perks:
     description: '<lang.skill-heavy-armor-perk-perk-set-3-description>'
     required_lv: 60
     perk_rewards:
-      heavy_armor_set_bonus_pieces_required_set: 3
+      heavy_armor_set_bonus_pieces_required_add: -1 # default 4, now 3
     messages:
       - '<lang.skill-heavy-armor-perk-perk-set-3-messages>'
   heavy_armor_perk_set_4:
@@ -161,7 +161,7 @@ perks:
     description: '<lang.skill-heavy-armor-perk-perk-set-4-description>'
     required_lv: 20
     perk_rewards:
-      heavy_armor_movement_speed_penalty_set: 0.05
+      heavy_armor_movement_speed_penalty_add: -0.025 # was 0.075, now 0.05
     messages:
       - '<lang.skill-heavy-armor-perk-perk-set-4-messages>'
   heavy_armor_perk_set_5:
@@ -175,7 +175,7 @@ perks:
     description: '<lang.skill-heavy-armor-perk-perk-set-5-description>'
     required_lv: 40
     perk_rewards:
-      heavy_armor_set_bonus_armor_set: 0.2
+      heavy_armor_set_bonus_armor_add: 0.2 # was 0, now 0.2
     messages:
       - '<lang.skill-heavy-armor-perk-perk-set-5-messages>'
   heavy_armor_perk_set_6:
@@ -189,7 +189,7 @@ perks:
     description: '<lang.skill-heavy-armor-perk-perk-set-6-description>'
     required_lv: 60
     perk_rewards:
-      heavy_armor_movement_speed_penalty_set: 0.025
+      heavy_armor_movement_speed_penalty_add: -0.025 # was 0.05, now 0.025
     messages:
       - '<lang.skill-heavy-armor-perk-perk-set-6-messages>'
   heavy_armor_perk_immunity_1:

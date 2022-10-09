@@ -1,7 +1,4 @@
 starting_perks:
-  alchemy_expgain_set: 100
-  alchemy_speed_multiplier_set: 1
-  alchemy_throw_velocity_set: 1
   lock_recipes_all_brewing: []
   unlock_recipes:
     - brew_awkward_potion
@@ -70,7 +67,7 @@ messages: # Messages to send to the player every time the player levels this ski
   - '<lang.skill-level-up-alchemy>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
-  alchemy_quality_general_add: 2
+  alchemy_quality_general_add: 1
 
 starting_coordinates: '3,8' # The coordinates in the skill tree the player sees first when switching to the skill tree
 
@@ -85,7 +82,7 @@ perks:
     description: '<lang.skill-alchemy-perk-main-1-description>'
     required_lv: 0 # Required alchemy level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
-      alchemy_quality_general_add: 10
+      alchemy_quality_general_add: 20
       unlock_recipes:
         - brew_potion_luck
         - brew_potion_luck_splash
@@ -106,7 +103,7 @@ perks:
     description: '<lang.skill-alchemy-perk-main-2-description>'
     required_lv: 20
     perk_rewards:
-      alchemy_quality_general_add: 10
+      alchemy_quality_general_add: 20
       unlock_recipes:
         - brew_potion_ingredient_save
         - brew_potion_ingredient_save_splash
@@ -127,7 +124,7 @@ perks:
     description: '<lang.skill-alchemy-perk-main-3-description>'
     required_lv: 40
     perk_rewards:
-      alchemy_quality_general_add: 10
+      alchemy_quality_general_add: 20
       unlock_recipes:
         - brew_potion_brewing_speed
         - brew_potion_brewing_speed_splash
@@ -148,7 +145,7 @@ perks:
     description: '<lang.skill-alchemy-perk-main-4-description>'
     required_lv: 60
     perk_rewards:
-      alchemy_quality_general_add: 10
+      alchemy_quality_general_add: 20
       unlock_recipes:
         - brew_potion_increase_exp
         - brew_potion_increase_exp_splash
@@ -169,7 +166,8 @@ perks:
     description: '<lang.skill-alchemy-perk-main-5-description>'
     required_lv: 80
     perk_rewards:
-      alchemy_quality_general_add: 10
+      alchemy_quality_general_add: 20
+      alchemy_speed_multiplier_add: 0.3
       unlock_recipes:
         - brew_potion_health_boost
         - brew_potion_health_boost_splash
@@ -190,7 +188,8 @@ perks:
     description: '<lang.skill-alchemy-perk-main-6-description>'
     required_lv: 100
     perk_rewards:
-      alchemy_quality_general_add: 25
+      alchemy_quality_general_add: 50
+      alchemy_speed_multiplier_add: 0.4
       unlock_recipes:
         - brew_potion_bad_omen
         - brew_potion_bad_omen_splash
@@ -208,7 +207,7 @@ perks:
     description: '<lang.skill-alchemy-perk-debuff-1-description>'
     required_lv: 30
     perk_rewards:
-      alchemy_quality_debuff_add: 10
+      alchemy_quality_debuff_add: 20
       unlock_recipes:
         - brew_potion_potion_velocity
         - brew_potion_potion_velocity_splash
@@ -250,7 +249,7 @@ perks:
     description: '<lang.skill-alchemy-perk-debuff-3-description>'
     required_lv: 70
     perk_rewards:
-      alchemy_quality_debuff_add: 15
+      alchemy_quality_debuff_add: 30
       alchemy_ingredient_save_chance_add: 0.33
       alchemy_potion_save_chance_add: 0.2
     messages:
@@ -266,7 +265,7 @@ perks:
     description: '<lang.skill-alchemy-perk-buff-1-description>'
     required_lv: 30
     perk_rewards:
-      alchemy_quality_buff_add: 10
+      alchemy_quality_buff_add: 20
       unlock_recipes:
         - brew_potion_regeneration
         - brew_potion_regeneration_splash
@@ -308,7 +307,7 @@ perks:
     description: '<lang.skill-alchemy-perk-buff-3-description>'
     required_lv: 70
     perk_rewards:
-      alchemy_quality_buff_add: 15
+      alchemy_quality_buff_add: 30
       unlock_recipes:
         - brew_potion_fortify_smithing
         - brew_potion_fortify_smithing_splash

@@ -1,8 +1,8 @@
 starting_perks:
-  expgain_set: 100
   unlock_recipes_all_craft: 0
   unlock_recipes_all_tinker: 0
-  player_movement_speed_bonus_set: 0.1
+  player_movement_speed_bonus_add: 0.1
+  skillpoints_add: 3
   lock_recipes:
     - craft_wooden_mace
     - craft_stone_mace
@@ -54,6 +54,7 @@ starting_perks:
     - craft_lightning_arrows
     - craft_netherite_arrows
     - craft_unholy_arrows
+    - craft_shulker_shell
 
 experience: # Everything about leveling and experience progression for Smithing
   exp_level_curve: '(16.3*(%level%-1))+600' # Here the x-axis represents level and the y-axis is the exp required to
@@ -74,8 +75,73 @@ experience: # Everything about leveling and experience progression for Smithing
   exp_gain: 100 # Experience gained whenever the player levels any skill
 
 special_perks: # Perks, commands, and messages executed when a player reaches a specific level
+  5:
+    perk_rewards:
+      skillpoints_add: 1
+  10:
+    perk_rewards:
+      skillpoints_add: 1
+  15:
+    perk_rewards:
+      player_base_bonus_health_add: 2
+      skillpoints_add: 1
+  20:
+    perk_rewards:
+      skillpoints_add: 1
+  25:
+    perk_rewards:
+      skillpoints_add: 1
+  30:
+    perk_rewards:
+      player_base_bonus_health_add: 2
+      skillpoints_add: 1
+  35:
+    perk_rewards:
+      skillpoints_add: 1
+  40:
+    perk_rewards:
+      skillpoints_add: 1
+  45:
+    perk_rewards:
+      player_base_bonus_health_add: 2
+      skillpoints_add: 1
+  50:
+    perk_rewards:
+      skillpoints_add: 1
+  55:
+    perk_rewards:
+      skillpoints_add: 1
+  60:
+    perk_rewards:
+      player_base_bonus_health_add: 2
+      skillpoints_add: 1
+  65:
+    perk_rewards:
+      skillpoints_add: 1
+  70:
+    perk_rewards:
+      skillpoints_add: 1
+  75:
+    perk_rewards:
+      player_base_bonus_health_add: 2
+      skillpoints_add: 1
+  80:
+    perk_rewards:
+      skillpoints_add: 1
+  85:
+    perk_rewards:
+      skillpoints_add: 1
+  90:
+    perk_rewards:
+      skillpoints_add: 1
+  95:
+    perk_rewards:
+      skillpoints_add: 1
   100:
-    commands: 'broadcast &6%player% &7reached level &6100'
+    commands:
+      - 'broadcast &6%player% &7reached level &6100'
+    perk_rewards:
+      skillpoints_add: 1
 
 commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name
   # and %level% for the player's new level
@@ -90,4 +156,285 @@ leveling_perks: # Perk rewards executed on the player every time they level
 
 starting_coordinates: '0,0' # The coordinates in the skill tree the player sees first when switching to the skill tree
 
-# no default perks for this skill tree, but if you want to add some use the format the other skills use
+perks:
+  account_perk_health_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
+    # That also means changing this identifier name will break the ones currently existing on players
+    name: '<lang.skill-account-perk-health-1-display-name>' # Name of the icon within the skill tree
+    icon: 'GLISTENING_MELON_SLICE' # Icon itself within the skill tree
+    coords: 0,0 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
+    cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
+    description: '<lang.skill-account-perk-health-1-description>'
+    required_lv: 0 # Required smithing level to unlock
+    perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
+      player_base_bonus_health_add: 2
+    messages:
+      - '<lang.skill-account-perk-health-1-messages>'
+  account_perk_health_2:
+    name: '<lang.skill-account-perk-health-2-display-name>'
+    icon: 'GLISTENING_MELON_SLICE'
+    coords: 0,0
+    requireperk_one:
+      - account_perk_health_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-health-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_base_bonus_health_add: 3
+    messages:
+      - '<lang.skill-account-perk-health-2-messages>'
+  account_perk_health_3:
+    name: '<lang.skill-account-perk-health-3-display-name>'
+    icon: 'GLISTENING_MELON_SLICE'
+    coords: 0,0
+    requireperk_one:
+      - account_perk_health_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-health-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_base_bonus_health_add: 5
+    messages:
+      - '<lang.skill-account-perk-health-3-messages>'
+  account_perk_regeneration_1:
+    name: '<lang.skill-account-perk-regeneration-1-display-name>'
+    icon: 'GHAST_TEAR'
+    coords: 1,-1
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-regeneration-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_health_regeneration_add: 0.1
+    messages:
+      - '<lang.skill-account-perk-regeneration-1-messages>'
+  account_perk_regeneration_2:
+    name: '<lang.skill-account-perk-regeneration-2-display-name>'
+    icon: 'GHAST_TEAR'
+    coords: 1,-1
+    requireperk_one:
+      - account_perk_regeneration_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-regeneration-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_health_regeneration_add: 0.15
+    messages:
+      - '<lang.skill-account-perk-regeneration-2-messages>'
+  account_perk_regeneration_3:
+    name: '<lang.skill-account-perk-regeneration-3-display-name>'
+    icon: 'GHAST_TEAR'
+    coords: 1,-1
+    requireperk_one:
+      - account_perk_regeneration_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-regeneration-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_health_regeneration_add: 0.25
+    messages:
+      - '<lang.skill-account-perk-regeneration-3-messages>'
+  account_perk_armor_1:
+    name: '<lang.skill-account-perk-armor-1-display-name>'
+    icon: 'LEATHER_CHESTPLATE'
+    coords: 1,1
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-armor-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_base_bonus_armor_add: 2
+    messages:
+      - '<lang.skill-account-perk-armor-1-messages>'
+  account_perk_armor_2:
+    name: '<lang.skill-account-perk-armor-2-display-name>'
+    icon: 'IRON_CHESTPLATE'
+    coords: 1,1
+    requireperk_one:
+      - account_perk_armor_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-armor-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_base_bonus_armor_add: 3
+    messages:
+      - '<lang.skill-account-perk-armor-2-messages>'
+  account_perk_armor_3:
+    name: '<lang.skill-account-perk-armor-3-display-name>'
+    icon: 'NETHERITE_CHESTPLATE'
+    coords: 1,1
+    requireperk_one:
+      - account_perk_armor_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-armor-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_base_bonus_armor_add: 5
+    messages:
+      - '<lang.skill-account-perk-armor-3-messages>'
+  account_perk_knockbackresist_1:
+    name: '<lang.skill-account-perk-knockbackresist-1-display-name>'
+    icon: 'IRON_BLOCK'
+    coords: 0,2
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-knockbackresist-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_knockback_resistance_add: 0.1
+    messages:
+      - '<lang.skill-account-perk-knockbackresist-1-messages>'
+  account_perk_knockbackresist_2:
+    name: '<lang.skill-account-perk-knockbackresist-2-display-name>'
+    icon: 'GOLD_BLOCK'
+    coords: 0,2
+    requireperk_one:
+      - account_perk_knockbackresist_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-knockbackresist-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_knockback_resistance_add: 0.15
+    messages:
+      - '<lang.skill-account-perk-knockbackresist-2-messages>'
+  account_perk_knockbackresist_3:
+    name: '<lang.skill-account-perk-knockbackresist-3-display-name>'
+    icon: 'NETHERITE_BLOCK'
+    coords: 0,2
+    requireperk_one:
+      - account_perk_knockbackresist_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-knockbackresist-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_knockback_resistance_add: 0.25
+    messages:
+      - '<lang.skill-account-perk-knockbackresist-3-messages>'
+  account_perk_bleedingresist_1:
+    name: '<lang.skill-account-perk-bleedingresist-1-display-name>'
+    icon: 'IRON_BLOCK'
+    coords: 1,3
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-bleedingresist-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_bleed_resistance_add: 0.1
+    messages:
+      - '<lang.skill-account-perk-bleedingresist-1-messages>'
+  account_perk_bleedingresist_2:
+    name: '<lang.skill-account-perk-bleedingresist-2-display-name>'
+    icon: 'GOLD_BLOCK'
+    coords: 1,3
+    requireperk_one:
+      - account_perk_bleedingresist_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-bleedingresist-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_bleed_resistance_add: 0.15
+    messages:
+      - '<lang.skill-account-perk-bleedingresist-2-messages>'
+  account_perk_bleedingresist_3:
+    name: '<lang.skill-account-perk-bleedingresist-3-display-name>'
+    icon: 'NETHERITE_BLOCK'
+    coords: 1,3
+    requireperk_one:
+      - account_perk_bleedingresist_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-bleedingresist-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_bleed_resistance_add: 0.25
+    messages:
+      - '<lang.skill-account-perk-bleedingresist-3-messages>'
+  account_perk_hungerreduction_1:
+    name: '<lang.skill-account-perk-hungerreduction-1-display-name>'
+    icon: 'BREAD'
+    coords: 0,-2
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-hungerreduction-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_hunger_save_chance_add: 0.1
+    messages:
+      - '<lang.skill-account-perk-hungerreduction-1-messages>'
+  account_perk_hungerreduction_2:
+    name: '<lang.skill-account-perk-hungerreduction-2-display-name>'
+    icon: 'BREAD'
+    coords: 0,-2
+    requireperk_one:
+      - account_perk_hungerreduction_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-hungerreduction-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_hunger_save_chance_add: 0.15
+    messages:
+      - '<lang.skill-account-perk-hungerreduction-2-messages>'
+  account_perk_hungerreduction_3:
+    name: '<lang.skill-account-perk-hungerreduction-3-display-name>'
+    icon: 'BREAD'
+    coords: 0,-2
+    requireperk_one:
+      - account_perk_hungerreduction_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-hungerreduction-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_hunger_save_chance_add: 0.25
+    messages:
+      - '<lang.skill-account-perk-hungerreduction-3-messages>'
+  account_perk_cooldownreduction_1:
+    name: '<lang.skill-account-perk-cooldownreduction-1-display-name>'
+    icon: 'CLOCK'
+    coords: 1,-3
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-cooldownreduction-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_cooldown_reduction_add: 0.1
+    messages:
+      - '<lang.skill-account-perk-cooldownreduction-1-messages>'
+  account_perk_cooldownreduction_2:
+    name: '<lang.skill-account-perk-cooldownreduction-2-display-name>'
+    icon: 'CLOCK'
+    coords: 1,-3
+    requireperk_one:
+      - account_perk_cooldownreduction_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-cooldownreduction-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_cooldown_reduction_add: 0.15
+    messages:
+      - '<lang.skill-account-perk-cooldownreduction-2-messages>'
+  account_perk_cooldownreduction_3:
+    name: '<lang.skill-account-perk-cooldownreduction-3-display-name>'
+    icon: 'CLOCK'
+    coords: 1,-3
+    requireperk_one:
+      - account_perk_cooldownreduction_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-cooldownreduction-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_cooldown_reduction_add: 0.25
+    messages:
+      - '<lang.skill-account-perk-cooldownreduction-3-messages>'

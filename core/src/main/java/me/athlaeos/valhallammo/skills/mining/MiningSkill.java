@@ -106,8 +106,8 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
         veinMineInstantPickup = miningConfig.getBoolean("instant_pickup_vein_mining");
         forgivingMultipliers = miningConfig.getBoolean("forgiving_multipliers");
         remove_tnt_chaining = miningConfig.getBoolean("remove_tnt_chaining");
-        quickmode_toggle_on = miningConfig.getString("quickmode_toggle_on");
-        quickmode_toggle_off = miningConfig.getString("quickmode_toggle_off");
+        quickmode_toggle_on = TranslationManager.getInstance().translatePlaceholders(miningConfig.getString("quickmode_toggle_on"));
+        quickmode_toggle_off = TranslationManager.getInstance().translatePlaceholders(miningConfig.getString("quickmode_toggle_off"));
         cosmetic_outline = miningConfig.getBoolean("cosmetic_outline");
         outline_color = miningConfig.getString("outline_color");
         vein_mining_instant = miningConfig.getBoolean("vein_mining_instant");
@@ -565,28 +565,30 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
     @Override
     public void onInteract(PlayerInteractEvent event) {
         if (event.getHand() == EquipmentSlot.OFF_HAND) return;
-        if (event.useItemInHand() != Event.Result.ALLOW){
-            if (event.getPlayer().getHealth() <= 1.0) return;
-            if ((int) Utils.round(AccumulativeStatManager.getInstance().getStats("MINING_QUICK_MINE_DRAIN_RATE", event.getPlayer(), true), 3) <= 0) return;
-            if (EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE) != null && event.getPlayer().isSneaking()){
-                PlayerModeData data = getData(event.getPlayer());
-                if (!data.isEnabled()) {
-                    if (!CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_mining_quickmine")) {
-                        int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_mining_quickmine");
-                        event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                new TextComponent(
-                                        Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
-                                                .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
-                                                .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
-                                                .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
-                                ));
-                        return;
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (event.useItemInHand() != Event.Result.ALLOW){
+                if (event.getPlayer().getHealth() <= 1.0) return;
+                if ((int) Utils.round(AccumulativeStatManager.getInstance().getStats("MINING_QUICK_MINE_DRAIN_RATE", event.getPlayer(), true), 3) <= 0) return;
+                if (EntityUtils.getHoldingItem(event.getPlayer(), EquipmentClass.PICKAXE) != null && event.getPlayer().isSneaking()){
+                    PlayerModeData data = getData(event.getPlayer());
+                    if (!data.isEnabled()) {
+                        if (!CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_mining_quickmine")) {
+                            int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_mining_quickmine");
+                            event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                    new TextComponent(
+                                            Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
+                                                    .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
+                                                    .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
+                                                    .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
+                                    ));
+                            return;
+                        }
                     }
+                    data.toggle(event.getPlayer());
+                    event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                            Utils.chat((data.isEnabled()) ? quickmode_toggle_on : quickmode_toggle_off)
+                    ));
                 }
-                data.toggle(event.getPlayer());
-                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                        Utils.chat((data.isEnabled()) ? quickmode_toggle_on : quickmode_toggle_off)
-                ));
             }
         }
     }

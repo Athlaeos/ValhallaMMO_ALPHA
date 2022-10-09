@@ -128,94 +128,94 @@ scaling_durability:
 # Bows are an exception where instead it IS a multiplier translating to arrow velocity instead, which is more damage.
 scaling_damage:
   wood:
-    scaling: '(1.7/300) * %rating% + 0.8' # This default formula results in a damage multiplier of 0.8x-2.5x at 300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(5/300) * %rating% - 1' # This default formula results in -1 to +4 from 0-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   stone:
-    scaling: '(1.7/280) * (%rating% - 20) + 0.8' # 0.8x-2.5x damage from 20-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(7/280) * (%rating% - 20) - 2' # -2 to +4 damage from 20-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   gold:
-    scaling: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(7/260) * (%rating% - 40) - 2' # -2 to +5 damage from 40-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   iron:
-    scaling: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(6.5/260) * (%rating% - 40) - 2' # -2 to +4.5 damage from 40-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   diamond:
-    scaling: '(1.7/240) * (%rating% - 60) + 0.8' # 0.8x-2.5x damage from 60-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(7/240) * (%rating% - 60) - 2' # -2 to +5 damage from 60-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   netherite:
-    scaling: '(1.7/220) * (%rating% - 80) + 0.8' # 0.8x-2.5x damage from 80-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(8/220) * (%rating% - 80) - 2' # -2 to +6 damage from 80-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   bow:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x arrow velocity from 0-300 pts
+    scaling: '(0.7/300) * %rating% + 0.8' # 0.8x-1.5x arrow velocity from 0-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   crossbow:
-    scaling: '(1.2/300) * %rating% + 0.8' # 0.8x-2x arrow velocity from 0-300 pts
+    scaling: '(0.7/300) * %rating% + 1' # 1x-1.7x arrow velocity from 0-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   prismarine:
-    scaling: '(1.7/260) * (%rating% - 40) + 0.8' # 0.8x-2.5x damage from 40-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(7/260) * (%rating% - 40) - 2' # -2 to +5 damage from 40-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   other:
-    scaling: '(1.7/300) * %rating% + 0.8' # Applies for any other item that has been given custom damage
-    mode: 'MULTIPLIER'
+    scaling: '(6/300) * %rating% - 2' # Applies for any other item that has been given custom damage
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
 
 scaling_speed:
   wood:
-    scaling: '(1.2/300) * %rating% + 0.8' # This default formula results in an attack speed multiplier of 0.8x-2x at 300 pts
+    scaling: '(0.5/300) * %rating% + 0.8' # This default formula results in an attack speed multiplier of 0.8x-1.3x at 300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   stone:
-    scaling: '(1.2/280) * (%rating% - 20) + 0.8' # 0.8x-2x damage from 20-300 pts
+    scaling: '(0.5/280) * (%rating% - 20) + 0.8' # 0.8x-1.3x damage from 20-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   gold:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
+    scaling: '(0.5/260) * (%rating% - 40) + 0.8' # 0.8x-1.3x damage from 40-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   iron:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
+    scaling: '(0.5/260) * (%rating% - 40) + 0.8' # 0.8x-1.3x damage from 40-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   diamond:
-    scaling: '(1.2/240) * (%rating% - 60) + 0.8' # 0.8x-2x damage from 60-300 pts
+    scaling: '(0.5/240) * (%rating% - 60) + 0.8' # 0.8x-1.3x damage from 60-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   netherite:
-    scaling: '(1.2/220) * (%rating% - 80) + 0.8' # 0.8x-2x damage from 80-300 pts
+    scaling: '(0.5/220) * (%rating% - 80) + 0.8' # 0.8x-1.3x damage from 80-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   prismarine:
-    scaling: '(1.2/260) * (%rating% - 40) + 0.8' # 0.8x-2x damage from 40-300 pts
+    scaling: '(0.5/260) * (%rating% - 40) + 0.8' # 0.8x-1.3x damage from 40-300 pts
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none
   other:
-    scaling: '(1.2/300) * %rating% + 0.8' # Applies for any other item that has been given custom attack speed
+    scaling: '(0.5/300) * %rating% + 0.8' # Applies for any other item that has been given custom attack speed
     mode: 'MULTIPLIER'
     lower_bound: 0
     upper_bound: none

@@ -1,17 +1,12 @@
 starting_perks: # The default perk rewards players start off with.
-  smithing_expgain_general_set: 100
-  smithing_expgain_wood_set: 100
-  smithing_expgain_bow_set: 100
-  smithing_expgain_crossbow_set: 100
-  smithing_expgain_leather_set: 100
-  smithing_expgain_stone_set: 50
-  smithing_expgain_chainmail_set: 50
-  smithing_expgain_gold_set: 25
-  smithing_expgain_iron_set: 25
-  smithing_expgain_prismarine_set: 25
-  smithing_expgain_diamond_set: 10
-  smithing_expgain_membrane_set: 10
-  smithing_expgain_netherite_set: 0
+  smithing_expgain_stone_add: -50 # default 100, now 50
+  smithing_expgain_chainmail_add: -50 # default 100, now 50
+  smithing_expgain_gold_add: -75 # default 100, now 25
+  smithing_expgain_iron_add: -75 # default 100, now 25
+  smithing_expgain_prismarine_add: -75 # default 100, now 25
+  smithing_expgain_diamond_add: -90 # default 100, now 10
+  smithing_expgain_membrane_add: -90 # default 100, now 10
+  smithing_expgain_netherite_add: -100 # default 100, now 0
 
 experience: # Everything about leveling and experience progression for Smithing
   exp_level_curve: '0.25 * (%level% + 300 * 2^(%level%/7.6)) + 300' # Here the x-axis represents level and the y-axis is the exp required to
@@ -95,7 +90,7 @@ messages: # Messages to send to the player every time the player levels this ski
   - '<lang.skill-level-up-smithing>'
 
 leveling_perks: # Perk rewards executed on the player every time they level
-  smithing_craftskill_general_add: 2
+  smithing_craftskill_general_add: 1
 
 perks:
   smithing_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
@@ -108,8 +103,8 @@ perks:
     description: '<lang.skill-smithing-perk-main-1-description>'
     required_lv: 0 # Required smithing level to unlock
     perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
-      smithing_craftskill_wood_add: 50
-      smithing_craftskill_leather_add: 50
+      smithing_craftskill_wood_add: 75
+      smithing_craftskill_leather_add: 75
     messages:
       - '<lang.skill-smithing-perk-main-1-messages>'
   smithing_perk_main_2:
@@ -121,8 +116,8 @@ perks:
     description: '<lang.skill-smithing-perk-main-2-description>'
     required_lv: 20
     perk_rewards:
-      smithing_craftskill_stone_add: 50
-      smithing_craftskill_chainmail_add: 50
+      smithing_craftskill_stone_add: 75
+      smithing_craftskill_chainmail_add: 75
     messages:
       - '<lang.skill-smithing-perk-main-2-messages>'
         # To have a perk be unlockable, all conditions must be met:
@@ -142,8 +137,8 @@ perks:
     messages:
       - '<lang.skill-smithing-perk-main-3-messages>'
     perk_rewards:
-      smithing_craftskill_iron_add: 50
-      smithing_craftskill_gold_add: 50
+      smithing_craftskill_iron_add: 75
+      smithing_craftskill_gold_add: 75
     requireperk_one:
       - smithing_perk_main_2
   perk_prismarine:
@@ -155,7 +150,7 @@ perks:
     description: '<lang.skill-smithing-perk-prismarine-description>'
     required_lv: 50
     perk_rewards:
-      smithing_craftskill_prismarine_add: 50
+      smithing_craftskill_prismarine_add: 75
       unlock_recipes:
         - craft_trident
     messages:
@@ -171,7 +166,7 @@ perks:
     description: '<lang.skill-smithing-perk-main-4-description>'
     required_lv: 60
     perk_rewards:
-      smithing_craftskill_diamond_add: 50
+      smithing_craftskill_diamond_add: 75
     messages:
       - '<lang.skill-smithing-perk-main-4-messages>'
     requireperk_one:
@@ -185,7 +180,7 @@ perks:
     description: '<lang.skill-smithing-perk-ender-description>'
     required_lv: 70
     perk_rewards:
-      smithing_craftskill_membrane_add: 50
+      smithing_craftskill_membrane_add: 75
       unlock_recipes:
         - craft_elytra
         - craft_shulker_shell
@@ -204,7 +199,7 @@ perks:
       - '<lang.skill-smithing-perk-main-5-messages>'
     required_lv: 80
     perk_rewards:
-      smithing_craftskill_netherite_add: 50
+      smithing_craftskill_netherite_add: 75
     requireperk_one:
       - smithing_perk_main_4
   perk_main_final:
@@ -235,7 +230,7 @@ perks:
     messages:
       - '<lang.skill-smithing-perk-special-messages>'
     perk_rewards:
-      smithing_craftskill_general_add: 25
+      smithing_craftskill_general_add: 50
     requireperk_all:
       - smithing_perk_main_5
       - smithing_perk_specialisation_bow_5
@@ -252,8 +247,8 @@ perks:
     description: '<lang.skill-smithing-perk-specialisation-bow-1-description>'
     required_lv: 20
     perk_rewards:
-      smithing_craftskill_bow_add: 15
-      smithing_craftskill_crossbow_add: 15
+      smithing_craftskill_bow_add: 20
+      smithing_craftskill_crossbow_add: 20
     messages:
       - '<lang.skill-smithing-perk-specialisation-bow-1-messages>'
   smithing_perk_specialisation_bow_2:
@@ -267,8 +262,8 @@ perks:
     description: '<lang.skill-smithing-perk-specialisation-bow-2-description>'
     required_lv: 40
     perk_rewards:
-      smithing_craftskill_bow_add: 15
-      smithing_craftskill_crossbow_add: 15
+      smithing_craftskill_bow_add: 20
+      smithing_craftskill_crossbow_add: 20
     messages:
       - '<lang.skill-smithing-perk-specialisation-bow-2-messages>'
   smithing_perk_specialisation_bow_3:
@@ -282,8 +277,8 @@ perks:
     description: '<lang.skill-smithing-perk-specialisation-bow-3-description>'
     required_lv: 60
     perk_rewards:
-      smithing_craftskill_bow_add: 15
-      smithing_craftskill_crossbow_add: 15
+      smithing_craftskill_bow_add: 20
+      smithing_craftskill_crossbow_add: 20
     messages:
       - '<lang.skill-smithing-perk-specialisation-bow-3-messages>'
   smithing_perk_specialisation_bow_4:
@@ -297,8 +292,8 @@ perks:
     description: '<lang.skill-smithing-perk-specialisation-bow-4-description>'
     required_lv: 80
     perk_rewards:
-      smithing_craftskill_bow_add: 15
-      smithing_craftskill_crossbow_add: 15
+      smithing_craftskill_bow_add: 20
+      smithing_craftskill_crossbow_add: 20
     messages:
       - '<lang.skill-smithing-perk-specialisation-bow-4-messages>'
   smithing_perk_specialisation_bow_5:
@@ -312,7 +307,7 @@ perks:
     description: '<lang.skill-smithing-perk-specialisation-bow-5-description>'
     required_lv: 100
     perk_rewards:
-      smithing_craftskill_bow_add: 15
-      smithing_craftskill_crossbow_add: 15
+      smithing_craftskill_bow_add: 20
+      smithing_craftskill_crossbow_add: 20
     messages:
       - '<lang.skill-smithing-perk-specialisation-bow-5-messages>'

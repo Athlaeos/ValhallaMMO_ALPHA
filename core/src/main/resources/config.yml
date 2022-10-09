@@ -134,7 +134,7 @@ overleveled_equipment_effectiveness_formula: '-%fraction_level%^8 + 1'
 overleveled_equipment_penalties:
   durability: 9 # Overleveled equipment takes 10x the durability
   damage: -0.7 # Players carrying overleveled equipment will deal 70% less damage
-  speed: -0.5 # Overleveled equipment suffers from -50% attack speed
+  speed: -0.7 # Overleveled equipment suffers from -70% attack speed
   armor: -0.7 # Overleveled armor protects 70% less
 overleveled_warning: 'CHAT' # valid choices are ACTION_BAR, CHAT, or NONE. This determines how players are warned
 # when they are using an overleveled item.
@@ -186,7 +186,7 @@ parry_failed_sound: ITEM_SHIELD_BREAK # Sound that plays when the parrier is hit
 parry_sparks: true # If true, sparks will fly off parried attacks
 
 dodge_effect: SWEEP_ATTACK
-dodge_message: '&fAttack Dodged'
+dodge_message: '<lang.status-attack-dodged>'
 
 # Damage calculation for armor and armor toughness. Armor is effective only against the given damage sources,
 # everything else is not mitigated by how many armor points you have.
@@ -280,16 +280,16 @@ trident_damage_ranged_loyalty: 1.0 # Damage multiplier of tridents when thrown, 
 # CRAFTING
 
 old_menu: false # If true, the old ValhallaMMO crafting menu will be used instead. The old menu does not show both crafting and tinkering menus in the same menu,
-# and does not show all the tinkering recipes a block has to offer
+# and does not show all the tinkering recipes a block has to offer. This will be less beginner-friendly
 
 model_data_nextpage: 3511004
 model_data_prevpage: 3511008
 model_data_craft_view: 3511001
 model_data_tinker_view: 3511002
 
-tool_display_default: '&7Requires a tier &e%tier% &7tool to craft'
+tool_display_default: '<lang.tool_display_default>'
 tool_displays: # In the new crafting menu recipes requiring a specific tool will have the following line added at the start of its description
-  -1: '&7Requires &eGeneric Tool &7to craft'
+  -1: '<lang.tool_display_generic>'
 
 # If true, items crafted with a custom crafting method will be dropped on top of the crafting block. If false, they will
 # be added to the player's inventory.
@@ -312,6 +312,7 @@ swap_crafting_table_functionality:
 # An entry in this list is valid if the name equates to a recipe's namespaced key, which in most cases is just
 # the item ID in lowercase
 disabled:
+  - shield
   - bow
   - crossbow
   - leather_helmet
@@ -396,30 +397,30 @@ exp_sharing_multiplier: 1.0 # Default exp sharing fraction
 
 # The default rank each member will get upon joining
 default_rank: rookie # The rank here must be present in the below "ranks", if not the party system will be disabled
-leader_title: '&6Chief'
+leader_title: '<lang.party-rank-leader>'
 ranks: # Ranks may be distributed by the party leader, each rank has a title and may have additional permissions
   rookie:
     rating: 0
-    title: '&7Rookie'
+    title: '<lang.party-rank-rookie>'
     permissions: # Valid permissions are
     # party_chat, item_share, exp_share, open_party, invite_member, kick_members, manage_roles, manage_description
       - party_chat
   member:
     rating: 1
-    title: '&7Member'
+    title: '<lang.party-rank-member>'
     permissions:
       - item_sharing
       - party_chat
   trusted:
     rating: 2
-    title: '&7Trusted'
+    title: '<lang.party-rank-trusted>'
     permissions:
       - invite_member
       - item_sharing
       - party_chat
   inner_circle:
     rating: 3
-    title: '&eInner Circle'
+    title: '<lang.party-rank-inner-circle>'
     permissions:
       - invite_member
       - item_sharing
@@ -442,14 +443,4 @@ ranks: # Ranks may be distributed by the party leader, each rank has a title and
 # The leader by default has all permissions and is the only one who can transfer leadership
 
 party_info: # This information is displayed in the command /party info, and mostly intended for the creator of the party
-  - '&8&m                 [&a%name%&8&m]                 '
-  - '&aDescription&7: %description%'
-  - ''
-  - '&aParty Open&7: &a%status_open%'
-  - '&aEXP Sharing&7: &a%status_exp_sharing%'
-  - '&aItem Sharing&7: &a%status_item_sharing%'
-  - ''
-  - '&aYour rank&7: &a%rank%'
-  - ''
-  - '&7Members (&a%member_count%&7/&a%member_cap%&7)'
-  - '&a%member_list%'
+  - '<lang.party-info-format>'

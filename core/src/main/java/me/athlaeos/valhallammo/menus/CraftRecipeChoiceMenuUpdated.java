@@ -40,7 +40,7 @@ public class CraftRecipeChoiceMenuUpdated extends Menu {
     private static final String favouritePrefix = TranslationManager.getInstance().getTranslation("recipe_favourited_prefix");
     private static final String favouriteSuffix = TranslationManager.getInstance().getTranslation("recipe_favourited_suffix");
 
-    private static final String tool_display_default = ConfigManager.getInstance().getConfig("config.yml").get().getString("tool_display_default");
+    private static final String tool_display_default = TranslationManager.getInstance().translatePlaceholders(ConfigManager.getInstance().getConfig("config.yml").get().getString("tool_display_default"));
     private static final String title = TranslationManager.getInstance().getTranslation("translation_recipes_5r");
     private static final Map<Integer, String> toolSpecialLines = getToolSpecialLines();
     private ItemStack recipeFilter = null;
@@ -535,7 +535,7 @@ public class CraftRecipeChoiceMenuUpdated extends Menu {
             for (String tool : section.getKeys(false)){
                 try {
                     int toolId = Integer.parseInt(tool);
-                    String value = config.getString("tool_displays." + tool);
+                    String value = TranslationManager.getInstance().translatePlaceholders(config.getString("tool_displays." + tool));
                     lines.put(toolId, value);
                 } catch (IllegalArgumentException ignored){
                     ValhallaMMO.getPlugin().getServer().getLogger().warning("Tool id in config.yml tool_displays." + tool + " is not a valid integer");
