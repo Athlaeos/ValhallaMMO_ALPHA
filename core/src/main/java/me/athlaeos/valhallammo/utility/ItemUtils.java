@@ -44,6 +44,11 @@ public class ItemUtils {
     private static final List<String> similarStones = Arrays.asList("COBBLESTONE", "BLACKSTONE");
     private static final List<String> similarAnvils = Arrays.asList("ANVIL", "CHIPPED_ANVIL", "DAMAGED_ANVIL");
     private static final List<String> similarCauldrons = Arrays.asList("CAULDRON", "WATER_CAULDRON", "LAVA_CAULDRON", "POWDER_SNOW_CAULDRON");
+    private static final List<String> similarWools = Arrays.asList("WHITE_WOOL", "BROWN_WOOL", "GRAY_WOOL", "LIGHT_GRAY_WOOL", "BLACK_WOOL",
+            "BLUE_WOOL", "LIGHT_BLUE_WOOL", "CYAN_WOOL", "MAGENTA_WOOL", "PURPLE_WOOL", "PINK_WOOL", "RED_WOOL", "ORANGE_WOOL", "YELLOW_WOOL",
+            "LIME_WOOL", "GREEN_WOOL");
+    private static final List<String> similarSaplings = Arrays.asList("OAK_SAPLING", "BIRCH_SAPLING", "SPRUCE_SAPLING", "DARK_OAK_SAPLING", "ACACIA_SAPLING",
+            "JUNGLE_SAPLING");
     private static final Collection<Collection<Material>> similarMaterialLists = new HashSet<>();
     private static final Collection<Material> totalSimilarItems = new HashSet<>();
     private static final Map<Material, Collection<Material>> similarItemsMap = new HashMap<>();
@@ -57,6 +62,8 @@ public class ItemUtils {
             similarMaterialLists.add(getMaterialList(similarPlanks));
             similarMaterialLists.add(getMaterialList(similarLogs));
             similarMaterialLists.add(getMaterialList(similarCauldrons));
+            similarMaterialLists.add(getMaterialList(similarWools));
+            similarMaterialLists.add(getMaterialList(similarSaplings));
         }
         if (totalSimilarItems.isEmpty()){
             totalSimilarItems.addAll(getMaterialList(similarAnvils));
@@ -64,6 +71,8 @@ public class ItemUtils {
             totalSimilarItems.addAll(getMaterialList(similarPlanks));
             totalSimilarItems.addAll(getMaterialList(similarLogs));
             totalSimilarItems.addAll(getMaterialList(similarCauldrons));
+            totalSimilarItems.addAll(getMaterialList(similarWools));
+            totalSimilarItems.addAll(getMaterialList(similarSaplings));
         }
         if (similarItemsMap.isEmpty()){
             similarItemsMap.put(Material.ANVIL, getMaterialList(similarAnvils));
@@ -71,6 +80,8 @@ public class ItemUtils {
             similarItemsMap.put(Material.OAK_PLANKS, getMaterialList(similarPlanks));
             similarItemsMap.put(Material.OAK_LOG, getMaterialList(similarLogs));
             similarItemsMap.put(Material.CAULDRON, getMaterialList(similarCauldrons));
+            similarItemsMap.put(Material.WHITE_WOOL, getMaterialList(similarWools));
+            similarItemsMap.put(Material.OAK_SAPLING, getMaterialList(similarSaplings));
         }
     }
 
@@ -163,6 +174,64 @@ public class ItemUtils {
         Inventory inventory = ValhallaMMO.getPlugin().getServer().createInventory(null, 54);
         inventory.addItem(inventoryItems);
         return canCraft(ingredients, inventory, useMeta);
+    }
+
+    public static int timesCraftable(Collection<ItemStack> ingredients, ItemStack[] inventoryItems, int maxAmount, boolean useMeta){
+        Inventory inventory = ValhallaMMO.getPlugin().getServer().createInventory(null, 54);
+        inventory.addItem(inventoryItems);
+        return timesCraftable(ingredients, inventory, maxAmount, useMeta);
+    }
+
+    public static int timesCraftable(Collection<ItemStack> ingredients, Inventory inventory, int maxAmount, boolean useMeta){
+        registerMaterials();
+        if (maxAmount <= 0) return 0;
+        Collection<Integer> timesCraftableCollection = new HashSet<>();
+        mainIngredientLoop:
+        for (ItemStack item : ingredients){
+            ItemStack compareItem = item.clone();
+            boolean has = false;
+            if (useMeta){
+                for (int i = maxAmount; i > 0; i--){
+                    has = ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(inventory.getContents()), item, i * item.getAmount()) : inventory.containsAtLeast(item, i * item.getAmount());
+                    if (has) {
+                        timesCraftableCollection.add(i);
+                        break;
+                    }
+                }
+            } else {
+                for (int i = maxAmount; i > 0; i--){
+                    has = inventory.contains(item.getType(), i * item.getAmount());
+                    if (has) {
+                        timesCraftableCollection.add(i);
+                        break;
+                    }
+                }
+            }
+            if (!has){
+                if (totalSimilarItems.contains(item.getType())){
+                    Collection<Material> possibleMatches = new ArrayList<>();
+                    for (Collection<Material> similarMaterialList : similarMaterialLists){
+                        if (similarMaterialList.contains(item.getType())){
+                            possibleMatches = similarMaterialList;
+                            break;
+                        }
+                    }
+                    for (int i = maxAmount; i > 0; i--){
+                        for (Material m : possibleMatches){
+                            compareItem.setType(m);
+                            if (inventory.containsAtLeast(compareItem, i * item.getAmount())){
+                                timesCraftableCollection.add(i);
+                                continue mainIngredientLoop;
+                            }
+                        }
+
+                    }
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return Math.max(0, timesCraftableCollection.isEmpty() ? 0 : Collections.min(timesCraftableCollection));
     }
 
     public static boolean canCraft(Collection<ItemStack> ingredients, Inventory inventory, boolean useMeta){
@@ -258,21 +327,25 @@ public class ItemUtils {
     public static void removeItems(Player p, Collection<ItemStack> items, boolean perfectMeta){
         registerMaterials();
         if (p.getGameMode() == GameMode.CREATIVE) return;
+        removeItems(p.getInventory(), items, perfectMeta);
+    }
+    public static void removeItems(Inventory inventory, Collection<ItemStack> items, boolean perfectMeta){
+        registerMaterials();
         mainIngredientLoop:
         for (ItemStack ingredient : items){
-            boolean contains = (perfectMeta) ? (ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(p.getInventory().getContents()), ingredient, ingredient.getAmount()) : p.getInventory().containsAtLeast(ingredient, ingredient.getAmount())) : p.getInventory().contains(ingredient.getType());
+            boolean contains = (perfectMeta) ? (ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(inventory.getContents()), ingredient, ingredient.getAmount()) : inventory.containsAtLeast(ingredient, ingredient.getAmount())) : inventory.contains(ingredient.getType());
             if (contains){
                 if (perfectMeta){
                     if (ValhallaMMO.isSpigot()){
-                        removeItem(p.getInventory(), ingredient);
+                        removeItem(inventory, ingredient);
                     } else {
-                        p.getInventory().removeItem(ingredient);
+                        inventory.removeItem(ingredient);
                     }
                     if (filledBuckets.contains(ingredient.getType())){
-                        p.getInventory().addItem(new ItemStack(Material.BUCKET, ingredient.getAmount()));
+                        inventory.addItem(new ItemStack(Material.BUCKET, ingredient.getAmount()));
                     }
                 } else {
-                    removeMaterials(p.getInventory(), ingredient.getType(), ingredient.getAmount());
+                    removeMaterials(inventory, ingredient.getType(), ingredient.getAmount());
                 }
             } else {
                 if (totalSimilarItems.contains(ingredient.getType())){
@@ -287,19 +360,71 @@ public class ItemUtils {
 
                     for (Material m : possibleMatches){
                         compareItem.setType(m);
-                        boolean contains2 = (perfectMeta) ? p.getInventory().containsAtLeast(compareItem, compareItem.getAmount()) : p.getInventory().contains(compareItem.getType());
+                        boolean contains2 = (perfectMeta) ? inventory.containsAtLeast(compareItem, compareItem.getAmount()) : inventory.contains(compareItem.getType());
                         if (contains2){
                             if (perfectMeta){
                                 if (ValhallaMMO.isSpigot()){
-                                    removeItem(p.getInventory(), compareItem);
+                                    removeItem(inventory, compareItem);
                                 } else {
-                                    p.getInventory().removeItem(compareItem);
+                                    inventory.removeItem(compareItem);
                                 }
                                 if (filledBuckets.contains(ingredient.getType())){
-                                    p.getInventory().addItem(new ItemStack(Material.BUCKET, ingredient.getAmount()));
+                                    inventory.addItem(new ItemStack(Material.BUCKET, ingredient.getAmount()));
                                 }
                             } else {
-                                removeMaterials(p.getInventory(), compareItem.getType(), compareItem.getAmount());
+                                removeMaterials(inventory, compareItem.getType(), compareItem.getAmount());
+                            }
+                            continue mainIngredientLoop;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public static void removeItems(Inventory inventory, Collection<ItemStack> items, int multiplyBy, boolean perfectMeta){
+        registerMaterials();
+        mainIngredientLoop:
+        for (ItemStack ingredient : items){
+            boolean contains = (perfectMeta) ? (ValhallaMMO.isSpigot() ? containsAtLeast(Arrays.asList(inventory.getContents()), ingredient, ingredient.getAmount() * multiplyBy) : inventory.containsAtLeast(ingredient, ingredient.getAmount() * multiplyBy)) : inventory.contains(ingredient.getType());
+            if (contains){
+                if (perfectMeta){
+                    if (ValhallaMMO.isSpigot()){
+                        removeItem(inventory, ingredient);
+                    } else {
+                        inventory.removeItem(ingredient);
+                    }
+                    if (filledBuckets.contains(ingredient.getType())){
+                        inventory.addItem(new ItemStack(Material.BUCKET, ingredient.getAmount() * multiplyBy));
+                    }
+                } else {
+                    removeMaterials(inventory, ingredient.getType(), ingredient.getAmount() * multiplyBy);
+                }
+            } else {
+                if (totalSimilarItems.contains(ingredient.getType())){
+                    ItemStack compareItem = ingredient.clone();
+                    Collection<Material> possibleMatches = new ArrayList<>();
+                    for (Collection<Material> similarMaterialList : similarMaterialLists){
+                        if (similarMaterialList.contains(ingredient.getType())){
+                            possibleMatches = similarMaterialList;
+                            break;
+                        }
+                    }
+
+                    for (Material m : possibleMatches){
+                        compareItem.setType(m);
+                        boolean contains2 = (perfectMeta) ? inventory.containsAtLeast(compareItem, compareItem.getAmount() * multiplyBy) : inventory.contains(compareItem.getType());
+                        if (contains2){
+                            if (perfectMeta){
+                                if (ValhallaMMO.isSpigot()){
+                                    removeItem(inventory, compareItem);
+                                } else {
+                                    inventory.removeItem(compareItem);
+                                }
+                                if (filledBuckets.contains(ingredient.getType())){
+                                    inventory.addItem(new ItemStack(Material.BUCKET, ingredient.getAmount() * multiplyBy));
+                                }
+                            } else {
+                                removeMaterials(inventory, compareItem.getType(), compareItem.getAmount() * multiplyBy);
                             }
                             continue mainIngredientLoop;
                         }
@@ -361,10 +486,12 @@ public class ItemUtils {
                         clickedItem.setAmount(clickedItem.getAmount() + Math.min(cursor.getAmount(), possibleAmount));
                         cursor.setAmount(cursor.getAmount() - possibleAmount);
                         event.setCurrentItem(clickedItem);
-                        event.getCursor().setAmount(0);
+                        //event.getCursor().setAmount(0);
                     } else {
-                        event.setCurrentItem(cursor.clone());
-                        event.getCursor().setAmount(0);
+                        ItemStack cursorClone = cursor.clone();
+                        event.getWhoClicked().setItemOnCursor(event.getCurrentItem());
+                        event.setCurrentItem(cursorClone);
+                        //event.getCursor().setAmount(0);
                     }
                 } else if (!event.getAction().equals(InventoryAction.PICKUP_ALL)) {
                     event.setCancelled(true);
@@ -383,6 +510,51 @@ public class ItemUtils {
                     event.setCurrentItem(cursor.clone());
                     event.getCursor().setAmount(0);
                 }
+            } else {
+                event.setCancelled(true);
+                ItemStack itemStack = cursor.clone();
+                cursor.setAmount(cursor.getAmount() - 1);
+                itemStack.setAmount(1);
+                event.setCurrentItem(itemStack);
+            }
+
+            if (event.getWhoClicked() instanceof Player) {
+                ((Player)event.getWhoClicked()).updateInventory();
+            }
+        }
+    }
+
+    public static void calculateClickedSlotOnlyAllow1Placed(InventoryClickEvent event) {
+        ItemStack cursor = event.getCursor();
+        if (!Utils.isItemEmptyOrNull(cursor)) {
+            ItemStack clickedItem = event.getCurrentItem();
+            if (event.getClick().equals(ClickType.LEFT)) {
+                if (!Utils.isItemEmptyOrNull(clickedItem)) {
+                    event.setCancelled(true);
+                    if (!clickedItem.isSimilar(cursor) && cursor.getAmount() == 1) {
+                        // you may only swap if the cursor amount is 1
+                        ItemStack cursorClone = cursor.clone();
+                        event.getWhoClicked().setItemOnCursor(event.getCurrentItem());
+                        event.setCurrentItem(cursorClone);
+                    }
+                    // else neither cursor or clicked items are empty, and both are similar to eachother, but since only 1
+                    // should be transferrable anyway nothing should happen
+                } else if (!event.getAction().equals(InventoryAction.PICKUP_ALL)) {
+                    event.setCancelled(true);
+                    ItemStack cursorclone = cursor.clone();
+                    cursorclone.setAmount(1);
+                    cursor.setAmount(cursor.getAmount() - 1);
+                    event.setCurrentItem(cursorclone);
+                }
+            } else if (!Utils.isItemEmptyOrNull(clickedItem)) {
+                if (!clickedItem.isSimilar(cursor) && cursor.getAmount() == 1) {
+                    // you may only swap if the cursor amount is 1
+                    event.setCancelled(true);
+                    event.setCurrentItem(cursor.clone());
+                    event.getCursor().setAmount(0);
+                }
+                // else neither cursor or clicked items are empty, and both are similar to eachother, but since only 1
+                // should be transferrable anyway nothing should happen
             } else {
                 event.setCancelled(true);
                 ItemStack itemStack = cursor.clone();
@@ -600,8 +772,31 @@ public class ItemUtils {
      * @return true if the item would break as a result of the damage dealt, false otherwise
      */
     public static boolean damageItem(Player who, ItemStack item, int damage, EntityEffect breakEffect){
+        return damageItem(who, item, damage, breakEffect, false);
+    }
+    /**
+     * Damages the given item by an amount. If "respectAttributes" is true, attributes such as the Unbreaking enchantment
+     * the "UNBREAKABLE" item flag are respected.
+     * If Unbreaking procs it will not always prevent damage, but it will multiply the damage by the chance for unbreaking items to take damage
+     * This chance is equal to 1/(unbreakingLevel + 1), so 4 damage would be reduced to 1 with unbreaking 3.
+     * @param who the player possessing the item
+     * @param item the item to damage
+     * @param damage the amount to damage it
+     * @param breakEffect the effect to play should the item break
+     * @return true if the item would break as a result of the damage dealt, false otherwise
+     */
+    public static boolean damageItem(Player who, ItemStack item, int damage, EntityEffect breakEffect, boolean respectAttributes){
         ItemMeta meta = item.getItemMeta();
         if (meta instanceof Damageable){
+            if (respectAttributes){
+                if (item.getItemMeta().isUnbreakable()) return false;
+                int unbreakableLevel = item.getEnchantmentLevel(Enchantment.DURABILITY);
+                if (unbreakableLevel > 0){
+                    double damageChance = 1D / (unbreakableLevel + 1D);
+                    damage = Utils.excessChance(damage * damageChance);
+                    if (damage == 0) return false;
+                }
+            }
             PlayerItemDamageEvent event = new PlayerItemDamageEvent(who, item, damage);
             ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
             if (!event.isCancelled()){
@@ -622,6 +817,20 @@ public class ItemUtils {
                         return true;
                     }
                 }
+            }
+        }
+        return false;
+    }
+
+    public static boolean shouldItemBreak(ItemStack item){
+        if (item == null) return false;
+        ItemMeta meta = item.getItemMeta();
+        if (meta instanceof Damageable && item.getType().getMaxDurability() > 0){
+            Damageable damageable = (Damageable) meta;
+            if (CustomDurabilityManager.getInstance().hasCustomDurability(item)){
+                return CustomDurabilityManager.getInstance().getDurability(item) <= 0;
+            } else {
+                return damageable.getDamage() >= item.getType().getMaxDurability();
             }
         }
         return false;

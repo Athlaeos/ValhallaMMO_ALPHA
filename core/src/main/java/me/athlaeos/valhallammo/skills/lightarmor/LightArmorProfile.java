@@ -88,7 +88,7 @@ public class LightArmorProfile extends Profile implements Serializable {
                 "fullarmordodgechance FLOAT DEFAULT 0," +
                 "fullarmorhealingbonus FLOAT DEFAULT 0," +
                 "armorpiecesforbonusses TINYINT DEFAULT 4," +
-                "immunepotioneffects TEXT default ''," +
+                "immunepotioneffects TEXT," +
                 "adrenalinethreshold FLOAT DEFAULT 0," +
                 "adrenalinecooldown INT DEFAULT -1," +
                 "adrenalinelevel SMALLINT DEFAULT 0," +

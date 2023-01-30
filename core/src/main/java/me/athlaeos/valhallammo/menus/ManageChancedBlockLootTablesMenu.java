@@ -1,5 +1,7 @@
 package me.athlaeos.valhallammo.menus;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
@@ -20,7 +22,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
-public class ManageChancedLootTablesMenu extends Menu {
+public class ManageChancedBlockLootTablesMenu extends Menu {
     private final ItemStack nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lNext page"), null);
     private final ItemStack previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lPrevious page"), null);
     private final ItemStack returnToMenuButton = Utils.createItemStack(Material.WRITABLE_BOOK, Utils.chat("&7&lReturn to menu"), null);
@@ -58,7 +60,7 @@ public class ManageChancedLootTablesMenu extends Menu {
     private Material block = Material.GRASS_BLOCK;
     private List<DynamicItemModifier> currentModifiers = new ArrayList<>();
 
-    public ManageChancedLootTablesMenu(PlayerMenuUtility playerMenuUtility, ChancedBlockLootTable table) {
+    public ManageChancedBlockLootTablesMenu(PlayerMenuUtility playerMenuUtility, ChancedBlockLootTable table) {
         super(playerMenuUtility);
         this.currentLootTable = table;
         if (currentLootTable == null) {
@@ -70,6 +72,22 @@ public class ManageChancedLootTablesMenu extends Menu {
     @Override
     public String getMenuName() {
         return Utils.chat("&7Chanced Loot Table: " + this.currentLootTable.getDisplayName());
+    }
+
+    private static final BiMap<Material, Material> materialAliasses = getMaterialAliasses();
+
+    private static BiMap<Material, Material> getMaterialAliasses(){
+        BiMap<Material, Material> aliasses = HashBiMap.create();
+        aliasses.put(Material.POTATO, Material.POTATOES);
+        aliasses.put(Material.CARROT, Material.CARROTS);
+        aliasses.put(Material.WHEAT_SEEDS, Material.WHEAT);
+        aliasses.put(Material.BEETROOT_SEEDS, Material.BEETROOTS);
+        aliasses.put(Material.MELON_SEEDS, Material.MELON_STEM);
+        aliasses.put(Material.PUMPKIN_SEEDS, Material.PUMPKIN_STEM);
+        aliasses.put(Material.COCOA_BEANS, Material.COCOA);
+        aliasses.put(Material.SWEET_BERRIES, Material.SWEET_BERRY_BUSH);
+        aliasses.put(Material.KELP, Material.KELP_PLANT);
+        return aliasses;
     }
 
     @Override
@@ -102,7 +120,7 @@ public class ManageChancedLootTablesMenu extends Menu {
                             this.biomeFilter = entry.getBiomeFilter();
                             this.regionFilter = entry.getRegionFilter();
                             this.drop = entry.getLoot().clone();
-                            this.block = entry.getBlock();
+                            this.block = materialAliasses.inverse().containsKey(entry.getBlock()) ? materialAliasses.inverse().get(entry.getBlock()) : entry.getBlock();
                             this.currentModifiers = new ArrayList<>(entry.getModifiers());
                         }
                     } else {
@@ -134,11 +152,11 @@ public class ManageChancedLootTablesMenu extends Menu {
                     }
                 } else if (clickedItem.equals(blockButton)) {
                     if (e.getCursor() != null){
-                        if (e.getCursor().getType().isBlock()){
-                            if (currentLootTable.getCompatibleMaterials().contains(e.getCursor().getType())){
-                                blockButton.setType(e.getCursor().getType());
-                                block = blockButton.getType();
-                            }
+                        if (e.getCursor().getType().isBlock() || materialAliasses.containsKey(e.getCursor().getType())){
+                            block = e.getCursor().getType();
+                            blockButton.setType(block);
+//                            if (currentLootTable.getCompatibleMaterials().contains(e.getCursor().getType())){
+//                            }
                         }
                     }
                 } else if (clickedItem.equals(previousPageButton)){
@@ -180,7 +198,7 @@ public class ManageChancedLootTablesMenu extends Menu {
                                 }
                             }
                             currentLootEntry = new ChancedBlockLootEntry(name, Material.GRASS_BLOCK, new ItemStack(Material.WHEAT_SEEDS),
-                                    false, 0, new HashSet<>(), new HashSet<>(), new HashSet<>());
+                                    false, 0, new ArrayList<>(), new HashSet<>(), new HashSet<>());
                             this.chance = currentLootEntry.getChance();
                             this.overwriteDrops = currentLootEntry.isOverwriteNaturalDrops();
                             this.biomeFilter = currentLootEntry.getBiomeFilter();
@@ -220,7 +238,8 @@ public class ManageChancedLootTablesMenu extends Menu {
                             playerMenuUtility.getOwner().sendMessage(Utils.chat("&cPlease enter a drop!"));
                         } else {
                             ChancedBlockLootEntry newEntry = new ChancedBlockLootEntry(currentLootEntry.getName(),
-                                    block, drop.clone(), overwriteDrops, chance, currentModifiers, biomeFilter, regionFilter);
+                                    block.isBlock() ? block : materialAliasses.getOrDefault(block, Material.BARRIER),
+                                    drop.clone(), overwriteDrops, chance, currentModifiers, biomeFilter, regionFilter);
                             currentLootTable.unRegisterEntry(currentLootEntry.getName());
                             currentLootTable.registerEntry(newEntry);
                             view = View.VIEW_ENTRIES;
@@ -435,7 +454,7 @@ public class ManageChancedLootTablesMenu extends Menu {
         } else {
             List<String> modifierButtonLore = new ArrayList<>();
             List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-            modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+            DynamicItemModifier.sortModifiers(modifiers);
             for (DynamicItemModifier modifier : modifiers){
                 modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
             }
@@ -517,7 +536,7 @@ public class ManageChancedLootTablesMenu extends Menu {
                     lore.add(Utils.chat("&7Executes modifiers:"));
 
                     List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
-                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                    DynamicItemModifier.sortModifiers(modifiers);
 
                     for (DynamicItemModifier modifier : modifiers){
                         String craftDescription = modifier.getCraftDescription();

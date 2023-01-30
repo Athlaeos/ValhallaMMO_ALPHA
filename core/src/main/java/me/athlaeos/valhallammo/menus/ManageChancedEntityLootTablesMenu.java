@@ -190,7 +190,7 @@ public class ManageChancedEntityLootTablesMenu extends Menu {
                                 }
                             }
                             currentLootEntry = new ChancedEntityLootEntry(name, EntityType.ZOMBIE, new ItemStack(Material.WHEAT_SEEDS),
-                                    false, 0, new HashSet<>(), new HashSet<>(), new HashSet<>());
+                                    false, 0, new ArrayList<>(), new HashSet<>(), new HashSet<>());
                             this.chance = currentLootEntry.getChance();
                             this.overwriteDrops = currentLootEntry.isOverwriteNaturalDrops();
                             this.biomeFilter = currentLootEntry.getBiomeFilter();
@@ -477,7 +477,7 @@ public class ManageChancedEntityLootTablesMenu extends Menu {
         } else {
             List<String> modifierButtonLore = new ArrayList<>();
             List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-            modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+            DynamicItemModifier.sortModifiers(modifiers);
             for (DynamicItemModifier modifier : modifiers){
                 modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
             }
@@ -561,7 +561,7 @@ public class ManageChancedEntityLootTablesMenu extends Menu {
                     lore.add(Utils.chat("&7Executes modifiers:"));
 
                     List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
-                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                    DynamicItemModifier.sortModifiers(modifiers);
 
                     for (DynamicItemModifier modifier : modifiers){
                         String craftDescription = modifier.getCraftDescription();

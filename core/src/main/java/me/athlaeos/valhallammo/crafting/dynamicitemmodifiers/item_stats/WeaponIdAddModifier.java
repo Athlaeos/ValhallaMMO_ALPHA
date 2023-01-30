@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class WeaponIdAddModifier extends DynamicItemModifier {
-    public WeaponIdAddModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public WeaponIdAddModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -39,7 +39,7 @@ public class WeaponIdAddModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         SmithingItemTreatmentManager.getInstance().setWeaponId(outputItem, (int) strength);
         return outputItem;

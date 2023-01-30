@@ -16,10 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class PotionTransmutationAssignmentModifier extends DynamicItemModifier implements Cloneable{
+public class PotionTransmutationAssignmentModifier extends DynamicItemModifier{
 
-    public PotionTransmutationAssignmentModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public PotionTransmutationAssignmentModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -43,7 +43,7 @@ public class PotionTransmutationAssignmentModifier extends DynamicItemModifier i
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (crafter == null) return null;
         if (crafter.hasPermission("valhalla.allrecipes")) {

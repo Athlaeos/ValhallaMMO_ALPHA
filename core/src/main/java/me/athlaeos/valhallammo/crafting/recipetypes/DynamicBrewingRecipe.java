@@ -4,17 +4,17 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
+import java.util.List;
 
 public class DynamicBrewingRecipe implements Cloneable{
     private final String name;
     private ItemStack ingredient;
     private Material applyOn;
     private boolean perfectMeta;
-    private Collection<DynamicItemModifier> modifiers;
+    private List<DynamicItemModifier> modifiers;
     private boolean unlockedForEveryone = false;
 
-    public DynamicBrewingRecipe(String name, ItemStack ingredient, Material applyOn, boolean perfect, Collection<DynamicItemModifier> modifiers) {
+    public DynamicBrewingRecipe(String name, ItemStack ingredient, Material applyOn, boolean perfect, List<DynamicItemModifier> modifiers) {
         this.name = name;
         this.ingredient = ingredient;
         this.applyOn = applyOn;
@@ -38,7 +38,7 @@ public class DynamicBrewingRecipe implements Cloneable{
         return ingredient;
     }
 
-    public Collection<DynamicItemModifier> getItemModifiers() {
+    public List<DynamicItemModifier> getItemModifiers() {
         return modifiers;
     }
 
@@ -58,7 +58,7 @@ public class DynamicBrewingRecipe implements Cloneable{
         this.ingredient = ingredient;
     }
 
-    public void setModifiers(Collection<DynamicItemModifier> modifiers) {
+    public void setModifiers(List<DynamicItemModifier> modifiers) {
         this.modifiers = modifiers;
     }
 

@@ -25,10 +25,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
 public class PlayerCustomCraftListener implements Listener {
     CooldownManager cooldownManager = CooldownManager.getInstance();
     private final boolean spawnOnTopOfBlock;
@@ -49,12 +45,14 @@ public class PlayerCustomCraftListener implements Listener {
             if (playerHasSpace || spawnOnTopOfBlock){
                 ItemStack result = e.getRecipe().getResult().clone();
                 // Modify item based on the recipe's improvement modifiers
-                List<DynamicItemModifier> modifiers = new ArrayList<>(e.getRecipe().getItemModifers());
-                modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                for (DynamicItemModifier modifier : modifiers){
-                    if (result == null) break;
-                    result = modifier.processItem(e.getPlayer(), result);
-                }
+                result = DynamicItemModifier.modify(result, e.getPlayer(), e.getRecipe().getItemModifiers(), false, true, true);
+
+                //List<DynamicItemModifier> modifiers = new ArrayList<>(e.getRecipe().getItemModifers());
+                //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                //for (DynamicItemModifier modifier : modifiers){
+                //    if (result == null) break;
+                //    result = modifier.processItem(e.getPlayer(), result);
+                //}
                 if (result != null){
                     if (e.getRecipe().getValidation() != null){
                         e.getRecipe().getValidation().executeAfter(e.getCraftingStation());

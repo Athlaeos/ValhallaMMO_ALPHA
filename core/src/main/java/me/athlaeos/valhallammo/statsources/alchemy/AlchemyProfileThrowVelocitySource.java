@@ -17,6 +17,6 @@ public class AlchemyProfileThrowVelocitySource extends AccumulativeStatSource {
             AlchemyProfile alchemyProfile = (AlchemyProfile) profile;
             return alchemyProfile.getPotionVelocity();
         }
-        return 0;
+        return 1;
     }
 }

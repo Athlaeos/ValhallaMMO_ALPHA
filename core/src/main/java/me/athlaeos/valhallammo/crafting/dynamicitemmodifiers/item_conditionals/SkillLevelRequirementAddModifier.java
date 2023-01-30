@@ -55,7 +55,7 @@ public class SkillLevelRequirementAddModifier extends DynamicItemModifier implem
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (strength <= 0){
             OverleveledEquipmentTool.getTool().removeSkillRequirement(outputItem, skill.getType());

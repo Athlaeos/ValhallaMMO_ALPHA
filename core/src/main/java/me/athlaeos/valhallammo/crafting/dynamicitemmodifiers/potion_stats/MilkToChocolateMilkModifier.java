@@ -42,7 +42,7 @@ public class MilkToChocolateMilkModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
         PotionMeta meta = (PotionMeta) outputItem.getItemMeta();

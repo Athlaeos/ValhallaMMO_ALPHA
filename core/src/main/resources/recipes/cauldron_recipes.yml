@@ -1,0 +1,1411 @@
+cauldron:
+  cauldron_cool_iron_leggings:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_chainmail_helmet:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_stone_axe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_iron_axe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_pickaxe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_shears:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_leggings:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_pickaxe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_hoe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_shovel:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_chainmail_leggings:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_hoe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_pickaxe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_stone_pickaxe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_boots:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_helmet:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_leggings:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_chainmail_boots:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_sword:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOON
+      treatment_add_tempering:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: LATER
+  cauldron_cool_diamond_axe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_iron_pickaxe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_chestplate:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_leggings:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_axe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_sword:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOON
+      treatment_add_tempering:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: LATER
+  cauldron_cool_iron_helmet:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_boots:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_trident:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+  cauldron_cool_gold_shovel:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_axe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_shovel:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_chestplate:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_stone_hoe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_chainmail_chestplate:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_iron_hoe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_hoe:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_iron_boots:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_iron_sword:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOON
+      treatment_add_tempering:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: LATER
+  cauldron_cool_stone_shovel:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_stone_sword:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOON
+      treatment_add_tempering:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: LATER
+  cauldron_cool_diamond_helmet:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_boots:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+  cauldron_cool_iron_shovel:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_diamond_chestplate:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_gold_helmet:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL
+  cauldron_cool_netherite_sword:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_super_heating:
+        strength: 0.0
+        priority: SOON
+      treatment_add_tempering:
+        strength: 0.0
+        priority: NEUTRAL
+      treatment_remove_super_heating:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: LATER
+  cauldron_cool_iron_chestplate:
+    exact_meta_ingredients: false
+    catalyst:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    exact_meta_catalyst: false
+    require_custom_catalyst: true
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    tinker_catalyst: true
+    requires_boiling_water: false
+    consumes_water_level: true
+    unlocked_for_everyone: true
+    modifiers:
+      treatment_requirement_heating:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_tempering:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      treatment_remove_heating:
+        strength: 0.0
+        priority: NEUTRAL

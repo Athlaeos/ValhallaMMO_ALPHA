@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.List;
 
 public class ItemImprovementRecipe extends AbstractCustomCraftingRecipe implements Cloneable{
     // An item improvement recipe instead of outputting an item modifies the item held by the player given a list of
@@ -26,17 +27,17 @@ public class ItemImprovementRecipe extends AbstractCustomCraftingRecipe implemen
         this.requiredItemType = requiredItemType;
     }
 
-    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers){
+    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, List<DynamicItemModifier> itemModifiers){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers);
         this.requiredItemType = requiredItemType;
     }
 
-    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta){
+    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, List<DynamicItemModifier> itemModifiers, boolean requireExactMeta){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta);
         this.requiredItemType = requiredItemType;
     }
 
-    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta, int subsequentCrafts){
+    public ItemImprovementRecipe(String name, String displayName, Material requiredItemType, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, List<DynamicItemModifier> itemModifiers, boolean requireExactMeta, int subsequentCrafts){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta, subsequentCrafts);
         this.requiredItemType = requiredItemType;
     }

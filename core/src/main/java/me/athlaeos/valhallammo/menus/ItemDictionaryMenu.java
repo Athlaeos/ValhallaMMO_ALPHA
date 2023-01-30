@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
@@ -60,10 +61,14 @@ public class ItemDictionaryMenu extends Menu{
                 int value = getStoredNumber(clickedItem);
                 if (value >= 0){
                     ItemStack entry = ItemDictionaryManager.getInstance().getItemDictionary().get(value);
-                    if (Utils.isItemEmptyOrNull(entry)){
-                        playerMenuUtility.getOwner().sendMessage(Utils.chat("&cItem has been removed"));
+                    if (e.getClick() == ClickType.MIDDLE){
+                        e.getWhoClicked().getInventory().addItem(entry);
                     } else {
-                        ItemDictionaryManager.getInstance().removeItem(value);
+                        if (Utils.isItemEmptyOrNull(entry)){
+                            playerMenuUtility.getOwner().sendMessage(Utils.chat("&cItem has been removed"));
+                        } else {
+                            ItemDictionaryManager.getInstance().removeItem(value);
+                        }
                     }
                 }
             }

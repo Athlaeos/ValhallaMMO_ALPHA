@@ -180,43 +180,43 @@ scaling_damage:
 
 scaling_speed:
   wood:
-    scaling: '(0.5/300) * %rating% + 0.8' # This default formula results in an attack speed multiplier of 0.8x-1.3x at 300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/300) * %rating% - 0.2' # This default formula results in an attack speed scaling of -0.2 to +0.4 at 300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   stone:
-    scaling: '(0.5/280) * (%rating% - 20) + 0.8' # 0.8x-1.3x damage from 20-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/280) * (%rating% - 20) - 0.2' # -0.2 to +0.4 attack speed from 20-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   gold:
-    scaling: '(0.5/260) * (%rating% - 40) + 0.8' # 0.8x-1.3x damage from 40-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/260) * (%rating% - 40) - 0.2' # -0.2 to +0.4 attack speed from 40-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   iron:
-    scaling: '(0.5/260) * (%rating% - 40) + 0.8' # 0.8x-1.3x damage from 40-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/260) * (%rating% - 40) - 0.2' # -0.2 to +0.4 attack speed from 40-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   diamond:
-    scaling: '(0.5/240) * (%rating% - 60) + 0.8' # 0.8x-1.3x damage from 60-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/240) * (%rating% - 60) - 0.2' # -0.2 to +0.4 attack speed from 60-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   netherite:
-    scaling: '(0.5/220) * (%rating% - 80) + 0.8' # 0.8x-1.3x damage from 80-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/220) * (%rating% - 80) - 0.2' # -0.2 to +0.4 attack speed from 80-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   prismarine:
-    scaling: '(0.5/260) * (%rating% - 40) + 0.8' # 0.8x-1.3x damage from 40-300 pts
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/260) * (%rating% - 40) - 0.2' # -0.2 to +0.4 attack speed from 40-300 pts
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   other:
-    scaling: '(0.5/300) * %rating% + 0.8' # Applies for any other item that has been given custom attack speed
-    mode: 'MULTIPLIER'
+    scaling: '(0.6/300) * %rating% - 0.2' # Applies for any other item that has been given custom attack speed
+    mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
 

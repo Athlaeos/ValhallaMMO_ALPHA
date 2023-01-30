@@ -39,6 +39,9 @@ public class AlchemyExpGainSetReward extends PerkReward {
             if (argument instanceof Double){
                 this.expGain = (Double) argument;
             }
+            if (argument instanceof Float){
+                expGain = (double) argument;
+            }
             if (argument instanceof Integer){
                 expGain = (Integer) argument;
             }

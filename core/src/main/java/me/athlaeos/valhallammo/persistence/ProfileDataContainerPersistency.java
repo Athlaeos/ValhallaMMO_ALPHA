@@ -62,4 +62,9 @@ public class ProfileDataContainerPersistency extends Persistency {
     public void savePlayerProfiles() {
         // do nothing
     }
+
+    @Override
+    public void savePlayerProfiles(Player p) {
+        // do nothing
+    }
 }

@@ -154,14 +154,14 @@ messages: # Messages to send to the player every time the player levels this ski
 leveling_perks: # Perk rewards executed on the player every time they level
   skillpoints_add: 1
 
-starting_coordinates: '0,0' # The coordinates in the skill tree the player sees first when switching to the skill tree
+starting_coordinates: '3,1' # The coordinates in the skill tree the player sees first when switching to the skill tree
 
 perks:
   account_perk_health_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
     # That also means changing this identifier name will break the ones currently existing on players
     name: '<lang.skill-account-perk-health-1-display-name>' # Name of the icon within the skill tree
-    icon: 'GLISTENING_MELON_SLICE' # Icon itself within the skill tree
-    coords: 0,0 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    icon: 'GLISTERING_MELON_SLICE' # Icon itself within the skill tree
+    coords: 3,1 # Location on skill tree, if following skills share this coordinate the current one will be overridden
     hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
     cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
     description: '<lang.skill-account-perk-health-1-description>'
@@ -172,8 +172,8 @@ perks:
       - '<lang.skill-account-perk-health-1-messages>'
   account_perk_health_2:
     name: '<lang.skill-account-perk-health-2-display-name>'
-    icon: 'GLISTENING_MELON_SLICE'
-    coords: 0,0
+    icon: 'GLISTERING_MELON_SLICE'
+    coords: 3,1
     requireperk_one:
       - account_perk_health_1
     hidden: true
@@ -186,8 +186,8 @@ perks:
       - '<lang.skill-account-perk-health-2-messages>'
   account_perk_health_3:
     name: '<lang.skill-account-perk-health-3-display-name>'
-    icon: 'GLISTENING_MELON_SLICE'
-    coords: 0,0
+    icon: 'GLISTERING_MELON_SLICE'
+    coords: 3,1
     requireperk_one:
       - account_perk_health_2
     hidden: true
@@ -198,50 +198,10 @@ perks:
       player_base_bonus_health_add: 5
     messages:
       - '<lang.skill-account-perk-health-3-messages>'
-  account_perk_regeneration_1:
-    name: '<lang.skill-account-perk-regeneration-1-display-name>'
-    icon: 'GHAST_TEAR'
-    coords: 1,-1
-    hidden: false
-    cost: 1
-    description: '<lang.skill-account-perk-regeneration-1-description>'
-    required_lv: 0
-    perk_rewards:
-      player_health_regeneration_add: 0.1
-    messages:
-      - '<lang.skill-account-perk-regeneration-1-messages>'
-  account_perk_regeneration_2:
-    name: '<lang.skill-account-perk-regeneration-2-display-name>'
-    icon: 'GHAST_TEAR'
-    coords: 1,-1
-    requireperk_one:
-      - account_perk_regeneration_1
-    hidden: true
-    cost: 1
-    description: '<lang.skill-account-perk-regeneration-2-description>'
-    required_lv: 30
-    perk_rewards:
-      player_health_regeneration_add: 0.15
-    messages:
-      - '<lang.skill-account-perk-regeneration-2-messages>'
-  account_perk_regeneration_3:
-    name: '<lang.skill-account-perk-regeneration-3-display-name>'
-    icon: 'GHAST_TEAR'
-    coords: 1,-1
-    requireperk_one:
-      - account_perk_regeneration_2
-    hidden: true
-    cost: 1
-    description: '<lang.skill-account-perk-regeneration-3-description>'
-    required_lv: 60
-    perk_rewards:
-      player_health_regeneration_add: 0.25
-    messages:
-      - '<lang.skill-account-perk-regeneration-3-messages>'
   account_perk_armor_1:
     name: '<lang.skill-account-perk-armor-1-display-name>'
     icon: 'LEATHER_CHESTPLATE'
-    coords: 1,1
+    coords: 4,0
     hidden: false
     cost: 1
     description: '<lang.skill-account-perk-armor-1-description>'
@@ -253,7 +213,7 @@ perks:
   account_perk_armor_2:
     name: '<lang.skill-account-perk-armor-2-display-name>'
     icon: 'IRON_CHESTPLATE'
-    coords: 1,1
+    coords: 4,0
     requireperk_one:
       - account_perk_armor_1
     hidden: true
@@ -267,7 +227,7 @@ perks:
   account_perk_armor_3:
     name: '<lang.skill-account-perk-armor-3-display-name>'
     icon: 'NETHERITE_CHESTPLATE'
-    coords: 1,1
+    coords: 4,0
     requireperk_one:
       - account_perk_armor_2
     hidden: true
@@ -281,7 +241,7 @@ perks:
   account_perk_knockbackresist_1:
     name: '<lang.skill-account-perk-knockbackresist-1-display-name>'
     icon: 'IRON_BLOCK'
-    coords: 0,2
+    coords: 5,1
     hidden: false
     cost: 1
     description: '<lang.skill-account-perk-knockbackresist-1-description>'
@@ -293,7 +253,7 @@ perks:
   account_perk_knockbackresist_2:
     name: '<lang.skill-account-perk-knockbackresist-2-display-name>'
     icon: 'GOLD_BLOCK'
-    coords: 0,2
+    coords: 5,1
     requireperk_one:
       - account_perk_knockbackresist_1
     hidden: true
@@ -307,7 +267,7 @@ perks:
   account_perk_knockbackresist_3:
     name: '<lang.skill-account-perk-knockbackresist-3-display-name>'
     icon: 'NETHERITE_BLOCK'
-    coords: 0,2
+    coords: 5,1
     requireperk_one:
       - account_perk_knockbackresist_2
     hidden: true
@@ -321,7 +281,7 @@ perks:
   account_perk_bleedingresist_1:
     name: '<lang.skill-account-perk-bleedingresist-1-display-name>'
     icon: 'IRON_BLOCK'
-    coords: 1,3
+    coords: 6,0
     hidden: false
     cost: 1
     description: '<lang.skill-account-perk-bleedingresist-1-description>'
@@ -333,7 +293,7 @@ perks:
   account_perk_bleedingresist_2:
     name: '<lang.skill-account-perk-bleedingresist-2-display-name>'
     icon: 'GOLD_BLOCK'
-    coords: 1,3
+    coords: 6,0
     requireperk_one:
       - account_perk_bleedingresist_1
     hidden: true
@@ -347,7 +307,7 @@ perks:
   account_perk_bleedingresist_3:
     name: '<lang.skill-account-perk-bleedingresist-3-display-name>'
     icon: 'NETHERITE_BLOCK'
-    coords: 1,3
+    coords: 6,0
     requireperk_one:
       - account_perk_bleedingresist_2
     hidden: true
@@ -358,10 +318,50 @@ perks:
       player_bleed_resistance_add: 0.25
     messages:
       - '<lang.skill-account-perk-bleedingresist-3-messages>'
+  account_perk_regeneration_1:
+    name: '<lang.skill-account-perk-regeneration-1-display-name>'
+    icon: 'GHAST_TEAR'
+    coords: 2,0
+    hidden: false
+    cost: 1
+    description: '<lang.skill-account-perk-regeneration-1-description>'
+    required_lv: 0
+    perk_rewards:
+      player_health_regeneration_add: 0.1
+    messages:
+      - '<lang.skill-account-perk-regeneration-1-messages>'
+  account_perk_regeneration_2:
+    name: '<lang.skill-account-perk-regeneration-2-display-name>'
+    icon: 'GHAST_TEAR'
+    coords: 2,0
+    requireperk_one:
+      - account_perk_regeneration_1
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-regeneration-2-description>'
+    required_lv: 30
+    perk_rewards:
+      player_health_regeneration_add: 0.15
+    messages:
+      - '<lang.skill-account-perk-regeneration-2-messages>'
+  account_perk_regeneration_3:
+    name: '<lang.skill-account-perk-regeneration-3-display-name>'
+    icon: 'GHAST_TEAR'
+    coords: 2,0
+    requireperk_one:
+      - account_perk_regeneration_2
+    hidden: true
+    cost: 1
+    description: '<lang.skill-account-perk-regeneration-3-description>'
+    required_lv: 60
+    perk_rewards:
+      player_health_regeneration_add: 0.25
+    messages:
+      - '<lang.skill-account-perk-regeneration-3-messages>'
   account_perk_hungerreduction_1:
     name: '<lang.skill-account-perk-hungerreduction-1-display-name>'
     icon: 'BREAD'
-    coords: 0,-2
+    coords: 1,1
     hidden: false
     cost: 1
     description: '<lang.skill-account-perk-hungerreduction-1-description>'
@@ -373,7 +373,7 @@ perks:
   account_perk_hungerreduction_2:
     name: '<lang.skill-account-perk-hungerreduction-2-display-name>'
     icon: 'BREAD'
-    coords: 0,-2
+    coords: 1,1
     requireperk_one:
       - account_perk_hungerreduction_1
     hidden: true
@@ -387,7 +387,7 @@ perks:
   account_perk_hungerreduction_3:
     name: '<lang.skill-account-perk-hungerreduction-3-display-name>'
     icon: 'BREAD'
-    coords: 0,-2
+    coords: 1,1
     requireperk_one:
       - account_perk_hungerreduction_2
     hidden: true
@@ -401,7 +401,7 @@ perks:
   account_perk_cooldownreduction_1:
     name: '<lang.skill-account-perk-cooldownreduction-1-display-name>'
     icon: 'CLOCK'
-    coords: 1,-3
+    coords: 0,0
     hidden: false
     cost: 1
     description: '<lang.skill-account-perk-cooldownreduction-1-description>'
@@ -413,7 +413,7 @@ perks:
   account_perk_cooldownreduction_2:
     name: '<lang.skill-account-perk-cooldownreduction-2-display-name>'
     icon: 'CLOCK'
-    coords: 1,-3
+    coords: 0,0
     requireperk_one:
       - account_perk_cooldownreduction_1
     hidden: true
@@ -427,7 +427,7 @@ perks:
   account_perk_cooldownreduction_3:
     name: '<lang.skill-account-perk-cooldownreduction-3-display-name>'
     icon: 'CLOCK'
-    coords: 1,-3
+    coords: 0,0
     requireperk_one:
       - account_perk_cooldownreduction_2
     hidden: true

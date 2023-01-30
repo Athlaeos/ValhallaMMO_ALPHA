@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class ArrowExplosiveUpgradeModifier extends TripleArgDynamicItemModifier implements DynamicEditable {
-    public ArrowExplosiveUpgradeModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority) {
-        super(name, strength, strength2, strength3, priority);
+    public ArrowExplosiveUpgradeModifier(String name) {
+        super(name, 0D, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -69,7 +69,7 @@ public class ArrowExplosiveUpgradeModifier extends TripleArgDynamicItemModifier 
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
 
         strength2 = (int) strength2;

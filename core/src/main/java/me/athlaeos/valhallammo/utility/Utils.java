@@ -107,7 +107,17 @@ public class Utils {
         return map.get(l) + toRoman(number-l);
     }
 
-    public static void breakBlock(Player player, Block block, boolean instantPickup){
+    /**
+     * Breaks a block, returns the collection of items the player has picked up if instantPickup is enabled
+     * Calls the appropriate events. These items will not be called in the drop event, so this is one way of rewarding the
+     * player for items that weren't dropped as such.
+     * Not gonna lie, kind of a spaghetti code method, using it might have unintended effects on the plugin.
+     * @param player the player to break the block
+     * @param block the block to break
+     * @param instantPickup if the player should instantly receive the items of the broken block
+     * @return the list of collected items if instantPickup if enabled, or an empty list otherwise
+     */
+    public static List<ItemStack> breakBlock(Player player, Block block, boolean instantPickup){
         // try to break a block and call the appropriate events
         ItemStack tool;
         if (!Utils.isItemEmptyOrNull(player.getInventory().getItemInMainHand())) {
@@ -118,13 +128,16 @@ public class Utils {
         }
         BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
-        if (breakEvent.isCancelled()) return;
+        if (breakEvent.isCancelled()) return new ArrayList<>();
 
         List<ItemStack> drops = new ArrayList<>((tool == null) ? block.getDrops() : block.getDrops(tool, player));
+        List<ItemStack> receivedDrops = new ArrayList<>();
         if (!drops.isEmpty()){
             BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(block, block.getState(), player, drops);
             if (instantPickup){
                 Map<Integer, ItemStack> excessDrops = player.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
+                receivedDrops = new ArrayList<>(drops);
+                receivedDrops.removeAll(excessDrops.values());
                 dropEvent.getItems().clear();
                 dropEvent.getItems().addAll(excessDrops.values());
             }
@@ -135,6 +148,7 @@ public class Utils {
             block.getWorld().spawnParticle(Particle.BLOCK_DUST, block.getLocation().add(0.5, 0.5, 0.5), 16, 0.5, 0.5, 0.5, block.getBlockData());
             block.setType(Material.AIR);
         }
+        return receivedDrops;
     }
 
     private static final Map<String, Collection<UUID>> blockAlteringPlayers = new HashMap<>();
@@ -478,18 +492,18 @@ public class Utils {
 
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<>();
-        int strengthLoreIndex = -1;
+        int index = -1;
         for (String l : lore){
             if (l.contains(find)){
-                strengthLoreIndex = lore.indexOf(l);
+                index = lore.indexOf(l);
                 break;
             }
         }
 
-        if (strengthLoreIndex != -1) {
-            lore.remove(strengthLoreIndex);
+        if (index != -1) {
+            lore.remove(index);
         }
-        if (!replace.equals("")){
+        if (replace != null && !replace.equals("")){
             lore.add(Utils.chat(replace));
         }
         meta.setLore(lore);
@@ -515,8 +529,7 @@ public class Utils {
     }
 
     public static boolean isItemEmptyOrNull(ItemStack i){
-        if (i == null) return true;
-        return i.getType().isAir();
+        return i == null || i.getType().isAir();
     }
 
     public static void sendMessage(CommandSender whomst, String message){
@@ -627,10 +640,12 @@ public class Utils {
         return i;
     }
 
+    private static final Map<String, Double> evalCache = new HashMap<>();
     public static double eval(String expression) {
+        if (evalCache.containsKey(expression)) return evalCache.get(expression);
         String str = expression.replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
         if (str.length() <= 0) return 0;
-        return new Object() {
+        double result = new Object() {
             int pos = -1, ch;
 
             void nextChar() {
@@ -709,6 +724,8 @@ public class Utils {
                 return x;
             }
         }.parse();
+        evalCache.put(expression, result);
+        return result;
     }
 
     public static double evalBigDouble(String expression) {
@@ -865,6 +882,23 @@ public class Utils {
             }
             meta.setLore(coloredLore);
         }
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack createItemStack(Material material, String displayName, List<String> lore, int customModelData){
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(displayName);
+        if (lore != null){
+            List<String> coloredLore = new ArrayList<>();
+            for (String l : lore){
+                coloredLore.add(Utils.chat(l));
+            }
+            meta.setLore(coloredLore);
+        }
+        meta.setCustomModelData(customModelData);
         item.setItemMeta(meta);
         return item;
     }

@@ -22,6 +22,7 @@ import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.EntityEffect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -225,6 +226,11 @@ public class InteractListener implements Listener {
                                                 ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(craftEvent);
                                                 if (!craftEvent.isCancelled()){
                                                     incrementPlayerCraftFrequency(e.getPlayer(), currentRecipe);
+                                                    if (requires_tool){
+                                                        if (ItemUtils.damageItem(e.getPlayer(), heldItem, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+                                                            e.getPlayer().getInventory().setItemInMainHand(null);
+                                                        }
+                                                    }
                                                 }
                                             } else {
                                                 if (!errorNoIngredients.equals("")){

@@ -20,8 +20,8 @@ import java.util.List;
 public class DynamicAmountModifier extends DuoArgDynamicItemModifier {
     private final Scaling scaling;
 
-    public DynamicAmountModifier(String name, double strength, double strength2, ModifierPriority priority) {
-        super(name, strength, strength2, priority);
+    public DynamicAmountModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -67,7 +67,7 @@ public class DynamicAmountModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         double materialSkill = 0;
         double generalSkill = AccumulativeStatManager.getInstance().getStats("SMITHING_QUALITY_GENERAL", crafter, this.use);

@@ -21,6 +21,6 @@ public class EnchantingProfileVanillaEXPGainSource extends AccumulativeStatSourc
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
             return enchantingProfile.getVanillaExpGainMultiplier();
         }
-        return 0;
+        return 1;
     }
 }

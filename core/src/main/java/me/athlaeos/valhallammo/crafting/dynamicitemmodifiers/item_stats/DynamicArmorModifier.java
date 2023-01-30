@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class DynamicArmorModifier extends DuoArgDynamicItemModifier {
-    public DynamicArmorModifier(String name, double strength, double strength2, ModifierPriority priority) {
-        super(name, strength, strength2, priority);
+    public DynamicArmorModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_VANILLA;
@@ -52,7 +52,7 @@ public class DynamicArmorModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

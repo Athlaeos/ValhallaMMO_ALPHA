@@ -58,6 +58,11 @@ public class PlaceholderManager {
 
         registerPlaceholder(new GeneralPlayerNickName("%player_nickname%"));
 
+        registerPlaceholder(new TotalArmorPlaceholder("%armor_total%"));
+        registerPlaceholder(new TotalLightArmorPlaceholder("%light_armor_total%"));
+        registerPlaceholder(new TotalHeavyArmorPlaceholder("%heavy_armor_total%"));
+        registerPlaceholder(new TotalGenericArmorPlaceholder("%weightless_armor_total%"));
+
         // SMITHING
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_general%", null));
         registerPlaceholder(new SmithingEXPMultipliers("%smithing_expmult_wood%", MaterialClass.WOOD));

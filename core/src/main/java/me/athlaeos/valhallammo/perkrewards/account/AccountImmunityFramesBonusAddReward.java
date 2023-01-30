@@ -31,7 +31,10 @@ public class AccountImmunityFramesBonusAddReward extends PerkReward {
         super.setArgument(argument);
         if (argument != null){
             if (argument instanceof Integer){
-                frames = (Integer) argument;
+                frames = (int) argument;
+            }
+            if (argument instanceof Float){
+                frames = (int) argument;
             }
             if (argument instanceof Double){
                 double temp = (Double) argument;

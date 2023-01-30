@@ -15,10 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class AttributeAddArrowSaveChanceModifier extends DynamicItemModifier implements Cloneable{
+public class AttributeAddArrowSaveChanceModifier extends DynamicItemModifier {
 
-    public AttributeAddArrowSaveChanceModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AttributeAddArrowSaveChanceModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -43,7 +43,7 @@ public class AttributeAddArrowSaveChanceModifier extends DynamicItemModifier imp
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemAttributesManager.getInstance().addDefaultStat(outputItem, new CustomArrowSaveChanceWrapper(
                 strength,

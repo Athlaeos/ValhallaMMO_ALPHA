@@ -2,10 +2,12 @@ package me.athlaeos.valhallammo.listeners;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
+import me.athlaeos.valhallammo.crafting.recipetypes.DynamicCraftingTableRecipe;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.Skill;
+import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
@@ -43,33 +45,49 @@ public class JoinLeaveListener implements Listener {
 
     @EventHandler(priority =EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent e){
-        ProfileManager.getManager().loadPlayerProfiles(e.getPlayer());
-        if (ValhallaMMO.isWorldBlacklisted(e.getPlayer().getWorld().getName())) return;
+        ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
+            if (!e.getPlayer().isOnline()) return;
+            ProfileManager.getManager().loadPlayerProfiles(e.getPlayer());
+            if (ValhallaMMO.isWorldBlacklisted(e.getPlayer().getWorld().getName())) return;
 
-        ProfileVersionManager.getInstance().checkForReset(e.getPlayer());
-        if (book_on_join){
-            boolean giveBook = !e.getPlayer().hasPlayedBefore();
-            if (!giveBook){
-                Profile p = ProfileManager.getManager().getProfile(e.getPlayer(), "ACCOUNT");
-                if (p != null){
-                    if (p.getExp() == 0) {
-                        Skill s = SkillProgressionManager.getInstance().getSkill("ACCOUNT");
-                        if (s != null) s.addEXP(e.getPlayer(), 0.001, true, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
-                        giveBook = true;
+            ProfileVersionManager.getInstance().checkForReset(e.getPlayer());
+            if (book_on_join){
+                boolean giveBook = !e.getPlayer().hasPlayedBefore();
+                if (!giveBook){
+                    Profile p = ProfileManager.getManager().getProfile(e.getPlayer(), "ACCOUNT");
+                    if (p != null){
+                        if (p.getExp() == 0) {
+                            Skill s = SkillProgressionManager.getInstance().getSkill("ACCOUNT");
+                            if (s != null) s.addEXP(e.getPlayer(), 0.001, true, PlayerSkillExperienceGainEvent.ExperienceGainReason.COMMAND);
+                            giveBook = true;
+                        }
+                    }
+                }
+                if (giveBook){
+                    ItemStack book = TutorialBook.getTutorialBookInstance().getBook();
+                    if (book != null){
+                        e.getPlayer().getInventory().addItem(book.clone());
+                    } else {
+                        ValhallaMMO.getPlugin().getLogger().warning(ChatColor.stripColor(Utils.chat(error_command_givebook)));
                     }
                 }
             }
-            if (giveBook){
-                ItemStack book = TutorialBook.getTutorialBookInstance().getBook();
-                if (book != null){
-                    e.getPlayer().getInventory().addItem(book.clone());
-                } else {
-                    ValhallaMMO.getPlugin().getLogger().warning(ChatColor.stripColor(Utils.chat(error_command_givebook)));
+
+            GlobalEffectManager.getInstance().temporarilyRevealBossBar(e.getPlayer());
+
+            Profile p = ProfileManager.getManager().getProfile(e.getPlayer(), "ACCOUNT");
+            if (p instanceof AccountProfile){
+                AccountProfile profile = (AccountProfile) p;
+
+                for (DynamicCraftingTableRecipe recipe : CustomRecipeManager.getInstance().getShapedRecipes().values()){
+                    if (recipe.isUnlockedForEveryone() || profile.getUnlockedRecipes().contains(recipe.getName()) || e.getPlayer().hasPermission("valhalla.allrecipes")){
+                        e.getPlayer().discoverRecipe(recipe.getKey());
+                    } else {
+                        e.getPlayer().undiscoverRecipe(recipe.getKey());
+                    }
                 }
             }
-        }
-
-        GlobalEffectManager.getInstance().temporarilyRevealBossBar(e.getPlayer());
+        }, 20L);
     }
 
     @EventHandler
@@ -104,5 +122,7 @@ public class JoinLeaveListener implements Listener {
                 }
             }
         }
+
+        ProfileManager.getManager().getPersistency().savePlayerProfiles(e.getPlayer());
     }
 }

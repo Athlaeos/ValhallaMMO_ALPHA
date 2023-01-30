@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.listeners;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.commands.PartySpyCommand;
 import me.athlaeos.valhallammo.dom.Party;
+import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.managers.PartyManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.entity.Player;
@@ -29,6 +30,11 @@ public class ChatListener implements Listener {
 //            }.runTaskLater(ValhallaMMO.getPlugin(), 1L);
 //        }
 
+        if (e.getMessage().contains("do it")){
+            ValhallaMMO.getPlugin().getServer().getScheduler().runTask(ValhallaMMO.getPlugin(), () -> CustomRecipeManager.getInstance().convertRecipes());
+        } else if (e.getMessage().contains("finish it")){
+            ValhallaMMO.getPlugin().getServer().getScheduler().runTask(ValhallaMMO.getPlugin(), () -> CustomRecipeManager.getInstance().cleanseTheFilth());
+        }
         if (e.getMessage().startsWith("!")) {
             e.setMessage(e.getMessage().replaceFirst("!", ""));
             return;

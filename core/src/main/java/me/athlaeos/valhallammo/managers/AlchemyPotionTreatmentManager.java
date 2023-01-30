@@ -118,32 +118,6 @@ public class AlchemyPotionTreatmentManager {
         registerScaling(Type.DURATION, "POISON", getScalingFromPath(config, "scaling_duration.poison"));
         registerScaling(Type.DURATION, "BAD_OMEN", getScalingFromPath(config, "scaling_duration.bad_omen"));
 
-
-        registerScaling(Type.DURATION, "ALCHEMY_INGREDIENT_SAVE", getScalingFromPath(config, "scaling_duration.alchemy_ingredient_save"));
-        registerScaling(Type.DURATION, "ALCHEMY_BREW_SPEED", getScalingFromPath(config, "scaling_duration.alchemy_speed"));
-
-        registerScaling(Type.DURATION, "FORTIFY_ENCHANTING", getScalingFromPath(config, "scaling_duration.fortify_enchanting"));
-        registerScaling(Type.DURATION, "FORTIFY_SMITHING", getScalingFromPath(config, "scaling_duration.fortify_smithing"));
-        registerScaling(Type.DURATION, "FORTIFY_MINING", getScalingFromPath(config, "scaling_duration.fortify_mining"));
-        registerScaling(Type.DURATION, "FORTIFY_FARMING", getScalingFromPath(config, "scaling_duration.fortify_farming"));
-        registerScaling(Type.DURATION, "FORTIFY_WOODCUTTING", getScalingFromPath(config, "scaling_duration.fortify_woodcutting"));
-        registerScaling(Type.DURATION, "FORTIFY_ACROBATICS", getScalingFromPath(config, "scaling_duration.fortify_acrobatics"));
-        registerScaling(Type.DURATION, "FORTIFY_TRADING", getScalingFromPath(config, "scaling_duration.fortify_trading"));
-
-        registerScaling(Type.DURATION, "ARCHERY_ACCURACY", getScalingFromPath(config, "scaling_duration.archery_accuracy"));
-        registerScaling(Type.DURATION, "ARCHERY_DAMAGE", getScalingFromPath(config, "scaling_duration.archery_damage"));
-        registerScaling(Type.DURATION, "ARCHERY_AMMO_SAVE", getScalingFromPath(config, "scaling_duration.archery_ammo_save"));
-        registerScaling(Type.DURATION, "DAMAGE_WEAPONS", getScalingFromPath(config, "scaling_duration.damage_weapons"));
-        registerScaling(Type.DURATION, "DAMAGE_UNARMED", getScalingFromPath(config, "scaling_duration.damage_unarmed"));
-
-        registerScaling(Type.DURATION, "INCREASE_EXP", getScalingFromPath(config, "scaling_duration.increase_exp_skill"));
-        registerScaling(Type.DURATION, "INCREASE_VANILLA_EXP", getScalingFromPath(config, "scaling_duration.increase_exp_vanilla"));
-
-        registerScaling(Type.DURATION, "POISON_ANTI_HEAL", getScalingFromPath(config, "scaling_duration.poison_anti_heal"));
-        registerScaling(Type.DURATION, "POISON_VULNERABLE", getScalingFromPath(config, "scaling_duration.poison_vulnerable"));
-
-
-
         registerScaling(Type.AMPLIFIER, "HEAL", getScalingFromPath(config, "scaling_amplifier.instant_health"));
         registerScaling(Type.AMPLIFIER, "HARM", getScalingFromPath(config, "scaling_amplifier.instant_damage"));
 
@@ -184,14 +158,13 @@ public class AlchemyPotionTreatmentManager {
         registerScaling(Type.DURATION, "FARMING_FISHING_TIER", getScalingFromPath(config, "scaling_duration.farming_fishing_tier"));
         registerScaling(Type.DURATION, "WOODCUTTING_EXTRA_DROPS", getScalingFromPath(config, "scaling_duration.woodcutting_extra_drops"));
         registerScaling(Type.DURATION, "WOODCUTTING_RARE_DROPS", getScalingFromPath(config, "scaling_duration.woodcutting_rare_drops"));
-        registerScaling(Type.DURATION, "FORTIFY_ACROBATICS", getScalingFromPath(config, "scaling_duration.fortify_acrobatics"));
-        registerScaling(Type.DURATION, "FORTIFY_TRADING", getScalingFromPath(config, "scaling_duration.fortify_trading"));
+        registerScaling(Type.DURATION, "DIGGING_EXTRA_DROPS", getScalingFromPath(config, "scaling_duration.digging_extra_drops"));
+        registerScaling(Type.DURATION, "DIGGING_RARE_DROPS", getScalingFromPath(config, "scaling_duration.digging_rare_drops"));
 
         registerScaling(Type.DURATION, "ARCHERY_ACCURACY", getScalingFromPath(config, "scaling_duration.archery_accuracy"));
         registerScaling(Type.DURATION, "ARCHERY_DAMAGE", getScalingFromPath(config, "scaling_duration.archery_damage"));
         registerScaling(Type.DURATION, "ARCHERY_AMMO_SAVE", getScalingFromPath(config, "scaling_duration.archery_ammo_save"));
         registerScaling(Type.DURATION, "WEAPONS_DAMAGE", getScalingFromPath(config, "scaling_duration.damage_weapons"));
-        registerScaling(Type.DURATION, "UNARMED_DAMAGE", getScalingFromPath(config, "scaling_duration.damage_unarmed"));
 
         registerScaling(Type.DURATION, "INCREASE_EXP", getScalingFromPath(config, "scaling_duration.increase_exp_skill"));
         registerScaling(Type.DURATION, "INCREASE_VANILLA_EXP", getScalingFromPath(config, "scaling_duration.increase_exp_vanilla"));
@@ -199,6 +172,35 @@ public class AlchemyPotionTreatmentManager {
         registerScaling(Type.DURATION, "POISON_ANTI_HEAL", getScalingFromPath(config, "scaling_duration.poison_anti_heal"));
         registerScaling(Type.DURATION, "POISON_VULNERABLE", getScalingFromPath(config, "scaling_duration.poison_vulnerable"));
 
+        registerScaling(Type.DURATION, "ARMOR_FLAT_BONUS", getScalingFromPath(config, "scaling_duration.armor_flat_bonus"));
+        registerScaling(Type.DURATION, "LIGHT_ARMOR_FLAT_BONUS", getScalingFromPath(config, "scaling_duration.light_armor_flat_bonus"));
+        registerScaling(Type.DURATION, "HEAVY_ARMOR_FLAT_BONUS", getScalingFromPath(config, "scaling_duration.heavy_armor_flat_bonus"));
+        registerScaling(Type.DURATION, "ARMOR_FRACTION_BONUS", getScalingFromPath(config, "scaling_duration.armor_fraction_bonus"));
+        registerScaling(Type.DURATION, "LIGHT_ARMOR_FRACTION_BONUS", getScalingFromPath(config, "scaling_duration.light_armor_fraction_bonus"));
+        registerScaling(Type.DURATION, "HEAVY_ARMOR_FRACTION_BONUS", getScalingFromPath(config, "scaling_duration.heavy_armor_fraction_bonus"));
+        registerScaling(Type.DURATION, "CUSTOM_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_duration.custom_damage_resistance"));
+        registerScaling(Type.DURATION, "EXPLOSION_RESISTANCE", getScalingFromPath(config, "scaling_duration.explosion_resistance"));
+        registerScaling(Type.DURATION, "CUSTOM_FIRE_RESISTANCE", getScalingFromPath(config, "scaling_duration.custom_fire_resistance"));
+        registerScaling(Type.DURATION, "MAGIC_RESISTANCE", getScalingFromPath(config, "scaling_duration.magic_resistance"));
+        registerScaling(Type.DURATION, "POISON_RESISTANCE", getScalingFromPath(config, "scaling_duration.poison_resistance"));
+        registerScaling(Type.DURATION, "PROJECTILE_RESISTANCE", getScalingFromPath(config, "scaling_duration.projectile_resistance"));
+        registerScaling(Type.DURATION, "MELEE_RESISTANCE", getScalingFromPath(config, "scaling_duration.melee_resistance"));
+        registerScaling(Type.DURATION, "FALLING_RESISTANCE", getScalingFromPath(config, "scaling_duration.falling_resistance"));
+        registerScaling(Type.DURATION, "KNOCKBACK_RESISTANCE", getScalingFromPath(config, "scaling_duration.knockback_resistance"));
+        registerScaling(Type.DURATION, "BLEED_RESISTANCE", getScalingFromPath(config, "scaling_duration.bleed_resistance"));
+        registerScaling(Type.DURATION, "CRAFTING_TIME_REDUCTION", getScalingFromPath(config, "scaling_duration.crafting_time_reduction"));
+        registerScaling(Type.DURATION, "HUNGER_SAVE_CHANCE", getScalingFromPath(config, "scaling_duration.hunger_save_chance"));
+        registerScaling(Type.DURATION, "DODGE_CHANCE", getScalingFromPath(config, "scaling_duration.dodge_chance"));
+        registerScaling(Type.DURATION, "KNOCKBACK_BONUS", getScalingFromPath(config, "scaling_duration.knockback_bonus"));
+        registerScaling(Type.DURATION, "COOLDOWN_REDUCTION", getScalingFromPath(config, "scaling_duration.cooldown_reduction"));
+        registerScaling(Type.DURATION, "IMMUNITY_FRAME_BONUS", getScalingFromPath(config, "scaling_duration.immunity_frame_bonus"));
+        registerScaling(Type.DURATION, "IMMUNITY_FRAME_MULTIPLIER", getScalingFromPath(config, "scaling_duration.immunity_frame_multiplier"));
+        registerScaling(Type.DURATION, "HEALING_BONUS", getScalingFromPath(config, "scaling_duration.healing_bonus"));
+        registerScaling(Type.DURATION, "REFLECT_CHANCE", getScalingFromPath(config, "scaling_duration.reflect_chance"));
+        registerScaling(Type.DURATION, "REFLECT_FRACTION", getScalingFromPath(config, "scaling_duration.reflect_fraction"));
+        registerScaling(Type.DURATION, "FRACTION_ARMOR_REDUCTION", getScalingFromPath(config, "scaling_duration.fraction_armor_reduction"));
+        registerScaling(Type.DURATION, "FLAT_ARMOR_REDUCTION", getScalingFromPath(config, "scaling_duration.flat_armor_reduction"));
+        registerScaling(Type.DURATION, "FORTIFY_ANVIL_COMBINING", getScalingFromPath(config, "scaling_duration.fortify_anvil_combining"));
 
         registerScaling(Type.AMPLIFIER, "ALCHEMY_INGREDIENT_SAVE", getScalingFromPath(config, "scaling_amplifier.alchemy_ingredient_save"));
         registerScaling(Type.AMPLIFIER, "ALCHEMY_POTION_SAVE", getScalingFromPath(config, "scaling_amplifier.alchemy_potion_save"));
@@ -217,19 +219,49 @@ public class AlchemyPotionTreatmentManager {
         registerScaling(Type.AMPLIFIER, "FARMING_FISHING_TIER", getScalingFromPath(config, "scaling_amplifier.farming_fishing_tier"));
         registerScaling(Type.AMPLIFIER, "WOODCUTTING_EXTRA_DROPS", getScalingFromPath(config, "scaling_amplifier.woodcutting_extra_drops"));
         registerScaling(Type.AMPLIFIER, "WOODCUTTING_RARE_DROPS", getScalingFromPath(config, "scaling_amplifier.woodcutting_rare_drops"));
-        registerScaling(Type.AMPLIFIER, "FORTIFY_ACROBATICS", getScalingFromPath(config, "scaling_amplifier.fortify_acrobatics"));
-        registerScaling(Type.AMPLIFIER, "FORTIFY_TRADING", getScalingFromPath(config, "scaling_amplifier.fortify_trading"));
+        registerScaling(Type.AMPLIFIER, "DIGGING_EXTRA_DROPS", getScalingFromPath(config, "scaling_amplifier.digging_extra_drops"));
+        registerScaling(Type.AMPLIFIER, "DIGGING_RARE_DROPS", getScalingFromPath(config, "scaling_amplifier.digging_rare_drops"));
 
         registerScaling(Type.AMPLIFIER, "ARCHERY_ACCURACY", getScalingFromPath(config, "scaling_amplifier.archery_accuracy"));
-        registerScaling(Type.AMPLIFIER, "ARCHERY_DAMAGE", getScalingFromPath(config, "scaling_amplifier.archery_damage"));
+        registerScaling(Type.AMPLIFIER, "ARCHERY_DAMAGE", getScalingFromPath(config, "scaling_amplifier.archery_strength"));
         registerScaling(Type.AMPLIFIER, "ARCHERY_AMMO_SAVE", getScalingFromPath(config, "scaling_amplifier.archery_ammo_save"));
         registerScaling(Type.AMPLIFIER, "WEAPONS_DAMAGE", getScalingFromPath(config, "scaling_amplifier.damage_weapons"));
-        registerScaling(Type.AMPLIFIER, "UNARMED_DAMAGE", getScalingFromPath(config, "scaling_amplifier.damage_unarmed"));
 
-        registerScaling(Type.AMPLIFIER, "INCREASE_EXP", getScalingFromPath(config, "scaling_amplifier.increase_exp"));
+        registerScaling(Type.AMPLIFIER, "INCREASE_EXP", getScalingFromPath(config, "scaling_amplifier.increase_exp_skill"));
+        registerScaling(Type.DURATION, "INCREASE_VANILLA_EXP", getScalingFromPath(config, "scaling_amplifier.increase_exp_vanilla"));
 
         registerScaling(Type.AMPLIFIER, "POISON_ANTI_HEAL", getScalingFromPath(config, "scaling_amplifier.poison_anti_heal"));
         registerScaling(Type.AMPLIFIER, "POISON_VULNERABLE", getScalingFromPath(config, "scaling_amplifier.poison_vulnerable"));
+
+        registerScaling(Type.AMPLIFIER, "ARMOR_FLAT_BONUS", getScalingFromPath(config, "scaling_amplifier.armor_flat_bonus"));
+        registerScaling(Type.AMPLIFIER, "LIGHT_ARMOR_FLAT_BONUS", getScalingFromPath(config, "scaling_amplifier.light_armor_flat_bonus"));
+        registerScaling(Type.AMPLIFIER, "HEAVY_ARMOR_FLAT_BONUS", getScalingFromPath(config, "scaling_amplifier.heavy_armor_flat_bonus"));
+        registerScaling(Type.AMPLIFIER, "ARMOR_FRACTION_BONUS", getScalingFromPath(config, "scaling_amplifier.armor_fraction_bonus"));
+        registerScaling(Type.AMPLIFIER, "LIGHT_ARMOR_FRACTION_BONUS", getScalingFromPath(config, "scaling_amplifier.light_armor_fraction_bonus"));
+        registerScaling(Type.AMPLIFIER, "HEAVY_ARMOR_FRACTION_BONUS", getScalingFromPath(config, "scaling_amplifier.heavy_armor_fraction_bonus"));
+        registerScaling(Type.AMPLIFIER, "CUSTOM_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.custom_damage_resistance"));
+        registerScaling(Type.AMPLIFIER, "EXPLOSION_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.explosion_resistance"));
+        registerScaling(Type.AMPLIFIER, "CUSTOM_FIRE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.custom_fire_resistance"));
+        registerScaling(Type.AMPLIFIER, "MAGIC_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.magic_resistance"));
+        registerScaling(Type.AMPLIFIER, "POISON_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.poison_resistance"));
+        registerScaling(Type.AMPLIFIER, "PROJECTILE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.projectile_resistance"));
+        registerScaling(Type.AMPLIFIER, "MELEE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.melee_resistance"));
+        registerScaling(Type.AMPLIFIER, "FALLING_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.falling_resistance"));
+        registerScaling(Type.AMPLIFIER, "KNOCKBACK_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.knockback_resistance"));
+        registerScaling(Type.AMPLIFIER, "BLEED_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.bleed_resistance"));
+        registerScaling(Type.AMPLIFIER, "CRAFTING_TIME_REDUCTION", getScalingFromPath(config, "scaling_amplifier.crafting_time_reduction"));
+        registerScaling(Type.AMPLIFIER, "HUNGER_SAVE_CHANCE", getScalingFromPath(config, "scaling_amplifier.hunger_save_chance"));
+        registerScaling(Type.AMPLIFIER, "DODGE_CHANCE", getScalingFromPath(config, "scaling_amplifier.dodge_chance"));
+        registerScaling(Type.AMPLIFIER, "KNOCKBACK_BONUS", getScalingFromPath(config, "scaling_amplifier.knockback_bonus"));
+        registerScaling(Type.AMPLIFIER, "COOLDOWN_REDUCTION", getScalingFromPath(config, "scaling_amplifier.cooldown_reduction"));
+        registerScaling(Type.AMPLIFIER, "IMMUNITY_FRAME_BONUS", getScalingFromPath(config, "scaling_amplifier.immunity_frame_bonus"));
+        registerScaling(Type.AMPLIFIER, "IMMUNITY_FRAME_MULTIPLIER", getScalingFromPath(config, "scaling_amplifier.immunity_frame_multiplier"));
+        registerScaling(Type.AMPLIFIER, "HEALING_BONUS", getScalingFromPath(config, "scaling_amplifier.healing_bonus"));
+        registerScaling(Type.AMPLIFIER, "REFLECT_CHANCE", getScalingFromPath(config, "scaling_amplifier.reflect_chance"));
+        registerScaling(Type.AMPLIFIER, "REFLECT_FRACTION", getScalingFromPath(config, "scaling_amplifier.reflect_fraction"));
+        registerScaling(Type.AMPLIFIER, "FRACTION_ARMOR_REDUCTION", getScalingFromPath(config, "scaling_amplifier.fraction_armor_reduction"));
+        registerScaling(Type.AMPLIFIER, "FLAT_ARMOR_REDUCTION", getScalingFromPath(config, "scaling_amplifier.flat_armor_reduction"));
+        registerScaling(Type.AMPLIFIER, "FORTIFY_ANVIL_COMBINING", getScalingFromPath(config, "scaling_amplifier.fortify_anvil_combining"));
 
         ConfigurationSection sectionCosmetic = config.getConfigurationSection("quality_cosmetic");
         if (sectionCosmetic != null){
@@ -538,7 +570,7 @@ public class AlchemyPotionTreatmentManager {
                 } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
                     finalResult = Utils.round(defaultStat + scalingResult, 4);
                 }
-                if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+                if (!scaling.doIgnoreUpper()) if (finalResult > scaling.getUpperBound()) finalResult = scaling.getUpperBound();
                 if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
                 finalResult = Math.max(minimum, finalResult);
                 if (type == Type.DURATION){

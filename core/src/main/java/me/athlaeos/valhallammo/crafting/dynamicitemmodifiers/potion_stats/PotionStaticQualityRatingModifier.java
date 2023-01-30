@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class PotionStaticQualityRatingModifier extends DynamicItemModifier implements Cloneable{
+public class PotionStaticQualityRatingModifier extends DynamicItemModifier {
 
-    public PotionStaticQualityRatingModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public PotionStaticQualityRatingModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -40,7 +40,7 @@ public class PotionStaticQualityRatingModifier extends DynamicItemModifier imple
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         AlchemyPotionTreatmentManager.getInstance().setPotionQuality(outputItem, (int) strength);
         return outputItem;

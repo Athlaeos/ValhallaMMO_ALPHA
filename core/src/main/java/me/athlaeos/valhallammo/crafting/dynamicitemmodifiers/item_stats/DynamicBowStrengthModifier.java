@@ -14,8 +14,8 @@ import java.util.List;
 
 public class DynamicBowStrengthModifier extends DuoArgDynamicItemModifier {
 
-    public DynamicBowStrengthModifier(String name, double strength, double strength2, ModifierPriority priority) {
-        super(name, strength, strength2, priority);
+    public DynamicBowStrengthModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -52,7 +52,7 @@ public class DynamicBowStrengthModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getType() == Material.BOW || outputItem.getType() == Material.CROSSBOW)) return null;
         int quality = SmithingItemTreatmentManager.getInstance().getItemsQuality(outputItem);

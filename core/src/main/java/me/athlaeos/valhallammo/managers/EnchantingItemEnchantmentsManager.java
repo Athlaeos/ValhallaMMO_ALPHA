@@ -6,6 +6,7 @@ import me.athlaeos.valhallammo.dom.Scaling;
 import me.athlaeos.valhallammo.dom.ScalingMode;
 import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.utility.Utils;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
@@ -114,6 +115,7 @@ public class EnchantingItemEnchantmentsManager {
         registerScaling(Enchantment.SOUL_SPEED, getScalingFromPath(config, "scaling_amplifier.soul_speed"));
         registerScaling(Enchantment.SWEEPING_EDGE, getScalingFromPath(config, "scaling_amplifier.sweeping_edge"));
         registerScaling(Enchantment.THORNS, getScalingFromPath(config, "scaling_amplifier.thorns"));
+        registerScaling(Enchantment.getByKey(NamespacedKey.minecraft("swift_sneak")), getScalingFromPath(config, "scaling_amplifier.swift_sneak"));
 
         registerScaling("ALCHEMY_QUALITY", getScalingFromPath(config, "scaling_amplifier.fortify_alchemy_quality"));
         registerScaling("ALCHEMY_BREW_SPEED", getScalingFromPath(config, "scaling_amplifier.fortify_alchemy_brew_speed"));
@@ -124,20 +126,54 @@ public class EnchantingItemEnchantmentsManager {
         registerScaling("MINING_RARE_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_mining_rare_drops"));
         registerScaling("WOODCUTTING_EXTRA_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_woodcutting_extra_drops"));
         registerScaling("WOODCUTTING_RARE_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_woodcutting_rare_drops"));
+        registerScaling("DIGGING_EXTRA_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_digging_extra_drops"));
+        registerScaling("DIGGING_RARE_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_digging_rare_drops"));
         registerScaling("FARMING_EXTRA_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_farming_extra_drops"));
         registerScaling("FARMING_RARE_DROPS", getScalingFromPath(config, "scaling_amplifier.fortify_farming_rare_drops"));
         registerScaling("FARMING_FISHING_TIER", getScalingFromPath(config, "scaling_amplifier.fortify_farming_fishing_tier"));
-        registerScaling("ACROBATICS", getScalingFromPath(config, "scaling_amplifier.fortify_acrobatics"));
         registerScaling("WEAPONS_DAMAGE", getScalingFromPath(config, "scaling_amplifier.fortify_weapons_damage"));
         registerScaling("ARCHERY_DAMAGE", getScalingFromPath(config, "scaling_amplifier.fortify_archery_damage"));
         registerScaling("ARCHERY_ACCURACY", getScalingFromPath(config, "scaling_amplifier.fortify_archery_accuracy"));
         registerScaling("ARCHERY_AMMO_SAVE", getScalingFromPath(config, "scaling_amplifier.fortify_archery_ammo_save"));
-        registerScaling("TRADING", getScalingFromPath(config, "scaling_amplifier.fortify_trading"));
-        registerScaling("UNARMED_DAMAGE", getScalingFromPath(config, "scaling_amplifier.fortify_unarmed_damage"));
         registerScaling("EXP_GAIN_VANILLA", getScalingFromPath(config, "scaling_amplifier.exp_gained_vanilla"));
         registerScaling("EXP_GAIN_SKILL", getScalingFromPath(config, "scaling_amplifier.exp_gained_skill"));
         registerScaling("DAMAGE_TAKEN", getScalingFromPath(config, "scaling_amplifier.damage_taken"));
         registerScaling("DAMAGE_DEALT", getScalingFromPath(config, "scaling_amplifier.damage_dealt"));
+
+        registerScaling("STUN_CHANCE", getScalingFromPath(config, "scaling_amplifier.stun_chance"));
+        registerScaling("ARMOR_MULTIPLIER", getScalingFromPath(config, "scaling_amplifier.armor_multiplier"));
+        registerScaling("BLEED_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.bleed_resistance"));
+        registerScaling("COOLDOWN_REDUCTION", getScalingFromPath(config, "scaling_amplifier.cooldown_reduction"));
+        registerScaling("CRAFTING_SPEED", getScalingFromPath(config, "scaling_amplifier.crafting_speed"));
+        registerScaling("HEALING_BONUS", getScalingFromPath(config, "scaling_amplifier.healing_bonus"));
+        registerScaling("HUNGER_SAVE_CHANCE", getScalingFromPath(config, "scaling_amplifier.hunger_save_chance"));
+        registerScaling("EXPLOSION_POWER", getScalingFromPath(config, "scaling_amplifier.mining_explosion_power"));
+        registerScaling("STUN_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.stun_resistance"));
+        registerScaling("BLEED_CHANCE", getScalingFromPath(config, "scaling_amplifier.bleed_chance"));
+        registerScaling("BLEED_DAMAGE", getScalingFromPath(config, "scaling_amplifier.bleed_damage"));
+        registerScaling("BLEED_DURATION", getScalingFromPath(config, "scaling_amplifier.bleed_duration"));
+        registerScaling("CRIT_CHANCE", getScalingFromPath(config, "scaling_amplifier.crit_chance"));
+        registerScaling("CRIT_DAMAGE", getScalingFromPath(config, "scaling_amplifier.crit_damage"));
+        registerScaling("FLAT_ARMOR_PENETRATION", getScalingFromPath(config, "scaling_amplifier.armor_flat_penetration"));
+        registerScaling("FLAT_LIGHT_ARMOR_PENETRATION", getScalingFromPath(config, "scaling_amplifier.light_armor_flat_penetration"));
+        registerScaling("FLAT_HEAVY_ARMOR_PENETRATION", getScalingFromPath(config, "scaling_amplifier.heavy_armor_flat_penetration"));
+        registerScaling("FRACTION_ARMOR_PENETRATION", getScalingFromPath(config, "scaling_amplifier.armor_fraction_penetration"));
+        registerScaling("FRACTION_LIGHT_ARMOR_PENETRATION", getScalingFromPath(config, "scaling_amplifier.light_armor_fraction_penetration"));
+        registerScaling("FRACTION_HEAVY_ARMOR_PENETRATION", getScalingFromPath(config, "scaling_amplifier.heavy_armor_fraction_penetration"));
+        registerScaling("LIGHT_ARMOR_DAMAGE", getScalingFromPath(config, "scaling_amplifier.light_armor_damage"));
+        registerScaling("HEAVY_ARMOR_DAMAGE", getScalingFromPath(config, "scaling_amplifier.heavy_armor_damage"));
+        registerScaling("IMMUNITY_FRAME_BONUS", getScalingFromPath(config, "scaling_amplifier.immunity_frame_bonus"));
+        registerScaling("IMMUNITY_FRAME_FLAT_BONUS", getScalingFromPath(config, "scaling_amplifier.immunity_frame_flat_bonus"));
+        registerScaling("IMMUNITY_FRAME_REDUCTION", getScalingFromPath(config, "scaling_amplifier.immunity_frame_reduction"));
+        registerScaling("WEAPON_REACH_BONUS", getScalingFromPath(config, "scaling_amplifier.attack_reach"));
+        registerScaling("DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.damage_resistance"));
+        registerScaling("FALL_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.fall_damage_resistance"));
+        registerScaling("FIRE_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.fire_damage_resistance"));
+        registerScaling("PROJECTILE_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.projectile_damage_resistance"));
+        registerScaling("MELEE_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.melee_damage_resistance"));
+        registerScaling("MAGIC_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.magic_damage_resistance"));
+        registerScaling("POISON_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.poison_damage_resistance"));
+        registerScaling("EXPLOSION_DAMAGE_RESISTANCE", getScalingFromPath(config, "scaling_amplifier.explosion_damage_resistance"));
     }
 
     public Scaling getScaling(String enchantment){
@@ -175,7 +211,7 @@ public class EnchantingItemEnchantmentsManager {
                 } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
                     finalResult = Utils.round(baseValue + scalingResult, 3);
                 }
-                if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+                if (!scaling.doIgnoreUpper()) if (finalResult > scaling.getUpperBound()) finalResult = scaling.getUpperBound();
                 if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
                 CustomEnchantmentManager.getInstance().setEnchantmentStrength(i, enchantment, finalResult);
             } catch (RuntimeException e){
@@ -206,7 +242,7 @@ public class EnchantingItemEnchantmentsManager {
             } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
                 finalResult = Utils.round(baseValue + scalingResult, 3);
             }
-            if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+            if (!scaling.doIgnoreUpper()) if (finalResult > scaling.getUpperBound()) finalResult = scaling.getUpperBound();
             if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
 
             changedEnchantment.put(enchantment, Math.max(1, (int) Math.floor(finalResult)));

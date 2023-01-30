@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class SetupResourcePackCommand implements Command {
+	private static final String downloadLink = "https://download.mc-packs.net/pack/fa25fc400c75c327dcfc181d544475577ce13001.zip";
+
 	/*
 	 * I copied most of this from EliteMobs source code, so code credit for this class goes to them
 	 */
@@ -49,9 +51,9 @@ public class SetupResourcePackCommand implements Command {
 			if (args[1].equalsIgnoreCase("download")){
 				URL fetchWebsite;
 				try {
-					fetchWebsite = new URL("https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					fetchWebsite = new URL(downloadLink);
 				} catch (MalformedURLException e) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
@@ -59,7 +61,7 @@ public class SetupResourcePackCommand implements Command {
 				try {
 					FileUtils.copyURLToFile(fetchWebsite, file);
 				} catch (IOException e) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
@@ -67,9 +69,9 @@ public class SetupResourcePackCommand implements Command {
 			} else if (args[1].equalsIgnoreCase("setup")){
 				URL fetchWebsite;
 				try {
-					fetchWebsite = new URL("https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					fetchWebsite = new URL(downloadLink);
 				} catch (MalformedURLException e) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
@@ -77,7 +79,7 @@ public class SetupResourcePackCommand implements Command {
 				try {
 					FileUtils.copyURLToFile(fetchWebsite, file);
 				} catch (IOException e) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
@@ -85,22 +87,23 @@ public class SetupResourcePackCommand implements Command {
 				try {
 					sha1 = sha1Code(file);
 				} catch (Exception e) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
 
 				if (!modify("resource-pack-sha1", sha1)) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
 
-				if (!modify("resource-pack", "https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip")) {
-					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from https://download.mc-packs.net/pack/322ed7951fe168c6bc6f440fbaa96044724d26b2.zip");
+				if (!modify("resource-pack", downloadLink)) {
+					ValhallaMMO.getPlugin().getLogger().severe("Could not fetch resource pack from " + downloadLink + "");
 					sender.sendMessage(Utils.chat(error_command_resourcepack));
 					return true;
 				}
+				ValhallaMMO.setPackEnabled(true);
 				sender.sendMessage(Utils.chat(status_command_resourcepack_setup));
 			} else {
 				boolean enabled;

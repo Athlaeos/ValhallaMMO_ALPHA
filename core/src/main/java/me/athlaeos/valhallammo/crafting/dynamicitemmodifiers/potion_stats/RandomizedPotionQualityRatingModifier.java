@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class RandomizedPotionQualityRatingModifier extends DuoArgDynamicItemModifier implements Cloneable{
+public class RandomizedPotionQualityRatingModifier extends DuoArgDynamicItemModifier {
 
-    public RandomizedPotionQualityRatingModifier(String name, double strength, double strength2, ModifierPriority priority) {
-        super(name, strength, strength2, priority);
+    public RandomizedPotionQualityRatingModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -54,7 +54,7 @@ public class RandomizedPotionQualityRatingModifier extends DuoArgDynamicItemModi
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         int quality = AlchemyPotionTreatmentManager.getInstance().getPotionQuality(outputItem);
         if (quality == 0) return outputItem;

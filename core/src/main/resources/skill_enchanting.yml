@@ -180,12 +180,12 @@ scaling_amplifier:
     lower_bound: 0
     upper_bound: none
   fortify_alchemy_brew_speed:
-    scaling: '(0.14/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    scaling: '(0.99/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   fortify_alchemy_ingredient_save:
-    scaling: '(0.32/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +32 from 0-300 points.
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +32 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
@@ -205,6 +205,16 @@ scaling_amplifier:
     lower_bound: 0
     upper_bound: none
   fortify_mining_rare_drops:
+    scaling: '(3/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +3 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_digging_extra_drops:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fortify_digging_rare_drops:
     scaling: '(3/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +3 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
@@ -230,12 +240,7 @@ scaling_amplifier:
     lower_bound: 0
     upper_bound: none
   fortify_farming_fishing_tier:
-    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +0.49 from 0-300 points.
-    mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
-    upper_bound: none
-  fortify_acrobatics:
-    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    scaling: '(9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +0.49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
@@ -259,11 +264,6 @@ scaling_amplifier:
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
-  fortify_unarmed_damage:
-    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
-    mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
-    upper_bound: none
   exp_gained_skill:
     scaling: '(14/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +14 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
@@ -281,6 +281,176 @@ scaling_amplifier:
     upper_bound: none
   damage_dealt:
     scaling: '(0.09/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  stun_chance:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +19 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  armor_multiplier:
+    scaling: '(0.09/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  bleed_resistance:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +19 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  cooldown_reduction:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +19 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  crafting_speed:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  healing_bonus:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  hunger_save_chance:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  mining_explosion_power:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  stun_resistance:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  bleed_chance:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  bleed_damage:
+    scaling: '(1.9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  bleed_duration:
+    scaling: '(4000/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +4000 (4s) from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  crit_chance:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  crit_damage:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  armor_flat_penetration:
+    scaling: '(9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  light_armor_flat_penetration:
+    scaling: '(9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  heavy_armor_flat_penetration:
+    scaling: '(9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  armor_fraction_penetration:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  light_armor_fraction_penetration:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  heavy_armor_fraction_penetration:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  light_armor_damage:
+    scaling: '(0.09/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  heavy_armor_damage:
+    scaling: '(0.09/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  immunity_frame_bonus:
+    scaling: '(0.24/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +24 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  immunity_frame_flat_bonus:
+    scaling: '(9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  immunity_frame_reduction:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  attack_reach:
+    scaling: '(0.9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +0.9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  damage_resistance:
+    scaling: '(0.09/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +9 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fall_damage_resistance:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  fire_damage_resistance:
+    scaling: '(0.29/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +29 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  projectile_damage_resistance:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +19 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  explosion_damage_resistance:
+    scaling: '(0.29/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +29 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  melee_damage_resistance:
+    scaling: '(0.19/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +19 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  magic_damage_resistance:
+    scaling: '(0.29/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +29 from 0-300 points.
+    mode: 'ADD_ON_DEFAULT'
+    lower_bound: 0
+    upper_bound: none
+  poison_damage_resistance:
+    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none

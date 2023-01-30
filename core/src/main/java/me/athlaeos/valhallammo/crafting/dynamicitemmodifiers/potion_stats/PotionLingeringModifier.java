@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class PotionLingeringModifier extends DynamicItemModifier {
-    public PotionLingeringModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public PotionLingeringModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -43,7 +43,7 @@ public class PotionLingeringModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
 
         if (outputItem.getType() == Material.LINGERING_POTION) return null;

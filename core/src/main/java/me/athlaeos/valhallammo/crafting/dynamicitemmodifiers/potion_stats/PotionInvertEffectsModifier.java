@@ -21,8 +21,8 @@ import java.util.*;
 public class PotionInvertEffectsModifier extends DynamicItemModifier {
     private static Map<String, InvertedEffect> invertedEffects = null;
 
-    public PotionInvertEffectsModifier(String name, double duration_ticks, ModifierPriority priority) {
-        super(name, duration_ticks, priority);
+    public PotionInvertEffectsModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -68,7 +68,7 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
 

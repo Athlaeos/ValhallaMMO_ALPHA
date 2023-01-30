@@ -38,7 +38,13 @@ public class CustomRecipeManager {
     private static CustomRecipeManager manager = null;
     private final List<NamespacedKey> disabledRecipes = new ArrayList<>();
 
-    private final Map<String, AbstractCustomCraftingRecipe> allRecipes = new TreeMap<>();
+    private final Collection<String> allRecipes = new HashSet<>();
+
+    public Collection<String> getAllRecipes() {
+        return allRecipes;
+    }
+
+    private final Map<String, AbstractCustomCraftingRecipe> allCustomRecipes = new TreeMap<>();
     private final Map<Material, Collection<ItemCraftingRecipe>> craftingStationRecipes = new HashMap<>();
     // crafting station, recipes to crafting station
     private final Map<Material, Map<Material, Collection<ItemImprovementRecipe>>> itemImprovementRecipes = new HashMap<>();
@@ -47,10 +53,13 @@ public class CustomRecipeManager {
     // crafting station, equipment class, improvement recipes to this equipment class and crafting station
 
     private final Map<String, DynamicBrewingRecipe> brewingRecipes = new HashMap<>();
-    private final Map<String, DynamicShapedRecipe> shapedRecipes = new HashMap<>();
-    private final Map<String, DynamicCookingRecipe> cookingRecipes = new HashMap<>();
-    private final Map<NamespacedKey, DynamicShapedRecipe> shapedRecipesByKey = new HashMap<>();
-    private final Map<NamespacedKey, DynamicCookingRecipe> cookingRecipesByKey = new HashMap<>();
+    private final Map<String, DynamicCauldronRecipe> cauldronRecipes = new HashMap<>();
+    private final Map<String, DynamicCraftingTableRecipe> shapedRecipes = new HashMap<>();
+    private final Map<String, DynamicSmithingTableRecipe> smithingRecipes = new HashMap<>();
+    private final Map<String, DynamicCookingRecipe<?>> cookingRecipes = new HashMap<>();
+    private final Map<NamespacedKey, DynamicCraftingTableRecipe> shapedRecipesByKey = new HashMap<>();
+    private final Map<NamespacedKey, DynamicSmithingTableRecipe> smithingRecipesByKey = new HashMap<>();
+    private final Map<NamespacedKey, DynamicCookingRecipe<?>> cookingRecipesByKey = new HashMap<>();
 
     private final Map<Material, Collection<DynamicBrewingRecipe>> unspecificBrewingRecipes = new HashMap<>();
     private final Map<ItemStack, Collection<DynamicBrewingRecipe>> specificBrewingRecipes = new HashMap<>();
@@ -65,19 +74,36 @@ public class CustomRecipeManager {
      * @param recipe the recipe to register
      * @return true if the recipe has been successfully registered, and false if a recipe with the given name already exists.
      */
-    public boolean register(DynamicShapedRecipe recipe){
-        if (allRecipes.containsKey(recipe.getName())) {
+    public boolean register(DynamicCraftingTableRecipe recipe){
+        if (allRecipes.contains(recipe.getName())) {
             return false;
         }
+        DynamicItemModifier.sortModifiers(recipe.getItemModifiers());
         shapedRecipes.put(recipe.getName(), recipe);
-        if (recipe.getRecipe() instanceof ShapedRecipe){
-            shapedRecipesByKey.put(((ShapedRecipe) recipe.getRecipe()).getKey(), recipe);
-            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapedRecipe) recipe.getRecipe()).getKey());
-        } else if (recipe.getRecipe() instanceof ShapelessRecipe){
-            shapedRecipesByKey.put(((ShapelessRecipe) recipe.getRecipe()).getKey(), recipe);
-            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapelessRecipe) recipe.getRecipe()).getKey());
+        shapedRecipesByKey.put(recipe.getKey(), recipe);
+        allRecipes.add(recipe.getName());
+        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getKey());
+
+        ValhallaMMO.getPlugin().getServer().addRecipe(recipe.generateRecipe());
+        return true;
+    }
+    /**
+     * Registers a DynamicSmithingTableRecipe to be used in the vanilla smithing table.
+     * @param recipe the recipe to register
+     * @return true if the recipe has been successfully registered, and false if a recipe with the given name already exists.
+     */
+    public boolean register(DynamicSmithingTableRecipe recipe){
+        if (allRecipes.contains(recipe.getName())) {
+            return false;
         }
-        ValhallaMMO.getPlugin().getServer().addRecipe(recipe.getRecipe());
+        DynamicItemModifier.sortModifiers(recipe.getModifiersAddition());
+        DynamicItemModifier.sortModifiers(recipe.getModifiersResult());
+        smithingRecipes.put(recipe.getName(), recipe);
+        smithingRecipesByKey.put(recipe.getKey(), recipe);
+        allRecipes.add(recipe.getName());
+        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getKey());
+
+        ValhallaMMO.getPlugin().getServer().addRecipe(recipe.generateRecipe());
         return true;
     }
 
@@ -87,13 +113,15 @@ public class CustomRecipeManager {
      * @return true if the recipe has been successfully registered, and false if a recipe with the given name already exists.
      */
     public <T extends CookingRecipe<T>> boolean register(DynamicCookingRecipe<T> recipe){
-        if (allRecipes.containsKey(recipe.getName())) {
+        if (allRecipes.contains(recipe.getName())) {
             return false;
         }
+        DynamicItemModifier.sortModifiers(recipe.getModifiers());
         cookingRecipes.put(recipe.getName(),  recipe);
-        cookingRecipesByKey.put(recipe.getRecipe().getKey(), recipe);
+        cookingRecipesByKey.put(recipe.generateRecipe().getKey(), recipe);
+        allRecipes.add(recipe.getName());
 
-        ValhallaMMO.getPlugin().getServer().addRecipe(recipe.getRecipe());
+        ValhallaMMO.getPlugin().getServer().addRecipe(recipe.generateRecipe());
         return true;
     }
 
@@ -103,9 +131,10 @@ public class CustomRecipeManager {
      * @return true if the recipe has been successfully registered, and false if a recipe with the given name already exists.
      */
     public boolean register(DynamicBrewingRecipe recipe){
-        if (allRecipes.containsKey(recipe.getName())) {
+        if (allRecipes.contains(recipe.getName())) {
             return false;
         }
+        DynamicItemModifier.sortModifiers(recipe.getItemModifiers());
         brewingRecipes.put(recipe.getName(), recipe);
         Collection<DynamicBrewingRecipe> existingRecipes;
         if (Utils.isItemEmptyOrNull(recipe.getIngredient())) return false;
@@ -114,12 +143,29 @@ public class CustomRecipeManager {
             if (existingRecipes == null) existingRecipes = new HashSet<>();
             existingRecipes.add(recipe);
             specificBrewingRecipes.put(recipe.getIngredient(), existingRecipes);
+            allRecipes.add(recipe.getName());
         } else {
             existingRecipes = unspecificBrewingRecipes.get(recipe.getIngredient().getType());
             if (existingRecipes == null) existingRecipes = new HashSet<>();
             existingRecipes.add(recipe);
             unspecificBrewingRecipes.put(recipe.getIngredient().getType(), existingRecipes);
+            allRecipes.add(recipe.getName());
         }
+        return true;
+    }
+
+    /**
+     * Registers a DynamicCauldronRecipe to be used in ValhallaMMO's custom crafting methods.
+     * @param recipe the recipe to register
+     * @return true if the recipe has been successfully registered, and false if a recipe with the given name already exists.
+     */
+    public boolean register(DynamicCauldronRecipe recipe){
+        if (allRecipes.contains(recipe.getName())) {
+            return false;
+        }
+        DynamicItemModifier.sortModifiers(recipe.getItemModifiers());
+        cauldronRecipes.put(recipe.getName(), recipe);
+        allRecipes.add(recipe.getName());
         return true;
     }
 
@@ -129,9 +175,10 @@ public class CustomRecipeManager {
      * @return true if the recipe has been successfully registered, and false if a recipe with the given name already exists.
      */
     public boolean register(AbstractCustomCraftingRecipe recipe){
-        if (allRecipes.containsKey(recipe.getName())) {
+        if (allRecipes.contains(recipe.getName())) {
             return false;
         }
+        DynamicItemModifier.sortModifiers(recipe.getItemModifiers());
         if (recipe instanceof ItemCraftingRecipe){
             Collection<ItemCraftingRecipe> recipes;
             if (craftingStationRecipes.containsKey(recipe.getCraftingBlock())){
@@ -166,7 +213,8 @@ public class CustomRecipeManager {
             existingRecipes.put(((ItemClassImprovementRecipe) recipe).getRequiredEquipmentClass(), recipes);
             itemClassImprovementRecipes.put(recipe.getCraftingBlock(), existingRecipes);
         }
-        allRecipes.put(recipe.getName(), recipe);
+        allCustomRecipes.put(recipe.getName(), recipe);
+        allRecipes.add(recipe.getName());
         return true;
     }
 
@@ -186,6 +234,22 @@ public class CustomRecipeManager {
         register(newRecipe);
         CustomRecipeManager.shouldSaveRecipes();
     }
+    /**
+     * Updates a DynamicCauldronRecipe by unregistering the old recipe and registering the new. If the old recipe is null,
+     * it just registers the new one.
+     * @param oldRecipe the recipe to replace
+     * @param newRecipe the updated recipe
+     */
+    public void update(DynamicCauldronRecipe oldRecipe, DynamicCauldronRecipe newRecipe){
+        if (newRecipe == null) {
+            return;
+        }
+        if (oldRecipe != null){
+            unregister(oldRecipe);
+        }
+        register(newRecipe);
+        CustomRecipeManager.shouldSaveRecipes();
+    }
 
     /**
      * Updates a DynamicShapedRecipe by unregistering the old recipe and registering the new. If the old recipe is null,
@@ -193,7 +257,7 @@ public class CustomRecipeManager {
      * @param oldRecipe the recipe to replace
      * @param newRecipe the updated recipe
      */
-    public void update(DynamicShapedRecipe oldRecipe, DynamicShapedRecipe newRecipe){
+    public void update(DynamicCraftingTableRecipe oldRecipe, DynamicCraftingTableRecipe newRecipe){
         if (newRecipe == null) {
             return;
         }
@@ -204,8 +268,25 @@ public class CustomRecipeManager {
         saveRecipe(newRecipe, ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get());
         CustomRecipeManager.shouldSaveRecipes();
     }
+    /**
+     * Updates a DynamicSmithingTableRecipe by unregistering the old recipe and registering the new. If the old recipe is null,
+     * it just registers the new one.
+     * @param oldRecipe the recipe to replace
+     * @param newRecipe the updated recipe
+     */
+    public void update(DynamicSmithingTableRecipe oldRecipe, DynamicSmithingTableRecipe newRecipe){
+        if (newRecipe == null) {
+            return;
+        }
+        if (oldRecipe != null){
+            unregister(oldRecipe);
+        }
+        register(newRecipe);
+        saveRecipe(newRecipe, ConfigManager.getInstance().getConfig("recipes/smithing_table_recipes.yml").get());
+        CustomRecipeManager.shouldSaveRecipes();
+    }
 
-    public <T extends CookingRecipe<T>> void update(DynamicCookingRecipe<T> oldRecipe, DynamicCookingRecipe<T> newRecipe){
+    public void update(DynamicCookingRecipe<?> oldRecipe, DynamicCookingRecipe<?> newRecipe){
         if (newRecipe == null) {
             return;
         }
@@ -243,7 +324,8 @@ public class CustomRecipeManager {
      */
     public boolean unregister(AbstractCustomCraftingRecipe recipe){
         if (recipe == null) return true;
-        if (!allRecipes.containsKey(recipe.getName())) return false;
+        if (!allCustomRecipes.containsKey(recipe.getName())) return false;
+        allCustomRecipes.remove(recipe.getName());
         allRecipes.remove(recipe.getName());
         if (recipe instanceof ItemCraftingRecipe){
             if (craftingStationRecipes.containsKey(recipe.getCraftingBlock())){
@@ -290,21 +372,56 @@ public class CustomRecipeManager {
      * @param recipe the recipe to unregister
      * @return true if the recipe was successfully removed, and false if the recipe didn't exist.
      */
-    public boolean unregister(DynamicShapedRecipe recipe){
+    public boolean unregister(DynamicCraftingTableRecipe recipe){
         if (recipe == null) return true;
         if (!shapedRecipes.containsKey(recipe.getName())) {
             return false;
         }
         shapedRecipes.remove(recipe.getName());
-        if (recipe.getRecipe() instanceof ShapedRecipe){
-            shapedRecipesByKey.remove(((ShapedRecipe) recipe.getRecipe()).getKey());
-            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapedRecipe) recipe.getRecipe()).getKey());
-        } else if (recipe.getRecipe() instanceof ShapelessRecipe){
-            shapedRecipesByKey.remove(((ShapelessRecipe) recipe.getRecipe()).getKey());
-            ValhallaMMO.getPlugin().getServer().removeRecipe(((ShapelessRecipe) recipe.getRecipe()).getKey());
-        }
+        shapedRecipesByKey.remove(recipe.getKey());
+        allRecipes.remove(recipe.getName());
+        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getKey());
         ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get().set("shaped." + recipe.getName(), null);
         ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").save();
+        shouldSaveRecipes();
+        return true;
+    }
+    /**
+     * Unregisters a DynamicShapedRecipe, after this the recipe will no longer be craftable.
+     * The recipe is also deleted from the configs.
+     * @param recipe the recipe to unregister
+     * @return true if the recipe was successfully removed, and false if the recipe didn't exist.
+     */
+    public boolean unregister(DynamicCauldronRecipe recipe){
+        if (recipe == null) return true;
+        if (!cauldronRecipes.containsKey(recipe.getName())) {
+            return false;
+        }
+        cauldronRecipes.remove(recipe.getName());
+        allRecipes.remove(recipe.getName());
+        ConfigManager.getInstance().getConfig("recipes/cauldron_recipes.yml").get().set("cauldron." + recipe.getName(), null);
+        ConfigManager.getInstance().getConfig("recipes/cauldron_recipes.yml").save();
+        shouldSaveRecipes();
+        return true;
+    }
+
+    /**
+     * Unregisters a DynamicSmithingTableRecipe, after this the recipe will no longer be craftable.
+     * The recipe is also deleted from the configs.
+     * @param recipe the recipe to unregister
+     * @return true if the recipe was successfully removed, and false if the recipe didn't exist.
+     */
+    public boolean unregister(DynamicSmithingTableRecipe recipe){
+        if (recipe == null) return true;
+        if (!smithingRecipes.containsKey(recipe.getName())) {
+            return false;
+        }
+        smithingRecipes.remove(recipe.getName());
+        smithingRecipesByKey.remove(recipe.getKey());
+        allRecipes.remove(recipe.getName());
+        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getKey());
+        ConfigManager.getInstance().getConfig("recipes/smithing_table_recipes.yml").get().set("smithing." + recipe.getName(), null);
+        ConfigManager.getInstance().getConfig("recipes/smithing_table_recipes.yml").save();
         shouldSaveRecipes();
         return true;
     }
@@ -315,10 +432,11 @@ public class CustomRecipeManager {
             return false;
         }
         cookingRecipes.remove(recipe.getName());
-        cookingRecipesByKey.remove(recipe.getRecipe().getKey());
+        cookingRecipesByKey.remove(recipe.generateRecipe().getKey());
+        allRecipes.remove(recipe.getName());
         ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").get().set("cooking." + recipe.getName(), null);
         ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").save();
-        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getRecipe().getKey());
+        ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.generateRecipe().getKey());
         shouldSaveRecipes();
         return true;
     }
@@ -335,6 +453,7 @@ public class CustomRecipeManager {
             return false;
         }
         brewingRecipes.remove(recipe.getName());
+        allRecipes.remove(recipe.getName());
         if (!Utils.isItemEmptyOrNull(recipe.getIngredient())){
             Collection<DynamicBrewingRecipe> existingUnspecificRecipes = unspecificBrewingRecipes.get(recipe.getIngredient().getType());
             if (existingUnspecificRecipes != null){
@@ -358,10 +477,14 @@ public class CustomRecipeManager {
      * @return the SmithingRecipe with the given name, or null if it doesn't exist.
      */
     public AbstractCustomCraftingRecipe getRecipeByName(String name){
-        if (allRecipes.containsKey(name)){
-            return allRecipes.get(name);
+        if (allCustomRecipes.containsKey(name)){
+            return allCustomRecipes.get(name);
         }
         return null;
+    }
+
+    public boolean recipeExists(String name) {
+        return allRecipes.contains(name);
     }
 
     /**
@@ -419,7 +542,7 @@ public class CustomRecipeManager {
      * @return all CustomCraftingRecipes in a map, where the key is the recipe's ID.
      */
     public Map<String, AbstractCustomCraftingRecipe> getAllCustomRecipes() {
-        return allRecipes;
+        return allCustomRecipes;
     }
 
     /**
@@ -431,12 +554,16 @@ public class CustomRecipeManager {
         return craftingStationRecipes;
     }
 
-    public Map<NamespacedKey, DynamicCookingRecipe> getCookingRecipesByKey() {
+    public Map<NamespacedKey, DynamicCookingRecipe<?>> getCookingRecipesByKey() {
         return cookingRecipesByKey;
     }
 
-    public Map<String, DynamicCookingRecipe> getCookingRecipes() {
+    public Map<String, DynamicCookingRecipe<?>> getCookingRecipes() {
         return cookingRecipes;
+    }
+
+    public Map<String, DynamicCauldronRecipe> getCauldronRecipes() {
+        return cauldronRecipes;
     }
 
     /**
@@ -466,19 +593,25 @@ public class CustomRecipeManager {
     public void saveRecipes(boolean async){
         YamlConfiguration brewingConfig = ConfigManager.getInstance().getConfig("recipes/brewing_recipes.yml").get();
         YamlConfiguration shapedConfig = ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get();
+        YamlConfiguration smithingConfig = ConfigManager.getInstance().getConfig("recipes/smithing_table_recipes.yml").get();
         YamlConfiguration cookingConfig = ConfigManager.getInstance().getConfig("recipes/cooking_recipes.yml").get();
+        YamlConfiguration cauldronConfig = ConfigManager.getInstance().getConfig("recipes/cauldron_recipes.yml").get();
         if (async){
-            for (AbstractCustomCraftingRecipe recipe : allRecipes.values()){
+            for (AbstractCustomCraftingRecipe recipe : allCustomRecipes.values()){
                 if (recipe instanceof ItemCraftingRecipe) saveRecipeAsync(recipe, "recipes/crafting_recipes.yml");
                 else if (recipe instanceof ItemClassImprovementRecipe) saveRecipeAsync(recipe, "recipes/class_improvement_recipes.yml");
                 else if (recipe instanceof ItemImprovementRecipe) saveRecipeAsync(recipe, "recipes/improvement_recipes.yml");
             }
             ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom crafting recipes ");
-            for (DynamicShapedRecipe recipe : shapedRecipes.values()){
+            for (DynamicCraftingTableRecipe recipe : shapedRecipes.values()){
                 saveRecipeAsync(recipe, shapedConfig);
             }
             ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom shaped recipes");
-            for (DynamicCookingRecipe recipe : cookingRecipes.values()){
+            for (DynamicSmithingTableRecipe recipe : smithingRecipes.values()){
+                saveRecipeAsync(recipe, smithingConfig);
+            }
+            ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom smithing table recipes");
+            for (DynamicCookingRecipe<?> recipe : cookingRecipes.values()){
                 saveRecipeAsync(recipe, cookingConfig);
             }
             ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom cooking recipes");
@@ -486,18 +619,26 @@ public class CustomRecipeManager {
                 saveRecipeAsync(recipe, brewingConfig);
             }
             ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom brewing recipes");
+            for (DynamicCauldronRecipe recipe : cauldronRecipes.values()){
+                saveRecipeAsync(recipe, cauldronConfig);
+            }
+            ValhallaMMO.getPlugin().getLogger().info("ASYNC : Finished saving custom cauldron recipes");
         } else {
-            for (AbstractCustomCraftingRecipe recipe : allRecipes.values()){
+            for (AbstractCustomCraftingRecipe recipe : allCustomRecipes.values()){
                 if (recipe instanceof ItemCraftingRecipe) saveRecipe(recipe, "recipes/crafting_recipes.yml");
                 else if (recipe instanceof ItemClassImprovementRecipe) saveRecipe(recipe, "recipes/class_improvement_recipes.yml");
                 else if (recipe instanceof ItemImprovementRecipe) saveRecipe(recipe, "recipes/improvement_recipes.yml");
             }
             ValhallaMMO.getPlugin().getLogger().info("Finished saving custom crafting recipes");
-            for (DynamicShapedRecipe recipe : shapedRecipes.values()){
+            for (DynamicCraftingTableRecipe recipe : shapedRecipes.values()){
                 saveRecipe(recipe, shapedConfig);
             }
             ValhallaMMO.getPlugin().getLogger().info("Finished saving custom shaped recipes");
-            for (DynamicCookingRecipe recipe : cookingRecipes.values()){
+            for (DynamicSmithingTableRecipe recipe : smithingRecipes.values()){
+                saveRecipe(recipe, smithingConfig);
+            }
+            ValhallaMMO.getPlugin().getLogger().info("Finished saving custom shaped recipes");
+            for (DynamicCookingRecipe<?> recipe : cookingRecipes.values()){
                 saveRecipe(recipe, cookingConfig);
             }
             ValhallaMMO.getPlugin().getLogger().info("Finished saving custom cooking recipes");
@@ -505,6 +646,10 @@ public class CustomRecipeManager {
                 saveRecipe(recipe, brewingConfig);
             }
             ValhallaMMO.getPlugin().getLogger().info("Finished saving custom brewing recipes");
+            for (DynamicCauldronRecipe recipe : cauldronRecipes.values()){
+                saveRecipe(recipe, cauldronConfig);
+            }
+            ValhallaMMO.getPlugin().getLogger().info("Finished saving custom cauldron recipes");
         }
     }
 
@@ -538,7 +683,7 @@ public class CustomRecipeManager {
             if (recipe.getValidation() != null){
                 config.set(root + recipe.getName() + ".validation", recipe.getValidation().getName());
             }
-            for (DynamicItemModifier modifier : recipe.getItemModifers()){
+            for (DynamicItemModifier modifier : recipe.getItemModifiers()){
                 if (modifier instanceof TripleArgDynamicItemModifier){
                     config.set(root + recipe.getName() + ".modifiers." + modifier.getName() + ".strength3", Utils.round(((TripleArgDynamicItemModifier) modifier).getStrength3(), 6));
                 }
@@ -558,36 +703,151 @@ public class CustomRecipeManager {
     }
 
     /**
-     * Loads all DynamicShapedRecipes and AbstractCraftingRecipes from the recipes.yml configs asynchronously
+     * Persists a DynamicCauldronRecipe to the recipes config
+     * @param recipe recipe to persist
+     */
+    public void saveRecipe(DynamicCauldronRecipe recipe, YamlConfiguration config){
+        config.set("cauldron." + recipe.getName() + ".exact_meta_ingredients", recipe.isIngredientsExactMeta());
+        config.set("cauldron." + recipe.getName() + ".catalyst", recipe.getCatalyst());
+        config.set("cauldron." + recipe.getName() + ".exact_meta_catalyst", recipe.isCatalystExactMeta());
+        config.set("cauldron." + recipe.getName() + ".require_custom_catalyst", recipe.isRequireCustomCatalyst());
+        config.set("cauldron." + recipe.getName() + ".result", recipe.getResult());
+        config.set("cauldron." + recipe.getName() + ".tinker_catalyst", recipe.isTinkerCatalyst());
+        config.set("cauldron." + recipe.getName() + ".requires_boiling_water", recipe.isRequiresBoilingWater());
+        config.set("cauldron." + recipe.getName() + ".consumes_water_level", recipe.isConsumesWaterLevel());
+        config.set("cauldron." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
+
+        for (DynamicItemModifier modifier : recipe.getItemModifiers()){
+            if (modifier instanceof TripleArgDynamicItemModifier){
+                config.set("cauldron." + recipe.getName() + ".modifiers." + modifier.getName() + ".strength3", Utils.round(((TripleArgDynamicItemModifier) modifier).getStrength3(), 6));
+            }
+            if (modifier instanceof DuoArgDynamicItemModifier){
+                config.set("cauldron." + recipe.getName() + ".modifiers." + modifier.getName() + ".strength2", Utils.round(((DuoArgDynamicItemModifier) modifier).getStrength2(), 6));
+            }
+            config.set("cauldron." + recipe.getName() + ".modifiers." + modifier.getName() + ".strength", Utils.round(modifier.getStrength(), 6));
+            config.set("cauldron." + recipe.getName() + ".modifiers." + modifier.getName() + ".priority", modifier.getPriority().toString());
+        }
+        int stepper = 0;
+        for (ItemStack ingredient : recipe.getIngredients()){
+            config.set("cauldron." + recipe.getName() + ".ingredients." + stepper, ingredient);
+            stepper++;
+        }
+        ConfigManager.getInstance().saveConfig("recipes/cauldron_recipes.yml");
+    }
+
+    /**
+     * Loads all recipe types from the recipes directory native configs asynchronously
      */
     public void loadRecipesAsync(){
         loadDynamicShapedRecipes();
-        loadDynamicCookingRecipes();
-        loadDynamicBrewingRecipes();
         ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom shaped recipes");
+        loadDynamicSmithingTableRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom smithing table recipes");
+        loadDynamicCookingRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom cooking recipes");
         new BukkitRunnable(){
             @Override
             public void run() {
+                loadDynamicBrewingRecipes();
+                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom brewing recipes");
                 loadItemCraftingRecipes();
                 ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom crafting recipes");
                 loadItemImprovementRecipes();
                 ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item improvement recipes");
                 loadItemClassImprovementRecipes();
                 ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item class improvement recipes");
+                loadCauldronRecipes();
+                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom cauldron recipes");
             }
         }.runTaskAsynchronously(ValhallaMMO.getPlugin());
     }
 
-    public DynamicShapedRecipe getDynamicShapedRecipe(String name){
+    public void convertRecipes(){
+        final ItemStack sharpeningStone = Utils.createItemStack(Material.GRAY_DYE, Utils.chat("&fBasic Sharpening Kit"),
+                null, 8892300);
+        final ItemStack whetstone = Utils.createItemStack(Material.LIGHT_GRAY_DYE, Utils.chat("&fFine Sharpening Kit"),
+                null, 8892301);
+        ItemDictionaryManager.getInstance().addItem(sharpeningStone);
+        ItemDictionaryManager.getInstance().addItem(whetstone);
+        ValhallaMMO.getPlugin().getServer().broadcastMessage("Translating all recipes over to BETTER system");
+        for (AbstractCustomCraftingRecipe recipe : allCustomRecipes.values()){
+            if (recipe instanceof ItemCraftingRecipe){
+                if (recipe.getName().contains("_ingot")){
+                    if (recipe.getName().contains("_ingots")) continue;
+                    DynamicCampfireRecipe newRecipe1 = new DynamicCampfireRecipe("campfire_" + recipe.getName(), new ItemStack(((ItemCraftingRecipe) recipe).getResult().getType()),
+                            ((ItemCraftingRecipe) recipe).getResult(),
+                            recipe.getName().contains("netherite") ? 2 : 0,
+                            600, 0, false, true, false, recipe.getItemModifiers());
+                    DynamicFurnaceRecipe newRecipe2 = new DynamicFurnaceRecipe("furnace_" + recipe.getName(), new ItemStack(((ItemCraftingRecipe) recipe).getResult().getType()),
+                            ((ItemCraftingRecipe) recipe).getResult(), 200, 0, false, true, false, recipe.getItemModifiers());
+                    DynamicBlastingRecipe newRecipe3 = new DynamicBlastingRecipe("bfurnace_" + recipe.getName(), new ItemStack(((ItemCraftingRecipe) recipe).getResult().getType()),
+                            ((ItemCraftingRecipe) recipe).getResult(), 100, 0, false, true, false, recipe.getItemModifiers());
+                    newRecipe1.setUnlockedForEveryone(recipe.isUnlockedForEveryone());
+                    newRecipe2.setUnlockedForEveryone(recipe.isUnlockedForEveryone());
+                    newRecipe3.setUnlockedForEveryone(recipe.isUnlockedForEveryone());
+                    register(newRecipe1);
+                    register(newRecipe2);
+                    register(newRecipe3);
+                }
+            } else if (recipe instanceof ItemImprovementRecipe){
+                if (recipe.getName().contains("heat_")){
+                    DynamicCampfireRecipe newRecipe1 = new DynamicCampfireRecipe("campfire_" + recipe.getName(), new ItemStack(((ItemImprovementRecipe) recipe).getRequiredItemType()),
+                            new ItemStack(((ItemImprovementRecipe) recipe).getRequiredItemType()),
+                            recipe.getName().contains("netherite") ? 2 : 0,
+                            600, 0, false, true, false, recipe.getItemModifiers());
+                    DynamicFurnaceRecipe newRecipe2 = new DynamicFurnaceRecipe("furnace_" + recipe.getName(), new ItemStack(((ItemImprovementRecipe) recipe).getRequiredItemType()),
+                            new ItemStack(((ItemImprovementRecipe) recipe).getRequiredItemType()), 200, 0, false, true, false, recipe.getItemModifiers());
+                    DynamicBlastingRecipe newRecipe3 = new DynamicBlastingRecipe("bfurnace_" + recipe.getName(), new ItemStack(((ItemImprovementRecipe) recipe).getRequiredItemType()),
+                            new ItemStack(((ItemImprovementRecipe) recipe).getRequiredItemType()), 100, 0, false, true, false, recipe.getItemModifiers());
+                    newRecipe1.setUnlockedForEveryone(recipe.isUnlockedForEveryone());
+                    newRecipe2.setUnlockedForEveryone(recipe.isUnlockedForEveryone());
+                    newRecipe3.setUnlockedForEveryone(recipe.isUnlockedForEveryone());
+                    register(newRecipe1);
+                    register(newRecipe2);
+                    register(newRecipe3);
+                }
+            }
+        }
+        ValhallaMMO.getPlugin().getServer().broadcastMessage("Done!");
+    }
+
+    public void cleanseTheFilth(){
+        ValhallaMMO.getPlugin().getServer().broadcastMessage("wiping all old recipes");
+        for (String recipe : new HashSet<>(allCustomRecipes.keySet())){
+            AbstractCustomCraftingRecipe r = allCustomRecipes.get(recipe);
+            unregister(r);
+        }
+        ValhallaMMO.getPlugin().getServer().broadcastMessage("Done!");
+    }
+
+    private Map<Integer, ItemStack> generateExactItemsMap(ItemStack... items){
+        Map<Integer, ItemStack> map = new HashMap<>();
+        if (items.length == 9){
+            for (int i = 0; i < 9; i++){
+                ItemStack item = items[i];
+                if (item == null) continue;
+                map.put(i, item);
+            }
+        }
+        return map;
+    }
+
+    public DynamicCraftingTableRecipe getDynamicShapedRecipe(String name){
         return shapedRecipes.get(name);
+    }
+    public DynamicSmithingTableRecipe getDynamicSmithingRecipe(String name){
+        return smithingRecipes.get(name);
     }
 
     public DynamicBrewingRecipe getBrewingRecipe(String name) {
         return brewingRecipes.get(name);
     }
 
-    public DynamicShapedRecipe getDynamicShapedRecipe(NamespacedKey key){
+    public DynamicCraftingTableRecipe getDynamicShapedRecipe(NamespacedKey key){
         return shapedRecipesByKey.get(key);
+    }
+    public DynamicSmithingTableRecipe getDynamicSmithingRecipe(NamespacedKey key){
+        return smithingRecipesByKey.get(key);
     }
 
     private void loadItemImprovementRecipes(){
@@ -596,6 +856,16 @@ public class CustomRecipeManager {
             config = ConfigManager.getInstance().getConfig("recipes/improvement_recipes.yml").get();
         }
         for (ItemImprovementRecipe recipe : getImprovementRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+
+    private void loadCauldronRecipes(){
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("recipes/cauldron_recipes.yml").get();
+        if (!Utils.doesPathExist(config, "", "cauldron")) {
+            config = ConfigManager.getInstance().getConfig("recipes/cauldron_recipes.yml").get();
+        }
+        for (DynamicCauldronRecipe recipe : getCauldronRecipesFromConfig(config)){
             register(recipe);
         }
     }
@@ -679,6 +949,74 @@ public class CustomRecipeManager {
                 if (validation != null){
                     newRecipe.setValidation(validation);
                 }
+                newRecipe.setUnlockedForEveryone(unlockedForEveryone);
+                recipes.add(newRecipe);
+            }
+        }
+        return recipes;
+    }
+
+    public Collection<DynamicCauldronRecipe> getCauldronRecipesFromConfig(YamlConfiguration config){
+        Collection<DynamicCauldronRecipe> recipes = new HashSet<>();
+        ConfigurationSection section = config.getConfigurationSection("cauldron");
+        if (section != null){
+            for (String recipe : section.getKeys(false)){
+                List<DynamicItemModifier> modifiers = new ArrayList<>();
+                ConfigurationSection modifierSection = config.getConfigurationSection("cauldron." + recipe + ".modifiers");
+                if (modifierSection != null){
+                    for (String mod : modifierSection.getKeys(false)){
+                        ModifierPriority priority = ModifierPriority.NEUTRAL;
+                        try {
+                            String stringPriority = config.getString("cauldron." + recipe + ".modifiers." + mod + ".priority");
+                            if (stringPriority == null) throw new IllegalArgumentException();
+                            priority = ModifierPriority.valueOf(stringPriority);
+                        } catch (IllegalArgumentException ignored){
+                        }
+                        double strength = config.getDouble("cauldron." + recipe + ".modifiers." + mod + ".strength");
+                        DynamicItemModifier modifier;
+                        if (Utils.doesPathExist(config, "cauldron." + recipe + ".modifiers." + mod, "strength2")){
+                            // assuming at least DuoArgModifier
+                            double strength2 = config.getDouble("cauldron." + recipe + ".modifiers." + mod + ".strength2");
+                            if (Utils.doesPathExist(config, "cauldron." + recipe + ".modifiers." + mod, "strength3")){
+                                // assuming TripleArgModifier
+                                double strength3 = config.getDouble("cauldron." + recipe + ".modifiers." + mod + ".strength3");
+                                modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, strength3, priority);
+                            } else {
+                                // assuming DoubleArgModifier
+                                modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, priority);
+                            }
+                        } else {
+                            modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, priority);
+                        }
+                        if (modifier != null){
+                            modifiers.add(modifier);
+                        }
+                    }
+                }
+                List<ItemStack> ingredients = new ArrayList<>();
+                ConfigurationSection ingredientSection = config.getConfigurationSection("cauldron." + recipe + ".ingredients");
+                if (ingredientSection != null){
+                    for (String ingredientIndex : ingredientSection.getKeys(false)){
+                        ItemStack ingredient = config.getItemStack("cauldron." + recipe + ".ingredients." + ingredientIndex);
+                        if (ingredient != null){
+                            ingredient = TranslationManager.getInstance().translateItemStack(ingredient);
+                            ingredients.add(ingredient);
+                        }
+                    }
+                }
+                boolean ingredientsExactMeta = config.getBoolean("cauldron." + recipe + ".exact_meta_ingredients", true);
+                ItemStack catalyst = config.getItemStack("cauldron." + recipe + ".catalyst");
+                boolean catalystExactMeta = config.getBoolean("cauldron." + recipe + ".exact_meta_catalyst", true);
+                boolean requireCustomCatalyst = config.getBoolean("cauldron." + recipe + ".require_custom_catalyst", true);
+
+                ItemStack result = config.getItemStack("cauldron." + recipe + ".result");
+
+                boolean tinkerCatalyst = config.getBoolean("cauldron." + recipe + ".tinker_catalyst");
+                boolean requiresBoilingWater = config.getBoolean("cauldron." + recipe + ".requires_boiling_water");
+                boolean consumesWaterLevel = config.getBoolean("cauldron." + recipe + ".consumes_water_level");
+                boolean unlockedForEveryone = config.getBoolean("cauldron." + recipe + ".unlocked_for_everyone");
+
+                DynamicCauldronRecipe newRecipe = new DynamicCauldronRecipe(recipe, ingredients, catalyst, result, ingredientsExactMeta, catalystExactMeta, requireCustomCatalyst, tinkerCatalyst, requiresBoilingWater, consumesWaterLevel, modifiers);
                 newRecipe.setUnlockedForEveryone(unlockedForEveryone);
                 recipes.add(newRecipe);
             }
@@ -889,7 +1227,8 @@ public class CustomRecipeManager {
                 NamespacedKey recipeKey = NamespacedKey.minecraft(s.toLowerCase());
                 Recipe recipe = ValhallaMMO.getPlugin().getServer().getRecipe(recipeKey);
                 if (recipe != null){
-                    this.disabledRecipes.add(recipeKey);
+//                    this.disabledRecipes.add(recipeKey);
+                    ValhallaMMO.getPlugin().getServer().removeRecipe(recipeKey);
                 }
             } catch (IllegalArgumentException ignored){
                 ValhallaMMO.getPlugin().getLogger().warning("Invalid recipe key '" + s + "' found, recipe contains illegal characters. Allowed characters: [a-zA-Z0-9/. -], cancelled crafting recipe removal");
@@ -903,18 +1242,28 @@ public class CustomRecipeManager {
     }
 
     /**
-     * Loads all DynamicShapedRecipe from the config recipes.yml and registers them on the server
+     * Loads all DynamicShapedRecipe from recipes/shaped_recipes.yml and registers them on the server
      * and within the plugin.
      */
     private void loadDynamicShapedRecipes(){
         YamlConfiguration config = ConfigManager.getInstance().getConfig("recipes/shaped_recipes.yml").get();
-        for (DynamicShapedRecipe recipe : getDynamicShapedRecipesFromConfig(config)){
+        for (DynamicCraftingTableRecipe recipe : getDynamicShapedRecipesFromConfig(config)){
+            register(recipe);
+        }
+    }
+    /**
+     * Loads all DynamicSmithingTableRecipes from recipes/smithing_table_recipes.yml and registers them on the server
+     * and within the plugin.
+     */
+    private void loadDynamicSmithingTableRecipes(){
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("recipes/smithing_table_recipes.yml").get();
+        for (DynamicSmithingTableRecipe recipe : getDynamicSmithingTableRecipesFromConfig(config)){
             register(recipe);
         }
     }
 
-    public Collection<DynamicShapedRecipe> getDynamicShapedRecipesFromConfig(YamlConfiguration config){
-        Collection<DynamicShapedRecipe> recipes = new HashSet<>();
+    public Collection<DynamicCraftingTableRecipe> getDynamicShapedRecipesFromConfig(YamlConfiguration config){
+        Collection<DynamicCraftingTableRecipe> recipes = new HashSet<>();
         ConfigurationSection section = config.getConfigurationSection("shaped");
         if (section != null){
             recipeLoop:
@@ -923,14 +1272,14 @@ public class CustomRecipeManager {
                 if (result == null) continue;
                 result = TranslationManager.getInstance().translateItemStack(result);
 
-                NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + recipe);
                 boolean requireCustomTools = config.getBoolean("shaped." + recipe + ".require_custom_tools");
                 boolean useMetaData = config.getBoolean("shaped." + recipe + ".use_meta");
+                boolean allowIngredientVariations = config.getBoolean("shaped." + recipe + ".allow_material_variations");
                 boolean unlockedForEveryone = config.getBoolean("shaped." + recipe + ".unlocked_for_everyone");
                 boolean isShapeless = config.getBoolean("shaped." + recipe + ".shapeless");
                 boolean improveMiddleItem = config.getBoolean("shaped." + recipe + ".improve_center_item");
-
-                Recipe r = isShapeless ? new ShapelessRecipe(recipeKey, result) : new ShapedRecipe(recipeKey, result);
+                int requiredToolId = config.getInt("shaped." + recipe + ".tool_id", -1);
+                int toolRequirementType = config.getInt("shaped." + recipe + ".tool_requirement_type", 0);
 
                 Map<Integer, ItemStack> exactIngredients = new HashMap<>();
 
@@ -969,57 +1318,157 @@ public class CustomRecipeManager {
                 }
 
                 List<String> shape = config.getStringList("shaped." + recipe + ".shape");
-                int gridSize = shape.size();
-                try {
-                    if (!isShapeless){
-                        if (gridSize == 2) {
-                            ((ShapedRecipe) r).shape(shape.get(0).substring(0, 2), shape.get(1).substring(0, 2));
-                        } else if (gridSize == 3){
-                            ((ShapedRecipe) r).shape(shape.get(0).substring(0, 3), shape.get(1).substring(0, 3), shape.get(2).substring(0, 3));
-                        }
+                if (shape.isEmpty()){
+                    // new system
+                    for (int i = 0; i < 9; i++){
+                        ItemStack charItemStack = config.getItemStack("shaped." + recipe + ".ingredients." + i);
+                        if (Utils.isItemEmptyOrNull(charItemStack)) continue;
+
+                        charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
+                        exactIngredients.put(i, charItemStack);
                     }
-                    int index = 0;
-                    for (String s : shape){
-                        s = s.substring(0, gridSize);
-                        for (Character c : s.toCharArray()){
-                            if (c.equals(' ')) {
-                                //exactIngredients.put(index, null);
+                    if (exactIngredients.isEmpty()) {
+                        ValhallaMMO.getPlugin().getLogger().warning("Shaped recipe " + recipe + " does not have ingredients, not loaded in");
+                    }
+                } else {
+                    // old system
+                    try {
+                        int index = 0;
+                        for (String s : shape){
+                            s = s.substring(0, Math.min(3, shape.size()));
+                            for (Character c : s.toCharArray()){
+                                if (c.equals(' ')) {
+                                    index++;
+                                    continue;
+                                }
+                                ItemStack charItemStack = config.getItemStack("shaped." + recipe + ".ingredients." + c);
+                                if (charItemStack == null) {
+                                    try {
+                                        String material = config.getString("shaped." + recipe + ".ingredients." + c);
+                                        if (material != null){
+                                            charItemStack = new ItemStack(Material.valueOf(material));
+                                        } else throw new IllegalArgumentException();
+                                    } catch (IllegalArgumentException ignored){
+                                        ValhallaMMO.getPlugin().getLogger().warning("Invalid material ingredient " + c + " for recipe " + recipe);
+                                        continue recipeLoop;
+                                    }
+                                }
+                                charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
+                                exactIngredients.put(index, charItemStack);
                                 index++;
-                                continue;
                             }
-                            ItemStack charItemStack = config.getItemStack("shaped." + recipe + ".ingredients." + c);
-                            if (charItemStack == null) {
-                                try {
-                                    String material = config.getString("shaped." + recipe + ".ingredients." + c);
-                                    if (material != null){
-                                        charItemStack = new ItemStack(Material.valueOf(material));
-                                    } else throw new IllegalArgumentException();
-                                } catch (IllegalArgumentException ignored){
-                                    ValhallaMMO.getPlugin().getLogger().warning("Invalid material ingredient " + c + " for recipe " + recipe);
-                                    continue recipeLoop;
-                                }
-                            }
-                            charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
-                            exactIngredients.put(index, charItemStack);
-                            if (!isShapeless){
-                                if (useMetaData){
-                                    ((ShapedRecipe) r).setIngredient(c, new RecipeChoice.ExactChoice(charItemStack));
-                                } else {
-                                    ((ShapedRecipe) r).setIngredient(c, charItemStack.getType());
-                                }
-                            } else {
-                                ((ShapelessRecipe) r).addIngredient(charItemStack.getType());
-                            }
-                            index++;
                         }
+                    } catch (NullPointerException | IndexOutOfBoundsException e){
+                        ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting shape for shaped recipe " + recipe + ", cancelled crafting recipe");
+                        e.printStackTrace();
+                        continue;
                     }
-                } catch (NullPointerException | IndexOutOfBoundsException e){
-                    ValhallaMMO.getPlugin().getLogger().warning("Invalid crafting shape for shaped recipe " + recipe + ", cancelled crafting recipe");
-                    e.printStackTrace();
-                    continue;
                 }
 
-                DynamicShapedRecipe finalRecipe = new DynamicShapedRecipe(recipe, r, exactIngredients, useMetaData, requireCustomTools, improveMiddleItem, isShapeless, shape, modifiers);
+                DynamicCraftingTableRecipe finalRecipe = new DynamicCraftingTableRecipe(recipe, result, exactIngredients, unlockedForEveryone, useMetaData, allowIngredientVariations, requireCustomTools, improveMiddleItem, isShapeless, modifiers);
+                finalRecipe.setRequiredToolId(requiredToolId);
+                finalRecipe.setToolRequirementType(toolRequirementType);
+                recipes.add(finalRecipe);
+            }
+        }
+        return recipes;
+    }
+
+    public Collection<DynamicSmithingTableRecipe> getDynamicSmithingTableRecipesFromConfig(YamlConfiguration config){
+        Collection<DynamicSmithingTableRecipe> recipes = new HashSet<>();
+        ConfigurationSection section = config.getConfigurationSection("smithing");
+        if (section != null){
+            for (String recipe : section.getKeys(false)){
+                ItemStack result = config.getItemStack("smithing." + recipe + ".result");
+                if (result == null) continue;
+                result = TranslationManager.getInstance().translateItemStack(result);
+
+                ItemStack base = config.getItemStack("smithing." + recipe + ".base");
+                if (base == null) continue;
+                base = TranslationManager.getInstance().translateItemStack(base);
+                ItemStack addition = config.getItemStack("smithing." + recipe + ".addition");
+                if (addition == null) continue;
+                addition = TranslationManager.getInstance().translateItemStack(addition);
+
+                boolean requireCustomTools = config.getBoolean("smithing." + recipe + ".require_custom_tools");
+                boolean useMetaBase = config.getBoolean("smithing." + recipe + ".use_meta_base");
+                boolean useMetaAddition = config.getBoolean("smithing." + recipe + ".use_meta_addition");
+                boolean allowBaseVariations = config.getBoolean("smithing." + recipe + ".allow_base_variations");
+                boolean allowAdditionVariations = config.getBoolean("smithing." + recipe + ".allow_addition_variations");
+                boolean unlockedForEveryone = config.getBoolean("smithing." + recipe + ".unlocked_for_everyone");
+                boolean improveBase = config.getBoolean("smithing." + recipe + ".improve_base");
+                boolean consumeAddition = config.getBoolean("smithing." + recipe + ".consume_addition");
+
+                List<DynamicItemModifier> resultModifiers = new ArrayList<>();
+
+                ConfigurationSection baseModifierSection = config.getConfigurationSection("smithing." + recipe + ".result_modifiers");
+                if (baseModifierSection != null){
+                    for (String mod : baseModifierSection.getKeys(false)){
+                        ModifierPriority priority = ModifierPriority.NEUTRAL;
+                        try {
+                            String stringPriority = config.getString("smithing." + recipe + ".result_modifiers." + mod + ".priority");
+                            if (stringPriority == null) throw new IllegalArgumentException();
+                            priority = ModifierPriority.valueOf(stringPriority);
+                        } catch (IllegalArgumentException ignored){
+                        }
+                        double strength = config.getDouble("smithing." + recipe + ".result_modifiers." + mod + ".strength");
+                        DynamicItemModifier modifier;
+                        if (Utils.doesPathExist(config, "smithing." + recipe + ".result_modifiers." + mod, "strength2")){
+                            // assuming at least DuoArgModifier
+                            double strength2 = config.getDouble("smithing." + recipe + ".result_modifiers." + mod + ".strength2");
+                            if (Utils.doesPathExist(config, "smithing." + recipe + ".result_modifiers." + mod, "strength3")){
+                                // assuming TripleArgModifier
+                                double strength3 = config.getDouble("smithing." + recipe + ".result_modifiers." + mod + ".strength3");
+                                modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, strength3, priority);
+                            } else {
+                                // assuming DoubleArgModifier
+                                modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, priority);
+                            }
+                        } else {
+                            modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, priority);
+                        }
+                        if (modifier != null){
+                            resultModifiers.add(modifier);
+                        }
+                    }
+                }
+
+                List<DynamicItemModifier> additionModifiers = new ArrayList<>();
+
+                ConfigurationSection additionModifierSection = config.getConfigurationSection("smithing." + recipe + ".addition_modifiers");
+                if (additionModifierSection != null){
+                    for (String mod : additionModifierSection.getKeys(false)){
+                        ModifierPriority priority = ModifierPriority.NEUTRAL;
+                        try {
+                            String stringPriority = config.getString("smithing." + recipe + ".addition_modifiers." + mod + ".priority");
+                            if (stringPriority == null) throw new IllegalArgumentException();
+                            priority = ModifierPriority.valueOf(stringPriority);
+                        } catch (IllegalArgumentException ignored){
+                        }
+                        double strength = config.getDouble("smithing." + recipe + ".addition_modifiers." + mod + ".strength");
+                        DynamicItemModifier modifier;
+                        if (Utils.doesPathExist(config, "smithing." + recipe + ".addition_modifiers." + mod, "strength2")){
+                            // assuming at least DuoArgModifier
+                            double strength2 = config.getDouble("smithing." + recipe + ".addition_modifiers." + mod + ".strength2");
+                            if (Utils.doesPathExist(config, "smithing." + recipe + ".addition_modifiers." + mod, "strength3")){
+                                // assuming TripleArgModifier
+                                double strength3 = config.getDouble("smithing." + recipe + ".addition_modifiers." + mod + ".strength3");
+                                modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, strength3, priority);
+                            } else {
+                                // assuming DoubleArgModifier
+                                modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, priority);
+                            }
+                        } else {
+                            modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, priority);
+                        }
+                        if (modifier != null){
+                            additionModifiers.add(modifier);
+                        }
+                    }
+                }
+
+                DynamicSmithingTableRecipe finalRecipe = new DynamicSmithingTableRecipe(recipe, result, base, addition, useMetaBase, useMetaAddition, requireCustomTools, improveBase, consumeAddition, allowBaseVariations,
+                        allowAdditionVariations, resultModifiers, additionModifiers);
                 finalRecipe.setUnlockedForEveryone(unlockedForEveryone);
                 recipes.add(finalRecipe);
             }
@@ -1040,7 +1489,6 @@ public class CustomRecipeManager {
         ConfigurationSection section = config.getConfigurationSection("cooking");
         if (section != null){
             for (String recipe : section.getKeys(false)){
-                NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + recipe);
                 String type = config.getString("cooking." + recipe + ".type");
                 if (type == null || !validCookingTypes.contains(type)) continue;
                 int cookingTime = config.getInt("cooking." + recipe + ".time");
@@ -1060,24 +1508,24 @@ public class CustomRecipeManager {
 
                 List<DynamicItemModifier> modifiers = new ArrayList<>();
 
-                ConfigurationSection modifierSection = config.getConfigurationSection("shaped." + recipe + ".modifiers");
+                ConfigurationSection modifierSection = config.getConfigurationSection("cooking." + recipe + ".modifiers");
                 if (modifierSection != null){
                     for (String mod : modifierSection.getKeys(false)){
                         ModifierPriority priority = ModifierPriority.NEUTRAL;
                         try {
-                            String stringPriority = config.getString("shaped." + recipe + ".modifiers." + mod + ".priority");
+                            String stringPriority = config.getString("cooking." + recipe + ".modifiers." + mod + ".priority");
                             if (stringPriority == null) throw new IllegalArgumentException();
                             priority = ModifierPriority.valueOf(stringPriority);
                         } catch (IllegalArgumentException ignored){
                         }
-                        double strength = config.getDouble("shaped." + recipe + ".modifiers." + mod + ".strength");
+                        double strength = config.getDouble("cooking." + recipe + ".modifiers." + mod + ".strength");
                         DynamicItemModifier modifier;
-                        if (Utils.doesPathExist(config, "shaped." + recipe + ".modifiers." + mod, "strength2")){
+                        if (Utils.doesPathExist(config, "cooking." + recipe + ".modifiers." + mod, "strength2")){
                             // assuming at least DuoArgModifier
-                            double strength2 = config.getDouble("shaped." + recipe + ".modifiers." + mod + ".strength2");
-                            if (Utils.doesPathExist(config, "shaped." + recipe + ".modifiers." + mod, "strength3")){
+                            double strength2 = config.getDouble("cooking." + recipe + ".modifiers." + mod + ".strength2");
+                            if (Utils.doesPathExist(config, "cooking." + recipe + ".modifiers." + mod, "strength3")){
                                 // assuming TripleArgModifier
-                                double strength3 = config.getDouble("shaped." + recipe + ".modifiers." + mod + ".strength3");
+                                double strength3 = config.getDouble("cooking." + recipe + ".modifiers." + mod + ".strength3");
                                 modifier = DynamicItemModifierManager.getInstance().createModifier(mod, strength, strength2, strength3, priority);
                             } else {
                                 // assuming DoubleArgModifier
@@ -1094,37 +1542,30 @@ public class CustomRecipeManager {
 
                 switch (type){
                     case "campfire": {
-                        CampfireRecipe campfireRecipe = new CampfireRecipe(recipeKey, result, exactItemRequirement.getType(),
-                                experience, cookingTime);
-                        DynamicCookingRecipe<CampfireRecipe> r = new DynamicCampfireRecipe(recipe, campfireRecipe, exactItemRequirement,
-                                result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
+                        int campfireMode = config.getInt("cooking." + recipe + ".campfire_mode");
+                        DynamicCookingRecipe<CampfireRecipe> r = new DynamicCampfireRecipe(recipe, exactItemRequirement,
+                                result, campfireMode, cookingTime, experience, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
                         r.setUnlockedForEveryone(unlockedForEveryone);
                         recipes.add(r);
                         break;
                     }
                     case "furnace": {
-                        FurnaceRecipe furnaceRecipe = new FurnaceRecipe(recipeKey, result, exactItemRequirement.getType(),
-                                experience, cookingTime);
-                        DynamicCookingRecipe<FurnaceRecipe> r = new DynamicFurnaceRecipe(recipe, furnaceRecipe, exactItemRequirement,
-                                result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
+                        DynamicCookingRecipe<FurnaceRecipe> r = new DynamicFurnaceRecipe(recipe, exactItemRequirement,
+                                result, cookingTime, experience, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
                         r.setUnlockedForEveryone(unlockedForEveryone);
                         recipes.add(r);
                         break;
                     }
                     case "blasting": {
-                        BlastingRecipe blastingRecipe = new BlastingRecipe(recipeKey, result, exactItemRequirement.getType(),
-                                experience, cookingTime);
-                        DynamicCookingRecipe<BlastingRecipe> r = new DynamicBlastingRecipe(recipe, blastingRecipe, exactItemRequirement,
-                                result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
+                        DynamicCookingRecipe<BlastingRecipe> r = new DynamicBlastingRecipe(recipe, exactItemRequirement,
+                                result, cookingTime, experience, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
                         r.setUnlockedForEveryone(unlockedForEveryone);
                         recipes.add(r);
                         break;
                     }
                     case "smoking": {
-                        SmokingRecipe smokingRecipe = new SmokingRecipe(recipeKey, result, exactItemRequirement.getType(),
-                                experience, cookingTime);
-                        DynamicCookingRecipe<SmokingRecipe> r = new DynamicSmokingRecipe(recipe, smokingRecipe, exactItemRequirement,
-                                result, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
+                        DynamicCookingRecipe<SmokingRecipe> r = new DynamicSmokingRecipe(recipe, exactItemRequirement,
+                                result, cookingTime, experience, sameResultAsInput, exactMeta, requireCustomTool, modifiers);
                         r.setUnlockedForEveryone(unlockedForEveryone);
                         recipes.add(r);
                         break;
@@ -1137,21 +1578,22 @@ public class CustomRecipeManager {
 
     private <T extends CookingRecipe<T>> void saveRecipe(DynamicCookingRecipe<T> recipe, YamlConfiguration config){
         String type;
-        if (recipe.getRecipe() instanceof FurnaceRecipe){
+        if (recipe instanceof DynamicFurnaceRecipe){
             type = "furnace";
-        } else if (recipe.getRecipe() instanceof CampfireRecipe){
+        } else if (recipe instanceof DynamicCampfireRecipe){
             type = "campfire";
-        } else if (recipe.getRecipe() instanceof BlastingRecipe){
+            config.set("cooking." + recipe.getName() + ".campfire_mode", ((DynamicCampfireRecipe) recipe).getCampfireMode());
+        } else if (recipe instanceof DynamicBlastingRecipe){
             type = "blasting";
-        } else if (recipe.getRecipe() instanceof SmokingRecipe){
+        } else if (recipe instanceof DynamicSmokingRecipe){
             type = "smoking";
         } else return;
         config.set("cooking." + recipe.getName() + ".type", type);
-        config.set("cooking." + recipe.getName() + ".time", recipe.getRecipe().getCookingTime());
-        config.set("cooking." + recipe.getName() + ".exp", recipe.getRecipe().getExperience());
+        config.set("cooking." + recipe.getName() + ".time", recipe.getCookTime());
+        config.set("cooking." + recipe.getName() + ".exp", recipe.getExperience());
         config.set("cooking." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
-        config.set("cooking." + recipe.getName() + ".required", recipe.getExactItem());
-        config.set("cooking." + recipe.getName() + ".result", recipe.getRecipe().getResult());
+        config.set("cooking." + recipe.getName() + ".required", recipe.getInput());
+        config.set("cooking." + recipe.getName() + ".result", recipe.getResult());
         if (recipe.getModifiers().size() > 0){
             for (DynamicItemModifier m : recipe.getModifiers()){
                 if (m instanceof TripleArgDynamicItemModifier){
@@ -1164,9 +1606,9 @@ public class CustomRecipeManager {
                 config.set("cooking." + recipe.getName() + ".modifiers." + m.getName() + ".priority", m.getPriority().toString());
             }
         }
-        config.set("cooking." + recipe.getName() + ".tinker_mode", recipe.isSameResultAsInput());
+        config.set("cooking." + recipe.getName() + ".tinker_mode", recipe.isTinkerInput());
         config.set("cooking." + recipe.getName() + ".exact_meta", recipe.isUseMetadata());
-        config.set("cooking." + recipe.getName() + ".require_custom_tool", recipe.isRequireCustomTool());
+        config.set("cooking." + recipe.getName() + ".require_custom_tool", recipe.requiresCustomTool());
         ConfigManager.getInstance().saveConfig("recipes/cooking_recipes.yml");
     }
 
@@ -1240,7 +1682,6 @@ public class CustomRecipeManager {
                 if (ingredient == null) continue;
 
                 ingredient = TranslationManager.getInstance().translateItemStack(ingredient);
-                ItemDictionaryManager.getInstance().addItem(ingredient);
                 DynamicBrewingRecipe finalRecipe = new DynamicBrewingRecipe(recipe, ingredient, applyOn, useMetaData, modifiers);
                 finalRecipe.setUnlockedForEveryone(unlockedForEveryone);
                 recipes.add(finalRecipe);
@@ -1249,35 +1690,35 @@ public class CustomRecipeManager {
         return recipes;
     }
 
-    private void saveRecipe(DynamicShapedRecipe recipe, YamlConfiguration config){
+    private void saveRecipe(DynamicCraftingTableRecipe recipe, YamlConfiguration config){
         Map<Integer, ItemStack> ingredientMap = recipe.getExactItems();
-        int index = 0;
-        config.set("shaped." + recipe.getName() + ".shape", recipe.getShape());
-        Map<Integer, Character> charLayout = new HashMap<>();
-        for (String shape : recipe.getShape()){
-            for (char c : shape.toCharArray()){
-                charLayout.put(index, c);
-                index++;
-            }
-        }
+//        int index = 0;
+//        config.set("shaped." + recipe.getName() + ".shape", recipe.getShape());
+//        Map<Integer, Character> charLayout = new HashMap<>();
+//        for (String shape : recipe.getShape()){
+//            for (char c : shape.toCharArray()){
+//                charLayout.put(index, c);
+//                index++;
+//            }
+//        }
 
-        if (ingredientMap.size() != charLayout.size()) {
-            ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
-            return;
-        }
+//        if (ingredientMap.size() != charLayout.size()) {
+//            ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
+//            return;
+//        }
         for (Integer i : ingredientMap.keySet()){
             ItemStack ingredient = ingredientMap.get(i);
             if (ingredient == null) {
                 continue;
             }
-            if (charLayout.containsKey(i)){
-                config.set("shaped." + recipe.getName() + ".ingredients." + charLayout.get(i), ingredient);
-            } else {
-                ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
-                return;
-            }
+            config.set("shaped." + recipe.getName() + ".ingredients." + i, ingredient);
+//            if (charLayout.containsKey(i)){
+//            } else {
+//                ValhallaMMO.getPlugin().getLogger().warning("recipe " + recipe.getName() + " could not save properly");
+//                return;
+//            }
         }
-        config.set("shaped." + recipe.getName() + ".result", recipe.getRecipe().getResult());
+        config.set("shaped." + recipe.getName() + ".result", recipe.getResult());
         if (recipe.getItemModifiers().size() > 0){
             for (DynamicItemModifier m : recipe.getItemModifiers()){
                 if (m instanceof TripleArgDynamicItemModifier){
@@ -1295,7 +1736,50 @@ public class CustomRecipeManager {
         config.set("shaped." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
         config.set("shaped." + recipe.getName() + ".improve_center_item", recipe.isTinkerFirstItem());
         config.set("shaped." + recipe.getName() + ".shapeless", recipe.isShapeless());
+        config.set("shaped." + recipe.getName() + ".tool_id", recipe.getRequiredToolId());
+        config.set("shaped." + recipe.getName() + ".tool_requirement_type", recipe.getToolRequirementType());
+        config.set("shaped." + recipe.getName() + ".allow_material_variations", recipe.isAllowIngredientVariations());
         ConfigManager.getInstance().saveConfig("recipes/shaped_recipes.yml");
+    }
+
+
+    private void saveRecipe(DynamicSmithingTableRecipe recipe, YamlConfiguration config){
+        config.set("smithing." + recipe.getName() + ".result", recipe.getResult());
+        config.set("smithing." + recipe.getName() + ".base", recipe.getBase());
+        config.set("smithing." + recipe.getName() + ".addition", recipe.getAddition());
+        if (recipe.getModifiersResult().size() > 0){
+            for (DynamicItemModifier m : recipe.getModifiersResult()){
+                if (m instanceof TripleArgDynamicItemModifier){
+                    config.set("smithing." + recipe.getName() + ".result_modifiers." + m.getName() + ".strength3", Utils.round(((TripleArgDynamicItemModifier) m).getStrength3(), 6));
+                }
+                if (m instanceof DuoArgDynamicItemModifier){
+                    config.set("smithing." + recipe.getName() + ".result_modifiers." + m.getName() + ".strength2", Utils.round(((DuoArgDynamicItemModifier) m).getStrength2(), 6));
+                }
+                config.set("smithing." + recipe.getName() + ".result_modifiers." + m.getName() + ".strength", Utils.round(m.getStrength(), 6));
+                config.set("smithing." + recipe.getName() + ".result_modifiers." + m.getName() + ".priority", m.getPriority().toString());
+            }
+        }
+        if (recipe.getModifiersAddition().size() > 0){
+            for (DynamicItemModifier m : recipe.getModifiersAddition()){
+                if (m instanceof TripleArgDynamicItemModifier){
+                    config.set("smithing." + recipe.getName() + ".addition_modifiers." + m.getName() + ".strength3", Utils.round(((TripleArgDynamicItemModifier) m).getStrength3(), 6));
+                }
+                if (m instanceof DuoArgDynamicItemModifier){
+                    config.set("smithing." + recipe.getName() + ".addition_modifiers." + m.getName() + ".strength2", Utils.round(((DuoArgDynamicItemModifier) m).getStrength2(), 6));
+                }
+                config.set("smithing." + recipe.getName() + ".addition_modifiers." + m.getName() + ".strength", Utils.round(m.getStrength(), 6));
+                config.set("smithing." + recipe.getName() + ".addition_modifiers." + m.getName() + ".priority", m.getPriority().toString());
+            }
+        }
+        config.set("smithing." + recipe.getName() + ".require_custom_tools", recipe.requireCustomTools());
+        config.set("smithing." + recipe.getName() + ".unlocked_for_everyone", recipe.isUnlockedForEveryone());
+        config.set("smithing." + recipe.getName() + ".use_meta_base", recipe.isUseMetaBase());
+        config.set("smithing." + recipe.getName() + ".use_meta_addition", recipe.isUseMetaAddition());
+        config.set("smithing." + recipe.getName() + ".improve_base", recipe.isTinkerBase());
+        config.set("smithing." + recipe.getName() + ".consume_addition", recipe.isConsumeAddition());
+        config.set("smithing." + recipe.getName() + ".allow_base_variation", recipe.isAllowBaseVariations());
+        config.set("smithing." + recipe.getName() + ".allow_addition_variation", recipe.isAllowAdditionVariations());
+        ConfigManager.getInstance().saveConfig("recipes/smithing_table_recipes.yml");
     }
 
     private void saveRecipe(DynamicBrewingRecipe recipe, YamlConfiguration config){
@@ -1319,7 +1803,7 @@ public class CustomRecipeManager {
         ConfigManager.getInstance().saveConfig("recipes/brewing_recipes.yml");
     }
 
-    private void saveRecipeAsync(DynamicCookingRecipe recipe, YamlConfiguration config){
+    private void saveRecipeAsync(DynamicCookingRecipe<?> recipe, YamlConfiguration config){
         new BukkitRunnable(){
             @Override
             public void run() {
@@ -1328,7 +1812,16 @@ public class CustomRecipeManager {
         }.runTaskAsynchronously(ValhallaMMO.getPlugin());
     }
 
-    private void saveRecipeAsync(DynamicShapedRecipe recipe, YamlConfiguration config){
+    private void saveRecipeAsync(DynamicCraftingTableRecipe recipe, YamlConfiguration config){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                saveRecipe(recipe, config);
+            }
+        }.runTaskAsynchronously(ValhallaMMO.getPlugin());
+    }
+
+    private void saveRecipeAsync(DynamicSmithingTableRecipe recipe, YamlConfiguration config){
         new BukkitRunnable(){
             @Override
             public void run() {
@@ -1345,6 +1838,14 @@ public class CustomRecipeManager {
             }
         }.runTaskAsynchronously(ValhallaMMO.getPlugin());
     }
+    private void saveRecipeAsync(DynamicCauldronRecipe recipe, YamlConfiguration config){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                saveRecipe(recipe, config);
+            }
+        }.runTaskAsynchronously(ValhallaMMO.getPlugin());
+    }
 
     public Map<Material, Map<Material, Collection<ItemImprovementRecipe>>> getItemImprovementRecipes() {
         return itemImprovementRecipes;
@@ -1354,7 +1855,7 @@ public class CustomRecipeManager {
         return itemClassImprovementRecipes;
     }
 
-    public Map<String, DynamicShapedRecipe> getShapedRecipes() {
+    public Map<String, DynamicCraftingTableRecipe> getShapedRecipes() {
         return shapedRecipes;
     }
 
@@ -1375,7 +1876,7 @@ public class CustomRecipeManager {
     public Map<Integer, DynamicBrewingRecipe> getBrewingRecipes(BrewerInventory inventory, Player brewer){
         Collection<String> unlockedRecipes = new HashSet<>();
         Profile p = ProfileManager.getManager().getProfile(brewer, "ACCOUNT");
-        AccountProfile profile = null;
+        AccountProfile profile;
         boolean allowedAllRecipes = brewer.hasPermission("valhalla.allrecipes");
         if (p instanceof AccountProfile){
             profile = (AccountProfile) p;
@@ -1415,18 +1916,20 @@ public class CustomRecipeManager {
                     slotItem = slotItem.clone();
                     if (slotItem.getType() != r.getRequiredType()) continue; // If the slot item does not match the required type, skip to next
 
-                    List<DynamicItemModifier> modifiers = new ArrayList<>(r.getItemModifiers());
-                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                    for (DynamicItemModifier modifier : modifiers){
-                        if (slotItem == null) continue recipeLoop;
-                        try {
-                            DynamicItemModifier tempMod = modifier.clone();
-                            tempMod.setUse(false);
-                            tempMod.setValidate(true);
-                            slotItem = tempMod.processItem(brewer, slotItem);
-                        } catch (CloneNotSupportedException ignored) {
-                        }
-                    }
+                    slotItem = DynamicItemModifier.modify(slotItem, brewer, r.getItemModifiers(), false, false, true);
+
+                    //List<DynamicItemModifier> modifiers = new ArrayList<>(r.getItemModifiers());
+                    //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                    //for (DynamicItemModifier modifier : modifiers){
+                    //    if (slotItem == null) continue recipeLoop;
+                    //    try {
+                    //        DynamicItemModifier tempMod = modifier.clone();
+                    //        tempMod.setUse(false);
+                    //        tempMod.setValidate(true);
+                    //        slotItem = tempMod.processItem(brewer, slotItem);
+                    //    } catch (CloneNotSupportedException ignored) {
+                    //    }
+                    //}
                     if (slotItem != null){
                         recipes.put(i, r); // If the item is not null by the end of processing, recipes is added.
                     }
@@ -1464,18 +1967,20 @@ public class CustomRecipeManager {
                         continue;
                     }
 
-                    List<DynamicItemModifier> modifiers = new ArrayList<>(r.getItemModifiers());
-                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                    for (DynamicItemModifier modifier : modifiers){
-                        if (slotItem == null) continue recipeLoop;
-                        try {
-                            DynamicItemModifier tempMod = modifier.clone();
-                            tempMod.setUse(false);
-                            tempMod.setValidate(true);
-                            slotItem = tempMod.processItem(brewer, slotItem);
-                        } catch (CloneNotSupportedException ignored) {
-                        }
-                    }
+                    slotItem = DynamicItemModifier.modify(slotItem, brewer, r.getItemModifiers(), false, false, true);
+
+                    //List<DynamicItemModifier> modifiers = new ArrayList<>(r.getItemModifiers());
+                    //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                    //for (DynamicItemModifier modifier : modifiers){
+                    //    if (slotItem == null) continue recipeLoop;
+                    //    try {
+                    //        DynamicItemModifier tempMod = modifier.clone();
+                    //        tempMod.setUse(false);
+                    //        tempMod.setValidate(true);
+                    //        slotItem = tempMod.processItem(brewer, slotItem);
+                    //    } catch (CloneNotSupportedException ignored) {
+                    //    }
+                    //}
 
                     if (slotItem != null){
                         recipes.put(i, r);
@@ -1515,7 +2020,15 @@ public class CustomRecipeManager {
         return recipes;
     }
 
-    public Map<NamespacedKey, DynamicShapedRecipe> getShapedRecipesByKey() {
+    public Map<NamespacedKey, DynamicCraftingTableRecipe> getShapedRecipesByKey() {
         return shapedRecipesByKey;
+    }
+
+    public Map<NamespacedKey, DynamicSmithingTableRecipe> getSmithingRecipesByKey() {
+        return smithingRecipesByKey;
+    }
+
+    public Map<String, DynamicSmithingTableRecipe> getSmithingRecipes() {
+        return smithingRecipes;
     }
 }

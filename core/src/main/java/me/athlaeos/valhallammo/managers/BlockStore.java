@@ -4,7 +4,6 @@ import com.jeff_media.customblockdata.CustomBlockData;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -30,23 +29,6 @@ public class BlockStore {
             return true;
         }
         return placedBlocks.containsKey(b.getLocation());
-    }
-
-
-
-    /**
-     * Sets the placement status of the block. If placed is true, the block will be considered placed by a particular
-     * person. If placed is false, it is no longer considered placed.
-     * Skills involving the breaking of blocks should not reward the player if the block was placed
-     * @param b the block to change its status of
-     * @param placed the placement status
-     */
-    public static void setPlaced(Block b, OfflinePlayer placer, boolean placed){
-        if (placed){
-            placedBlocks.put(b.getLocation(), placer.getUniqueId());
-        } else {
-            placedBlocks.remove(b.getLocation());
-        }
     }
 
     /**

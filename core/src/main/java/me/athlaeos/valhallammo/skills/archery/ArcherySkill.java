@@ -16,10 +16,7 @@ import me.athlaeos.valhallammo.skills.ProjectileSkill;
 import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.EntityUtils;
 import me.athlaeos.valhallammo.utility.Utils;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -53,6 +50,8 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
     private final double diminishing_returns_limit;
     private final double diminishing_returns_multiplier;
     private IChargedShotAnimation animation;
+    private Sound crit_sound_effect;
+    private boolean crit_particle_effect;
     private static boolean special_arrow_trails = true;
     private static double special_arrow_trail_duration = 3;
 
@@ -99,6 +98,15 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
 
         special_arrow_trails = archeryConfig.getBoolean("special_arrow_trails");
         special_arrow_trail_duration = archeryConfig.getDouble("special_arrow_trail_duration");
+
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("config.yml").get();
+        try {
+            crit_sound_effect = Sound.valueOf(config.getString("crit_sound_effect"));
+        } catch (IllegalArgumentException ignored){
+            crit_sound_effect = null;
+            ValhallaMMO.getPlugin().getLogger().warning("invalid Sound type given at config.yml for crit_sound_effect");
+        }
+        crit_particle_effect = config.getBoolean("crit_particle_effect");
     }
 
     @Override
@@ -237,6 +245,12 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                         ValhallaEntityCriticalHitEvent e = new ValhallaEntityCriticalHitEvent(shooter, (LivingEntity) event.getEntity(), CombatType.RANGED, damage, critDamage);
                         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(e);
                         if (!e.isCancelled()){
+                            if (crit_sound_effect != null) {
+                                shooter.playSound(event.getEntity().getLocation(), crit_sound_effect, 1F, 1F);
+                                if (event.getEntity() instanceof Player)
+                                    ((Player) event.getEntity()).playSound(event.getEntity().getLocation(), crit_sound_effect, 1F, 1F);
+                            }
+                            if (crit_particle_effect) event.getEntity().getWorld().spawnParticle(Particle.FLASH, ((LivingEntity) event.getEntity()).getEyeLocation().add(0, -event.getEntity().getHeight()/2, 0), 0);
                             damage = e.getDamageBeforeCrit() * e.getCriticalHitDamageMultiplier();
                             stun = profile.isStunoncrit();
                         }

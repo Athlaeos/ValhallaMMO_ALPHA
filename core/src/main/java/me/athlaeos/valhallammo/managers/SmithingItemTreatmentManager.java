@@ -666,7 +666,7 @@ public class SmithingItemTreatmentManager {
                 } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
                     finalResult = Utils.round(defaultAttributeStat + scalingResult, 3);
                 }
-                if (!scaling.doIgnoreUpper()) if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
+                if (!scaling.doIgnoreUpper()) if (finalResult > scaling.getUpperBound()) finalResult = scaling.getUpperBound();
                 if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
                 finalResult = Math.max(minimum, finalResult);
                 ItemAttributesManager.getInstance().setAttributeStrength(i, attribute, finalResult);

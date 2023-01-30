@@ -1,0 +1,24 @@
+shaped:
+  craft_multiple_tnt:
+    shape:
+      - GSG
+      - GSG
+      - GSG
+    ingredients:
+      G:
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GUNPOWDER
+      S:
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: SAND
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TNT
+      amount: 3
+    require_custom_tools: false
+    use_meta: false
+    unlocked_for_everyone: false
+    improve_center_item: false

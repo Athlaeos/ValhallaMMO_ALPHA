@@ -1,27 +1,35 @@
 package me.athlaeos.valhallammo.crafting.recipetypes;
 
+import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
+import java.util.List;
 
-public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> {
+public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> implements Cloneable{
 
-    private final String name;
-    private ItemStack exactItem;
-    private ItemStack result;
-    private boolean sameResultAsInput;
-    private boolean useMetadata = true;
-    private boolean requireCustomTools = true;
-    private Collection<DynamicItemModifier> modifiers;
-    private boolean unlockedForEveryone = false;
+    protected final String name;
+    protected final NamespacedKey key;
+    protected ItemStack input;
+    protected ItemStack result;
+    protected boolean tinkerInput;
+    protected boolean useMetadata;
+    protected boolean requireCustomTools;
+    protected int cookTime;
+    protected float experience;
+    protected List<DynamicItemModifier> modifiers;
+    protected boolean unlockedForEveryone = false;
 
-    public DynamicCookingRecipe(String name, ItemStack exactItem, ItemStack result, boolean sameResultAsInput, boolean useMetadata, boolean requireCustomTools, Collection<DynamicItemModifier> modifiers){
+    public DynamicCookingRecipe(String name, ItemStack exactItem, ItemStack result, int time, float experience, boolean sameResultAsInput, boolean useMetadata, boolean requireCustomTools, List<DynamicItemModifier> modifiers){
+        this.key = new NamespacedKey(ValhallaMMO.getPlugin(), "dynamic_cook_" + name);
         this.name = name;
-        this.exactItem = exactItem;
+        this.input = exactItem;
         this.result = result;
-        this.sameResultAsInput = sameResultAsInput;
+        this.cookTime = time;
+        this.experience = experience;
+        this.tinkerInput = sameResultAsInput;
         this.useMetadata = useMetadata;
         this.requireCustomTools = requireCustomTools;
         this.modifiers = modifiers;
@@ -35,18 +43,38 @@ public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> {
         return unlockedForEveryone;
     }
 
-    public abstract CookingRecipe<T> getRecipe();
+    public abstract CookingRecipe<T> generateRecipe();
 
-    public void setExactItem(ItemStack exactItem) {
-        this.exactItem = exactItem;
+    public NamespacedKey getKey() {
+        return key;
+    }
+
+    public float getExperience() {
+        return experience;
+    }
+
+    public void setExperience(float experience) {
+        this.experience = experience;
+    }
+
+    public int getCookTime() {
+        return cookTime;
+    }
+
+    public void setCookTime(int cookTime) {
+        this.cookTime = cookTime;
+    }
+
+    public void setInput(ItemStack input) {
+        this.input = input;
     }
 
     public void setResult(ItemStack result) {
         this.result = result;
     }
 
-    public void setSameResultAsInput(boolean sameResultAsInput) {
-        this.sameResultAsInput = sameResultAsInput;
+    public void setTinkerInput(boolean tinkerInput) {
+        this.tinkerInput = tinkerInput;
     }
 
     public void setUseMetadata(boolean useMetadata) {
@@ -57,7 +85,7 @@ public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> {
         this.requireCustomTools = requireCustomTools;
     }
 
-    public void setModifiers(Collection<DynamicItemModifier> modifiers) {
+    public void setModifiers(List<DynamicItemModifier> modifiers) {
         this.modifiers = modifiers;
     }
 
@@ -65,27 +93,39 @@ public abstract class DynamicCookingRecipe<T extends CookingRecipe<T>> {
         return name;
     }
 
-    public ItemStack getExactItem() {
-        return exactItem;
+    public ItemStack getInput() {
+        return input;
     }
 
     public ItemStack getResult() {
         return result;
     }
 
-    public boolean isSameResultAsInput() {
-        return sameResultAsInput;
+    public boolean isTinkerInput() {
+        return tinkerInput;
     }
 
     public boolean isUseMetadata() {
         return useMetadata;
     }
 
-    public boolean isRequireCustomTool() {
+    public boolean requiresCustomTool() {
         return requireCustomTools;
     }
 
-    public Collection<DynamicItemModifier> getModifiers() {
+    public List<DynamicItemModifier> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public DynamicCookingRecipe<T> clone() {
+        final DynamicCookingRecipe<T> clone;
+        try {
+            clone = (DynamicCookingRecipe<T>) super.clone();
+        }
+        catch (CloneNotSupportedException ex) {
+            throw new RuntimeException("Exception occurred calling DynamicCookingRecipe.clone()", ex);
+        }
+        return clone;
     }
 }

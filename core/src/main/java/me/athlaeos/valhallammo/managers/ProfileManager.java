@@ -23,6 +23,10 @@ public class ProfileManager {
         }
     }
 
+    public Persistency getPersistency() {
+        return persistency;
+    }
+
     public void setProfile(Player p, Profile profile, String type){
         persistency.setProfile(p, profile, type);
     }

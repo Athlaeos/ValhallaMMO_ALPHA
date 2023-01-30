@@ -125,7 +125,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
     private boolean unlockedForEveryone = false;
     private Material craftStation = Material.CRAFTING_TABLE;
     private Collection<ItemStack> customRecipeIngredients = new ArrayList<>();
-    private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
+    private List<DynamicItemModifier> currentModifiers = new ArrayList<>();
 
     public ManageCraftRecipeMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
@@ -309,28 +309,34 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             if (view == View.CREATE_RECIPE){
                 if (!(e.getClickedInventory() instanceof PlayerInventory)){
                     e.setCancelled(true);
-                    if (e.getCursor() != null){
-                        if (e.getCursor().getType() != Material.AIR){
-                            if (e.getSlot() == 14){
-                                if (current_craft_recipe != null){
+                    if (Utils.isItemEmptyOrNull(e.getCursor())){
+                        if (e.getSlot() == 14){
+                            if (current_craft_recipe != null){
+                                if (e.getClick() == ClickType.MIDDLE){
+                                    e.getWhoClicked().getInventory().addItem(current_craft_recipe.getResult());
+                                } else {
                                     craftResultButton = e.getCursor().clone();
                                     current_craft_recipe.setResult(craftResultButton);
                                 }
-                            } else if (e.getSlot() == 30){
-                                if (e.getCursor().getType().isBlock()){
-                                    Material similarMaterial = ItemUtils.getBaseMaterial(e.getCursor().getType());
-                                    craftStationButton.setType(e.getCursor().getType());
-                                    if (similarMaterial != null) {
-                                        craftStationButton.setType(similarMaterial);
-                                    }
-                                    craftStationButton.setAmount(1);
-                                    craftStation = craftStationButton.getType();
-                                    if (current_craft_recipe != null){
-                                        current_craft_recipe.setCraftingBlock(craftStation);
-                                    }
-                                    currentValidationIndex = 0;
-                                }
                             }
+                        } else if (e.getSlot() == 30){
+                            if (e.getCursor().getType().isBlock()){
+                                Material similarMaterial = ItemUtils.getBaseMaterial(e.getCursor().getType());
+                                craftStationButton.setType(e.getCursor().getType());
+                                if (similarMaterial != null) {
+                                    craftStationButton.setType(similarMaterial);
+                                }
+                                craftStationButton.setAmount(1);
+                                craftStation = craftStationButton.getType();
+                                if (current_craft_recipe != null){
+                                    current_craft_recipe.setCraftingBlock(craftStation);
+                                }
+                                currentValidationIndex = 0;
+                            }
+                        }
+                    } else {
+                        if (e.getClick() == ClickType.MIDDLE && e.getSlot() == 14){
+                            e.getWhoClicked().getInventory().addItem(current_craft_recipe.getResult());
                         }
                     }
                 }
@@ -342,9 +348,13 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
                             AbstractCustomCraftingRecipe craftRecipe = CustomRecipeManager.getInstance().getRecipeByName(
                                     e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING));
                             if (craftRecipe instanceof ItemCraftingRecipe) {
-                                current_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
-                                old_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
-                                view = View.CREATE_RECIPE;
+                                if (e.getClick() == ClickType.MIDDLE){
+                                    e.getWhoClicked().getInventory().addItem(((ItemCraftingRecipe) craftRecipe).getResult());
+                                } else {
+                                    current_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
+                                    old_craft_recipe = ((ItemCraftingRecipe) craftRecipe).clone();
+                                    view = View.CREATE_RECIPE;
+                                }
                             }
                         }
                     }
@@ -392,7 +402,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             customRecipeIngredients = current_craft_recipe.getIngredients();
             craftStation = current_craft_recipe.getCraftingBlock();
             craftStationButton.setType(craftStation);
-            currentModifiers = new ArrayList<>(current_craft_recipe.getItemModifers());
+            currentModifiers = new ArrayList<>(current_craft_recipe.getItemModifiers());
             craftTime = current_craft_recipe.getCraftingTime();
             breakStation = current_craft_recipe.breakStation();
             consecutiveCrafts = current_craft_recipe.getConsecutiveCrafts();
@@ -414,7 +424,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
 
         List<String> modifierButtonLore = new ArrayList<>();
         List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        DynamicItemModifier.sortModifiers(modifiers);
         for (DynamicItemModifier modifier : modifiers){
             modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
         }
@@ -591,8 +601,8 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
                     resultLore.add(Utils.chat("&e"+ingredient.getAmount() + " &7x&e " + getItemName(ingredient)));
                 }
                 resultLore.add(Utils.chat("&8&m                                      "));
-                List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifers());
-                modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
+                DynamicItemModifier.sortModifiers(modifiers);
                 for (DynamicItemModifier modifier : modifiers){
                     resultLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
                 }
@@ -623,7 +633,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
     }
 
     @Override
-    public void setCurrentModifiers(Collection<DynamicItemModifier> modifiers) {
+    public void setResultModifiers(List<DynamicItemModifier> modifiers) {
         this.currentModifiers = modifiers;
         current_craft_recipe.setModifiers(modifiers);
     }

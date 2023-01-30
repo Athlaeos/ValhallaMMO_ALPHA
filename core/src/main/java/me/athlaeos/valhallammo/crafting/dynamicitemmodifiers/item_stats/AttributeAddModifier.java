@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class AttributeAddModifier extends DynamicItemModifier implements Cloneable{
+public class AttributeAddModifier extends DynamicItemModifier {
     private final String attribute;
     private final String prettyAttribute;
 
@@ -43,7 +43,7 @@ public class AttributeAddModifier extends DynamicItemModifier implements Cloneab
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         AttributeWrapper attributeWrapper = ItemAttributesManager.getInstance().getWrapperClone(attribute);
         if (attributeWrapper != null){

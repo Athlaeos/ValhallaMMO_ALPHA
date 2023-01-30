@@ -101,7 +101,7 @@ public class ManageClassTinkerRecipeMenu extends Menu implements CraftingManager
     private boolean unlockedForEveryone = false;
     private Material craftStation = Material.CRAFTING_TABLE;
     private Collection<ItemStack> customRecipeIngredients = new ArrayList<>();
-    private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
+    private List<DynamicItemModifier> currentModifiers = new ArrayList<>();
     private EquipmentClass equipmentClass = null;
 
     public ManageClassTinkerRecipeMenu(PlayerMenuUtility playerMenuUtility) {
@@ -361,7 +361,7 @@ public class ManageClassTinkerRecipeMenu extends Menu implements CraftingManager
             customRecipeIngredients = current_class_improvement_recipe.getIngredients();
             craftStation = current_class_improvement_recipe.getCraftingBlock();
             craftStationButton.setType(craftStation);
-            currentModifiers = new ArrayList<>(current_class_improvement_recipe.getItemModifers());
+            currentModifiers = new ArrayList<>(current_class_improvement_recipe.getItemModifiers());
             craftTime = current_class_improvement_recipe.getCraftingTime();
             breakStation = current_class_improvement_recipe.breakStation();
             exactMeta = current_class_improvement_recipe.requireExactMeta();
@@ -381,7 +381,7 @@ public class ManageClassTinkerRecipeMenu extends Menu implements CraftingManager
 
         List<String> modifierButtonLore = new ArrayList<>();
         List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        DynamicItemModifier.sortModifiers(modifiers);
         for (DynamicItemModifier modifier : modifiers){
             modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
         }
@@ -458,8 +458,8 @@ public class ManageClassTinkerRecipeMenu extends Menu implements CraftingManager
                     resultLore.add(Utils.chat("&e"+ingredient.getAmount() + " &7x&e " + getItemName(ingredient)));
                 }
                 resultLore.add(Utils.chat("&8&m                                      "));
-                List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifers());
-                modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
+                DynamicItemModifier.sortModifiers(modifiers);
                 for (DynamicItemModifier modifier : modifiers){
                     resultLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
                 }
@@ -617,7 +617,7 @@ public class ManageClassTinkerRecipeMenu extends Menu implements CraftingManager
     }
 
     @Override
-    public void setCurrentModifiers(Collection<DynamicItemModifier> modifiers) {
+    public void setResultModifiers(List<DynamicItemModifier> modifiers) {
         this.currentModifiers = modifiers;
         current_class_improvement_recipe.setModifiers(modifiers);
     }

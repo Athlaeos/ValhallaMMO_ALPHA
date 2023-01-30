@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class PotionTippedArrowModifier extends DynamicItemModifier {
-    public PotionTippedArrowModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public PotionTippedArrowModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -43,7 +43,7 @@ public class PotionTippedArrowModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
 
         if (outputItem.getType() == Material.TIPPED_ARROW) return null;

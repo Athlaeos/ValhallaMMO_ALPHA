@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ArrowLightningUpgradeModifier extends DynamicItemModifier {
-    public ArrowLightningUpgradeModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public ArrowLightningUpgradeModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -38,7 +38,7 @@ public class ArrowLightningUpgradeModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
 
         CustomArrowManager.getInstance().addArrowAttribute(outputItem, "lightning_arrow", strength);

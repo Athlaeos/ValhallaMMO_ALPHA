@@ -22,6 +22,8 @@ import me.athlaeos.valhallammo.skills.Skill;
 import me.athlaeos.valhallammo.utility.EntityUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -44,6 +46,8 @@ import java.util.*;
 public class LightWeaponsSkill extends Skill implements OffensiveSkill, InteractSkill, PotionEffectSkill {
     private final double exp_per_damage;
     private final Map<EntityType, Double> entitySpecificExpNerfs = new HashMap<>();
+    private Sound crit_sound_effect;
+    private final boolean crit_particle_effect;
     private final double spawner_spawned_multiplier;
     private final int defaultStunDuration = ConfigManager.getInstance().getConfig("config.yml").get().getInt("default_stun_duration");
     private ChancedLightWeaponsLootTable lootTable = null;
@@ -79,6 +83,15 @@ public class LightWeaponsSkill extends Skill implements OffensiveSkill, Interact
                 }
             }
         }
+
+        YamlConfiguration config = ConfigManager.getInstance().getConfig("config.yml").get();
+        try {
+            crit_sound_effect = Sound.valueOf(config.getString("crit_sound_effect"));
+        } catch (IllegalArgumentException ignored){
+            crit_sound_effect = null;
+            ValhallaMMO.getPlugin().getLogger().warning("invalid Sound type given at config.yml for crit_sound_effect");
+        }
+        crit_particle_effect = config.getBoolean("crit_particle_effect");
     }
 
     @Override
@@ -153,74 +166,83 @@ public class LightWeaponsSkill extends Skill implements OffensiveSkill, Interact
             return;
         }
 
-        ItemStack finalWeapon = weapon;
-        ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
-            if (event.isCancelled()) return;
-            CoatingEffect onHitEffect = coatingEffects.get(attacker.getUniqueId());
-            if (onHitEffect != null){
-                if (isSimilarEnough(onHitEffect.effectiveOn, finalWeapon)) {
-                    if (onHitEffect.onHit((LivingEntity) damaged)){
-                        coatingEffects.remove(attacker.getUniqueId());
-                    }
+        if (event.isCancelled()) return;
+        CoatingEffect onHitEffect = coatingEffects.get(attacker.getUniqueId());
+        if (onHitEffect != null){
+            if (isSimilarEnough(onHitEffect.effectiveOn, weapon)) {
+                if (onHitEffect.onHit((LivingEntity) damaged)){
+                    coatingEffects.remove(attacker.getUniqueId());
                 }
             }
+        }
 
-            double damage = event.getDamage();
-            double damageMultiplier = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
-            damage *= damageMultiplier;
+        double damage = event.getDamage();
+        double damageMultiplier = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
+        damage *= damageMultiplier;
 
-            double critChance = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_CRIT_CHANCE", event.getEntity(), event.getDamager(), true);
-            boolean crit = Utils.getRandom().nextDouble() < critChance;
-            double bleedChance = AccumulativeStatManager.getInstance().getStats("BLEED_CHANCE", event.getEntity(), event.getDamager(), true);
-            boolean bleed = Utils.getRandom().nextDouble() < bleedChance;
-            double bleedDamage = AccumulativeStatManager.getInstance().getStats("BLEED_DAMAGE", event.getEntity(), event.getDamager(), true);
-            int bleedDuration = (int) AccumulativeStatManager.getInstance().getStats("BLEED_DURATION", event.getEntity(), event.getDamager(), true);
-            double critDamage = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_CRIT_DAMAGE", event.getEntity(), event.getDamager(), true);
+        double critChance = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_CRIT_CHANCE", event.getEntity(), event.getDamager(), true);
+        boolean crit = Utils.getRandom().nextDouble() < critChance;
+        double bleedChance = AccumulativeStatManager.getInstance().getStats("BLEED_CHANCE", event.getEntity(), event.getDamager(), true);
+        boolean bleed = Utils.getRandom().nextDouble() < bleedChance;
+        double bleedDamage = AccumulativeStatManager.getInstance().getStats("BLEED_DAMAGE", event.getEntity(), event.getDamager(), true);
+        int bleedDuration = (int) AccumulativeStatManager.getInstance().getStats("BLEED_DURATION", event.getEntity(), event.getDamager(), true);
+        double critDamage = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_CRIT_DAMAGE", event.getEntity(), event.getDamager(), true);
 
-            int stunDuration = defaultStunDuration;
-            boolean stun = Utils.getRandom().nextDouble() < AccumulativeStatManager.getInstance().getStats("HEAVY_WEAPONS_STUN_CHANCE", damaged, attacker, true);
+        int stunDuration = defaultStunDuration;
+        boolean stun = Utils.getRandom().nextDouble() < AccumulativeStatManager.getInstance().getStats("HEAVY_WEAPONS_STUN_CHANCE", damaged, attacker, true);
 
-            if (attacker instanceof Player){
-                Player player = (Player) attacker;
-                Profile p = ProfileManager.getManager().getProfile((Player) attacker, "LIGHT_WEAPONS");
-                if (p instanceof LightWeaponsProfile){
-                    LightWeaponsProfile profile = (LightWeaponsProfile) p;
-                    if (!crit){
-                        crit = profile.isCritOnBleed() && PotionEffectManager.getInstance().isBleeding((LivingEntity) event.getEntity());
-                    }
-                    if (!crit){ // if standing still did not cause a crit, crit if shooter is not wearing anything and invisible
-                        crit = profile.isCritOnStealth() && EntityUtils.getEntityEquipment(player).getIterable(false).isEmpty() && player.isInvisible();
-                    }
-                    if (!crit){
-                        crit = profile.isCritOnStun() && PotionEffectManager.getInstance().isStunned((LivingEntity) damaged);
-                    }
-                    if (!bleed){
-                        bleed = profile.isBleedOnCrit() && crit;
-                    }
-
-                    stunDuration = profile.getStunDuration();
+        if (attacker instanceof Player){
+            Player player = (Player) attacker;
+            Profile p = ProfileManager.getManager().getProfile((Player) attacker, "LIGHT_WEAPONS");
+            if (p instanceof LightWeaponsProfile){
+                LightWeaponsProfile profile = (LightWeaponsProfile) p;
+                if (!crit){
+                    crit = profile.isCritOnBleed() && PotionEffectManager.getInstance().isBleeding((LivingEntity) event.getEntity());
                 }
-            }
-
-            if (stun) PotionEffectManager.getInstance().stunTarget((LivingEntity) damaged, CombatType.MELEE, stunDuration);
-
-            if (crit){
-                ValhallaEntityCriticalHitEvent e = new ValhallaEntityCriticalHitEvent((LivingEntity) attacker, (LivingEntity) damaged, CombatType.MELEE, damage, critDamage);
-                ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(e);
-                if (!e.isCancelled()){
-                    damage = e.getDamageBeforeCrit() * e.getCriticalHitDamageMultiplier();
+                if (!crit){ // if standing still did not cause a crit, crit if shooter is not wearing anything and invisible
+                    crit = profile.isCritOnStealth() && EntityUtils.getEntityEquipment(player).getIterable(false).isEmpty() && player.isInvisible();
                 }
-            }
-            event.setDamage(damage);
-            if (bleed){
-                PotionEffectManager.getInstance().bleedEntity((LivingEntity) damaged, (LivingEntity) attacker, bleedDuration, bleedDamage);
-            }
+                if (!crit){
+                    crit = profile.isCritOnStun() && PotionEffectManager.getInstance().isStunned((LivingEntity) damaged);
+                }
+                if (!bleed){
+                    bleed = profile.isBleedOnCrit() && crit;
+                }
 
-            if (attacker instanceof Player){
-                double entityExpMultiplier = entitySpecificExpNerfs.getOrDefault(event.getEntity().getType(), 1D);
-                addEXP((Player) attacker, event.getDamage() * exp_per_damage * entityExpMultiplier * (EntitySpawnListener.getSpawnReason(event.getEntity()) == CreatureSpawnEvent.SpawnReason.SPAWNER ? spawner_spawned_multiplier : 1), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+                stunDuration = profile.getStunDuration();
             }
-        }, 1L);
+        }
+
+        if (stun) PotionEffectManager.getInstance().stunTarget((LivingEntity) damaged, CombatType.MELEE, stunDuration);
+
+        if (crit){
+            ValhallaEntityCriticalHitEvent e = new ValhallaEntityCriticalHitEvent((LivingEntity) attacker, (LivingEntity) damaged, CombatType.MELEE, damage, critDamage);
+            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(e);
+            if (!e.isCancelled()){
+                if (crit_sound_effect != null) {
+                    if (attacker instanceof Player)
+                        ((Player) attacker).playSound(event.getEntity().getLocation(), crit_sound_effect, 1F, 1F);
+                    if (event.getEntity() instanceof Player)
+                        ((Player) event.getEntity()).playSound(event.getEntity().getLocation(), crit_sound_effect, 1F, 1F);
+                }
+                if (crit_particle_effect) damaged.getWorld().spawnParticle(Particle.FLASH, ((LivingEntity) damaged).getEyeLocation().add(0, -damaged.getHeight()/2, 0), 0);
+                damage = e.getDamageBeforeCrit() * e.getCriticalHitDamageMultiplier();
+            }
+        }
+        event.setDamage(damage);
+        if (bleed){
+            PotionEffectManager.getInstance().bleedEntity((LivingEntity) damaged, (LivingEntity) attacker, bleedDuration, bleedDamage);
+        }
+
+        if (attacker instanceof Player){
+            double entityExpMultiplier = entitySpecificExpNerfs.getOrDefault(event.getEntity().getType(), 1D);
+            addEXP((Player) attacker, event.getDamage() * exp_per_damage * entityExpMultiplier * (EntitySpawnListener.getSpawnReason(event.getEntity()) == CreatureSpawnEvent.SpawnReason.SPAWNER ? spawner_spawned_multiplier : 1), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+        }
+
+        //ItemStack finalWeapon = weapon;
+        //ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
+        //
+        //}, 1L);
     }
 
     @Override

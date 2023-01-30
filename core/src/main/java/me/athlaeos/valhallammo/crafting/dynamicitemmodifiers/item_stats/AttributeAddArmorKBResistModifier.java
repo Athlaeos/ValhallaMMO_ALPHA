@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AttributeAddArmorKBResistModifier extends DynamicItemModifier {
-    public AttributeAddArmorKBResistModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AttributeAddArmorKBResistModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_VANILLA;
@@ -41,7 +41,7 @@ public class AttributeAddArmorKBResistModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

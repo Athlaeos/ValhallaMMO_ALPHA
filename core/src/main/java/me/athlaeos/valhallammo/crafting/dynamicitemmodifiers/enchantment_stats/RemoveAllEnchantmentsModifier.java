@@ -40,7 +40,7 @@ public class RemoveAllEnchantmentsModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AttributeRemoveExplosionResistanceModifier extends DynamicItemModifier {
-    public AttributeRemoveExplosionResistanceModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AttributeRemoveExplosionResistanceModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -38,7 +38,7 @@ public class AttributeRemoveExplosionResistanceModifier extends DynamicItemModif
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

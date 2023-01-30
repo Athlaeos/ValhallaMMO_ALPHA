@@ -12,10 +12,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Collections;
 import java.util.List;
 
-public class ColorCodeItemNameModifier extends DynamicItemModifier implements Cloneable {
+public class ColorCodeItemNameModifier extends DynamicItemModifier  {
 
-    public ColorCodeItemNameModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public ColorCodeItemNameModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -39,7 +39,7 @@ public class ColorCodeItemNameModifier extends DynamicItemModifier implements Cl
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         ItemMeta outputMeta = outputItem.getItemMeta();
         if (outputMeta == null) return null;
         if (outputMeta.hasDisplayName()){

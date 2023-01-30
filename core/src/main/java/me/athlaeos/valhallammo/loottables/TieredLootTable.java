@@ -20,6 +20,7 @@ public abstract class TieredLootTable {
 
     public void registerEntry(TieredLootEntry entry){
         if (entry.getLoot() == null || entry.getName() == null) return;
+        DynamicItemModifier.sortModifiers(entry.getModifiers());
         allLootEntries.put(entry.getName(), entry);
     }
 
@@ -70,15 +71,15 @@ public abstract class TieredLootTable {
 
     public ItemStack entryToItem(TieredLootEntry entry, Player player, boolean use){
         if (entry.getLoot() == null) return null;
-        List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-
         ItemStack result = entry.getLoot().clone();
-        for (DynamicItemModifier modifier : modifiers){
-            modifier.setUse(use);
-            if (result == null) break;
-            result = modifier.processItem(player, result);
-        }
+        result = DynamicItemModifier.modify(result, player, entry.getModifiers(), false, use, true);
+        //List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
+        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        //for (DynamicItemModifier modifier : modifiers){
+        //    modifier.setUse(use);
+        //    if (result == null) break;
+        //    result = modifier.processItem(player, result);
+        //}
         return result;
     }
 

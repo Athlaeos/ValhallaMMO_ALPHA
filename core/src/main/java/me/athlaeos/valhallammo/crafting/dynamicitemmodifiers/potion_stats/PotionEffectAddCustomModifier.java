@@ -15,10 +15,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
-    private String effect;
+    private final String effect;
+    private int multiplyBy = 1;
+    private String format = "%.1f";
 
-    public PotionEffectAddCustomModifier(String name, double duration_ticks, double amplifier, ModifierPriority priority, String effect, Material icon) {
-        super(name, duration_ticks, amplifier, priority);
+    public PotionEffectAddCustomModifier(String name, String effect, Material icon) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
         this.effect = effect;
 
         this.name = name;
@@ -46,6 +48,37 @@ public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
         this.icon = icon;
     }
 
+    public PotionEffectAddCustomModifier(String name, String effect, Material icon, double smallStep, double bigStep, String format, int multiplyBy) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
+        this.effect = effect;
+        this.multiplyBy = multiplyBy;
+        this.format = format;
+
+        this.name = name;
+        this.category = ModifierCategory.POTION_CUSTOM;
+
+        this.bigStepDecrease = 15000;
+        this.bigStepIncrease = 15000;
+        this.smallStepDecrease = 1000;
+        this.smallStepIncrease = 1000;
+        this.defaultStrength = 30000;
+        this.minStrength = 1000;
+        this.maxStrength = Integer.MAX_VALUE;
+
+        this.bigStepDecrease2 = bigStep;
+        this.bigStepIncrease2 = bigStep;
+        this.smallStepDecrease2 = smallStep;
+        this.smallStepIncrease2 = smallStep;
+        this.defaultStrength2 = 0;
+        this.minStrength2 = 0;
+        this.maxStrength2 = Integer.MAX_VALUE;
+
+        this.description = Utils.chat("&7Adds &e" + effect + " &7as a default potion effect to the potion/tipped arrow. " +
+                "-nThe recipe is cancelled if the item already has this potion effect. Can only be applied on potions and tipped arrows.");
+        this.displayName = Utils.chat("&7&lAdd Base Effect: &e&l" + effect);
+        this.icon = icon;
+    }
+
     @Override
     public List<String> tabAutoCompleteFirstArg() {
         return Collections.singletonList("<duration_ms>");
@@ -57,7 +90,7 @@ public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
         PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
@@ -69,6 +102,6 @@ public class PotionEffectAddCustomModifier extends DuoArgDynamicItemModifier {
 
     @Override
     public String toString() {
-        return Utils.chat(String.format("&7Gives the potion &e%s %.1f for %s&7. Recipe is cancelled if item already has this potion effect.", effect, strength2, Utils.toTimeStamp((int) Math.floor(strength), 1000)));
+        return Utils.chat(String.format("&7Gives the potion &e%s %s for %s&7. Recipe is cancelled if item already has this potion effect.", effect, String.format(format, strength2 * multiplyBy), Utils.toTimeStamp((int) Math.floor(strength), 1000)));
     }
 }

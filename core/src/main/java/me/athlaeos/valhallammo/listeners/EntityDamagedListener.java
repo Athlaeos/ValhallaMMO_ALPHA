@@ -185,7 +185,7 @@ public class EntityDamagedListener implements Listener {
         tridentThrown = config.getDouble("trident_damage_ranged");
         tridentThrownLoyal = config.getDouble("trident_damage_ranged_loyalty");
 
-        String scaling = config.getString("damage_formula_physical", "");
+        String scaling = config.getString("damage_formula_physical", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)");
         physicalDamageScalingSetMode = config.getString("damage_formula_mode", "").equalsIgnoreCase("set");
         physicalDamageReductionCap = config.getDouble("damage_reduction_cap");
         physicalDamageScaling = new Scaling(scaling, null, 0, 0, false, false);
@@ -513,6 +513,7 @@ public class EntityDamagedListener implements Listener {
                 } else {
                     knockbackBonus *= (1 - knockbackResistance);
                 }
+
                 knockbackBonus = Math.max(0, knockbackBonus);
                 EntityUtils.addUniqueAttribute((LivingEntity) e.getEntity(), "valhalla_knockback_resistance_modifier", Attribute.GENERIC_KNOCKBACK_RESISTANCE, knockbackResistance, AttributeModifier.Operation.ADD_NUMBER);
                 double finalKnockbackBonus = knockbackBonus;

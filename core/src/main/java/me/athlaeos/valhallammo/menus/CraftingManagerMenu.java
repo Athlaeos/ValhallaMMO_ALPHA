@@ -2,8 +2,8 @@ package me.athlaeos.valhallammo.menus;
 
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface CraftingManagerMenu {
-    void setCurrentModifiers(Collection<DynamicItemModifier> modifiers);
+    void setResultModifiers(List<DynamicItemModifier> modifiers);
 }

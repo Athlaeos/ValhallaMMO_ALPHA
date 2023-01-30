@@ -18,8 +18,8 @@ public class PotionCancelIfTreatmentModifier extends DynamicItemModifier {
     private final PotionTreatment treatment;
     private final String treatmentString;
 
-    public PotionCancelIfTreatmentModifier(String name, double strength, ModifierPriority priority, PotionTreatment treatment, Material icon) {
-        super(name, strength, priority);
+    public PotionCancelIfTreatmentModifier(String name, PotionTreatment treatment, Material icon) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
         this.treatment = treatment;
         treatmentString = Utils.toPascalCase(treatment.toString().replace("_", " "));
 
@@ -45,7 +45,7 @@ public class PotionCancelIfTreatmentModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

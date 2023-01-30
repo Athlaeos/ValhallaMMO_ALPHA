@@ -52,29 +52,31 @@ public class CustomEnchantmentManager {
         registeredEnchantments = new HashMap<>();
 
         registerEnchantment(new AcrobaticsEnchantment(0D));
-        registerEnchantment(new AlchemyBrewSpeedEnchantment(0D));
-        registerEnchantment(new AlchemyIngredientSaveEnchantment(0D));
-        registerEnchantment(new AlchemyPotionSaveEnchantment(0D));
-        registerEnchantment(new AlchemyQualityEnchantment(0D));
+        registerEnchantment(new AlchemyBrewSpeedEnchantment(0D));//
+        registerEnchantment(new AlchemyIngredientSaveEnchantment(0D));//
+        registerEnchantment(new AlchemyPotionSaveEnchantment(0D));//
+        registerEnchantment(new AlchemyQualityEnchantment(0D));//
         registerEnchantment(new AlchemyThrowVelocityEnchantment(0D));
-        registerEnchantment(new ArcheryAccuracyEnchantment(0D));
-        registerEnchantment(new ArcheryAmmoSaveEnchantment(0D));
-        registerEnchantment(new ArcheryDamageEnchantment(0D));
-        registerEnchantment(new DamageDealtEnchantment(0D));
-        registerEnchantment(new DamageTakenEnchantment(0D));
-        registerEnchantment(new ExpGainSkillEnchantment(0D));
-        registerEnchantment(new ExpGainVanillaEnchantment(0D));
+        registerEnchantment(new ArcheryAccuracyEnchantment(0D));//
+        registerEnchantment(new ArcheryAmmoSaveEnchantment(0D));//
+        registerEnchantment(new ArcheryDamageEnchantment(0D));//
+        registerEnchantment(new DamageDealtEnchantment(0D));//
+        registerEnchantment(new DamageTakenEnchantment(0D));//
+        registerEnchantment(new ExpGainSkillEnchantment(0D));//
+        registerEnchantment(new ExpGainVanillaEnchantment(0D));//
         registerEnchantment(new FarmingExtraDropsEnchantment(0D));
-        registerEnchantment(new FarmingRareDropsEnchantment(0D));
-        registerEnchantment(new FarmingFishingTierEnchantment(0D));
-        registerEnchantment(new MiningExtraDropsEnchantment(0D));
-        registerEnchantment(new MiningRareDropsEnchantment(0D));
-        registerEnchantment(new WoodcuttingExtraDropsEnchantment(0D));
-        registerEnchantment(new WoodcuttingRareDropsEnchantment(0D));
-        registerEnchantment(new SmithingQualityEnchantment(0D));
+        registerEnchantment(new FarmingRareDropsEnchantment(0D));////
+        registerEnchantment(new FarmingFishingTierEnchantment(0D));//
+        registerEnchantment(new MiningExtraDropsEnchantment(0D));//
+        registerEnchantment(new MiningRareDropsEnchantment(0D));//
+        registerEnchantment(new WoodcuttingExtraDropsEnchantment(0D));//
+        registerEnchantment(new WoodcuttingRareDropsEnchantment(0D));//
+        registerEnchantment(new DiggingExtraDropsEnchantment(0D));//
+        registerEnchantment(new DiggingRareDropsEnchantment(0D));//
+        registerEnchantment(new SmithingQualityEnchantment(0D));//
         registerEnchantment(new TradingEnchantment(0D));
         registerEnchantment(new UnarmedDamageEnchantment(0D));
-        registerEnchantment(new WeaponsDamageEnchantment(0D));
+        registerEnchantment(new WeaponsDamageEnchantment(0D));//
         registerEnchantment(new HealthMultiplierEnchantment(0D));
 
         registerEnchantment(new DodgeChanceEnchantment(0D));
@@ -88,6 +90,33 @@ public class CustomEnchantmentManager {
         registerEnchantment(new HungerSaveChanceEnchantment(0D));
         registerEnchantment(new MiningExplosionPowerEnchantment(0D));
         registerEnchantment(new StunResistanceEnchantment(0D));
+
+        registerEnchantment(new StunChanceEnchantment(0D));
+        registerEnchantment(new BleedChanceEnchantment(0D));
+        registerEnchantment(new BleedDamageEnchantment(0D));
+        registerEnchantment(new BleedDurationWrapper(0D));
+        registerEnchantment(new CritChanceEnchantment(0D));
+        registerEnchantment(new CritDamageEnchantment(0D));
+        registerEnchantment(new FlatArmorPenetrationEnchantment(0D));
+        registerEnchantment(new FlatLightArmorPenetrationEnchantment(0D));
+        registerEnchantment(new FlatHeavyArmorPenetrationEnchantment(0D));
+        registerEnchantment(new FractionArmorPenetrationEnchantment(0D));
+        registerEnchantment(new FractionLightArmorPenetrationEnchantment(0D));
+        registerEnchantment(new FractionHeavyArmorPenetrationEnchantment(0D));
+        registerEnchantment(new HeavyArmorDamageEnchantment(0D));
+        registerEnchantment(new LightArmorDamageEnchantment(0D));
+        registerEnchantment(new ImmunityFrameBonusEnchantment(0D));
+        registerEnchantment(new ImmunityFrameFlatBonusEnchantment(0D));
+        registerEnchantment(new ImmunityFrameReductionEnchantment(0D));
+        registerEnchantment(new WeaponReachBonusEnchantment(0D));
+        registerEnchantment(new DamageResistanceEnchantment(0D));
+        registerEnchantment(new FallDamageResistanceEnchantment(0D));
+        registerEnchantment(new FireDamageResistanceEnchantment(0D));
+        registerEnchantment(new ProjectileDamageResistanceEnchantment(0D));
+        registerEnchantment(new ExplosionDamageResistanceEnchantment(0D));
+        registerEnchantment(new MeleeDamageResistanceEnchantment(0D));
+        registerEnchantment(new MagicDamageResistanceEnchantment(0D));
+        registerEnchantment(new PoisonDamageResistanceEnchantment(0D));
     }
 
     public void registerEnchantment(EnchantmentWrapper attribute){

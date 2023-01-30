@@ -58,8 +58,8 @@ public class AccountProfile extends Profile implements Serializable{
                 "exp_total DOUBLE default 0," +
                 "skill_points VARCHAR(40) DEFAULT 0," +
                 "exp_gain_multiplier DOUBLE DEFAULT 100.0, " +
-                "unlocked_perks TEXT DEFAULT ''," +
-                "unlocked_recipes TEXT DEFAULT ''," +
+                "unlocked_perks TEXT," +
+                "unlocked_recipes TEXT," +
                 "healthbonus FLOAT DEFAULT 0," +
                 "movementspeedbonus FLOAT DEFAULT 0," +
                 "knockbackresistancebonus FLOAT DEFAULT 0," +

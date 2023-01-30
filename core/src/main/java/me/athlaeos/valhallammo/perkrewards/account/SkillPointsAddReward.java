@@ -43,6 +43,9 @@ public class SkillPointsAddReward extends PerkReward {
             if (argument instanceof Double){
                 this.points = (int) Math.floor((Double) argument);
             }
+            if (argument instanceof Float){
+                points = (int) argument;
+            }
             if (argument instanceof Integer){
                 points = (Integer) argument;
             }

@@ -50,6 +50,7 @@ public class EnchantingProfile extends Profile implements Serializable {
                 "enchantingquality_general SMALLINT DEFAULT 0," +
                 "enchantingquality_vanilla SMALLINT DEFAULT 0," +
                 "enchantingquality_custom SMALLINT DEFAULT 0," +
+                "anvilquality SMALLINT DEFAULT 0," +
                 "enchantingexpmultiplier_general DOUBLE DEFAULT 100," +
                 "enchantingexpmultiplier_custom DOUBLE DEFAULT 100," +
                 "enchantingexpmultiplier_vanilla DOUBLE DEFAULT 100);");
@@ -66,7 +67,7 @@ public class EnchantingProfile extends Profile implements Serializable {
                         "lapissavechance, exprefundchance, exprefundfraction, vanillaexpgainmultiplier, enchantingquality_general, " +
                         "enchantingquality_vanilla, enchantingquality_custom, anvilquality, enchantingexpmultiplier_general, " +
                         "enchantingexpmultiplier_custom, enchantingexpmultiplier_vanilla) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
         stmt.setInt(2, level);
         stmt.setDouble(3, exp);

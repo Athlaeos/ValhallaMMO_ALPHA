@@ -9,6 +9,7 @@ import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
@@ -16,7 +17,10 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu{
     private View view = View.VIEW_RECIPES;
@@ -65,7 +69,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
     private Material applyOn = Material.GLASS_BOTTLE;
     private boolean requireExactMeta = false;
     private boolean unlockedForEveryone = false;
-    private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
+    private List<DynamicItemModifier> currentModifiers = new ArrayList<>();
 
     public ManageBrewingRecipeMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
@@ -182,7 +186,9 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
                 e.setCancelled(true);
                 if (!Utils.isItemEmptyOrNull(e.getCursor())){
                     if (e.getSlot() == 13){
-                        if (!Utils.isItemEmptyOrNull(e.getCursor())){
+                        if (e.getClick() == ClickType.MIDDLE){
+                            e.getWhoClicked().getInventory().addItem(currentRecipe.getIngredient());
+                        } else {
                             ingredient = e.getCursor().clone();
                             ingredient.setAmount(1);
                             currentRecipe.setIngredient(ingredient);
@@ -245,12 +251,12 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
             unlockedForEveryone = currentRecipe.isUnlockedForEveryone();
             ingredient = currentRecipe.getIngredient();
             applyOn = currentRecipe.getRequiredType();
-            currentModifiers = new HashSet<>(currentRecipe.getItemModifiers());
+            currentModifiers = new ArrayList<>(currentRecipe.getItemModifiers());
         }
 
         List<String> modifierButtonLore = new ArrayList<>();
         List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        DynamicItemModifier.sortModifiers(modifiers);
         for (DynamicItemModifier modifier : modifiers){
             modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
         }
@@ -304,7 +310,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
         }
         List<ItemStack> totalRecipeButtons = new ArrayList<>();
         for (DynamicBrewingRecipe recipe : CustomRecipeManager.getInstance().getBrewingRecipes().values()){
-            ItemStack resultButton = new ItemStack(recipe.getIngredient().getType());
+            ItemStack resultButton = recipe.isPerfectMeta() ? recipe.getIngredient().clone() : new ItemStack(recipe.getIngredient().getType());
             ItemMeta resultMeta = resultButton.getItemMeta();
             assert resultMeta != null;
             resultMeta.setDisplayName(recipe.getName());
@@ -315,7 +321,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
             }
             resultLore.add(Utils.chat("&8&m                                      "));
             List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
-            modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+            DynamicItemModifier.sortModifiers(modifiers);
             for (DynamicItemModifier modifier : modifiers){
                 resultLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
             }
@@ -344,7 +350,7 @@ public class ManageBrewingRecipeMenu extends Menu implements CraftingManagerMenu
     }
 
     @Override
-    public void setCurrentModifiers(Collection<DynamicItemModifier> modifiers) {
+    public void setResultModifiers(List<DynamicItemModifier> modifiers) {
         this.currentModifiers = modifiers;
         currentRecipe.setModifiers(modifiers);
     }

@@ -16,10 +16,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class PotionEffectAddVanillaModifier extends DuoArgDynamicItemModifier {
-    private PotionEffectType effect;
+    private final PotionEffectType effect;
 
-    public PotionEffectAddVanillaModifier(String name, double duration_ticks, double amplifier, ModifierPriority priority, PotionEffectType effect, Material icon) {
-        super(name, duration_ticks, amplifier, priority);
+    public PotionEffectAddVanillaModifier(String name, PotionEffectType effect, Material icon) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
         this.effect = effect;
 
         this.name = name;
@@ -58,7 +58,7 @@ public class PotionEffectAddVanillaModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
         PotionMeta meta = (PotionMeta) outputItem.getItemMeta();

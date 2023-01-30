@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class RandomlyEnchantItemModifier extends DuoArgDynamicItemModifier {
-    public RandomlyEnchantItemModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, 0D, priority);
+    public RandomlyEnchantItemModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ENCHANTING_MISC;
@@ -55,7 +55,7 @@ public class RandomlyEnchantItemModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!this.use) return outputItem;
         if (!outputItem.getEnchantments().isEmpty()) return null;

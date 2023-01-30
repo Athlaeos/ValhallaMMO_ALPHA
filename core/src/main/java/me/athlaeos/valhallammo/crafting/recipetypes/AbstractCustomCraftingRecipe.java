@@ -5,8 +5,9 @@ import me.athlaeos.valhallammo.items.blockstatevalidations.CraftValidation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 
 public abstract class AbstractCustomCraftingRecipe implements Cloneable{
     protected Material craftingBlock;
@@ -16,7 +17,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
     protected boolean requireExactMeta = true;
     protected int craftingTime = 2500;
     protected boolean breakStation = false;
-    protected Collection<DynamicItemModifier> itemModifers = new HashSet<>();
+    protected List<DynamicItemModifier> itemModifers = new ArrayList<>();
     protected CraftValidation validation = null;
     protected int consecutiveCrafts = 8;
     protected boolean unlockedForEveryone = false;
@@ -45,7 +46,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         this.breakStation = breakStation;
     }
 
-    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, Collection<DynamicItemModifier> itemModifers){
+    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, List<DynamicItemModifier> itemModifers){
         this.name = name;
         this.displayName = displayName;
         this.craftingBlock = craftingBlock;
@@ -55,7 +56,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         this.itemModifers = itemModifers;
     }
 
-    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, Collection<DynamicItemModifier> itemModifers, boolean requireExactMeta){
+    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, List<DynamicItemModifier> itemModifers, boolean requireExactMeta){
         this.name = name;
         this.displayName = displayName;
         this.craftingBlock = craftingBlock;
@@ -66,7 +67,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         this.requireExactMeta = requireExactMeta;
     }
 
-    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, Collection<DynamicItemModifier> itemModifers, boolean requireExactMeta, int consecutiveCrafts){
+    public AbstractCustomCraftingRecipe(String name, String displayName, Material craftingBlock, Collection<ItemStack> ingredients, int craftingtime, boolean breakStation, List<DynamicItemModifier> itemModifers, boolean requireExactMeta, int consecutiveCrafts){
         this.name = name;
         this.displayName = displayName;
         this.craftingBlock = craftingBlock;
@@ -86,7 +87,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         return unlockedForEveryone;
     }
 
-    public Collection<DynamicItemModifier> getItemModifers() {
+    public List<DynamicItemModifier> getItemModifiers() {
         return itemModifers;
     }
 
@@ -110,7 +111,7 @@ public abstract class AbstractCustomCraftingRecipe implements Cloneable{
         return craftingBlock;
     }
 
-    public void setModifiers(Collection<DynamicItemModifier> itemModifers) {
+    public void setModifiers(List<DynamicItemModifier> itemModifers) {
         this.itemModifers = itemModifers;
     }
 

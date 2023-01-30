@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class DynamicItemModifier implements Cloneable{
@@ -39,7 +40,27 @@ public abstract class DynamicItemModifier implements Cloneable{
         craftDescription = TranslationManager.getInstance().getTranslation("modifier_" + this.name.toLowerCase());
     }
 
-    public abstract ItemStack processItem(Player crafter, ItemStack outputItem);
+    /**
+     * Allows edits to be made on items given a player, who's own personal stats can be used to dynamically alter the item.
+     * @param crafter the player who's stats are to be used for the item
+     * @param outputItem the resulting item after the modifier was executed. If null is returned, the recipe is considered "failed"
+     * @return the item after processing
+     */
+    public ItemStack processItem(Player crafter, ItemStack outputItem){
+        return processItem(crafter, outputItem, 1);
+    }
+
+    /**
+     * Allows edits to be made on items given a player, who's own personal stats can be used to dynamically alter the item.
+     * timesExecuted is a parameter that is by default 1, and often unused in implementations. This parameter may be used in situations where
+     * the creation of the item rewards the player, such as experience or money. As example, if several of said item are crafted consecutively
+     * then that reward should be multiplied by the amount of times the item is crafted.
+     * @param crafter the player who's stats are to be used for the item
+     * @param outputItem the resulting item after the modifier was executed. If null is returned, the recipe is considered "failed"
+     * @param timesExecuted the amount of times the recipe is executed, may be used to multiply rewards if the recipe has been crafted several times at once
+     * @return the item after processing
+     */
+    public abstract ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted);
 
     public void setValidate(boolean validate) {
         this.validate = validate;
@@ -140,5 +161,73 @@ public abstract class DynamicItemModifier implements Cloneable{
     @Override
     public DynamicItemModifier clone() throws CloneNotSupportedException {
         return (DynamicItemModifier) super.clone();
+    }
+
+    /**
+     * Modifies an itemstack given the player responsible for modifying and the modifiers to use
+     * If -use- is true, modifiers will assume they're genuinely being used and so are allowed to maybe reward players with something.
+     * This is because sometimes modifiers are executed with the purpose to predict an item outcome without actually rewarding the player with
+     * whatever said modifiers are intended to reward.
+     * -validate- can be used to ensure that a recipe is craftable.
+     * Setting validate to false will not ignore fail conditions present in the modifiers.
+     * @param i the item to modify
+     * @param p the person responsible for modifying the item
+     * @param modifiers the modifiers to use
+     * @param sort if true, the modifiers will be sorted according to their execution priority
+     * @param use whether to assume modifiers are genuinely being used with intent to create a new item for the player
+     * @param validate whether to assume the modifiers are being executed with the intent to check if any fail conditions in the recipe pass
+     * @return the item after modification, or null if the modifiers triggered a fail condition on the item.
+     */
+    public static ItemStack modify(ItemStack i, Player p, List<DynamicItemModifier> modifiers, boolean sort, boolean use, boolean validate, int count){
+        ItemStack item = i.clone();
+        if (sort) sortModifiers(modifiers);
+        for (DynamicItemModifier modifier : modifiers){
+            if (modifier instanceof AdvancedDynamicItemModifier) continue;
+            if (item == null) break;
+            try {
+                DynamicItemModifier tempMod = modifier.clone();
+                tempMod.setUse(use);
+                tempMod.setValidate(validate);
+                item = tempMod.processItem(p, item, count);
+            } catch (CloneNotSupportedException ignored){
+            }
+        }
+
+        return item;
+    }
+    public static ItemStack modify(ItemStack i, Player p, List<DynamicItemModifier> modifiers, boolean sort, boolean use, boolean validate){
+        return modify(i, p, modifiers, sort, use, validate, 1);
+    }
+
+    public static AdvancedDynamicItemModifier.Pair<ItemStack, ItemStack> modify(ItemStack i1, ItemStack i2, Player p, List<DynamicItemModifier> modifiers, boolean sort, boolean use, boolean validate, int count){
+        AdvancedDynamicItemModifier.Pair<ItemStack, ItemStack> pair = new AdvancedDynamicItemModifier.Pair<>(i1.clone(), i2.clone());
+        if (sort) sortModifiers(modifiers);
+        for (DynamicItemModifier modifier : modifiers){
+            if (pair.getValue1() == null || pair.getValue2() == null) break;
+            try {
+                DynamicItemModifier tempMod = modifier.clone();
+                tempMod.setUse(use);
+                tempMod.setValidate(validate);
+                if (tempMod instanceof AdvancedDynamicItemModifier)
+                    pair = ((AdvancedDynamicItemModifier) tempMod).processItem(pair.getValue1(), pair.getValue2(), p, count);
+                else {
+                    ItemStack item1 = pair.getValue1();
+                    ItemStack item2 = pair.getValue2();
+                    item1 = tempMod.processItem(p, item1, count);
+                    pair = new AdvancedDynamicItemModifier.Pair<>(item1, item2);
+                }
+            } catch (CloneNotSupportedException ignored){
+            }
+        }
+
+        return pair;
+    }
+
+    public static AdvancedDynamicItemModifier.Pair<ItemStack, ItemStack> modify(ItemStack i1, ItemStack i2, Player p, List<DynamicItemModifier> modifiers, boolean sort, boolean use, boolean validate){
+        return modify(i1, i2, p, modifiers, sort, use, validate, 1);
+    }
+
+    public static void sortModifiers(List<DynamicItemModifier> modifiers){
+        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
     }
 }

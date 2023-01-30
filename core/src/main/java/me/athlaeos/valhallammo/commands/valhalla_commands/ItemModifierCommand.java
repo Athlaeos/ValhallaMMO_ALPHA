@@ -2,10 +2,7 @@ package me.athlaeos.valhallammo.commands.valhalla_commands;
 
 import me.athlaeos.valhallammo.commands.Command;
 import me.athlaeos.valhallammo.crafting.DynamicItemModifierManager;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.*;
 import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.command.CommandSender;
@@ -21,6 +18,7 @@ public class ItemModifierCommand implements Command {
 	private final String error_command_item_required;
 	private final String description_command_modify;
 	private final String error_command_modifier_failed;
+	private final String error_command_advanced_modifier_unusable;
 
 	public ItemModifierCommand(){
 		error_player_not_found = TranslationManager.getInstance().getTranslation("error_command_player_offline");
@@ -29,6 +27,7 @@ public class ItemModifierCommand implements Command {
 		error_command_item_required = TranslationManager.getInstance().getTranslation("error_command_item_required");
 		description_command_modify = TranslationManager.getInstance().getTranslation("description_command_modify");
 		error_command_modifier_failed = TranslationManager.getInstance().getTranslation("error_command_modifier_failed");
+		error_command_advanced_modifier_unusable = TranslationManager.getInstance().getTranslation("error_command_advanced_modifier_unusable");
 	}
 
 	@Override
@@ -51,6 +50,11 @@ public class ItemModifierCommand implements Command {
 				return true;
 			}
 			DynamicItemModifier baseModifier = DynamicItemModifierManager.getInstance().getModifiers().get(args[1]);
+			if (baseModifier instanceof AdvancedDynamicItemModifier){
+				sender.sendMessage(Utils.chat(error_command_advanced_modifier_unusable));
+				return true;
+			}
+
 			DynamicItemModifier modifier;
 			if (baseModifier instanceof TripleArgDynamicItemModifier){
 				if (args.length >= 5){

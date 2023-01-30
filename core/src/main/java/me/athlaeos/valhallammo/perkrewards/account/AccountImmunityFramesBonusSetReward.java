@@ -33,6 +33,9 @@ public class AccountImmunityFramesBonusSetReward extends PerkReward {
             if (argument instanceof Integer){
                 frames = (Integer) argument;
             }
+            if (argument instanceof Float){
+                frames = (int) argument;
+            }
             if (argument instanceof Double){
                 double temp = (Double) argument;
                 frames = (int) temp;

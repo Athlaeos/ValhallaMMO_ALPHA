@@ -13,10 +13,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChangeItemTypeToDictionaryItemTypeModifier extends DynamicItemModifier implements Cloneable {
+public class ChangeItemTypeToDictionaryItemTypeModifier extends DynamicItemModifier  {
 
-    public ChangeItemTypeToDictionaryItemTypeModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public ChangeItemTypeToDictionaryItemTypeModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -48,7 +48,7 @@ public class ChangeItemTypeToDictionaryItemTypeModifier extends DynamicItemModif
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         ItemStack index = ItemDictionaryManager.getInstance().getItemDictionary().get((int) strength);
         if (Utils.isItemEmptyOrNull(index)) return null;
         outputItem.setType(index.getType());

@@ -305,8 +305,8 @@ public class CraftRecipeChoiceMenu extends Menu {
                     ItemMeta buttonMeta = button.getItemMeta();
                     if (buttonMeta != null){
                         List<String> buttonLore = new ArrayList<>();
-                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifers());
-                        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
+                        DynamicItemModifier.sortModifiers(modifiers);
 
                         for (String s : recipeButtonFormat){
                             if (s.contains("%ingredients%")){

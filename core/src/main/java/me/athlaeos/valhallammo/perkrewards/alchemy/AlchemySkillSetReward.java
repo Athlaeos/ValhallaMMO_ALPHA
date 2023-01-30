@@ -39,6 +39,9 @@ public class AlchemySkillSetReward extends PerkReward {
             if (argument instanceof Integer){
                 points = (Integer) argument;
             }
+            if (argument instanceof Float){
+                points = (int) argument;
+            }
             if (argument instanceof Double){
                 double temp = (Double) argument;
                 points = (int) temp;

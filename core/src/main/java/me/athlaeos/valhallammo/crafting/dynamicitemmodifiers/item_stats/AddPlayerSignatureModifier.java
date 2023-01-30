@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddPlayerSignatureModifier extends DynamicItemModifier implements Cloneable{
+public class AddPlayerSignatureModifier extends DynamicItemModifier {
     private final String format_signature;
 
-    public AddPlayerSignatureModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AddPlayerSignatureModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
         this.format_signature = TranslationManager.getInstance().getTranslation("format_signature");
 
         this.name = name;
@@ -42,7 +42,7 @@ public class AddPlayerSignatureModifier extends DynamicItemModifier implements C
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta outputMeta = outputItem.getItemMeta();
         if (outputMeta == null) return null;

@@ -5,7 +5,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class ChancedEntityLootEntry {
@@ -15,10 +15,10 @@ public class ChancedEntityLootEntry {
     private final EntityType entity;
     private final Set<String> regionFilter;
     private final double chance;
-    private final Collection<DynamicItemModifier> modifiers;
+    private final List<DynamicItemModifier> modifiers;
     private final boolean overwriteNaturalDrops;
 
-    public ChancedEntityLootEntry(String name, EntityType entity, ItemStack loot, boolean overwriteNaturalDrops, double chance, Collection<DynamicItemModifier> modifiers, Set<Biome> biomeFilter, Set<String> regionFilter){
+    public ChancedEntityLootEntry(String name, EntityType entity, ItemStack loot, boolean overwriteNaturalDrops, double chance, List<DynamicItemModifier> modifiers, Set<Biome> biomeFilter, Set<String> regionFilter){
         this.name = name;
         this.entity = entity;
         this.loot = loot;
@@ -57,7 +57,7 @@ public class ChancedEntityLootEntry {
         return chance;
     }
 
-    public Collection<DynamicItemModifier> getModifiers() {
+    public List<DynamicItemModifier> getModifiers() {
         return modifiers;
     }
 }

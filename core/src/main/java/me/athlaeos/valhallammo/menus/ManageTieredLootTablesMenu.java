@@ -169,7 +169,7 @@ public class ManageTieredLootTablesMenu extends Menu {
                                 }
                             }
                             currentLootEntry = new TieredLootEntry(name, 0, new ItemStack(Material.STICK),
-                                    10, new HashSet<>(), new HashSet<>(), new HashSet<>());
+                                    10, new ArrayList<>(), new HashSet<>(), new HashSet<>());
                             this.weight = currentLootEntry.getWeight();
                             this.tier = currentLootEntry.getTier();
                             this.biomeFilter = currentLootEntry.getBiomeFilter();
@@ -422,7 +422,7 @@ public class ManageTieredLootTablesMenu extends Menu {
         } else {
             List<String> modifierButtonLore = new ArrayList<>();
             List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-            modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+            DynamicItemModifier.sortModifiers(modifiers);
             for (DynamicItemModifier modifier : modifiers){
                 modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
             }
@@ -501,7 +501,7 @@ public class ManageTieredLootTablesMenu extends Menu {
                     lore.add(Utils.chat("&8                                        "));
                     lore.add(Utils.chat("&7Executes modifiers:"));
                     List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
-                    modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                    DynamicItemModifier.sortModifiers(modifiers);
 
                     for (DynamicItemModifier modifier : modifiers){
                         String craftDescription = modifier.getCraftDescription();

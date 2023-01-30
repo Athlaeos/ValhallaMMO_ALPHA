@@ -19,10 +19,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
 public class PlayerClassTinkerListener implements Listener {
     CooldownManager cooldownManager = CooldownManager.getInstance();
     private final String errorNoSpace;
@@ -48,13 +44,15 @@ public class PlayerClassTinkerListener implements Listener {
                 }
             }
             // Modify item based on the recipe's improvement modifiers
-            List<DynamicItemModifier> modifiers = new ArrayList<>(e.getRecipe().getItemModifers());
-            modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
             ItemStack newItem = e.getPlayer().getInventory().getItemInMainHand().clone();
-            for (DynamicItemModifier modifier : modifiers){
-                if (newItem == null) break;
-                newItem = modifier.processItem(e.getPlayer(), newItem);
-            }
+            newItem = DynamicItemModifier.modify(newItem, e.getPlayer(), e.getRecipe().getItemModifiers(), false, true, true);
+
+            //List<DynamicItemModifier> modifiers = new ArrayList<>(e.getRecipe().getItemModifers());
+            //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+            //for (DynamicItemModifier modifier : modifiers){
+            //    if (newItem == null) break;
+            //    newItem = modifier.processItem(e.getPlayer(), newItem);
+            //}
 
             if (newItem != null){
                 if (e.getRecipe().getValidation() != null){

@@ -1,6 +1,7 @@
 package me.athlaeos.valhallammo.managers;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats.FlagAddDuoHandAttributesModifier;
 import me.athlaeos.valhallammo.items.attributewrappers.*;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
@@ -408,13 +409,23 @@ public class ItemAttributesManager {
                             value -= 1D;
                         }
                         //vanilla attribute being applied
+                        EquipmentSlot slot = ItemUtils.getEquipmentSlot(i);
                         meta.addAttributeModifier(vanillaAttribute, new AttributeModifier(
                                 UUID.randomUUID(),
                                 attribute.getAttribute().replaceFirst("_", ".").toLowerCase(),
                                 value,
                                 attribute.getOperation(),
-                                ItemUtils.getEquipmentSlot(i)
+                                slot
                         ));
+                        if (meta.getPersistentDataContainer().has(FlagAddDuoHandAttributesModifier.getDualHandsFlag(), PersistentDataType.INTEGER) && slot == EquipmentSlot.HAND){
+                            meta.addAttributeModifier(vanillaAttribute, new AttributeModifier(
+                                    UUID.randomUUID(),
+                                    attribute.getAttribute().replaceFirst("_", ".").toLowerCase(),
+                                    value,
+                                    attribute.getOperation(),
+                                    EquipmentSlot.OFF_HAND
+                            ));
+                        }
                         customAttributes.put(attribute.getAttribute(), attribute);
                     } catch (IllegalArgumentException ignored){
                         //custom attribute being applied

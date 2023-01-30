@@ -29,6 +29,7 @@ public abstract class ChancedEntityLootTable {
         if (allLootEntries.containsKey(entry.getName())) {
             return;
         }
+        DynamicItemModifier.sortModifiers(entry.getModifiers());
         allLootEntries.put(entry.getName(), entry);
 
         Collection<ChancedEntityLootEntry> existingBlockLootEntries = entityLootTables.get(entry.getEntity());
@@ -102,26 +103,28 @@ public abstract class ChancedEntityLootTable {
     }
 
     public ItemStack entryToItem(ChancedEntityLootEntry entry, Player player){
-        List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-
         ItemStack result = entry.getLoot().clone();
-        for (DynamicItemModifier modifier : modifiers){
-            if (result == null) break;
-            result = modifier.processItem(player, result);
-        }
+        result = DynamicItemModifier.modify(result, player, entry.getModifiers(), false, true, true);
+
+        //List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
+        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        //for (DynamicItemModifier modifier : modifiers){
+        //    if (result == null) break;
+        //    result = modifier.processItem(player, result);
+        //}
         return result;
     }
 
     public ItemStack entryToItem(ChancedEntityLootEntry entry){
-        List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-
         ItemStack result = entry.getLoot().clone();
-        for (DynamicItemModifier modifier : modifiers){
-            if (result == null) break;
-            result = modifier.processItem(null, result);
-        }
+        result = DynamicItemModifier.modify(result, null, entry.getModifiers(), false, true, true);
+
+        //List<DynamicItemModifier> modifiers = new ArrayList<>(entry.getModifiers());
+        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        //for (DynamicItemModifier modifier : modifiers){
+        //    if (result == null) break;
+        //    result = modifier.processItem(null, result);
+        //}
         return result;
     }
 

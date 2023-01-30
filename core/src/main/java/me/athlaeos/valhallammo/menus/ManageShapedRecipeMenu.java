@@ -1,19 +1,20 @@
 package me.athlaeos.valhallammo.menus;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
-import me.athlaeos.valhallammo.crafting.recipetypes.DynamicShapedRecipe;
+import me.athlaeos.valhallammo.crafting.recipetypes.DynamicCraftingTableRecipe;
+import me.athlaeos.valhallammo.dom.RequirementType;
+import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -22,8 +23,8 @@ import java.util.*;
 public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
     private View view = View.VIEW_RECIPES;
     private final NamespacedKey buttonNameKey = new NamespacedKey(ValhallaMMO.getPlugin(), "button_recipe_name");
-    private DynamicShapedRecipe currentRecipe = null;
-    private DynamicShapedRecipe oldRecipe = null;
+    private DynamicCraftingTableRecipe currentRecipe = null;
+    private DynamicCraftingTableRecipe oldRecipe = null;
 
     private final ItemStack nextPageButton;
     private final ItemStack previousPageButton;
@@ -36,6 +37,18 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             Utils.chat("&cDelete"),
             null);
 
+
+    private final ItemStack toolIDRequiredButton = Utils.createItemStack(
+            Material.IRON_HOE,
+            Utils.chat("&7&lTool ID Required"),
+            new ArrayList<>()
+    );
+    private final ItemStack toolRequiredTypeButton = Utils.createItemStack(
+            Material.IRON_HOE,
+            Utils.chat("&7&lTool Required Type"),
+            new ArrayList<>()
+    );
+
     private final ItemStack dynamicModifierButton = Utils.createItemStack(
             Material.BOOK,
             Utils.chat("&b&lDynamic Modifiers"),
@@ -47,13 +60,16 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             Utils.separateStringIntoLines(Utils.chat("&7If true, during crafting the items used in the crafting table " +
                     "will need to have item metas exactly matching the items given in the recipe. Recommended if you're" +
                     " using custom materials. -n" +
+                    "&cIf 'Tinker First Tool' is enabled, tools will not require exact metas. -n" +
                     "If false, only the item types will need to match. Meta is ignored."), 40)
     );
-    private final ItemStack toggleGridSizeButton = Utils.createItemStack(
-            Material.CRAFTING_TABLE,
-            Utils.chat("&7&lToggle Grid Size"),
-            Utils.separateStringIntoLines(Utils.chat("&7Toggle if you want the recipe to be available in a 2x2" +
-                    " grid or a 3x3 grid."), 40)
+    private final ItemStack allowMaterialVariationsButton = Utils.createItemStack(
+            Material.OAK_PLANKS,
+            Utils.chat("&7&lAllow Ingredient Type Variations"),
+            Utils.separateStringIntoLines(Utils.chat("&cIgnored if 'Require Precise Meta' is enabled. -n" +
+                    "&7If true, during crafting the items used in the crafting table " +
+                    "may also match some similar item types, like oak planks and birch planks, or cobblestone and blackstone. -n" +
+                    "If false, these variations are not allowed. If oak planks are inserted, only oak planks can be used"), 40)
     );
     private final ItemStack requireCustomToolsButton = Utils.createItemStack(
             Material.CRAFTING_TABLE,
@@ -88,18 +104,18 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             new ArrayList<>()
     );
 
-    private final Integer[] grid3x3 = new Integer[]{10, 11, 12, 19, 20, 21, 28, 29, 30};
-    private final Integer[] grid2x2 = new Integer[]{10, 11, 19, 20};
-    private List<String> shape = new ArrayList<>(Arrays.asList("   ", "   ", "   "));
+    private int toolIDRequired = -1;
+    private int toolRequiredType = 0;
+    private final List<Integer> grid3x3 = Arrays.asList(10, 11, 12, 19, 20, 21, 28, 29, 30);
     private boolean requireExactMeta = false;
+    private boolean allowMaterialVariations = false;
     private boolean requireCustomTools = true;
     private boolean tinkerFirstItem = false;
     private boolean unlockedForEveryone = false;
     private boolean shapeless = false;
-    private final Map<Integer, ItemStack> exactItems = new HashMap<>();
+    private Map<Integer, ItemStack> exactItems = new HashMap<>();
     private ItemStack result = new ItemStack(Material.WOODEN_SWORD);
-    private boolean is3x3 = true;
-    private Collection<DynamicItemModifier> currentModifiers = new HashSet<>();
+    private List<DynamicItemModifier> currentModifiers = new ArrayList<>();
 
     public ManageShapedRecipeMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
@@ -107,7 +123,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lPrevious page"), null);
     }
 
-    public ManageShapedRecipeMenu(PlayerMenuUtility playerMenuUtility, DynamicShapedRecipe recipe){
+    public ManageShapedRecipeMenu(PlayerMenuUtility playerMenuUtility, DynamicCraftingTableRecipe recipe){
         super(playerMenuUtility);
         nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lNext page"), null);
         previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat("&7&lPrevious page"), null);
@@ -118,18 +134,14 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             requireExactMeta = recipe.isUseMetadata();
             requireCustomTools = recipe.isRequireCustomTools();
             tinkerFirstItem = recipe.isTinkerFirstItem();
+            allowMaterialVariations = recipe.isAllowIngredientVariations();
             unlockedForEveryone = recipe.isUnlockedForEveryone();
-            result = recipe.getRecipe().getResult();
+            toolIDRequired = recipe.getRequiredToolId();
+            toolRequiredType = recipe.getToolRequirementType();
+            result = recipe.getResult();
             shapeless = recipe.isShapeless();
-            shape = recipe.getShape();
 
-            is3x3 = shape.size() == 3;
-
-            int index = 0;
-            for (Integer i : recipe.getExactItems().keySet()){
-                exactItems.put(grid3x3[index], recipe.getExactItems().get(i));
-                index++;
-            }
+            exactItems = new HashMap<>(recipe.getExactItems());
         }
     }
 
@@ -167,6 +179,10 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                 currentPage++;
             } else if (clickedItem.equals(previousPageButton)){
                 currentPage--;
+            } else if (e.getCurrentItem().equals(toolIDRequiredButton)){
+                handleToolRequiredButton(e.getClick());
+            } else if (e.getCurrentItem().equals(toolRequiredTypeButton)){
+                handleToolRequiredTypeButton(e.getClick());
             } else if (clickedItem.equals(dynamicModifierButton)){
                 playerMenuUtility.setPreviousMenu(this);
                 new DynamicModifierMenu(playerMenuUtility, currentModifiers).open();
@@ -175,6 +191,11 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                 requireExactMeta = !requireExactMeta;
                 if (currentRecipe != null){
                     currentRecipe.setUseMetadata(requireExactMeta);
+                }
+            } else if (clickedItem.equals(allowMaterialVariationsButton)){
+                allowMaterialVariations = !allowMaterialVariations;
+                if (currentRecipe != null){
+                    currentRecipe.setAllowIngredientVariations(allowMaterialVariations);
                 }
             } else if (clickedItem.equals(requireCustomToolsButton)){
                 requireCustomTools = !requireCustomTools;
@@ -186,18 +207,22 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                 if (currentRecipe != null){
                     currentRecipe.setUseMetadata(tinkerFirstItem);
                 }
-            } else if (clickedItem.equals(toggleGridSizeButton)){
-                is3x3 = !is3x3;
             } else if (clickedItem.equals(confirmButton)){
                 if (view == View.CREATE_RECIPE) {
                     if (currentRecipe != null) {
-                        DynamicShapedRecipe backupRecipe = currentRecipe.clone();
+                        DynamicCraftingTableRecipe backupRecipe = currentRecipe.clone();
                         currentRecipe = generateRecipe();
                         if (currentRecipe != null) {
-                            CustomRecipeManager.getInstance().update(oldRecipe, currentRecipe);
                             currentRecipe.setUnlockedForEveryone(unlockedForEveryone);
                             currentRecipe.setShapeless(shapeless);
-                            currentRecipe.setShape(shape);
+                            currentRecipe.setAllowIngredientVariations(allowMaterialVariations);
+                            currentRecipe.setExactItems(exactItems);
+                            currentRecipe.setImproveFirstEquipment(tinkerFirstItem);
+                            currentRecipe.setUseMetadata(requireExactMeta);
+                            currentRecipe.setModifiers(currentModifiers);
+                            currentRecipe.setToolRequirementType(toolRequiredType);
+                            currentRecipe.setRequiredToolId(toolIDRequired);
+                            CustomRecipeManager.getInstance().update(oldRecipe, currentRecipe);
                             currentRecipe = null;
                             view = View.VIEW_RECIPES;
                         } else {
@@ -217,26 +242,27 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             if (clickedItem.getItemMeta() != null){
                 if (clickedItem.getItemMeta().getPersistentDataContainer().has(buttonNameKey, PersistentDataType.STRING)){
                     if (view == View.VIEW_RECIPES) {
-                        DynamicShapedRecipe shapedRecipe = CustomRecipeManager.getInstance().getDynamicShapedRecipe(
+                        DynamicCraftingTableRecipe shapedRecipe = CustomRecipeManager.getInstance().getDynamicShapedRecipe(
                                 clickedItem.getItemMeta().getPersistentDataContainer().get(buttonNameKey, PersistentDataType.STRING));
-                        currentRecipe = shapedRecipe.clone();
-                        oldRecipe = shapedRecipe.clone();
-                        view = View.CREATE_RECIPE;
-                        requireExactMeta = shapedRecipe.isUseMetadata();
-                        shapeless = shapedRecipe.isShapeless();
-                        requireCustomTools = shapedRecipe.isRequireCustomTools();
-                        tinkerFirstItem = shapedRecipe.isTinkerFirstItem();
-                        shape = shapedRecipe.getShape();
-                        unlockedForEveryone = shapedRecipe.isUnlockedForEveryone();
-                        result = shapedRecipe.getRecipe().getResult();
-
-                        int index = 0;
-                        for (Integer i : shapedRecipe.getExactItems().keySet()) {
-                            exactItems.put(grid3x3[index], shapedRecipe.getExactItems().get(i));
-                            index++;
+                        if (shapedRecipe != null){
+                            if (e.getClick() == ClickType.MIDDLE){
+                                e.getWhoClicked().getInventory().addItem(shapedRecipe.getResult());
+                            } else {
+                                currentRecipe = shapedRecipe.clone();
+                                oldRecipe = shapedRecipe.clone();
+                                view = View.CREATE_RECIPE;
+                                requireExactMeta = shapedRecipe.isUseMetadata();
+                                shapeless = shapedRecipe.isShapeless();
+                                allowMaterialVariations = shapedRecipe.isAllowIngredientVariations();
+                                requireCustomTools = shapedRecipe.isRequireCustomTools();
+                                tinkerFirstItem = shapedRecipe.isTinkerFirstItem();
+                                exactItems = shapedRecipe.getExactItems();
+                                unlockedForEveryone = shapedRecipe.isUnlockedForEveryone();
+                                result = shapedRecipe.getResult();
+                                setMenuItems();
+                                return;
+                            }
                         }
-
-                        is3x3 = shape.size() == 3;
                     }
                 }
             }
@@ -249,23 +275,31 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
                     if (e.getSlot() == 22){
                         if (!tinkerFirstItem){
                             if (currentRecipe != null){
-                                result = e.getCursor().clone();
+                                if (e.getClick() == ClickType.MIDDLE){
+                                    e.getWhoClicked().getInventory().addItem(result);
+                                } else {
+                                    result = e.getCursor().clone();
+                                }
                             }
                         }
-                    } else {
-                        List<Integer> grid = Arrays.asList(grid3x3);
-                        if (grid.contains(e.getSlot())){
-                            ItemStack itemToPut = e.getCursor().clone();
-                            if (!Utils.isItemEmptyOrNull(itemToPut)){
-                                itemToPut.setAmount(1);
-                                exactItems.put(e.getSlot(), itemToPut.clone());
+                    } else if (grid3x3.contains(e.getSlot())){
+                        ItemStack itemToPut = e.getCursor().clone();
+                        if (!Utils.isItemEmptyOrNull(itemToPut)){
+                            itemToPut.setAmount(1);
+                            exactItems.put(grid3x3.indexOf(e.getSlot()), itemToPut.clone());
+                        } else {
+                            if (e.getClick() == ClickType.MIDDLE && !Utils.isItemEmptyOrNull(exactItems.get(grid3x3.indexOf(e.getSlot())))){
+                                e.getWhoClicked().getInventory().addItem(exactItems.get(grid3x3.indexOf(e.getSlot())));
                             }
                         }
                     }
                 } else {
-                    List<Integer> grid = (is3x3) ? Arrays.asList(grid3x3) : Arrays.asList(grid2x2);
-                    if (grid.contains(e.getSlot())){
-                        exactItems.remove(e.getSlot());
+                    if (grid3x3.contains(e.getSlot())){
+                        if (e.getClick() == ClickType.MIDDLE && !Utils.isItemEmptyOrNull(exactItems.get(grid3x3.indexOf(e.getSlot())))){
+                            e.getWhoClicked().getInventory().addItem(exactItems.get(grid3x3.indexOf(e.getSlot())));
+                        } else {
+                            exactItems.remove(grid3x3.indexOf(e.getSlot()));
+                        }
                     }
                 }
             } else {
@@ -281,13 +315,12 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             if (!(e.getInventory() instanceof PlayerInventory)){
                 e.setCancelled(true);
                 if (!Utils.isItemEmptyOrNull(e.getCursor())){
-                    List<Integer> grid = Arrays.asList(grid3x3);
                     for (Integer slot : e.getRawSlots()){
-                        if (grid.contains(slot)){
+                        if (grid3x3.contains(slot)){
                             ItemStack itemToPut = e.getCursor().clone();
                             if (!Utils.isItemEmptyOrNull(itemToPut)){
                                 itemToPut.setAmount(1);
-                                exactItems.put(slot, itemToPut.clone());
+                                exactItems.put(grid3x3.indexOf(slot), itemToPut.clone());
                             }
                         }
                     }
@@ -315,14 +348,18 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
     private void setCreateShapedRecipeView(){
         if (currentRecipe != null){
             requireExactMeta = currentRecipe.isUseMetadata();
+            allowMaterialVariations = currentRecipe.isAllowIngredientVariations();
             requireCustomTools = currentRecipe.isRequireCustomTools();
-            currentModifiers = new HashSet<>(currentRecipe.getItemModifiers());
+            currentModifiers = new ArrayList<>(currentRecipe.getItemModifiers());
             unlockedForEveryone = currentRecipe.isUnlockedForEveryone();
+            shapeless = currentRecipe.isShapeless();
+            toolIDRequired = currentRecipe.getRequiredToolId();
+            toolRequiredType = currentRecipe.getToolRequirementType();
         }
 
         List<String> modifierButtonLore = new ArrayList<>();
         List<DynamicItemModifier> modifiers = new ArrayList<>(currentModifiers);
-        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+        DynamicItemModifier.sortModifiers(modifiers);
         for (DynamicItemModifier modifier : modifiers){
             modifierButtonLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
         }
@@ -336,15 +373,15 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         requireExactMetaButtonMeta.setDisplayName(Utils.chat("&7Require exact item meta: &e" + ((requireExactMeta) ? "Yes" : "No")));
         requireExactMetaButton.setItemMeta(requireExactMetaButtonMeta);
 
+        ItemMeta allowMaterialVariationsButtonMeta = allowMaterialVariationsButton.getItemMeta();
+        assert allowMaterialVariationsButtonMeta != null;
+        allowMaterialVariationsButtonMeta.setDisplayName(Utils.chat("&7&lAllow Ingredient Type Variations: &e" + ((allowMaterialVariations) ? "Yes" : "No")));
+        allowMaterialVariationsButton.setItemMeta(allowMaterialVariationsButtonMeta);
+
         ItemMeta requireCustomToolsButtonMeta = requireCustomToolsButton.getItemMeta();
         assert requireCustomToolsButtonMeta != null;
         requireCustomToolsButtonMeta.setDisplayName(Utils.chat("&7Require Custom Tools: &e" + ((requireCustomTools) ? "Yes" : "No")));
         requireCustomToolsButton.setItemMeta(requireCustomToolsButtonMeta);
-
-        ItemMeta gridButtonMeta = toggleGridSizeButton.getItemMeta();
-        assert gridButtonMeta != null;
-        gridButtonMeta.setDisplayName(Utils.chat("&7Grid Size: &e" + ((is3x3) ? "3x3" : "2x2")));
-        toggleGridSizeButton.setItemMeta(gridButtonMeta);
 
         ItemMeta centerTinkerButtonMeta = tinkerFirstItemButton.getItemMeta();
         assert centerTinkerButtonMeta != null;
@@ -361,23 +398,111 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         shapelessMeta.setDisplayName(Utils.chat("&7Shapeless: &e" + ((shapeless) ? "Yes" : "No")));
         shapelessRecipeButton.setItemMeta(shapelessMeta);
 
-        // 10,11,12, 19,20,21, 28,29,30
-        for (Integer i : grid3x3){
-            inventory.setItem(i, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+
+        RequirementType type = null;
+        if (toolRequiredType < RequirementType.values().length && toolRequiredType >= 0){
+            type = RequirementType.values()[toolRequiredType];
         }
-        List<Integer> grid = (is3x3) ? Arrays.asList(grid3x3) : Arrays.asList(grid2x2);
-        for (Integer i : grid) {
-            ItemStack item = exactItems.get(i);
+        ItemMeta toolIDRequiredMeta = toolIDRequiredButton.getItemMeta();
+        assert toolIDRequiredMeta != null;
+        ItemMeta toolRequirementTypeMeta = toolRequiredTypeButton.getItemMeta();
+        assert toolRequirementTypeMeta != null;
+        toolIDRequiredMeta.setLore(Collections.singletonList(
+                Utils.chat("&cInvalid configuration")
+        ));
+        toolRequirementTypeMeta.setLore(Collections.singletonList(
+                Utils.chat("&cInvalid configuration")
+        ));
+        if (type != null){
+            if (toolIDRequired < 0){
+                toolIDRequiredMeta.setLore(Arrays.asList(
+                        Utils.chat("&7Recipe requires &eno special tool"),
+                        Utils.chat("&7to craft. Can be crafted with"),
+                        Utils.chat("&7empty hand")
+                ));
+                toolRequirementTypeMeta.setLore(Arrays.asList(
+                        Utils.chat("&7Recipe requires &eno special tool"),
+                        Utils.chat("&7to craft. Can be crafted with"),
+                        Utils.chat("&7empty hand")
+                ));
+            } else {
+                switch (type){
+                    case NO_TOOL_REQUIRED:{
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &eno special tool"),
+                                Utils.chat("&7to craft. Can be crafted with"),
+                                Utils.chat("&7empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &eno special tool"),
+                                Utils.chat("&7to craft. Can be crafted with"),
+                                Utils.chat("&7empty hand")
+                        ));
+                        break;
+                    }
+                    case EQUALS:{
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof exactly " + toolIDRequired + "&7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof exactly " + toolIDRequired + "&7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        break;
+                    }
+                    case EQUALS_OR_GREATER: {
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or higher &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or higher &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        break;
+                    }
+                    case EQUALS_OR_LESSER: {
+                        toolIDRequiredMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or less &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        toolRequirementTypeMeta.setLore(Arrays.asList(
+                                Utils.chat("&7Recipe requires &ea tool with ID"),
+                                Utils.chat("&eof " + toolIDRequired + " or less &7 to craft."),
+                                Utils.chat("&7Can not be crafted with empty hand")
+                        ));
+                        break;
+                    }
+                }
+            }
+            toolIDRequiredMeta.setDisplayName(Utils.chat(toolIDRequired >= 0 ? "&7&lTool ID Required: " + toolIDRequired : "&7&lNo special Tool Required"));
+            toolRequirementTypeMeta.setDisplayName(Utils.chat("&7&lTool Required Type: " + type.toString().replace("_", " ")));
+        }
+        toolIDRequiredButton.setItemMeta(toolIDRequiredMeta);
+        toolRequiredTypeButton.setItemMeta(toolRequirementTypeMeta);
+
+
+        // 10,11,12, 19,20,21, 28,29,30
+        for (Integer i : grid3x3) {
+            ItemStack item = exactItems.get(grid3x3.indexOf(i));
             if (item != null) item.setAmount(1);
             inventory.setItem(i, item);
         }
 
+        inventory.setItem(6, toolIDRequiredButton);
+        inventory.setItem(7, toolRequiredTypeButton);
         if (!tinkerFirstItem) inventory.setItem(22, result);
         inventory.setItem(14, unlockedForEveryoneButton);
-        inventory.setItem(31, toggleGridSizeButton);
         inventory.setItem(40, shapelessRecipeButton);
         inventory.setItem(24, dynamicModifierButton);
         inventory.setItem(25, requireExactMetaButton);
+        inventory.setItem(26, allowMaterialVariationsButton);
         inventory.setItem(33, requireCustomToolsButton);
         inventory.setItem(34, tinkerFirstItemButton);
 
@@ -390,32 +515,54 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
             inventory.setItem(i, null);
         }
         List<ItemStack> totalRecipeButtons = new ArrayList<>();
-        for (DynamicShapedRecipe recipe : CustomRecipeManager.getInstance().getShapedRecipes().values()){
-            ItemStack resultButton = new ItemStack(recipe.getRecipe().getResult());
+
+        for (DynamicCraftingTableRecipe recipe : CustomRecipeManager.getInstance().getShapedRecipes().values()){
+            ItemStack resultButton = null;
+            boolean wrong = false;
+            if (recipe.isTinkerFirstItem()){
+                for (ItemStack ingredient : recipe.getExactItems().values()){
+                    if (EquipmentClass.getClass(ingredient) != null) {
+                        resultButton = new ItemStack(ingredient);
+                        break;
+                    }
+                }
+                if (resultButton == null) {
+                    resultButton = new ItemStack(Material.BARRIER);
+                    wrong = true;
+                }
+            } else {
+                resultButton = new ItemStack(recipe.getResult());
+            }
             ItemMeta resultMeta = resultButton.getItemMeta();
             assert resultMeta != null;
             resultMeta.setDisplayName(recipe.getName());
             List<String> resultLore = new ArrayList<>();
-            if (shapeless){
+            if (wrong) {
+                resultLore.add(Utils.chat("&4! &cThis recipe is intended to tinker,"));
+                resultLore.add(Utils.chat("&cbut no ingredient can be tinkered with."));
+                resultLore.add(Utils.chat("&cRecipe may not work under usual circumstances."));
+            }
+            if (recipe.isShapeless()){
                 // TODO
-                Map<ItemStack, Integer> contents = ItemUtils.getItemTotals(recipe.getExactItems().values());
-                for (ItemStack item : recipe.getExactItems().values()){
-                    resultLore.add(Utils.chat("&e" + contents.getOrDefault(item, 0) + "&7x &e" + Utils.getItemName(item)));
+                Map<String, Integer> contents = ItemUtils.getItemTotals(recipe.getExactItems().values());
+                List<ItemStack> listedIngredients = new ArrayList<>(recipe.getExactItems().values());
+                for (int i = 0; i < contents.size(); i++){
+                    ItemStack item = listedIngredients.get(i);
+                    resultLore.add(Utils.chat("&e" + contents.getOrDefault(item.toString(), 0) + "&7x &e" + Utils.getItemName(item)));
                 }
             } else {
-                if (recipe.getRecipe() instanceof ShapedRecipe){
-                    for (String shapeLine : ((ShapedRecipe) recipe.getRecipe()).getShape()){
-                        resultLore.add(Utils.chat("&7[&e" + shapeLine + "&7]&7"));
-                    }
-                    for (Character c : ((ShapedRecipe) recipe.getRecipe()).getIngredientMap().keySet()){
-                        if (((ShapedRecipe) recipe.getRecipe()).getIngredientMap().get(c) == null) continue;
-                        resultLore.add(Utils.chat("&e" + c + "&7: &e" + Utils.getItemName(((ShapedRecipe) recipe.getRecipe()).getIngredientMap().get(c))));
-                    }
+                DynamicCraftingTableRecipe.ShapeDetails details = recipe.getRecipeShapeStrings();
+                for (String shapeLine : details.getShape()){
+                    resultLore.add(Utils.chat("&7[&e" + shapeLine + "&7]&7"));
+                }
+                for (Character c : details.getItems().keySet()){
+                    if (details.getItems().get(c) == null) continue;
+                    resultLore.add(Utils.chat("&e" + c + "&7: &e" + Utils.getItemName(details.getItems().get(c))));
                 }
             }
             resultLore.add(Utils.chat("&8&m                                      "));
             List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
-            modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+            DynamicItemModifier.sortModifiers(modifiers);
             for (DynamicItemModifier modifier : modifiers){
                 resultLore.addAll(Utils.separateStringIntoLines(Utils.chat("&7- " + modifier.toString()), 40));
             }
@@ -444,7 +591,7 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
     }
 
     @Override
-    public void setCurrentModifiers(Collection<DynamicItemModifier> modifiers) {
+    public void setResultModifiers(List<DynamicItemModifier> modifiers) {
         this.currentModifiers = modifiers;
         currentRecipe.setModifiers(modifiers);
     }
@@ -454,90 +601,53 @@ public class ManageShapedRecipeMenu extends Menu implements CraftingManagerMenu{
         CREATE_RECIPE
     }
 
-    private DynamicShapedRecipe generateRecipe(){
-        ItemStack result = (tinkerFirstItem) ? exactItems.get(10) : this.result;
-        if (Utils.isItemEmptyOrNull(result)){
-            return null;
-        }
+    private DynamicCraftingTableRecipe generateRecipe(){
+        ItemStack result = (tinkerFirstItem) ? currentRecipe.getFirstEquipmentFromMatrix() : this.result;
         if (this.exactItems.size() == 0) {
             return null;
         }
 
-        Map<Integer, ItemStack> exactItems = new HashMap<>();
-        List<Integer> grid = (is3x3) ? Arrays.asList(grid3x3) : Arrays.asList(grid2x2);
-        int index = 0;
-        for (Integer i : grid) {
-            ItemStack item = this.exactItems.get(i);
-            if (item != null) item.setAmount(1);
-            if (Utils.isItemEmptyOrNull(item)) item = null;
-            exactItems.put(index, item);
-            index++;
-        }
-        Set<ItemStack> uniqueIngredients = new HashSet<>(exactItems.values());
-        BiMap<Character, ItemStack> ingredientMap = getIngredientMap(uniqueIngredients);
-        String[] shape = (is3x3) ? new String[]{"", "", ""} : new String[]{"", ""};
-        index = 0;
-        for (int row = 0; row < shape.length; row++){
-            StringBuilder rowShape = new StringBuilder();
-            for (int column = 0; column < shape.length; column++){
-                Character charToAppend = ingredientMap.inverse().get(exactItems.get(index));
-                if (charToAppend != null){
-                    rowShape.append(charToAppend);
-                } else {
-                    rowShape.append(' ');
-                }
-                index++;
-            }
-            shape[row] = rowShape.toString();
-        }
-
-        this.shape = Arrays.asList(shape);
-
-        NamespacedKey recipeKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_" + currentRecipe.getName());
-        Recipe recipe = null;
-        if (shapeless){
-            recipe = new ShapelessRecipe(recipeKey, result);
-
-            for (ItemStack ingredient : this.exactItems.values()){
-                ((ShapelessRecipe) recipe).addIngredient(ingredient.getType());
-            }
-        } else {
-            recipe = new ShapedRecipe(recipeKey, result);
-
-            ((ShapedRecipe) recipe).shape(shape);
-            for (Character c : ingredientMap.keySet()){
-                if (requireExactMeta){
-                    ((ShapedRecipe) recipe).setIngredient(c, new RecipeChoice.ExactChoice(ingredientMap.get(c)));
-                } else {
-                    ((ShapedRecipe) recipe).setIngredient(c, ingredientMap.get(c).getType());
-                }
-            }
-        }
-
-        return new DynamicShapedRecipe(currentRecipe.getName(), recipe, exactItems, requireExactMeta, requireCustomTools, tinkerFirstItem, shapeless, this.shape, currentModifiers);
+        return new DynamicCraftingTableRecipe(currentRecipe.getName(), result, exactItems, unlockedForEveryone, requireExactMeta, allowMaterialVariations, requireCustomTools, tinkerFirstItem, shapeless, currentModifiers);
     }
 
-    public static BiMap<Character, ItemStack> getIngredientMap(Set<ItemStack> items){
-        BiMap<Character, ItemStack> ingredientMap = HashBiMap.create();
-        for (ItemStack i : items){
-            if (Utils.isItemEmptyOrNull(i)) continue;
-            char possibleCharacter = ChatColor.stripColor(Utils.getItemName(i)).toUpperCase().charAt(0);
-            if (ingredientMap.containsKey(possibleCharacter)){
-                possibleCharacter = i.getType().toString().toUpperCase().charAt(0);
-                if (ingredientMap.containsKey(possibleCharacter)){
-                    for (Character c : Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')){
-                        if (!ingredientMap.containsKey(c)){
-                            ingredientMap.put(c, i);
-                            break;
-                        }
-                    }
-                } else {
-                    ingredientMap.put(possibleCharacter, i);
-                }
-            } else {
-                ingredientMap.put(possibleCharacter, i);
+    private void handleToolRequiredButton(ClickType clickType){
+        switch (clickType){
+            case LEFT: toolIDRequired += 1;
+                break;
+            case RIGHT: {
+                if (toolIDRequired - 1 < -1) toolIDRequired = -1;
+                else toolIDRequired -= 1;
+                break;
+            }
+            case SHIFT_LEFT: toolIDRequired += 10;
+                break;
+            case SHIFT_RIGHT: {
+                if (toolIDRequired - 10 < 0) toolIDRequired = 0;
+                else toolIDRequired -= 10;
             }
         }
-        return ingredientMap;
+        if (currentRecipe != null){
+            currentRecipe.setRequiredToolId(toolIDRequired);
+        }
+    }
+
+    private void handleToolRequiredTypeButton(ClickType clickType){
+        switch (clickType){
+            case LEFT:
+            case SHIFT_LEFT: {
+                if (toolRequiredType + 1 > RequirementType.values().length - 1) toolRequiredType = RequirementType.values().length - 1;
+                else toolRequiredType += 1;
+                break;
+            }
+            case RIGHT:
+            case SHIFT_RIGHT:{
+                if (toolRequiredType - 1 < 0) toolRequiredType = 0;
+                else toolRequiredType -= 1;
+                break;
+            }
+        }
+        if (currentRecipe != null){
+            currentRecipe.setToolRequirementType(toolRequiredType);
+        }
     }
 }

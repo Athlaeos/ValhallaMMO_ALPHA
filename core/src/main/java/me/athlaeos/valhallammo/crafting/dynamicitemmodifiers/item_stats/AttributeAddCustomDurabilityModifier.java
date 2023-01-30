@@ -17,10 +17,10 @@ import org.bukkit.inventory.meta.Damageable;
 import java.util.Collections;
 import java.util.List;
 
-public class AttributeAddCustomDurabilityModifier extends DynamicItemModifier implements Cloneable{
+public class AttributeAddCustomDurabilityModifier extends DynamicItemModifier {
 
-    public AttributeAddCustomDurabilityModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AttributeAddCustomDurabilityModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -44,7 +44,7 @@ public class AttributeAddCustomDurabilityModifier extends DynamicItemModifier im
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof Damageable)) return null;
         ItemAttributesManager.getInstance().addDefaultStat(outputItem, new CustomMaxDurabilityWrapper(

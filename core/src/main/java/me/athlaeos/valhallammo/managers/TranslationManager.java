@@ -30,7 +30,7 @@ public class TranslationManager {
 
     private static TranslationManager manager = null;
     private final String language;
-    private final File config;
+    private File config;
 
     public TranslationManager(){
         translationMap = new HashMap<>();
@@ -40,13 +40,14 @@ public class TranslationManager {
         placeholderListTranslationMap = new HashMap<>();
         localizedMaterialNames = new HashMap<>();
 
-        String language = ConfigManager.getInstance().getConfig("config.yml").get().getString("language");
+        String language = ConfigManager.getInstance().getConfig("config.yml").get().getString("language", "en-us");
         this.language = language;
         this.config = new File(ValhallaMMO.getPlugin().getDataFolder(), "languages/" + language + ".yml");
 
         String targetConfig = "languages/" + language + ".yml";
-        if (!ConfigManager.getInstance().getConfigs().containsKey(targetConfig)){
+        if (!this.config.exists()){
             targetConfig = "languages/en-us.yml";
+            this.config = new File(ValhallaMMO.getPlugin().getDataFolder(), "languages/en-us.yml");
         }
 
         YamlConfiguration config = ConfigManager.getInstance().getConfig(targetConfig).get();
@@ -167,11 +168,13 @@ public class TranslationManager {
      */
     public ItemStack translateItemStack(ItemStack i){
         if (i == null) return null;
+        boolean translated = false;
         ItemMeta iMeta = i.getItemMeta();
         if (iMeta == null) return null;
         if (iMeta.hasDisplayName()){
             if (iMeta.getDisplayName().contains("<lang.")){
                 iMeta.setDisplayName(Utils.chat(translatePlaceholders(Utils.chat(iMeta.getDisplayName()))));
+                translated = true;
             }
         }
         if (iMeta.hasLore() && iMeta.getLore() != null){
@@ -180,12 +183,15 @@ public class TranslationManager {
                 for (String s : translateListPlaceholders(iMeta.getLore())){
                     newLore.add(Utils.chat(s));
                 }
+                translated = true;
             } else newLore = iMeta.getLore();
 
             iMeta.setLore(newLore);
         }
+        if (!translated) return i;
         i.setItemMeta(iMeta);
         i = reSetItemText(i);
+
         return i;
     }
 

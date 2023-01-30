@@ -494,7 +494,7 @@ public abstract class Skill {
             if (profile != null){
                 profile.setExp(Math.max(0, profile.getExp() + event.getAmount()));
                 profile.setLifetimeEXP(profile.getLifetimeEXP() + event.getAmount());
-                if (!silent){
+                if (!silent && !this.type.equals("ACCOUNT")){
                     if (!status_experience_gain.equals("")){
                         double statusAmount = accumulateEXP(p, event.getAmount(), event.getLeveledSkill().getType());
                         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Utils.chat(status_experience_gain

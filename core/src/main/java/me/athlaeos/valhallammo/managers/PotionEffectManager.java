@@ -53,7 +53,6 @@ public class PotionEffectManager {
         registerPotionEffect(new PotionEffect("ARCHERY_ACCURACY", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("ARCHERY_DAMAGE", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("ARCHERY_AMMO_SAVE", 0, 0, PotionType.BUFF));
-        registerPotionEffect(new PotionEffect("UNARMED_DAMAGE", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("WEAPONS_DAMAGE", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("MINING_EXTRA_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("MINING_RARE_DROPS", 0, 0, PotionType.BUFF));
@@ -62,7 +61,8 @@ public class PotionEffectManager {
         registerPotionEffect(new PotionEffect("FARMING_FISHING_TIER", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("WOODCUTTING_EXTRA_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("WOODCUTTING_RARE_DROPS", 0, 0, PotionType.BUFF));
-        registerPotionEffect(new PotionEffect("FORTIFY_ACROBATICS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("DIGGING_EXTRA_DROPS", 0, 0, PotionType.BUFF));
+        registerPotionEffect(new PotionEffect("DIGGING_RARE_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("ENTITY_EXTRA_DROPS", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("INCREASE_EXP", 0, 0, PotionType.BUFF));
         registerPotionEffect(new PotionEffect("INCREASE_VANILLA_EXP", 0, 0, PotionType.BUFF));
@@ -375,14 +375,14 @@ public class PotionEffectManager {
                     String translation = TranslationManager.getInstance()
                             .getTranslation("effect_" + potionEffects.get(0).getPotionEffect().toLowerCase());
                     meta.setDisplayName(Utils.chat(
-                            formatToUse.replace("%effect%", "" + translation)
+                            formatToUse.replace("%effect%", "" + translation).replace("%arrow%", Utils.getItemName(i))
                     ));
                 }
 
             } else {
                 formatToUse = TranslationManager.getInstance().getTranslation("transmutation_potion");
                 meta.setDisplayName(Utils.chat(
-                        formatToUse.replace("%effect%", "" + formatToUse)
+                        formatToUse.replace("%effect%", "" + formatToUse).replace("%arrow%", Utils.getItemName(i))
                 ));
             }
 
@@ -412,13 +412,23 @@ public class PotionEffectManager {
                         instance.getBleedingEntity().setLastDamageCause(event);
                         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
                         int particleCount = (int) (3 * Math.min(10, event.getDamage()));
-                        instance.getBleedingEntity().getWorld().spawnParticle(Particle.BLOCK_DUST, instance.getBleedingEntity().getLocation().add(0, 1, 0),
+                        instance.getBleedingEntity().getWorld().spawnParticle(Particle.BLOCK_DUST, instance.getBleedingEntity().getEyeLocation().add(0, -(instance.getBleedingEntity().getHeight()/2), 0),
                                 particleCount, 0.4, 0.4, 0.4, Material.REDSTONE_BLOCK.createBlockData());
                         instance.getBleedingEntity().playEffect(EntityEffect.HURT);
                     }
                 }
             }
         }.runTaskTimer(ValhallaMMO.getPlugin(), 0L, delay);
+
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                for (BleedingInstance instance : new HashSet<>(bleedingEntities.values())){
+                        instance.getBleedingEntity().getWorld().spawnParticle(Particle.BLOCK_DUST, instance.getBleedingEntity().getEyeLocation().add(0, -(instance.getBleedingEntity().getHeight()/2), 0),
+                                2, 0.4, 0.1, 0.1, Material.REDSTONE_BLOCK.createBlockData());
+                }
+            }
+        }.runTaskTimer(ValhallaMMO.getPlugin(), 0L, 2);
     }
 
     private final Collection<UUID> bleedTick = new HashSet<>();
@@ -434,13 +444,19 @@ public class PotionEffectManager {
     }
 
     public void bleedEntity(LivingEntity bleeder, LivingEntity causedBy, int duration, double damage){
-        if (damage <= 0) return;
+        if (damage <= 0) {
+            return;
+        }
         BleedingInstance instance = bleedingEntities.get(bleeder.getUniqueId());
         if (instance != null){
-            if (instance.getBleedingDamage() > damage) return;
+            if (instance.getBleedingDamage() > damage) {
+                return;
+            }
         }
         damage *= (1 - AccumulativeStatManager.getInstance().getStats("BLEED_RESISTANCE", bleeder, causedBy, true));
         bleedingEntities.put(bleeder.getUniqueId(), new BleedingInstance(bleeder, causedBy, duration, Math.max(0, damage)));
+        bleeder.getWorld().spawnParticle(Particle.BLOCK_DUST, bleeder.getEyeLocation().add(0, -(bleeder.getHeight()/2), 0),
+                25, 0.4, 0.4, 0.4, Material.REDSTONE_BLOCK.createBlockData());
     }
 
     public void removeBleeding(LivingEntity bleeder){

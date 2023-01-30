@@ -30,6 +30,9 @@ public class LightWeaponsBleedDamageSetReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                damage = (float) (Integer) argument;
+            }
             if (argument instanceof Float){
                 damage = (float) argument;
             }

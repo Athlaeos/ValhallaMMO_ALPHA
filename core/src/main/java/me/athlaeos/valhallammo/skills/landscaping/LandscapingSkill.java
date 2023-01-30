@@ -183,138 +183,139 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
             } else if (diggingDropEXPReward.containsKey(b.getType())){
                 event.setExpToDrop(event.getExpToDrop() + Utils.excessChance(AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_VANILLA_EXP_REWARD", event.getPlayer(), true)));
             }
-        }
-
-        boolean unlockedTreeCapitator = false;
-        int treeCapitatorCooldown = 0;
-        Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "LANDSCAPING");
-        Collection<Material> allowedTreeCapitatorBlocks = new HashSet<>();
-        boolean replaceSaplings = false;
-        if (p != null){
-            if (p instanceof LandscapingProfile){
-                treeCapitatorCooldown = ((LandscapingProfile) p).getTreeCapitatorCooldown();
-                allowedTreeCapitatorBlocks = ItemUtils.getMaterialList(((LandscapingProfile) p).getValidTreeCapitatorBlocks());
-                unlockedTreeCapitator = treeCapitatorCooldown > 0;
-                replaceSaplings = ((LandscapingProfile) p).isReplaceSaplings();
+            boolean unlockedTreeCapitator = false;
+            int treeCapitatorCooldown = 0;
+            Profile p = ProfileManager.getManager().getProfile(event.getPlayer(), "LANDSCAPING");
+            Collection<Material> allowedTreeCapitatorBlocks = new HashSet<>();
+            boolean replaceSaplings = false;
+            if (p != null){
+                if (p instanceof LandscapingProfile){
+                    treeCapitatorCooldown = ((LandscapingProfile) p).getTreeCapitatorCooldown();
+                    allowedTreeCapitatorBlocks = ItemUtils.getMaterialList(((LandscapingProfile) p).getValidTreeCapitatorBlocks());
+                    unlockedTreeCapitator = treeCapitatorCooldown > 0;
+                    replaceSaplings = ((LandscapingProfile) p).isReplaceSaplings();
+                }
             }
-        }
-        if (replaceSaplings){
-            if (isTree(b)){
-                Block blockUnder = b.getLocation().add(0, -1, 0).getBlock();
-                if (validFungusPlantingBlocks.contains(blockUnder.getType())) {
-                    final Collection<Material> validPlaceBlocks = getValidSaplingPlantingBlocks(b.getType());
-                    if (validPlaceBlocks.contains(blockUnder.getType())){
-                        Material sapMat = getSaplingFromBlock(b.getType());
-                        if (sapMat != null){
-                            new BukkitRunnable(){
-                                @Override
-                                public void run() {
-                                    ItemStack sapling = new ItemStack(sapMat);
-                                    BlockPlaceEvent placeEvent = new BlockPlaceEvent(event.getBlock(), b.getState(), blockUnder, sapling, event.getPlayer(), true, EquipmentSlot.HAND);
-                                    ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(placeEvent);
-                                    if (!placeEvent.isCancelled()){
-                                        Block block = b.getLocation().getBlock();
-                                        Block blockUnder = b.getLocation().add(0, -1, 0).getBlock();
-                                        if (validPlaceBlocks.contains(blockUnder.getType())){
-                                            if (block.getType().isAir()){
-                                                block.setType(sapMat);
+            if (replaceSaplings){
+                if (isTree(b)){
+                    Block blockUnder = b.getLocation().add(0, -1, 0).getBlock();
+                    if (validFungusPlantingBlocks.contains(blockUnder.getType())) {
+                        final Collection<Material> validPlaceBlocks = getValidSaplingPlantingBlocks(b.getType());
+                        if (validPlaceBlocks.contains(blockUnder.getType())){
+                            Material sapMat = getSaplingFromBlock(b.getType());
+                            if (sapMat != null){
+                                new BukkitRunnable(){
+                                    @Override
+                                    public void run() {
+                                        ItemStack sapling = new ItemStack(sapMat);
+                                        BlockPlaceEvent placeEvent = new BlockPlaceEvent(event.getBlock(), b.getState(), blockUnder, sapling, event.getPlayer(), true, EquipmentSlot.HAND);
+                                        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(placeEvent);
+                                        if (!placeEvent.isCancelled()){
+                                            Block block = b.getLocation().getBlock();
+                                            Block blockUnder = b.getLocation().add(0, -1, 0).getBlock();
+                                            if (validPlaceBlocks.contains(blockUnder.getType())){
+                                                if (block.getType().isAir()){
+                                                    block.setType(sapMat);
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            }.runTaskLater(ValhallaMMO.getPlugin(), 4L);
+                                }.runTaskLater(ValhallaMMO.getPlugin(), 4L);
+                            }
                         }
                     }
                 }
             }
-        }
-        if (!Utils.getBlockAlteringPlayers().getOrDefault("valhalla_tree_capitator", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
-            if (unlockedTreeCapitator){
-                if (event.getPlayer().isSneaking()){
-                    if (isTree(event.getBlock())){
-                        if (allowedTreeCapitatorBlocks.contains(event.getBlock().getType())){
-                            if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_tree_capitator")){
-                                // trigger tree capitator special ability
-                                List<Block> affectedBlocks = Utils.getBlockVein(
-                                        b.getLocation(),
-                                        new HashSet<>(logs),
-                                        treeCapitatorBreakLimit,
-                                        new Offset(-1, 1, -1), new Offset(-1, 1, 0), new Offset(-1, 1, 1),
-                                        new Offset(0, 1, -1), new Offset(0, 1, 0), new Offset(0, 1, 1),
-                                        new Offset(1, 1, -1), new Offset(1, 1, 0), new Offset(1, 1, 1),
-                                        new Offset(-1, 0, -1), new Offset(-1, 0, 0), new Offset(-1, 0, 1),
-                                        new Offset(0, 0, -1), new Offset(0, 0, 1),
-                                        new Offset(1, 0, -1), new Offset(1, 0, 0), new Offset(1, 0, 1));
-                                List<Block> leaves = getTreeLeaves(b);
+            if (!Utils.getBlockAlteringPlayers().getOrDefault("valhalla_tree_capitator", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
+                if (unlockedTreeCapitator){
+                    if (event.getPlayer().isSneaking()){
+                        if (isTree(event.getBlock())){
+                            if (allowedTreeCapitatorBlocks.contains(event.getBlock().getType())){
+                                if (CooldownManager.getInstance().isCooldownPassed(event.getPlayer().getUniqueId(), "cooldown_tree_capitator")){
+                                    // trigger tree capitator special ability
+                                    List<Block> affectedBlocks = Utils.getBlockVein(
+                                            b.getLocation(),
+                                            new HashSet<>(logs),
+                                            treeCapitatorBreakLimit,
+                                            new Offset(-1, 1, -1), new Offset(-1, 1, 0), new Offset(-1, 1, 1),
+                                            new Offset(0, 1, -1), new Offset(0, 1, 0), new Offset(0, 1, 1),
+                                            new Offset(1, 1, -1), new Offset(1, 1, 0), new Offset(1, 1, 1),
+                                            new Offset(-1, 0, -1), new Offset(-1, 0, 0), new Offset(-1, 0, 1),
+                                            new Offset(0, 0, -1), new Offset(0, 0, 1),
+                                            new Offset(1, 0, -1), new Offset(1, 0, 0), new Offset(1, 0, 1));
+                                    List<Block> leaves = getTreeLeaves(b);
 
-                                Collections.shuffle(leaves);
-                                me.athlaeos.valhallammo.dom.Action<Block> afterAction = leaf_decay_limit_tree_capitator > 0 ?
-                                        block -> Utils.alterBlocks(
-                                                "valhalla_tree_capitator_leaf_decay",
+                                    Collections.shuffle(leaves);
+                                    me.athlaeos.valhallammo.dom.Action<Block> afterAction = leaf_decay_limit_tree_capitator > 0 ?
+                                            block -> Utils.alterBlocks(
+                                                    "valhalla_tree_capitator_leaf_decay",
+                                                    event.getPlayer(),
+                                                    leaves,
+                                                    bl -> {
+                                                        if (bl.getBlockData() instanceof Leaves) {
+                                                            Leaves leaf = (Leaves) bl.getBlockData();
+                                                            return leaf.getDistance() > 2 && !leaf.isPersistent();
+                                                        }
+                                                        return false;
+                                                    },
+                                                    null,
+                                                    Utils::decayBlock,
+                                                    null
+                                            )
+                                            : null;
+
+                                    Collection<Material> finalAllowedTreeCapitatorBlocks = allowedTreeCapitatorBlocks;
+                                    if (tree_capitator_instant){
+                                        Utils.alterBlocksInstant(
+                                                "valhalla_tree_capitator",
                                                 event.getPlayer(),
-                                                leaves,
-                                                bl -> {
-                                                    if (bl.getBlockData() instanceof Leaves) {
-                                                        Leaves leaf = (Leaves) bl.getBlockData();
-                                                        return leaf.getDistance() > 2 && !leaf.isPersistent();
+                                                affectedBlocks,
+                                                block -> logs.contains(block.getType()) && finalAllowedTreeCapitatorBlocks.contains(block.getType()),
+                                                EquipmentClass.AXE,
+                                                block -> {
+                                                    rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
+                                                    if (cosmetic_outline) {
+                                                        Color color = Utils.hexToRgb(outline_color);
+                                                        ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
                                                     }
-                                                    return false;
                                                 },
-                                                null,
-                                                Utils::decayBlock,
-                                                null
-                                        )
-                                        : null;
-
-                                if (tree_capitator_instant){
-                                    Utils.alterBlocksInstant(
-                                            "valhalla_tree_capitator",
-                                            event.getPlayer(),
-                                            affectedBlocks,
-                                            block -> logs.contains(block.getType()),
-                                            EquipmentClass.AXE,
-                                            block -> {
-                                                Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup);
-                                                if (cosmetic_outline) {
-                                                    Color color = Utils.hexToRgb(outline_color);
-                                                    ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
-                                                }
-                                            },
-                                            afterAction
-                                    );
+                                                afterAction
+                                        );
+                                    } else {
+                                        Utils.alterBlocks(
+                                                "valhalla_tree_capitator",
+                                                event.getPlayer(),
+                                                affectedBlocks,
+                                                block -> logs.contains(block.getType()) && finalAllowedTreeCapitatorBlocks.contains(block.getType()),
+                                                EquipmentClass.AXE,
+                                                block -> {
+                                                    rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
+                                                    if (cosmetic_outline) {
+                                                        Color color = Utils.hexToRgb(outline_color);
+                                                        ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
+                                                    }
+                                                },
+                                                afterAction
+                                        );
+                                    }
+                                    CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), treeCapitatorCooldown, "cooldown_tree_capitator");
                                 } else {
-                                    Utils.alterBlocks(
-                                            "valhalla_tree_capitator",
-                                            event.getPlayer(),
-                                            affectedBlocks,
-                                            block -> logs.contains(block.getType()),
-                                            EquipmentClass.AXE,
-                                            block -> {
-                                                Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup);
-                                                if (cosmetic_outline) {
-                                                    Color color = Utils.hexToRgb(outline_color);
-                                                    ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
-                                                }
-                                            },
-                                            afterAction
-                                    );
+                                    int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_tree_capitator");
+                                    event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                            new TextComponent(
+                                                    Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
+                                                            .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
+                                                            .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
+                                                            .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
+                                            ));
                                 }
-                                CooldownManager.getInstance().setCooldownIgnoreIfPermission(event.getPlayer(), treeCapitatorCooldown, "cooldown_tree_capitator");
-                            } else {
-                                int cooldown = (int) CooldownManager.getInstance().getCooldown(event.getPlayer().getUniqueId(), "cooldown_tree_capitator");
-                                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                        new TextComponent(
-                                                Utils.chat(TranslationManager.getInstance().getTranslation("status_cooldown"))
-                                                        .replace("%timestamp%", Utils.toTimeStamp(cooldown, 1000))
-                                                        .replace("%time_seconds%", String.format("%d", (int) Math.ceil(cooldown / 1000D)))
-                                                        .replace("%time_minutes%", String.format("%.1f", cooldown / 60000D))
-                                        ));
                             }
                         }
                     }
                 }
             }
         }
+
     }
 
     private final Collection<Material> validFungusPlantingBlocks = ItemUtils.getMaterialList(Arrays.asList(
@@ -626,14 +627,17 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 double dropMultiplier;
                 double rareDropMultiplier;
                 ChancedBlockLootTable table;
+                String stat;
                 if (woodcuttingDropEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_DROP_MULTIPLIER", event.getPlayer(), true);
                     rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_WOODCUTTING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     table = woodcuttingLootTable;
+                    stat = "LANDSCAPING_EXP_GAIN_WOODCUTTING";
                 } else if (diggingDropEXPReward.containsKey(event.getBlockState().getType())) {
                     dropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_DROP_MULTIPLIER", event.getPlayer(), true);
                     rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LANDSCAPING_DIGGING_RARE_DROP_MULTIPLIER", event.getPlayer(), true);
                     table = diggingLootTable;
+                    stat = "LANDSCAPING_EXP_GAIN_DIGGING";
                 } else {
                     return;
                 }
@@ -645,8 +649,25 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
 
                 event.getItems().clear();
                 event.getItems().addAll(newItems);
+
+                rewardDropsExperience(event.getPlayer(), stat, newItems);
+
                 BlockStore.setPlaced(event.getBlock(), false);
             }
+        }
+
+    }
+    private void rewardDropsExperience(Player p, String expStat, List<ItemStack> drops){
+        double amount = 0;
+        for (ItemStack i : drops){
+            if (i == null) continue;
+            if (Utils.isItemEmptyOrNull(i)) continue;
+            amount += woodcuttingDropEXPReward.getOrDefault(i.getType(), 0D) * i.getAmount();
+            amount += diggingDropEXPReward.getOrDefault(i.getType(), 0D) * i.getAmount();
+        }
+
+        if (amount > 0){
+            addEXP(p, amount * ((AccumulativeStatManager.getInstance().getStats(expStat, p, true) / 100D)), false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
         }
     }
 }

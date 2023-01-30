@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
-    public FlagAddHideUnbreakableModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public FlagAddHideUnbreakableModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -39,7 +39,7 @@ public class FlagAddHideUnbreakableModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

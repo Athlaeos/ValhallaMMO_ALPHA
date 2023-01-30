@@ -75,7 +75,8 @@ public class PotionInventoryListenerUpdated implements Listener {
                             return;
                         }
                     }
-                    ItemUtils.calculateClickedSlot(e);
+                    if (e.getSlot() == 3) ItemUtils.calculateClickedSlot(e);
+                    else ItemUtils.calculateClickedSlotOnlyAllow1Placed(e);
                 }
             } else if (e.getClickedInventory() instanceof PlayerInventory && e.getClick().isShiftClick() && !Utils.isItemEmptyOrNull(e.getCurrentItem())){
                 int inputSlot = Utils.isItemEmptyOrNull(inventory.getItem(3)) ? 3 : inventory.firstEmpty();
@@ -90,8 +91,16 @@ public class PotionInventoryListenerUpdated implements Listener {
                                 }
                             }
                         }
-                        inventory.setItem(inputSlot, e.getCurrentItem().clone());
-                        e.setCurrentItem(null);
+                        ItemStack clickedItem = e.getCurrentItem().clone();
+                        if (clickedItem.getAmount() > 1){
+                            ItemStack newItem = clickedItem.clone();
+                            newItem.setAmount(clickedItem.getAmount() - 1);
+                            e.setCurrentItem(newItem);
+                            clickedItem.setAmount(1);
+                        } else {
+                            e.setCurrentItem(null);
+                        }
+                        inventory.setItem(inputSlot, clickedItem);
                         e.setCancelled(true);
                     }
                 }
@@ -258,12 +267,14 @@ public class PotionInventoryListenerUpdated implements Listener {
                         ItemStack backup = result.clone();
                         result = result.clone();
 
-                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
-                        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                        for (DynamicItemModifier modifier : modifiers){
-                            if (result == null) break;
-                            result = modifier.processItem(brewer, result);
-                        }
+                        result = DynamicItemModifier.modify(result, brewer, recipe.getItemModifiers(), false, true, true);
+
+                        //List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
+                        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                        //for (DynamicItemModifier modifier : modifiers){
+                        //    if (result == null) break;
+                        //    result = modifier.processItem(brewer, result);
+                        //}
 
                         PotionEffectManager.renamePotion(result, true);
                         PlayerCustomBrewEvent event = new PlayerCustomBrewEvent(brewer, recipe, brewingStand, result != null);

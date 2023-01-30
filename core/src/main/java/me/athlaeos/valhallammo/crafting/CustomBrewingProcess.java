@@ -99,12 +99,14 @@ public class CustomBrewingProcess extends BukkitRunnable
                     result = result.clone();
 
                     if (brewer != null){
-                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipes.get(i).getItemModifiers());
-                        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                        for (DynamicItemModifier modifier : modifiers){
-                            if (result == null) break;
-                            result = modifier.processItem(brewer, result);
-                        }
+                        result = DynamicItemModifier.modify(result, brewer, recipes.get(i).getItemModifiers(), false, true, true);
+
+                        //List<DynamicItemModifier> modifiers = new ArrayList<>(recipes.get(i).getItemModifiers());
+                        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                        //for (DynamicItemModifier modifier : modifiers){
+                        //    if (result == null) break;
+                        //    result = modifier.processItem(brewer, result);
+                        //}
 
                         PotionEffectManager.renamePotion(result, true);
                         PlayerCustomBrewEvent event = new PlayerCustomBrewEvent(brewer, recipes.get(i), stand, result != null);
@@ -218,12 +220,14 @@ public class CustomBrewingProcess extends BukkitRunnable
                     theoreticalResult = theoreticalResult.clone();
 
                     if (brewer != null){
-                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipes.get(i).getItemModifiers());
-                        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                        for (DynamicItemModifier modifier : modifiers){
-                            if (backup == null) break;
-                            backup = modifier.processItem(brewer, theoreticalResult);
-                        }
+                        backup = DynamicItemModifier.modify(backup, brewer, recipes.get(i).getItemModifiers(), false, true, true);
+
+                        //List<DynamicItemModifier> modifiers = new ArrayList<>(recipes.get(i).getItemModifiers());
+                        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                        //for (DynamicItemModifier modifier : modifiers){
+                        //    if (backup == null) break;
+                        //    backup = modifier.processItem(brewer, theoreticalResult);
+                        //}
                     }
                     if (backup != null){
                         success[i] = true;

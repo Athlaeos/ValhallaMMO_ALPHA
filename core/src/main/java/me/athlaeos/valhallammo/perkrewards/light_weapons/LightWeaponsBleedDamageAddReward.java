@@ -18,7 +18,9 @@ public class LightWeaponsBleedDamageAddReward extends PerkReward {
     public void execute(Player player) {
         if (player == null) return;
         Profile profile = ProfileManager.getManager().getProfile(player, "LIGHT_WEAPONS");
-        if (profile == null) return;
+        if (profile == null) {
+            return;
+        }
         if (profile instanceof LightWeaponsProfile){
             LightWeaponsProfile lightWeaponsProfile = (LightWeaponsProfile) profile;
             lightWeaponsProfile.setBleedDamage(lightWeaponsProfile.getBleedDamage() + damage);
@@ -30,6 +32,9 @@ public class LightWeaponsBleedDamageAddReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                damage = (float) (Integer) argument;
+            }
             if (argument instanceof Float){
                 damage = (float) argument;
             }

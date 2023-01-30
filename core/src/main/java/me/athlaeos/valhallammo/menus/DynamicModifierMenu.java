@@ -69,12 +69,34 @@ public class DynamicModifierMenu extends Menu{
     private double modifierStrength2 = 0D;
     private double modifierStrength3 = 0D;
     private ModifierPriority priority = ModifierPriority.NEUTRAL;
-    private final Collection<DynamicItemModifier> currentModifiers;
+    private final List<DynamicItemModifier> currentModifiers;
     private DynamicItemModifier currentModifier = null;
+    private final boolean secondaryModifierSet;
+    private final boolean showAdvanced;
 
-    public DynamicModifierMenu(PlayerMenuUtility playerMenuUtility, Collection<DynamicItemModifier> modifiers) {
+    public DynamicModifierMenu(PlayerMenuUtility playerMenuUtility, List<DynamicItemModifier> modifiers) {
         super(playerMenuUtility);
         this.currentModifiers = modifiers;
+        this.secondaryModifierSet = false;
+        this.showAdvanced = false;
+
+        for (ModifierCategory s : ModifierCategory.values()){
+            ItemStack skillIcon = s.getIcon().clone();
+
+            ItemMeta iconMeta = skillIcon.getItemMeta();
+            assert iconMeta != null;
+            iconMeta.getPersistentDataContainer().set(categoryNameKey, PersistentDataType.STRING, s.toString());
+            iconMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_DYE);
+            skillIcon.setItemMeta(iconMeta);
+
+            scrollItems.add(skillIcon);
+        }
+    }
+    public DynamicModifierMenu(PlayerMenuUtility playerMenuUtility, List<DynamicItemModifier> modifiers, boolean secondaryModifierSet, boolean showAdvanced) {
+        super(playerMenuUtility);
+        this.currentModifiers = modifiers;
+        this.secondaryModifierSet = secondaryModifierSet;
+        this.showAdvanced = showAdvanced;
 
         for (ModifierCategory s : ModifierCategory.values()){
             ItemStack skillIcon = s.getIcon().clone();
@@ -131,7 +153,10 @@ public class DynamicModifierMenu extends Menu{
                     case VIEW_MODIFIERS: {
                         if (playerMenuUtility.getPreviousMenu() != null){
                             if (playerMenuUtility.getPreviousMenu() instanceof CraftingManagerMenu){
-                                ((CraftingManagerMenu) playerMenuUtility.getPreviousMenu()).setCurrentModifiers(currentModifiers);
+                                if (secondaryModifierSet && playerMenuUtility.getPreviousMenu() instanceof AdvancedCraftingManagerMenu)
+                                    ((AdvancedCraftingManagerMenu) playerMenuUtility.getPreviousMenu()).setSecondaryModifiers(currentModifiers);
+                                else
+                                    ((CraftingManagerMenu) playerMenuUtility.getPreviousMenu()).setResultModifiers(currentModifiers);
                             }
 
                             playerMenuUtility.getPreviousMenu().open();
@@ -341,7 +366,7 @@ public class DynamicModifierMenu extends Menu{
         for (int i = 0; i < 45; i++){
             inventory.setItem(i, null);
         }
-        List<DynamicItemModifier> modifiers = currentModifiers.stream().limit(45).sorted(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating())).collect(Collectors.toList());
+        List<DynamicItemModifier> modifiers = currentModifiers.stream().filter(m -> showAdvanced || !(m instanceof AdvancedDynamicItemModifier)).limit(45).sorted(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating())).collect(Collectors.toList());
         for (DynamicItemModifier modifier : modifiers){
             List<String> modifierIconLore = new ArrayList<>(Utils.separateStringIntoLines(Utils.chat(modifier.toString()), 40));
             modifierIconLore.add(Utils.chat("&8&m                            "));

@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MaterialTypeChangeModifier extends DynamicItemModifier {
-    public MaterialTypeChangeModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public MaterialTypeChangeModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -38,7 +38,7 @@ public class MaterialTypeChangeModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         int id = (int) strength;
         if (id >= MaterialClass.values().length || id < 0) return null;

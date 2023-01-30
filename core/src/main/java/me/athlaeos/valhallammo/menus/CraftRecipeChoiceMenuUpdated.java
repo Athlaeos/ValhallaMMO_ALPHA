@@ -397,13 +397,13 @@ public class CraftRecipeChoiceMenuUpdated extends Menu {
                                 if (specialLine != null){
                                     buttonLore.add(Utils.chat(specialLine));
                                 } else if (tool_display_default != null) {
-                                    buttonLore.add(Utils.chat(tool_display_default.replace("%tool%", "" + ((ItemCraftingRecipe) recipe).getRequiredToolId())));
+                                    buttonLore.add(Utils.chat(tool_display_default.replace("%tier%", "" + ((ItemCraftingRecipe) recipe).getRequiredToolId())));
                                 }
                             }
                         }
 
-                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifers());
-                        modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
+                        List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getItemModifiers());
+                        DynamicItemModifier.sortModifiers(modifiers);
 
                         for (String s : recipeButtonFormat){
                             if (s.contains("%ingredients%")){

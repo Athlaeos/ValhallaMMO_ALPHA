@@ -110,6 +110,8 @@ enabled_listeners:
   fishing: true # Responsible for the farming skill's fishing mechanics
   breeding: true # Responsible for the farming skill's breeding mechanics
   targeting: true # Responsible for the farming skill's bee aggro immunity mechanics
+  smithing: true # Responsible for custom smithing recipes
+  cauldron: true # Responsible for custom cauldron crafting
 
 movement_update_delay: 2000 # Movement-based stats are updated with a delay to improve performance, low values may
 # make the plugin lag more. Delay is in milliseconds
@@ -221,6 +223,11 @@ facing_angle: 70 # The angle between the target's line of vision and to the atta
 # ValhallaMMO also feature a reflect mechanic. Reflect chance is defined by player stats and circumstances
 reflect_damage_type: THORNS # The damage type of reflected damage, to define how it should be mitigated
 
+# ValhallaMMO features a custom crit mechanic, which sound should it have, if any?
+crit_sound_effect: ENCHANT_THORNS_HIT
+# Should it play a flash effect when a custom crit is inflicted?
+crit_particle_effect: true
+
 # Damage mitigation obtained from specific enchantments. These mitigations reduce damage before armor comes into play.
 # These mitigations also stack on top of any additional damage mitigation attributes the armor may be given,
 # as example: a protection V chestplate that also has +15% damage mitigations will effectively have 20% damage mitigation
@@ -282,6 +289,10 @@ trident_damage_ranged_loyalty: 1.0 # Damage multiplier of tridents when thrown, 
 old_menu: false # If true, the old ValhallaMMO crafting menu will be used instead. The old menu does not show both crafting and tinkering menus in the same menu,
 # and does not show all the tinkering recipes a block has to offer. This will be less beginner-friendly
 
+cauldron_max_capacity: 3 # The max amount of items a cauldron is allowed to hold (and therefore the max amount of ingredients recipes can possess)
+# High numbers will allow players to stealthily store many items which may not be desirable
+cauldron_item_duration: 20 # The amount of ticks an item, after throwing, can be absorbed by the cauldron. (20 ticks = 1 second)
+
 model_data_nextpage: 3511004
 model_data_prevpage: 3511008
 model_data_craft_view: 3511001
@@ -312,6 +323,10 @@ swap_crafting_table_functionality:
 # An entry in this list is valid if the name equates to a recipe's namespaced key, which in most cases is just
 # the item ID in lowercase
 disabled:
+  - arrow
+  - flint_and_steel
+  - fishing_rod
+  - shears
   - shield
   - bow
   - crossbow

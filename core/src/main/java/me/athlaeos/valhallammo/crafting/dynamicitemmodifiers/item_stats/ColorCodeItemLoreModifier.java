@@ -13,10 +13,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ColorCodeItemLoreModifier extends DynamicItemModifier implements Cloneable {
+public class ColorCodeItemLoreModifier extends DynamicItemModifier  {
 
-    public ColorCodeItemLoreModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public ColorCodeItemLoreModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -40,7 +40,7 @@ public class ColorCodeItemLoreModifier extends DynamicItemModifier implements Cl
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         ItemMeta outputMeta = outputItem.getItemMeta();
         if (outputMeta == null) return null;
         if (outputMeta.getLore() != null){

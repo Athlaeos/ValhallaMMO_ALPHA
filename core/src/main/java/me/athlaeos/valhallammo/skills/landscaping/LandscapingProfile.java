@@ -210,8 +210,8 @@ public class LandscapingProfile extends Profile implements Serializable {
                 "instantgrowthrate FLOAT DEFAULT 0," +
                 "replacesaplings BOOL DEFAULT false," +
                 "blockplacereachbonus FLOAT DEFAULT 0," +
-                "unlockedconversions TEXT default ''," +
-                "validtreecapitatorblocks TEXT DEFAULT ''," +
+                "unlockedconversions TEXT," +
+                "validtreecapitatorblocks TEXT," +
                 "woodcuttingexperiencerate FLOAT DEFAULT 0," +
                 "diggingexperiencerate FLOAT DEFAULT 0," +
                 "woodcuttingexpmultiplier DOUBLE DEFAULT 100," +

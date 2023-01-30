@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AttributeRemoveAttackSpeedModifier extends DynamicItemModifier {
-    public AttributeRemoveAttackSpeedModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AttributeRemoveAttackSpeedModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_VANILLA;
@@ -38,7 +38,7 @@ public class AttributeRemoveAttackSpeedModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

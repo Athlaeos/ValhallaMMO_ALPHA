@@ -90,7 +90,7 @@ public class HeavyArmorProfile extends Profile implements Serializable {
                 "fullarmorhealingbonus FLOAT DEFAULT 0," +
                 "reflectfraction FLOAT DEFAULT 0," +
                 "armorpiecesforbonusses TINYINT DEFAULT 4," +
-                "immunepotioneffects TEXT default ''," +
+                "immunepotioneffects TEXT," +
                 "ragethreshold FLOAT DEFAULT 0," +
                 "ragecooldown INT DEFAULT -1," +
                 "ragelevel SMALLINT DEFAULT 0," +

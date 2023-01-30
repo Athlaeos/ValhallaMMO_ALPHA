@@ -330,48 +330,6 @@ brewing:
       v: 2586
       type: QUARTZ
     use_meta: false
-  brew_potion_increase_exp:
-    name: brew_potion_increase_exp
-    required_type: POTION
-    modifiers:
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      flag_add_hide_potion_effects:
-        strength: 0.0
-        priority: LATER
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_effect_add_increase_exp:
-        strength2: 5.0
-        strength: 120000.0
-        priority: LATER
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      exp_bonus_alchemy:
-        strength: 750.0
-        priority: LAST
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_color:
-        strength3: 75.0
-        strength2: 255.0
-        strength: 0.0
-        priority: LATER
-    ingredient: &id28885
-      ==: org.bukkit.inventory.ItemStack
-      v: 2586
-      type: NETHER_STAR
-    use_meta: false
   brew_potion_night_vision:
     name: brew_potion_night_vision
     required_type: POTION
@@ -923,87 +881,6 @@ brewing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: TROPICAL_FISH
-    use_meta: false
-  brew_potion_resistance:
-    name: brew_potion_resistance
-    required_type: POTION
-    modifiers:
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      exp_bonus_alchemy:
-        strength: 750.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_effect_add_resistance:
-        strength2: 0.0
-        strength: 2400.0
-        priority: LATER
-      potions_color:
-        strength3: 100.0
-        strength2: 200.0
-        strength: 250.0
-        priority: LATER
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-    ingredient: &id28881
-      ==: org.bukkit.inventory.ItemStack
-      v: 2586
-      type: ENCHANTED_GOLDEN_APPLE
-    use_meta: false
-  brew_potion_fortify_smithing:
-    name: brew_potion_fortify_smithing
-    required_type: POTION
-    modifiers:
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      flag_add_hide_potion_effects:
-        strength: 0.0
-        priority: LATER
-      exp_bonus_alchemy:
-        strength: 175.0
-        priority: LAST
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      potions_effect_add_fortify_smithing:
-        strength2: 5.0
-        strength: 60000.0
-        priority: LATER
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      potions_color:
-        strength3: 100.0
-        strength2: 100.0
-        strength: 100.0
-        priority: LATER
-    ingredient: &id28882
-      ==: org.bukkit.inventory.ItemStack
-      v: 2586
-      type: IRON_INGOT
     use_meta: false
   brew_potion_wither:
     name: brew_potion_wither
@@ -2654,156 +2531,6 @@ brewing:
         priority: LATER
     ingredient: *id28880
     use_meta: false
-  brew_potion_resistance_splash:
-    name: brew_potion_resistance_splash
-    required_type: SPLASH_POTION
-    modifiers:
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      potions_effect_add_resistance:
-        strength2: 0.0
-        strength: 2400.0
-        priority: LATER
-      exp_bonus_alchemy:
-        strength: 750.0
-        priority: LAST
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      potions_color:
-        strength3: 100.0
-        strength2: 200.0
-        strength: 250.0
-        priority: LATER
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-    ingredient: *id28881
-    use_meta: false
-  brew_potion_resistance_lingering:
-    name: brew_potion_resistance_lingering
-    required_type: LINGERING_POTION
-    modifiers:
-      potions_effect_add_resistance:
-        strength2: 0.0
-        strength: 2400.0
-        priority: LATER
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      exp_bonus_alchemy:
-        strength: 750.0
-        priority: LAST
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      potions_color:
-        strength3: 100.0
-        strength2: 200.0
-        strength: 250.0
-        priority: LATER
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-    ingredient: *id28881
-    use_meta: false
-  brew_potion_fortify_smithing_lingering:
-    name: brew_potion_fortify_smithing_lingering
-    required_type: LINGERING_POTION
-    modifiers:
-      potions_color:
-        strength3: 100.0
-        strength2: 100.0
-        strength: 100.0
-        priority: LATER
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      potions_effect_add_fortify_smithing:
-        strength2: 5.0
-        strength: 60000.0
-        priority: LATER
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      exp_bonus_alchemy:
-        strength: 175.0
-        priority: LAST
-      flag_add_hide_potion_effects:
-        strength: 0.0
-        priority: LATER
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-    ingredient: *id28882
-    use_meta: false
-  brew_potion_fortify_smithing_splash:
-    name: brew_potion_fortify_smithing_splash
-    required_type: SPLASH_POTION
-    modifiers:
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      potions_color:
-        strength3: 100.0
-        strength2: 100.0
-        strength: 100.0
-        priority: LATER
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_effect_add_fortify_smithing:
-        strength2: 5.0
-        strength: 60000.0
-        priority: LATER
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      flag_add_hide_potion_effects:
-        strength: 0.0
-        priority: LATER
-      exp_bonus_alchemy:
-        strength: 175.0
-        priority: LAST
-    ingredient: *id28882
-    use_meta: false
   brew_potion_wither_splash:
     name: brew_potion_wither_splash
     required_type: SPLASH_POTION
@@ -2947,84 +2674,6 @@ brewing:
         strength: 175.0
         priority: LAST
     ingredient: *id28884
-    use_meta: false
-  brew_potion_increase_exp_splash:
-    name: brew_potion_increase_exp_splash
-    required_type: SPLASH_POTION
-    modifiers:
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_color:
-        strength3: 75.0
-        strength2: 255.0
-        strength: 0.0
-        priority: LATER
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      exp_bonus_alchemy:
-        strength: 750.0
-        priority: LAST
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      flag_add_hide_potion_effects:
-        strength: 0.0
-        priority: LATER
-      potions_effect_add_increase_exp:
-        strength2: 5.0
-        strength: 120000.0
-        priority: LATER
-    ingredient: *id28885
-    use_meta: false
-  brew_potion_increase_exp_lingering:
-    name: brew_potion_increase_exp_lingering
-    required_type: LINGERING_POTION
-    modifiers:
-      flag_add_hide_potion_effects:
-        strength: 0.0
-        priority: LATER
-      potions_color:
-        strength3: 75.0
-        strength2: 255.0
-        strength: 0.0
-        priority: LATER
-      potions_type_require_awkward:
-        strength: 0.0
-        priority: SOONEST
-      potions_cancel_if_tipped:
-        strength: 0.0
-        priority: SOONEST
-      potions_type_set_uncraftable:
-        strength: 0.0
-        priority: SOON
-      exp_bonus_alchemy:
-        strength: 750.0
-        priority: LAST
-      potions_quality_dynamic_buff:
-        strength: 100.0
-        priority: NEUTRAL
-      potions_dynamic_amplifier:
-        strength: 50.0
-        priority: LAST
-      potions_dynamic_duration:
-        strength: 50.0
-        priority: LAST
-      potions_effect_add_increase_exp:
-        strength2: 5.0
-        strength: 120000.0
-        priority: LATER
-    ingredient: *id28885
     use_meta: false
   brew_potion_ingredient_save_lingering:
     name: brew_potion_ingredient_save_lingering
@@ -3554,3 +3203,2011 @@ brewing:
       v: 2586
       type: COCOA_BEANS
     use_meta: false
+    # HERE
+  brew_potion_fortify_smithing_lingering:
+    name: brew_potion_fortify_smithing_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 100.0
+        strength2: 100.0
+        strength: 100.0
+        priority: LATER
+      potions_effect_add_fortify_smithing:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_increase_exp_splash:
+    name: brew_potion_increase_exp_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 75.0
+        strength2: 255.0
+        strength: 0.0
+        priority: LATER
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_increase_exp:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-tutor-lotus>"}],"text":""}'
+        custom-model-data: 9192780
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_smithing:
+    name: brew_potion_fortify_smithing
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_fortify_smithing:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 100.0
+        strength2: 100.0
+        strength: 100.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_smithing_splash:
+    name: brew_potion_fortify_smithing_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 100.0
+        strength2: 100.0
+        strength: 100.0
+        priority: LATER
+      potions_effect_add_fortify_smithing:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_increase_exp:
+    name: brew_potion_increase_exp
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_increase_exp:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 75.0
+        strength2: 255.0
+        strength: 0.0
+        priority: LATER
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-tutor-lotus>"}],"text":""}'
+        custom-model-data: 9192780
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_increase_exp_lingering:
+    name: brew_potion_increase_exp_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_color:
+        strength3: 75.0
+        strength2: 255.0
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_increase_exp:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-tutor-lotus>"}],"text":""}'
+        custom-model-data: 9192780
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_damage_taken_splash:
+    name: brew_potion_damage_taken_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_debuff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_poison_vulnerable:
+        strength2: 1.0
+        strength: 30000.0
+        priority: LATER
+      potions_color:
+        strength3: 10.0
+        strength2: 15.0
+        strength: 75.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-noxious-spores>"}],"text":""}'
+        custom-model-data: 9192791
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_damage_taken_lingering:
+    name: brew_potion_damage_taken_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_debuff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_poison_vulnerable:
+        strength2: 1.0
+        strength: 30000.0
+        priority: LATER
+      potions_color:
+        strength3: 10.0
+        strength2: 15.0
+        strength: 75.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-noxious-spores>"}],"text":""}'
+        custom-model-data: 9192791
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_damage_taken:
+    name: brew_potion_damage_taken
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_debuff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_poison_vulnerable:
+        strength2: 1.0
+        strength: 30000.0
+        priority: LATER
+      potions_color:
+        strength3: 10.0
+        strength2: 15.0
+        strength: 75.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-noxious-spores>"}],"text":""}'
+        custom-model-data: 9192791
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_healing_reduction:
+    name: brew_potion_healing_reduction
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_debuff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_poison_anti_heal:
+        strength2: 1.0
+        strength: 60000.0
+        priority: LATER
+      potions_color:
+        strength3: 0.0
+        strength2: 0.0
+        strength: 50.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-withered-filament>"}],"text":""}'
+        custom-model-data: 9192790
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_healing_reduction_lingering:
+    name: brew_potion_healing_reduction_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_debuff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 0.0
+        strength2: 0.0
+        strength: 50.0
+        priority: LATER
+      potions_effect_add_poison_anti_heal:
+        strength2: 1.0
+        strength: 60000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-withered-filament>"}],"text":""}'
+        custom-model-data: 9192790
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_resistance_lingering:
+    name: brew_potion_resistance_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_resistance:
+        strength2: 0.0
+        strength: 2400.0
+        priority: LATER
+      potions_color:
+        strength3: 100.0
+        strength2: 200.0
+        strength: 250.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 750.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_resistance_splash:
+    name: brew_potion_resistance_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_resistance:
+        strength2: 0.0
+        strength: 2400.0
+        priority: LATER
+      potions_color:
+        strength3: 100.0
+        strength2: 200.0
+        strength: 250.0
+        priority: LATER
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 750.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_resistance:
+    name: brew_potion_resistance
+    required_type: POTION
+    modifiers:
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_resistance:
+        strength2: 0.0
+        strength: 2400.0
+        priority: LATER
+      potions_color:
+        strength3: 100.0
+        strength2: 200.0
+        strength: 250.0
+        priority: LATER
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 750.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_healing_reduction_splash:
+    name: brew_potion_healing_reduction_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_debuff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_poison_anti_heal:
+        strength2: 1.0
+        strength: 60000.0
+        priority: LATER
+      potions_color:
+        strength3: 0.0
+        strength2: 0.0
+        strength: 50.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-withered-filament>"}],"text":""}'
+        custom-model-data: 9192790
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_archery_splash:
+    name: brew_potion_fortify_archery_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 205.0
+        strength2: 205.0
+        strength: 205.0
+        priority: LATER
+      potions_effect_add_archery_damage:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      potions_effect_add_archery_ammo_save:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      potions_effect_add_archery_accuracy:
+        strength2: 1.0
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_archery_lingering:
+    name: brew_potion_fortify_archery_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 205.0
+        strength2: 205.0
+        strength: 205.0
+        priority: LATER
+      potions_effect_add_archery_damage:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      potions_effect_add_archery_ammo_save:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      potions_effect_add_archery_accuracy:
+        strength2: 1.0
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_healing:
+    name: brew_potion_fortify_healing
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 100.0
+        strength2: 0.0
+        strength: 255.0
+        priority: LATER
+      potions_effect_add_healing_bonus:
+        strength2: 0.05
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-bustling-fungus>"}],"text":""}'
+        custom-model-data: 9192788
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_healing_splash:
+    name: brew_potion_fortify_healing_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 100.0
+        strength2: 0.0
+        strength: 255.0
+        priority: LATER
+      potions_effect_add_healing_bonus:
+        strength2: 0.05
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-bustling-fungus>"}],"text":""}'
+        custom-model-data: 9192788
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_healing_lingering:
+    name: brew_potion_fortify_healing_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 100.0
+        strength2: 0.0
+        strength: 255.0
+        priority: LATER
+      potions_effect_add_healing_bonus:
+        strength2: 0.05
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-bustling-fungus>"}],"text":""}'
+        custom-model-data: 9192788
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_armor:
+    name: brew_potion_fortify_armor
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 105.0
+        strength2: 105.0
+        strength: 105.0
+        priority: LATER
+      potions_effect_add_armor_fraction_bonus:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-knightsreed>"}],"text":""}'
+        custom-model-data: 9192785
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_armor_splash:
+    name: brew_potion_fortify_armor_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 105.0
+        strength2: 105.0
+        strength: 105.0
+        priority: LATER
+      potions_effect_add_armor_fraction_bonus:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-knightsreed>"}],"text":""}'
+        custom-model-data: 9192785
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_armor_lingering:
+    name: brew_potion_fortify_armor_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 105.0
+        strength2: 105.0
+        strength: 105.0
+        priority: LATER
+      potions_effect_add_armor_fraction_bonus:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-knightsreed>"}],"text":""}'
+        custom-model-data: 9192785
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_archery:
+    name: brew_potion_fortify_archery
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_color:
+        strength3: 205.0
+        strength2: 205.0
+        strength: 205.0
+        priority: LATER
+      potions_effect_add_archery_damage:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      potions_effect_add_archery_ammo_save:
+        strength2: 0.01
+        strength: 90000.0
+        priority: LATER
+      potions_effect_add_archery_accuracy:
+        strength2: 1.0
+        strength: 90000.0
+        priority: LATER
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 175.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_farming:
+    name: brew_potion_fortify_farming
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_farming_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_farming_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 75.0
+        strength2: 150.0
+        strength: 75.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_farming_splash:
+    name: brew_potion_fortify_farming_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_farming_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_farming_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 75.0
+        strength2: 150.0
+        strength: 75.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_farming_lingering:
+    name: brew_potion_fortify_farming_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_farming_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_farming_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 75.0
+        strength2: 150.0
+        strength: 75.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_woodcutting:
+    name: brew_potion_fortify_woodcutting
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_woodcutting_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_woodcutting_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 60.0
+        strength2: 100.0
+        strength: 125.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_woodcutting_splash:
+    name: brew_potion_fortify_woodcutting_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_woodcutting_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_woodcutting_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 60.0
+        strength2: 100.0
+        strength: 125.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_woodcutting_lingering:
+    name: brew_potion_fortify_woodcutting_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_woodcutting_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_woodcutting_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 60.0
+        strength2: 100.0
+        strength: 125.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 400.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_mining:
+    name: brew_potion_fortify_mining
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_mining_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_mining_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 85.0
+        strength2: 75.0
+        strength: 75.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 225.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_mining_splash:
+    name: brew_potion_fortify_mining_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_mining_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_mining_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 85.0
+        strength2: 75.0
+        strength: 75.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 225.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_mining_lingering:
+    name: brew_potion_fortify_mining_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_mining_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_mining_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 85.0
+        strength2: 75.0
+        strength: 75.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 225.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_digging:
+    name: brew_potion_fortify_digging
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_digging_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_digging_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 85.0
+        strength2: 125.0
+        strength: 125.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 125.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CLAY_BALL
+    unlocked_for_everyone: false
+    use_meta: false
+  brew_potion_fortify_digging_splash:
+    name: brew_potion_fortify_digging_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_digging_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_digging_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 85.0
+        strength2: 125.0
+        strength: 125.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 125.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CLAY_BALL
+    unlocked_for_everyone: false
+    use_meta: false
+  brew_potion_fortify_digging_lingering:
+    name: brew_potion_fortify_digging_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_digging_rare_drops:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_effect_add_digging_extra_drops:
+        strength2: 1.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 85.0
+        strength2: 125.0
+        strength: 125.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 125.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CLAY_BALL
+    unlocked_for_everyone: false
+    use_meta: false
+  brew_potion_fortify_enchanting_splash:
+    name: brew_potion_fortify_enchanting_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      potions_effect_add_fortify_anvil_combining:
+        strength2: 5.0
+        strength: 120000.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_color:
+        strength3: 250.0
+        strength2: 75.0
+        strength: 255.0
+        priority: LATER
+      potions_effect_add_fortify_enchanting:
+        strength2: 5.0
+        strength: 30000.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_enchanting_lingering:
+    name: brew_potion_fortify_enchanting_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_fortify_enchanting:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 250.0
+        strength2: 75.0
+        strength: 255.0
+        priority: LATER
+      potions_effect_add_fortify_anvil_combining:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    unlocked_for_everyone: false
+    use_meta: true
+  brew_potion_fortify_enchanting:
+    name: brew_potion_fortify_enchanting
+    required_type: POTION
+    modifiers:
+      potions_type_require_awkward:
+        strength: 0.0
+        priority: SOONEST
+      potions_cancel_if_tipped:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_set_uncraftable:
+        strength: 0.0
+        priority: SOON
+      potions_quality_dynamic_buff:
+        strength: 100.0
+        priority: NEUTRAL
+      flag_add_hide_potion_effects:
+        strength: 0.0
+        priority: LATER
+      potions_effect_add_fortify_enchanting:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_color:
+        strength3: 250.0
+        strength2: 75.0
+        strength: 255.0
+        priority: LATER
+      potions_effect_add_fortify_anvil_combining:
+        strength2: 5.0
+        strength: 120000.0
+        priority: LATER
+      potions_dynamic_duration:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      potions_dynamic_amplifier:
+        strength2: 0.0
+        strength: 50.0
+        priority: LAST
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 300.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    unlocked_for_everyone: false
+    use_meta: true

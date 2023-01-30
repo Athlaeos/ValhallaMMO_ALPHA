@@ -57,8 +57,8 @@ public class MiningProfile extends Profile implements Serializable {
                 "blastradiusmultiplier FLOAT DEFAULT 1," +
                 "tntexplosiondamagemultiplier FLOAT DEFAULT 1," +
                 "veinminingcooldown INT DEFAULT -1," +
-                "validveinminerblocks TEXT DEFAULT ''," +
-                "unbreakableblocks TEXT DEFAULT ''," +
+                "validveinminerblocks TEXT," +
+                "unbreakableblocks TEXT," +
                 "quickminecooldown INT default -1," +
                 "quickminehungerdrainspeed INT DEFAULT -1," +
                 "quickminedurabilitylossrate FLOAT DEFAULT 1," +

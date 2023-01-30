@@ -18,8 +18,8 @@ public class PotionSetPotionTypeModifier extends DynamicItemModifier {
     private final PotionType type;
     private final String typeString;
 
-    public PotionSetPotionTypeModifier(String name, double strength, ModifierPriority priority, PotionType type, Material icon) {
-        super(name, strength, priority);
+    public PotionSetPotionTypeModifier(String name, PotionType type, Material icon) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
         this.type = type;
         typeString = Utils.toPascalCase(type.toString().replace("_", " "));
 
@@ -46,7 +46,7 @@ public class PotionSetPotionTypeModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (outputItem.getItemMeta() == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;

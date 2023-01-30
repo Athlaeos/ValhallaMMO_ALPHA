@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class DynamicAttackSpeedModifier extends DuoArgDynamicItemModifier {
-    public DynamicAttackSpeedModifier(String name, double strength, double strength2, ModifierPriority priority) {
-        super(name, strength, strength2, priority);
+    public DynamicAttackSpeedModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_VANILLA;
@@ -52,7 +52,7 @@ public class DynamicAttackSpeedModifier extends DuoArgDynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         ItemMeta meta = outputItem.getItemMeta();
         if (meta == null) return null;

@@ -17,11 +17,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class PotionDynamicQualityRatingModifier extends DynamicItemModifier implements Cloneable{
+public class PotionDynamicQualityRatingModifier extends DynamicItemModifier{
     private final PotionType type;
 
-    public PotionDynamicQualityRatingModifier(String name, double strength, ModifierPriority priority, PotionType type) {
-        super(name, strength, priority);
+    public PotionDynamicQualityRatingModifier(String name, PotionType type) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.type = type;
         this.name = name;
@@ -55,7 +55,7 @@ public class PotionDynamicQualityRatingModifier extends DynamicItemModifier impl
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (crafter == null) return null;
         Profile profile = ProfileManager.getManager().getProfile(crafter, "ALCHEMY");

@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddCustomEnchantCounterModifier extends DynamicItemModifier {
-    public AddCustomEnchantCounterModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public AddCustomEnchantCounterModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ENCHANTING_CONDITIONALS;
@@ -38,7 +38,7 @@ public class AddCustomEnchantCounterModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         int count = (int) strength;
         CustomEnchantmentManager.getInstance().setEnchantmentsCount(outputItem, CustomEnchantmentManager.getInstance().getEnchantmentsCount(outputItem) + count);

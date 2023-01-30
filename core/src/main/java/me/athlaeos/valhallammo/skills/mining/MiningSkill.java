@@ -272,7 +272,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
-                                        Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup);
+                                        rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
                                         if (cosmetic_outline) {
                                             Color color = Utils.hexToRgb(outline_color);
                                             ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -294,7 +294,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
-                                        Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup);
+                                        rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
                                         if (cosmetic_outline) {
                                             Color color = Utils.hexToRgb(outline_color);
                                             ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -433,20 +433,26 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
 
                     event.getItems().clear();
                     event.getItems().addAll(newItems);
+                } else {
+                    newItems = event.getItems();
                 }
 
                 // reward player experience for mining a block
-                double amount = 0;
-                for (ItemStack i : newItems){
-                    if (Utils.isItemEmptyOrNull(i)) continue;
-                    amount += blockDropEXPReward.getOrDefault(i.getType(), 0D) * i.getAmount();
-                }
-                double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", event.getPlayer(), true) / 100D));
-                addEXP(event.getPlayer(), expMultiplierMine * amount * multiplier, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
+                rewardDropsExperience(event.getPlayer(), newItems);
 
                 BlockStore.setPlaced(event.getBlock(), false);
             }
         }
+    }
+
+    private void rewardDropsExperience(Player p, List<ItemStack> drops){
+        double amount = 0;
+        for (ItemStack i : drops){
+            if (Utils.isItemEmptyOrNull(i)) continue;
+            amount += blockDropEXPReward.getOrDefault(i.getType(), 0D) * i.getAmount();
+        }
+        double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_MINING", p, true) / 100D));
+        addEXP(p, expMultiplierMine * amount * multiplier, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
     }
 
     private PlayerModeData getData(Player p){

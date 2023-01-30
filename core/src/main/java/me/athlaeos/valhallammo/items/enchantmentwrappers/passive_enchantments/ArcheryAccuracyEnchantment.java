@@ -46,7 +46,7 @@ public class ArcheryAccuracyEnchantment extends EnchantmentWrapper {
             String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(rangedDamageTranslation)),
-                    String.format(prefix + "%s %s%%", rangedDamageTranslation, bowStrength));
+                    String.format(prefix + "%s %s", rangedDamageTranslation, bowStrength));
         }
     }
 

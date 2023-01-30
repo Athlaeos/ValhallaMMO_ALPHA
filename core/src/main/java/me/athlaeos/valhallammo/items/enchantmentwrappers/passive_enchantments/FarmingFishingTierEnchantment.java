@@ -42,7 +42,7 @@ public class FarmingFishingTierEnchantment extends EnchantmentWrapper {
         double tier = amplifier;
 
         if (!translation.equals("")){
-            String fishingTier = ((tier < 0) ? "" : "+") + String.format("%d", (int) Math.floor(tier));
+            String fishingTier = ((tier < 0) ? "" : "+") + String.format("%.1f", tier);
             String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(translation)),

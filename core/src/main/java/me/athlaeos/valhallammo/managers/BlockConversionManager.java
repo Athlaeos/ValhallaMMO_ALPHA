@@ -123,7 +123,9 @@ public class BlockConversionManager {
                 }
                 if (data.isConsumed()){
                     if (EquipmentClass.getClass(tool) != null){
-                        ItemUtils.damageItem(who, tool, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND);
+                        if (ItemUtils.damageItem(who, tool, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+                            who.getInventory().setItemInMainHand(null);
+                        }
                     } else {
                         if (tool.getAmount() <= 1){
                             who.getInventory().setItemInMainHand(null);
@@ -193,7 +195,9 @@ public class BlockConversionManager {
                 }
                 if (data.isConsumed()){
                     if (EquipmentClass.getClass(t) != null){
-                        ItemUtils.damageItem(who, t, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND);
+                        if (ItemUtils.damageItem(who, t, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+                            who.getInventory().setItemInMainHand(null);
+                        }
                     } else {
                         if (t.getAmount() <= 1){
                             who.getInventory().setItemInMainHand(null);

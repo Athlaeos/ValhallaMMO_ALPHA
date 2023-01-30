@@ -124,4 +124,21 @@ public class ProfileDatabasePersistency extends Persistency {
             }
         }
     }
+
+    @Override
+    public void savePlayerProfiles(Player p) {
+        if (profiles.containsKey(p.getUniqueId())){
+            ValhallaMMO.getPlugin().getServer().getScheduler().runTaskAsynchronously(ValhallaMMO.getPlugin(), () -> {
+                for (Profile profile : profiles.get(p.getUniqueId()).values()){
+                    try {
+                        profile.insertOrUpdateProfile(conn);
+                    } catch (SQLException e){
+                        ValhallaMMO.getPlugin().getServer().getLogger().severe("SQLException when trying to save profile for profile type " + profile.getClass().getName() + ". ");
+                        e.printStackTrace();
+                    }
+                }
+                profiles.remove(p.getUniqueId());
+            });
+        }
+    }
 }

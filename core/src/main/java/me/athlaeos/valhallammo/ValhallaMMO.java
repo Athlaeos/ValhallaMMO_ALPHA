@@ -3,10 +3,7 @@ package me.athlaeos.valhallammo;
 import me.athlaeos.valhallammo.commands.*;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.config.ConfigUpdater;
-import me.athlaeos.valhallammo.crafting.PlayerClassTinkerListener;
-import me.athlaeos.valhallammo.crafting.PlayerCustomCraftListener;
-import me.athlaeos.valhallammo.crafting.PlayerShapedCraftListener;
-import me.athlaeos.valhallammo.crafting.PlayerTinkerListener;
+import me.athlaeos.valhallammo.crafting.*;
 import me.athlaeos.valhallammo.dom.ArtificialGlow;
 import me.athlaeos.valhallammo.listeners.*;
 import me.athlaeos.valhallammo.loottables.LootManager;
@@ -58,6 +55,8 @@ public final class ValhallaMMO extends JavaPlugin {
     private PlayerMovementListener movementListener;
     private HealingListener healingListener;
     private ChatListener chatListener;
+    private PlayerSmithingListener smithingListener;
+    private CauldronCraftingListener cauldronCraftingListener;
 
 
     @Override
@@ -76,12 +75,25 @@ public final class ValhallaMMO extends JavaPlugin {
         this.getServer().getConsoleSender().sendMessage(Utils.chat("&6[&eValhallaMMO&6] &fEnabling ValhallaMMO, this might take a bit..."));
         ArtificialGlow.registerGlow();
 
+        saveConfig("old_configuration/recipes/improvement_recipes.yml");
+        saveConfig("old_configuration/recipes/class_improvement_recipes.yml");
+        saveConfig("old_configuration/recipes/crafting_recipes.yml");
+        saveConfig("old_configuration/recipes/shaped_recipes.yml");
+        saveConfig("old_configuration/recipes/cooking_recipes.yml");
+        saveConfig("old_configuration/recipes/cauldron_recipes.yml");
+        saveConfig("old_configuration/recipes/smithing_table_recipes.yml");
+        saveConfig("old_configuration/readme.txt");
+        saveConfig("old_configuration/progression_alchemy.yml");
+        saveConfig("old_configuration/progression_enchanting.yml");
+
         saveConfig("recipes/brewing_recipes.yml");
         saveConfig("recipes/improvement_recipes.yml");
         saveConfig("recipes/class_improvement_recipes.yml");
         saveConfig("recipes/crafting_recipes.yml");
         saveConfig("recipes/shaped_recipes.yml");
         saveConfig("recipes/cooking_recipes.yml");
+        saveConfig("recipes/cauldron_recipes.yml");
+        saveConfig("recipes/smithing_table_recipes.yml");
         saveConfig("sounds.yml");
         saveConfig("tutorial_book.yml");
         saveAndUpdateConfig("skill_alchemy.yml", Arrays.asList("effects_inverted", "quality_cosmetic"));
@@ -113,7 +125,10 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("block_interact_conversions.yml");
 
 
+        saveConfig("loot_tables/landscaping_woodcutting.yml");
         saveConfig("loot_tables/farming_fishing.yml");
+        saveConfig("loot_tables/farming_farming.yml");
+        saveConfig("loot_tables/mining_mining.yml");
         saveConfig("loot_tables/landscaping_digging.yml");
 
         DatabaseConnection connection = DatabaseConnection.getDatabaseConnection();
@@ -142,31 +157,33 @@ public final class ValhallaMMO extends JavaPlugin {
         TransmutationManager.getInstance();
 
         // Plugin startup logic
-        interactListener = (InteractListener) registerListener(new InteractListener(), "interact");
-        joinListener = (JoinLeaveListener) registerListener(new JoinLeaveListener(), "join");
-        itemDamageListener = (ItemDamageListener) registerListener(new ItemDamageListener(), "item_damage");
-        itemMendListener = (ItemMendListener) registerListener(new ItemMendListener(), "item_mend");
-        playerCraftListener = (PlayerShapedCraftListener) registerListener(new PlayerShapedCraftListener(), "shaped_craft");
-        customCraftListener = (PlayerCustomCraftListener) registerListener(new PlayerCustomCraftListener(), "custom_craft");
-        tinkerListener = (PlayerTinkerListener) registerListener(new PlayerTinkerListener(), "custom_tinker");
-        classTinkerListener = (PlayerClassTinkerListener) registerListener(new PlayerClassTinkerListener(), "custom_tinker");
-        villagerInteractListener = (VillagerInteractListener) registerListener(new VillagerInteractListener(), "villager_interact");
-        projectileShootListener = (ProjectileListener) registerListener(new ProjectileListener(), "projectile_shoot");
-        entityDamagedListener = (EntityDamagedListener) registerListener(new EntityDamagedListener(), "entity_damaged");
-//        potionInventoryListener = (PotionInventoryListener) registerListener(new PotionInventoryListener(), "potion_inventory");
-        potionInventoryListenerUpdated = (PotionInventoryListenerUpdated) registerListener(new PotionInventoryListenerUpdated(), "potion_inventory");
-        potionBrewListener = (PotionBrewListener) registerListener(new PotionBrewListener(), "potion_brew");
-        itemConsumeListener = (ItemConsumeListener) registerListener(new ItemConsumeListener(), "item_consume");
-        potionSplashListener = (PotionEffectListener) registerListener(new PotionEffectListener(), "potion_splash");
-        playerEnchantListener = (PlayerEnchantListener) registerListener(new PlayerEnchantListener(), "player_enchant");
-        playerExperienceAbsorbListener = (PlayerExperienceAbsorbListener) registerListener(new PlayerExperienceAbsorbListener(), "player_experience");
-        movementListener = (PlayerMovementListener) registerListener(new PlayerMovementListener(), "player_movement");
-        blocksListener = (BlockListener) registerListener(new BlockListener(), "blocks");
-        fishingListener = (FishingListener) registerListener(new FishingListener(), "fishing");
-        breedListener = (EntityBreedListener) registerListener(new EntityBreedListener(), "breeding");
-        entityTargetingListener = (EntityTargetingListener) registerListener(new EntityTargetingListener(), "targeting");
-        healingListener = (HealingListener) registerListener(new HealingListener(), "healing");
-        //this.getServer().getPluginManager().registerEvents(new FurnaceListener(), this);
+        interactListener = registerListener(new InteractListener(), "interact");
+        joinListener = registerListener(new JoinLeaveListener(), "join");
+        itemDamageListener = registerListener(new ItemDamageListener(), "item_damage");
+        itemMendListener = registerListener(new ItemMendListener(), "item_mend");
+        playerCraftListener = registerListener(new PlayerShapedCraftListener(), "shaped_craft");
+        customCraftListener = registerListener(new PlayerCustomCraftListener(), "custom_craft");
+        tinkerListener = registerListener(new PlayerTinkerListener(), "custom_tinker");
+        classTinkerListener = registerListener(new PlayerClassTinkerListener(), "custom_tinker");
+        villagerInteractListener = registerListener(new VillagerInteractListener(), "villager_interact");
+        projectileShootListener = registerListener(new ProjectileListener(), "projectile_shoot");
+        entityDamagedListener = registerListener(new EntityDamagedListener(), "entity_damaged");
+//        potionInventoryListener = registerListener(new PotionInventoryListener(), "potion_inventory");
+        potionInventoryListenerUpdated = registerListener(new PotionInventoryListenerUpdated(), "potion_inventory");
+        potionBrewListener = registerListener(new PotionBrewListener(), "potion_brew");
+        itemConsumeListener = registerListener(new ItemConsumeListener(), "item_consume");
+        potionSplashListener = registerListener(new PotionEffectListener(), "potion_splash");
+        playerEnchantListener = registerListener(new PlayerEnchantListener(), "player_enchant");
+        playerExperienceAbsorbListener = registerListener(new PlayerExperienceAbsorbListener(), "player_experience");
+        movementListener = registerListener(new PlayerMovementListener(), "player_movement");
+        blocksListener = registerListener(new BlockListener(), "blocks");
+        fishingListener = registerListener(new FishingListener(), "fishing");
+        breedListener = registerListener(new EntityBreedListener(), "breeding");
+        entityTargetingListener = registerListener(new EntityTargetingListener(), "targeting");
+        healingListener = registerListener(new HealingListener(), "healing");
+        smithingListener = registerListener(new PlayerSmithingListener(), "smithing");
+        cauldronCraftingListener = registerListener(new CauldronCraftingListener(), "cauldron");
+        this.getServer().getPluginManager().registerEvents(new CookingListener(), this);
 
         if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("parties")){
             chatListener = (ChatListener) registerListener(new ChatListener(), "player_chat");
@@ -221,7 +238,7 @@ public final class ValhallaMMO extends JavaPlugin {
         updateConfig(config, excludedSections);
     }
 
-    private Listener registerListener(Listener l, String key){
+    private <T extends Listener> T registerListener(T l, String key){
         YamlConfiguration config = ConfigManager.getInstance().getConfig("config.yml").get();
         if (config.getBoolean("enabled_listeners." + key, true)){
             this.getServer().getPluginManager().registerEvents(l, this);
@@ -355,6 +372,14 @@ public final class ValhallaMMO extends JavaPlugin {
 
     public HealingListener getHealingListener() {
         return healingListener;
+    }
+
+    public PlayerSmithingListener getSmithingListener() {
+        return smithingListener;
+    }
+
+    public CauldronCraftingListener getCauldronCraftingListener() {
+        return cauldronCraftingListener;
     }
 
     public void saveConfig(String name){

@@ -58,7 +58,7 @@ public class ManageLootTableSelectionMenu extends Menu{
                     } else {
                         ChancedBlockLootTable chancedBlockLootTable = LootManager.getInstance().getChancedBlockLootTables().get(value);
                         if (chancedBlockLootTable != null){
-                            new ManageChancedLootTablesMenu(playerMenuUtility, chancedBlockLootTable).open();
+                            new ManageChancedBlockLootTablesMenu(playerMenuUtility, chancedBlockLootTable).open();
                             return;
                         } else {
                             ChancedEntityLootTable chancedEntityLootTable = LootManager.getInstance().getChancedEntityLootTables().get(value);

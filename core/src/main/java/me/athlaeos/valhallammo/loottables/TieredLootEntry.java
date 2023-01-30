@@ -4,7 +4,7 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class TieredLootEntry {
@@ -14,9 +14,9 @@ public class TieredLootEntry {
     private final Set<Biome> biomeFilter;
     private final Set<String> regionFilter;
     private final int weight;
-    private final Collection<DynamicItemModifier> modifiers;
+    private final List<DynamicItemModifier> modifiers;
 
-    public TieredLootEntry(String name, int tier, ItemStack loot, int weight, Collection<DynamicItemModifier> modifiers, Set<Biome> biomeFilter, Set<String> regionFilter){
+    public TieredLootEntry(String name, int tier, ItemStack loot, int weight, List<DynamicItemModifier> modifiers, Set<Biome> biomeFilter, Set<String> regionFilter){
         this.name = name;
         this.tier = tier;
         this.loot = loot;
@@ -50,7 +50,7 @@ public class TieredLootEntry {
         return weight;
     }
 
-    public Collection<DynamicItemModifier> getModifiers() {
+    public List<DynamicItemModifier> getModifiers() {
         return modifiers;
     }
 }

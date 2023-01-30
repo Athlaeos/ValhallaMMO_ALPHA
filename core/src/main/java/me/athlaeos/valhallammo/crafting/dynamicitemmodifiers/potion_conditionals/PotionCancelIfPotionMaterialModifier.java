@@ -15,8 +15,8 @@ public class PotionCancelIfPotionMaterialModifier extends DynamicItemModifier {
     private final Material requiredType;
     private final String typeString;
 
-    public PotionCancelIfPotionMaterialModifier(String name, double strength, ModifierPriority priority, Material type, Material icon) {
-        super(name, strength, priority);
+    public PotionCancelIfPotionMaterialModifier(String name, Material type, Material icon) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
         this.requiredType = type;
         typeString = Utils.toPascalCase(type.toString().replace("_", " "));
 
@@ -42,7 +42,7 @@ public class PotionCancelIfPotionMaterialModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (outputItem.getItemMeta() == null) return null;
 

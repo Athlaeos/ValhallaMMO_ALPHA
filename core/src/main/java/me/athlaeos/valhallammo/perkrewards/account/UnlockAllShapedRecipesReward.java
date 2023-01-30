@@ -1,5 +1,6 @@
 package me.athlaeos.valhallammo.perkrewards.account;
 
+import me.athlaeos.valhallammo.crafting.recipetypes.DynamicCraftingTableRecipe;
 import me.athlaeos.valhallammo.dom.ObjectType;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
 import me.athlaeos.valhallammo.perkrewards.PerkReward;
@@ -33,6 +34,10 @@ public class UnlockAllShapedRecipesReward extends PerkReward {
             Set<String> unlockedRecipes = accountProfile.getUnlockedRecipes();
 
             unlockedRecipes.addAll(CustomRecipeManager.getInstance().getShapedRecipes().keySet());
+
+            for (DynamicCraftingTableRecipe recipe : CustomRecipeManager.getInstance().getShapedRecipes().values()){
+                player.discoverRecipe(recipe.getKey());
+            }
 
             accountProfile.setUnlockedRecipes(unlockedRecipes);
             ProfileManager.getManager().setProfile(player, accountProfile, "ACCOUNT");

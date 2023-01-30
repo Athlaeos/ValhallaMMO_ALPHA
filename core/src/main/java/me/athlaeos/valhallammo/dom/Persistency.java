@@ -1,6 +1,5 @@
 package me.athlaeos.valhallammo.dom;
 
-import me.athlaeos.valhallammo.events.PlayerResetEvent;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.skills.Skill;
@@ -79,4 +78,6 @@ public abstract class Persistency {
      * saves and persists a profile
      */
     public abstract void savePlayerProfiles();
+
+    public abstract void savePlayerProfiles(Player p);
 }

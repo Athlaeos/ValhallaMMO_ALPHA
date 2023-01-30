@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.List;
 
-public class MultiplyQualityRatingModifier extends DynamicItemModifier implements Cloneable{
+public class MultiplyQualityRatingModifier extends DynamicItemModifier {
 
-    public MultiplyQualityRatingModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public MultiplyQualityRatingModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_MISC;
@@ -40,7 +40,7 @@ public class MultiplyQualityRatingModifier extends DynamicItemModifier implement
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         int quality = SmithingItemTreatmentManager.getInstance().getItemsQuality(outputItem);
         int newQuality = Math.max(0, (int) Math.floor(quality * strength));

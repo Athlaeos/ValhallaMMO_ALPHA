@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class EnchantCounterCancelIfExceededModifier extends DynamicItemModifier {
-    public EnchantCounterCancelIfExceededModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public EnchantCounterCancelIfExceededModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ENCHANTING_CONDITIONALS;
@@ -40,7 +40,7 @@ public class EnchantCounterCancelIfExceededModifier extends DynamicItemModifier 
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         int allowed = (int) AccumulativeStatManager.getInstance().getStats("ENCHANTING_MAX_CUSTOM_ALLOWED", crafter, this.use);
         if (CustomEnchantmentManager.getInstance().getEnchantmentsCount(outputItem) >= allowed && crafter.getGameMode() != GameMode.CREATIVE) return null;

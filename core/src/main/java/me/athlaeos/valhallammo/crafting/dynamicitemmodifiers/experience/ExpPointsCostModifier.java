@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class ExpPointsCostModifier extends DynamicItemModifier {
-    public ExpPointsCostModifier(String name, double strength, ModifierPriority priority) {
-        super(name, strength, priority);
+    public ExpPointsCostModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
 
@@ -37,16 +37,16 @@ public class ExpPointsCostModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (crafter == null) return null;
         if (crafter.getGameMode() == GameMode.CREATIVE) return outputItem;
         int playerExperience = Utils.getTotalExperience(crafter);
         if (this.validate){
-            if (playerExperience < (int) strength) return null;
+            if (playerExperience < ((int) strength * timesExecuted)) return null;
         }
         if (this.use){
-            if (playerExperience < (int) strength) return null;
-            Utils.setTotalExperience(crafter, playerExperience - (int) strength);
+            if (playerExperience < ((int) strength * timesExecuted)) return null;
+            Utils.setTotalExperience(crafter, playerExperience - ((int) strength * timesExecuted));
         }
         return outputItem;
     }

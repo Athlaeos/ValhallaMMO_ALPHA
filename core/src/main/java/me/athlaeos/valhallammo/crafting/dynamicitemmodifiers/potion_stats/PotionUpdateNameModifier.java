@@ -15,8 +15,8 @@ import java.util.List;
 
 public class PotionUpdateNameModifier extends DynamicItemModifier {
 
-    public PotionUpdateNameModifier(String name, double duration_ticks, ModifierPriority priority) {
-        super(name, duration_ticks, priority);
+    public PotionUpdateNameModifier(String name) {
+        super(name, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.POTION_MISC;
@@ -42,7 +42,7 @@ public class PotionUpdateNameModifier extends DynamicItemModifier {
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
         if (!(outputItem.getItemMeta() instanceof PotionMeta)) return null;
         PotionEffectManager.renamePotion(outputItem, true);

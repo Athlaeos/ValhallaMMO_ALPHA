@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class ArrowSFireballUpgradeModifier extends DuoArgDynamicItemModifier implements DynamicEditable {
-    public ArrowSFireballUpgradeModifier(String name, double strength, double strength2, ModifierPriority priority) {
-        super(name, strength, strength2, priority);
+    public ArrowSFireballUpgradeModifier(String name) {
+        super(name, 0D, 0D, ModifierPriority.NEUTRAL);
 
         this.name = name;
         this.category = ModifierCategory.ITEM_STATS_CUSTOM;
@@ -53,7 +53,7 @@ public class ArrowSFireballUpgradeModifier extends DuoArgDynamicItemModifier imp
     }
 
     @Override
-    public ItemStack processItem(Player crafter, ItemStack outputItem) {
+    public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
 
         CustomArrowManager.getInstance().addArrowAttribute(outputItem, "small_fireball_arrow", strength, (int) strength2);

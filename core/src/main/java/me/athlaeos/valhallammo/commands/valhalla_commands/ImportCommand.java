@@ -92,10 +92,24 @@ public class ImportCommand implements Command {
 							break;
 						}
 						case "shaped":{
-							Collection<DynamicShapedRecipe> recipes = CustomRecipeManager.getInstance().getDynamicShapedRecipesFromConfig(config);
-							for (DynamicShapedRecipe recipe : recipes){
+							Collection<DynamicCraftingTableRecipe> recipes = CustomRecipeManager.getInstance().getDynamicShapedRecipesFromConfig(config);
+							for (DynamicCraftingTableRecipe recipe : recipes){
 								if (overwrite){
-									DynamicShapedRecipe existingRecipe = CustomRecipeManager.getInstance().getDynamicShapedRecipe(recipe.getName());
+									DynamicCraftingTableRecipe existingRecipe = CustomRecipeManager.getInstance().getDynamicShapedRecipe(recipe.getName());
+									if (existingRecipe != null){
+										CustomRecipeManager.getInstance().unregister(existingRecipe);
+									}
+								}
+								CustomRecipeManager.getInstance().register(recipe);
+							}
+							CustomRecipeManager.shouldSaveRecipes();
+							break;
+						}
+						case "smithing":{
+							Collection<DynamicSmithingTableRecipe> recipes = CustomRecipeManager.getInstance().getDynamicSmithingTableRecipesFromConfig(config);
+							for (DynamicSmithingTableRecipe recipe : recipes){
+								if (overwrite){
+									DynamicSmithingTableRecipe existingRecipe = CustomRecipeManager.getInstance().getDynamicSmithingRecipe(recipe.getName());
 									if (existingRecipe != null){
 										CustomRecipeManager.getInstance().unregister(existingRecipe);
 									}

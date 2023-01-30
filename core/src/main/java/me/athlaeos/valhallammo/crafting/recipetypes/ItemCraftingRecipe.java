@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.List;
 
 public class ItemCraftingRecipe extends AbstractCustomCraftingRecipe implements Cloneable{
     // Crafts an item for the player if the player has the required ingredients
@@ -27,17 +28,17 @@ public class ItemCraftingRecipe extends AbstractCustomCraftingRecipe implements 
         this.result = result;
     }
 
-    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers){
+    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, List<DynamicItemModifier> itemModifiers){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers);
         this.result = result;
     }
 
-    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta){
+    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, List<DynamicItemModifier> itemModifiers, boolean requireExactMeta){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta);
         this.result = result;
     }
 
-    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, Collection<DynamicItemModifier> itemModifiers, boolean requireExactMeta, int subsequentCrafts){
+    public ItemCraftingRecipe(String name, String displayName, ItemStack result, Material craftingBlock, Collection<ItemStack> ingredients, int craftingTime, boolean breakStation, List<DynamicItemModifier> itemModifiers, boolean requireExactMeta, int subsequentCrafts){
         super(name, displayName, craftingBlock, ingredients, craftingTime, breakStation, itemModifiers, requireExactMeta, subsequentCrafts);
         this.result = result;
     }

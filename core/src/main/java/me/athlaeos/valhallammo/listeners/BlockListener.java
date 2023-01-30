@@ -1,6 +1,7 @@
 package me.athlaeos.valhallammo.listeners;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.crafting.CauldronCraftingListener;
 import me.athlaeos.valhallammo.events.BlockDropItemStackEvent;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
 import me.athlaeos.valhallammo.loottables.LootManager;
@@ -15,6 +16,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,6 +25,7 @@ import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -48,10 +51,25 @@ public class BlockListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onStructureForm(StructureGrowEvent e){
+        if (ValhallaMMO.isWorldBlacklisted(e.getWorld().getName())) return;
+        if (!e.isCancelled()){
+            for (BlockState b : e.getBlocks()){
+                BlockStore.setPlaced(b.getBlock(), false);
+            }
+        }
+    }
+
     @EventHandler(priority =EventPriority.HIGHEST)
     public void onPistonExtend(BlockPistonExtendEvent e){
         if (ValhallaMMO.isWorldBlacklisted(e.getBlock().getWorld().getName())) return;
         if (!e.isCancelled()){
+            if (e.getBlocks().stream().anyMatch(CauldronCraftingListener::isCustomCauldron)) {
+                e.setCancelled(true);
+                return;
+            }
+
             for (Block b : e.getBlocks()){
                 BlockStore.setPlaced(b, true);
             }
@@ -72,6 +90,11 @@ public class BlockListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e){
         if (ValhallaMMO.isWorldBlacklisted(e.getBlock().getWorld().getName())) return;
         if (!e.isCancelled()){
+
+            if (CauldronCraftingListener.isCustomCauldron(e.getBlock())){
+                CauldronCraftingListener.dumpCauldronContents(e.getBlock());
+            }
+
             for (Skill s : SkillProgressionManager.getInstance().getAllSkills().values()){
                 if (s != null){
                     if (s instanceof GatheringSkill){
