@@ -109,6 +109,8 @@ public class EntityDamagedListener implements Listener {
 
         String scaling = config.getString("damage_formula_physical", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)");
 
+        ValhallaMMO.getPlugin().getServer().getLogger().info(">> INFO : physical damage scaling set to (" + scaling + ")");
+
         physicalDamageScalingSetMode = config.getString("damage_formula_mode", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)").equalsIgnoreCase("set");
         physicalDamageReductionCap = config.getDouble("damage_reduction_cap");
         physicalDamageScaling = new Scaling(scaling, null, 0, 0, false, false);
@@ -186,6 +188,7 @@ public class EntityDamagedListener implements Listener {
         tridentThrownLoyal = config.getDouble("trident_damage_ranged_loyalty");
 
         String scaling = config.getString("damage_formula_physical", "%damage% * (10 / (10 + %armor%)) - (%damage%^2 * 0.00005 * %toughness%)");
+        ValhallaMMO.getPlugin().getServer().getLogger().info(">> INFO : physical damage scaling set to (" + scaling + ")");
         physicalDamageScalingSetMode = config.getString("damage_formula_mode", "").equalsIgnoreCase("set");
         physicalDamageReductionCap = config.getDouble("damage_reduction_cap");
         physicalDamageScaling = new Scaling(scaling, null, 0, 0, false, false);

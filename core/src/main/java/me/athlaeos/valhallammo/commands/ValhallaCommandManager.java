@@ -51,6 +51,10 @@ public class ValhallaCommandManager implements TabExecutor {
 		command.setExecutor(this);
 	}
 
+	public Map<String, Command> getCommands() {
+		return commands;
+	}
+
 	public static ValhallaCommandManager getInstance(){
 		if (manager == null){
 			manager = new ValhallaCommandManager(ValhallaMMO.getPlugin());

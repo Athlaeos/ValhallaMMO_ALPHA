@@ -51,7 +51,6 @@ public class CustomEnchantmentManager {
     public CustomEnchantmentManager(){
         registeredEnchantments = new HashMap<>();
 
-        registerEnchantment(new AcrobaticsEnchantment(0D));
         registerEnchantment(new AlchemyBrewSpeedEnchantment(0D));//
         registerEnchantment(new AlchemyIngredientSaveEnchantment(0D));//
         registerEnchantment(new AlchemyPotionSaveEnchantment(0D));//
@@ -74,8 +73,6 @@ public class CustomEnchantmentManager {
         registerEnchantment(new DiggingExtraDropsEnchantment(0D));//
         registerEnchantment(new DiggingRareDropsEnchantment(0D));//
         registerEnchantment(new SmithingQualityEnchantment(0D));//
-        registerEnchantment(new TradingEnchantment(0D));
-        registerEnchantment(new UnarmedDamageEnchantment(0D));
         registerEnchantment(new WeaponsDamageEnchantment(0D));//
         registerEnchantment(new HealthMultiplierEnchantment(0D));
 

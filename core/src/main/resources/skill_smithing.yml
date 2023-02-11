@@ -40,7 +40,7 @@ treatment_lore: # The treatment lores displayed on the item if hide_treatment_lo
   UNENCHANTABLE: '<lang.smithing-treatment-unenchantable>'
   UNMENDABLE: '<lang.smithing-treatment-unmendable>'
 
-scaling_quantity: '0.7/300 * %rating%' # Quantity
+scaling_quantity: '0.8/300 * %rating%' # Quantity
 scaling_minimum: 0
 scaling_maximum: 0.8
 

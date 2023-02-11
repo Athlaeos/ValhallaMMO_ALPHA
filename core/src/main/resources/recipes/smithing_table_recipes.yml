@@ -1880,7 +1880,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -1932,7 +1932,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -1984,7 +1984,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -2036,7 +2036,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -2088,7 +2088,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -2144,7 +2144,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -2200,7 +2200,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -2256,7 +2256,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
@@ -2312,7 +2312,7 @@ smithing:
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 10.0
-        strength: 28.0
+        strength: 1500.0
         priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true

@@ -5211,3 +5211,130 @@ brewing:
         custom-model-data: 9192782
     unlocked_for_everyone: false
     use_meta: true
+    # REVISION
+  potion_extra_cool_lingering:
+    name: potion_extra_cool_lingering
+    required_type: LINGERING_POTION
+    modifiers:
+      potions_treatment_cancel_if_diluted:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_uncraftable:
+        strength: 0.0
+        priority: SOONEST
+      potions_treatment_cancel_if_concentrated:
+        strength: 0.0
+        priority: SOONEST
+      potions_treatment_cancel_if_empowered:
+        strength: 0.0
+        priority: SOONEST
+      potions_dynamic_amplifier:
+        strength2: 2.0
+        strength: 100.0
+        priority: SOON
+      potions_dynamic_duration:
+        strength2: 2.0
+        strength: 100.0
+        priority: SOON
+      potions_treatment_add_empowered:
+        strength: 0.0
+        priority: SOON
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 225.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIGHT_GRAY_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-alchemical-powder>"}],"text":""}'
+        custom-model-data: 8892300
+    unlocked_for_everyone: false
+    use_meta: true
+  potion_extra_cool:
+    name: potion_extra_cool
+    required_type: POTION
+    modifiers:
+      potions_treatment_cancel_if_diluted:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_uncraftable:
+        strength: 0.0
+        priority: SOONEST
+      potions_treatment_cancel_if_concentrated:
+        strength: 0.0
+        priority: SOONEST
+      potions_treatment_cancel_if_empowered:
+        strength: 0.0
+        priority: SOONEST
+      potions_dynamic_amplifier:
+        strength2: 2.0
+        strength: 100.0
+        priority: SOON
+      potions_dynamic_duration:
+        strength2: 2.0
+        strength: 100.0
+        priority: SOON
+      potions_treatment_add_empowered:
+        strength: 0.0
+        priority: SOON
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 225.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIGHT_GRAY_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-alchemical-powder>"}],"text":""}'
+        custom-model-data: 8892300
+    unlocked_for_everyone: false
+    use_meta: true
+  potion_extra_cool_splash:
+    name: potion_extra_cool_splash
+    required_type: SPLASH_POTION
+    modifiers:
+      potions_treatment_cancel_if_diluted:
+        strength: 0.0
+        priority: SOONEST
+      potions_type_require_uncraftable:
+        strength: 0.0
+        priority: SOONEST
+      potions_treatment_cancel_if_concentrated:
+        strength: 0.0
+        priority: SOONEST
+      potions_treatment_cancel_if_empowered:
+        strength: 0.0
+        priority: SOONEST
+      potions_dynamic_amplifier:
+        strength2: 2.0
+        strength: 100.0
+        priority: SOON
+      potions_dynamic_duration:
+        strength2: 2.0
+        strength: 100.0
+        priority: SOON
+      potions_treatment_add_empowered:
+        strength: 0.0
+        priority: SOON
+      exp_bonus_alchemy:
+        strength2: 0.0
+        strength: 225.0
+        priority: LAST
+    ingredient:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIGHT_GRAY_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-alchemical-powder>"}],"text":""}'
+        custom-model-data: 8892300
+    unlocked_for_everyone: false
+    use_meta: true

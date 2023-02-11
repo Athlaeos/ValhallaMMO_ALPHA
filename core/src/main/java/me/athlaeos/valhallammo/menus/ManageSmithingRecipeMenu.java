@@ -148,8 +148,8 @@ public class ManageSmithingRecipeMenu extends Menu implements AdvancedCraftingMa
             unlockedForEveryone = recipe.isUnlockedForEveryone();
             allowBaseVariations = recipe.isAllowBaseVariations();
             allowAdditionVariations = recipe.isAllowAdditionVariations();
-            resultModifiers = recipe.getModifiersResult();
-            additionModifiers = recipe.getModifiersAddition();
+            //resultModifiers = recipe.getModifiersResult();
+            //additionModifiers = recipe.getModifiersAddition();
             base = recipe.getBase();
             addition = recipe.getAddition();
             result = recipe.getResult();

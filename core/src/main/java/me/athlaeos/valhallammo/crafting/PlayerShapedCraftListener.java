@@ -66,7 +66,7 @@ public class PlayerShapedCraftListener implements Listener {
                         }
                     }
                     if (!Utils.isItemEmptyOrNull(e.getInventory().getResult())){
-                        ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getInventory().getResult(), e.getRecipe() instanceof ShapelessRecipe);
+                        ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getRecipe().getResult(), e.getRecipe() instanceof ShapelessRecipe);
                         if (result != null){
                             PlayerInventory inventory = e.getWhoClicked().getInventory(); //Get crafting inventory
                             ClickType clickType = e.getClick();
@@ -164,7 +164,14 @@ public class PlayerShapedCraftListener implements Listener {
 
             if (recipe != null){
                 if (!Utils.isItemEmptyOrNull(e.getInventory().getResult())){
-                    ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getInventory().getResult(), e.getRecipe() instanceof ShapelessRecipe);
+                    if (recipe.getToolRequirementType() > 0){
+                        int slotMatchFound = getRequiredTool(e.getViewers().get(0).getInventory(), recipe.getRequiredToolId(), recipe.getToolRequirementType());
+                        if (slotMatchFound < 0){
+                            e.getInventory().setResult(null);
+                            return;
+                        }
+                    }
+                    ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getRecipe().getResult(), e.getRecipe() instanceof ShapelessRecipe);
                     if (result != null){
                         if (e.getViewers().size() > 0){
                             if (!e.getViewers().get(0).hasPermission("valhalla.allrecipes")){

@@ -21,8 +21,14 @@ is_spigot: true # Spigot works slightly differently from its forks, and these di
 # work on for example PaperMC or Purpur. If you are running on spigot, keep this true. If you are using a fork off spigot,
 # it's recommended to set this to false as it may improve other plugin compatibility
 language: 'en-us' # The language file used. Language files can be found in ValhallaMMO/languages
-profile_version: 0 # The version of profiles used to define player's stats with. If you wish every player to start over,
-# increment this value by 1. If a player's profile version does not match this number, their profiles will be reset upon joining.
+profile-version: 0 # Old profile version. Incrementing this will only SOFT RESET players if they still have profiles using the old version.
+# If you just started using this plugin, this option won't do anything.
+profile_main_version: 0
+profile_sub_version: 0 # The version of profiles used to define player's stats with. The number before the dot is the main version, and
+# number after the dot the subversion. If the main version is incremented, all players joining will receive a hard reset the first time,
+# meaning they're completely reset and lose all progress. If the subversion is incremented, all players will instead receive a minor reset,
+# meaning they're completely reset, but their exp is refunded so they don't lose progress.
+# Example: if a player's profile is on version 0.0, setting this value to 0.1 would give them a soft reset whereas 1.0 would give them a hard reset.
 world_blacklist: # If a world name is in this list, ValhallaMMO has absolutely no influence here.
   - exampleworldlol
 
@@ -45,7 +51,7 @@ skilltree_arrow_data_nw: 3511001
 
 # If enabled, the player will receive a book (detailed in tutorial_book.yml) on first join. This book will attempt to
 # teach the player some of the plugin's more obscure mechanics, such as the custom crafting mechanics
-book_on_join: true
+book_on_join: false
 
 # Disabled skills are not registered and thus not visible in the skill trees, you can also not gain EXP for them.
 enabled_skills:

@@ -1,1 +1,25 @@
-items: []
+items:
+  '0':
+    ==: org.bukkit.inventory.ItemStack
+    v: 2586
+    type: DIAMOND
+  '1':
+    ==: org.bukkit.inventory.ItemStack
+    v: 2586
+    type: IRON_INGOT
+  '2':
+    ==: org.bukkit.inventory.ItemStack
+    v: 2586
+    type: GOLD_INGOT
+  '3':
+    ==: org.bukkit.inventory.ItemStack
+    v: 2586
+    type: LEATHER
+  '4':
+    ==: org.bukkit.inventory.ItemStack
+    v: 2586
+    type: IRON_NUGGET
+  '5':
+    ==: org.bukkit.inventory.ItemStack
+    v: 2586
+    type: OAK_PLANKS

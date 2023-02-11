@@ -36,7 +36,7 @@ public enum MaterialClass {
     MEMBRANE(Collections.singletonList(Material.ELYTRA)),
     OTHER(null);
 
-    private List<Material> matchingMaterials;
+    private final List<Material> matchingMaterials;
 
     MaterialClass(List<Material> matchingMaterials){
         if (matchingMaterials == null){

@@ -61,7 +61,9 @@ public class CustomEnchantAddModifier extends DuoArgDynamicItemModifier {
     @Override
     public ItemStack processItem(Player crafter, ItemStack outputItem, int timesExecuted) {
         if (outputItem == null) return null;
-        if (CustomEnchantmentManager.getInstance().getCustomEnchant(outputItem, enchantment) != null) return null;
+        if (CustomEnchantmentManager.getInstance().getCustomEnchant(outputItem, enchantment) != null) {
+            return null;
+        }
         EnchantmentWrapper wrapper = CustomEnchantmentManager.getInstance().getRegisteredEnchantments().get(enchantment);
         if (wrapper == null) {
             if (crafter == null) return null;

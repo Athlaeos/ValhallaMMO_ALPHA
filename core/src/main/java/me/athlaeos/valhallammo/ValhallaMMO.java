@@ -62,29 +62,18 @@ public final class ValhallaMMO extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        saveAndUpdateConfig("config.yml");
         pack_enabled = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("resource_pack_config_override");
         if (!setupNMS()){
-            this.getLogger().severe("This version of ValhallaMMO is not compatible, versions at or under 1.16.4 are not supported. Certain features are disabled");
+            this.getLogger().warning("This version of ValhallaMMO is not compatible, versions at or under 1.16.4 are not supported. Certain features are disabled. (don't worry, no such features exist yet)");
         } else {
             this.getServer().getPluginManager().registerEvents(nms, this);
         }
-        saveAndUpdateConfig("config.yml");
         saveAndUpdateConfig("languages/en-us.yml");
         TranslationManager.getInstance();
 
         this.getServer().getConsoleSender().sendMessage(Utils.chat("&6[&eValhallaMMO&6] &fEnabling ValhallaMMO, this might take a bit..."));
         ArtificialGlow.registerGlow();
-
-        saveConfig("old_configuration/recipes/improvement_recipes.yml");
-        saveConfig("old_configuration/recipes/class_improvement_recipes.yml");
-        saveConfig("old_configuration/recipes/crafting_recipes.yml");
-        saveConfig("old_configuration/recipes/shaped_recipes.yml");
-        saveConfig("old_configuration/recipes/cooking_recipes.yml");
-        saveConfig("old_configuration/recipes/cauldron_recipes.yml");
-        saveConfig("old_configuration/recipes/smithing_table_recipes.yml");
-        saveConfig("old_configuration/readme.txt");
-        saveConfig("old_configuration/progression_alchemy.yml");
-        saveConfig("old_configuration/progression_enchanting.yml");
 
         saveConfig("recipes/brewing_recipes.yml");
         saveConfig("recipes/improvement_recipes.yml");
@@ -96,6 +85,7 @@ public final class ValhallaMMO extends JavaPlugin {
         saveConfig("recipes/smithing_table_recipes.yml");
         saveConfig("sounds.yml");
         saveConfig("tutorial_book.yml");
+        saveConfig("item_dictionary.yml");
         saveAndUpdateConfig("skill_alchemy.yml", Arrays.asList("effects_inverted", "quality_cosmetic"));
         saveAndUpdateConfig("skill_archery.yml");
         saveAndUpdateConfig("skill_enchanting.yml");

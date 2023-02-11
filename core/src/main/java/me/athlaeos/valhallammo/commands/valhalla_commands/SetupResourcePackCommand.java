@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class SetupResourcePackCommand implements Command {
-	private static final String downloadLink = "https://download.mc-packs.net/pack/fa25fc400c75c327dcfc181d544475577ce13001.zip";
+	private static final String downloadLink = "https://download.mc-packs.net/pack/4095e66e097e7b4ce85dff0f6c44a73a024e5fa5.zip";
 
 	/*
 	 * I copied most of this from EliteMobs source code, so code credit for this class goes to them

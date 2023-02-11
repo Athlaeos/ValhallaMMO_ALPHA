@@ -2,10 +2,9 @@ name: ValhallaMMO
 version: ALPHA_1.8
 main: me.athlaeos.valhallammo.ValhallaMMO
 api-version: 1.14
-authors: [Athlaeos]
-loadbefore: [ ValhallaTrinkets ]
+authors: [ Athlaeos ]
 softdepend: [ ValhallaTrinkets ]
-description: Adds in 14 skills with new mechanics, custom recipes, skill trees, and leveling.
+description: Adds in 12 skills with new mechanics, custom recipes, skill trees, and leveling.
 commands:
   valhalla:
     description: Main command for all things ValhallaMMO-related

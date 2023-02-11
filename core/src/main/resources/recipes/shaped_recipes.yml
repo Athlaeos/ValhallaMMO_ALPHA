@@ -7990,7 +7990,7 @@ shaped:
       '1':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
-        type: IRON_INGOT
+        type: IRON_NUGGET
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -11270,7 +11270,7 @@ shaped:
     tool_id: -1
     tool_requirement_type: 0
     allow_material_variations: false
-  # HERE
+  # REVISION 1
   enchantment_upgrade_alchemy_leather_helmet:
     ingredients:
       '0':
@@ -23228,3 +23228,1360 @@ shaped:
     tool_id: -1
     tool_requirement_type: 0
     allow_material_variations: false
+    # REVISION 2
+  craft_netherite_cutters:
+    ingredients:
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: NETHERITE_INGOT
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: NETHERITE_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-netherite-shears>"}],"text":""}'
+        lore:
+          - '{"extra":[{"italic":false,"color":"white","text":"<lang.lore-material-netherite-shears>"}],"text":""}'
+        custom-model-data: 8877280
+        PublicBukkitValues:
+          valhallammo:material_type: NETHERITE
+          valhallammo:valhalla_tool_id: 1i
+    modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      durability_static:
+        strength: 1024.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: SOON
+      exp_bonus_smithing:
+        strength2: 10.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: false
+    use_meta: true
+    unlocked_for_everyone: true
+    improve_center_item: false
+    shapeless: false
+    tool_id: -1
+    tool_requirement_type: 0
+    allow_material_variations: false
+  salvage_leather_helmet:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+      amount: 5
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 5.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 3.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_leather_chestplate:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+      amount: 8
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 8.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 3.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_leather_leggings:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+      amount: 7
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 7.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 3.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_leather_boots:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LEATHER_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+      amount: 4
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 4.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 3.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_chainmail_helmet:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: CHAINMAIL_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 5
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 5.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 4.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_chainmail_chestplate:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: CHAINMAIL_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 24
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 24.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 4.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_chainmail_leggings:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: CHAINMAIL_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 23
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 23.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 4.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_chainmail_boots:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: CHAINMAIL_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 20
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 20.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 4.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_helmet:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 5
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 5.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_chestplate:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 8
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 8.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_leggings:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 7
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 7.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_boots:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 4
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 4.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_helmet:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 5
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 5.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_chestplate:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 8
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 8.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_leggings:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 7
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 7.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_boots:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 4
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 4.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_helmet:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 5
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 5.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_chestplate:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 8
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 8.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_leggings:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 7
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 7.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_boots:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 4
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 4.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_wooden_sword:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: WOODEN_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 5.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_wooden_pickaxe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: WOODEN_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 5.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_wooden_axe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: WOODEN_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 5.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_wooden_hoe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: WOODEN_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 5.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_stone_sword:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STONE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_stone_axe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STONE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_stone_pickaxe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STONE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_stone_hoe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: STONE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_sword:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_pickaxe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_axe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_gold_hoe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GOLDEN_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 2.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_sword:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_pickaxe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_axe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_iron_hoe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: IRON_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 1.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_sword:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_pickaxe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_axe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 3
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 3.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+  salvage_diamond_hoe:
+    ingredients:
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      amount: 2
+    modifiers:
+      dynamic_amount:
+        strength2: 0.0
+        strength: 200.0
+        priority: SOON
+        strength3: 0.0
+      set_amount:
+        strength: 2.0
+        priority: SOONEST
+      change_item_keeping_amount:
+        strength: 0.0
+        priority: SOONISH
+    require_custom_tools: true
+    use_meta: false
+    unlocked_for_everyone: true
+    improve_center_item: true
+    shapeless: true
+    tool_id: 1
+    tool_requirement_type: 1
+    allow_material_variations: false
+    # REVISION 3
+  craft_diamond_dust:
+    ingredients:
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: DIAMOND
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: ENDER_PEARL
+      '7':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: BLAZE_POWDER
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIGHT_BLUE_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-diamond-dust>"}],"text":""}'
+        custom-model-data: 8892300
+    require_custom_tools: false
+    use_meta: true
+    unlocked_for_everyone: true
+    improve_center_item: false
+    shapeless: true
+    tool_id: -1
+    tool_requirement_type: 0
+    allow_material_variations: false
+  craft_alchemical_powder:
+    ingredients:
+      '3':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: GLOWSTONE_DUST
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: REDSTONE
+      '5':
+        ==: org.bukkit.inventory.ItemStack
+        v: 2586
+        type: LIGHT_BLUE_DYE
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-diamond-dust>"}],"text":""}'
+          custom-model-data: 8892300
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIGHT_GRAY_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-alchemical-powder>"}],"text":""}'
+        custom-model-data: 8892300
+    require_custom_tools: false
+    use_meta: true
+    unlocked_for_everyone: true
+    improve_center_item: false
+    shapeless: true
+    tool_id: -1
+    tool_requirement_type: 0
+    allow_material_variations: false
+

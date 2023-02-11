@@ -52,15 +52,15 @@ public class AccumulativeStatManager {
         register("CRAFTING_TIME_REDUCTION", new ArbitraryEnchantmentAmplifierSource("CRAFTING_SPEED"), new ArbitraryPotionAmplifierSource("CRAFTING_TIME_REDUCTION", false), new SmithingCraftingTimeReductionSource());
 
         //register("ARMOR", new ProfileBaseArmorBonusSource(), new EquipmentAttributeSource("GENERIC_ARMOR"), new EntityAttributeArmorRatingSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
-        register("ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatArmorIgnoredSource(), new LightWeaponsProfileFlatArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FLAT_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierSource("FLAT_ARMOR_PENETRATION"));
-        register("ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionArmorIgnoredSource(), new LightWeaponsProfileFractionArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FRACTION_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierSource("FRACTION_ARMOR_PENETRATION"));
+        register("ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatArmorIgnoredSource(), new LightWeaponsProfileFlatArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FLAT_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_ARMOR_PENETRATION"));
+        register("ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionArmorIgnoredSource(), new LightWeaponsProfileFractionArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FRACTION_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_ARMOR_PENETRATION"));
         register("TOUGHNESS", new EquipmentAttributeSource("GENERIC_ARMOR_TOUGHNESS"), new EntityAttributeArmorToughnessSource());
         register("LIGHT_ARMOR", new LightArmorEquipmentAttributeSource("GENERIC_ARMOR"), new ArbitraryPotionAmplifierSource("LIGHT_ARMOR_FLAT_BONUS", false));
-        register("LIGHT_ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatLightArmorIgnoredSource(), new LightWeaponsProfileFlatLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierSource("FLAT_LIGHT_ARMOR_PENETRATION"));
-        register("LIGHT_ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionLightArmorIgnoredSource(), new LightWeaponsProfileFractionLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierSource("FRACTION_LIGHT_ARMOR_PENETRATION"));
+        register("LIGHT_ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatLightArmorIgnoredSource(), new LightWeaponsProfileFlatLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_LIGHT_ARMOR_PENETRATION"));
+        register("LIGHT_ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionLightArmorIgnoredSource(), new LightWeaponsProfileFractionLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_LIGHT_ARMOR_PENETRATION"));
         register("HEAVY_ARMOR", new HeavyArmorEquipmentAttributeSource("GENERIC_ARMOR"), new ArbitraryPotionAmplifierSource("HEAVY_ARMOR_FLAT_BONUS", false));
-        register("HEAVY_ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatHeavyArmorIgnoredSource(), new LightWeaponsProfileFlatHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierSource("FLAT_HEAVY_ARMOR_PENETRATION"));
-        register("HEAVY_ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionHeavyArmorIgnoredSource(), new LightWeaponsProfileFractionHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierSource("FRACTION_HEAVY_ARMOR_PENETRATION"));
+        register("HEAVY_ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatHeavyArmorIgnoredSource(), new LightWeaponsProfileFlatHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_HEAVY_ARMOR_PENETRATION"));
+        register("HEAVY_ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionHeavyArmorIgnoredSource(), new LightWeaponsProfileFractionHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_HEAVY_ARMOR_PENETRATION"));
         // returns all armor that came from non-equipment sources, like attributes/potion effects
         register("NON_EQUIPMENT_ARMOR", new TrinketAttributeSource("GENERIC_ARMOR"), new WeightlessArmorEquipmentAttributeSource(), new EntityAttributeArmorRatingSource(), new ProfileBaseArmorBonusSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
 
@@ -83,9 +83,9 @@ public class AccumulativeStatManager {
         register("HEALING_BONUS", new ArbitraryEnchantmentAmplifierSource("HEALING_BONUS"), new ArbitraryPotionAmplifierSource("HEALING_BONUS", false), new ProfileHealthRegenerationBonusSource(), new LightArmorProfileFullArmorHealingBonusSource(), new HeavyArmorProfileFullArmorHealingBonusSource(), new ArbitraryPotionAmplifierSource("POISON_ANTI_HEAL", true));
         register("REFLECT_CHANCE", new ArbitraryPotionAmplifierSource("REFLECT_CHANCE", false), new HeavyArmorProfileFullArmorReflectChanceSource());
         register("REFLECT_FRACTION", new ArbitraryPotionAmplifierSource("REFLECT_FRACTION", false), new HeavyArmorProfileReflectFractionSource());
-        register("BLEED_CHANCE", new HeavyWeaponsProfileBleedChanceSource(), new LightWeaponsProfileBleedChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_CHANCE", false), new ArbitraryEnchantmentAmplifierSource("BLEED_CHANCE"));
-        register("BLEED_DAMAGE", new HeavyWeaponsProfileBleedDamageSource(), new LightWeaponsProfileBleedDamageSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DAMAGE", false), new ArbitraryEnchantmentAmplifierSource("BLEED_DAMAGE"));
-        register("BLEED_DURATION", new HeavyWeaponsProfileBleedDurationSource(), new LightWeaponsProfileBleedDurationSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DURATION", false), new ArbitraryEnchantmentAmplifierSource("BLEED_DURATION"));
+        register("BLEED_CHANCE", new HeavyWeaponsProfileBleedChanceSource(), new LightWeaponsProfileBleedChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_CHANCE"));
+        register("BLEED_DAMAGE", new HeavyWeaponsProfileBleedDamageSource(), new LightWeaponsProfileBleedDamageSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_DAMAGE"));
+        register("BLEED_DURATION", new HeavyWeaponsProfileBleedDurationSource(), new LightWeaponsProfileBleedDurationSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DURATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_DURATION"));
         register("PARRY_ENEMY_DEBUFF_DURATION", new HeavyWeaponsProfileParryEnemyDebuffDurationSource(), new LightWeaponsProfileParryEnemyDebuffDurationSource());
         register("PARRY_DAMAGE_REDUCTION", new HeavyWeaponsProfileParryDamageReductionSource(), new LightWeaponsProfileParryDamageReductionSource());
         register("PARRY_DEBUFF_DURATION", new HeavyWeaponsProfileParryFailedDebuffDurationSource(), new LightWeaponsProfileParryFailedDebuffDurationSource());
@@ -197,9 +197,9 @@ public class AccumulativeStatManager {
         register("ARCHERY_BOW_DAMAGE_MULTIPLIER", new ArcheryProfileBowDamageMultiplierSource());
         register("ARCHERY_CROSSBOW_DAMAGE_MULTIPLIER", new ArcheryProfileCrossBowDamageMultiplierSource());
         register("ARCHERY_AMMO_SAVE_CHANCE", new ArbitraryEnchantmentAmplifierSource("ARCHERY_AMMO_SAVE"), new ArbitraryPotionAmplifierSource("ARCHERY_AMMO_SAVE", false), new ArcheryProfileAmmoSaveChanceSource());
-        register("ARCHERY_BOW_CRIT_CHANCE", new ArcheryProfileBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false));
-        register("ARCHERY_CROSSBOW_CRIT_CHANCE", new ArcheryProfileCrossBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false));
-        register("ARCHERY_CRIT_DAMAGE_MULTIPLIER", new ArcheryProfileCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false));
+        register("ARCHERY_BOW_CRIT_CHANCE", new ArcheryProfileBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("ARCHERY_CROSSBOW_CRIT_CHANCE", new ArcheryProfileCrossBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("ARCHERY_CRIT_DAMAGE_MULTIPLIER", new ArcheryProfileCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
         register("ARCHERY_CHARGED_SHOT_COOLDOWN", new ArcheryProfileChargeShotCooldownSource());
         register("ARCHERY_CHARGED_SHOT_KNOCKBACK_BONUS", new ArcheryProfileChargeShotKnockbackBonusSource());
         register("ARCHERY_CHARGED_SHOT_DAMAGE_MULTIPLIER", new ArcheryProfileChargeShotDamageMultiplierSource());
@@ -222,18 +222,18 @@ public class AccumulativeStatManager {
         register("HEAVY_ARMOR_MULTIPLIER", new HeavyArmorProfileArmorValueMultiplierSource(), new HeavyArmorProfileFullArmorArmorValueBonusSource(), new ArbitraryPotionAmplifierSource("HEAVY_ARMOR_FRACTION_BONUS", false));
         register("HEAVY_ARMOR_EXP_GAIN", new HeavyArmorEXPSource());
 
-        register("LIGHT_WEAPONS_CRIT_CHANCE", new LightWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierSource("CRIT_CHANCE"));
-        register("LIGHT_WEAPONS_CRIT_DAMAGE", new LightWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierSource("CRIT_DAMAGE"));
-        register("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", new ArbitraryEnchantmentAmplifierSource("HEAVY_ARMOR_DAMAGE"), new LightWeaponsProfileDamageMultiplierSource(), new LightWeaponsProfileHeavyArmorDamageBonusSource(), new LightWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
+        register("LIGHT_WEAPONS_CRIT_CHANCE", new LightWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("LIGHT_WEAPONS_CRIT_DAMAGE", new LightWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
+        register("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", new ArbitraryEnchantmentAmplifierOnAttackSource("HEAVY_ARMOR_DAMAGE"), new LightWeaponsProfileDamageMultiplierSource(), new LightWeaponsProfileHeavyArmorDamageBonusSource(), new LightWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
         register("LIGHT_WEAPONS_EXP_GAIN", new LightWeaponsEXPSource());
-        register("LIGHT_WEAPONS_STUN_CHANCE", new LightWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierSource("STUN_CHANCE"));
+        register("LIGHT_WEAPONS_STUN_CHANCE", new LightWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("STUN_CHANCE"));
         register("LIGHT_WEAPONS_RARE_DROP_MULTIPLIER", new LightWeaponsProfileRareDropMultiplierSource());
 
-        register("HEAVY_WEAPONS_CRIT_CHANCE", new HeavyWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierSource("CRIT_CHANCE"));
-        register("HEAVY_WEAPONS_CRIT_DAMAGE", new HeavyWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierSource("CRIT_DAMAGE"));
-        register("HEAVY_WEAPONS_DAMAGE_MULTIPLIER", new ArbitraryEnchantmentAmplifierSource("HEAVY_ARMOR_DAMAGE"), new HeavyWeaponsProfileDamageMultiplierSource(), new HeavyWeaponsProfileHeavyArmorDamageBonusSource(), new HeavyWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
+        register("HEAVY_WEAPONS_CRIT_CHANCE", new HeavyWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("HEAVY_WEAPONS_CRIT_DAMAGE", new HeavyWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
+        register("HEAVY_WEAPONS_DAMAGE_MULTIPLIER", new ArbitraryEnchantmentAmplifierOnAttackSource("HEAVY_ARMOR_DAMAGE"), new HeavyWeaponsProfileDamageMultiplierSource(), new HeavyWeaponsProfileHeavyArmorDamageBonusSource(), new HeavyWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
         register("HEAVY_WEAPONS_EXP_GAIN", new HeavyWeaponsEXPSource());
-        register("HEAVY_WEAPONS_STUN_CHANCE", new HeavyWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierSource("STUN_CHANCE"));
+        register("HEAVY_WEAPONS_STUN_CHANCE", new HeavyWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("STUN_CHANCE"));
         register("HEAVY_WEAPONS_RARE_DROP_MULTIPLIER", new HeavyWeaponsProfileRareDropMultiplierSource());
     }
 
@@ -291,9 +291,20 @@ public class AccumulativeStatManager {
      * Collects all the stats of the given stat name. For example, if 'LIGHT_GENERIC_ARMOR' is given, it will return the
      * given entity's total armor points influenced by the second entity given, which would be the accumulation of
      * actual skill, potion effects, global boosters, etc.
-     * This method should be used in situations involving two entities, such as an entity being attacked by another
-     * entity. Here, by convention, the FIRST entity is the entity being damaged, while the SECOND entity is the entity
-     * damaging the first entity.
+     * This method should be used in situations involving two entities, where the FIRST entity is the "main" entity in
+     * question, and the SECOND entity the... well.. other entity.
+     *
+     * It's a bit confusing, but for example in the context
+     * of getting an entity's total armor value when getting damaged the FIRST entity is the entity being damaged and
+     * the SECOND entity a possible entity attacking, so things like armor penetration may apply.
+     *
+     * For an entity attacking another entity though where you want to gather the CRIT CHANCE of the attacking entity,
+     * this attacking entity is the main entity and the damaged entity is the other entity.
+     *
+     * As a rule of thumb: with OFFENSIVE stats the ATTACKING entity is the main entity, with DEFENSIVE stats the
+     * DEFENDING entity is the main entity.
+     * Exceptions to this rule are stats which, when neccessary, a second entity is not relevant such as ARCHERY_INACCURACY
+     *
      * If the second entity is null, getStats(String, Entity, boolean) is being called instead.
      * If a stat source associated with the given stat is not an EvEAccumulativeStatSource, a regular AccumulativeStatSource
      * is being used instead where the second entity is not involved.

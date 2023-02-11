@@ -1,5 +1,6 @@
 package me.athlaeos.valhallammo.crafting;
 
+import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
@@ -15,6 +16,7 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.item_stats.*;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_conditionals.*;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.potion_stats.*;
 import me.athlaeos.valhallammo.dom.MinecraftVersion;
+import me.athlaeos.valhallammo.events.ValhallaLoadModifiersEvent;
 import me.athlaeos.valhallammo.items.ItemTreatment;
 import me.athlaeos.valhallammo.items.PotionTreatment;
 import me.athlaeos.valhallammo.items.PotionType;
@@ -32,6 +34,11 @@ public class DynamicItemModifierManager {
     private final Map<String, DynamicItemModifier> modifiers = new HashMap<>();
 
     public DynamicItemModifierManager(){
+        ValhallaLoadModifiersEvent event = new ValhallaLoadModifiersEvent();
+        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) return;
+        event.getModifiersToRegister().forEach(this::register);
+
         register(new SkillLevelRequirementAddModifier("level_requirement_smithing", "SMITHING", Material.ANVIL));
         register(new SkillLevelRequirementAddModifier("level_requirement_alchemy", "ALCHEMY", Material.BREWING_STAND));
         register(new SkillLevelRequirementAddModifier("level_requirement_enchanting", "ENCHANTING", Material.ENCHANTING_TABLE));
@@ -229,6 +236,7 @@ public class DynamicItemModifierManager {
         register(new MaterialTypeChangeModifier("material_type_set"));
         register(new EquipmentTypeChangeModifier("equipment_type_set"));
         register(new ChangeItemToDictionaryItemModifier("change_item"));
+        register(new ChangeItemToDictionaryItemKeepingAmountModifier("change_item_keeping_amount"));
         register(new ChangeItemNameToDictionaryItemNameModifier("change_item_name"));
         register(new ChangeItemTypeToDictionaryItemTypeModifier("change_item_type"));
         register(new ColorCodeItemLoreModifier("color_code_lore"));
@@ -495,7 +503,7 @@ public class DynamicItemModifierManager {
         register(new CustomEnchantAddModifier("enchantment_add_immunity_frame_bonus", Material.DRAGON_EGG, "IMMUNITY_FRAME_BONUS", 0.1, 0.01, Integer.MIN_VALUE, Integer.MAX_VALUE));
         register(new CustomEnchantAddModifier("enchantment_add_immunity_frame_bonus_flat", Material.NETHER_STAR, "IMMUNITY_FRAME_FLAT_BONUS", 5, 1, Integer.MIN_VALUE, Integer.MAX_VALUE));
         register(new CustomEnchantAddModifier("enchantment_add_immunity_frame_reduction", Material.TOTEM_OF_UNDYING, "IMMUNITY_FRAME_REDUCTION", 0.1, 0.01, Integer.MIN_VALUE, Integer.MAX_VALUE));
-        register(new CustomEnchantAddModifier("enchantment_add_attack_reach_bonus", Material.TRIDENT, "WEAPON_REACH_BONUS", 1, 0.1, Integer.MIN_VALUE, Integer.MAX_VALUE));
+        register(new CustomEnchantAddModifier("enchantment_add_attack_reach_bonus", Material.TRIDENT, "WEAPON_REACH_BONUS", 0.25, 0.01, Integer.MIN_VALUE, Integer.MAX_VALUE));
         register(new CustomEnchantAddModifier("enchantment_add_damage_resistance", Material.ENCHANTED_GOLDEN_APPLE, "DAMAGE_RESISTANCE", 0.1, 0.01, Integer.MIN_VALUE, Integer.MAX_VALUE));
         register(new CustomEnchantAddModifier("enchantment_add_fall_damage_resistance", Material.FEATHER, "FALL_DAMAGE_RESISTANCE", 0.1, 0.01, Integer.MIN_VALUE, Integer.MAX_VALUE));
         register(new CustomEnchantAddModifier("enchantment_add_fire_damage_resistance", Material.MAGMA_CREAM, "FIRE_DAMAGE_RESISTANCE", 0.1, 0.01, Integer.MIN_VALUE, Integer.MAX_VALUE));
@@ -579,7 +587,10 @@ public class DynamicItemModifierManager {
      */
     public DynamicItemModifier createModifier(String name, double strength, ModifierPriority priority){
         try {
-            if (modifiers.get(name) == null) return null;
+            if (modifiers.get(name) == null) {
+                ValhallaMMO.getPlugin().getServer().getLogger().warning("Modifier " + name + " was referenced, but it does not exist!");
+                return null;
+            }
             DynamicItemModifier modifier = modifiers.get(name).clone();
             modifier.setStrength(strength);
             modifier.setPriority(priority);
@@ -605,7 +616,10 @@ public class DynamicItemModifierManager {
      */
     public DynamicItemModifier createModifier(String name, double strength, double strength2, ModifierPriority priority){
         try {
-            if (modifiers.get(name) == null) return null;
+            if (modifiers.get(name) == null) {
+                ValhallaMMO.getPlugin().getServer().getLogger().warning("Modifier " + name + " was referenced, but it does not exist!");
+                return null;
+            }
             DynamicItemModifier modifier = modifiers.get(name).clone();
             modifier.setStrength(strength);
             modifier.setPriority(priority);
@@ -632,7 +646,10 @@ public class DynamicItemModifierManager {
      */
     public DynamicItemModifier createModifier(String name, double strength, double strength2, double strength3, ModifierPriority priority){
         try {
-            if (modifiers.get(name) == null) return null;
+            if (modifiers.get(name) == null) {
+                ValhallaMMO.getPlugin().getServer().getLogger().warning("Modifier " + name + " was referenced, but it does not exist!");
+                return null;
+            }
             DynamicItemModifier modifier = modifiers.get(name).clone();
             modifier.setStrength(strength);
             modifier.setPriority(priority);

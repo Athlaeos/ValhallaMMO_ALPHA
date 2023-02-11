@@ -15,10 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class EntityUtils {
 
@@ -192,10 +189,10 @@ public class EntityUtils {
             equipment.setBoots(e.getEquipment().getBoots());
             equipment.setMainHand(e.getEquipment().getItemInMainHand());
             equipment.setOffHand(e.getEquipment().getItemInOffHand());
-            if (ValhallaMMO.isTrinketsHooked()){
-                if (entity instanceof Player){
-                    equipment.getMiscEquipment().addAll(TrinketsManager.getInstance().getTrinketInventory((Player) entity).values());
-                }
+        }
+        if (ValhallaMMO.isTrinketsHooked()){
+            if (entity instanceof Player){
+                equipment.getMiscEquipment().addAll(TrinketsManager.getInstance().getTrinketInventory((Player) entity).values());
             }
         }
         return equipment;
@@ -208,7 +205,7 @@ public class EntityUtils {
         private ItemStack boots = null;
         private ItemStack mainHand = null;
         private ItemStack offHand = null;
-        private final Collection<ItemStack> miscEquipment = new HashSet<>();
+        private final List<ItemStack> miscEquipment = new ArrayList<>();
 
         public EntityEquipment(){}
 
@@ -221,7 +218,7 @@ public class EntityUtils {
             this.offHand = rightHand;
         }
 
-        public Collection<ItemStack> getMiscEquipment() {
+        public List<ItemStack> getMiscEquipment() {
             return miscEquipment;
         }
 
@@ -273,8 +270,8 @@ public class EntityUtils {
             this.offHand = offHand;
         }
 
-        public Collection<ItemStack> getIterable(boolean includeHands){
-            Collection<ItemStack> iterable = new HashSet<>();
+        public List<ItemStack> getIterable(boolean includeHands){
+            List<ItemStack> iterable = new ArrayList<>();
             if (!Utils.isItemEmptyOrNull(helmet)) iterable.add(helmet);
             if (!Utils.isItemEmptyOrNull(chestplate)) iterable.add(chestplate);
             if (!Utils.isItemEmptyOrNull(leggings)) iterable.add(leggings);
@@ -287,8 +284,8 @@ public class EntityUtils {
             return iterable;
         }
 
-        public Collection<ItemStack> getHands(){
-            Collection<ItemStack> iterable = new HashSet<>();
+        public List<ItemStack> getHands(){
+            List<ItemStack> iterable = new ArrayList<>();
             if (!Utils.isItemEmptyOrNull(mainHand)) iterable.add(mainHand);
             if (!Utils.isItemEmptyOrNull(offHand)) iterable.add(offHand);
             return iterable;
