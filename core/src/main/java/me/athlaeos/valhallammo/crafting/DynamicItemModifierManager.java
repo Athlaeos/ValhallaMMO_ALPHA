@@ -244,6 +244,7 @@ public class DynamicItemModifierManager {
 
         register(new StaticRepairModifier("repair_static"));
         register(new DynamicRepairModifier("repair_dynamic"));
+        register(new NumbericRepairModifier("repair_numberic"));
 
         register(new DynamicQualityRatingModifier("dynamic_quality"));
         register(new StaticQualityRatingModifier("quality_static"));

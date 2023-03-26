@@ -1,7 +1,8 @@
 package me.athlaeos.valhallammo.statsources.heavy_armor;
 
-import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.managers.EntityEquipmentCacheManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.skills.heavyarmor.HeavyArmorProfile;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
@@ -17,7 +18,8 @@ public class HeavyArmorProfileEquipmentProjectileResistanceSource extends Accumu
             if (profile != null){
                 if (profile instanceof HeavyArmorProfile){
                     double resistancePerPiece = ((HeavyArmorProfile) profile).getProjectileDamageResistance();
-                    int heavyArmorCount = ArmorType.getArmorTypeCount((LivingEntity) p, ArmorType.HEAVY);
+                    EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment((LivingEntity) p);
+                    int heavyArmorCount = equipment.getHeavyArmorCount();
                     return heavyArmorCount * resistancePerPiece;
                 }
             }

@@ -311,7 +311,7 @@ perks:
     required_lv: 30
     perk_rewards:
       blast_mining_drop_multiplier_add: 0.2
-      blast_mining_rare_drop_multiplier_add: 1
+      blast_mining_rare_drop_rate_multiplier_add: 1
     messages:
       - '<lang.skill-mining-perk-blast-mining-c-messages>'
   blast_mining_perk_d:
@@ -326,7 +326,7 @@ perks:
     required_lv: 50
     perk_rewards:
       blast_mining_drop_multiplier_add: 0.3
-      blast_mining_rare_drop_multiplier_add: 2
+      blast_mining_rare_drop_rate_multiplier_add: 2
     messages:
       - '<lang.skill-mining-perk-blast-mining-d-messages>'
   blast_mining_perk_e:

@@ -46,7 +46,7 @@ public class InteractListener implements Listener {
     private String errorNoIngredients;
     private final Map<UUID, RecipeFrequencyDO> recipeFrequency = new HashMap<>();
     private static InteractListener listener;
-    private static boolean old_menu = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("old_menu");
+    private static final boolean old_menu = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("old_menu");
 
     private Collection<Material> swap_crafting_table_functionality;
 
@@ -226,7 +226,7 @@ public class InteractListener implements Listener {
                                                 ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(craftEvent);
                                                 if (!craftEvent.isCancelled()){
                                                     incrementPlayerCraftFrequency(e.getPlayer(), currentRecipe);
-                                                    if (requires_tool){
+                                                    if (requires_tool && toolId >= 0){
                                                         if (ItemUtils.damageItem(e.getPlayer(), heldItem, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
                                                             e.getPlayer().getInventory().setItemInMainHand(null);
                                                         }

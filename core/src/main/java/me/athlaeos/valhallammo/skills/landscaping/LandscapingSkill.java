@@ -192,14 +192,14 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 if (p instanceof LandscapingProfile){
                     treeCapitatorCooldown = ((LandscapingProfile) p).getTreeCapitatorCooldown();
                     allowedTreeCapitatorBlocks = ItemUtils.getMaterialList(((LandscapingProfile) p).getValidTreeCapitatorBlocks());
-                    unlockedTreeCapitator = treeCapitatorCooldown > 0;
+                    unlockedTreeCapitator = treeCapitatorCooldown >= 0;
                     replaceSaplings = ((LandscapingProfile) p).isReplaceSaplings();
                 }
             }
             if (replaceSaplings){
                 if (isTree(b)){
                     Block blockUnder = b.getLocation().add(0, -1, 0).getBlock();
-                    if (validFungusPlantingBlocks.contains(blockUnder.getType())) {
+                    if (!validFungusPlantingBlocks.contains(blockUnder.getType())) {
                         final Collection<Material> validPlaceBlocks = getValidSaplingPlantingBlocks(b.getType());
                         if (validPlaceBlocks.contains(blockUnder.getType())){
                             Material sapMat = getSaplingFromBlock(b.getType());
@@ -273,7 +273,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                                                 block -> logs.contains(block.getType()) && finalAllowedTreeCapitatorBlocks.contains(block.getType()),
                                                 EquipmentClass.AXE,
                                                 block -> {
-                                                    rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
+                                                    event.getPlayer().breakBlock(block); // rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
                                                     if (cosmetic_outline) {
                                                         Color color = Utils.hexToRgb(outline_color);
                                                         ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -289,7 +289,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                                                 block -> logs.contains(block.getType()) && finalAllowedTreeCapitatorBlocks.contains(block.getType()),
                                                 EquipmentClass.AXE,
                                                 block -> {
-                                                    rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
+                                                    event.getPlayer().breakBlock(block); // rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
                                                     if (cosmetic_outline) {
                                                         Color color = Utils.hexToRgb(outline_color);
                                                         ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -587,9 +587,28 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                 event.getItems().clear();
                 if (!handleDropsSelf){ // not spigot
                     event.getItems().addAll(newItems);
+                    if (treeCapitatorInstantPickup && Utils.getBlockAlteringPlayers().getOrDefault("valhalla_tree_capitator", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
+                        for (Item i : newItems){
+                            Map<Integer, ItemStack> remainingItems = event.getPlayer().getInventory().addItem(i.getItemStack());
+                            for (ItemStack r : remainingItems.values()){
+                                event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), r);
+                            }
+                        }
+                        event.getItems().clear();
+                    }
                 } else {
-                    for (Item i : newItems){
-                        event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
+                    if (treeCapitatorInstantPickup && Utils.getBlockAlteringPlayers().getOrDefault("valhalla_tree_capitator", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
+                        for (Item i : newItems){
+                            Map<Integer, ItemStack> remainingItems = event.getPlayer().getInventory().addItem(i.getItemStack());
+                            for (ItemStack r : remainingItems.values()){
+                                event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), r);
+                            }
+                        }
+                        event.getItems().clear();
+                    } else {
+                        for (Item i : newItems){
+                            event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
+                        }
                     }
                 }
 

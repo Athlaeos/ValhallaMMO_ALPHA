@@ -42,7 +42,7 @@ public class DiggingRareDropsEnchantment extends EnchantmentWrapper {
         double bow_strength = amplifier;
 
         if (!translation.equals("")){
-            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%.1f", bow_strength);
+            String bowStrength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
             String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(translation)),

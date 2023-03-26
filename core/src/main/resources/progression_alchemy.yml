@@ -252,6 +252,13 @@ perks:
       alchemy_quality_debuff_add: 30
       alchemy_ingredient_save_chance_add: 0.33
       alchemy_potion_save_chance_add: 0.2
+      unlock_recipes:
+        - brew_potion_damage_taken
+        - brew_potion_damage_taken_splash
+        - brew_potion_damage_taken_lingering
+        - brew_potion_healing_reduction
+        - brew_potion_healing_reduction_splash
+        - brew_potion_healing_reduction_lingering
     messages:
       - '<lang.skill-alchemy-perk-debuff-3-messages>'
   alchemy_perk_buff_1:

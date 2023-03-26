@@ -2,15 +2,12 @@ package me.athlaeos.valhallammo.skills.heavyarmor;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
-import me.athlaeos.valhallammo.dom.ArmorType;
 import me.athlaeos.valhallammo.dom.CombatType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.*;
 import me.athlaeos.valhallammo.listeners.EntityDamagedListener;
-import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
-import me.athlaeos.valhallammo.managers.CooldownManager;
-import me.athlaeos.valhallammo.managers.PotionEffectManager;
-import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.CombatSkill;
 import me.athlaeos.valhallammo.skills.OffensiveSkill;
 import me.athlaeos.valhallammo.skills.PotionEffectSkill;
@@ -96,7 +93,8 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
         Player p = (Player) event.getEntity();
         ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
             if (event.isCancelled()) return;
-            int heavyArmorCount = ArmorType.getArmorTypeCount(p, ArmorType.HEAVY);
+            EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment(p);
+            int heavyArmorCount = equipment.getHeavyArmorCount();
             addEXP(p, originalDamage * exp_damage_piece * heavyArmorCount, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
             boolean isWearingEnoughHeavyArmor = false;
@@ -178,7 +176,8 @@ public class HeavyArmorSkill extends Skill implements OffensiveSkill, PotionEffe
     @Override
     public void onCombatLeave(PlayerLeaveCombatEvent event) {
         long timeInCombat = event.getTimeInCombat();
-        int armorCount = ArmorType.getArmorTypeCount(event.getPlayer(), ArmorType.HEAVY);
+        EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment(event.getPlayer());
+        int armorCount = equipment.getHeavyArmorCount();
         int expRewardTimes = (int) (timeInCombat / 1000D);
 
         addEXP(event.getPlayer(), expRewardTimes * armorCount * exp_second_piece, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);

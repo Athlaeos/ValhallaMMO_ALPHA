@@ -10,8 +10,9 @@ public class CooldownManager {
 
     private static CooldownManager manager = null;
 
-    private Map<String, Map<UUID, Long>> allCooldowns = new HashMap<>();
-    private Map<String, Map<UUID, Long>> allTimers = new HashMap<>();
+    private final Map<String, Map<UUID, Long>> allCooldowns = new HashMap<>();
+    private final Map<String, Map<UUID, Long>> allTimers = new HashMap<>();
+    private final Map<String, Map<UUID, Long>> allTimersNanos = new HashMap<>();
     public CooldownManager(){
     }
 
@@ -67,5 +68,24 @@ public class CooldownManager {
     public void stopTimer(UUID entity, String timerKey){
         if (!allTimers.containsKey(timerKey)) allTimers.put(timerKey, new HashMap<>());
         allTimers.get(timerKey).remove(entity);
+    }
+
+
+    public void startTimerNanos(UUID entity, String timerKey){
+        if (!allTimersNanos.containsKey(timerKey)) allTimersNanos.put(timerKey, new HashMap<>());
+        allTimersNanos.get(timerKey).put(entity, System.nanoTime());
+    }
+
+    public long getTimerResultNanos(UUID entity, String timerKey){
+        if (!allTimersNanos.containsKey(timerKey)) allTimersNanos.put(timerKey, new HashMap<>());
+        if (allTimersNanos.get(timerKey).containsKey(entity)){
+            return System.nanoTime() - allTimersNanos.get(timerKey).get(entity);
+        }
+        return 0;
+    }
+
+    public void stopTimerNanos(UUID entity, String timerKey){
+        if (!allTimersNanos.containsKey(timerKey)) allTimersNanos.put(timerKey, new HashMap<>());
+        allTimersNanos.get(timerKey).remove(entity);
     }
 }

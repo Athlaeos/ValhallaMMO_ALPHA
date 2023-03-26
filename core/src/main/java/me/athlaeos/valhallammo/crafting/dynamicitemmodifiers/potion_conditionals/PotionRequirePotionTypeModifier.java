@@ -60,4 +60,8 @@ public class PotionRequirePotionTypeModifier extends DynamicItemModifier {
     public String toString() {
         return Utils.chat("&7Requires the potion type to be &e" + typeString + "&7. Recipe is cancelled if potion does not have this property.");
     }
+
+    public PotionType getType() {
+        return type;
+    }
 }

@@ -23,6 +23,6 @@ public class HeavyWeaponsCritDamageMultiplierSource extends EvEAccumulativeStatS
             HeavyWeaponsProfile heavyWeaponsProfile = (HeavyWeaponsProfile) profile;
             return heavyWeaponsProfile.getCritDamageMultiplier();
         }
-        return 0;
+        return 1;
     }
 }

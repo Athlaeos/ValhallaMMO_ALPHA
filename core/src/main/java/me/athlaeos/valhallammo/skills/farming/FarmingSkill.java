@@ -277,7 +277,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                         if (p instanceof FarmingProfile) {
                             unlockedInstantHarvest = ((FarmingProfile) p).isInstantHarvestingUnlocked();
                             ultraHarvestCooldown = ((FarmingProfile) p).getUltraHarvestingCooldown();
-                            unlockedUltraHarvest = ultraHarvestCooldown > 0;
+                            unlockedUltraHarvest = ultraHarvestCooldown >= 0;
                         }
                     }
                     if (unlockedUltraHarvest) {
@@ -439,7 +439,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
             double growthRate = AccumulativeStatManager.getInstance().getStats("FARMING_INSTANT_GROWTH_RATE", event.getPlayer(), true);
             int stages = Utils.excessChance(growthRate);
             Ageable crop = (Ageable) b.getBlockData();
-            crop.setAge(Math.min(crop.getAge() + stages, crop.getMaximumAge()));
+            crop.setAge(Math.min(crop.getMaximumAge() - 1, Math.min(crop.getAge() + stages, crop.getMaximumAge())));
             b.setBlockData(crop);
         }
     }

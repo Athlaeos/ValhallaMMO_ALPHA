@@ -1203,7 +1203,7 @@ placeholders: # These translations can be used as placeholders in other files, a
     - '&7is full they drop on the ground'
     - ' '
   skill-mining-perk-main-2-display-name: '&7Lesser Endurance'
-  skill-mining-perk-main-2-description: '&&7You can mine a couple more blocks with &cOverdrive &7before losing hunger or health. Also, you don''t need to rest as long after using the ability'
+  skill-mining-perk-main-2-description: '&7You can mine a couple more blocks with &cOverdrive &7before losing hunger or health. Also, you don''t need to rest as long after using the ability'
   skill-mining-perk-main-2-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eLesser Endurance'
@@ -1358,8 +1358,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-light-weapons-perk-weapons-1-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eLight Weapon Arsenal I'
-    - '&7You unlock &eDaggers &7for crafting at'
-    - '&7the anvil'
+    - '&7You unlock &eDaggers &7for crafting'
     - '&eDaggers:'
     - '&a+15% crit chance'
     - '&c-0.75 attack reach'
@@ -1370,8 +1369,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-light-weapons-perk-weapons-2-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eLight Weapon Arsenal II'
-    - '&7You unlock &eRapiers &7and &eMaces &7for '
-    - '&7crafting at the anvil'
+    - '&7You unlock &eMaces &7for crafting'
     - '&eMaces:'
     - '&a+50% knockback'
     - '&a+10% stun chance'
@@ -1764,8 +1762,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-heavy-weapons-perk-weapons-1-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eHeavy Weapon Arsenal I'
-    - '&7You unlock &eWarhammers &7for crafting at'
-    - '&7the anvil.'
+    - '&7You unlock &eWarhammers &7for crafting'
     - '&eWarhammers:'
     - '&a+10% stun chance'
     - '&a+15% armor ignored'
@@ -1777,8 +1774,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-heavy-weapons-perk-weapons-2-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eHeavy Weapon Arsenal II'
-    - '&7You unlock &eSpears &7for crafting at'
-    - '&7the anvil'
+    - '&7You unlock &eSpears &7for crafting'
     - '&eSpears:'
     - '&a+1.5 reach'
     - '&a+10% armor ignored'
@@ -2321,7 +2317,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   skill-level-up-archery:
     - '&eArchery&7 leveled up to &e%level%'
   skill-archery-perk-ranked-1-display-name: '&7Stable Hand'
-  skill-archery-perk-ranked-1-description: '&7Your arrows hurt more the further they fly, and you gain a &e10% &7chance to not consume ammo when shooting'
+  skill-archery-perk-ranked-1-description: '&7Your hand becomes significantly more stable, increasing your accuracy.'
   skill-archery-perk-ranked-1-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eStable Hand'
@@ -2329,7 +2325,7 @@ placeholders: # These translations can be used as placeholders in other files, a
     - '&7more accurate.'
     - ' '
   skill-archery-perk-ranked-2-display-name: '&7Hunter'
-  skill-archery-perk-ranked-2-description: '&7Your hand becomes significantly more stable, increasing your accuracy.'
+  skill-archery-perk-ranked-2-description: '&7Your arrows hurt more the further they fly, and you gain a &e10% &7chance to not consume ammo when shooting'
   skill-archery-perk-ranked-2-messages:
     - '&8&m                           '
     - '&7You''ve unlocked &eHunter'
@@ -3259,7 +3255,7 @@ placeholders: # These translations can be used as placeholders in other files, a
   trinket-cross-necklace: '&eCross Necklace'
   trinket-divine-necklace: '&dDivine Necklace'
   trinket-amulet-of-mania: '&eAmulet of Mania'
-  trinket-fury: '&dFury'
+  trinket-fury: '&dFury Forged'
   trinket-amulet-of-the-avenger: '&eAmulet of the Avenger'
   trinket-kratos: '&dKratos'
   trinket-ring-of-deflection: '&eAmulet of Deflection'

@@ -67,7 +67,7 @@ public class SmithingItemTreatmentManager {
         materialScalings.put(attribute, newScalings);
     }
 
-    private Scaling getScalingFromPath(YamlConfiguration config, String path){
+    public Scaling getScalingFromPath(YamlConfiguration config, String path){
         String scaling = config.getString(path + ".scaling");
         if (scaling == null) return null;
         String modeString = config.getString(path + ".mode");
@@ -641,16 +641,10 @@ public class SmithingItemTreatmentManager {
      * @param quality the amount of quality points to use with the material's attribute scaling
      */
     public void applyAttributeScaling(ItemStack i, int quality, String attribute, double minimumMultiplier){
-        if (i == null) {
-            return;
-        }
+        if (i == null) return;
         Scaling scaling = getScaling(i, attribute);
-        if (scaling == null) {
-            return;
-        }
-        if (i.getItemMeta() == null) {
-            return;
-        }
+        if (scaling == null) return;
+        if (i.getItemMeta() == null) return;
         if (ItemAttributesManager.getInstance().getCurrentStats(i).isEmpty()){
             ItemAttributesManager.getInstance().applyVanillaStats(i);
         }
@@ -660,14 +654,14 @@ public class SmithingItemTreatmentManager {
             double minimum = defaultAttributeStat * minimumMultiplier;
             try {
                 double scalingResult = Utils.eval(scaling.getScaling().replace("%rating%", "" + quality));
+                if (!scaling.doIgnoreUpper()) if (scalingResult > scaling.getUpperBound()) scalingResult = scaling.getUpperBound();
+                if (!scaling.doIgnoreLower()) if (scalingResult < scaling.getLowerBound()) scalingResult = scaling.getLowerBound();
                 double finalResult = 0;
                 if (scaling.getScalingType() == ScalingMode.MULTIPLIER){
                     finalResult = Utils.round(defaultAttributeStat * scalingResult, 3);
                 } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT){
                     finalResult = Utils.round(defaultAttributeStat + scalingResult, 3);
                 }
-                if (!scaling.doIgnoreUpper()) if (finalResult > scaling.getUpperBound()) finalResult = scaling.getUpperBound();
-                if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
                 finalResult = Math.max(minimum, finalResult);
                 ItemAttributesManager.getInstance().setAttributeStrength(i, attribute, finalResult);
             } catch (RuntimeException e){

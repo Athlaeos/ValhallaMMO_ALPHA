@@ -9,6 +9,8 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class TieredFishingLootTable extends TieredLootTable {
     @Override
@@ -37,7 +39,8 @@ public class TieredFishingLootTable extends TieredLootTable {
         if (e.getCaught() instanceof Item){
             double fishingTier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_REWARD_TIER", e.getPlayer(), true);
             Item item = (Item) e.getCaught();
-            Collection<TieredLootEntry> availableEntries = getAvailableEntries(e.getCaught().getLocation(), fishingTier);
+            int maxTier = Collections.max(getAllLootEntries().values().stream().map(TieredLootEntry::getTier).collect(Collectors.toSet()));
+            Collection<TieredLootEntry> availableEntries = getAvailableEntries(e.getCaught().getLocation(), Math.min(fishingTier, maxTier));
             TieredLootEntry entry = pickRandomEntry(availableEntries);
             if (entry != null){
                 ItemStack i = entryToItem(entry, e.getPlayer(), true);

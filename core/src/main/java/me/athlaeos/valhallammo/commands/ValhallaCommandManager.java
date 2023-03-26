@@ -43,6 +43,7 @@ public class ValhallaCommandManager implements TabExecutor {
 		commands.put("resourcepack", new SetupResourcePackCommand());
 		commands.put("toggleexp", new HideBossBarsCommand());
 		commands.put("revealrecipekeys", new RecipeRevealToggleCommand());
+		commands.put("viewrecipes", new TemporaryRecipesViewCommand());
 
 	    ((HelpCommand) commands.get("help")).giveCommandMap(commands);
 

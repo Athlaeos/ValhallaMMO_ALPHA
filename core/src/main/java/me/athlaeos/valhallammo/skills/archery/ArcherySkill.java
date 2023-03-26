@@ -236,7 +236,7 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                         }
                         if (!crit){ // if standing still did not cause a crit, crit if shooter is not wearing anything and invisible
                             if (profile.isCritOnStealth()){
-                                crit = EntityUtils.getEntityEquipment(shooter).getIterable(false).isEmpty() && shooter.isInvisible();
+                                crit = EntityUtils.getEntityProperties(shooter).getIterable(false).isEmpty() && shooter.isInvisible();
                             }
                         }
                     }

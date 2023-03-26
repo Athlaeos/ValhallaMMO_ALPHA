@@ -65,13 +65,17 @@ public class PlayerShapedCraftListener implements Listener {
                             }
                         }
                     }
+                    if (e.getClick().isKeyboardClick() || (e.getClick() == ClickType.SWAP_OFFHAND && !Utils.isItemEmptyOrNull(e.getWhoClicked().getInventory().getItemInMainHand()))) {
+                        e.setCancelled(true);
+                        return;
+                    }
                     if (!Utils.isItemEmptyOrNull(e.getInventory().getResult())){
                         ItemStack result = resultPostConditions(recipe, e.getInventory().getMatrix(), e.getRecipe().getResult(), e.getRecipe() instanceof ShapelessRecipe);
                         if (result != null){
                             PlayerInventory inventory = e.getWhoClicked().getInventory(); //Get crafting inventory
                             ClickType clickType = e.getClick();
                             int realAmount = 1;
-                            if(clickType.isShiftClick())
+                            if(clickType.isShiftClick() && !clickType.isKeyboardClick())
                             {
                                 int available = 0; // max items available to fit in inventory
                                 int maxCraftable = 1000; // the max amount of items the player could craft if they have enough inventory space,
@@ -289,8 +293,14 @@ public class PlayerShapedCraftListener implements Listener {
 
                 // if the matrix slot item is not contained in the ingredients, null is returned
                 // this is to check if all required ingredients are actually present
-                if (exactIngredients.contains(slotClone)){
-                    exactIngredients.remove(slotClone);
+                ItemStack finalSlotClone = slotClone;
+                if (exactIngredients.stream().map(ItemStack::toString).anyMatch(i -> i.equals(finalSlotClone.toString()))){
+                    for (ItemStack i : exactIngredients){
+                        if (i.toString().equals(slotClone.toString())) {
+                            exactIngredients.remove(i);
+                            break;
+                        }
+                    }
                 } else {
                     return null;
                 }
@@ -298,7 +308,9 @@ public class PlayerShapedCraftListener implements Listener {
                 boolean isCustom = SmithingItemTreatmentManager.getInstance().isItemCustom(matrixItem);
 
                 // if the item is a tool, the recipe requires custom tools, but the item is not a custom tool then a null result is returned
-                if (isTool && recipe.isRequireCustomTools() && !isCustom) return null;
+                if (isTool && recipe.isRequireCustomTools() && !isCustom) {
+                    return null;
+                }
                 if (!resultOverwritten && recipe.isTinkerFirstItem() && isTool) {// && recipe.isUseMetadata()
                     result = matrixItem.clone();
                     resultOverwritten = true;

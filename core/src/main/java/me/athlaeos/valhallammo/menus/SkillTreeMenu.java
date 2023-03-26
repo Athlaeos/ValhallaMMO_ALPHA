@@ -4,6 +4,7 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.Perk;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.managers.CooldownManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.managers.SkillProgressionManager;
 import me.athlaeos.valhallammo.managers.TranslationManager;
@@ -68,32 +69,7 @@ public class SkillTreeMenu extends Menu{
             currentCenterX = selectedSkill.getCenterX();
             currentCenterY = selectedSkill.getCenterY();
         }
-
-        List<Skill> skills = new ArrayList<>(SkillProgressionManager.getInstance().getAllSkills().values());
-        skills.sort(Comparator.comparingInt(Skill::getSkillTreeMenuOrderPriority));
-        for (Skill s : skills){
-            if (!s.isActive()) continue;
-            ItemStack skillIcon = Utils.createItemStack(s.getIcon(),
-                    Utils.chat(s.getDisplayName()),
-                    Utils.separateStringIntoLines(Utils.chat(s.getDescription()), 40));
-
-            ItemMeta iconMeta = skillIcon.getItemMeta();
-            assert iconMeta != null;
-            iconMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_DYE);
-            iconMeta.getPersistentDataContainer().set(buttonKey, PersistentDataType.STRING, s.getType());
-            if (s.getIconCustomModelData() > 0){
-                iconMeta.setCustomModelData(s.getIconCustomModelData());
-            }
-            skillIcon.setItemMeta(iconMeta);
-
-            skillIcons.add(skillIcon);
-            skillTrees.put(s.getType(), getSkillTree(s));
-        }
-        // makes sure there are enough items in the skillIcons to fill a 9-item row of icons
-        for (int i = 0; i < 9; i++){
-            if (skillIcons.size() >= 9) break;
-            skillIcons.addAll(new ArrayList<>(skillIcons));
-        }
+        buildSkillTrees();
     }
 
     @Override
@@ -521,5 +497,37 @@ public class SkillTreeMenu extends Menu{
             }
         }
         return view;
+    }
+
+    private void buildSkillTrees(){
+        ValhallaMMO.getPlugin().getServer().getScheduler().runTaskAsynchronously(ValhallaMMO.getPlugin(), () -> {
+            CooldownManager.getInstance().startTimerNanos(playerMenuUtility.getOwner().getUniqueId(), "benchmark_lag");
+            List<Skill> skills = new ArrayList<>(SkillProgressionManager.getInstance().getAllSkills().values());
+            skills.sort(Comparator.comparingInt(Skill::getSkillTreeMenuOrderPriority));
+            for (Skill s : skills){
+                if (!s.isActive()) continue;
+                ItemStack skillIcon = Utils.createItemStack(s.getIcon(),
+                        Utils.chat(s.getDisplayName()),
+                        Utils.separateStringIntoLines(Utils.chat(s.getDescription()), 40));
+
+                ItemMeta iconMeta = skillIcon.getItemMeta();
+                assert iconMeta != null;
+                iconMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_DYE);
+                iconMeta.getPersistentDataContainer().set(buttonKey, PersistentDataType.STRING, s.getType());
+                if (s.getIconCustomModelData() > 0){
+                    iconMeta.setCustomModelData(s.getIconCustomModelData());
+                }
+                skillIcon.setItemMeta(iconMeta);
+
+                skillIcons.add(skillIcon);
+                skillTrees.put(s.getType(), getSkillTree(s));
+            }
+            // makes sure there are enough items in the skillIcons to fill a 9-item row of icons
+            for (int i = 0; i < 9; i++){
+                if (skillIcons.size() >= 9) break;
+                skillIcons.addAll(new ArrayList<>(skillIcons));
+            }
+            setMenuItems();
+        });
     }
 }

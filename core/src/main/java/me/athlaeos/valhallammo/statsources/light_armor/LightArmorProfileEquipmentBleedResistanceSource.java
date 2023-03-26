@@ -1,7 +1,8 @@
 package me.athlaeos.valhallammo.statsources.light_armor;
 
-import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.dom.Profile;
+import me.athlaeos.valhallammo.managers.EntityEquipmentCacheManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.skills.lightarmor.LightArmorProfile;
 import me.athlaeos.valhallammo.statsources.AccumulativeStatSource;
@@ -17,7 +18,8 @@ public class LightArmorProfileEquipmentBleedResistanceSource extends Accumulativ
             if (profile != null){
                 if (profile instanceof LightArmorProfile){
                     double resistancePerPiece = ((LightArmorProfile) profile).getBleedResistance();
-                    int lightArmorCount = ArmorType.getArmorTypeCount((LivingEntity) p, ArmorType.LIGHT);
+                    EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment((LivingEntity) p);
+                    int lightArmorCount = equipment.getLightArmorCount();
                     return lightArmorCount * resistancePerPiece;
                 }
             }

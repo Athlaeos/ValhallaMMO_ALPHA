@@ -1,5 +1,6 @@
 package me.athlaeos.valhallammo.listeners;
 
+import com.jeff_media.customblockdata.CustomBlockData;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.commands.valhalla_commands.RecipeRevealToggleCommand;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
@@ -15,6 +16,7 @@ import me.athlaeos.valhallammo.skills.account.AccountProfile;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.*;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
@@ -29,6 +31,8 @@ import org.bukkit.event.inventory.FurnaceStartSmeltEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,16 +40,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CookingListener implements Listener {
-
-//    @EventHandler
-//    public void onFurnaceInventoryClick(InventoryClickEvent event){
-//        if (event.getClickedInventory() instanceof FurnaceInventory){
-//            FurnaceInventory inventory = (FurnaceInventory) event.getClickedInventory();
-//        }
-//    }
-
-    private final Map<Block, UUID> furnaceUsers = new HashMap<>();
-    private final Map<Block, UUID> campFireUsers = new HashMap<>();
+    private final NamespacedKey ownerKey = new NamespacedKey(ValhallaMMO.getPlugin(), "owner_cooking_block");
     private final Map<Block, Map<Integer, DynamicCampfireRecipe>> campfireRecipes = new HashMap<>();
     private final Map<Block, DynamicCookingRecipe<?>> activeFurnaceRecipes = new HashMap<>();
 
@@ -56,9 +51,34 @@ public class CookingListener implements Listener {
             FurnaceInventory inventory = (FurnaceInventory) e.getView().getTopInventory();
             if (inventory.getHolder() != null){
                 Furnace furnace = inventory.getHolder();
-                furnaceUsers.put(furnace.getBlock(), e.getWhoClicked().getUniqueId());
+
+                setOwner(furnace.getBlock(), e.getWhoClicked().getUniqueId());
             }
         }
+    }
+
+    private void setOwner(Block b, UUID owner){
+        PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
+        customBlockData.set(ownerKey, PersistentDataType.STRING, owner.toString());
+    }
+
+    private Player getOwner(Block b){
+        PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
+        String value = customBlockData.get(ownerKey, PersistentDataType.STRING);
+        if (value != null) {
+            return ValhallaMMO.getPlugin().getServer().getPlayer(UUID.fromString(value));
+        }
+        return null;
+    }
+
+    private boolean hasKey(Block b){
+        PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
+        return customBlockData.has(ownerKey, PersistentDataType.STRING);
+    }
+
+    private void removeKey(Block b){
+        PersistentDataContainer customBlockData = new CustomBlockData(b, ValhallaMMO.getPlugin());
+        customBlockData.remove(ownerKey);
     }
 
     @EventHandler
@@ -72,7 +92,8 @@ public class CookingListener implements Listener {
                         return;
                     }
                     Campfire campfire = (Campfire) e.getClickedBlock().getState();
-                    campFireUsers.put(campfire.getBlock(), e.getPlayer().getUniqueId()); // campfire ownership
+
+                    setOwner(campfire.getBlock(), e.getPlayer().getUniqueId());
 
                     int firstSlot = getFirstEmptyCampfireSlot(campfire);
 
@@ -157,7 +178,8 @@ public class CookingListener implements Listener {
         Block b = e.getBlock();
         if (b.getBlockData() instanceof Furnace){
             Furnace furnace = (Furnace) b.getBlockData();
-            Player who = ValhallaMMO.getPlugin().getServer().getPlayer(furnaceUsers.get(furnace.getBlock()));
+
+            Player who = getOwner(furnace.getBlock());
             if (who != null && CooldownManager.getInstance().isCooldownPassed(who.getUniqueId(), "delay_dynamic_furnace_attempts")){
                 DynamicCookingRecipe<?> dynamicRecipe;
                 CookingRecipe<?> vanillaRecipe;
@@ -177,33 +199,18 @@ public class CookingListener implements Listener {
                     }
                 }
 
-                if (dynamicRecipe != null && !Utils.isItemEmptyOrNull(furnace.getInventory().getResult()) && furnaceUsers.containsKey(furnace.getBlock())){ // burn item should never be null during a burn event anyway
+                if (dynamicRecipe != null && !Utils.isItemEmptyOrNull(furnace.getInventory().getResult()) && hasKey(furnace.getBlock())){ // burn item should never be null during a burn event anyway
                     ItemStack result = dynamicRecipe.getResult().clone();
                     if (dynamicRecipe.isTinkerInput()) result = furnace.getInventory().getResult().clone(); // it's a tinkering recipe, so the recipe result is a copy of the burn item before modifiers
 
                     result = DynamicItemModifier.modify(result, who, dynamicRecipe.getModifiers(), false, false, true);
 
-                    //List<DynamicItemModifier> modifiers = new ArrayList<>(dynamicRecipe.getModifiers());
-                    //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                    //for (DynamicItemModifier modifier : modifiers){
-                    //    if (result == null) break;
-                    //    try {
-                    //        DynamicItemModifier tempMod = modifier.clone();
-                    //        tempMod.setUse(false);
-                    //        tempMod.setValidate(true);
-                    //        result = tempMod.processItem(who, result);
-                    //    } catch (CloneNotSupportedException ignored){
-                    //    }
-                    //}
                     if (result == null){
                         // recipe failed, cancelling burn event
                         CooldownManager.getInstance().setCooldown(who.getUniqueId(), 500, "delay_dynamic_furnace_attempts");
                         e.setCancelled(true);
                     }
-                } //else if (vanillaRecipe != null){
-                    // else, it's just a vanilla recipe and doesn't need to be checked
-//                    if (CustomRecipeManager.getInstance().getDisabledRecipes().contains(vanillaRecipe.getKey())) e.setCancelled(true);
-//                }
+                }
             }
         }
     }
@@ -239,25 +246,12 @@ public class CookingListener implements Listener {
                         ItemStack original = result.clone();
                         result = result.clone();
 
-                        Player p = campFireUsers.containsKey(campfire.getBlock()) ? ValhallaMMO.getPlugin().getServer().getPlayer(campFireUsers.get(campfire.getBlock())) : null;
+                        Player p = getOwner(campfire.getBlock());
                         if (p != null && p.isOnline()){
                             DynamicCampfireRecipe recipe = campfireRecipes.get(finishedSlot);
                             if (!recipe.isTinkerInput()) result = recipe.getResult();
 
                             result = DynamicItemModifier.modify(result, p, recipe.getModifiers(), false, true, true);
-
-                            //List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getModifiers());
-                            //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                            //for (DynamicItemModifier modifier : modifiers){
-                            //    if (result == null) break;
-                            //    try {
-                            //        DynamicItemModifier tempMod = modifier.clone();
-                            //        tempMod.setUse(true);
-                            //        tempMod.setValidate(true);
-                            //        result = tempMod.processItem(p, result);
-                            //    } catch (CloneNotSupportedException ignored){
-                            //    }
-                            //}
 
                             if (result == null){
                                 // recipe failed, meaning between placing the item on the campfire and it cooking fully player stats or other conditions
@@ -301,22 +295,9 @@ public class CookingListener implements Listener {
                     ItemStack original = result.clone();
                     result = result.clone();
 
-                    Player p = furnaceUsers.containsKey(furnace.getBlock()) ? ValhallaMMO.getPlugin().getServer().getPlayer(furnaceUsers.get(furnace.getBlock())) : null;
+                    Player p = getOwner(furnace.getBlock());
                     if (p != null && p.isOnline()){
                         result = DynamicItemModifier.modify(result, p, recipe.getModifiers(), false, true, true);
-
-                        //List<DynamicItemModifier> modifiers = new ArrayList<>(recipe.getModifiers());
-                        //modifiers.sort(Comparator.comparingInt((DynamicItemModifier a) -> a.getPriority().getPriorityRating()));
-                        //for (DynamicItemModifier modifier : modifiers){
-                        //    if (result == null) break;
-                        //    try {
-                        //        DynamicItemModifier tempMod = modifier.clone();
-                        //        tempMod.setUse(true);
-                        //        tempMod.setValidate(true);
-                        //        result = tempMod.processItem(p, result);
-                        //    } catch (CloneNotSupportedException ignored){
-                        //    }
-                        //}
 
                         if (result == null){
                             // recipe failed, meaning between placing the item on the campfire and it cooking fully player stats or other conditions
@@ -338,13 +319,6 @@ public class CookingListener implements Listener {
                         e.setResult(result);
                     }
                 }
-
-                //else if (this.activeVanillaFurnaceRecipes.containsKey(furnace)){
-                    //CookingRecipe<?> vanillaRecipe = this.activeVanillaFurnaceRecipes.get(furnace);
-//                    if (CustomRecipeManager.getInstance().getDisabledRecipes().contains(vanillaRecipe.getKey())){
-//                        e.setCancelled(true);
-//                    }
-                //}
             }
         }
     }
@@ -354,11 +328,7 @@ public class CookingListener implements Listener {
         if (!e.isCancelled()){
             campfireRecipes.remove(e.getBlock());
             activeFurnaceRecipes.remove(e.getBlock());
-            campFireUsers.remove(e.getBlock());
-            furnaceUsers.remove(e.getBlock());
-            //if (e.getBlock().getState() instanceof Campfire){
-            //    // remove all active recipes from a campfire if broken
-            //}
+            removeKey(e.getBlock());
         }
     }
 

@@ -5,6 +5,7 @@ import me.athlaeos.valhallammo.dom.Persistency;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.PlayerResetEvent;
 import me.athlaeos.valhallammo.persistence.DatabaseConnection;
+import me.athlaeos.valhallammo.persistence.ProfileDataContainerOnDemandPersistency;
 import me.athlaeos.valhallammo.persistence.ProfileDataContainerPersistency;
 import me.athlaeos.valhallammo.persistence.ProfileDatabasePersistency;
 import org.bukkit.entity.Player;
@@ -15,12 +16,17 @@ public class ProfileManager {
 
     public void setupPersistency(){
         DatabaseConnection conn = DatabaseConnection.getDatabaseConnection();
-        ProfileDataContainerPersistency PDCPersistency = new ProfileDataContainerPersistency();
         if (conn.getConnection() != null){
-            persistency = new ProfileDatabasePersistency(conn, PDCPersistency);
+            persistency = new ProfileDatabasePersistency(conn, new ProfileDataContainerOnDemandPersistency());
         } else {
-            persistency = PDCPersistency;
+            persistency = new ProfileDataContainerPersistency();
         }
+        //ProfileDataContainerOnDemandPersistency PDCPersistency = new ProfileDataContainerOnDemandPersistency();
+        //if (conn.getConnection() != null){
+        //    persistency = new ProfileDatabasePersistency(conn, PDCPersistency);
+        //} else {
+        //    persistency = PDCPersistency;
+        //}
     }
 
     public Persistency getPersistency() {

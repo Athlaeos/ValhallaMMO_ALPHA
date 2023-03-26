@@ -59,7 +59,7 @@ public enum ArmorType {
 
     public static int getArmorTypeCount(LivingEntity entity, ArmorType type){
         int count = 0;
-        for (ItemStack i : EntityUtils.getEntityEquipment(entity).getIterable(false)){
+        for (ItemStack i : EntityUtils.getEntityProperties(entity).getIterable(false)){
             if (getArmorType(i) == type) count++;
         }
         return count;

@@ -80,10 +80,6 @@ public class CraftRecipeChoiceMenuUpdated extends Menu {
         statusCraftingRecipeSelected = TranslationManager.getInstance().getTranslation("status_crafting_recipe_selected");
         statusTinkeringRecipeSelected = TranslationManager.getInstance().getTranslation("status_tinkering_recipe_selected");
 
-        Profile p = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
-        if (p instanceof AccountProfile){
-            profile = (AccountProfile) p;
-        }
         nextPageButton = Utils.createItemStack(Material.ARROW, Utils.chat(TranslationManager.getInstance().getTranslation("translation_next_page")), null);
         previousPageButton = Utils.createItemStack(Material.ARROW, Utils.chat(TranslationManager.getInstance().getTranslation("translation_previous_page")), null);
         nextPageButton = Utils.setCustomModelData(nextPageButton, config.getInt("model_data_nextpage", -1));
@@ -93,6 +89,10 @@ public class CraftRecipeChoiceMenuUpdated extends Menu {
         tinkeringViewButton = Utils.createItemStack(Material.ANVIL, Utils.chat(TranslationManager.getInstance().getTranslation("translation_tinker_view")), null);
         craftingViewButton = Utils.setCustomModelData(craftingViewButton, config.getInt("model_data_craft_view", -1));
         tinkeringViewButton = Utils.setCustomModelData(tinkeringViewButton, config.getInt("model_data_tinker_view", -1));
+        Profile p = ProfileManager.getManager().getProfile(playerMenuUtility.getOwner(), "ACCOUNT");
+        if (p instanceof AccountProfile){
+            profile = (AccountProfile) p;
+        }
         if (profile != null){
             boolean allowedAllRecipes = playerMenuUtility.getOwner().hasPermission("valhalla.allrecipes");
             if (allowedAllRecipes){

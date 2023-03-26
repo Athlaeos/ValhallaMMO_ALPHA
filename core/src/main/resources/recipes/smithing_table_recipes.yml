@@ -230,10 +230,10 @@ smithing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: IRON_NUGGET
-      amount: 3
+      amount: 1
     result_modifiers:
       repair_dynamic:
-        strength: 100.0
+        strength: 50.0
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 0.0
@@ -464,10 +464,10 @@ smithing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: IRON_NUGGET
-      amount: 3
+      amount: 1
     result_modifiers:
       repair_dynamic:
-        strength: 100.0
+        strength: 50.0
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 0.0
@@ -494,10 +494,10 @@ smithing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: IRON_NUGGET
-      amount: 3
+      amount: 1
     result_modifiers:
       repair_dynamic:
-        strength: 100.0
+        strength: 50.0
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 0.0
@@ -553,10 +553,10 @@ smithing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: IRON_NUGGET
-      amount: 3
+      amount: 1
     result_modifiers:
       repair_dynamic:
-        strength: 100.0
+        strength: 50.0
         priority: NEUTRAL
       exp_bonus_smithing:
         strength2: 0.0
@@ -612,10 +612,10 @@ smithing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: STICK
-      amount: 2
+      amount: 1
     result_modifiers:
       repair_dynamic:
-        strength: 100.0
+        strength: 70.0
         priority: SOONEST
       exp_bonus_smithing:
         strength2: 0.0
@@ -1292,10 +1292,10 @@ smithing:
       ==: org.bukkit.inventory.ItemStack
       v: 2586
       type: STICK
-      amount: 2
+      amount: 1
     result_modifiers:
       repair_dynamic:
-        strength: 100.0
+        strength: 70.0
         priority: SOONEST
       exp_bonus_smithing:
         strength2: 0.0
@@ -1878,10 +1878,6 @@ smithing:
         strength2: 0.0
         strength: 40.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -1930,10 +1926,6 @@ smithing:
         strength2: 0.0
         strength: 60.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -1982,10 +1974,6 @@ smithing:
         strength2: 0.0
         strength: 40.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -2034,10 +2022,6 @@ smithing:
         strength2: 0.0
         strength: 40.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -2086,10 +2070,6 @@ smithing:
         strength2: 0.0
         strength: 40.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -2142,10 +2122,6 @@ smithing:
         strength2: 0.0
         strength: 60.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -2198,10 +2174,6 @@ smithing:
         strength2: 0.0
         strength: 60.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -2254,10 +2226,6 @@ smithing:
         strength2: 0.0
         strength: 60.0
         priority: NEUTRAL
-      exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false
@@ -2310,10 +2278,94 @@ smithing:
         strength2: 0.0
         strength: 60.0
         priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_trident:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PRISMARINE_SHARD
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
       exp_bonus_smithing:
-        strength2: 10.0
-        strength: 1500.0
-        priority: LAST
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_elytra:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ELYTRA
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ELYTRA
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PHANTOM_MEMBRANE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_fishing_rod:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 70.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
     require_custom_tools: true
     unlocked_for_everyone: true
     use_meta_base: false

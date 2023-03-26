@@ -3425,7 +3425,7 @@ shaped:
     shapeless: false
     tool_id: -1
     tool_requirement_type: 0
-    allow_material_variations: false
+    allow_material_variations: true
   craft_stone_paper_arrows:
     ingredients:
       '1':
@@ -4326,7 +4326,7 @@ shaped:
     shapeless: false
     tool_id: -1
     tool_requirement_type: 0
-    allow_material_variations: false
+    allow_material_variations: true
   craft_explosive_arrows:
     ingredients:
       '1':
@@ -4456,7 +4456,7 @@ shaped:
     shapeless: false
     tool_id: -1
     tool_requirement_type: 0
-    allow_material_variations: false
+    allow_material_variations: true
   craft_wooden_spear:
     ingredients:
       '2':
@@ -4530,7 +4530,7 @@ shaped:
     shapeless: false
     tool_id: -1
     tool_requirement_type: 0
-    allow_material_variations: false
+    allow_material_variations: true
   craft_wooden_dagger:
     ingredients:
       '4':
@@ -4599,7 +4599,7 @@ shaped:
     shapeless: false
     tool_id: -1
     tool_requirement_type: 0
-    allow_material_variations: false
+    allow_material_variations: true
   craft_wooden_warhammer:
     ingredients:
       '0':
@@ -4681,7 +4681,7 @@ shaped:
     shapeless: false
     tool_id: -1
     tool_requirement_type: 0
-    allow_material_variations: false
+    allow_material_variations: true
   bind_wooden_shovel:
     ingredients:
       '0':
@@ -11852,7 +11852,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -11933,7 +11933,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -12014,7 +12014,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -12095,7 +12095,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -12176,7 +12176,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -12257,7 +12257,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586
@@ -12338,7 +12338,7 @@ shaped:
           ==: ItemMeta
           meta-type: UNSPECIFIC
           display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
-          custom-model-data: 8712398
+          custom-model-data: 8712392
       '2':
         ==: org.bukkit.inventory.ItemStack
         v: 2586

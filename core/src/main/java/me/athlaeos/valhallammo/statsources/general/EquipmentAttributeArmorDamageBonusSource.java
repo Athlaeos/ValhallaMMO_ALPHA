@@ -1,7 +1,9 @@
 package me.athlaeos.valhallammo.statsources.general;
 
 import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.items.attributewrappers.AttributeWrapper;
+import me.athlaeos.valhallammo.managers.EntityEquipmentCacheManager;
 import me.athlaeos.valhallammo.managers.ItemAttributesManager;
 import me.athlaeos.valhallammo.statsources.EvEAccumulativeStatSource;
 import me.athlaeos.valhallammo.utility.ItemUtils;
@@ -27,7 +29,8 @@ public class EquipmentAttributeArmorDamageBonusSource extends EvEAccumulativeSta
     public double add(Entity p, Entity e, boolean use) {
         if (type == ArmorType.WEIGHTLESS) return 0;
         if (p instanceof LivingEntity){
-            int armorCount = ArmorType.getArmorTypeCount((LivingEntity) p, type);
+            EntityProperties entityProperties = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment((LivingEntity) p);
+            int armorCount = type == ArmorType.LIGHT ? entityProperties.getLightArmorCount() : entityProperties.getHeavyArmorCount();
             if (armorCount == 0) return 0;
             if (e instanceof AbstractArrow){
                 ItemStack ammo = ItemUtils.getArrowFromEntity((AbstractArrow) e);

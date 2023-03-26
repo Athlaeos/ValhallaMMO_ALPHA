@@ -20,8 +20,8 @@ experience: # Everything about leveling and experience progression for Smithing
   max_level: 100 # Max level for smithing, players can still gain exp after reaching 100
   exp_gain:
     material_base: # The base amount of experience you get for crafting with a certain material
-      NETHERITE: 1500
-      DIAMOND: 400
+      NETHERITE: 4800
+      DIAMOND: 1600
       IRON: 175
       GOLD: 200
       CHAINMAIL: 65
@@ -63,6 +63,8 @@ special_perks: # Perks, commands, and messages executed when a player reaches a 
       smithing_expgain_diamond_add: 15
       smithing_expgain_membrane_add: 15
       smithing_expgain_netherite_add: 10
+      smithing_expgain_wood_add: -50
+      smithing_expgain_leather_add: -50
   40:
     perk_rewards:
       smithing_expgain_gold_add: 50
@@ -71,14 +73,24 @@ special_perks: # Perks, commands, and messages executed when a player reaches a 
       smithing_expgain_diamond_add: 25
       smithing_expgain_membrane_add: 25
       smithing_expgain_netherite_add: 15
+      smithing_expgain_wood_add: -25
+      smithing_expgain_leather_add: -25
+      smithing_expgain_stone_add: -50
+      smithing_expgain_chainmail_add: -50
   60:
     perk_rewards:
       smithing_expgain_diamond_add: 50
       smithing_expgain_membrane_add: 50
       smithing_expgain_netherite_add: 25
+      smithing_expgain_iron_add: -50
+      smithing_expgain_gold_add: -50
+      smithing_expgain_stone_add: -25
+      smithing_expgain_chainmail_add: -25
   80:
     perk_rewards:
       smithing_expgain_netherite_add: 50
+      smithing_expgain_iron_add: -25
+      smithing_expgain_gold_add: -25
 
 
 commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name

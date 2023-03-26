@@ -261,6 +261,12 @@ perks:
     perk_rewards:
       enchanting_quality_general_add: 20
       unlock_recipes:
+        - enchantment_upgrade_curse_wood
+        - enchantment_upgrade_curse_stone
+        - enchantment_upgrade_curse_gold
+        - enchantment_upgrade_curse_iron
+        - enchantment_upgrade_curse_diamond
+        - enchantment_upgrade_curse_netherite
         - enchantment_upgrade_reach_wood_sword
         - enchantment_upgrade_reach_stone_sword
         - enchantment_upgrade_reach_gold_sword

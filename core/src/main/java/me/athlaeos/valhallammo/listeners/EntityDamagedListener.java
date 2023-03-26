@@ -194,99 +194,97 @@ public class EntityDamagedListener implements Listener {
         physicalDamageScaling = new Scaling(scaling, null, 0, 0, false, false);
     }
 
+    private static final Collection<String> entityAttackSources = new HashSet<>(Arrays.asList("ENTITY_ATTACK", "ENTITY_SWEEP_ATTACK", "PROJECTILE", "ENTITY_EXPLOSION"));
+
+    private static final Map<String, String> damageCauseToResistanceStatSourceMap = buildStatSourceResistanceMap();
+
+    private static Map<String, String> buildStatSourceResistanceMap(){
+        Map<String, String> resistanceMap = new HashMap<>();
+        insertMultipleResistanceEntries(resistanceMap, "FIRE_RESISTANCE", "FIRE", "LAVA", "MELTING", "FIRE_TICK", "HOT_FLOOR", "DRYOUT");
+        insertMultipleResistanceEntries(resistanceMap, "MAGIC_RESISTANCE", "MAGIC", "THORNS", "LIGHTNING", "DRAGON_BREATH", "FREEZE");
+        insertMultipleResistanceEntries(resistanceMap, "PROJECTILE_RESISTANCE", "PROJECTILE");
+        insertMultipleResistanceEntries(resistanceMap, "EXPLOSION_RESISTANCE", "ENTITY_EXPLOSION", "BLOCK_EXPLOSION");
+        insertMultipleResistanceEntries(resistanceMap, "POISON_RESISTANCE", "POISON", "WITHER");
+        insertMultipleResistanceEntries(resistanceMap, "FALLING_RESISTANCE", "FALL", "FLY_INTO_WALL");
+        insertMultipleResistanceEntries(resistanceMap, "MELEE_RESISTANCE", "CONTACT", "ENTITY_ATTACK", "ENTITY_SWEEP_ATTACK");
+        return resistanceMap;
+    }
+
+    private static void insertMultipleResistanceEntries(Map<String, String> map, String resistance, String... causes){
+        for (String cause : causes) map.put(cause, resistance);
+    }
     public static double getCustomDamage(EntityDamageEvent e) {
         Entity lastDamagedBy = null;
-        if (Arrays.asList("ENTITY_ATTACK", "ENTITY_SWEEP_ATTACK", "PROJECTILE", "ENTITY_EXPLOSION").contains(e.getCause().toString())) {
+        // CooldownManager.getInstance().startTimerNanos(e.getEntity().getUniqueId(), "benchmark_customdamage");
+        // output: ~0.00ms
+        // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage before: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
+
+        if (entityAttackSources.contains(e.getCause().toString())) {
             lastDamagedBy = lastDamagedByMap.get(e.getEntity().getUniqueId());
         } else {
             lastDamagedByMap.remove(e.getEntity().getUniqueId());
         }
+        // output: ~0.13ms
+        // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage 1: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
         if (e.getEntity() instanceof LivingEntity) {
             double resistance = 0;
-            switch (e.getCause().toString()) {
-                case "FIRE":
-                case "LAVA":
-                case "MELTING":
-                case "FIRE_TICK":
-                case "HOT_FLOOR":
-                case "DRYOUT": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("FIRE_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
-                case "MAGIC":
-                case "THORNS":
-                case "LIGHTNING":
-                case "DRAGON_BREATH":
-                case "FREEZE": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("MAGIC_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
-                case "PROJECTILE": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("PROJECTILE_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
-                case "ENTITY_EXPLOSION":
-                case "BLOCK_EXPLOSION": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("EXPLOSION_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
-                case "POISON":
-                case "WITHER": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("POISON_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
-                case "FALL":
-                case "FLY_INTO_WALL": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("FALLING_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
-                case "CONTACT":
-                case "ENTITY_ATTACK":
-                case "ENTITY_SWEEP_ATTACK": {
-                    resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("MELEE_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
-                    break;
-                }
+
+            // grab the hurt entity's resistance towards the damage type
+            String resistanceSourceName = damageCauseToResistanceStatSourceMap.get(e.getCause().toString());
+            if (resistanceSourceName != null){
+                resistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache(
+                        resistanceSourceName, e.getEntity(), lastDamagedBy, 2000, true
+                );
             }
             double damage = e.getDamage();
             e.setDamage(Math.max(0, damage * (1 - resistance)));
 
+            // void damage should not be reduced by true damage resistance
             if (e.getCause() != EntityDamageEvent.DamageCause.VOID) {
-                double addedResistance = AccumulativeStatManager.getInstance().getStats("DAMAGE_RESISTANCE", e.getEntity(), lastDamagedBy, true);
+                double addedResistance = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("DAMAGE_RESISTANCE", e.getEntity(), lastDamagedBy, 2000, true);
                 e.setDamage(Math.max(0, e.getDamage() * (1 - addedResistance)));
             }
-            if (e.getDamage() < 0) e.setDamage(0);
         } else return e.getDamage();
+        // output: ~0.29ms
+        // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage 2: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
 
         double damageWithResistances = e.getDamage();
         if (physicalDamageCauses.contains(e.getCause())) {
-            double lightArmor = Math.max(0, AccumulativeStatManager.getInstance().getStats("LIGHT_ARMOR", e.getEntity(), lastDamagedBy, true));
-            double lightArmorFlatPenetration = AccumulativeStatManager.getInstance().getStats("LIGHT_ARMOR_FLAT_IGNORED", e.getEntity(), lastDamagedBy, true);
-            double heavyArmor = Math.max(0, AccumulativeStatManager.getInstance().getStats("HEAVY_ARMOR", e.getEntity(), lastDamagedBy, true));
-            double heavyArmorFlatPenetration = AccumulativeStatManager.getInstance().getStats("HEAVY_ARMOR_FLAT_IGNORED", e.getEntity(), lastDamagedBy, true);
-            double nonEquipmentArmor = Math.max(0, AccumulativeStatManager.getInstance().getStats("NON_EQUIPMENT_ARMOR", e.getEntity(), lastDamagedBy, true));
-            double armorFlatPenetration = AccumulativeStatManager.getInstance().getStats("ARMOR_FLAT_IGNORED", e.getEntity(), lastDamagedBy, true);
+            // output: ~0.34ms
+            // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage 3: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
+            double lightArmor = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("LIGHT_ARMOR", e.getEntity(), lastDamagedBy, 2000, true));
+            double lightArmorFlatPenetration = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("LIGHT_ARMOR_FLAT_IGNORED", e.getEntity(), lastDamagedBy, 2000, true);
+            double heavyArmor = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("HEAVY_ARMOR", e.getEntity(), lastDamagedBy, 2000, true));
+            double heavyArmorFlatPenetration = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("HEAVY_ARMOR_FLAT_IGNORED", e.getEntity(), lastDamagedBy, 2000, true);
+            double nonEquipmentArmor = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("NON_EQUIPMENT_ARMOR", e.getEntity(), lastDamagedBy, 2000, true));
+            double armorFlatPenetration = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("ARMOR_FLAT_IGNORED", e.getEntity(), lastDamagedBy, 2000, true);
 
-            double lightArmorMultiplier = Math.max(0, AccumulativeStatManager.getInstance().getStats("LIGHT_ARMOR_MULTIPLIER", e.getEntity(), lastDamagedBy, true));
-            double lightArmorFractionPenetration = AccumulativeStatManager.getInstance().getStats("LIGHT_ARMOR_FRACTION_IGNORED", e.getEntity(), lastDamagedBy, true);
-            double heavyArmorMultiplier = Math.max(0, AccumulativeStatManager.getInstance().getStats("HEAVY_ARMOR_MULTIPLIER", e.getEntity(), lastDamagedBy, true));
-            double heavyArmorFractionPenetration = AccumulativeStatManager.getInstance().getStats("HEAVY_ARMOR_FRACTION_IGNORED", e.getEntity(), lastDamagedBy, true);
-            double armorMultiplierBonus = Math.max(0, AccumulativeStatManager.getInstance().getStats("ARMOR_MULTIPLIER_BONUS", e.getEntity(), lastDamagedBy, true));
-            double armorFractionPenetration = AccumulativeStatManager.getInstance().getStats("ARMOR_FRACTION_IGNORED", e.getEntity(), lastDamagedBy, true);
+            // output: ~0.56ms
+            // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage 4: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
+            double lightArmorMultiplier = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("LIGHT_ARMOR_MULTIPLIER", e.getEntity(), lastDamagedBy, 2000, true));
+            double lightArmorFractionPenetration = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("LIGHT_ARMOR_FRACTION_IGNORED", e.getEntity(), lastDamagedBy, 2000, true);
+            double heavyArmorMultiplier = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("HEAVY_ARMOR_MULTIPLIER", e.getEntity(), lastDamagedBy, 2000, true));
+            double heavyArmorFractionPenetration = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("HEAVY_ARMOR_FRACTION_IGNORED", e.getEntity(), lastDamagedBy, 2000, true);
+            double armorMultiplierBonus = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("ARMOR_MULTIPLIER_BONUS", e.getEntity(), lastDamagedBy, 2000, true));
+            double armorFractionPenetration = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("ARMOR_FRACTION_IGNORED", e.getEntity(), lastDamagedBy, 2000, true);
 
+            // output: ~0.75ms
+            // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage 5: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
             double totalLightArmor = Math.max(0, (lightArmor * lightArmorMultiplier) * (1 - lightArmorFractionPenetration) - lightArmorFlatPenetration);
             double totalHeavyArmor = Math.max(0, (heavyArmor * heavyArmorMultiplier) * (1 - heavyArmorFractionPenetration) - heavyArmorFlatPenetration);
 
             double totalArmor = Math.max(0, ((totalLightArmor + totalHeavyArmor + nonEquipmentArmor) * (1 + armorMultiplierBonus)) * (1 - armorFractionPenetration) - armorFlatPenetration);
-            double toughness = Math.max(0, AccumulativeStatManager.getInstance().getStats("TOUGHNESS", e.getEntity(), lastDamagedBy, true));
+            double toughness = Math.max(0, AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("TOUGHNESS", e.getEntity(), lastDamagedBy, 2000, true));
 
-//            System.out.println("parsing " + physicalDamageScaling.getScaling()
-//                    .replace("%damage%", "" + Utils.round(damageWithResistances, 3))
-//                    .replace("%armor%", "" + Utils.round(totalArmor, 3))
-//                    .replace("%toughness%", "" + Utils.round(toughness, 3)));
-            double scalingResult = Utils.evalBigDouble(physicalDamageScaling.getScaling()
+            // output: ~0.82ms
+            // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage 6: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
+            double scalingResult = Utils.evalBigDecimal(physicalDamageScaling.getScaling()
                     .replace("%damage%", String.format("%.4f", damageWithResistances))
                     .replace("%armor%", String.format("%.4f", totalArmor))
                     .replace("%toughness%", String.format("%.4f", toughness)));
+
+            // output: ~1ms
+            // ValhallaMMO.getPlugin().getServer().getLogger().info(String.format("customdamage after: %.3fms%n", CooldownManager.getInstance().getTimerResultNanos(e.getEntity().getUniqueId(), "benchmark_customdamage") / 1000000D));
 
             if (physicalDamageScalingSetMode) {
                 double minimumDamage = damageWithResistances * physicalDamageReductionCap;
@@ -491,6 +489,7 @@ public class EntityDamagedListener implements Listener {
                 }
             }
         }
+
         lastDamagedByMap.put(e.getEntity().getUniqueId(), e.getDamager());
         if (e.getCause() == EntityDamageEvent.DamageCause.CUSTOM || e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             if (PotionEffectManager.getInstance().getBleedTicks().contains(e.getEntity().getUniqueId())) {
@@ -706,6 +705,7 @@ public class EntityDamagedListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDeath(EntityDeathEvent e) {
         if (ValhallaMMO.isWorldBlacklisted(e.getEntity().getWorld().getName())) return;
+        lastDamagedByMap.remove(e.getEntity().getUniqueId());
         if (e.getEntity().getType() != EntityType.PLAYER) {
             PotionEffectManager.getInstance().removeBleeding(e.getEntity());
         }

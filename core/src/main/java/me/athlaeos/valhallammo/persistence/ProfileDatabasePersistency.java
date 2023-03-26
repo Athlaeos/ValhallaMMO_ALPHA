@@ -19,11 +19,11 @@ import java.util.UUID;
 
 public class ProfileDatabasePersistency extends Persistency {
     private final DatabaseConnection conn;
-    private final ProfileDataContainerPersistency altPersistency;
+    private final ProfileDataContainerOnDemandPersistency altPersistency;
 
     private final Map<UUID, Map<String, Profile>> profiles = new HashMap<>();
 
-    public ProfileDatabasePersistency(DatabaseConnection conn, ProfileDataContainerPersistency altPersistency){
+    public ProfileDatabasePersistency(DatabaseConnection conn, ProfileDataContainerOnDemandPersistency altPersistency){
         this.conn = conn;
         this.altPersistency = altPersistency;
         createDatabaseStructure();

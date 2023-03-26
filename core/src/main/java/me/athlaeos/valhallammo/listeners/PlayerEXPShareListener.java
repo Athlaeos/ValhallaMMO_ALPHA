@@ -33,7 +33,7 @@ public class PlayerEXPShareListener implements Listener {
             Player p = ValhallaMMO.getPlugin().getServer().getPlayer(member);
             if (p == null) continue;
             if (p.getWorld().equals(e.getPlayer().getWorld())) {
-                if (Utils.quickWithinRange(e.getPlayer().getLocation(), p.getLocation(), party.getEXPSharingRadius())) {
+                if (Utils.withinManhattanRange(e.getPlayer().getLocation(), p.getLocation(), party.getEXPSharingRadius())) {
                     nearbyMembers.add(p);
                 }
             }

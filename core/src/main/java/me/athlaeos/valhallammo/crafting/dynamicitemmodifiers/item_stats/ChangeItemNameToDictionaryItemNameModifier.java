@@ -57,7 +57,7 @@ public class ChangeItemNameToDictionaryItemNameModifier extends DynamicItemModif
         ItemMeta outputMeta = outputItem.getItemMeta();
         if (outputMeta == null) return null;
         if (indexMeta.hasDisplayName()){
-            outputMeta.setDisplayName(Utils.chat(indexMeta.getDisplayName()));
+            outputMeta.setDisplayName(indexMeta.getDisplayName());
         } else {
             outputMeta.setDisplayName(null);
         }

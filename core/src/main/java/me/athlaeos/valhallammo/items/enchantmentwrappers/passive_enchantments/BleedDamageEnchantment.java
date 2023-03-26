@@ -42,11 +42,11 @@ public class BleedDamageEnchantment extends EnchantmentWrapper {
         double bow_strength = amplifier;
 
         if (!translation.equals("")){
-            String strength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength*100));
+            String strength = ((bow_strength < 0) ? "" : "+") + String.format("%d", (int) Math.floor(bow_strength));
             String prefix = ((amplifier < 0) ? TranslationManager.getInstance().getTranslation("enchantment_negative_prefix") : TranslationManager.getInstance().getTranslation("enchantment_positive_prefix"));
             Utils.findAndReplaceLore(meta,
                     ChatColor.stripColor(Utils.chat(translation)),
-                    String.format(prefix + "%s %s%%", translation, strength));
+                    String.format(prefix + "%s %s", translation, strength));
         }
     }
 

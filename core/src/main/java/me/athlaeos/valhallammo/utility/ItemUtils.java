@@ -2,10 +2,10 @@ package me.athlaeos.valhallammo.utility;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.recipetypes.AbstractCustomCraftingRecipe;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.items.EquipmentClass;
-import me.athlaeos.valhallammo.items.enchantmentwrappers.EnchantmentWrapper;
 import me.athlaeos.valhallammo.managers.CustomDurabilityManager;
-import me.athlaeos.valhallammo.managers.CustomEnchantmentManager;
+import me.athlaeos.valhallammo.managers.EntityEquipmentCacheManager;
 import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import me.athlaeos.valhallatrinkets.TrinketsManager;
 import org.bukkit.EntityEffect;
@@ -925,20 +925,37 @@ public class ItemUtils {
 
     public static double combinedCustomEnchantAmplifier(LivingEntity entity, String enchantmentKey){
         double amplifier = 0D;
-        EntityUtils.EntityEquipment equipment = EntityUtils.getEntityEquipment(entity);
-        for (ItemStack i : equipment.getIterable(false)){
-            EnchantmentWrapper enchantment = CustomEnchantmentManager.getInstance().getCustomEnchant(i, enchantmentKey);
-            if (enchantment != null){
-                amplifier += enchantment.getAmplifier();
-            }
+        EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment(entity);
+        if (equipment.getHelmetEnchantments().containsKey(enchantmentKey))
+            amplifier += equipment.getHelmetEnchantments().get(enchantmentKey).getAmplifier();
+        if (equipment.getChestplateEnchantments().containsKey(enchantmentKey))
+            amplifier += equipment.getChestplateEnchantments().get(enchantmentKey).getAmplifier();
+        if (equipment.getLeggingsEnchantments().containsKey(enchantmentKey))
+            amplifier += equipment.getLeggingsEnchantments().get(enchantmentKey).getAmplifier();
+        if (equipment.getBootsEnchantments().containsKey(enchantmentKey))
+            amplifier += equipment.getBootsEnchantments().get(enchantmentKey).getAmplifier();
+        if (equipment.getMainHandEnchantments().containsKey(enchantmentKey))
+            amplifier += equipment.getMainHandEnchantments().get(enchantmentKey).getAmplifier();
+        if (equipment.getOffHandEnchantments().containsKey(enchantmentKey))
+            amplifier += equipment.getOffHandEnchantments().get(enchantmentKey).getAmplifier();
+        for (ItemStack i : equipment.getMiscEquipmentEnchantments().keySet()){
+            if (equipment.getMiscEquipmentEnchantments().get(i).containsKey(enchantmentKey))
+                amplifier += equipment.getMiscEquipmentEnchantments().get(i).get(enchantmentKey).getAmplifier();
         }
-        for (ItemStack i : equipment.getHands()){
-            if (EquipmentClass.getClass(i) == EquipmentClass.TRINKET || EquipmentClass.isArmor(i)) continue;
-            EnchantmentWrapper enchantment = CustomEnchantmentManager.getInstance().getCustomEnchant(i, enchantmentKey);
-            if (enchantment != null){
-                amplifier += enchantment.getAmplifier();
-            }
-        }
+
+//        for (ItemStack i : equipment.getIterable(false)){
+//            EnchantmentWrapper enchantment = CustomEnchantmentManager.getInstance().getCustomEnchant(i, enchantmentKey);
+//            if (enchantment != null){
+//                amplifier += enchantment.getAmplifier();
+//            }
+//        }
+//        for (ItemStack i : equipment.getHands()){
+//            if (EquipmentClass.getClass(i) == EquipmentClass.TRINKET || EquipmentClass.isArmor(i)) continue;
+//            EnchantmentWrapper enchantment = CustomEnchantmentManager.getInstance().getCustomEnchant(i, enchantmentKey);
+//            if (enchantment != null){
+//                amplifier += enchantment.getAmplifier();
+//            }
+//        }
         return amplifier;
     }
 

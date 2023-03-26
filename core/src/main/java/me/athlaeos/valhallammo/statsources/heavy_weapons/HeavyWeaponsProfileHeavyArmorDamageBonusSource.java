@@ -1,8 +1,9 @@
 package me.athlaeos.valhallammo.statsources.heavy_weapons;
 
-import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.dom.WeaponType;
+import me.athlaeos.valhallammo.managers.EntityEquipmentCacheManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.skills.heavyweapons.HeavyWeaponsProfile;
 import me.athlaeos.valhallammo.statsources.EvEAccumulativeStatSource;
@@ -22,7 +23,8 @@ public class HeavyWeaponsProfileHeavyArmorDamageBonusSource extends EvEAccumulat
     @Override
     public double add(Entity p, Entity e, boolean use) {
         if (p instanceof LivingEntity && e instanceof Player){
-            int armorCount = ArmorType.getArmorTypeCount((LivingEntity) p, ArmorType.HEAVY);
+            EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment((LivingEntity) p);
+            int armorCount = equipment.getHeavyArmorCount();
             if (armorCount == 0) return 0;
             ItemStack weapon = ((Player) e).getInventory().getItemInMainHand();
             if (Utils.isItemEmptyOrNull(weapon) || WeaponType.getWeaponType(weapon) != WeaponType.HEAVY) return 0;

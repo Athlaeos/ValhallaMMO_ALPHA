@@ -15,6 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
@@ -106,9 +107,8 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
                 ValhallaMMO.getPlugin().getLogger().warning("Could not clone potion effect wrapper in PotionInvertEffectsModifier");
                 return null;
             }
-
-            PotionAttributesManager.getInstance().setDefaultPotionEffects(outputItem, bDefaultWrappers);
         }
+        PotionAttributesManager.getInstance().setDefaultPotionEffects(outputItem, bDefaultWrappers);
 
         boolean changedCurrents = false;
         for (PotionEffectWrapper w : currentWrappers){
@@ -118,17 +118,8 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
             try {
                 PotionEffectWrapper wrapper = w.clone();
                 wrapper.setPotionEffect(invert.getInvertedEffect());
-//                wrapper.setDuration(invert.getDuration());
-//                wrapper.setAmplifier(invert.getAmplifier());
-//
-//                if (invert.getColor() != null){
-//                    PotionMeta meta = (PotionMeta) outputItem.getItemMeta();
-//                    if (meta == null) return null;
-//
-//                    java.awt.Color c = Utils.hexToRgb(invert.getColor());
-//                    meta.setColor(Color.fromRGB(c.getRed(), c.getBlue(), c.getGreen()));
-//                    outputItem.setItemMeta(meta);
-//                }
+                PotionEffectType vanillaType = PotionEffectType.getByName(wrapper.getPotionEffect());
+                if (vanillaType != null && vanillaType.isInstant()) wrapper.setDuration(1);
 
                 bCurrentWrappers.add(wrapper);
                 changedCurrents = true;
@@ -150,7 +141,7 @@ public class PotionInvertEffectsModifier extends DynamicItemModifier {
         return Utils.chat("&7Inverts a potion's potion effects.");
     }
 
-    private class InvertedEffect{
+    private static class InvertedEffect{
         private final String invertedEffect;
         private String color = null;
         private final int duration;

@@ -2,15 +2,12 @@ package me.athlaeos.valhallammo.skills.lightarmor;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
-import me.athlaeos.valhallammo.dom.ArmorType;
 import me.athlaeos.valhallammo.dom.CombatType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.events.*;
 import me.athlaeos.valhallammo.listeners.EntityDamagedListener;
-import me.athlaeos.valhallammo.managers.AccumulativeStatManager;
-import me.athlaeos.valhallammo.managers.CooldownManager;
-import me.athlaeos.valhallammo.managers.PotionEffectManager;
-import me.athlaeos.valhallammo.managers.ProfileManager;
+import me.athlaeos.valhallammo.managers.*;
 import me.athlaeos.valhallammo.skills.CombatSkill;
 import me.athlaeos.valhallammo.skills.OffensiveSkill;
 import me.athlaeos.valhallammo.skills.PotionEffectSkill;
@@ -19,6 +16,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.*;
 import org.bukkit.potion.PotionEffect;
@@ -96,7 +94,8 @@ public class LightArmorSkill extends Skill implements OffensiveSkill, PotionEffe
         Player p = (Player) event.getEntity();
         ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
             if (event.isCancelled()) return;
-            int lightArmorCount = ArmorType.getArmorTypeCount(p, ArmorType.LIGHT);
+            EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment((LivingEntity) p);
+            int lightArmorCount = equipment.getLightArmorCount();
             addEXP(p, originalDamage * exp_damage_piece * lightArmorCount, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);
 
             boolean isWearingEnoughLightArmor = false;
@@ -178,7 +177,8 @@ public class LightArmorSkill extends Skill implements OffensiveSkill, PotionEffe
     @Override
     public void onCombatLeave(PlayerLeaveCombatEvent event) {
         long timeInCombat = event.getTimeInCombat();
-        int armorCount = ArmorType.getArmorTypeCount(event.getPlayer(), ArmorType.LIGHT);
+        EntityProperties equipment = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment(event.getPlayer());
+        int armorCount = equipment.getLightArmorCount();
         int expRewardTimes = (int) (timeInCombat / 1000D);
 
         addEXP(event.getPlayer(), expRewardTimes * armorCount * exp_second_piece, false, PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION);

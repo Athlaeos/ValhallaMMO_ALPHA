@@ -34,35 +34,36 @@ public class AccumulativeStatManager {
         sources = new HashMap<>();
 
         register("GLOBAL_EXP_GAIN", new ProfileExpGainSource(), new BuffExpGainSource(), new EnchantmentSkillExpGainSource(), new PermissionExpGainSource(null), new ArbitraryGlobalEffectSource("general_experience"));
-        register("DAMAGE_DEALT", new VelocityDamageAttributeOnAttackSource(), new EnchantmentDamageDealtSource());
-        register("MELEE_DAMAGE_DEALT", new OverleveledEquipmentMeleeDamagePenaltySource(), new ArbitraryAttributeOnAttackSource("CUSTOM_MELEE_DAMAGE", false));
+        register("DAMAGE_DEALT", true, new VelocityDamageAttributeOnAttackSource(), new EnchantmentDamageDealtSource());
+        register("MELEE_DAMAGE_DEALT", true, new OverleveledEquipmentMeleeDamagePenaltySource(), new ArbitraryAttributeOnAttackSource("CUSTOM_MELEE_DAMAGE", false));
 
-        register("DAMAGE_RESISTANCE", new ArbitraryPotionAmplifierSource("CUSTOM_DAMAGE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("DAMAGE_RESISTANCE"), new ProfileDamageResistanceSource(), new HeavyArmorProfileEquipmentDamageResistanceSource(), new HeavyArmorDefaultEquipmentDamageResistanceSource(), new BuffResistanceDamageResistanceSource(), new ArbitraryEnchantmentAmplifierSource("DAMAGE_TAKEN", true), new EquipmentAttributeSource("CUSTOM_DAMAGE_RESISTANCE"), new LightArmorProfileEquipmentDamageResistanceSource(), new LightArmorDefaultEquipmentDamageResistanceSource(), new EquipmentProtectionEnchantmentDamageResistanceSource(), new ArbitraryPotionAmplifierSource("POISON_VULNERABLE", true));
-        register("EXPLOSION_RESISTANCE", new ArbitraryPotionAmplifierSource("EXPLOSION_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("EXPLOSION_DAMAGE_RESISTANCE"), new ProfileExplosionResistanceSource(), new HeavyArmorProfileEquipmentExplosionResistanceSource(), new HeavyArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentAttributeSource("CUSTOM_EXPLOSION_RESISTANCE"), new LightArmorProfileEquipmentExplosionResistanceSource(), new LightArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentBlastProtectionEnchantmentExplosionResistanceSource());
-        register("FIRE_RESISTANCE", new ArbitraryPotionAmplifierSource("CUSTOM_FIRE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("FIRE_DAMAGE_RESISTANCE"), new ProfileFireResistanceSource(), new HeavyArmorProfileEquipmentFireResistanceSource(), new HeavyArmorDefaultEquipmentFireResistanceSource(), new EquipmentAttributeSource("CUSTOM_FIRE_RESISTANCE"), new LightArmorProfileEquipmentFireResistanceSource(), new LightArmorDefaultEquipmentFireResistanceSource(), new EquipmentFireProtectionEnchantmentFireResistanceSource());
-        register("MAGIC_RESISTANCE", new ArbitraryPotionAmplifierSource("MAGIC_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("MAGIC_DAMAGE_RESISTANCE"), new ProfileMagicResistanceSource(), new HeavyArmorProfileEquipmentMagicResistanceSource(), new HeavyArmorDefaultEquipmentMagicResistanceSource(), new EquipmentAttributeSource("CUSTOM_MAGIC_RESISTANCE"), new LightArmorProfileEquipmentMagicResistanceSource(), new LightArmorDefaultEquipmentMagicResistanceSource(), new EquipmentProtectionEnchantmentMagicDamageResistanceSource());
-        register("POISON_RESISTANCE", new ArbitraryPotionAmplifierSource("POISON_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("POISON_DAMAGE_RESISTANCE"), new ProfilePoisonResistanceSource(), new HeavyArmorProfileEquipmentPoisonResistanceSource(), new HeavyArmorDefaultEquipmentPoisonResistanceSource(), new EquipmentAttributeSource("CUSTOM_POISON_RESISTANCE"), new LightArmorProfileEquipmentPoisonResistanceSource(), new LightArmorDefaultEquipmentPoisonResistanceSource(), new EquipmentProtectionEnchantmentPoisonDamageResistanceSource());
-        register("PROJECTILE_RESISTANCE", new ArbitraryPotionAmplifierSource("PROJECTILE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("PROJECTILE_DAMAGE_RESISTANCE"), new ProfileProjectileResistanceSource(), new HeavyArmorProfileEquipmentProjectileResistanceSource(), new HeavyArmorDefaultEquipmentProjectileResistanceSource(), new EquipmentAttributeSource("CUSTOM_PROJECTILE_RESISTANCE"), new LightArmorProfileEquipmentProjectileResistanceSource(), new LightArmorDefaultEquipmentProjectileResistanceSource(), new EquipmentProjectileProtectionEnchantmentProjectileResistanceSource());
-        register("MELEE_RESISTANCE", new ArbitraryPotionAmplifierSource("MELEE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("MELEE_DAMAGE_RESISTANCE"), new ProfileMeleeResistanceSource(), new HeavyArmorProfileEquipmentMeleeResistanceSource(), new HeavyArmorDefaultEquipmentMeleeResistanceSource(), new EquipmentAttributeSource("CUSTOM_MELEE_RESISTANCE"), new LightArmorProfileEquipmentMeleeResistanceSource(), new LightArmorDefaultEquipmentMeleeResistanceSource());
-        register("FALLING_RESISTANCE", new ArbitraryPotionAmplifierSource("FALLING_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("FALL_DAMAGE_RESISTANCE"), new ProfileFallDamageResistanceSource(), new HeavyArmorProfileEquipmentFallDamageResistanceSource(), new HeavyArmorDefaultEquipmentFallDamageResistanceSource(), new EquipmentAttributeSource("CUSTOM_FALLING_RESISTANCE"), new LightArmorProfileEquipmentFallDamageResistanceSource(), new LightArmorDefaultEquipmentFallDamageResistanceSource(), new EquipmentFeatherFallingEnchantmentFallDamageResistanceSource());
-        register("KNOCKBACK_RESISTANCE", new ArbitraryPotionAmplifierSource("KNOCKBACK_RESISTANCE", false), new ProfileKnockbackResistanceSource(), new HeavyArmorProfileEquipmentKnockbackResistanceSource(), new HeavyArmorDefaultEquipmentKnockbackResistanceSource(), new LightArmorDefaultEquipmentKnockbackResistanceSource(), new LightArmorProfileEquipmentKnockbackResistanceSource());
-        register("BLEED_RESISTANCE", new ArbitraryEnchantmentAmplifierSource("BLEED_RESISTANCE"), new ArbitraryPotionAmplifierSource("BLEED_RESISTANCE", false), new ProfileBleedResistanceSource(), new HeavyArmorProfileEquipmentBleedResistanceSource(), new HeavyArmorProfileFullArmorBleedResistanceSource(), new HeavyArmorDefaultEquipmentBleedResistanceSource(), new LightArmorProfileFullArmorBleedResistanceSource(), new LightArmorDefaultEquipmentBleedResistanceSource(), new LightArmorDefaultEquipmentBleedResistanceSource());
-        register("STUN_RESISTANCE", new ArbitraryEnchantmentAmplifierSource("STUN_RESISTANCE"), new ProfileStunResistanceSource());
+        register("DAMAGE_RESISTANCE", false, new ArbitraryPotionAmplifierSource("CUSTOM_DAMAGE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("DAMAGE_RESISTANCE"), new ProfileDamageResistanceSource(), new HeavyArmorProfileEquipmentDamageResistanceSource(), new HeavyArmorDefaultEquipmentDamageResistanceSource(), new BuffResistanceDamageResistanceSource(), new ArbitraryEnchantmentAmplifierSource("DAMAGE_TAKEN", true), new EquipmentAttributeSource("CUSTOM_DAMAGE_RESISTANCE"), new LightArmorProfileEquipmentDamageResistanceSource(), new LightArmorDefaultEquipmentDamageResistanceSource(), new EquipmentProtectionEnchantmentDamageResistanceSource(), new ArbitraryPotionAmplifierSource("POISON_VULNERABLE", true));
+        register("EXPLOSION_RESISTANCE", false, new ArbitraryPotionAmplifierSource("EXPLOSION_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("EXPLOSION_DAMAGE_RESISTANCE"), new ProfileExplosionResistanceSource(), new HeavyArmorProfileEquipmentExplosionResistanceSource(), new HeavyArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentAttributeSource("CUSTOM_EXPLOSION_RESISTANCE"), new LightArmorProfileEquipmentExplosionResistanceSource(), new LightArmorDefaultEquipmentExplosionResistanceSource(), new EquipmentBlastProtectionEnchantmentExplosionResistanceSource());
+        register("FIRE_RESISTANCE", false, new ArbitraryPotionAmplifierSource("CUSTOM_FIRE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("FIRE_DAMAGE_RESISTANCE"), new ProfileFireResistanceSource(), new HeavyArmorProfileEquipmentFireResistanceSource(), new HeavyArmorDefaultEquipmentFireResistanceSource(), new EquipmentAttributeSource("CUSTOM_FIRE_RESISTANCE"), new LightArmorProfileEquipmentFireResistanceSource(), new LightArmorDefaultEquipmentFireResistanceSource(), new EquipmentFireProtectionEnchantmentFireResistanceSource());
+        register("MAGIC_RESISTANCE", false, new ArbitraryPotionAmplifierSource("MAGIC_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("MAGIC_DAMAGE_RESISTANCE"), new ProfileMagicResistanceSource(), new HeavyArmorProfileEquipmentMagicResistanceSource(), new HeavyArmorDefaultEquipmentMagicResistanceSource(), new EquipmentAttributeSource("CUSTOM_MAGIC_RESISTANCE"), new LightArmorProfileEquipmentMagicResistanceSource(), new LightArmorDefaultEquipmentMagicResistanceSource(), new EquipmentProtectionEnchantmentMagicDamageResistanceSource());
+        register("POISON_RESISTANCE", false, new ArbitraryPotionAmplifierSource("POISON_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("POISON_DAMAGE_RESISTANCE"), new ProfilePoisonResistanceSource(), new HeavyArmorProfileEquipmentPoisonResistanceSource(), new HeavyArmorDefaultEquipmentPoisonResistanceSource(), new EquipmentAttributeSource("CUSTOM_POISON_RESISTANCE"), new LightArmorProfileEquipmentPoisonResistanceSource(), new LightArmorDefaultEquipmentPoisonResistanceSource(), new EquipmentProtectionEnchantmentPoisonDamageResistanceSource());
+        register("PROJECTILE_RESISTANCE", false, new ArbitraryPotionAmplifierSource("PROJECTILE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("PROJECTILE_DAMAGE_RESISTANCE"), new ProfileProjectileResistanceSource(), new HeavyArmorProfileEquipmentProjectileResistanceSource(), new HeavyArmorDefaultEquipmentProjectileResistanceSource(), new EquipmentAttributeSource("CUSTOM_PROJECTILE_RESISTANCE"), new LightArmorProfileEquipmentProjectileResistanceSource(), new LightArmorDefaultEquipmentProjectileResistanceSource(), new EquipmentProjectileProtectionEnchantmentProjectileResistanceSource());
+        register("MELEE_RESISTANCE", false, new ArbitraryPotionAmplifierSource("MELEE_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("MELEE_DAMAGE_RESISTANCE"), new ProfileMeleeResistanceSource(), new HeavyArmorProfileEquipmentMeleeResistanceSource(), new HeavyArmorDefaultEquipmentMeleeResistanceSource(), new EquipmentAttributeSource("CUSTOM_MELEE_RESISTANCE"), new LightArmorProfileEquipmentMeleeResistanceSource(), new LightArmorDefaultEquipmentMeleeResistanceSource());
+        register("FALLING_RESISTANCE", false, new ArbitraryPotionAmplifierSource("FALLING_RESISTANCE", false), new ArbitraryEnchantmentAmplifierSource("FALL_DAMAGE_RESISTANCE"), new ProfileFallDamageResistanceSource(), new HeavyArmorProfileEquipmentFallDamageResistanceSource(), new HeavyArmorDefaultEquipmentFallDamageResistanceSource(), new EquipmentAttributeSource("CUSTOM_FALLING_RESISTANCE"), new LightArmorProfileEquipmentFallDamageResistanceSource(), new LightArmorDefaultEquipmentFallDamageResistanceSource(), new EquipmentFeatherFallingEnchantmentFallDamageResistanceSource());
+        register("KNOCKBACK_RESISTANCE", false, new ArbitraryPotionAmplifierSource("KNOCKBACK_RESISTANCE", false), new ProfileKnockbackResistanceSource(), new HeavyArmorProfileEquipmentKnockbackResistanceSource(), new HeavyArmorDefaultEquipmentKnockbackResistanceSource(), new LightArmorDefaultEquipmentKnockbackResistanceSource(), new LightArmorProfileEquipmentKnockbackResistanceSource());
+        register("BLEED_RESISTANCE", false, new ArbitraryEnchantmentAmplifierSource("BLEED_RESISTANCE"), new ArbitraryPotionAmplifierSource("BLEED_RESISTANCE", false), new ProfileBleedResistanceSource(), new HeavyArmorProfileEquipmentBleedResistanceSource(), new HeavyArmorProfileFullArmorBleedResistanceSource(), new HeavyArmorDefaultEquipmentBleedResistanceSource(), new LightArmorProfileFullArmorBleedResistanceSource(), new LightArmorDefaultEquipmentBleedResistanceSource(), new LightArmorDefaultEquipmentBleedResistanceSource());
+        register("STUN_RESISTANCE", false, new ArbitraryEnchantmentAmplifierSource("STUN_RESISTANCE"), new ProfileStunResistanceSource());
 
         register("CRAFTING_TIME_REDUCTION", new ArbitraryEnchantmentAmplifierSource("CRAFTING_SPEED"), new ArbitraryPotionAmplifierSource("CRAFTING_TIME_REDUCTION", false), new SmithingCraftingTimeReductionSource());
 
         //register("ARMOR", new ProfileBaseArmorBonusSource(), new EquipmentAttributeSource("GENERIC_ARMOR"), new EntityAttributeArmorRatingSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
-        register("ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatArmorIgnoredSource(), new LightWeaponsProfileFlatArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FLAT_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_ARMOR_PENETRATION"));
-        register("ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionArmorIgnoredSource(), new LightWeaponsProfileFractionArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FRACTION_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_ARMOR_PENETRATION"));
-        register("TOUGHNESS", new EquipmentAttributeSource("GENERIC_ARMOR_TOUGHNESS"), new EntityAttributeArmorToughnessSource());
-        register("LIGHT_ARMOR", new LightArmorEquipmentAttributeSource("GENERIC_ARMOR"), new ArbitraryPotionAmplifierSource("LIGHT_ARMOR_FLAT_BONUS", false));
-        register("LIGHT_ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatLightArmorIgnoredSource(), new LightWeaponsProfileFlatLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_LIGHT_ARMOR_PENETRATION"));
-        register("LIGHT_ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionLightArmorIgnoredSource(), new LightWeaponsProfileFractionLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_LIGHT_ARMOR_PENETRATION"));
-        register("HEAVY_ARMOR", new HeavyArmorEquipmentAttributeSource("GENERIC_ARMOR"), new ArbitraryPotionAmplifierSource("HEAVY_ARMOR_FLAT_BONUS", false));
-        register("HEAVY_ARMOR_FLAT_IGNORED", new HeavyWeaponsProfileFlatHeavyArmorIgnoredSource(), new LightWeaponsProfileFlatHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_HEAVY_ARMOR_PENETRATION"));
-        register("HEAVY_ARMOR_FRACTION_IGNORED", new HeavyWeaponsProfileFractionHeavyArmorIgnoredSource(), new LightWeaponsProfileFractionHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_HEAVY_ARMOR_PENETRATION"));
+        register("ARMOR_FLAT_IGNORED", true, new HeavyWeaponsProfileFlatArmorIgnoredSource(), new LightWeaponsProfileFlatArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FLAT_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_ARMOR_PENETRATION"));
+        register("ARMOR_FRACTION_IGNORED", true, new HeavyWeaponsProfileFractionArmorIgnoredSource(), new LightWeaponsProfileFractionArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_ARMOR_PENETRATION", false), new ArbitraryPotionAmplifierSource("FRACTION_ARMOR_REDUCTION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_ARMOR_PENETRATION"));
+        register("TOUGHNESS", false, new EquipmentAttributeSource("GENERIC_ARMOR_TOUGHNESS"), new EntityAttributeArmorToughnessSource());
+        register("LIGHT_ARMOR", false, new LightArmorEquipmentAttributeSource("GENERIC_ARMOR"), new ArbitraryPotionAmplifierSource("LIGHT_ARMOR_FLAT_BONUS", false));
+        register("LIGHT_ARMOR_FLAT_IGNORED", true, new HeavyWeaponsProfileFlatLightArmorIgnoredSource(), new LightWeaponsProfileFlatLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_LIGHT_ARMOR_PENETRATION"));
+        register("LIGHT_ARMOR_FRACTION_IGNORED", true, new HeavyWeaponsProfileFractionLightArmorIgnoredSource(), new LightWeaponsProfileFractionLightArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_LIGHT_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_LIGHT_ARMOR_PENETRATION"));
+        register("HEAVY_ARMOR", false, new HeavyArmorEquipmentAttributeSource("GENERIC_ARMOR"), new ArbitraryPotionAmplifierSource("HEAVY_ARMOR_FLAT_BONUS", false));
+        register("HEAVY_ARMOR_FLAT_IGNORED", true, new HeavyWeaponsProfileFlatHeavyArmorIgnoredSource(), new LightWeaponsProfileFlatHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FLAT_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FLAT_HEAVY_ARMOR_PENETRATION"));
+        register("HEAVY_ARMOR_FRACTION_IGNORED", true, new HeavyWeaponsProfileFractionHeavyArmorIgnoredSource(), new LightWeaponsProfileFractionHeavyArmorIgnoredSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_FRACTION_HEAVY_ARMOR_PENETRATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("FRACTION_HEAVY_ARMOR_PENETRATION"));
         // returns all armor that came from non-equipment sources, like attributes/potion effects
-        register("NON_EQUIPMENT_ARMOR", new TrinketAttributeSource("GENERIC_ARMOR"), new WeightlessArmorEquipmentAttributeSource(), new EntityAttributeArmorRatingSource(), new ProfileBaseArmorBonusSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
+        register("NON_EQUIPMENT_ARMOR", false, new TrinketAttributeSource("GENERIC_ARMOR"), new WeightlessArmorEquipmentAttributeSource(), new EntityAttributeArmorRatingSource(), new ProfileBaseArmorBonusSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
+        register("ARMOR_BONUS", new TrinketAttributeSource("GENERIC_ARMOR"), new ProfileBaseArmorBonusSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
 
         //register("ARMOR_BONUS", new ProfileBaseArmorBonusSource(), new ArbitraryPotionAmplifierSource("ARMOR_FLAT_BONUS", false));
         register("ARMOR_MULTIPLIER_BONUS", new ArbitraryEnchantmentAmplifierSource("ARMOR_MULTIPLIER"), new ProfileBaseArmorMultiplierBonusSource(), new ArbitraryPotionAmplifierSource("ARMOR_FRACTION_BONUS", false));
@@ -70,28 +71,28 @@ public class AccumulativeStatManager {
         register("TOUGHNESS_BONUS", new TrinketAttributeSource("GENERIC_ARMOR_TOUGHNESS"), new ProfileBaseToughnessBonusSource());
         register("HUNGER_SAVE_CHANCE", new ArbitraryEnchantmentAmplifierSource("HUNGER_SAVE_CHANCE"), new ArbitraryPotionAmplifierSource("HUNGER_SAVE_CHANCE", false), new ProfileHungerSaveChanceBonusSource(), new LightArmorProfileFullArmorHungerSaveChanceBonusSource(), new HeavyArmorProfileFullArmorHungerSaveChanceSource());
         register("ATTACK_REACH_BONUS", new ArbitraryEnchantmentAmplifierSource("WEAPON_REACH_BONUS"), new EquipmentAttributeSource("CUSTOM_WEAPON_REACH", true));
-        register("ATTACK_DAMAGE_BONUS", new TrinketAttributeSource("GENERIC_ATTACK_DAMAGE"), new ProfileBaseAttackDamageBonusSource());
+        register("ATTACK_DAMAGE_BONUS", true, new TrinketAttributeSource("GENERIC_ATTACK_DAMAGE"), new ProfileBaseAttackDamageBonusSource());
         register("ATTACK_SPEED_BONUS", new TrinketAttributeSource("GENERIC_ATTACK_SPEED"), new ProfileBaseAttackSpeedBonusSource(), new HeavyWeaponsProfileAttackSpeedBonusSource(), new LightWeaponsProfileAttackSpeedBonusSource());
-        register("DODGE_CHANCE", new ArbitraryEnchantmentAmplifierSource("DODGE_CHANCE"), new ArbitraryPotionAmplifierSource("DODGE_CHANCE", false), new LightArmorProfileFullArmorDodgeChanceBonusEvESource());
+        register("DODGE_CHANCE", false, new ArbitraryEnchantmentAmplifierSource("DODGE_CHANCE"), new ArbitraryPotionAmplifierSource("DODGE_CHANCE", false), new LightArmorProfileFullArmorDodgeChanceBonusEvESource());
         register("MOVEMENT_SPEED_BONUS", new TrinketAttributeSource("GENERIC_MOVEMENT_SPEED"), new ProfileMovementSpeedBonusSource(), new LightArmorProfileEquipmentMovementSpeedPenaltySource(), new HeavyArmorProfileEquipmentMovementSpeedPenaltySource());
         register("HEALTH_BONUS", new TrinketAttributeSource("GENERIC_MAX_HEALTH"), new ProfileHealthBonusSource());
-        register("KNOCKBACK_BONUS", new ArbitraryAttributeOnAttackSource("CUSTOM_KNOCKBACK", false), new ArbitraryPotionAmplifierSource("KNOCKBACK_BONUS", false), new HeavyWeaponsProfileAttackKnockbackBonusSource(), new LightWeaponsProfileAttackKnockbackBonusSource());
+        register("KNOCKBACK_BONUS", true, new ArbitraryAttributeOnAttackSource("CUSTOM_KNOCKBACK", false), new ArbitraryPotionAmplifierSource("KNOCKBACK_BONUS", false), new HeavyWeaponsProfileAttackKnockbackBonusSource(), new LightWeaponsProfileAttackKnockbackBonusSource());
         register("COOLDOWN_REDUCTION", new ArbitraryEnchantmentAmplifierSource("COOLDOWN_REDUCTION"), new ArbitraryPotionAmplifierSource("COOLDOWN_REDUCTION", false), new ProfileCooldownReductionSource());
         register("LUCK_BONUS", new TrinketAttributeSource("GENERIC_LUCK"), new ProfileBaseLuckBonusSource());
-        register("IMMUNITY_FRAME_BONUS", new ArbitraryEnchantmentAmplifierSource("IMMUNITY_FRAME_FLAT_BONUS"), new ArbitraryPotionAmplifierSource("IMMUNITY_FRAME_BONUS", false), new ProfileImmunityFramesBonusSource(), new EquipmentAttributeSource("CUSTOM_FLAT_IMMUNITY_FRAME_BONUS"));
-        register("IMMUNITY_FRAME_MULTIPLIER", new ArbitraryEnchantmentAmplifierSource("IMMUNITY_FRAME_BONUS"), new ArbitraryPotionAmplifierSource("IMMUNITY_FRAME_MULTIPLIER", false), new LightWeaponsProfileImmunityFrameReductionSource(), new EquipmentAttributeSource("CUSTOM_FRACTION_IMMUNITY_FRAME_BONUS"), new ArbitraryAttributeOnAttackSource("CUSTOM_IMMUNITY_FRAME_REDUCTION", true));
+        register("IMMUNITY_FRAME_BONUS", false, new ArbitraryEnchantmentAmplifierSource("IMMUNITY_FRAME_FLAT_BONUS"), new ArbitraryPotionAmplifierSource("IMMUNITY_FRAME_BONUS", false), new ProfileImmunityFramesBonusSource(), new EquipmentAttributeSource("CUSTOM_FLAT_IMMUNITY_FRAME_BONUS"));
+        register("IMMUNITY_FRAME_MULTIPLIER", false, new ArbitraryEnchantmentAmplifierSource("IMMUNITY_FRAME_BONUS"), new ArbitraryPotionAmplifierSource("IMMUNITY_FRAME_MULTIPLIER", false), new LightWeaponsProfileImmunityFrameReductionSource(), new EquipmentAttributeSource("CUSTOM_FRACTION_IMMUNITY_FRAME_BONUS"), new ArbitraryAttributeOnAttackSource("CUSTOM_IMMUNITY_FRAME_REDUCTION", true));
         register("HEALING_BONUS", new ArbitraryEnchantmentAmplifierSource("HEALING_BONUS"), new ArbitraryPotionAmplifierSource("HEALING_BONUS", false), new ProfileHealthRegenerationBonusSource(), new LightArmorProfileFullArmorHealingBonusSource(), new HeavyArmorProfileFullArmorHealingBonusSource(), new ArbitraryPotionAmplifierSource("POISON_ANTI_HEAL", true));
-        register("REFLECT_CHANCE", new ArbitraryPotionAmplifierSource("REFLECT_CHANCE", false), new HeavyArmorProfileFullArmorReflectChanceSource());
-        register("REFLECT_FRACTION", new ArbitraryPotionAmplifierSource("REFLECT_FRACTION", false), new HeavyArmorProfileReflectFractionSource());
-        register("BLEED_CHANCE", new HeavyWeaponsProfileBleedChanceSource(), new LightWeaponsProfileBleedChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_CHANCE"));
-        register("BLEED_DAMAGE", new HeavyWeaponsProfileBleedDamageSource(), new LightWeaponsProfileBleedDamageSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_DAMAGE"));
-        register("BLEED_DURATION", new HeavyWeaponsProfileBleedDurationSource(), new LightWeaponsProfileBleedDurationSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DURATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_DURATION"));
-        register("PARRY_ENEMY_DEBUFF_DURATION", new HeavyWeaponsProfileParryEnemyDebuffDurationSource(), new LightWeaponsProfileParryEnemyDebuffDurationSource());
-        register("PARRY_DAMAGE_REDUCTION", new HeavyWeaponsProfileParryDamageReductionSource(), new LightWeaponsProfileParryDamageReductionSource());
-        register("PARRY_DEBUFF_DURATION", new HeavyWeaponsProfileParryFailedDebuffDurationSource(), new LightWeaponsProfileParryFailedDebuffDurationSource());
-        register("ENTITY_DROP_MULTIPLIER_BONUS", new PotionExtraDropsSource(), new ArbitraryGlobalEffectSource("entity_drops_multiplier"), new FarmingProfileAnimalDropMultiplierSource(), new LightWeaponsProfileDropsBonusSource(), new HeavyWeaponsProfileDropsBonusSource());
-        register("DURABILITY_MULTIPLIER_BONUS");
-        register("DISMOUNT_CHANCE", new ArbitraryAttributeOnAttackSource("CUSTOM_DISMOUNT_CHANCE", false));
+        register("REFLECT_CHANCE", false, new ArbitraryPotionAmplifierSource("REFLECT_CHANCE", false), new HeavyArmorProfileFullArmorReflectChanceSource());
+        register("REFLECT_FRACTION", false, new ArbitraryPotionAmplifierSource("REFLECT_FRACTION", false), new HeavyArmorProfileReflectFractionSource());
+        register("BLEED_CHANCE", true, new HeavyWeaponsProfileBleedChanceSource(), new LightWeaponsProfileBleedChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_CHANCE"));
+        register("BLEED_DAMAGE", true, new HeavyWeaponsProfileBleedDamageSource(), new LightWeaponsProfileBleedDamageSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_DAMAGE"));
+        register("BLEED_DURATION", true, new HeavyWeaponsProfileBleedDurationSource(), new LightWeaponsProfileBleedDurationSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_BLEED_DURATION", false), new ArbitraryEnchantmentAmplifierOnAttackSource("BLEED_DURATION"));
+        register("PARRY_ENEMY_DEBUFF_DURATION", false, new HeavyWeaponsProfileParryEnemyDebuffDurationSource(), new LightWeaponsProfileParryEnemyDebuffDurationSource());
+        register("PARRY_DAMAGE_REDUCTION", false, new HeavyWeaponsProfileParryDamageReductionSource(), new LightWeaponsProfileParryDamageReductionSource());
+        register("PARRY_DEBUFF_DURATION", false, new HeavyWeaponsProfileParryFailedDebuffDurationSource(), new LightWeaponsProfileParryFailedDebuffDurationSource());
+        register("ENTITY_DROP_MULTIPLIER_BONUS", true, new PotionExtraDropsSource(), new ArbitraryGlobalEffectSource("entity_drops_multiplier"), new FarmingProfileAnimalDropMultiplierSource(), new LightWeaponsProfileDropsBonusSource(), new HeavyWeaponsProfileDropsBonusSource());
+        register("DURABILITY_MULTIPLIER_BONUS", false);
+        register("DISMOUNT_CHANCE", true, new ArbitraryAttributeOnAttackSource("CUSTOM_DISMOUNT_CHANCE", false));
 
         register("SMITHING_QUALITY_GENERAL", new SmithingProfileQualitySource(null), new SmithingPotionQualitySingleUseSource(), new SmithingPotionQualitySource(), new ArbitraryEnchantmentAmplifierSource("SMITHING_QUALITY"), new ArbitraryGlobalEffectSource("smithing_quality"));
         register("SMITHING_QUALITY_WOOD", new SmithingProfileQualitySource(MaterialClass.WOOD));
@@ -144,7 +145,7 @@ public class AccumulativeStatManager {
         register("ENCHANTING_QUALITY_ANVIL", new EnchantingProfileAnvilQualitySource(), new EnchantingPotionAnvilQualitySource());
 
         register("FARMING_BREEDING_AGE_REDUCTION", new FarmingProfileBabyAnimalAgeMultiplierSource(), new ArbitraryGlobalEffectSource("farming_animal_age_reduction"));
-        register("FARMING_DAMAGE_ANIMAL_MULTIPLIER", new FarmingProfileAnimalDamageMultiplierSource());
+        register("FARMING_DAMAGE_ANIMAL_MULTIPLIER", true, new FarmingProfileAnimalDamageMultiplierSource());
         register("FARMING_ANIMAL_DROP_MULTIPLIER", new ArbitraryGlobalEffectSource("farming_animal_drop_multiplier"));
         register("FARMING_ANIMAL_RARE_DROP_MULTIPLIER", new FarmingProfileAnimalRareDropChanceMultiplierSource(), new ArbitraryGlobalEffectSource("farming_animal_rare_drop_multiplier"));
         register("FARMING_BREEDING_VANILLA_EXP_MULTIPLIER", new FarmingProfileBreedingVanillaEXPMultiplierSource());
@@ -193,25 +194,25 @@ public class AccumulativeStatManager {
         register("LANDSCAPING_EXP_GAIN_WOODSTRIPPING", new LandscapingProfileWoodstrippingEXPSource());
         register("LANDSCAPING_EXP_GAIN_DIGGING", new LandscapingProfileDiggingEXPSource());
 
-        register("ARCHERY_DAMAGE", new OverleveledEquipmentArcheryDamagePenaltySource(), new ArbitraryOffensiveEnchantmentAmplifierSource("ARCHERY_DAMAGE"), new ArbitraryOffensivePotionAmplifierSource("ARCHERY_DAMAGE", false));
-        register("ARCHERY_BOW_DAMAGE_MULTIPLIER", new ArcheryProfileBowDamageMultiplierSource());
-        register("ARCHERY_CROSSBOW_DAMAGE_MULTIPLIER", new ArcheryProfileCrossBowDamageMultiplierSource());
-        register("ARCHERY_AMMO_SAVE_CHANCE", new ArbitraryEnchantmentAmplifierSource("ARCHERY_AMMO_SAVE"), new ArbitraryPotionAmplifierSource("ARCHERY_AMMO_SAVE", false), new ArcheryProfileAmmoSaveChanceSource());
-        register("ARCHERY_BOW_CRIT_CHANCE", new ArcheryProfileBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
-        register("ARCHERY_CROSSBOW_CRIT_CHANCE", new ArcheryProfileCrossBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
-        register("ARCHERY_CRIT_DAMAGE_MULTIPLIER", new ArcheryProfileCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
+        register("ARCHERY_DAMAGE", true, new OverleveledEquipmentArcheryDamagePenaltySource(), new ArbitraryOffensiveEnchantmentAmplifierSource("ARCHERY_DAMAGE"), new ArbitraryOffensivePotionAmplifierSource("ARCHERY_DAMAGE", false));
+        register("ARCHERY_BOW_DAMAGE_MULTIPLIER", true, new ArcheryProfileBowDamageMultiplierSource());
+        register("ARCHERY_CROSSBOW_DAMAGE_MULTIPLIER", true, new ArcheryProfileCrossBowDamageMultiplierSource());
+        register("ARCHERY_AMMO_SAVE_CHANCE", true, new ArbitraryEnchantmentAmplifierSource("ARCHERY_AMMO_SAVE"), new ArbitraryPotionAmplifierSource("ARCHERY_AMMO_SAVE", false), new ArcheryProfileAmmoSaveChanceSource());
+        register("ARCHERY_BOW_CRIT_CHANCE", true, new ArcheryProfileBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("ARCHERY_CROSSBOW_CRIT_CHANCE", true, new ArcheryProfileCrossBowCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("ARCHERY_CRIT_DAMAGE_MULTIPLIER", true, new ArcheryProfileCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
         register("ARCHERY_CHARGED_SHOT_COOLDOWN", new ArcheryProfileChargeShotCooldownSource());
         register("ARCHERY_CHARGED_SHOT_KNOCKBACK_BONUS", new ArcheryProfileChargeShotKnockbackBonusSource());
         register("ARCHERY_CHARGED_SHOT_DAMAGE_MULTIPLIER", new ArcheryProfileChargeShotDamageMultiplierSource());
         register("ARCHERY_CHARGED_SHOT_PIERCING_BONUS", new ArcheryProfileChargeShotPiercingBonusSource());
         register("ARCHERY_CHARGED_SHOT_VELOCITY_BONUS", new ArcheryProfileChargeShotVelocityBonusSource());
         register("ARCHERY_CHARGED_SHOT_CHARGES", new ArcheryProfileChargeShotChargesSource());
-        register("ARCHERY_STUN_CHANCE", new ArcheryProfileStunChanceSource());
-        register("ARCHERY_STUN_DURATION", new ArcheryProfileStunDurationSource());
-        register("ARCHERY_INFINITY_DAMAGE_MULTIPLIER", new ArcheryProfileInfinityDamageMultiplierSource());
+        register("ARCHERY_STUN_CHANCE", true, new ArcheryProfileStunChanceSource());
+        register("ARCHERY_STUN_DURATION", true, new ArcheryProfileStunDurationSource());
+        register("ARCHERY_INFINITY_DAMAGE_MULTIPLIER", true, new ArcheryProfileInfinityDamageMultiplierSource());
         register("ARCHERY_INACCURACY", new ArbitraryEnchantmentAmplifierSource("ARCHERY_ACCURACY", true), new ArbitraryPotionAmplifierSource("ARCHERY_ACCURACY", true), new ArcheryProfileInaccuracySource());
-        register("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER_BASE", new ArcheryProfileDistanceDamageBaseSource());
-        register("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER", new ArcheryProfileDistanceDamageMultiplierSource());
+        register("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER_BASE", true, new ArcheryProfileDistanceDamageBaseSource());
+        register("ARCHERY_DISTANCE_DAMAGE_MULTIPLIER", true, new ArcheryProfileDistanceDamageMultiplierSource());
         register("ARCHERY_EXP_GAIN_BOW", new ArcheryProfileBowEXPSource());
         register("ARCHERY_EXP_GAIN_CROSSBOW", new ArcheryProfileCrossBowEXPSource());
         register("ARCHERY_EXP_GAIN_GENERAL", new ArcheryProfileGeneralEXPSource());
@@ -222,27 +223,29 @@ public class AccumulativeStatManager {
         register("HEAVY_ARMOR_MULTIPLIER", new HeavyArmorProfileArmorValueMultiplierSource(), new HeavyArmorProfileFullArmorArmorValueBonusSource(), new ArbitraryPotionAmplifierSource("HEAVY_ARMOR_FRACTION_BONUS", false));
         register("HEAVY_ARMOR_EXP_GAIN", new HeavyArmorEXPSource());
 
-        register("LIGHT_WEAPONS_CRIT_CHANCE", new LightWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
-        register("LIGHT_WEAPONS_CRIT_DAMAGE", new LightWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
-        register("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", new ArbitraryEnchantmentAmplifierOnAttackSource("HEAVY_ARMOR_DAMAGE"), new LightWeaponsProfileDamageMultiplierSource(), new LightWeaponsProfileHeavyArmorDamageBonusSource(), new LightWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
+        register("LIGHT_WEAPONS_CRIT_CHANCE", true, new LightWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("LIGHT_WEAPONS_CRIT_DAMAGE", true, new LightWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
+        register("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", true, new LightWeaponsProfileDamageMultiplierSource(), new LightWeaponsProfileHeavyArmorDamageBonusSource(), new LightWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
         register("LIGHT_WEAPONS_EXP_GAIN", new LightWeaponsEXPSource());
-        register("LIGHT_WEAPONS_STUN_CHANCE", new LightWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("STUN_CHANCE"));
+        register("LIGHT_WEAPONS_STUN_CHANCE", true, new LightWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("STUN_CHANCE"));
         register("LIGHT_WEAPONS_RARE_DROP_MULTIPLIER", new LightWeaponsProfileRareDropMultiplierSource());
 
-        register("HEAVY_WEAPONS_CRIT_CHANCE", new HeavyWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
-        register("HEAVY_WEAPONS_CRIT_DAMAGE", new HeavyWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
-        register("HEAVY_WEAPONS_DAMAGE_MULTIPLIER", new ArbitraryEnchantmentAmplifierOnAttackSource("HEAVY_ARMOR_DAMAGE"), new HeavyWeaponsProfileDamageMultiplierSource(), new HeavyWeaponsProfileHeavyArmorDamageBonusSource(), new HeavyWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
+        register("HEAVY_WEAPONS_CRIT_CHANCE", true, new HeavyWeaponsCritChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_CHANCE"));
+        register("HEAVY_WEAPONS_CRIT_DAMAGE", true, new HeavyWeaponsCritDamageMultiplierSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_CRIT_DAMAGE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("CRIT_DAMAGE"));
+        register("HEAVY_WEAPONS_DAMAGE_MULTIPLIER", true, new HeavyWeaponsProfileDamageMultiplierSource(), new HeavyWeaponsProfileHeavyArmorDamageBonusSource(), new HeavyWeaponsProfileLightArmorDamageBonusSource(), new ArbitraryPotionAmplifierSource("WEAPONS_DAMAGE", false));
         register("HEAVY_WEAPONS_EXP_GAIN", new HeavyWeaponsEXPSource());
-        register("HEAVY_WEAPONS_STUN_CHANCE", new HeavyWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("STUN_CHANCE"));
+        register("HEAVY_WEAPONS_STUN_CHANCE", true, new HeavyWeaponsProfileStunChanceSource(), new ArbitraryAttributeOnAttackSource("CUSTOM_STUN_CHANCE", false), new ArbitraryEnchantmentAmplifierOnAttackSource("STUN_CHANCE"));
         register("HEAVY_WEAPONS_RARE_DROP_MULTIPLIER", new HeavyWeaponsProfileRareDropMultiplierSource());
     }
 
-    /**
-     * Registers a stat name to be used and collected stats from
-     * @param stat the stat name to register
-     */
-    public void registerGenericSource(String stat){
-        sources.put(stat, new HashSet<>());
+    // For any stat contained within this map, the boolean value associated with it indicates whether or not it's the attacker
+    // possessing the stat or the defender (if applicable). For example, crit chance may apply to attacker, but armor may apply to the
+    // defender. Both are EvEStatSources, but for other plugins it may be useful to know whether or not the stat is meant for the
+    // attacker or defender
+    private final Map<String, Boolean> attackerStatPossessiveMap = new HashMap<>();
+
+    public Map<String, Boolean> getAttackerStatPossessiveMap() {
+        return attackerStatPossessiveMap;
     }
 
     /**
@@ -256,6 +259,17 @@ public class AccumulativeStatManager {
         if (existingSources == null) existingSources = new HashSet<>();
         existingSources.addAll(Arrays.asList(sources));
         this.sources.put(stat, existingSources);
+    }
+
+    /**
+     * Registers a new stat source to a stat name. If the stat does not yet exist, it is registered also.
+     * This source will be used to conditionally collect a specific stat from a given entity.
+     * @param stat the stat to register a new source to
+     * @param sources the source to register
+     */
+    public void register(String stat, boolean attackerStatPossessive, AccumulativeStatSource... sources){
+        attackerStatPossessiveMap.put(stat, attackerStatPossessive);
+        register(stat, sources);
     }
 
     /**
@@ -273,15 +287,10 @@ public class AccumulativeStatManager {
      * @return the collective stat number
      */
     public double getStats(String stat, Entity p, boolean use) {
-        if (!sources.containsKey(stat)) {
-            return 0;
-        }
+        if (!sources.containsKey(stat)) return 0;
         Collection<AccumulativeStatSource> existingSources = sources.get(stat);
         double value = 0;
         for (AccumulativeStatSource s : existingSources){
-//            if (stat.equals("DAMAGE_RESISTANCE") && p instanceof Player && p.getName().equals("Athlaeos")){
-//                System.out.println("damage resistance " + value + " added from " + s.getClass().getSimpleName());
-//            }
             value += s.add(p, use);
         }
         return Utils.round(value, 6);
@@ -318,24 +327,15 @@ public class AccumulativeStatManager {
      * @return the collective stat number
      */
     public double getStats(String stat, Entity p, Entity e, boolean use) {
-        if (!sources.containsKey(stat)) {
-            return 0;
-        }
-        if (e == null) {
-            return getStats(stat, p, use);
-        }
+        if (!sources.containsKey(stat)) return 0;
+        if (e == null) return getStats(stat, p, use);
         Collection<AccumulativeStatSource> existingSources = sources.get(stat);
         double value = 0;
         for (AccumulativeStatSource s : existingSources){
+            // output: ~0.00ms
             if (s instanceof EvEAccumulativeStatSource){
-//                if (stat.equals("DAMAGE_RESISTANCE") && p instanceof Player && p.getName().equals("Athlaeos")){
-//                    System.out.println("damage resistance " + value + " added from " + s.getClass().getSimpleName());
-//                }
                 value += ((EvEAccumulativeStatSource) s).add(p, e, use);
             } else {
-//                if (stat.equals("DAMAGE_RESISTANCE") && p instanceof Player && p.getName().equals("Athlaeos")){
-//                    System.out.println("damage resistance " + value + " added from " + s.getClass().getSimpleName());
-//                }
                 value += s.add(p, use);
             }
         }

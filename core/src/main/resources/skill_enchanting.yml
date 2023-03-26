@@ -235,12 +235,12 @@ scaling_amplifier:
     lower_bound: 0
     upper_bound: none
   fortify_farming_rare_drops:
-    scaling: '(0.99/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +99% from 0-300 points.
+    scaling: '(3/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +99% from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
   fortify_farming_fishing_tier:
-    scaling: '(9/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +0.49 from 0-300 points.
+    scaling: '(5/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +0.49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none
@@ -255,7 +255,7 @@ scaling_amplifier:
     lower_bound: 0
     upper_bound: none
   fortify_archery_accuracy:
-    scaling: '(0.49/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
+    scaling: '(5/300) * %rating%' # This default formula results in an amplifier amplification of 0 to +49 from 0-300 points.
     mode: 'ADD_ON_DEFAULT'
     lower_bound: 0
     upper_bound: none

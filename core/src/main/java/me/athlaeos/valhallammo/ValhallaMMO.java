@@ -58,6 +58,10 @@ public final class ValhallaMMO extends JavaPlugin {
     private PlayerSmithingListener smithingListener;
     private CauldronCraftingListener cauldronCraftingListener;
 
+    @Override
+    public void onLoad(){
+        plugin = this;
+    }
 
     @Override
     public void onEnable() {

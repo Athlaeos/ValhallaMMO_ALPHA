@@ -30,6 +30,9 @@ public class FarmingRareDropRateAddReward extends PerkReward {
     public void setArgument(Object argument) {
         super.setArgument(argument);
         if (argument != null){
+            if (argument instanceof Integer){
+                chance = (float) argument;
+            }
             if (argument instanceof Float){
                 chance = (float) argument;
             }

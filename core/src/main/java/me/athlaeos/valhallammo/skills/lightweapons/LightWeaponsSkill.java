@@ -106,7 +106,7 @@ public class LightWeaponsSkill extends Skill implements OffensiveSkill, Interact
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
-        double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_EXP_GAIN", p, true) / 100D));
+        double finalAmount = amount * ((AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("LIGHT_WEAPONS_EXP_GAIN", p, 1000, true) / 100D));
         super.addEXP(p, finalAmount, silent, reason);
     }
 
@@ -177,19 +177,19 @@ public class LightWeaponsSkill extends Skill implements OffensiveSkill, Interact
         }
 
         double damage = event.getDamage();
-        double damageMultiplier = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), true);
+        double damageMultiplier = AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("LIGHT_WEAPONS_DAMAGE_MULTIPLIER", event.getEntity(), event.getDamager(), 1000, true);
         damage *= damageMultiplier;
 
-        double critChance = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_CRIT_CHANCE", event.getEntity(), event.getDamager(), true);
+        double critChance = AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("LIGHT_WEAPONS_CRIT_CHANCE", event.getEntity(), event.getDamager(), 1000, true);
         boolean crit = Utils.getRandom().nextDouble() < critChance;
-        double bleedChance = AccumulativeStatManager.getInstance().getStats("BLEED_CHANCE", event.getEntity(), event.getDamager(), true);
+        double bleedChance = AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("BLEED_CHANCE", event.getEntity(), event.getDamager(), 1000, true);
         boolean bleed = Utils.getRandom().nextDouble() < bleedChance;
-        double bleedDamage = AccumulativeStatManager.getInstance().getStats("BLEED_DAMAGE", event.getEntity(), event.getDamager(), true);
-        int bleedDuration = (int) AccumulativeStatManager.getInstance().getStats("BLEED_DURATION", event.getEntity(), event.getDamager(), true);
-        double critDamage = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_CRIT_DAMAGE", event.getEntity(), event.getDamager(), true);
+        double bleedDamage = AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("BLEED_DAMAGE", event.getEntity(), event.getDamager(), 1000, true);
+        int bleedDuration = (int) AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("BLEED_DURATION", event.getEntity(), event.getDamager(), 1000, true);
+        double critDamage = AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("LIGHT_WEAPONS_CRIT_DAMAGE", event.getEntity(), event.getDamager(), 1000, true);
 
         int stunDuration = defaultStunDuration;
-        boolean stun = Utils.getRandom().nextDouble() < AccumulativeStatManager.getInstance().getStats("HEAVY_WEAPONS_STUN_CHANCE", damaged, attacker, true);
+        boolean stun = Utils.getRandom().nextDouble() < AccumulativeStatManager.getInstance().getAttackerStatsIncludingCache("HEAVY_WEAPONS_STUN_CHANCE", damaged, attacker, 1000, true);
 
         if (attacker instanceof Player){
             Player player = (Player) attacker;
@@ -200,7 +200,7 @@ public class LightWeaponsSkill extends Skill implements OffensiveSkill, Interact
                     crit = profile.isCritOnBleed() && PotionEffectManager.getInstance().isBleeding((LivingEntity) event.getEntity());
                 }
                 if (!crit){ // if standing still did not cause a crit, crit if shooter is not wearing anything and invisible
-                    crit = profile.isCritOnStealth() && EntityUtils.getEntityEquipment(player).getIterable(false).isEmpty() && player.isInvisible();
+                    crit = profile.isCritOnStealth() && EntityUtils.getEntityProperties(player).getIterable(false).isEmpty() && player.isInvisible();
                 }
                 if (!crit){
                     crit = profile.isCritOnStun() && PotionEffectManager.getInstance().isStunned((LivingEntity) damaged);
@@ -255,7 +255,7 @@ public class LightWeaponsSkill extends Skill implements OffensiveSkill, Interact
                 List<ItemStack> newItems = new ArrayList<>(event.getDrops());
 
                 if (!event.getDrops().isEmpty()){
-                    double rareDropMultiplier = AccumulativeStatManager.getInstance().getStats("LIGHT_WEAPONS_RARE_DROP_MULTIPLIER", killer, true);
+                    double rareDropMultiplier = AccumulativeStatManager.getInstance().getEntityStatsIncludingCache("LIGHT_WEAPONS_RARE_DROP_MULTIPLIER", killer, 1000, true);
                     lootTable.onEntityKilled(event.getEntity(), newItems, rareDropMultiplier);
                     event.getDrops().clear();
                     event.getDrops().addAll(newItems);

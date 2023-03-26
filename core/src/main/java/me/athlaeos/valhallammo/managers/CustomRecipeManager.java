@@ -1251,11 +1251,12 @@ public class CustomRecipeManager {
                 if (shape.isEmpty()){
                     // new system
                     for (int i = 0; i < 9; i++){
-                        ItemStack charItemStack = config.getItemStack("shaped." + recipe + ".ingredients." + i);
-                        if (Utils.isItemEmptyOrNull(charItemStack)) continue;
-
-                        charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
-                        exactIngredients.put(i, charItemStack);
+                        if (Utils.doesPathExist(config, "shaped." + recipe + ".ingredients.", "" + i)){
+                            ItemStack charItemStack = config.getItemStack("shaped." + recipe + ".ingredients." + i);
+                            if (Utils.isItemEmptyOrNull(charItemStack)) continue;
+                            charItemStack = TranslationManager.getInstance().translateItemStack(charItemStack);
+                            exactIngredients.put(i, charItemStack);
+                        }
                     }
                     if (exactIngredients.isEmpty()) {
                         ValhallaMMO.getPlugin().getLogger().warning("Shaped recipe " + recipe + " does not have ingredients, not loaded in");
@@ -1876,8 +1877,8 @@ public class CustomRecipeManager {
                     continue;
                 }
                 if (!allowedAllRecipes){
-                    if (!unlockedRecipes.contains(r.getName())) {
-                        continue;
+                    if (!r.isUnlockedForEveryone()) {
+                        if (!unlockedRecipes.contains(r.getName())) continue;
                     }
                 }
                 for (int i = 0; i < 3; i++){

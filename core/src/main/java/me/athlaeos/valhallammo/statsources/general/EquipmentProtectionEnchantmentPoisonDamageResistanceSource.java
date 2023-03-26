@@ -21,7 +21,7 @@ public class EquipmentProtectionEnchantmentPoisonDamageResistanceSource extends 
     public double add(Entity p, boolean use) {
         if (p instanceof LivingEntity){
             int totalLevelCount = 0;
-            for (ItemStack i : EntityUtils.getEntityEquipment(p).getIterable(false)){
+            for (ItemStack i : EntityUtils.getEntityProperties(p).getIterable(false)){
                 totalLevelCount += i.getEnchantmentLevel(Enchantment.PROTECTION_ENVIRONMENTAL);
             }
             return Math.min(resistanceCap, totalLevelCount * resistancePerPiece);

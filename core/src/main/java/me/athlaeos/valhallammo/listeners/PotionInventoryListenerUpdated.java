@@ -28,7 +28,8 @@ import java.util.*;
 
 public class PotionInventoryListenerUpdated implements Listener {
     private final Map<Location, Map.Entry<BrewingTask, Map<Integer, DynamicBrewingRecipe>>> activeBrewingStands = new HashMap<>();
-    private static final boolean save_ingredient_spawn_on_top_of_stand = ConfigManager.getInstance().getConfig("skill_alchemy.yml").get().getBoolean("save_ingredient_spawn_on_top_of_stand", true);
+    private static final boolean save_ingredient_spawn_on_top_of_stand =
+            ConfigManager.getInstance().getConfig("skill_alchemy.yml").get().getBoolean("save_ingredient_spawn_on_top_of_stand", true);
 
     private final Map<Material, Integer[]> preferredMaterialSlots = new HashMap<>();
     public PotionInventoryListenerUpdated(){
@@ -119,31 +120,24 @@ public class PotionInventoryListenerUpdated implements Listener {
             if (e.getView().getTopInventory().getType() != InventoryType.BREWING) {
                 return;
             }
-            for (Integer i : e.getRawSlots()){
-                // if one of the dragged slots is a player inventory slot
-                if (i > 4) return;
-            }
-            if (e.getRawSlots().size() != 1) {
-                return;
-            }
+            if (e.getRawSlots().size() == 1 && e.getRawSlots().stream().noneMatch(i -> i > 4)) {
+                int slot = new ArrayList<>(e.getRawSlots()).get(0);
 
-            int slot = new ArrayList<>(e.getRawSlots()).get(0);
+                e.setCancelled(true);
+                e.setResult(Event.Result.ALLOW);
 
-            e.setCancelled(true);
-            e.setResult(Event.Result.ALLOW);
-
-            switch (e.getType()){
-                case EVEN:{
-                    ItemUtils.calculateClickedSlot(new InventoryClickEvent(e.getView(), InventoryType.SlotType.CONTAINER, slot, ClickType.LEFT, InventoryAction.DROP_ALL_SLOT));
-                    break;
-                }
-                case SINGLE:{
-                    ItemUtils.calculateClickedSlot(new InventoryClickEvent(e.getView(), InventoryType.SlotType.CONTAINER, slot, ClickType.RIGHT, InventoryAction.DROP_ALL_SLOT));
-                    break;
-                }
-                default: {
-                    e.setCancelled(false);
-                    return;
+                switch (e.getType()){
+                    case EVEN:{
+                        ItemUtils.calculateClickedSlot(new InventoryClickEvent(e.getView(), InventoryType.SlotType.CONTAINER, slot, ClickType.LEFT, InventoryAction.DROP_ALL_SLOT));
+                        break;
+                    }
+                    case SINGLE:{
+                        ItemUtils.calculateClickedSlot(new InventoryClickEvent(e.getView(), InventoryType.SlotType.CONTAINER, slot, ClickType.RIGHT, InventoryAction.DROP_ALL_SLOT));
+                        break;
+                    }
+                    default: {
+                        e.setCancelled(false);
+                    }
                 }
             }
 
@@ -157,12 +151,13 @@ public class PotionInventoryListenerUpdated implements Listener {
     private void updateBrewingStand(BrewerInventory inventory, Location location, Player player){
         ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
             final ItemStack ingredient = inventory.getItem(3);
-            if (Utils.isItemEmptyOrNull(ingredient)) {
-                return;
-            }
+            if (Utils.isItemEmptyOrNull(ingredient)) return;
             BrewingStand brewingStand = inventory.getHolder();
             if (brewingStand != null) {
                 Map<Integer, DynamicBrewingRecipe> brewingRecipeList = CustomRecipeManager.getInstance().getBrewingRecipes(inventory, player);
+                if (activeBrewingStands.containsKey(location) && activeBrewingStands.get(location).getKey().tick <= 0){
+                    activeBrewingStands.remove(location);
+                }
                 if (brewingRecipeList.isEmpty()) {
                     if (activeBrewingStands.containsKey(location)) {
                         //Cancel current running tasks and removing the brewing operation from the location
@@ -228,6 +223,7 @@ public class PotionInventoryListenerUpdated implements Listener {
             BrewingStand brewingStand = inventory.getHolder();
             if (location == null || brewingStand == null){
                 cancel();
+                activeBrewingStands.remove(location);
                 return;
             }
             if (!activeBrewingStands.containsKey(location)) {

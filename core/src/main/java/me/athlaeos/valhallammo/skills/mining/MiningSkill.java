@@ -233,7 +233,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                     if (!allowedVeinMineBlocks.contains(event.getBlock().getType())) {
                         return;
                     }
-                    unlockedVeinMining = veinMiningCooldown > 0;
+                    unlockedVeinMining = veinMiningCooldown >= 0;
                 }
             }
 
@@ -264,6 +264,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                         final Material blockBrokenType = event.getBlock().getType();
                         final boolean dataWasEnabled1 = dataWasEnabled;
 
+                        event.setCancelled(true);
                         if (vein_mining_instant){
                             Utils.alterBlocksInstant(
                                     "valhalla_vein_miner",
@@ -272,7 +273,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
-                                        rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
+                                        event.getPlayer().breakBlock(block); //rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
                                         if (cosmetic_outline) {
                                             Color color = Utils.hexToRgb(outline_color);
                                             ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -294,7 +295,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
-                                        rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
+                                        event.getPlayer().breakBlock(block); //rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
                                         if (cosmetic_outline) {
                                             Color color = Utils.hexToRgb(outline_color);
                                             ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -396,9 +397,28 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                 }
                 if (!handleDropsSelf){ // not spigot
                     event.getItems().addAll(newItems);
+                    if (veinMineInstantPickup && Utils.getBlockAlteringPlayers().getOrDefault("valhalla_vein_miner", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
+                        for (Item i : newItems){
+                            Map<Integer, ItemStack> remainingItems = event.getPlayer().getInventory().addItem(i.getItemStack());
+                            for (ItemStack r : remainingItems.values()){
+                                event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), r);
+                            }
+                        }
+                        event.getItems().clear();
+                    }
                 } else {
-                    for (Item i : newItems){
-                        event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
+                    if (veinMineInstantPickup && Utils.getBlockAlteringPlayers().getOrDefault("valhalla_vein_miner", new HashSet<>()).contains(event.getPlayer().getUniqueId())){
+                        for (Item i : newItems){
+                            Map<Integer, ItemStack> remainingItems = event.getPlayer().getInventory().addItem(i.getItemStack());
+                            for (ItemStack r : remainingItems.values()){
+                                event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), r);
+                            }
+                        }
+                        event.getItems().clear();
+                    } else {
+                        for (Item i : newItems){
+                            event.getBlockState().getWorld().dropItemNaturally(event.getBlock().getLocation(), i.getItemStack());
+                        }
                     }
                 }
 

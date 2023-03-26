@@ -28,7 +28,8 @@ profile_sub_version: 0 # The version of profiles used to define player's stats w
 # number after the dot the subversion. If the main version is incremented, all players joining will receive a hard reset the first time,
 # meaning they're completely reset and lose all progress. If the subversion is incremented, all players will instead receive a minor reset,
 # meaning they're completely reset, but their exp is refunded so they don't lose progress.
-# Example: if a player's profile is on version 0.0, setting this value to 0.1 would give them a soft reset whereas 1.0 would give them a hard reset.
+# Example: if a player's profile is on version 0.0 (main and subversion 0), setting this value to 0.1 (main version 0 and subversion 1)
+# would give them a soft reset whereas 1.0 (main version 1 and subversion 0) would give them a hard reset.
 world_blacklist: # If a world name is in this list, ValhallaMMO has absolutely no influence here.
   - exampleworldlol
 

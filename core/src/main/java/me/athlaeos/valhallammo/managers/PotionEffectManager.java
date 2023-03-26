@@ -3,6 +3,7 @@ package me.athlaeos.valhallammo.managers;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.config.ConfigManager;
 import me.athlaeos.valhallammo.dom.CombatType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.dom.PotionEffect;
 import me.athlaeos.valhallammo.events.EntityCustomPotionEffectEvent;
 import me.athlaeos.valhallammo.events.ValhallaEntityStunEvent;
@@ -316,7 +317,14 @@ public class PotionEffectManager {
      * @return the PotionEffect if active on the player, or null if expired/doesn't exist
      */
     public PotionEffect getPotionEffect(Entity p, String name){
-        PotionEffect effect = getActivePotionEffects(p).get(name);
+        PotionEffect effect;
+        if (p instanceof LivingEntity){
+            EntityProperties entityProperties = EntityEquipmentCacheManager.getInstance().getAndCacheEquipment((LivingEntity) p);
+            effect = entityProperties.getActivePotionEffects().get(name);
+        } else {
+            effect = getActivePotionEffects(p).get(name);
+        }
+
         if (effect != null){
             if (effect.getEffectiveUntil() != -1){
                 if (effect.getEffectiveUntil() < System.currentTimeMillis()) {
@@ -392,7 +400,7 @@ public class PotionEffectManager {
 
     private final Map<UUID, BleedingInstance> bleedingEntities = new HashMap<>();
     private void startBleedingRunnable(){
-        int delay = ConfigManager.getInstance().getConfig("config.yml").get().getInt("bleed_delay", 20);
+        int delay = ConfigManager.getInstance().getConfig("config.yml").get().getInt("bleed_delay", 40);
         new BukkitRunnable(){
             @Override
             public void run() {
@@ -411,10 +419,12 @@ public class PotionEffectManager {
                         bleedTick.add(instance.getBleedingEntity().getUniqueId());
                         instance.getBleedingEntity().setLastDamageCause(event);
                         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
-                        int particleCount = (int) (3 * Math.min(10, event.getDamage()));
-                        instance.getBleedingEntity().getWorld().spawnParticle(Particle.BLOCK_DUST, instance.getBleedingEntity().getEyeLocation().add(0, -(instance.getBleedingEntity().getHeight()/2), 0),
-                                particleCount, 0.4, 0.4, 0.4, Material.REDSTONE_BLOCK.createBlockData());
-                        instance.getBleedingEntity().playEffect(EntityEffect.HURT);
+                        if (!event.isCancelled()){
+                            int particleCount = (int) (3 * Math.min(10, event.getDamage()));
+                            instance.getBleedingEntity().getWorld().spawnParticle(Particle.BLOCK_DUST, instance.getBleedingEntity().getEyeLocation().add(0, -(instance.getBleedingEntity().getHeight()/2), 0),
+                                    particleCount, 0.4, 0.4, 0.4, Material.REDSTONE_BLOCK.createBlockData());
+                            instance.getBleedingEntity().playEffect(EntityEffect.HURT);
+                        }
                     }
                 }
             }

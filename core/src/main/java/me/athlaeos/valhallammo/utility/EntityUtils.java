@@ -1,7 +1,12 @@
 package me.athlaeos.valhallammo.utility;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
+import me.athlaeos.valhallammo.dom.ArmorType;
+import me.athlaeos.valhallammo.dom.EntityProperties;
 import me.athlaeos.valhallammo.items.EquipmentClass;
+import me.athlaeos.valhallammo.managers.CustomEnchantmentManager;
+import me.athlaeos.valhallammo.managers.ItemAttributesManager;
+import me.athlaeos.valhallammo.managers.PotionEffectManager;
 import me.athlaeos.valhallatrinkets.TrinketsManager;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
@@ -15,7 +20,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class EntityUtils {
 
@@ -148,7 +156,7 @@ public class EntityUtils {
 
     public static int getEPF(LivingEntity entity, EntityDamageEvent.DamageCause cause){
         int epf = 0;
-        for (ItemStack i : getEntityEquipment(entity).getIterable(false)){
+        for (ItemStack i : getEntityProperties(entity).getIterable(false)){
             if (cause == EntityDamageEvent.DamageCause.PROJECTILE){
                 epf += 2 * i.getEnchantmentLevel(Enchantment.PROTECTION_PROJECTILE);
             }
@@ -177,8 +185,12 @@ public class EntityUtils {
         return epf;
     }
 
-    public static EntityEquipment getEntityEquipment(Entity entity){
-        EntityEquipment equipment = new EntityEquipment();
+    public static EntityProperties getEntityProperties(Entity entity){
+        return getEntityProperties(entity, false, false, false, false);
+    }
+
+    public static EntityProperties getEntityProperties(Entity entity, boolean getEnchantments, boolean getAttributes, boolean countArmorTypes, boolean getPotionEffects){
+        EntityProperties equipment = new EntityProperties();
         if (entity == null) return equipment;
         if (!(entity instanceof LivingEntity)) return equipment;
         LivingEntity e = (LivingEntity) entity;
@@ -189,107 +201,70 @@ public class EntityUtils {
             equipment.setBoots(e.getEquipment().getBoots());
             equipment.setMainHand(e.getEquipment().getItemInMainHand());
             equipment.setOffHand(e.getEquipment().getItemInOffHand());
+            if (countArmorTypes){
+                equipment.setHeavyArmorCount(ArmorType.getArmorTypeCount(e, ArmorType.HEAVY));
+                equipment.setLightArmorCount(ArmorType.getArmorTypeCount(e, ArmorType.LIGHT));
+                equipment.setWeightlessArmorCount(ArmorType.getArmorTypeCount(e, ArmorType.WEIGHTLESS));
+            }
+            if (getPotionEffects){
+                equipment.getActivePotionEffects().putAll(PotionEffectManager.getInstance().getActivePotionEffects(e));
+            }
+            if (getEnchantments){
+                if (!Utils.isItemEmptyOrNull(equipment.getHelmet())) equipment.setHelmetEnchantments(CustomEnchantmentManager.getInstance().getCurrentEnchantments(equipment.getHelmet()));
+                if (!Utils.isItemEmptyOrNull(equipment.getChestplate())) equipment.setChestplateEnchantments(CustomEnchantmentManager.getInstance().getCurrentEnchantments(equipment.getChestplate()));
+                if (!Utils.isItemEmptyOrNull(equipment.getLeggings())) equipment.setLeggingsEnchantments(CustomEnchantmentManager.getInstance().getCurrentEnchantments(equipment.getLeggings()));
+                if (!Utils.isItemEmptyOrNull(equipment.getBoots())) equipment.setBootsEnchantments(CustomEnchantmentManager.getInstance().getCurrentEnchantments(equipment.getBoots()));
+                if (
+                        !Utils.isItemEmptyOrNull(equipment.getMainHand()) &&
+                                !EquipmentClass.isArmor(equipment.getMainHand()) &&
+                                EquipmentClass.getClass(equipment.getMainHand()) != EquipmentClass.TRINKET
+                ){
+                    equipment.setMainHandEnchantments(CustomEnchantmentManager.getInstance().getCurrentEnchantments(equipment.getMainHand()));
+                }
+                if (
+                        !Utils.isItemEmptyOrNull(equipment.getOffHand()) &&
+                                !EquipmentClass.isArmor(equipment.getOffHand()) &&
+                                EquipmentClass.getClass(equipment.getOffHand()) != EquipmentClass.TRINKET
+                ){
+                    equipment.setOffHandEnchantments(CustomEnchantmentManager.getInstance().getCurrentEnchantments(equipment.getOffHand()));
+                }
+            }
+            if (getAttributes){
+                if (!Utils.isItemEmptyOrNull(equipment.getHelmet())) equipment.setHelmetAttributes(ItemAttributesManager.getInstance().getCurrentStats(equipment.getHelmet()));
+                if (!Utils.isItemEmptyOrNull(equipment.getChestplate())) equipment.setChestplateAttributes(ItemAttributesManager.getInstance().getCurrentStats(equipment.getChestplate()));
+                if (!Utils.isItemEmptyOrNull(equipment.getLeggings())) equipment.setLeggingsAttributes(ItemAttributesManager.getInstance().getCurrentStats(equipment.getLeggings()));
+                if (!Utils.isItemEmptyOrNull(equipment.getBoots())) equipment.setBootsAttributes(ItemAttributesManager.getInstance().getCurrentStats(equipment.getBoots()));
+                if (
+                        !Utils.isItemEmptyOrNull(equipment.getMainHand()) &&
+                                !EquipmentClass.isArmor(equipment.getMainHand()) &&
+                                EquipmentClass.getClass(equipment.getMainHand()) != EquipmentClass.TRINKET
+                ){
+                    equipment.setMainHandAttributes(ItemAttributesManager.getInstance().getCurrentStats(equipment.getMainHand()));
+                }
+                if (
+                        !Utils.isItemEmptyOrNull(equipment.getOffHand()) &&
+                                !EquipmentClass.isArmor(equipment.getOffHand()) &&
+                                EquipmentClass.getClass(equipment.getOffHand()) != EquipmentClass.TRINKET
+                ){
+                    equipment.setOffHandAttributes(ItemAttributesManager.getInstance().getCurrentStats(equipment.getOffHand()));
+                }
+            }
         }
         if (ValhallaMMO.isTrinketsHooked()){
             if (entity instanceof Player){
-                equipment.getMiscEquipment().addAll(TrinketsManager.getInstance().getTrinketInventory((Player) entity).values());
+                Map<Integer, ItemStack> trinkets = TrinketsManager.getInstance().getTrinketInventory((Player) entity);
+                equipment.getMiscEquipment().addAll(trinkets.values());
+                if (getEnchantments){
+                    for (ItemStack i : trinkets.values())
+                        equipment.getMiscEquipmentEnchantments().put(i, CustomEnchantmentManager.getInstance().getCurrentEnchantments(i));
+                }
+                if (getAttributes){
+                    for (ItemStack i : trinkets.values())
+                        equipment.getMiscEquipmentAttributes().put(i, ItemAttributesManager.getInstance().getCurrentStats(i));
+                }
             }
         }
         return equipment;
-    }
-
-    public static class EntityEquipment{
-        private ItemStack helmet = null;
-        private ItemStack chestplate = null;
-        private ItemStack leggings = null;
-        private ItemStack boots = null;
-        private ItemStack mainHand = null;
-        private ItemStack offHand = null;
-        private final List<ItemStack> miscEquipment = new ArrayList<>();
-
-        public EntityEquipment(){}
-
-        public EntityEquipment(ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots, ItemStack leftHand, ItemStack rightHand){
-            this.helmet = helmet;
-            this.chestplate = chestplate;
-            this.leggings = leggings;
-            this.boots = boots;
-            this.mainHand = leftHand;
-            this.offHand = rightHand;
-        }
-
-        public List<ItemStack> getMiscEquipment() {
-            return miscEquipment;
-        }
-
-        public ItemStack getHelmet() {
-            return helmet;
-        }
-
-        public void setHelmet(ItemStack helmet) {
-            this.helmet = helmet;
-        }
-
-        public ItemStack getChestplate() {
-            return chestplate;
-        }
-
-        public void setChestplate(ItemStack chestplate) {
-            this.chestplate = chestplate;
-        }
-
-        public ItemStack getBoots() {
-            return boots;
-        }
-
-        public void setBoots(ItemStack boots) {
-            this.boots = boots;
-        }
-
-        public ItemStack getLeggings() {
-            return leggings;
-        }
-
-        public void setLeggings(ItemStack leggings) {
-            this.leggings = leggings;
-        }
-
-        public ItemStack getMainHand() {
-            return mainHand;
-        }
-
-        public void setMainHand(ItemStack mainHand) {
-            this.mainHand = mainHand;
-        }
-
-        public ItemStack getOffHand() {
-            return offHand;
-        }
-
-        public void setOffHand(ItemStack offHand) {
-            this.offHand = offHand;
-        }
-
-        public List<ItemStack> getIterable(boolean includeHands){
-            List<ItemStack> iterable = new ArrayList<>();
-            if (!Utils.isItemEmptyOrNull(helmet)) iterable.add(helmet);
-            if (!Utils.isItemEmptyOrNull(chestplate)) iterable.add(chestplate);
-            if (!Utils.isItemEmptyOrNull(leggings)) iterable.add(leggings);
-            if (!Utils.isItemEmptyOrNull(boots)) iterable.add(boots);
-            if (!miscEquipment.isEmpty()) iterable.addAll(miscEquipment);
-            if (includeHands){
-                if (!Utils.isItemEmptyOrNull(mainHand)) iterable.add(mainHand);
-                if (!Utils.isItemEmptyOrNull(offHand)) iterable.add(offHand);
-            }
-            return iterable;
-        }
-
-        public List<ItemStack> getHands(){
-            List<ItemStack> iterable = new ArrayList<>();
-            if (!Utils.isItemEmptyOrNull(mainHand)) iterable.add(mainHand);
-            if (!Utils.isItemEmptyOrNull(offHand)) iterable.add(offHand);
-            return iterable;
-        }
     }
 
     public enum EntityClassification{
@@ -310,6 +285,7 @@ public class EntityUtils {
                 "WITHER_SKULL"), // entities that were never alive (e.g. POTION_EFFECT_CLOUD)
         UNDEAD("DROWNED", "GIANT", "HUSK", "PHANTOM", "SKELETON", "SKELETON_HORSE", "STRAY", "WITHER",
                 "WITHER_SKELETON", "ZOGLIN", "ZOMBIE", "ZOMBIE_HORSE", "ZOMBIE_VILLAGER", "ZOMBIFIED_PIGLIN"), // undead entities
+        SCULK("WARDEN"), // sculk entities
         ARTHROPOD("BEE", "CAVE_SPIDER", "ENDERMITE", "SILVERFISH", "SPIDER"), // arthropod entities
         HOSTILE("BLAZE", "CAVE_SPIDER", "CREEPER", "DROWNED", "ELDER_GUARDIAN", "ENDER_DRAGON", "ENDERMITE",
                 "EVOKER", "GHAST", "GUARDIAN", "HOGLIN", "HUSK", "ILLUSIONER", "MAGMA_CUBE", "PHANTOM", "PIGLIN_BRUTE",
@@ -354,7 +330,8 @@ public class EntityUtils {
         EXPLODABLE("CREEPER", "DRAGON_FIREBALL", "ENDER_CRYSTAL", "FIREBALL", "FIREWORK", "MINECART_TNT",
                 "PRIMED_TNT"), // entities that are capable of exploding
         OTHER("EVOKER_FANGS", "EXPERIENCE_ORB", "FALLING_BLOCK", "FISHING_HOOK", "LEASH_HITCH", "LIGHTNING",
-                "MARKER", "PLAYER", "UNKNOWN"); // entities that do not belong to a specific classification
+                "MARKER", "PLAYER", "UNKNOWN"),
+        NOT_FOUND; // entities that do not belong to a specific classification
         private final Set<String> types;
 
         EntityClassification(String... type){
@@ -370,7 +347,7 @@ public class EntityUtils {
             for (EntityClassification classification : values()){
                 if (classification.getTypes().contains(type.toString())) classifications.add(classification);
             }
-            if (classifications.isEmpty()) classifications.add(OTHER);
+            if (classifications.isEmpty()) classifications.add(NOT_FOUND);
             return classifications;
         }
 

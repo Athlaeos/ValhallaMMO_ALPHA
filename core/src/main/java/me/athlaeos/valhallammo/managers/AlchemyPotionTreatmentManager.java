@@ -547,7 +547,7 @@ public class AlchemyPotionTreatmentManager {
         PotionEffectWrapper currentPotionEffect = PotionAttributesManager.getInstance().getPotionEffectWrapper(i, potionEffect);
         if (defaultPotionEffect != null){
             double defaultStat;
-            double minimum = 0;
+            double minimum;
             if (type == Type.DURATION){
                 defaultStat = defaultPotionEffect.getDuration();
                 minimum = defaultStat * minimumDuration;

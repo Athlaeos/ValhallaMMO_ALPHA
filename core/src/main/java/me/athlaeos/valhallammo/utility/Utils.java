@@ -66,7 +66,7 @@ public class Utils {
         map.put(1, "I");
     }
 
-    public static boolean quickWithinRange(Location l1, Location l2, double range){
+    public static boolean withinManhattanRange(Location l1, Location l2, double range){
         double distX = l1.getX() - l2.getX();
         double distY = l1.getY() - l2.getY();
         double distZ = l1.getZ() - l2.getZ();
@@ -187,14 +187,14 @@ public class Utils {
                             ItemStack holdingItem = EntityUtils.getHoldingItem(who, toolType);
                             if (holdingItem == null) {
                                 stop();
-                            } else {
-                                if (who.getGameMode() != GameMode.CREATIVE){
-                                    if (ItemUtils.damageItem(who, holdingItem, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
-                                        who.getInventory().setItemInMainHand(null);
-                                        stop();
-                                    }
-                                }
-                            }
+                            }// else {
+//                                if (who.getGameMode() != GameMode.CREATIVE){
+//                                    if (ItemUtils.damageItem(who, holdingItem, 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND)){
+//                                        who.getInventory().setItemInMainHand(null);
+//                                        stop();
+//                                    }
+//                                }
+//                            }
                         }
                         alteration.act(b);
                     }
@@ -643,7 +643,10 @@ public class Utils {
     private static final Map<String, Double> evalCache = new HashMap<>();
     public static double eval(String expression) {
         if (evalCache.containsKey(expression)) return evalCache.get(expression);
-        String str = expression.replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
+        String str = expression
+                .replace("$pi", String.format("%.15f", Math.PI))
+                .replace("$e", String.format("%.15f", Math.E))
+                .replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
         if (str.length() <= 0) return 0;
         double result = new Object() {
             int pos = -1, ch;
@@ -728,10 +731,14 @@ public class Utils {
         return result;
     }
 
-    public static double evalBigDouble(String expression) {
-        String str = expression.replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
+    public static double evalBigDecimal(String expression) {
+        if (evalCache.containsKey(expression)) return evalCache.get(expression);
+        String str = expression
+                .replace("$pi", String.format("%.15f", Math.PI))
+                .replace("$e", String.format("%.15f", Math.E))
+                .replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
         if (str.length() <= 0) return 0;
-        return new Object() {
+        double result = new Object() {
             int pos = -1, ch;
 
             void nextChar() {
@@ -810,6 +817,8 @@ public class Utils {
                 return x;
             }
         }.parse().doubleValue();
+        evalCache.put(expression, result);
+        return result;
     }
 
     public static BigDecimal pow(BigDecimal base, BigDecimal exponent) {

@@ -309,7 +309,7 @@ public class ManageCraftRecipeMenu extends Menu implements CraftingManagerMenu{
             if (view == View.CREATE_RECIPE){
                 if (!(e.getClickedInventory() instanceof PlayerInventory)){
                     e.setCancelled(true);
-                    if (Utils.isItemEmptyOrNull(e.getCursor())){
+                    if (!Utils.isItemEmptyOrNull(e.getCursor())){
                         if (e.getSlot() == 14){
                             if (current_craft_recipe != null){
                                 if (e.getClick() == ClickType.MIDDLE){

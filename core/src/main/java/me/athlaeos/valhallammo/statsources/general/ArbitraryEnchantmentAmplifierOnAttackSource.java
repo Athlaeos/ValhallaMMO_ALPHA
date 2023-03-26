@@ -29,8 +29,7 @@ public class ArbitraryEnchantmentAmplifierOnAttackSource extends EvEAccumulative
             offender = (Entity) ((AbstractArrow) offender).getShooter();
         }
         if (offender instanceof LivingEntity){
-            double value = negative ? -ItemUtils.combinedCustomEnchantAmplifier((LivingEntity) offender, enchantment) : ItemUtils.combinedCustomEnchantAmplifier((LivingEntity) offender, enchantment);
-            return value;
+            return negative ? -ItemUtils.combinedCustomEnchantAmplifier((LivingEntity) offender, enchantment) : ItemUtils.combinedCustomEnchantAmplifier((LivingEntity) offender, enchantment);
         }
         return 0;
     }
