@@ -82,6 +82,10 @@ public class LightArmorSkill extends Skill implements OffensiveSkill, PotionEffe
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
+        if (reason != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION){
+            super.addEXP(p, amount, silent, reason);
+            return;
+        }
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("LIGHT_ARMOR_EXP_GAIN", p, true) / 100D));
         super.addEXP(p, finalAmount, silent, reason);
     }

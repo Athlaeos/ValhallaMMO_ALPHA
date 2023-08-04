@@ -166,6 +166,10 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
+        if (reason != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION){
+            super.addEXP(p, amount, silent, reason);
+            return;
+        }
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("LANDSCAPING_EXP_GAIN_GENERAL", p, true) / 100D));
         super.addEXP(p, finalAmount, silent, reason);
     }
@@ -273,7 +277,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                                                 block -> logs.contains(block.getType()) && finalAllowedTreeCapitatorBlocks.contains(block.getType()),
                                                 EquipmentClass.AXE,
                                                 block -> {
-                                                    event.getPlayer().breakBlock(block); // rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
+                                                    Utils.breakBlock(event.getPlayer(), block);
                                                     if (cosmetic_outline) {
                                                         Color color = Utils.hexToRgb(outline_color);
                                                         ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -289,7 +293,7 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
                                                 block -> logs.contains(block.getType()) && finalAllowedTreeCapitatorBlocks.contains(block.getType()),
                                                 EquipmentClass.AXE,
                                                 block -> {
-                                                    event.getPlayer().breakBlock(block); // rewardDropsExperience(event.getPlayer(), "LANDSCAPING_EXP_GAIN_WOODCUTTING", Utils.breakBlock(event.getPlayer(), block, treeCapitatorInstantPickup));
+                                                    Utils.breakBlock(event.getPlayer(), block);
                                                     if (cosmetic_outline) {
                                                         Color color = Utils.hexToRgb(outline_color);
                                                         ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());

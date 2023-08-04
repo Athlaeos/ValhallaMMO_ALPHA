@@ -33,10 +33,7 @@ import org.bukkit.block.data.type.Beehive;
 import org.bukkit.block.data.type.CaveVines;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ExperienceOrb;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
@@ -165,7 +162,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
     public void onFishing(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.FISHING) {
             double fishingTimeMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_TIME_MULTIPLIER", event.getPlayer(), true);
-            event.getHook().setMinWaitTime(Utils.excessChance(fishingTimeMultiplier * event.getHook().getMinWaitTime()));
+            event.getHook().setMinWaitTime(Math.max(0, Utils.excessChance(fishingTimeMultiplier * event.getHook().getMinWaitTime())));
             event.getHook().setMaxWaitTime(Utils.excessChance(fishingTimeMultiplier * event.getHook().getMaxWaitTime()));
         } else if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             double fishingEXPMultiplier = AccumulativeStatManager.getInstance().getStats("FARMING_FISHING_VANILLA_EXP_MULTIPLIER", event.getPlayer(), true);
@@ -197,6 +194,10 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
+        if (reason != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION){
+            super.addEXP(p, amount, silent, reason);
+            return;
+        }
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("FARMING_EXP_GAIN_GENERAL", p, true) / 100D));
         super.addEXP(p, finalAmount, silent, reason);
     }
@@ -681,7 +682,7 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
 
     @Override
     public void onEntityTargetEntity(EntityTargetLivingEntityEvent event) {
-        if (event.getEntity().getType() == EntityType.BEE) {
+        if (event.getEntity() instanceof Bee) {
             if (event.getTarget() instanceof Player) {
                 if (event.getReason() == EntityTargetEvent.TargetReason.CLOSEST_PLAYER) {
                     Player target = (Player) event.getTarget();
@@ -690,6 +691,11 @@ public class FarmingSkill extends Skill implements GatheringSkill, OffensiveSkil
                         if (p instanceof FarmingProfile) {
                             if (((FarmingProfile) p).isHiveBeeAggroImmune()) {
                                 event.setCancelled(true);
+                                ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> {
+                                    Bee bee = (Bee) event.getEntity();
+                                    bee.setAnger(0);
+                                    bee.setTarget(null);
+                                }, 2L);
                             }
                         }
                     }

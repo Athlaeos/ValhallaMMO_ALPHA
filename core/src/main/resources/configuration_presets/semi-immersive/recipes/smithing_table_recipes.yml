@@ -1,0 +1,2376 @@
+smithing:
+  smithing_repair_netherite_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 200.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_stone_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_leather_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_leather_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_stone_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_chainmail_chainmail:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 50.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 150.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 150.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 200.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_chainmail_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 50.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_chainmail_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 50.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_shield:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHIELD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHIELD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 50.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_chainmail_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 50.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_wooden_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 50.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_crossbow:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CROSSBOW
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CROSSBOW
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 70.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_stone_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_wooden_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 50.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 150.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_leather_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_leather_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_stone_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_wooden_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 50.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 150.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 200.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_bow:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 70.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 200.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_wooden_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 50.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: NEUTRAL
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_wooden_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WOODEN_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: OAK_PLANKS
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONISH
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 50.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_stone_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COBBLESTONE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONISH
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_gold_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONISH
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_iron_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONISH
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 175.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_diamond_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"light_purple","text":"<lang.material-unstable-diamond>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 150.0
+        priority: SOONISH
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 400.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_netherite_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      repair_dynamic:
+        strength: 200.0
+        priority: SOONISH
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 1500.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 40.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 40.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 40.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 40.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_armor:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_armor:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+        custom-model-data: 9827320
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength2: 0.0
+        strength: 60.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_trident:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PRISMARINE_SHARD
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_elytra:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ELYTRA
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ELYTRA
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PHANTOM_MEMBRANE
+    result_modifiers:
+      repair_dynamic:
+        strength: 100.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 200.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_repair_fishing_rod:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+      amount: 1
+    result_modifiers:
+      repair_dynamic:
+        strength: 70.0
+        priority: SOONEST
+      exp_bonus_smithing:
+        strength2: 0.0
+        strength: 75.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: true
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false

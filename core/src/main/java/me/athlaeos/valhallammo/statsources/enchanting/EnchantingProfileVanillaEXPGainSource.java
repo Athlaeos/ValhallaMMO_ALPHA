@@ -16,8 +16,8 @@ public class EnchantingProfileVanillaEXPGainSource extends AccumulativeStatSourc
     public double add(Entity p, boolean use) {
         if (p instanceof Player){
             Profile profile = ProfileManager.getManager().getProfile((Player) p, "ENCHANTING");
-            if (profile == null) return 0;
-            if (!(profile instanceof EnchantingProfile)) return 0;
+            if (profile == null) return 1;
+            if (!(profile instanceof EnchantingProfile)) return 1;
             EnchantingProfile enchantingProfile = (EnchantingProfile) profile;
             return enchantingProfile.getVanillaExpGainMultiplier();
         }

@@ -41,7 +41,6 @@ public final class ValhallaMMO extends JavaPlugin {
     private VillagerInteractListener villagerInteractListener;
     private ProjectileListener projectileShootListener;
     private EntityDamagedListener entityDamagedListener;
-    private PotionInventoryListener potionInventoryListener;
     private PotionInventoryListenerUpdated potionInventoryListenerUpdated;
     private PotionBrewListener potionBrewListener;
     private ItemConsumeListener itemConsumeListener;
@@ -68,10 +67,9 @@ public final class ValhallaMMO extends JavaPlugin {
         plugin = this;
         saveAndUpdateConfig("config.yml");
         pack_enabled = ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("resource_pack_config_override");
-        if (!setupNMS()){
-            this.getLogger().warning("This version of ValhallaMMO is not compatible, versions at or under 1.16.4 are not supported. Certain features are disabled. (don't worry, no such features exist yet)");
-        } else {
-            this.getServer().getPluginManager().registerEvents(nms, this);
+        if (setupNMS()){
+            //this.getServer().getPluginManager().registerEvents(nms, this);
+            this.getServer().getLogger().info("NMS version " + nms.getClass().getSimpleName() + " registered");
         }
         saveAndUpdateConfig("languages/en-us.yml");
         TranslationManager.getInstance();
@@ -180,7 +178,7 @@ public final class ValhallaMMO extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new CookingListener(), this);
 
         if (ConfigManager.getInstance().getConfig("config.yml").get().getBoolean("parties")){
-            chatListener = (ChatListener) registerListener(new ChatListener(), "player_chat");
+            chatListener = registerListener(new ChatListener(), "player_chat");
             new PartyCommand(this);
             new PartyChatCommand();
             new PlayerEXPShareListener(this);
@@ -198,6 +196,7 @@ public final class ValhallaMMO extends JavaPlugin {
     }
 
     private static boolean trinketsHookedLock = false;
+
     public static void setTrinketsHooked(boolean trinketsHooked) {
         if (!trinketsHookedLock){
             ValhallaMMO.getPlugin().getServer().getLogger().info("ValhallaTrinkets found! Trinkets now contribute to stats as well");
@@ -312,10 +311,6 @@ public final class ValhallaMMO extends JavaPlugin {
         return itemMendListener;
     }
 
-    public PotionInventoryListener getPotionInventoryListener() {
-        return potionInventoryListener;
-    }
-
     public PotionInventoryListenerUpdated getPotionInventoryListenerUpdated() {
         return potionInventoryListenerUpdated;
     }
@@ -428,5 +423,9 @@ public final class ValhallaMMO extends JavaPlugin {
         ValhallaMMO.pack_enabled = pack_enabled;
         ConfigManager.getInstance().getConfig("config.yml").get().set("resource_pack_config_override", pack_enabled);
         ConfigManager.getInstance().getConfig("config.yml").save();
+    }
+
+    public static Metrics getMetrics() {
+        return metrics;
     }
 }

@@ -1,7 +1,7 @@
 name: "ValhallaMMO"
-version: "ALPHA_1.8.2"
+version: "ALPHA_1.8.3"
 main: "me.athlaeos.valhallammo.ValhallaMMO"
-api-version: "1.14"
+api-version: "1.16"
 authors: [ "Athlaeos" ]
 softdepend: [ "ValhallaTrinkets" ]
 description: "Adds in 12 skills with new mechanics, custom recipes, skill trees, and leveling."

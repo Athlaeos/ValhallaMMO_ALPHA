@@ -9,7 +9,6 @@ public class Config {
     private String name;
     private File file;
     private YamlConfiguration config;
-    private final ValhallaMMO plugin = ValhallaMMO.getPlugin();
 
     public Config(String name) {
         this.name = name;
@@ -35,22 +34,22 @@ public class Config {
     }
 
     public Config saveDefaultConfig() {
-        file = new File(plugin.getDataFolder(), this.name);
+        file = new File(ValhallaMMO.getPlugin().getDataFolder(), this.name);
 
-        plugin.saveResource(this.name, false);
+        ValhallaMMO.getPlugin().saveResource(this.name, false);
 
         return this;
     }
 
     public Config reload() {
         if (file == null)
-            this.file = new File(plugin.getDataFolder(), this.name);
+            this.file = new File(ValhallaMMO.getPlugin().getDataFolder(), this.name);
 
         this.config = YamlConfiguration.loadConfiguration(file);
 
         Reader defConfigStream;
         try {
-            defConfigStream = new InputStreamReader(plugin.getResource(this.name), "UTF8");
+            defConfigStream = new InputStreamReader(ValhallaMMO.getPlugin().getResource(this.name), "UTF8");
 
             if (defConfigStream != null) {
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);

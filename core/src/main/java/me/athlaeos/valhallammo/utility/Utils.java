@@ -20,8 +20,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -108,47 +110,79 @@ public class Utils {
     }
 
     /**
-     * Breaks a block, returns the collection of items the player has picked up if instantPickup is enabled
      * Calls the appropriate events. These items will not be called in the drop event, so this is one way of rewarding the
      * player for items that weren't dropped as such.
-     * Not gonna lie, kind of a spaghetti code method, using it might have unintended effects on the plugin.
      * @param player the player to break the block
      * @param block the block to break
-     * @param instantPickup if the player should instantly receive the items of the broken block
-     * @return the list of collected items if instantPickup if enabled, or an empty list otherwise
      */
-    public static List<ItemStack> breakBlock(Player player, Block block, boolean instantPickup){
-        // try to break a block and call the appropriate events
-        ItemStack tool;
-        if (!Utils.isItemEmptyOrNull(player.getInventory().getItemInMainHand())) {
-            tool = player.getInventory().getItemInMainHand();
-        } else {
-            tool = player.getInventory().getItemInOffHand();
-            if (Utils.isItemEmptyOrNull(tool)) tool = null;
-        }
-        BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
-        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
-        if (breakEvent.isCancelled()) return new ArrayList<>();
-
-        List<ItemStack> drops = new ArrayList<>((tool == null) ? block.getDrops() : block.getDrops(tool, player));
-        List<ItemStack> receivedDrops = new ArrayList<>();
-        if (!drops.isEmpty()){
-            BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(block, block.getState(), player, drops);
-            if (instantPickup){
-                Map<Integer, ItemStack> excessDrops = player.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
-                receivedDrops = new ArrayList<>(drops);
-                receivedDrops.removeAll(excessDrops.values());
-                dropEvent.getItems().clear();
-                dropEvent.getItems().addAll(excessDrops.values());
+    public static void breakBlock(Player player, Block block){
+        if (MinecraftVersionManager.getInstance().currentVersionOlderThan(MinecraftVersion.MINECRAFT_1_16)){
+            // try to break a block and call the appropriate events
+            ItemStack tool;
+            if (!isItemEmptyOrNull(player.getInventory().getItemInMainHand())) {
+                tool = player.getInventory().getItemInMainHand();
+            } else {
+                tool = player.getInventory().getItemInOffHand();
+                if (isItemEmptyOrNull(tool)) tool = null;
             }
-            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
-        }
+            BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
+            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
+            if (breakEvent.isCancelled()) return;
 
-        if (!breakEvent.isCancelled()) {
+            List<ItemStack> drops = new ArrayList<>((tool == null) ? block.getDrops() : block.getDrops(tool, player));
+            List<Item> items = drops.stream().map(i -> block.getWorld().dropItemNaturally(block.getLocation(), i)).collect(Collectors.toList());
+            BlockDropItemEvent event = new BlockDropItemEvent(block, block.getState(), player, new ArrayList<>(items));
+            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+
+            if (event.isCancelled()){
+                items.forEach(Item::remove);
+            } else {
+                items.forEach(i -> {
+                    if (!event.getItems().contains(i)){
+                        // if the event drops do not contain the original item, remove it
+                        i.remove();
+                    }
+                });
+            }
+
             block.getWorld().spawnParticle(Particle.BLOCK_DUST, block.getLocation().add(0.5, 0.5, 0.5), 16, 0.5, 0.5, 0.5, block.getBlockData());
             block.setType(Material.AIR);
+
+            ItemUtils.damageItem(player, player.getInventory().getItemInMainHand(), 1, EntityEffect.BREAK_EQUIPMENT_MAIN_HAND);
+        } else {
+            player.breakBlock(block);
         }
-        return receivedDrops;
+//        // try to break a block and call the appropriate events
+//        ItemStack tool;
+//        if (!Utils.isItemEmptyOrNull(player.getInventory().getItemInMainHand())) {
+//            tool = player.getInventory().getItemInMainHand();
+//        } else {
+//            tool = player.getInventory().getItemInOffHand();
+//            if (Utils.isItemEmptyOrNull(tool)) tool = null;
+//        }
+//        BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
+//        ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(breakEvent);
+//        if (breakEvent.isCancelled()) return new ArrayList<>();
+//
+//        List<ItemStack> drops = new ArrayList<>((tool == null) ? block.getDrops() : block.getDrops(tool, player));
+//        List<ItemStack> receivedDrops = new ArrayList<>();
+//        if (!drops.isEmpty()){
+//            BlockDropItemStackEvent dropEvent = new BlockDropItemStackEvent(block, block.getState(), player, drops);
+//            if (instantPickup){
+//                Map<Integer, ItemStack> excessDrops = player.getInventory().addItem(dropEvent.getItems().toArray(new ItemStack[0]));
+//                receivedDrops = new ArrayList<>(drops);
+//                receivedDrops.removeAll(excessDrops.values());
+//                dropEvent.getItems().clear();
+//                dropEvent.getItems().addAll(excessDrops.values());
+//            }
+//            ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(dropEvent);
+//        }
+//
+//        if (!breakEvent.isCancelled()) {
+//            block.getWorld().spawnParticle(Particle.BLOCK_DUST, block.getLocation().add(0.5, 0.5, 0.5), 16, 0.5, 0.5, 0.5, block.getBlockData());
+//            block.setType(Material.AIR);
+//        }
+//        return receivedDrops;
     }
 
     private static final Map<String, Collection<UUID>> blockAlteringPlayers = new HashMap<>();
@@ -326,10 +360,7 @@ public class Utils {
 
     public static boolean doesPathExist(YamlConfiguration config, String root, String key){
         ConfigurationSection section = config.getConfigurationSection(root);
-        if (section != null){
-            return section.getKeys(false).contains(key);
-        }
-        return false;
+        return section != null && section.getKeys(false).contains(key);
     }
 
     /**
@@ -369,11 +400,15 @@ public class Utils {
         }
     }
 
-    private static final String daysFormat = TranslationManager.getInstance().getTranslation("timeformat_days");
-    private static final String hoursFormat = TranslationManager.getInstance().getTranslation("timeformat_hours");
-    private static final String minutesFormat = TranslationManager.getInstance().getTranslation("timeformat_minutes");
-    private static final String secondsFormat = TranslationManager.getInstance().getTranslation("timeformat_seconds");
+    private static String daysFormat = null;
+    private static String hoursFormat = null;
+    private static String minutesFormat = null;
+    private static String secondsFormat = null;
     public static String toTimeStamp2(long ticks, long base){
+        if (daysFormat == null) daysFormat = TranslationManager.getInstance().getTranslation("timeformat_days");
+        if (hoursFormat == null) hoursFormat = TranslationManager.getInstance().getTranslation("timeformat_hours");
+        if (minutesFormat == null) minutesFormat = TranslationManager.getInstance().getTranslation("timeformat_minutes");
+        if (secondsFormat == null) secondsFormat = TranslationManager.getInstance().getTranslation("timeformat_seconds");
         if (ticks < 0) return "∞";
         int days = (int) Math.floor(ticks / (3600D * 24 * base));
         ticks %= (base * (3600 * 24));
@@ -644,6 +679,7 @@ public class Utils {
     public static double eval(String expression) {
         if (evalCache.containsKey(expression)) return evalCache.get(expression);
         String str = expression
+                .replaceAll(",", ".")
                 .replace("$pi", String.format("%.15f", Math.PI))
                 .replace("$e", String.format("%.15f", Math.E))
                 .replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
@@ -713,11 +749,22 @@ public class Utils {
                     while (ch >= 'a' && ch <= 'z') nextChar();
                     String func = str.substring(startPos, this.pos);
                     x = parseFactor();
-                    if (func.equals("sqrt")) x = Math.sqrt(x);
-                    else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
-                    else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
-                    else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
-                    else throw new RuntimeException("Unknown function: " + func + " while trying to parse formula " + expression);
+                    switch (func) {
+                        case "sqrt":
+                            x = Math.sqrt(x);
+                            break;
+                        case "sin":
+                            x = Math.sin(Math.toRadians(x));
+                            break;
+                        case "cos":
+                            x = Math.cos(Math.toRadians(x));
+                            break;
+                        case "tan":
+                            x = Math.tan(Math.toRadians(x));
+                            break;
+                        default:
+                            throw new RuntimeException("Unknown function: " + func + " while trying to parse formula " + expression);
+                    }
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch + " while trying to parse formula " + expression);
                 }
@@ -734,6 +781,7 @@ public class Utils {
     public static double evalBigDecimal(String expression) {
         if (evalCache.containsKey(expression)) return evalCache.get(expression);
         String str = expression
+                .replaceAll(",", ".")
                 .replace("$pi", String.format("%.15f", Math.PI))
                 .replace("$e", String.format("%.15f", Math.E))
                 .replaceAll("[^A-Za-z0-9.^*/+()-]+", "");
@@ -803,11 +851,22 @@ public class Utils {
                     while (ch >= 'a' && ch <= 'z') nextChar();
                     String func = str.substring(startPos, this.pos);
                     x = parseFactor();
-                    if (func.equals("sqrt")) x = BigDecimal.valueOf(Math.sqrt(x.doubleValue()));
-                    else if (func.equals("sin")) x = BigDecimal.valueOf(Math.sin(Math.toRadians(x.doubleValue())));
-                    else if (func.equals("cos")) x = BigDecimal.valueOf(Math.cos(Math.toRadians(x.doubleValue())));
-                    else if (func.equals("tan")) x = BigDecimal.valueOf(Math.tan(Math.toRadians(x.doubleValue())));
-                    else throw new RuntimeException("Unknown function: " + func + " while trying to parse formula " + expression);
+                    switch (func) {
+                        case "sqrt":
+                            x = BigDecimal.valueOf(Math.sqrt(x.doubleValue()));
+                            break;
+                        case "sin":
+                            x = BigDecimal.valueOf(Math.sin(Math.toRadians(x.doubleValue())));
+                            break;
+                        case "cos":
+                            x = BigDecimal.valueOf(Math.cos(Math.toRadians(x.doubleValue())));
+                            break;
+                        case "tan":
+                            x = BigDecimal.valueOf(Math.tan(Math.toRadians(x.doubleValue())));
+                            break;
+                        default:
+                            throw new RuntimeException("Unknown function: " + func + " while trying to parse formula " + expression);
+                    }
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch + " while trying to parse formula " + expression);
                 }
@@ -822,7 +881,7 @@ public class Utils {
     }
 
     public static BigDecimal pow(BigDecimal base, BigDecimal exponent) {
-        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal result;
         int signOf2 = exponent.signum();
 
         // Perform X^(A+B)=X^A*X^B (B = remainder)
@@ -834,12 +893,12 @@ public class Utils {
         // Calculate big part of the power using context -
         // bigger range and performance but lower accuracy
         BigDecimal intPow = base.pow(n2IntPart.intValueExact());
-        BigDecimal doublePow = new BigDecimal(Math.pow(dn1, remainderOf2.doubleValue()));
+        BigDecimal doublePow = BigDecimal.valueOf(Math.pow(dn1, remainderOf2.doubleValue()));
         result = intPow.multiply(doublePow);
 
         // Fix negative power
         if (signOf2 == -1)
-            result = BigDecimal.ONE.divide(result, 4);
+            result = BigDecimal.ONE.divide(result, RoundingMode.HALF_UP);
         return result;
     }
 
@@ -1007,8 +1066,8 @@ public class Utils {
     }
 
     public static void setTotalExperience(Player player, int amount) {
-        int level = 0;
-        int xp = 0;
+        int level;
+        int xp;
         float a = 0;
         float b = 0;
         float c = -amount;

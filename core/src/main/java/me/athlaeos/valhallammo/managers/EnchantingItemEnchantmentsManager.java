@@ -275,10 +275,8 @@ public class EnchantingItemEnchantmentsManager {
                     } else if (scaling.getScalingType() == ScalingMode.ADD_ON_DEFAULT) {
                         finalResult = Utils.round(offer.getEnchantmentLevel() + scalingResult, 3);
                     }
-                    if (!scaling.doIgnoreUpper())
-                        if (scaling.getUpperBound() > finalResult) finalResult = scaling.getUpperBound();
-                    if (!scaling.doIgnoreLower())
-                        if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
+                    if (!scaling.doIgnoreUpper()) if (finalResult > scaling.getUpperBound()) finalResult = scaling.getUpperBound();
+                    if (!scaling.doIgnoreLower()) if (finalResult < scaling.getLowerBound()) finalResult = scaling.getLowerBound();
 
                     offer.setEnchantmentLevel(Math.max(1, (int) Math.floor(finalResult)));
                 } catch (RuntimeException e) {

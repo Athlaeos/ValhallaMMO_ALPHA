@@ -194,6 +194,10 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
+        if (reason != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION){
+            super.addEXP(p, amount, silent, reason);
+            return;
+        }
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ENCHANTING_EXP_GAIN_GENERAL", p, true) / 100D));
         super.addEXP(p, finalAmount, silent, reason);
     }
@@ -287,6 +291,7 @@ public class EnchantingSkill extends Skill implements OffensiveSkill, Enchantmen
         if (enchantmentOfferSkillLevels.getOrDefault(enchanter.getUniqueId(), 0) == (vanillaSkill + generalSkill)) {
             offersLoop: for (EnchantmentOffer[] offers : cachedOffers.values()){
                 for (EnchantmentOffer offer : offers){
+                    if (offer == null) continue;
                     if (offer.getCost() == event.getExpLevelCost() && event.getEnchantsToAdd().containsKey(offer.getEnchantment())) {
                         event.getEnchantsToAdd().put(offer.getEnchantment(), offer.getEnchantmentLevel());
                         break offersLoop;

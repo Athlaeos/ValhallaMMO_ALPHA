@@ -130,32 +130,32 @@ scaling_damage:
   wood:
     scaling: '(5/300) * %rating% - 1' # This default formula results in -1 to +4 from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   stone:
     scaling: '(7/280) * (%rating% - 20) - 2' # -2 to +4 damage from 20-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   gold:
     scaling: '(7/260) * (%rating% - 40) - 2' # -2 to +5 damage from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   iron:
     scaling: '(6.5/260) * (%rating% - 40) - 2' # -2 to +4.5 damage from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   diamond:
     scaling: '(7/240) * (%rating% - 60) - 2' # -2 to +5 damage from 60-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   netherite:
     scaling: '(8/220) * (%rating% - 80) - 2' # -2 to +6 damage from 80-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   bow:
     scaling: '(0.7/300) * %rating% + 0.8' # 0.8x-1.5x arrow velocity from 0-300 pts
@@ -170,54 +170,54 @@ scaling_damage:
   prismarine:
     scaling: '(7/260) * (%rating% - 40) - 2' # -2 to +5 damage from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   other:
     scaling: '(6/300) * %rating% - 2' # Applies for any other item that has been given custom damage
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
 
 scaling_speed:
   wood:
     scaling: '(0.6/300) * %rating% - 0.2' # This default formula results in an attack speed scaling of -0.2 to +0.4 at 300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   stone:
     scaling: '(0.6/280) * (%rating% - 20) - 0.2' # -0.2 to +0.4 attack speed from 20-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   gold:
     scaling: '(0.6/260) * (%rating% - 40) - 0.2' # -0.2 to +0.4 attack speed from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   iron:
     scaling: '(0.6/260) * (%rating% - 40) - 0.2' # -0.2 to +0.4 attack speed from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   diamond:
     scaling: '(0.6/240) * (%rating% - 60) - 0.2' # -0.2 to +0.4 attack speed from 60-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   netherite:
     scaling: '(0.6/220) * (%rating% - 80) - 0.2' # -0.2 to +0.4 attack speed from 80-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   prismarine:
     scaling: '(0.6/260) * (%rating% - 40) - 0.2' # -0.2 to +0.4 attack speed from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   other:
     scaling: '(0.6/300) * %rating% - 0.2' # Applies for any other item that has been given custom attack speed
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
 
 # Stat value multipliers for armor.
@@ -423,109 +423,109 @@ scaling_movement_speed: # Applies for any item that has been given custom health
   wood:
     scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   leather:
     scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   stone:
     scaling: '(0.2/280) * (%rating% - 20)' # +0%-20% movement speed from 20-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   chainmail:
     scaling: '(0.2/280) * (%rating% - 20)' # +0%-20% movement speed from 20-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   gold:
     scaling: '(0.2/260) * (%rating% - 40)' # +0%-20% movement speed from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   iron:
     scaling: '(0.2/260) * (%rating% - 40)' # +0%-20% movement speed from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   diamond:
     scaling: '(0.2/240) * (%rating% - 60)' # +0%-20% movement speed from 60-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   netherite:
     scaling: '(0.2/240) * (%rating% - 60)' # +0%-20% movement speed from 60-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   prismarine:
     scaling: '(0.2/230) * (%rating% - 70)' # +0%-20% movement speed from 70-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   membrane:
     scaling: '(0.2/210) * (%rating% - 90)' # +0%-20% movement speed from 90-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   bow:
     scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   crossbow:
     scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   other:
     scaling: '(0.2/300) * %rating%' # +0%-20% movement speed from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
 
 scaling_knockback: # Applies for any item that has been given custom knockback
   wood:
     scaling: '(0.7/300) * %rating% + 0.1' # +10%-80% knockback from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   stone:
     scaling: '(0.7/280) * (%rating% - 20) + 0.1' # +10%-80% knockback from 20-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   gold:
     scaling: '(0.7/260) * (%rating% - 40) + 0.1' # +10%-80% knockback from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   iron:
     scaling: '(0.7/260) * (%rating% - 40) + 0.1' # +10%-80% knockback from 40-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   diamond:
     scaling: '(0.7/240) * (%rating% - 60) + 0.1' # +10%-80% knockback from 60-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   netherite:
     scaling: '(0.7/240) * (%rating% - 60) + 0.1' # +10%-80% knockback from 60-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   prismarine:
     scaling: '(0.7/230) * (%rating% - 70) + 0.1' # +10%-80% knockback from 70-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
   other:
     scaling: '(0.7/300) * %rating% + 0.1' # +10%-80% knockback from 0-300 pts
     mode: 'ADD_ON_DEFAULT'
-    lower_bound: 0
+    lower_bound: none
     upper_bound: none
 
 # The fraction of how much durability an item regains when repaired, can't exceed 1.0

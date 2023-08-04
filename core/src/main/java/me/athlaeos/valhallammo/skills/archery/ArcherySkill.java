@@ -51,7 +51,7 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
     private final double diminishing_returns_multiplier;
     private IChargedShotAnimation animation;
     private Sound crit_sound_effect;
-    private boolean crit_particle_effect;
+    private final boolean crit_particle_effect;
     private static boolean special_arrow_trails = true;
     private static double special_arrow_trail_duration = 3;
 
@@ -121,6 +121,10 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
+        if (reason != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION){
+            super.addEXP(p, amount, silent, reason);
+            return;
+        }
         double finalAmount = amount * ((AccumulativeStatManager.getInstance().getStats("ARCHERY_EXP_GAIN_GENERAL", p, true) / 100D));
         super.addEXP(p, finalAmount, silent, reason);
     }

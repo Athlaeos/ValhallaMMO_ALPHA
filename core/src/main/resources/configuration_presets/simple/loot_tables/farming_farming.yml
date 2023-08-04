@@ -1,0 +1,225 @@
+entries:
+  475410c4-1ad1-4208-972b-12dfebec4383:
+    name: 475410c4-1ad1-4208-972b-12dfebec4383
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: WHEAT
+    overwrite_drops: false
+  2597fcc1-a849-4c96-8082-37543ef8d1af:
+    name: 2597fcc1-a849-4c96-8082-37543ef8d1af
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-withered-filament>"}],"text":""}'
+        custom-model-data: 9192790
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: POTATOES
+    overwrite_drops: false
+  360f8f17-e7a6-4763-b27e-ae6ea67c2ffc:
+    name: 360f8f17-e7a6-4763-b27e-ae6ea67c2ffc
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: WHEAT
+    overwrite_drops: false
+  ff597eff-606b-4507-8790-9f4e00f0df5d:
+    name: ff597eff-606b-4507-8790-9f4e00f0df5d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.0025
+    block: BEETROOTS
+    overwrite_drops: false
+  8aa314b2-1d83-4b11-9467-831fbada2ff9:
+    name: 8aa314b2-1d83-4b11-9467-831fbada2ff9
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: POTATOES
+    overwrite_drops: false
+  fe43cf99-4db5-408e-9083-73d581acfe2d:
+    name: fe43cf99-4db5-408e-9083-73d581acfe2d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: BEETROOTS
+    overwrite_drops: false
+  6cf1b964-3e90-47ba-9725-48340304ccdc:
+    name: 6cf1b964-3e90-47ba-9725-48340304ccdc
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: PUMPKIN_STEM
+    overwrite_drops: false
+  07a47e16-dd43-453e-b3b1-02fae76dd8eb:
+    name: 07a47e16-dd43-453e-b3b1-02fae76dd8eb
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.0025
+    block: CARROTS
+    overwrite_drops: false
+  ea9b361f-2d96-4cb0-9fd4-46de4de176a4:
+    name: ea9b361f-2d96-4cb0-9fd4-46de4de176a4
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-knightsreed>"}],"text":""}'
+        custom-model-data: 9192785
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SUGAR_CANE
+    overwrite_drops: false
+  943c6fcd-ccaa-47ef-9cd0-2c374e894122:
+    name: 943c6fcd-ccaa-47ef-9cd0-2c374e894122
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: BEETROOTS
+    overwrite_drops: false
+  cfa17e92-8fae-4fc4-82b2-239e4517f80d:
+    name: cfa17e92-8fae-4fc4-82b2-239e4517f80d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-noxious-spores>"}],"text":""}'
+        custom-model-data: 9192791
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: POTATOES
+    overwrite_drops: false
+  2c2354eb-eeda-418f-b2a1-f8760e068812:
+    name: 2c2354eb-eeda-418f-b2a1-f8760e068812
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-tutor-lotus>"}],"text":""}'
+        custom-model-data: 9192780
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.0025
+    block: BEETROOTS
+    overwrite_drops: false
+  9c752325-ae3c-4f4a-879f-37b5d730b758:
+    name: 9c752325-ae3c-4f4a-879f-37b5d730b758
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-bustling-fungus>"}],"text":""}'
+        custom-model-data: 9192788
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: POTATOES
+    overwrite_drops: false
+  2ca8e223-fb22-4dac-977b-9d698858b2e5:
+    name: 2ca8e223-fb22-4dac-977b-9d698858b2e5
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: MELON_STEM
+    overwrite_drops: false

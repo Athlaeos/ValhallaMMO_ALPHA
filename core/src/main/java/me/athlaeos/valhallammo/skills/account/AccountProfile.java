@@ -22,6 +22,7 @@ public class AccountProfile extends Profile implements Serializable{
     private static final NamespacedKey accountProfileKey = new NamespacedKey(ValhallaMMO.getPlugin(), "valhalla_profile_account");
 
     private int spendableSkillPoints = 0;
+    private int redeemableLevelTokens = 0;
     private double allSkillEXPGain = 100;
     private Set<String> unlockedPerks = new HashSet<>();
     private Set<String> unlockedRecipes = new HashSet<>();
@@ -85,6 +86,7 @@ public class AccountProfile extends Profile implements Serializable{
         conn.addColumnIfNotExists("profiles_account", "stunresistance", "FLOAT DEFAULT 0");
         conn.addColumnIfNotExists("profiles_account", "armormultiplierbonus", "FLOAT DEFAULT 0");
         conn.addColumnIfNotExists("profiles_account", "bleedresistance", "FLOAT DEFAULT 0");
+        conn.addColumnIfNotExists("profiles_account", "redeemableleveltokens", "SMALLINT DEFAULT 0"); // TODO
     }
 
     @Override
@@ -97,8 +99,8 @@ public class AccountProfile extends Profile implements Serializable{
                         "healthregenerationbonus, hungersavechance, damageresistance, meleeresistance, " +
                         "projectileresistance, fireresistance, explosionresistance, magicresistance, " +
                         "poisonresistance, falldamageresistance, cooldownreduction, immunityframebonus, " +
-                        "stunresistance, bleedresistance) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        "stunresistance, bleedresistance, redeemableleveltokens) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         stmt.setString(1, owner.toString());
         stmt.setInt(2, level);
         stmt.setDouble(3, exp);
@@ -130,6 +132,7 @@ public class AccountProfile extends Profile implements Serializable{
         stmt.setFloat(29, immunityframebonus);
         stmt.setFloat(30, stunresistance);
         stmt.setFloat(31, bleedresistance);
+        stmt.setInt(32, redeemableLevelTokens);
         stmt.execute();
     }
 
@@ -171,6 +174,7 @@ public class AccountProfile extends Profile implements Serializable{
             profile.setImmunityFrameBonus(result.getInt("immunityframebonus"));
             profile.setStunResistance(result.getFloat("stunresistance"));
             profile.setBleedResistance(result.getFloat("bleedresistance"));
+            profile.setRedeemableLevelTokens(result.getInt("redeemableleveltokens"));
             return profile;
         }
         return null;
@@ -213,6 +217,14 @@ public class AccountProfile extends Profile implements Serializable{
 
     public float getStunResistance() {
         return stunresistance;
+    }
+
+    public int getRedeemableLevelTokens() {
+        return redeemableLevelTokens;
+    }
+
+    public void setRedeemableLevelTokens(int redeemableLevelTokens) {
+        this.redeemableLevelTokens = redeemableLevelTokens;
     }
 
     public void setStunResistance(float stunimmunity) {

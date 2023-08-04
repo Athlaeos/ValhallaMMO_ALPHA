@@ -1,0 +1,6783 @@
+entries:
+  tier0_fish_cod:
+    name: tier0_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 1020
+  tier0_fish_salmon:
+    name: tier0_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 425
+  tier0_fish_tropical_fish:
+    name: tier0_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 36
+  tier0_fish_pufferfish:
+    name: tier0_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 221
+  tier0_junk_lilypad:
+    name: tier0_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 51
+  tier0_junk_bowl:
+    name: tier0_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_string:
+    name: tier0_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 15
+  tier0_junk_rotten_flesh:
+    name: tier0_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_bone:
+    name: tier0_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_bamboo:
+    name: tier0_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_ink_sac:
+    name: tier0_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 3
+  tier0_junk_water_bottle:
+    name: tier0_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_stick:
+    name: tier0_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 15
+  tier0_junk_tripwire_hook:
+    name: tier0_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_leather:
+    name: tier0_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+  tier0_junk_fishing_rod:
+    name: tier0_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 6
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 1.0
+        strength: 0.0
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier0_armor_leather_boots:
+    name: tier0_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 1.0
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier0_armor_leather_chestplate:
+    name: tier0_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 1.0
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier0_armor_leather_leggings:
+    name: tier0_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.75
+        strength: 1.25
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier0_armor_leather_helmet:
+    name: tier0_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 30
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier0_treasure_name_tag:
+    name: tier0_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 0
+  tier0_treasure_enchanted_book:
+    name: tier0_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 0
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 15.0
+        priority: NEUTRAL
+  tier0_treasure_saddle:
+    name: tier0_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 0
+  tier0_treasure_nautilus_shell:
+    name: tier0_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 0
+  tier0_treasure_fishing_rod:
+    name: tier0_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 15.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_fish_cod:
+    name: tier1_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 1020
+  tier1_fish_salmon:
+    name: tier1_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 425
+  tier1_fish_tropical_fish:
+    name: tier1_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 36
+  tier1_fish_pufferfish:
+    name: tier1_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 221
+  tier1_junk_lilypad:
+    name: tier1_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 42
+  tier1_junk_bowl:
+    name: tier1_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_string:
+    name: tier1_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 12
+  tier1_junk_rotten_flesh:
+    name: tier1_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_bone:
+    name: tier1_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_bamboo:
+    name: tier1_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_ink_sac:
+    name: tier1_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 3
+  tier1_junk_water_bottle:
+    name: tier1_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_stick:
+    name: tier1_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 12
+  tier1_junk_tripwire_hook:
+    name: tier1_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_leather:
+    name: tier1_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+  tier1_junk_fishing_rod:
+    name: tier1_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier1_armor_leather_boots:
+    name: tier1_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_leather_chestplate:
+    name: tier1_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_leather_leggings:
+    name: tier1_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_leather_helmet:
+    name: tier1_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 25
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_chain_boots:
+    name: tier1_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_chain_chestplate:
+    name: tier1_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_chain_leggings:
+    name: tier1_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_chain_helmet:
+    name: tier1_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_treasure_name_tag:
+    name: tier1_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 8
+  tier1_treasure_enchanted_book:
+    name: tier1_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 9
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 15.0
+        priority: NEUTRAL
+  tier1_treasure_saddle:
+    name: tier1_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 8
+  tier1_treasure_nautilus_shell:
+    name: tier1_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 8
+  tier1_treasure_bow:
+    name: tier1_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 8
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 15.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier1_treasure_fishing_rod:
+    name: tier1_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 1
+    weight: 9
+    modifiers:
+      quality_static:
+        strength: 62.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 15.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_fish_cod:
+    name: tier2_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 1020
+  tier2_fish_salmon:
+    name: tier2_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 425
+  tier2_fish_tropical_fish:
+    name: tier2_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 36
+  tier2_fish_pufferfish:
+    name: tier2_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 221
+  tier2_junk_lilypad:
+    name: tier2_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 34
+  tier2_junk_bowl:
+    name: tier2_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_string:
+    name: tier2_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 10
+  tier2_junk_rotten_flesh:
+    name: tier2_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_bone:
+    name: tier2_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_bamboo:
+    name: tier2_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_ink_sac:
+    name: tier2_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 2
+  tier2_junk_water_bottle:
+    name: tier2_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_stick:
+    name: tier2_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 10
+  tier2_junk_tripwire_hook:
+    name: tier2_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_leather:
+    name: tier2_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+  tier2_junk_fishing_rod:
+    name: tier2_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 4
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier2_armor_leather_boots:
+    name: tier2_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_leather_chestplate:
+    name: tier2_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_leather_leggings:
+    name: tier2_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_leather_helmet:
+    name: tier2_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 20
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_chain_boots:
+    name: tier2_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_chain_chestplate:
+    name: tier2_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_chain_leggings:
+    name: tier2_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_armor_chain_helmet:
+    name: tier2_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier2_treasure_name_tag:
+    name: tier2_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 17
+  tier2_treasure_enchanted_book:
+    name: tier2_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 17
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 20.0
+        priority: NEUTRAL
+  tier2_treasure_saddle:
+    name: tier2_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 16
+  tier2_treasure_nautilus_shell:
+    name: tier2_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 16
+  tier2_treasure_bow:
+    name: tier2_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 17
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier2_treasure_fishing_rod:
+    name: tier2_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 2
+    weight: 17
+    modifiers:
+      quality_static:
+        strength: 75.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_fish_cod:
+    name: tier3_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 1020
+  tier3_fish_salmon:
+    name: tier3_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 425
+  tier3_fish_tropical_fish:
+    name: tier3_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 36
+  tier3_fish_pufferfish:
+    name: tier3_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 221
+  tier3_junk_lilypad:
+    name: tier3_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 25
+  tier3_junk_bowl:
+    name: tier3_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_string:
+    name: tier3_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 8
+  tier3_junk_rotten_flesh:
+    name: tier3_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_bone:
+    name: tier3_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_bamboo:
+    name: tier3_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_ink_sac:
+    name: tier3_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 2
+  tier3_junk_water_bottle:
+    name: tier3_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_stick:
+    name: tier3_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 7
+  tier3_junk_tripwire_hook:
+    name: tier3_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_leather:
+    name: tier3_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+  tier3_junk_fishing_rod:
+    name: tier3_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier3_armor_leather_boots:
+    name: tier3_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_leather_chestplate:
+    name: tier3_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_leather_leggings:
+    name: tier3_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_leather_helmet:
+    name: tier3_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_chain_boots:
+    name: tier3_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_chain_chestplate:
+    name: tier3_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_chain_leggings:
+    name: tier3_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_armor_chain_helmet:
+    name: tier3_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier3_treasure_name_tag:
+    name: tier3_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 25
+  tier3_treasure_enchanted_book:
+    name: tier3_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 26
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 25.0
+        priority: NEUTRAL
+  tier3_treasure_saddle:
+    name: tier3_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 25
+  tier3_treasure_nautilus_shell:
+    name: tier3_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 25
+  tier3_treasure_bow:
+    name: tier3_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 25
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 25.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier3_treasure_fishing_rod:
+    name: tier3_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 3
+    weight: 25
+    modifiers:
+      quality_static:
+        strength: 87.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 25.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_fish_cod:
+    name: tier4_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 1020
+  tier4_fish_salmon:
+    name: tier4_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 425
+  tier4_fish_tropical_fish:
+    name: tier4_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 36
+  tier4_fish_pufferfish:
+    name: tier4_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 221
+  tier4_junk_lilypad:
+    name: tier4_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 17
+  tier4_junk_bowl:
+    name: tier4_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_string:
+    name: tier4_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 5
+  tier4_junk_rotten_flesh:
+    name: tier4_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_bone:
+    name: tier4_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_bamboo:
+    name: tier4_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_ink_sac:
+    name: tier4_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 1
+  tier4_junk_water_bottle:
+    name: tier4_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_stick:
+    name: tier4_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 5
+  tier4_junk_tripwire_hook:
+    name: tier4_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_leather:
+    name: tier4_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+  tier4_junk_fishing_rod:
+    name: tier4_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier4_armor_leather_boots:
+    name: tier4_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_leather_chestplate:
+    name: tier4_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_leather_leggings:
+    name: tier4_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_leather_helmet:
+    name: tier4_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_chain_boots:
+    name: tier4_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_chain_chestplate:
+    name: tier4_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_chain_leggings:
+    name: tier4_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_chain_helmet:
+    name: tier4_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_gold_boots:
+    name: tier4_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_gold_chestplate:
+    name: tier4_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_gold_leggings:
+    name: tier4_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_armor_gold_helmet:
+    name: tier4_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier4_treasure_name_tag:
+    name: tier4_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 33
+  tier4_treasure_enchanted_book:
+    name: tier4_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 34
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+  tier4_treasure_saddle:
+    name: tier4_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 33
+  tier4_treasure_nautilus_shell:
+    name: tier4_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 33
+  tier4_treasure_bow:
+    name: tier4_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 33
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier4_treasure_fishing_rod:
+    name: tier4_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 4
+    weight: 34
+    modifiers:
+      quality_static:
+        strength: 100.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_fish_cod:
+    name: tier5_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 1020
+  tier5_fish_salmon:
+    name: tier5_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 425
+  tier5_fish_tropical_fish:
+    name: tier5_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 36
+  tier5_fish_pufferfish:
+    name: tier5_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 221
+  tier5_junk_lilypad:
+    name: tier5_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 8
+  tier5_junk_bowl:
+    name: tier5_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_string:
+    name: tier5_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 3
+  tier5_junk_rotten_flesh:
+    name: tier5_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_bone:
+    name: tier5_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_bamboo:
+    name: tier5_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_ink_sac:
+    name: tier5_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 1
+  tier5_junk_water_bottle:
+    name: tier5_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_stick:
+    name: tier5_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 2
+  tier5_junk_tripwire_hook:
+    name: tier5_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_leather:
+    name: tier5_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 5
+  tier5_junk_fishing_rod:
+    name: tier5_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 1
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier5_armor_leather_boots:
+    name: tier5_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_leather_chestplate:
+    name: tier5_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_leather_leggings:
+    name: tier5_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_leather_helmet:
+    name: tier5_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_chain_boots:
+    name: tier5_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_chain_chestplate:
+    name: tier5_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_chain_leggings:
+    name: tier5_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_chain_helmet:
+    name: tier5_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_gold_boots:
+    name: tier5_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_gold_chestplate:
+    name: tier5_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_gold_leggings:
+    name: tier5_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_armor_gold_helmet:
+    name: tier5_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier5_treasure_name_tag:
+    name: tier5_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 42
+  tier5_treasure_enchanted_book:
+    name: tier5_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 42
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+  tier5_treasure_saddle:
+    name: tier5_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 41
+  tier5_treasure_nautilus_shell:
+    name: tier5_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 41
+  tier5_treasure_bow:
+    name: tier5_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 42
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier5_treasure_fishing_rod:
+    name: tier5_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 5
+    weight: 42
+    modifiers:
+      quality_static:
+        strength: 112.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_fish_cod:
+    name: tier6_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 1020
+  tier6_fish_salmon:
+    name: tier6_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 425
+  tier6_fish_tropical_fish:
+    name: tier6_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 36
+  tier6_fish_pufferfish:
+    name: tier6_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 221
+  tier6_junk_lilypad:
+    name: tier6_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_bowl:
+    name: tier6_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_string:
+    name: tier6_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_rotten_flesh:
+    name: tier6_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_bone:
+    name: tier6_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_bamboo:
+    name: tier6_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_ink_sac:
+    name: tier6_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_water_bottle:
+    name: tier6_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_stick:
+    name: tier6_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_tripwire_hook:
+    name: tier6_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_leather:
+    name: tier6_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+  tier6_junk_fishing_rod:
+    name: tier6_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier6_armor_leather_boots:
+    name: tier6_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_leather_chestplate:
+    name: tier6_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_leather_leggings:
+    name: tier6_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_leather_helmet:
+    name: tier6_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_chain_boots:
+    name: tier6_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_chain_chestplate:
+    name: tier6_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_chain_leggings:
+    name: tier6_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_chain_helmet:
+    name: tier6_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_gold_boots:
+    name: tier6_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_gold_chestplate:
+    name: tier6_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_gold_leggings:
+    name: tier6_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_armor_gold_helmet:
+    name: tier6_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier6_treasure_name_tag:
+    name: tier6_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 50
+  tier6_treasure_enchanted_book:
+    name: tier6_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 50
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+  tier6_treasure_saddle:
+    name: tier6_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 50
+  tier6_treasure_nautilus_shell:
+    name: tier6_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 50
+  tier6_treasure_bow:
+    name: tier6_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier6_treasure_fishing_rod:
+    name: tier6_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 6
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 30.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_fish_cod:
+    name: tier7_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 1020
+  tier7_fish_salmon:
+    name: tier7_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 425
+  tier7_fish_tropical_fish:
+    name: tier7_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 36
+  tier7_fish_pufferfish:
+    name: tier7_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 221
+  tier7_junk_lilypad:
+    name: tier7_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_bowl:
+    name: tier7_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_string:
+    name: tier7_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_rotten_flesh:
+    name: tier7_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_bone:
+    name: tier7_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_bamboo:
+    name: tier7_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_ink_sac:
+    name: tier7_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_water_bottle:
+    name: tier7_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_stick:
+    name: tier7_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_tripwire_hook:
+    name: tier7_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_leather:
+    name: tier7_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+  tier7_junk_fishing_rod:
+    name: tier7_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 125.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier7_armor_leather_boots:
+    name: tier7_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_leather_chestplate:
+    name: tier7_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_leather_leggings:
+    name: tier7_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_leather_helmet:
+    name: tier7_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_chain_boots:
+    name: tier7_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_chain_chestplate:
+    name: tier7_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_chain_leggings:
+    name: tier7_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_chain_helmet:
+    name: tier7_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_gold_boots:
+    name: tier7_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_gold_chestplate:
+    name: tier7_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_gold_leggings:
+    name: tier7_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_gold_helmet:
+    name: tier7_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_iron_boots:
+    name: tier7_armor_iron_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_iron_chestplate:
+    name: tier7_armor_iron_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_iron_leggings:
+    name: tier7_armor_iron_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_armor_iron_helmet:
+    name: tier7_armor_iron_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier7_treasure_name_tag:
+    name: tier7_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 50
+  tier7_treasure_enchanted_book:
+    name: tier7_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 50
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 35.0
+        priority: NEUTRAL
+  tier7_treasure_saddle:
+    name: tier7_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 50
+  tier7_treasure_nautilus_shell:
+    name: tier7_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 50
+  tier7_treasure_bow:
+    name: tier7_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 35.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier7_treasure_fishing_rod:
+    name: tier7_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 7
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 137.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 35.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_fish_cod:
+    name: tier8_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 1020
+  tier8_fish_salmon:
+    name: tier8_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 425
+  tier8_fish_tropical_fish:
+    name: tier8_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 36
+  tier8_fish_pufferfish:
+    name: tier8_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 221
+  tier8_junk_lilypad:
+    name: tier8_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_bowl:
+    name: tier8_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_string:
+    name: tier8_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_rotten_flesh:
+    name: tier8_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_bone:
+    name: tier8_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_bamboo:
+    name: tier8_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_ink_sac:
+    name: tier8_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_water_bottle:
+    name: tier8_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_stick:
+    name: tier8_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_tripwire_hook:
+    name: tier8_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_leather:
+    name: tier8_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+  tier8_junk_fishing_rod:
+    name: tier8_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier8_armor_leather_boots:
+    name: tier8_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_leather_chestplate:
+    name: tier8_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_leather_leggings:
+    name: tier8_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_leather_helmet:
+    name: tier8_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_chain_boots:
+    name: tier8_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_chain_chestplate:
+    name: tier8_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_chain_leggings:
+    name: tier8_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_chain_helmet:
+    name: tier8_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_gold_boots:
+    name: tier8_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_gold_chestplate:
+    name: tier8_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_gold_leggings:
+    name: tier8_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_gold_helmet:
+    name: tier8_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_iron_boots:
+    name: tier8_armor_iron_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_iron_chestplate:
+    name: tier8_armor_iron_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_iron_leggings:
+    name: tier8_armor_iron_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_armor_iron_helmet:
+    name: tier8_armor_iron_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier8_treasure_name_tag:
+    name: tier8_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 50
+  tier8_treasure_enchanted_book:
+    name: tier8_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 50
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 35.0
+        priority: NEUTRAL
+  tier8_treasure_saddle:
+    name: tier8_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 50
+  tier8_treasure_nautilus_shell:
+    name: tier8_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 50
+  tier8_treasure_bow:
+    name: tier8_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 35.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier8_treasure_fishing_rod:
+    name: tier8_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 8
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 150.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 35.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_fish_cod:
+    name: tier9_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 1020
+  tier9_fish_salmon:
+    name: tier9_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 425
+  tier9_fish_tropical_fish:
+    name: tier9_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 36
+  tier9_fish_pufferfish:
+    name: tier9_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 221
+  tier9_junk_lilypad:
+    name: tier9_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_bowl:
+    name: tier9_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_string:
+    name: tier9_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_rotten_flesh:
+    name: tier9_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_bone:
+    name: tier9_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_bamboo:
+    name: tier9_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_ink_sac:
+    name: tier9_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_water_bottle:
+    name: tier9_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_stick:
+    name: tier9_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_tripwire_hook:
+    name: tier9_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_leather:
+    name: tier9_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+  tier9_junk_fishing_rod:
+    name: tier9_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier9_armor_leather_boots:
+    name: tier9_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_leather_chestplate:
+    name: tier9_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_leather_leggings:
+    name: tier9_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_leather_helmet:
+    name: tier9_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_chain_boots:
+    name: tier9_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_chain_chestplate:
+    name: tier9_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_chain_leggings:
+    name: tier9_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_chain_helmet:
+    name: tier9_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_gold_boots:
+    name: tier9_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_gold_chestplate:
+    name: tier9_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_gold_leggings:
+    name: tier9_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_gold_helmet:
+    name: tier9_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_iron_boots:
+    name: tier9_armor_iron_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_iron_chestplate:
+    name: tier9_armor_iron_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_iron_leggings:
+    name: tier9_armor_iron_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_iron_helmet:
+    name: tier9_armor_iron_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_diamond_boots:
+    name: tier9_armor_diamond_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_diamond_chestplate:
+    name: tier9_armor_diamond_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_diamond_leggings:
+    name: tier9_armor_diamond_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 15
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_armor_diamond_helmet:
+    name: tier9_armor_diamond_helmet
+    drop: &id001
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier9_treasure_name_tag:
+    name: tier9_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 50
+  tier9_treasure_enchanted_book:
+    name: tier9_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 50
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 40.0
+        priority: NEUTRAL
+  tier9_treasure_saddle:
+    name: tier9_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 50
+  tier9_treasure_nautilus_shell:
+    name: tier9_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 50
+  tier9_treasure_bow:
+    name: tier9_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier9_treasure_fishing_rod:
+    name: tier9_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 9
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 162.5
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_fish_cod:
+    name: tier10_fish_cod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: COD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 1020
+  tier10_fish_salmon:
+    name: tier10_fish_salmon
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SALMON
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 425
+  tier10_fish_tropical_fish:
+    name: tier10_fish_tropical_fish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TROPICAL_FISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 36
+  tier10_fish_pufferfish:
+    name: tier10_fish_pufferfish
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUFFERFISH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 221
+  tier10_junk_lilypad:
+    name: tier10_junk_lilypad
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LILY_PAD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_bowl:
+    name: tier10_junk_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_string:
+    name: tier10_junk_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_rotten_flesh:
+    name: tier10_junk_rotten_flesh
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ROTTEN_FLESH
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_bone:
+    name: tier10_junk_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_bamboo:
+    name: tier10_junk_bamboo
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BAMBOO
+    biome_filter:
+      - JUNGLE
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_ink_sac:
+    name: tier10_junk_ink_sac
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: INK_SAC
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_water_bottle:
+    name: tier10_junk_water_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: POTION
+      meta:
+        ==: ItemMeta
+        meta-type: POTION
+        potion-type: minecraft:water
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_stick:
+    name: tier10_junk_stick
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STICK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_tripwire_hook:
+    name: tier10_junk_tripwire_hook
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIPWIRE_HOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_leather:
+    name: tier10_junk_leather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+  tier10_junk_fishing_rod:
+    name: tier10_junk_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+  tier10_armor_leather_boots:
+    name: tier10_armor_leather_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_leather_chestplate:
+    name: tier10_armor_leather_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_leather_leggings:
+    name: tier10_armor_leather_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_leather_helmet:
+    name: tier10_armor_leather_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LEATHER_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 2
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_chain_boots:
+    name: tier10_armor_chain_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_chain_chestplate:
+    name: tier10_armor_chain_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_chain_leggings:
+    name: tier10_armor_chain_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_chain_helmet:
+    name: tier10_armor_chain_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 3
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_gold_boots:
+    name: tier10_armor_gold_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_gold_chestplate:
+    name: tier10_armor_gold_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_gold_leggings:
+    name: tier10_armor_gold_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_gold_helmet:
+    name: tier10_armor_gold_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 5
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_iron_boots:
+    name: tier10_armor_iron_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_iron_chestplate:
+    name: tier10_armor_iron_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_iron_leggings:
+    name: tier10_armor_iron_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier1_armor_iron_helmet:
+    name: tier1_armor_iron_helmet
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_diamond_boots:
+    name: tier10_armor_diamond_boots
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_diamond_chestplate:
+    name: tier10_armor_diamond_chestplate
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_diamond_leggings:
+    name: tier10_armor_diamond_leggings
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_armor_diamond_helmet:
+    name: tier9_armor_diamond_helmet
+    drop: *id001
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 10
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier10_treasure_name_tag:
+    name: tier10_treasure_name_tag
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAME_TAG
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 50
+  tier10_treasure_enchanted_book:
+    name: tier10_treasure_enchanted_book
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOOK
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 50
+    modifiers:
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 40.0
+        priority: NEUTRAL
+  tier10_treasure_saddle:
+    name: tier10_treasure_saddle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SADDLE
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 50
+  tier10_treasure_nautilus_shell:
+    name: tier10_treasure_nautilus_shell
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NAUTILUS_SHELL
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 50
+  tier10_treasure_bow:
+    name: tier10_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL
+  tier10_treasure_fishing_rod:
+    name: tier10_treasure_fishing_rod
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FISHING_ROD
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 10
+    weight: 50
+    modifiers:
+      quality_static:
+        strength: 175.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 40.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+  tier0_treasure_bow:
+    name: tier0_treasure_bow
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOW
+    biome_filter: []
+    region_filter: !!set {}
+    tier: 0
+    weight: 0
+    modifiers:
+      quality_static:
+        strength: 50.0
+        priority: SOONEST
+      random_quality:
+        strength2: 0.85
+        strength: 1.15
+        priority: SOON
+      enchant_item_randomly:
+        strength2: 1.0
+        strength: 15.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength: 100.0
+        priority: NEUTRAL
+      random_durability:
+        strength: 0.0
+        priority: LATER
+      dynamic_bow_strength:
+        strength: 100.0
+        priority: NEUTRAL

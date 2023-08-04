@@ -81,14 +81,14 @@ public class ProjectileListener implements Listener {
                         projectileSpeed += speedWrapper.getAmount();
 //                        arrow.setMetadata("valhallammo_arrow_speed", new FixedMetadataValue(ValhallaMMO.getPlugin(), speedWrapper.getAmount()));
                     }
+
+                    projectileSpeed = Math.max(0, projectileSpeed);
+                    e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(projectileSpeed));
+
+                    ItemStack singleAmmo = e.getConsumable().clone();
+                    singleAmmo.setAmount(1);
+                    arrow.setMetadata("arrow_data", new FixedMetadataValue(ValhallaMMO.getPlugin(), ItemUtils.serializeItemStack(singleAmmo)));
                 }
-
-                projectileSpeed = Math.max(0, projectileSpeed);
-                e.getProjectile().setVelocity(e.getProjectile().getVelocity().multiply(projectileSpeed));
-
-                ItemStack singleAmmo = e.getConsumable().clone();
-                singleAmmo.setAmount(1);
-                arrow.setMetadata("arrow_data", new FixedMetadataValue(ValhallaMMO.getPlugin(), ItemUtils.serializeItemStack(singleAmmo)));
             }
 
             for (Skill skill : SkillProgressionManager.getInstance().getAllSkills().values()){

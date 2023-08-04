@@ -9,6 +9,7 @@ import me.athlaeos.valhallammo.events.CauldronAbsorbItemEvent;
 import me.athlaeos.valhallammo.events.CauldronCompleteRecipeEvent;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
+import me.athlaeos.valhallammo.managers.PlayerCraftChoiceManager;
 import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
@@ -56,11 +57,23 @@ public class CauldronCraftingListener implements Listener {
 
     @EventHandler
     public void onCauldronClick(PlayerInteractEvent e){
-        if (ValhallaMMO.isWorldBlacklisted(e.getPlayer().getWorld().getName())) return;
+        if (ValhallaMMO.isWorldBlacklisted(e.getPlayer().getWorld().getName()) || e.getClickedBlock() == null) return;
 
-        if (e.getClickedBlock() != null && Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()) && e.getHand() == EquipmentSlot.HAND){
-            if (e.getClickedBlock().getType().toString().contains("CAULDRON")){
-                dumpCauldronContents(e.getClickedBlock());
+        if (e.getClickedBlock().getType().toString().contains("CAULDRON") && PlayerCraftChoiceManager.getInstance().getPlayerCurrentRecipe(e.getPlayer()) == null) {
+            Block b = e.getClickedBlock();
+            if (Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand()) && e.getHand() == EquipmentSlot.HAND){
+                dumpCauldronContents(b);
+            } else {
+                ItemStack tryResult = tryGetCauldronRecipeResult(e.getPlayer(), b);
+                if (tryResult != null){
+                    if (Utils.isItemEmptyOrNull(e.getPlayer().getInventory().getItemInMainHand())){
+                        e.getPlayer().getInventory().setItemInMainHand(tryResult);
+                    } else {
+                        ItemUtils.addItem(e.getPlayer(), tryResult, true);
+                    }
+                    b.getWorld().playEffect(b.getLocation().add(0.5, 0.2, 0.5), Effect.EXTINGUISH, 0);
+                    b.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, b.getLocation().add(0.5, 0.8, 0.5), 15);
+                }
             }
         }
     }
@@ -135,8 +148,88 @@ public class CauldronCraftingListener implements Listener {
 
     private final Collection<Material> legalFireBlocks = ItemUtils.getMaterialList(Arrays.asList("CAMPFIRE", "FIRE", "SOUL_CAMPFIRE", "SOUL_FIRE",
             "LAVA"));
+
     /**
      * Attempts to trigger a cauldron recipe
+     * @param cauldron the cauldron in which the recipe is being attempted
+     * @return the resulting ItemStack if the recipe succeeds, or null otherwise
+     */
+    public ItemStack tryGetCauldronRecipeResult(Player clicker, Block cauldron){
+        ItemStack catalyst = clicker.getInventory().getItemInMainHand();
+        List<ItemStack> cauldronContents = getCauldronContents(cauldron);
+        for (DynamicCauldronRecipe recipe : CustomRecipeManager.getInstance().getCauldronRecipes().values()){
+            if (!recipe.getIngredients().isEmpty() && cauldronContents == null) continue; // recipe has ingredients, but cauldron has none. therefore this recipe is not an option
+            if (cauldronContents != null && recipe.getIngredients().size() > cauldronContents.size()) continue; // recipe contains more ingredients than cauldron has, so therefore cannot be an option
+            boolean isAboveFire = legalFireBlocks.contains(cauldron.getLocation().add(0, -1, 0).getBlock().getType());
+            if (recipe.isRequiresBoilingWater() && !isAboveFire) continue;
+            if (EquipmentClass.getClass(catalyst) != null && (recipe.isRequireCustomCatalyst() && !SmithingItemTreatmentManager.getInstance().isItemCustom(catalyst))) continue;
+            boolean consumeWater = false;
+            if (cauldron.getBlockData() instanceof Levelled){
+                Levelled cData = (Levelled) cauldron.getBlockData();
+                if (cData.getLevel() > 0){
+                    if (recipe.isConsumesWaterLevel()) consumeWater = true;
+                } else return null;
+            } else return null;
+
+            if ((!recipe.isCatalystExactMeta() && recipe.getCatalyst().getType() == catalyst.getType()) || recipe.getCatalyst().isSimilar(catalyst)){
+                // recipe has matching catalyst
+                ItemStack result = recipe.isTinkerCatalyst() ? catalyst.clone() : recipe.getResult().clone();
+                int timesCrafted;
+
+                ItemStack[] arrayContents = null;
+                if (cauldronContents != null) arrayContents = cauldronContents.toArray(new ItemStack[0]);
+                if (arrayContents == null){
+                    result.setAmount(catalyst.getAmount());
+                    timesCrafted = result.getAmount();
+                } else {
+                    timesCrafted = ItemUtils.timesCraftable(recipe.getIngredients(), arrayContents, result.getAmount(), recipe.isIngredientsExactMeta());
+                    result.setAmount(result.getAmount() * timesCrafted);
+                }
+                if (arrayContents == null || timesCrafted > 0){
+                    List<ItemStack> newContents = new ArrayList<>();
+                    if (arrayContents != null){
+                        Inventory inventory = ValhallaMMO.getPlugin().getServer().createInventory(null, 54);
+                        inventory.addItem(arrayContents);
+                        ItemUtils.removeItems(inventory, recipe.getIngredients(), timesCrafted, recipe.isIngredientsExactMeta());
+                        for (ItemStack i : inventory.getContents()){
+                            if (Utils.isItemEmptyOrNull(i)) continue;
+                            newContents.add(i);
+                        }
+                    }
+                    result = DynamicItemModifier.modify(result, clicker, recipe.getItemModifiers(), false, true, true, timesCrafted);
+                    if (result == null) continue;
+                    setCauldronInventory(cauldron, newContents);
+                    ItemStack originalCatalyst = catalyst.clone();
+                    if (originalCatalyst.getAmount() <= timesCrafted) {
+                        clicker.getInventory().setItemInMainHand(null);
+                    } else {
+                        originalCatalyst.setAmount(originalCatalyst.getAmount() - timesCrafted);
+                        clicker.getInventory().setItemInMainHand(originalCatalyst);
+                    }
+
+                    if (consumeWater){
+                        Levelled cData = (Levelled) cauldron.getBlockData();
+                        if (cData.getLevel() == 1){
+                            cauldron.setType(Material.CAULDRON);
+                        } else {
+                            cData.setLevel(cData.getLevel() - 1);
+                            cauldron.setBlockData(cData);
+                        }
+                    }
+
+                    CauldronCompleteRecipeEvent event = new CauldronCompleteRecipeEvent(cauldron, recipe, clicker);
+                    ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
+                    if (!event.isCancelled()){
+                        return result;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Attempts to trigger a cauldron recipe given a thrown item
      * @param cauldron the cauldron in which the recipe is being attempted
      * @param catalyst the ItemStack currently being thrown into the cauldron, to be treated as catalyst
      * @return the resulting ItemStack if the recipe succeeds, or null otherwise
@@ -319,7 +412,7 @@ public class CauldronCraftingListener implements Listener {
         if (!cauldron.getType().toString().contains("CAULDRON")) return false;
         if (!CustomBlockData.hasCustomBlockData(cauldron, ValhallaMMO.getPlugin())) return false;
         PersistentDataContainer customBlockData = new CustomBlockData(cauldron, ValhallaMMO.getPlugin());
-        return customBlockData.has(cauldronStorageKey, PersistentDataType.STRING);
+        return customBlockData.has(cauldronStorageKey, PersistentDataType.STRING) && !Optional.ofNullable(getCauldronContents(cauldron)).orElse(new ArrayList<>()).isEmpty();
     }
 
     public static int getMaxCauldronCapacity() {

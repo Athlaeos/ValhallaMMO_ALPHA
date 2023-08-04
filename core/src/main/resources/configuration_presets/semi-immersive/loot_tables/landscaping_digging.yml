@@ -1,0 +1,723 @@
+entries:
+  red_sand_iron_ingot:
+    name: red_sand_iron_ingot
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_emerald:
+    name: red_sand_emerald
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: EMERALD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_lapis:
+    name: red_sand_lapis
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LAPIS_LAZULI
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_raw_gold:
+    name: red_sand_raw_gold
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: RAW_GOLD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_cake:
+    name: red_sand_cake
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CAKE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_diamond:
+    name: red_sand_diamond
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_bone:
+    name: red_sand_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: RED_SAND
+    overwrite_drops: false
+
+
+  sand_iron_ingot:
+    name: sand_iron_ingot
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: SAND
+    overwrite_drops: false
+  sand_emerald:
+    name: sand_emerald
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: EMERALD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: SAND
+    overwrite_drops: false
+  sand_lapis:
+    name: sand_lapis
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LAPIS_LAZULI
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: SAND
+    overwrite_drops: false
+  sand_raw_gold:
+    name: sand_raw_gold
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: RAW_GOLD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: SAND
+    overwrite_drops: false
+  sand_cake:
+    name: sand_cake
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CAKE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: SAND
+    overwrite_drops: false
+  sand_diamond:
+    name: sand_diamond
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: SAND
+    overwrite_drops: false
+  sand_bone:
+    name: sand_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SAND
+    overwrite_drops: false
+
+
+  gravel_iron_ingot:
+    name: gravel_iron_ingot
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_emerald:
+    name: gravel_emerald
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: EMERALD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_lapis:
+    name: gravel_lapis
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LAPIS_LAZULI
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_raw_gold:
+    name: gravel_raw_gold
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: RAW_GOLD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_cake:
+    name: gravel_cake
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CAKE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_diamond:
+    name: gravel_diamond
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_bone:
+    name: gravel_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRAVEL
+    overwrite_drops: false
+
+
+  grass_iron_ingot:
+    name: grass_iron_ingot
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_emerald:
+    name: grass_emerald
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: EMERALD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_lapis:
+    name: grass_lapis
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LAPIS_LAZULI
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_raw_gold:
+    name: grass_raw_gold
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: RAW_GOLD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_cake:
+    name: grass_cake
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CAKE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_diamond:
+    name: grass_diamond
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_bone:
+    name: grass_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+
+
+  dirt_iron_ingot:
+    name: dirt_iron_ingot
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DIRT
+    overwrite_drops: false
+  dirt_emerald:
+    name: dirt_emerald
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: EMERALD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIRT
+    overwrite_drops: false
+  dirt_lapis:
+    name: dirt_lapis
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LAPIS_LAZULI
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DIRT
+    overwrite_drops: false
+  dirt_raw_gold:
+    name: dirt_raw_gold
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: RAW_GOLD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DIRT
+    overwrite_drops: false
+  dirt_cake:
+    name: dirt_cake
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CAKE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIRT
+    overwrite_drops: false
+  dirt_diamond:
+    name: dirt_diamond
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIRT
+    overwrite_drops: false
+  dirt_bone:
+    name: dirt_bone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BONE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+
+
+  dirt_pumpkin_seeds:
+    name: dirt_pumpkin_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUMPKIN_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+  dirt_melon_seeds:
+    name: dirt_melon_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: MELON_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+  dirt_beetroot_seeds:
+    name: dirt_beetroot_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BEETROOT_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+  dirt_feather:
+    name: dirt_feather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+  dirt_bowl:
+    name: dirt_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+  dirt_seeds:
+    name: dirt_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WHEAT_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+  dirt_string:
+    name: dirt_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DIRT
+    overwrite_drops: false
+
+
+  grass_pumpkin_seeds:
+    name: grass_pumpkin_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PUMPKIN_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_melon_seeds:
+    name: grass_melon_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: MELON_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_beetroot_seeds:
+    name: grass_beetroot_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BEETROOT_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_feather:
+    name: grass_feather
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: FEATHER
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_bowl:
+    name: grass_bowl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: BOWL
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_seeds:
+    name: grass_seeds
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: WHEAT_SEEDS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+  grass_string:
+    name: grass_string
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STRING
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRASS_BLOCK
+    overwrite_drops: false
+
+
+  sand_prismarine_crystal:
+    name: sand_prismarine_shard
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PRISMARINE_CRYSTALS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SAND
+    overwrite_drops: false
+  sand_prismarine_shard:
+    name: sand_prismarine_shard
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PRISMARINE_SHARD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SAND
+    overwrite_drops: false
+  sand_bottle:
+    name: sand_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GLASS_BOTTLE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SAND
+    overwrite_drops: false
+  sand_ender_pearl:
+    name: sand_ender_pearl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ENDER_PEARL
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: SAND
+    overwrite_drops: false
+  sand_kelp:
+    name: sand_kelp
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DRIED_KELP
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SAND
+    overwrite_drops: false
+
+
+  red_sand_prismarine_crystal:
+    name: red_sand_prismarine_shard
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PRISMARINE_CRYSTALS
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_prismarine_shard:
+    name: red_sand_prismarine_shard
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PRISMARINE_SHARD
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_bottle:
+    name: red_sand_bottle
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GLASS_BOTTLE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_ender_pearl:
+    name: red_sand_ender_pearl
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: ENDER_PEARL
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: RED_SAND
+    overwrite_drops: false
+  red_sand_kelp:
+    name: red_sand_kelp
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DRIED_KELP
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: RED_SAND
+    overwrite_drops: false
+
+
+  gravel_gold_nugget:
+    name: gravel_gold_nugget
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_NUGGET
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_quartz:
+    name: gravel_quartz
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_membrane:
+    name: gravel_membrane
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: PHANTOM_MEMBRANE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_iron_nugget:
+    name: gravel_iron_nugget
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_NUGGET
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRAVEL
+    overwrite_drops: false
+  gravel_redstone:
+    name: gravel_redstone
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: REDSTONE
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: GRAVEL
+    overwrite_drops: false

@@ -1,0 +1,367 @@
+starting_perks:
+  farming_rare_drop_rate_multiplier_add: -1.0 # default 1, now 0
+  farming_garbage_food_multiplier_add: -0.5 # default 1, now 0.5
+  farming_carnivorous_food_multiplier_add: -0.5 # default 1, now 0.5
+  farming_vegetarian_food_multiplier_add: -0.5 # default 1, now 0.5
+  farming_pescotarian_food_multiplier_add: -0.5 # default 1, now 0.5
+  farming_magical_food_multiplier_add: -0.5 # default 1, now 0.5
+
+experience: # Everything about leveling and experience progression for Smithing
+  max_level: 100 # Max level for alchemy, players can still gain exp after reaching 100
+  exp_level_curve: '0.25 * (%level% + 300 * 2^(%level%/7.6)) + 300' # Here the x-axis represents level and the y-axis is the exp required to
+  # progress to that level.
+  # The area under this graph from point a to point b represents the total amount of experience needed to get from level
+  # a to b. You don't have to work with this, it's only for those who really want to make this progression their own.
+  # By default, it takes about 4300 exp to get from 0 to 20, 27,000 to get from 20 to 40, 164,000 from 40 to 60,
+  # 1,000,000 from 60 to 80, and 6,300,000 from 80 to 100- or 7,500,000 from 0 to 100.
+  farming_interact:
+    BEEHIVE: 200
+    BEE_NEST: 200
+    SWEET_BERRY_BUSH: 20
+    CAVE_VINES_PLANT: 24
+  farming_break:
+    WHEAT: 24
+    POTATOES: 20
+    POTATO: 5
+    CARROTS: 20
+    CARROT: 5
+    BEETROOTS: 28
+    BEETROOT: 14
+    COCOA: 40
+    COCOA_BEANS: 10
+    MELON: 40
+    MELON_SLICE: 8
+    PUMPKIN: 40
+    NETHER_WART: 10
+    BROWN_MUSHROOM: 40
+    RED_MUSHROOM: 40
+    SUGAR_CANE: 16
+    WARPED_FUNGUS: 48
+    CRIMSON_FUNGUS: 48
+    SWEET_BERRY_BUSH: 30
+    SWEET_BERRIES: 10
+    CAVE_VINES: 40
+    DANDELION: 20
+    POPPY: 20
+    BLUE_ORCHID: 20
+    ALLIUM: 20
+    AZURE_BLUET: 20
+    RED_TULIP: 20
+    ORANGE_TULIP: 20
+    WHITE_TULIP: 20
+    PINK_TULIP: 20
+    OXEYE_DAISY: 20
+    CORNFLOWER: 20
+    LILY_OF_THE_VALLEY: 20
+    SPORE_BLOSSOM: 60
+    CRIMSON_ROOTS: 10
+    WARPED_ROOTS: 10
+    NETHER_SPROUTS: 10
+    WEEPING_VINES: 10
+    TWISTING_VINES: 10
+    KELP: 10
+    HANGING_ROOTS: 20
+    BIG_DRIPLEAF: 40
+    SMALL_DRIPLEAF: 40
+    BAMBOO: 20
+    AZALEA: 40
+    FLOWERING_AZALEA: 40
+    MANGROVE_PROPAGULE: 60
+    LILY_PAD: 20
+    VINE: 10
+    SCULK_VEIN: 10
+    SCULK: 10
+    SCULK_CATALYST: 50
+    SCULK_SHRIEKER: 50
+    LILAC: 20
+    ROSE_BUSH: 20
+    PEONY: 20
+    TALL_GRASS: 10
+    LARGE_FERN: 10
+    SUNFLOWER: 30
+  farming_breed:
+    FROG: 80
+    MUSHROOM_COW: 70
+    HOGLIN: 100
+    OCELOT: 90
+    TURTLE: 90
+    CAT: 80
+    AXOLOTL: 80
+    STRIDER: 80
+    FOX: 80
+    WOLF: 80
+    DONKEY: 70
+    GOAT: 70
+    HORSE: 70
+    LLAMA: 70
+    MULE: 70
+    TRADER_LLAMA: 70
+    PANDA: 70
+    COW: 60
+    SHEEP: 60
+    RABBIT: 60
+    PIG: 50
+    BEE: 50
+    CHICKEN: 30
+  farming_fishing: 200
+
+special_perks: # Perks, commands, and messages executed when a player reaches a specific level
+  # If you don't know how to format this, refer to other progression configs (such as smithing) for reference
+  # because I don't know of any perks i wanna put here
+
+commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name
+  # and %level% for the player's new level
+  - '' # I didn't want commands by default, but you can put them here if you do
+
+messages: # Messages to send to the player every time the player levels this skill.
+  # Use %player% as placeholder for the player's name and %level% for the player's new level
+  - '<lang.skill-level-up-farming>'
+
+leveling_perks: # Perk rewards executed on the player every time they level
+  farming_drop_multiplier_add: 0.01 # amount of drops gradually increases from 1-2x drops
+
+starting_coordinates: '4,9' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+perks:
+  farming_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
+    # That also means changing this identifier name will break the ones currently existing on players
+    name: '<lang.skill-farming-perk-main-1-display-name>' # Name of the icon within the skill tree
+    icon: WHEAT_SEEDS # Icon itself within the skill tree
+    coords: 4,9 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
+    cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
+    description: '<lang.skill-farming-perk-main-1-description>'
+    required_lv: 0 # Required smithing level to unlock
+    perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
+      farming_vanilla_exp_reward_add: 0.1 # was 0, now 0.1
+    messages:
+      - '<lang.skill-farming-perk-main-1-messages>'
+  farming_perk_main_2:
+    hidden: true
+    cost: 1
+    coords: 4,7
+    requireperk_one:
+      - farming_perk_main_1
+    name: '<lang.skill-farming-perk-main-2-display-name>'
+    icon: WHEAT
+    description: '<lang.skill-farming-perk-main-2-description>'
+    required_lv: 20
+    perk_rewards:
+      farming_instant_growth_rate_add: 0.25 # was 0, now 0.25
+      farming_vegetarian_food_multiplier_add: 0.3 # was 0.5, now 0.8
+    messages:
+      - '<lang.skill-farming-perk-main-2-messages>'
+  farming_perk_main_3:
+    hidden: true
+    cost: 1
+    coords: 4,5
+    requireperk_one:
+      - farming_perk_main_2
+    name: '<lang.skill-farming-perk-main-3-display-name>'
+    icon: BEETROOT
+    description: '<lang.skill-farming-perk-main-3-description>'
+    required_lv: 40
+    perk_rewards:
+      farming_vanilla_exp_reward_add: 0.1 # was 0.1, now 0.2
+      farming_rare_drop_rate_multiplier_add: 1.0 # was 0, now 1
+    messages:
+      - '<lang.skill-farming-perk-main-3-messages>'
+  farming_perk_main_4:
+    hidden: true
+    cost: 1
+    coords: 4,3
+    requireperk_one:
+      - farming_perk_main_3
+    name: '<lang.skill-farming-perk-main-4-display-name>'
+    icon: POTATO
+    description: '<lang.skill-farming-perk-main-4-description>'
+    required_lv: 60
+    perk_rewards:
+      farming_instant_growth_rate_add: 0.5 # was 0.25, now 0.75
+      farming_instant_harvesting: true
+      farming_vegetarian_food_multiplier_add: 0.4 # was 0.8, now 1.2
+    messages:
+      - '<lang.skill-farming-perk-main-4-messages>'
+  farming_perk_main_5:
+    hidden: true
+    cost: 1
+    coords: 4,1
+    requireperk_one:
+      - farming_perk_main_4
+    name: '<lang.skill-farming-perk-main-5-display-name>'
+    icon: CARROT
+    description: '<lang.skill-farming-perk-main-5-description>'
+    required_lv: 80
+    perk_rewards:
+      farming_instant_growth_rate_add: 0.5
+      farming_rare_drop_rate_multiplier_add: 2.0 # was 1.0, now 3.0
+      farming_vanilla_exp_reward_add: 0.1
+    messages:
+      - '<lang.skill-farming-perk-main-5-messages>'
+  farming_perk_main_6a:
+    hidden: true
+    cost: 1
+    coords: 3,0
+    requireperk_one:
+      - farming_perk_main_5
+    name: '<lang.skill-farming-perk-main-6a-display-name>'
+    icon: NETHERITE_HOE
+    description: '<lang.skill-farming-perk-main-6a-description>'
+    required_lv: 100
+    perk_rewards:
+      farming_ultra_harvest_cooldown_add: 5001 # was -1, now 5000
+    messages:
+      - '<lang.skill-farming-perk-main-6a-messages>'
+  farming_perk_main_6b:
+    hidden: true
+    cost: 1
+    coords: 5,0
+    requireperk_one:
+      - farming_perk_main_5
+    name: '<lang.skill-farming-perk-main-6b-display-name>'
+    icon: GOLDEN_HOE
+    description: '<lang.skill-farming-perk-main-6b-description>'
+    required_lv: 100
+    perk_rewards:
+      farming_instant_growth_rate_add: 0.5
+      farming_drop_multiplier_add: 0.5
+      farming_vanilla_exp_reward_add: 0.1
+    messages:
+      - '<lang.skill-farming-perk-main-6b-messages>'
+  farming_perk_animals_1:
+    hidden: true
+    cost: 1
+    coords: 3,8
+    requireperk_one:
+      - farming_perk_main_1
+    name: '<lang.skill-farming-perk-animals-1-display-name>'
+    icon: CHICKEN
+    description: '<lang.skill-farming-perk-animals-1-description>'
+    required_lv: 20
+    perk_rewards:
+      farming_breeding_vanilla_exp_multiplier_add: 0.3 # default 1, now 1.3
+      farming_baby_animal_age_multiplier_add: -0.1
+      farming_carnivorous_food_multiplier_add: 0.3 # was 0.5, now 0.8
+    messages:
+      - '<lang.skill-farming-perk-animals-1-messages>'
+  farming_perk_animals_2:
+    hidden: true
+    cost: 1
+    coords: 0,7
+    requireperk_one:
+      - farming_perk_animals_1
+    name: '<lang.skill-farming-perk-animals-2-display-name>'
+    icon: BEEF
+    description: '<lang.skill-farming-perk-animals-2-description>'
+    required_lv: 40
+    perk_rewards:
+      farming_animal_drop_multiplier_add: 0.5
+      farming_animal_damage_multiplier_add: 1.0
+    messages:
+      - '<lang.skill-farming-perk-animals-2-messages>'
+  farming_perk_animals_3:
+    hidden: true
+    cost: 1
+    coords: 2,6
+    requireperk_one:
+      - farming_perk_animals_2
+    name: '<lang.skill-farming-perk-animals-3-display-name>'
+    icon: SPLASH_POTION
+    description: '<lang.skill-farming-perk-animals-3-description>'
+    required_lv: 60
+    perk_rewards:
+      farming_breeding_vanilla_exp_multiplier_add: 0.7 # was 1.3, now 2.0
+      farming_baby_animal_age_multiplier_add: -0.4
+      farming_carnivorous_food_multiplier_add: 0.4
+    messages:
+      - '<lang.skill-farming-perk-animals-3-messages>'
+  farming_perk_animals_4:
+    hidden: true
+    cost: 1
+    coords: 3,2
+    requireperk_one:
+      - farming_perk_animals_3
+    name: '<lang.skill-farming-perk-animals-4-display-name>'
+    icon: MILK_BUCKET
+    description: '<lang.skill-farming-perk-animals-4-description>'
+    required_lv: 80
+    perk_rewards:
+      farming_garbage_food_multiplier_add: 2.5 # was 0.5, now 3
+      farming_bad_food_immunity: true
+    messages:
+      - '<lang.skill-farming-perk-animals-4-messages>'
+  farming_perk_bees:
+    hidden: true
+    cost: 1
+    coords: 1,4
+    name: '<lang.skill-farming-perk-bees-display-name>'
+    icon: HONEY_BOTTLE
+    description: '<lang.skill-farming-perk-bees-description>'
+    required_lv: 40
+    perk_rewards:
+      farming_hive_honey_not_consume_chance_add: 0.5
+      farming_bee_aggro_immunity: true
+    messages:
+      - '<lang.skill-farming-perk-bees-messages>'
+  farming_perk_fishing_1:
+    hidden: true
+    cost: 1
+    coords: 5,8
+    requireperk_one:
+      - farming_perk_main_1
+    name: '<lang.skill-farming-perk-fishing-1-display-name>'
+    icon: FISHING_ROD
+    description: '<lang.skill-farming-perk-fishing-1-description>'
+    required_lv: 20
+    perk_rewards:
+      farming_fishing_vanilla_experience_multiplier_add: 0.3
+      farming_fishing_time_multiplier_add: -0.1
+      farming_pescotarian_food_multiplier_add: 0.3
+    messages:
+      - '<lang.skill-farming-perk-fishing-1-messages>'
+  farming_perk_fishing_2:
+    hidden: true
+    cost: 1
+    coords: 8,7
+    requireperk_one:
+      - farming_perk_fishing_1
+    name: '<lang.skill-farming-perk-fishing-2-display-name>'
+    icon: SALMON
+    description: '<lang.skill-farming-perk-fishing-2-description>'
+    required_lv: 40
+    perk_rewards:
+      farming_fishing_reward_tier_add: 0.50
+      farming_fishing_time_multiplier_add: -0.1
+    messages:
+      - '<lang.skill-farming-perk-fishing-2-messages>'
+  farming_perk_fishing_3:
+    hidden: true
+    cost: 1
+    coords: 6,6
+    requireperk_one:
+      - farming_perk_fishing_2
+    name: '<lang.skill-farming-perk-fishing-3-display-name>'
+    icon: PUFFERFISH
+    description: '<lang.skill-farming-perk-fishing-3-description>'
+    required_lv: 60
+    perk_rewards:
+      farming_fishing_reward_tier_add: 1.00
+      farming_fishing_time_multiplier_add: -0.1
+      farming_pescotarian_food_multiplier_add: 0.4
+    messages:
+      - '<lang.skill-farming-perk-fishing-3-messages>'
+  farming_perk_fishing_4:
+    hidden: true
+    cost: 1
+    coords: 5,2
+    requireperk_one:
+      - farming_perk_fishing_3
+    name: '<lang.skill-farming-perk-fishing-4-display-name>'
+    icon: TROPICAL_FISH
+    description: '<lang.skill-farming-perk-fishing-4-description>'
+    required_lv: 80
+    perk_rewards:
+      farming_fishing_reward_tier_add: 1.0
+      farming_fishing_time_multiplier_add: -0.2
+    messages:
+      - '<lang.skill-farming-perk-fishing-4-messages>'

@@ -1,19 +1,11 @@
 package me.athlaeos.valhallammo.config;
 
-import me.athlaeos.valhallammo.ValhallaMMO;
-
 import java.util.HashMap;
 
 //All credit to spigotmc.org user Bimmr for this manager
 public class ConfigManager {
-
-    private final ValhallaMMO plugin;
     private HashMap<String, Config> configs = new HashMap<String, Config>();
     private static ConfigManager manager = null;
-
-    public ConfigManager() {
-        plugin = ValhallaMMO.getPlugin();
-    }
 
     public static ConfigManager getInstance() {
         if (manager == null) {

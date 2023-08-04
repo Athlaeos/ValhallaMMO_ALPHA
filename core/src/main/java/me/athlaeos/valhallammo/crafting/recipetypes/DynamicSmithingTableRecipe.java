@@ -2,14 +2,14 @@ package me.athlaeos.valhallammo.crafting.recipetypes;
 
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
+import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.items.EquipmentClass;
+import me.athlaeos.valhallammo.items.MaterialClass;
+import me.athlaeos.valhallammo.managers.MinecraftVersionManager;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.SmithingRecipe;
+import org.bukkit.inventory.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -188,6 +188,9 @@ public class DynamicSmithingTableRecipe implements Cloneable{
             addition = useMetaAddition ? (EquipmentClass.getClass(this.addition) == null ? new RecipeChoice.ExactChoice(this.addition) : new RecipeChoice.MaterialChoice(this.addition.getType())) : new RecipeChoice.MaterialChoice(this.addition.getType());
         }
 
+        if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_20)) return new SmithingTransformRecipe(key, result,
+                MaterialClass.getMatchingClass(this.base) == MaterialClass.DIAMOND ? new RecipeChoice.MaterialChoice(Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE) : new RecipeChoice.MaterialChoice(Material.AIR, Material.DIRT, Material.STICK, Material.PAPER),
+                base, addition);
         return new SmithingRecipe(key, result, base, addition);
     }
 

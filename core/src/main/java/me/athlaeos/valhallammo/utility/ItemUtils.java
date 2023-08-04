@@ -1092,6 +1092,17 @@ public class ItemUtils {
         return null;
     }
 
+    public static void addItem(Player player, ItemStack i, boolean setOwnership){
+        Map<Integer, ItemStack> excess = player.getInventory().addItem(i);
+        if (!excess.isEmpty()){
+            for (Integer slot : excess.keySet()){
+                ItemStack slotItem = excess.get(slot);
+                Item drop = player.getWorld().dropItem(player.getLocation(), slotItem);
+                if (setOwnership) drop.setOwner(player.getUniqueId());
+            }
+        }
+    }
+
     private static class Range {
         private final int min;
         private final int max;

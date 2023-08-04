@@ -102,7 +102,6 @@ public class CustomRecipeManager {
         smithingRecipesByKey.put(recipe.getKey(), recipe);
         allRecipes.add(recipe.getName());
         ValhallaMMO.getPlugin().getServer().removeRecipe(recipe.getKey());
-
         ValhallaMMO.getPlugin().getServer().addRecipe(recipe.generateRecipe());
         return true;
     }
@@ -1199,7 +1198,7 @@ public class CustomRecipeManager {
             recipeLoop:
             for (String recipe : section.getKeys(false)){
                 ItemStack result = config.getItemStack("shaped." + recipe + ".result");
-                if (result == null) continue;
+                if (Utils.isItemEmptyOrNull(result)) continue;
                 result = TranslationManager.getInstance().translateItemStack(result);
 
                 boolean requireCustomTools = config.getBoolean("shaped." + recipe + ".require_custom_tools");

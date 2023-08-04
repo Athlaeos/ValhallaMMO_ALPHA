@@ -296,6 +296,7 @@ public class EntityDamagedListener implements Listener {
             return damageWithResistances;
         }
     }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handleNewDamageFormula(EntityDamageEvent e) {
         if (ValhallaMMO.isWorldBlacklisted(e.getEntity().getWorld().getName())) return;
@@ -319,7 +320,9 @@ public class EntityDamagedListener implements Listener {
                         cancelImmunityDueToOverride = true;
                     }
                 }
-                if (!cancelImmunityDueToOverride) return;
+                if (!cancelImmunityDueToOverride) {
+                    return;
+                }
             }
             double customDamage = Math.max(0, getCustomDamage(e));
             if (((LivingEntity) e.getEntity()).getHealth() - customDamage > 0) {

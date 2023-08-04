@@ -1,0 +1,272 @@
+starting_perks:
+  lock_recipes_all_brewing: []
+
+experience: # Everything about leveling and experience progression for Smithing
+  max_level: 100 # Max level for alchemy, players can still gain exp after reaching 100
+  exp_level_curve: '0.25 * (%level% + 300 * 2^(%level%/7.6)) + 300' # Here the x-axis represents level and the y-axis is the exp required to
+  # progress to that level.
+  # The area under this graph from point a to point b represents the total amount of experience needed to get from level
+  # a to b. You don't have to work with this, it's only for those who really want to make this progression their own.
+  # By default, it takes about 4300 exp to get from 0 to 20, 27,000 to get from 20 to 40, 164,000 from 40 to 60,
+  # 1,000,000 from 60 to 80, and 6,300,000 from 80 to 100- or 7,500,000 from 0 to 100.
+  # The experienced gained from brewing potions is entirely determined in the brewing recipes themselves, I couldn't
+  # figure out a proper way to code them into this config.
+
+special_perks: # Perks, commands, and messages executed when a player reaches a specific level
+  # If you don't know how to format this, refer to other progression configs (such as smithing) for reference
+  # because I don't know of any perks i wanna put here
+
+commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name
+  # and %level% for the player's new level
+  - '' # I didn't want commands by default, but you can put them here if you do
+
+messages: # Messages to send to the player every time the player levels this skill.
+  # Use %player% as placeholder for the player's name and %level% for the player's new level
+  - '<lang.skill-level-up-alchemy>'
+
+leveling_perks: # Perk rewards executed on the player every time they level
+  alchemy_quality_general_add: 1
+
+starting_coordinates: '3,8' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+perks:
+  alchemy_perk_main_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
+    # That also means changing this identifier name will break the ones currently existing on players
+    name: '<lang.preset-simple-skill-alchemy-r1-display-name>' # Name of the icon within the skill tree
+    icon: POTION # Icon itself within the skill tree
+    coords: 3,8 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
+    cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
+    description: '<lang.preset-simple-skill-alchemy-r1-description>'
+    required_lv: 0 # Required alchemy level to unlock
+    perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
+      alchemy_quality_general_add: 20
+      alchemy_speed_multiplier_add: 0.25
+      unlock_recipes:
+        - brew_potion_fortify_farming
+        - brew_potion_fortify_farming_splash
+        - brew_potion_fortify_farming_lingering
+        - brew_potion_fortify_woodcutting
+        - brew_potion_fortify_woodcutting_splash
+        - brew_potion_fortify_woodcutting_lingering
+        - brew_potion_brewing_speed
+        - brew_potion_brewing_speed_splash
+        - brew_potion_brewing_speed_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-r1-messages>'
+  alchemy_perk_main_2:
+    hidden: true
+    cost: 1
+    coords: 3,8
+    requireperk_one:
+      - alchemy_perk_main_1
+    name: '<lang.preset-simple-skill-alchemy-r2-display-name>'
+    icon: POTION
+    description: '<lang.preset-simple-skill-alchemy-r2-description>'
+    required_lv: 20
+    perk_rewards:
+      alchemy_quality_general_add: 20
+      alchemy_ingredient_save_chance_add: 0.1
+      unlock_recipes:
+        - brew_potion_fortify_mining
+        - brew_potion_fortify_mining_splash
+        - brew_potion_fortify_mining_lingering
+        - brew_potion_fortify_digging
+        - brew_potion_fortify_digging_splash
+        - brew_potion_fortify_digging_lingering
+        - brew_potion_potion_velocity
+        - brew_potion_potion_velocity_splash
+        - brew_potion_potion_velocity_lingering
+        - brew_potion_ingredient_save
+        - brew_potion_ingredient_save_splash
+        - brew_potion_ingredient_save_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-r2-messages>'
+  alchemy_perk_main_3:
+    hidden: true
+    cost: 1
+    coords: 3,8
+    requireperk_one:
+      - alchemy_perk_main_2
+    name: '<lang.preset-simple-skill-alchemy-r3-display-name>'
+    icon: POTION
+    description: '<lang.preset-simple-skill-alchemy-r3-description>'
+    required_lv: 40
+    perk_rewards:
+      alchemy_quality_general_add: 20
+      alchemy_speed_multiplier_add: 0.25
+      unlock_recipes:
+        - brew_potion_fortify_healing
+        - brew_potion_fortify_healing_splash
+        - brew_potion_fortify_healing_lingering
+        - brew_potion_haste
+        - brew_potion_haste_splash
+        - brew_potion_haste_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-r3-messages>'
+  alchemy_perk_main_4:
+    hidden: true
+    cost: 1
+    coords: 3,8
+    requireperk_one:
+      - alchemy_perk_main_3
+    name: '<lang.preset-simple-skill-alchemy-r4-display-name>'
+    icon: POTION
+    description: '<lang.preset-simple-skill-alchemy-r4-description>'
+    required_lv: 60
+    perk_rewards:
+      alchemy_quality_general_add: 20
+      alchemy_ingredient_save_chance_add: 0.2
+      unlock_recipes:
+        - brew_potion_increase_exp
+        - brew_potion_increase_exp_splash
+        - brew_potion_increase_exp_lingering
+        - brew_potion_health_boost_exp
+        - brew_potion_health_boost_exp_splash
+        - brew_potion_health_boost_exp_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-r4-messages>'
+  alchemy_perk_main_5:
+    hidden: true
+    cost: 1
+    coords: 3,8
+    requireperk_one:
+      - alchemy_perk_main_4
+    name: '<lang.preset-simple-skill-alchemy-r5-display-name>'
+    icon: POTION
+    description: '<lang.preset-simple-skill-alchemy-r5-description>'
+    required_lv: 80
+    perk_rewards:
+      alchemy_quality_general_add: 20
+      alchemy_speed_multiplier_add: 0.5
+      unlock_recipes:
+        - brew_potion_bad_omen
+        - brew_potion_bad_omen_splash
+        - brew_potion_bad_omen_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-r5-messages>'
+  alchemy_perk_debuff_1:
+    hidden: true
+    cost: 1
+    coords: 2,7
+    requireperk_one:
+      - alchemy_perk_main_1
+    name: '<lang.preset-simple-skill-alchemy-d1-display-name>'
+    icon: SPLASH_POTION
+    description: '<lang.preset-simple-skill-alchemy-d1-description>'
+    required_lv: 35
+    perk_rewards:
+      alchemy_quality_debuff_add: 20
+      alchemy_throw_velocity_add: 0.5
+      unlock_recipes:
+        - brew_potion_mining_fatigue
+        - brew_potion_mining_fatigue_splash
+        - brew_potion_mining_fatigue_lingering
+        - brew_potion_hunger
+        - brew_potion_hunger_splash
+        - brew_potion_hunger_lingering
+        - brew_potion_wither
+        - brew_potion_wither_splash
+        - brew_potion_wither_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-d1-messages>'
+  alchemy_perk_debuff_2:
+    hidden: true
+    cost: 1
+    coords: 2,5
+    requireperk_one:
+      - alchemy_perk_debuff_1
+    name: '<lang.preset-simple-skill-alchemy-d2-display-name>'
+    icon: CAULDRON
+    description: '<lang.preset-simple-skill-alchemy-d2-description>'
+    required_lv: 70
+    perk_rewards:
+      alchemy_quality_debuff_add: 30
+      alchemy_potion_save_chance_add: 0.33
+      unlock_recipes:
+        - brew_potion_blindness
+        - brew_potion_blindness_splash
+        - brew_potion_blindness_lingering
+        - brew_potion_damage_taken
+        - brew_potion_damage_taken_splash
+        - brew_potion_damage_taken_lingering
+        - brew_potion_healing_reduction
+        - brew_potion_healing_reduction_splash
+        - brew_potion_healing_reduction_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-d2-messages>'
+  alchemy_perk_buff_1:
+    hidden: true
+    cost: 1
+    coords: 4,7
+    requireperk_one:
+      - alchemy_perk_main_1
+    name: '<lang.preset-simple-skill-alchemy-b1-display-name>'
+    icon: LINGERING_POTION
+    description: '<lang.preset-simple-skill-alchemy-b1-description>'
+    required_lv: 35
+    perk_rewards:
+      alchemy_quality_buff_add: 20
+      unlock_recipes:
+        - brew_potion_luck
+        - brew_potion_luck_splash
+        - brew_potion_luck_lingering
+        - brew_potion_conduit_power
+        - brew_potion_conduit_power_splash
+        - brew_potion_conduit_power_lingering
+        - brew_potion_saturation
+        - brew_potion_saturation_splash
+        - brew_potion_saturation_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-b1-messages>'
+  alchemy_perk_buff_2:
+    hidden: true
+    cost: 1
+    coords: 4,5
+    requireperk_one:
+      - alchemy_perk_buff_1
+    name: '<lang.preset-simple-skill-alchemy-b2-display-name>'
+    icon: BREWING_STAND
+    description: '<lang.preset-simple-skill-alchemy-b2-description>'
+    required_lv: 70
+    perk_rewards:
+      alchemy_quality_buff_add: 30
+      unlock_recipes:
+        - brew_potion_fortify_armor
+        - brew_potion_fortify_armor_splash
+        - brew_potion_fortify_armor_lingering
+        - brew_potion_fortify_smithing
+        - brew_potion_fortify_smithing_splash
+        - brew_potion_fortify_smithing_lingering
+        - brew_potion_fortify_enchanting
+        - brew_potion_fortify_enchanting_splash
+        - brew_potion_fortify_enchanting_lingering
+        - brew_potion_fortify_archery
+        - brew_potion_fortify_archery_splash
+        - brew_potion_fortify_archery_lingering
+    messages:
+      - '<lang.preset-simple-skill-alchemy-b2-messages>'
+  alchemy_perk_transmutation_1:
+    hidden: true
+    cost: 1
+    coords: 3,2
+    requireperk_all:
+      - alchemy_perk_buff_2
+      - alchemy_perk_debuff_2
+      - alchemy_perk_main_5
+    name: '<lang.preset-simple-skill-alchemy-f-display-name>'
+    icon: GOLD_BLOCK
+    description: '<lang.preset-simple-skill-alchemy-f-description>'
+    required_lv: 100
+    perk_rewards:
+      alchemy_quality_general_add: 50
+      unlock_recipes:
+        - potion_transmutation
+        - enchant_gold_block
+        - brew_potion_resistance
+        - brew_potion_resistance_splash
+        - brew_potion_resistance_lingering
+        - craft_notch_apple
+      alchemy_unlock_all_transmutations: []
+    messages:
+      - '<lang.preset-simple-skill-alchemy-f-messages>'

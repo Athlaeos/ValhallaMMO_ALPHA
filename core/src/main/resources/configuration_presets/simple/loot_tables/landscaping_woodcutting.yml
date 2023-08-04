@@ -1,0 +1,161 @@
+entries:
+  5da78f9e-7c7c-4c77-a5f1-e2fac65fa303:
+    name: 5da78f9e-7c7c-4c77-a5f1-e2fac65fa303
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: CRIMSON_STEM
+    overwrite_drops: false
+  b7c65be5-80eb-47f3-8113-9d117c6e6efd:
+    name: b7c65be5-80eb-47f3-8113-9d117c6e6efd
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: MANGROVE_LOG
+    overwrite_drops: false
+  24c96909-7dc7-4e25-99d8-458a6770a27c:
+    name: 24c96909-7dc7-4e25-99d8-458a6770a27c
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: MANGROVE_ROOTS
+    overwrite_drops: false
+  952e6857-d3b5-459e-80f8-f2cc5554b32d:
+    name: 952e6857-d3b5-459e-80f8-f2cc5554b32d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: BIRCH_LOG
+    overwrite_drops: false
+  86a8e60a-5ce1-4cb1-aad4-c4320ee98787:
+    name: 86a8e60a-5ce1-4cb1-aad4-c4320ee98787
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: WARPED_STEM
+    overwrite_drops: false
+  6278666a-23ed-43cd-9a49-d837f924e584:
+    name: 6278666a-23ed-43cd-9a49-d837f924e584
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: DARK_OAK_LOG
+    overwrite_drops: false
+  9ba9e558-e5bf-41d7-97d3-91cf1758d677:
+    name: 9ba9e558-e5bf-41d7-97d3-91cf1758d677
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: ACACIA_LOG
+    overwrite_drops: false
+  5d0feb8b-6bc9-4f54-8152-ea2c463dc45e:
+    name: 5d0feb8b-6bc9-4f54-8152-ea2c463dc45e
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: JUNGLE_LOG
+    overwrite_drops: false
+  303c26be-9b20-4da0-ab6b-e184a395886c:
+    name: 303c26be-9b20-4da0-ab6b-e184a395886c
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SPRUCE_LOG
+    overwrite_drops: false
+  227a7c95-5c07-4e6d-9b54-e14ac2e7d2ab:
+    name: 227a7c95-5c07-4e6d-9b54-e14ac2e7d2ab
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-burnt-bark>"}],"text":""}'
+        custom-model-data: 9192786
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: OAK_LOG
+    overwrite_drops: false

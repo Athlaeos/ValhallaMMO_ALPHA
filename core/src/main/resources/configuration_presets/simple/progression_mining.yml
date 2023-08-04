@@ -1,0 +1,379 @@
+starting_perks:
+  mining_rare_drop_rate_multiplier_add: -1.0 # default 1, now 0
+  blast_mining_rare_drop_rate_multiplier_add: -1.0 # default 1, now 0
+  mining_drop_multiplier_add: -0.3 # default 1, now 0.7
+  mining_ore_experience_multiplier_add: -0.5 # default 1, now 0.5
+
+experience: # Everything about leveling and experience progression for Smithing
+  max_level: 100 # Max level for alchemy, players can still gain exp after reaching 100
+  exp_level_curve: '0.25 * (%level% + 300 * 2^(%level%/7.6)) + 300' # Here the x-axis represents level and the y-axis is the exp required to
+  # progress to that level.
+  # The area under this graph from point a to point b represents the total amount of experience needed to get from level
+  # a to b. You don't have to work with this, it's only for those who really want to make this progression their own.
+  # By default, it takes about 4300 exp to get from 0 to 20, 27,000 to get from 20 to 40, 164,000 from 40 to 60,
+  # 1,000,000 from 60 to 80, and 6,300,000 from 80 to 100- or 7,500,000 from 0 to 100.
+  exp_multiplier_mine: 1 # EXP multipliers if blocks are mined normally with a pickaxe
+  exp_multiplier_blast: 1.5 # EXP multipliers if blocks are mined with a TNT explosion
+  exp_per_break: false # If false, exp will be rewarded for each time the item is present in the block's drops. If true, exp is only rewarded once
+  mining_break: # Blocks mined or exploded will grant the player the amount of experience noted based on the amount of items it dropped,
+    # if the block was placed beforehand it will not reward any EXP or skill benefits.
+    # Only the items in this list will benefit from drop multiplication
+    # Items will only reward experience if both the mined block and the associated drop exist in this list (I.E. IRON_ORE and RAW_IRON)
+    NETHERRACK: 0.5
+    NETHER_QUARTZ_ORE: 10
+    QUARTZ: 5
+    NETHER_GOLD_ORE: 7
+    GOLD_NUGGET: 1
+    OBSIDIAN: 10
+    END_STONE: 3
+    COBBLESTONE: 2
+    COBBLED_DEEPSLATE: 2.5
+    STONE: 2
+    DEEPSLATE: 2.5
+    GRANITE: 2
+    ANDESITE: 2
+    DIORITE: 2
+    CALCITE: 2
+    TUFF: 2
+    DRIPSTONE_BLOCK: 2.5
+    AMETHYST_BLOCK: 4
+    BLACKSTONE: 2.5
+    BASALT: 2.5
+    SMOOTH_BASALT: 2.5
+    COAL_ORE: 10
+    COAL: 5
+    IRON_ORE: 20
+    RAW_IRON: 10
+    COPPER_ORE: 14
+    RAW_COPPER: 7
+    GOLD_ORE: 40
+    RAW_GOLD: 20
+    LAPIS_ORE: 80
+    LAPIS_LAZULI: 5
+    REDSTONE_ORE: 20
+    REDSTONE: 3
+    DIAMOND_ORE: 100
+    DIAMOND: 50
+    EMERALD_ORE: 100
+    EMERALD: 50
+    DEEPSLATE_COAL_ORE: 12
+    DEEPSLATE_IRON_ORE: 24
+    DEEPSLATE_COPPER_ORE: 18
+    DEEPSLATE_GOLD_ORE: 48
+    DEEPSLATE_LAPIS_ORE: 48
+    DEEPSLATE_REDSTONE_ORE: 24
+    DEEPSLATE_DIAMOND_ORE: 120
+    DEEPSLATE_EMERALD_ORE: 120
+    ANCIENT_DEBRIS: 400
+    NETHERITE_SCRAP: 200
+
+special_perks: # Perks, commands, and messages executed when a player reaches a specific level
+  50:
+    perk_rewards:
+      mining_quickmode_rate_set: 6 # every 6 blocks the player instant mines they lose 1 saturation, then hunger, then health
+      # starting with 6 points equates to about 250 blocks mined on a full stomach with full health, or about 10 obsidian blocks
+      mining_quickmode_cooldown_add: 60001 # default -1, now 60000
+    messages:
+      - '<lang.skill-mining-automatic-unlock-overdrive>'
+  60:
+    perk_rewards:
+      mining_quickmode_rate_add: 1
+  70:
+    perk_rewards:
+      mining_quickmode_rate_add: 1
+  80:
+    perk_rewards:
+      mining_quickmode_rate_add: 1
+  90:
+    perk_rewards:
+      mining_quickmode_rate_add: 1
+  100:
+    perk_rewards:
+      mining_quickmode_rate_add: 2
+  # At level 100 the player can mine 12 blocks for each hunger and health point without any perk benefits
+  # This means the player, on a full stomach, will be able to mine about 512 stone blocks or 20 obsidian blocks instantly
+  # before needing to recover
+
+commands: # Commands executed every time a player levels this skill. Use %player% as placeholder for the player's name
+  # and %level% for the player's new level
+  - '' # I didn't want commands by default, but you can put them here if you do
+
+messages: # Messages to send to the player every time the player levels this skill.
+  # Use %player% as placeholder for the player's name and %level% for the player's new level
+  - '<lang.skill-level-up-mining>'
+
+leveling_perks: # Perk rewards executed on the player every time they level
+  mining_drop_multiplier_add: 0.008 # amount of drops gradually increases from 0.7-1.5x drops
+  blast_mining_drop_multiplier_add: 0.01 # amount of drops gradually increases from 1-2x drops
+
+starting_coordinates: '4,8' # The coordinates in the skill tree the player sees first when switching to the skill tree
+
+perks:
+  mining_perk_ranked_1: # Must be unique, this will be treated as an identifier and will be used to determine which perks players have
+    # That also means changing this identifier name will break the ones currently existing on players
+    name: '<lang.skill-mining-perk-ranked-1-display-name>' # Name of the icon within the skill tree
+    icon: WOODEN_PICKAXE # Icon itself within the skill tree
+    coords: 4,8 # Location on skill tree, if following skills share this coordinate the current one will be overridden
+    hidden: false # If true, icon is hidden until it is unlockable. If false, icon is always visible
+    cost: 1 # Amount of perk points it takes to unlock this perk, at default it's 1 so you don't have to include this every time unless you want to change cost
+    description: '<lang.skill-mining-perk-ranked-1-description>'
+    required_lv: 0 # Required smithing level to unlock
+    perk_rewards: # Perks Rewards that execute when a player unlocks this perk, essentially one-time commands.
+      mining_ore_experience_multiplier_add: 0.5
+      mining_rare_drop_rate_multiplier_add: 0.5
+    messages:
+      - '<lang.skill-mining-perk-ranked-1-messages>'
+  mining_perk_ranked_2:
+    name: '<lang.skill-mining-perk-ranked-2-display-name>'
+    icon: STONE_PICKAXE
+    requireperk_one:
+      - mining_perk_ranked_1
+    coords: 4,8
+    hidden: true
+    cost: 1
+    description: '<lang.skill-mining-perk-ranked-2-description>'
+    required_lv: 20
+    perk_rewards:
+      mining_block_experience_rate_add: 0.05 # 0.05 equals to about 1 in every 20 blocks giving 1 point of experience
+      mining_rare_drop_rate_multiplier_add: 0.5
+    messages:
+      - '<lang.skill-mining-perk-ranked-2-messages>'
+  mining_perk_ranked_3:
+    name: '<lang.skill-mining-perk-ranked-3-display-name>'
+    icon: IRON_PICKAXE
+    requireperk_one:
+      - mining_perk_ranked_2
+    coords: 4,8
+    hidden: true
+    cost: 1
+    description: '<lang.skill-mining-perk-ranked-3-description>'
+    required_lv: 40
+    perk_rewards:
+      mining_drop_multiplier_add: 0.2
+      mining_rare_drop_rate_multiplier_add: 0.5
+    messages:
+      - '<lang.skill-mining-perk-ranked-3-messages>'
+  mining_perk_ranked_4:
+    name: '<lang.skill-mining-perk-ranked-4-display-name>'
+    icon: GOLDEN_PICKAXE
+    requireperk_one:
+      - mining_perk_ranked_3
+    coords: 4,8
+    hidden: true
+    cost: 1
+    description: '<lang.skill-mining-perk-ranked-4-description>'
+    required_lv: 60
+    perk_rewards:
+      mining_block_experience_rate_add: 0.05
+      mining_rare_drop_rate_multiplier_add: 0.5
+      mining_ore_experience_multiplier_add: 1.0
+    messages:
+      - '<lang.skill-mining-perk-ranked-4-messages>'
+  mining_perk_ranked_5:
+    name: '<lang.skill-mining-perk-ranked-5-display-name>'
+    icon: DIAMOND_PICKAXE
+    requireperk_one:
+      - mining_perk_ranked_4
+    coords: 4,8
+    hidden: true
+    cost: 1
+    description: '<lang.skill-mining-perk-ranked-5-description>'
+    required_lv: 80
+    perk_rewards:
+      mining_block_experience_rate_add: 0.1
+      mining_drop_multiplier_add: 0.3
+      mining_rare_drop_rate_multiplier_add: 1.0
+    messages:
+      - '<lang.skill-mining-perk-ranked-5-messages>'
+  mining_perk_main_1:
+    hidden: true
+    cost: 1
+    coords: 4,6
+    requireperk_one:
+      - mining_perk_ranked_1
+    name: '<lang.skill-mining-perk-main-1-display-name>'
+    icon: GOLD_ORE
+    description: '<lang.skill-mining-perk-main-1-description>'
+    required_lv: 40
+    perk_rewards:
+      mining_vein_mining_cooldown_add: 1 # default -1, now 0
+      mining_vein_mining_blocks_add:
+        - COAL_ORE
+        - DEEPSLATE_COAL_ORE
+        - IRON_ORE
+        - DEEPSLATE_IRON_ORE
+        - COPPER_ORE
+        - DEEPSLATE_COPPER_ORE
+        - GOLD_ORE
+        - DEEPSLATE_GOLD_ORE
+        - LAPIS_ORE
+        - DEEPSLATE_LAPIS_ORE
+        - REDSTONE_ORE
+        - DEEPSLATE_REDSTONE_ORE
+        - EMERALD_ORE
+        - DEEPSLATE_EMERALD_ORE
+        - DIAMOND_ORE
+        - DEEPSLATE_DIAMOND_ORE
+        - NETHER_QUARTZ_ORE
+        - NETHER_GOLD_ORE
+        - ANCIENT_DEBRIS
+    messages:
+      - '<lang.skill-mining-perk-main-1-messages>'
+  mining_perk_main_2:
+    hidden: true
+    cost: 1
+    coords: 4,4
+    requireperk_one:
+      - mining_perk_main_1
+    name: '<lang.skill-mining-perk-main-2-display-name>'
+    icon: BLAZE_POWDER
+    description: '<lang.skill-mining-perk-main-2-description>'
+    required_lv: 60
+    perk_rewards:
+      mining_quickmode_rate_add: 2
+      mining_quickmode_cooldown_add: -15000 # was 60000, now 45000
+    messages:
+      - '<lang.skill-mining-perk-main-2-messages>'
+  mining_perk_main_3:
+    hidden: true
+    cost: 1
+    coords: 4,2
+    requireperk_one:
+      - mining_perk_main_2
+    name: '<lang.skill-mining-perk-main-3-display-name>'
+    icon: BLAZE_ROD
+    description: '<lang.skill-mining-perk-main-3-description>'
+    required_lv: 80
+    perk_rewards:
+      mining_quickmode_rate_add: 4
+      mining_quickmode_cooldown_add: -15000 # was 45000, now 30000
+    messages:
+      - '<lang.skill-mining-perk-main-3-messages>'
+  mining_perk_main_4:
+    hidden: true
+    cost: 1
+    coords: 4,0
+    requireperk_one:
+      - mining_perk_main_3
+    name: '<lang.skill-mining-perk-main-4-display-name>'
+    icon: DIAMOND_ORE
+    description: '<lang.skill-mining-perk-main-4-description>'
+    required_lv: 100
+    perk_rewards:
+      mining_vein_mining_blocks_add:
+        - ANDESITE
+        - DIORITE
+        - GRANITE
+        - BLACKSTONE
+        - SMOOTH_BLACKSTONE
+        - CALCITE
+    messages:
+      - '<lang.skill-mining-perk-main-4-messages>'
+  blast_mining_perk_a:
+    hidden: true
+    cost: 1
+    coords: 2,8
+    requireperk_one:
+      - mining_perk_ranked_1
+    name: '<lang.skill-mining-perk-blast-mining-a-display-name>'
+    icon: FLINT_AND_STEEL
+    description: '<lang.skill-mining-perk-blast-mining-a-description>'
+    required_lv: 30
+    perk_rewards:
+      blast_mining_tnt_radius_multiplier_add: 0.5
+      blast_mining_tnt_damage_multiplier_add: -0.5
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-a-messages>'
+  blast_mining_perk_b:
+    hidden: true
+    cost: 1
+    coords: 1,7
+    requireperk_one:
+      - blast_mining_perk_a
+    name: '<lang.skill-mining-perk-blast-mining-b-display-name>'
+    icon: TNT
+    description: '<lang.skill-mining-perk-blast-mining-b-description>'
+    required_lv: 50
+    perk_rewards:
+      unlock_recipes:
+        - craft_multiple_tnt
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-b-messages>'
+  blast_mining_perk_c:
+    hidden: true
+    cost: 1
+    coords: 6,8
+    requireperk_one:
+      - mining_perk_ranked_1
+    name: '<lang.skill-mining-perk-blast-mining-c-display-name>'
+    icon: IRON_BLOCK
+    description: '<lang.skill-mining-perk-blast-mining-c-description>'
+    required_lv: 30
+    perk_rewards:
+      blast_mining_drop_multiplier_add: 0.2
+      blast_mining_rare_drop_rate_multiplier_add: 1
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-c-messages>'
+  blast_mining_perk_d:
+    hidden: true
+    cost: 1
+    coords: 7,7
+    requireperk_one:
+      - blast_mining_perk_c
+    name: '<lang.skill-mining-perk-blast-mining-d-display-name>'
+    icon: GOLD_BLOCK
+    description: '<lang.skill-mining-perk-blast-mining-d-description>'
+    required_lv: 50
+    perk_rewards:
+      blast_mining_drop_multiplier_add: 0.3
+      blast_mining_rare_drop_rate_multiplier_add: 2
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-d-messages>'
+  blast_mining_perk_e:
+    hidden: true
+    cost: 1
+    coords: 4,3
+    requireperk_all:
+      - blast_mining_perk_b
+      - blast_mining_perk_d
+    name: '<lang.skill-mining-perk-blast-mining-e-display-name>'
+    icon: OBSIDIAN
+    description: '<lang.skill-mining-perk-blast-mining-e-description>'
+    required_lv: 70
+    perk_rewards:
+      blast_mining_tnt_radius_multiplier_add: 0.5 # was 1.5, now 2
+      blast_mining_tnt_damage_multiplier_add: -1 # default 1, now 0
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-e-messages>'
+  blast_mining_perk_e_silk:
+    hidden: true
+    cost: 0
+    coords: 3,3
+    requireperk_all:
+      - blast_mining_perk_e
+    name: '<lang.skill-mining-perk-blast-mining-e-silk-display-name>'
+    icon: FEATHER
+    description: '<lang.skill-mining-perk-blast-mining-e-silk-description>'
+    required_lv: 0
+    perk_rewards:
+      blast_mining_fortune_level_set: -1
+      remove_perks:
+        - blast_mining_perk_e_fortune
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-e-silk-messages>'
+  blast_mining_perk_e_fortune:
+    hidden: true
+    cost: 0
+    coords: 5,3
+    requireperk_all:
+      - blast_mining_perk_e
+    name: '<lang.skill-mining-perk-blast-mining-e-fortune-display-name>'
+    icon: LAPIS_LAZULI
+    description: '<lang.skill-mining-perk-blast-mining-e-fortune-description>'
+    required_lv: 0
+    perk_rewards:
+      blast_mining_fortune_level_set: 3
+      remove_perks:
+        - blast_mining_perk_e_silk
+    messages:
+      - '<lang.skill-mining-perk-blast-mining-e-fortune-messages>'

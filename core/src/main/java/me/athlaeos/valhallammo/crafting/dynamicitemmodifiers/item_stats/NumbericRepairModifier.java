@@ -38,7 +38,7 @@ public class NumbericRepairModifier extends DynamicItemModifier {
 
     @Override
     public List<String> tabAutoCompleteFirstArg() {
-        return Collections.singletonList("<percentage_repaired>");
+        return Collections.singletonList("<amount_repaired>");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class NumbericRepairModifier extends DynamicItemModifier {
         if (itemDurabiity > 0){
             // Item has custom durability
             int maxDurability = CustomDurabilityManager.getInstance().getMaxDurability(outputItem);
-            if (maxDurability <= CustomDurabilityManager.getInstance().getDurability(outputItem)) return null;
+            if (strength > 0 && maxDurability <= CustomDurabilityManager.getInstance().getDurability(outputItem)) return null;
             CustomDurabilityManager.getInstance().damageItem(outputItem, (int) -strength);
             return outputItem;
         }

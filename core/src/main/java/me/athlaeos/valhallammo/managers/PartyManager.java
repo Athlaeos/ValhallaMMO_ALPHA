@@ -443,6 +443,8 @@ public class PartyManager {
             }
         }
         allParties.remove(playersParty.getName());
+        ConfigManager.getInstance().getConfig("parties.yml").get().set(playersParty.getName(), null);
+        ConfigManager.getInstance().getConfig("parties.yml").save();
         return null;
     }
 

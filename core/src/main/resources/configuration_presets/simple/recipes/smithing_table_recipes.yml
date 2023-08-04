@@ -1,0 +1,404 @@
+smithing:
+  smithing_craft_netherite_sword:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_shovel:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_pickaxe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_axe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOON
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_hoe:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_damage:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_helmet:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_leggings:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_armor:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_boots:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_armor:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false
+  smithing_craft_netherite_chestplate:
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    base:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    addition:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result_modifiers:
+      dynamic_quality:
+        strength: 100.0
+        priority: SOONEST
+      treatment_remove_all:
+        strength: 0.0
+        priority: SOONEST
+      upgrade_equipment_netherite:
+        strength: 0.0
+        priority: SOONISH
+      dynamic_armor_toughness:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_knockback_resistance:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_durability:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+      dynamic_armor:
+        strength2: 0.0
+        strength: 100.0
+        priority: NEUTRAL
+    require_custom_tools: true
+    unlocked_for_everyone: true
+    use_meta_base: false
+    use_meta_addition: false
+    improve_base: true
+    consume_addition: true
+    allow_base_variation: false
+    allow_addition_variation: false

@@ -60,9 +60,9 @@ public class RandomizedQualityRatingModifier extends DuoArgDynamicItemModifier {
         int quality = SmithingItemTreatmentManager.getInstance().getItemsQuality(outputItem);
         if (quality == 0) return outputItem;
         if (strength > strength2) {
-            crafter.sendMessage(Utils.chat("&cThis recipe has been improperly configured, randomized lower bound " +
-                    "is not allowed to exceed the upper bound. Notify server owner(s)/admin(s)"));
-            return null;
+            double temp = strength2;
+            strength2 = strength;
+            strength = temp;
         }
         int lowerBound = (int) Math.floor(strength * quality);
         int upperBound = (int) Math.floor(strength2 * quality);

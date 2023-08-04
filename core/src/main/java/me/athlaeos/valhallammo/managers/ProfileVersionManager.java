@@ -39,14 +39,14 @@ public class ProfileVersionManager {
         if (!p.getPersistentDataContainer().has(profileMainVersionKey, PersistentDataType.INTEGER)){
             setProfileMainVersion(p, currentMainVersion);
         }
-        return p.getPersistentDataContainer().get(profileMainVersionKey, PersistentDataType.INTEGER);
+        return p.getPersistentDataContainer().getOrDefault(profileMainVersionKey, PersistentDataType.INTEGER, currentMainVersion);
     }
 
     public int getProfileSubVersion(Player p){
         if (!p.getPersistentDataContainer().has(profileSubVersionKey, PersistentDataType.INTEGER)){
             setProfileSubVersion(p, currentMainVersion);
         }
-        return p.getPersistentDataContainer().get(profileSubVersionKey, PersistentDataType.INTEGER);
+        return p.getPersistentDataContainer().getOrDefault(profileSubVersionKey, PersistentDataType.INTEGER, currentSubVersion);
     }
 
     public void setProfileMainVersion(Player p, int v){

@@ -5,8 +5,11 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemMo
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.ModifierPriority;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.advanced_modifiers.*;
-import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_conditionals.*;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.advanced_modifiers.DamageItemModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.advanced_modifiers.EnchantmentTransferModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.advanced_modifiers.ItemEqualizerModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_conditionals.AddCustomEnchantCounterModifier;
+import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_conditionals.EnchantCounterCancelIfExceededModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.enchantment_stats.*;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience.ExpLevelCostModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.experience.ExpPointsCostModifier;
@@ -25,10 +28,10 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DynamicItemModifierManager {
+    public static final Collection<DynamicItemModifier> modifiersToRegister = new HashSet<>();
     private static DynamicItemModifierManager manager = null;
 
     private final Map<String, DynamicItemModifier> modifiers = new HashMap<>();
@@ -38,6 +41,7 @@ public class DynamicItemModifierManager {
         ValhallaMMO.getPlugin().getServer().getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
         event.getModifiersToRegister().forEach(this::register);
+        modifiersToRegister.forEach(this::register);
 
         register(new SkillLevelRequirementAddModifier("level_requirement_smithing", "SMITHING", Material.ANVIL));
         register(new SkillLevelRequirementAddModifier("level_requirement_alchemy", "ALCHEMY", Material.BREWING_STAND));

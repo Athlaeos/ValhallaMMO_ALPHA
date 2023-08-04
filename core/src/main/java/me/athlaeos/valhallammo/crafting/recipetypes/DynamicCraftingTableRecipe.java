@@ -5,7 +5,6 @@ import com.google.common.collect.HashBiMap;
 import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.items.EquipmentClass;
-import me.athlaeos.valhallammo.managers.TranslationManager;
 import me.athlaeos.valhallammo.utility.ItemUtils;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.ChatColor;
@@ -195,8 +194,8 @@ public class DynamicCraftingTableRecipe implements Cloneable{
      */
     private char getItemChar(ItemStack i, String usedChars){
         if (Utils.isItemEmptyOrNull(i)) return ' ';
-        String itemName = Utils.getItemName(i);
-        char possibleCharacter = ChatColor.stripColor(itemName.isEmpty() ? getTypeName(i) : itemName).toUpperCase().charAt(0);
+        String itemName = ChatColor.stripColor(Utils.getItemName(i));
+        char possibleCharacter = (itemName == null || itemName.isEmpty() ? i.getType().toString() : itemName).toUpperCase().charAt(0);
         if (usedChars.contains("" + possibleCharacter)){
             possibleCharacter = i.getType().toString().toUpperCase().charAt(0);
             if (usedChars.contains("" + possibleCharacter)) {
@@ -209,20 +208,6 @@ public class DynamicCraftingTableRecipe implements Cloneable{
         }
         return possibleCharacter;
     }
-
-    private String getTypeName(ItemStack i){
-        String name;
-        assert i.getItemMeta() != null;
-        if (TranslationManager.getInstance().getLocalizedMaterialNames().containsKey(i.getType())){
-            name = Utils.chat(TranslationManager.getInstance().getLocalizedMaterialNames().get(i.getType()));
-        } else if (i.getItemMeta().hasLocalizedName()){
-            name = Utils.chat(i.getItemMeta().getLocalizedName());
-        } else {
-            name = i.getType().toString().toLowerCase().replace("_", " ");
-        }
-        return name;
-    }
-
     public Map<Integer, ItemStack> getExactItems() {
         return exactItems;
     }

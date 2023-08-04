@@ -5,9 +5,11 @@ import me.athlaeos.valhallammo.commands.valhalla_commands.RecipeRevealToggleComm
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.AdvancedDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.recipetypes.DynamicSmithingTableRecipe;
+import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.items.EquipmentClass;
 import me.athlaeos.valhallammo.managers.CustomRecipeManager;
+import me.athlaeos.valhallammo.managers.MinecraftVersionManager;
 import me.athlaeos.valhallammo.managers.ProfileManager;
 import me.athlaeos.valhallammo.managers.SmithingItemTreatmentManager;
 import me.athlaeos.valhallammo.skills.account.AccountProfile;
@@ -32,19 +34,23 @@ public class PlayerSmithingListener implements Listener {
     @EventHandler
     public void onSmithingTableInteract(InventoryClickEvent e){
         if (ValhallaMMO.isWorldBlacklisted(e.getWhoClicked().getWorld().getName())) return;
+        boolean is1_20 = MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_20);
         if (e.getView().getTopInventory() instanceof SmithingInventory){
             SmithingInventory inventory = (SmithingInventory) e.getView().getTopInventory();
             if (e.getClickedInventory() instanceof SmithingInventory){
-                if (e.getRawSlot() == 0 || e.getRawSlot() == 1){
+                if (e.getRawSlot() >= 0 && e.getRawSlot() <= (is1_20 ? 2 : 1)){
                     ItemUtils.calculateClickedSlotOnlyAllow1Placed(e);
                     // place only 1 item in either smithing slots
                 } else if (Utils.isItemEmptyOrNull(e.getCurrentItem())){
                     // cancel event if empty result slot is clicked
                     e.setCancelled(true);
                 } else {
-                    ItemStack base = e.getInventory().getItem(0);
-                    ItemStack addition = e.getInventory().getItem(1);
-                    SmithingRecipe recipe = getSmithingRecipeAssociatedToItem(e.getInventory().getItem(0), e.getInventory().getItem(1));
+                    int baseIndex = is1_20 ? 1 : 0;
+                    int additionIndex = baseIndex + 1;
+                    int resultIndex = additionIndex + 1;
+                    ItemStack base = e.getInventory().getItem(baseIndex);
+                    ItemStack addition = e.getInventory().getItem(additionIndex);
+                    SmithingRecipe recipe = getSmithingRecipeAssociatedToItem(e.getInventory().getItem(baseIndex), e.getInventory().getItem(additionIndex));
                     if (recipe != null){
                         DynamicSmithingTableRecipe r = CustomRecipeManager.getInstance().getDynamicSmithingRecipe(recipe.getKey());
                         if (r != null){
@@ -58,7 +64,7 @@ public class PlayerSmithingListener implements Listener {
                                         // if the recipe used when caching the addition item doesn't match the current recipe
                                         // or if the used items don't match what was used during the making of the cached item
                                         // then cancel
-                                        e.getInventory().setItem(2, null);
+                                        e.getInventory().setItem(resultIndex, null);
                                         e.setCancelled(true);
                                         additionItemCache.remove(e.getWhoClicked().getUniqueId());
                                         return;
@@ -67,7 +73,7 @@ public class PlayerSmithingListener implements Listener {
                                 }
                                 ItemStack finalAddition = addition;
                                 additionItemCache.remove(e.getWhoClicked().getUniqueId());
-                                if (finalAddition != null) ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> e.getInventory().setItem(1, finalAddition), 1L);
+                                if (finalAddition != null) ValhallaMMO.getPlugin().getServer().getScheduler().runTaskLater(ValhallaMMO.getPlugin(), () -> e.getInventory().setItem(additionIndex, finalAddition), 1L);
                             }
                             //e.setCurrentItem(results.getValue1());
                         }
@@ -97,9 +103,15 @@ public class PlayerSmithingListener implements Listener {
     @EventHandler
     public void onPrepareSmithing(PrepareSmithingEvent e){
         if (e.getInventory().getLocation() != null && e.getInventory().getLocation().getWorld() != null && ValhallaMMO.isWorldBlacklisted(e.getInventory().getLocation().getWorld().getName())) return;
-        if (Utils.isItemEmptyOrNull(e.getInventory().getItem(0)) || Utils.isItemEmptyOrNull(e.getInventory().getItem(1))) return;
-        ItemStack base = e.getInventory().getItem(0);
-        ItemStack addition = e.getInventory().getItem(1);
+        boolean is1_20 = MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_20);
+        int baseIndex = is1_20 ? 1 : 0;
+        int additionIndex = baseIndex + 1;
+
+        if (Utils.isItemEmptyOrNull(e.getInventory().getItem(baseIndex)) || Utils.isItemEmptyOrNull(e.getInventory().getItem(additionIndex))) {
+            return;
+        }
+        ItemStack base = e.getInventory().getItem(baseIndex);
+        ItemStack addition = e.getInventory().getItem(additionIndex);
         SmithingRecipe recipe = getSmithingRecipeAssociatedToItem(base, addition);
         if (recipe != null && e.getView().getPlayer() instanceof Player && !Utils.isItemEmptyOrNull(e.getResult())){
             assert base != null && addition != null;
@@ -160,7 +172,10 @@ public class PlayerSmithingListener implements Listener {
                     p.sendMessage("SMITHING: " + recipe.getKey().getKey());
                 }
                 // it's a vanilla recipe, so it should be cancelled if the upgraded tool is not custom
-                if (SmithingItemTreatmentManager.getInstance().isItemCustom(e.getInventory().getItem(0))){
+                if (MinecraftVersionManager.getInstance().currentVersionNewerThan(MinecraftVersion.MINECRAFT_1_20)){
+                    if (recipe instanceof SmithingTrimRecipe) return;
+                }
+                if (SmithingItemTreatmentManager.getInstance().isItemCustom(e.getInventory().getItem(baseIndex))){
                     e.setResult(null);
 //                    return;
                 }
@@ -169,7 +184,7 @@ public class PlayerSmithingListener implements Listener {
 //                }
             }
         } else {
-            ItemStack b = e.getInventory().getItem(0);
+            ItemStack b = e.getInventory().getItem(baseIndex);
             if (!Utils.isItemEmptyOrNull(b)){
                 if (EquipmentClass.getClass(b) != null && SmithingItemTreatmentManager.getInstance().isItemCustom(b)){
                     e.setResult(null);
@@ -193,6 +208,7 @@ public class PlayerSmithingListener implements Listener {
                 }
             }
         }
+
         return found;
     }
 }

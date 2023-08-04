@@ -1,0 +1,609 @@
+entries:
+  475410c4-1ad1-4208-972b-12dfebec4383:
+    name: 475410c4-1ad1-4208-972b-12dfebec4383
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: WHEAT
+    overwrite_drops: false
+  2597fcc1-a849-4c96-8082-37543ef8d1af:
+    name: 2597fcc1-a849-4c96-8082-37543ef8d1af
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-withered-filament>"}],"text":""}'
+        custom-model-data: 9192790
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: CRIMSON_FUNGUS
+    overwrite_drops: false
+  360f8f17-e7a6-4763-b27e-ae6ea67c2ffc:
+    name: 360f8f17-e7a6-4763-b27e-ae6ea67c2ffc
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: CORNFLOWER
+    overwrite_drops: false
+  23c08750-fe85-4086-b3a3-ee2e483bdff4:
+    name: 23c08750-fe85-4086-b3a3-ee2e483bdff4
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: BLUE_ORCHID
+    overwrite_drops: false
+  ff597eff-606b-4507-8790-9f4e00f0df5d:
+    name: ff597eff-606b-4507-8790-9f4e00f0df5d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: WHITE_TULIP
+    overwrite_drops: false
+  8aa314b2-1d83-4b11-9467-831fbada2ff9:
+    name: 8aa314b2-1d83-4b11-9467-831fbada2ff9
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: POTATOES
+    overwrite_drops: false
+  b3195efe-97ea-4922-8346-22f3afbdf3d2:
+    name: b3195efe-97ea-4922-8346-22f3afbdf3d2
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: ALLIUM
+    overwrite_drops: false
+  fe43cf99-4db5-408e-9083-73d581acfe2d:
+    name: fe43cf99-4db5-408e-9083-73d581acfe2d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: ALLIUM
+    overwrite_drops: false
+  d8044e1f-afde-44e9-b220-9f4cf49473e2:
+    name: d8044e1f-afde-44e9-b220-9f4cf49473e2
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: POPPY
+    overwrite_drops: false
+  6cf1b964-3e90-47ba-9725-48340304ccdc:
+    name: 6cf1b964-3e90-47ba-9725-48340304ccdc
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: PUMPKIN_STEM
+    overwrite_drops: false
+  07a47e16-dd43-453e-b3b1-02fae76dd8eb:
+    name: 07a47e16-dd43-453e-b3b1-02fae76dd8eb
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: PINK_TULIP
+    overwrite_drops: false
+  ea9b361f-2d96-4cb0-9fd4-46de4de176a4:
+    name: ea9b361f-2d96-4cb0-9fd4-46de4de176a4
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-knightsreed>"}],"text":""}'
+        custom-model-data: 9192785
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: SUGAR_CANE
+    overwrite_drops: false
+  b9e0aee0-86be-481f-ba04-bffadfc7ea5a:
+    name: b9e0aee0-86be-481f-ba04-bffadfc7ea5a
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: WHITE_TULIP
+    overwrite_drops: false
+  c775c306-a352-423f-be5f-d42dd7f69c95:
+    name: c775c306-a352-423f-be5f-d42dd7f69c95
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: AZURE_BLUET
+    overwrite_drops: false
+  943c6fcd-ccaa-47ef-9cd0-2c374e894122:
+    name: 943c6fcd-ccaa-47ef-9cd0-2c374e894122
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: BEETROOTS
+    overwrite_drops: false
+  99f3bebe-c549-41aa-948b-f2dbdc83cade:
+    name: 99f3bebe-c549-41aa-948b-f2dbdc83cade
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: DANDELION
+    overwrite_drops: false
+  620f7831-7820-4d29-835d-0c5a7bc5f801:
+    name: 620f7831-7820-4d29-835d-0c5a7bc5f801
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: ORANGE_TULIP
+    overwrite_drops: false
+  0f767bad-704d-4992-bc25-20d3dc90027d:
+    name: 0f767bad-704d-4992-bc25-20d3dc90027d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: PINK_TULIP
+    overwrite_drops: false
+  cfa17e92-8fae-4fc4-82b2-239e4517f80d:
+    name: cfa17e92-8fae-4fc4-82b2-239e4517f80d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-noxious-spores>"}],"text":""}'
+        custom-model-data: 9192791
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: NETHER_WART
+    overwrite_drops: false
+  2c2354eb-eeda-418f-b2a1-f8760e068812:
+    name: 2c2354eb-eeda-418f-b2a1-f8760e068812
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-tutor-lotus>"}],"text":""}'
+        custom-model-data: 9192780
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: LILY_PAD
+    overwrite_drops: false
+  9e7b9693-20c0-46e9-983f-e2d868a0e043:
+    name: 9e7b9693-20c0-46e9-983f-e2d868a0e043
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: POPPY
+    overwrite_drops: false
+  c5d0c43e-acc9-4d46-acbe-37116ce18d73:
+    name: c5d0c43e-acc9-4d46-acbe-37116ce18d73
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: LILY_OF_THE_VALLEY
+    overwrite_drops: false
+  ca916160-188d-4a72-ae77-84657eb17bbd:
+    name: ca916160-188d-4a72-ae77-84657eb17bbd
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: LILY_OF_THE_VALLEY
+    overwrite_drops: false
+  588c75f1-1e1c-4fd3-8214-0d7fe2421b9f:
+    name: 588c75f1-1e1c-4fd3-8214-0d7fe2421b9f
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: HANGING_ROOTS
+    overwrite_drops: true
+  018e7aa2-dc5a-4ac5-b75a-0e5e0b43b066:
+    name: 018e7aa2-dc5a-4ac5-b75a-0e5e0b43b066
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-withered-filament>"}],"text":""}'
+        custom-model-data: 9192790
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: WARPED_FUNGUS
+    overwrite_drops: false
+  9c752325-ae3c-4f4a-879f-37b5d730b758:
+    name: 9c752325-ae3c-4f4a-879f-37b5d730b758
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-bustling-fungus>"}],"text":""}'
+        custom-model-data: 9192788
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: RED_MUSHROOM
+    overwrite_drops: false
+  2c77be50-4f43-48d3-94da-855d34c6720b:
+    name: 2c77be50-4f43-48d3-94da-855d34c6720b
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: ORANGE_TULIP
+    overwrite_drops: false
+  15d6d8d5-e4e9-4be4-b208-5e94bed217bf:
+    name: 15d6d8d5-e4e9-4be4-b208-5e94bed217bf
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: CORNFLOWER
+    overwrite_drops: false
+  3455c2f5-c724-47f5-8624-cbd51f63312e:
+    name: 3455c2f5-c724-47f5-8624-cbd51f63312e
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: DANDELION
+    overwrite_drops: false
+  0f909731-aea6-48c5-b1d8-5dc6ec432e73:
+    name: 0f909731-aea6-48c5-b1d8-5dc6ec432e73
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-steelblossom>"}],"text":""}'
+        custom-model-data: 9192781
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: RED_TULIP
+    overwrite_drops: false
+  c258b422-4165-4754-b3cc-b08dc90d751b:
+    name: c258b422-4165-4754-b3cc-b08dc90d751b
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: OXEYE_DAISY
+    overwrite_drops: false
+  05a8f80a-2687-46dc-a8bc-dcc11b8b0e73:
+    name: 05a8f80a-2687-46dc-a8bc-dcc11b8b0e73
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: BLUE_ORCHID
+    overwrite_drops: false
+  2ca8e223-fb22-4dac-977b-9d698858b2e5:
+    name: 2ca8e223-fb22-4dac-977b-9d698858b2e5
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-calcified-seed>"}],"text":""}'
+        custom-model-data: 9192789
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: MELON_STEM
+    overwrite_drops: false
+  c558c0d1-6b54-43f1-bfa2-3d23dc658dd8:
+    name: c558c0d1-6b54-43f1-bfa2-3d23dc658dd8
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-pollen-stalks>"}],"text":""}'
+        custom-model-data: 9192784
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: AZURE_BLUET
+    overwrite_drops: false
+  a70d94d0-a312-4b93-b2fe-5c1cbdceb354:
+    name: a70d94d0-a312-4b93-b2fe-5c1cbdceb354
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-bustling-fungus>"}],"text":""}'
+        custom-model-data: 9192788
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: BROWN_MUSHROOM
+    overwrite_drops: false
+  86f8c545-2ce0-4595-8a3b-57eead9cc015:
+    name: 86f8c545-2ce0-4595-8a3b-57eead9cc015
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-goldroot>"}],"text":""}'
+        custom-model-data: 9192783
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.005
+    block: CARROTS
+    overwrite_drops: false
+  dd4cf1b4-7df7-4f83-ad58-f14358a85a5f:
+    name: dd4cf1b4-7df7-4f83-ad58-f14358a85a5f
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-shimmerleaf>"}],"text":""}'
+        custom-model-data: 9192782
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.01
+    block: RED_TULIP
+    overwrite_drops: false
+  95f14f52-52c5-4216-9f9a-7c8262226f0f:
+    name: 95f14f52-52c5-4216-9f9a-7c8262226f0f
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: LIME_DYE
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ambrosial-nectar>"}],"text":""}'
+        custom-model-data: 9192787
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: OXEYE_DAISY
+    overwrite_drops: false

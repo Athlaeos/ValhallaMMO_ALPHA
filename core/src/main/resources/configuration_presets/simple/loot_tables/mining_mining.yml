@@ -1,0 +1,385 @@
+entries:
+  eb8e55ff-30eb-4766-b923-ea0b446572db:
+    name: eb8e55ff-30eb-4766-b923-ea0b446572db
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-peridot>"}],"text":""}'
+        custom-model-data: 8712398
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIORITE
+    overwrite_drops: false
+  67a3d666-4907-4386-a793-5feb09b20cf4:
+    name: 67a3d666-4907-4386-a793-5feb09b20cf4
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-sapphire>"}],"text":""}'
+        custom-model-data: 8712394
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRANITE
+    overwrite_drops: false
+  a024fb4f-e312-4ffb-a316-f301809af0b7:
+    name: a024fb4f-e312-4ffb-a316-f301809af0b7
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRANITE
+    overwrite_drops: false
+  6f64e329-0c92-43df-8431-1bbc6204356a:
+    name: 6f64e329-0c92-43df-8431-1bbc6204356a
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-peridot>"}],"text":""}'
+        custom-model-data: 8712398
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRANITE
+    overwrite_drops: false
+  a9496bce-0991-4fe0-8e2f-607a8e866d0f:
+    name: a9496bce-0991-4fe0-8e2f-607a8e866d0f
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIORITE
+    overwrite_drops: false
+  af5e0823-757f-4418-b049-5e95ddaf334b:
+    name: af5e0823-757f-4418-b049-5e95ddaf334b
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-topaz>"}],"text":""}'
+        custom-model-data: 8712396
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: ANDESITE
+    overwrite_drops: false
+  b00a1a0f-7361-48b3-8b87-9f56712624f7:
+    name: b00a1a0f-7361-48b3-8b87-9f56712624f7
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-sapphire>"}],"text":""}'
+        custom-model-data: 8712394
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: ANDESITE
+    overwrite_drops: false
+  fbc14235-c0e2-4f7d-abb9-bd57c635442c:
+    name: fbc14235-c0e2-4f7d-abb9-bd57c635442c
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-topaz>"}],"text":""}'
+        custom-model-data: 8712396
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIORITE
+    overwrite_drops: false
+  52875273-12d0-412d-931a-8d5adb21845e:
+    name: 52875273-12d0-412d-931a-8d5adb21845e
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-peridot>"}],"text":""}'
+        custom-model-data: 8712398
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: ANDESITE
+    overwrite_drops: false
+  23ed4f5d-e40a-4d9c-94de-5ed62c9edf9c:
+    name: 23ed4f5d-e40a-4d9c-94de-5ed62c9edf9c
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-topaz>"}],"text":""}'
+        custom-model-data: 8712396
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: GRANITE
+    overwrite_drops: false
+  cd58309c-a4a0-425d-89c0-435faee2b291:
+    name: cd58309c-a4a0-425d-89c0-435faee2b291
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: ANDESITE
+    overwrite_drops: false
+  4bdde0b9-e863-40e7-8a0a-31dc7ff63bd6:
+    name: 4bdde0b9-e863-40e7-8a0a-31dc7ff63bd6
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-sapphire>"}],"text":""}'
+        custom-model-data: 8712394
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.001
+    block: DIORITE
+    overwrite_drops: false
+  51a3d496-7018-4c64-8de5-b29886e0ddf3:
+    name: 51a3d496-7018-4c64-8de5-b29886e0ddf3
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-topaz>"}],"text":""}'
+        custom-model-data: 8712396
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: DEEPSLATE_COAL_ORE
+    overwrite_drops: false
+  dda099b8-d340-428e-a561-5071d70dc0b4:
+    name: dda099b8-d340-428e-a561-5071d70dc0b4
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-topaz>"}],"text":""}'
+        custom-model-data: 8712396
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: COAL_ORE
+    overwrite_drops: false
+  6af4a073-6ac1-4e15-a1fa-8b5b57852f37:
+    name: 6af4a073-6ac1-4e15-a1fa-8b5b57852f37
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DIAMOND_ORE
+    overwrite_drops: false
+  1d765560-4fa2-4155-a948-f36facb6d033:
+    name: 1d765560-4fa2-4155-a948-f36facb6d033
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DEEPSLATE_LAPIS_ORE
+    overwrite_drops: false
+  51f44935-ddd7-4f3f-990c-e94fa6cd59b5:
+    name: 51f44935-ddd7-4f3f-990c-e94fa6cd59b5
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-peridot>"}],"text":""}'
+        custom-model-data: 8712398
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: IRON_ORE
+    overwrite_drops: false
+  f0a9dc3c-0379-4387-8881-4da8752571cd:
+    name: f0a9dc3c-0379-4387-8881-4da8752571cd
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-peridot>"}],"text":""}'
+        custom-model-data: 8712398
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: DEEPSLATE_IRON_ORE
+    overwrite_drops: false
+  f0c3a757-ea5a-46c8-aaba-4835c108974d:
+    name: f0c3a757-ea5a-46c8-aaba-4835c108974d
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
+        custom-model-data: 8712392
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: DEEPSLATE_REDSTONE_ORE
+    overwrite_drops: false
+  8fe978b8-4d4d-4828-bcad-a71f9fa8b291:
+    name: 8fe978b8-4d4d-4828-bcad-a71f9fa8b291
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DEEPSLATE_DIAMOND_ORE
+    overwrite_drops: false
+  209606d8-46c6-48b9-9617-73bf0de7025c:
+    name: 209606d8-46c6-48b9-9617-73bf0de7025c
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-sapphire>"}],"text":""}'
+        custom-model-data: 8712394
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: EMERALD_ORE
+    overwrite_drops: false
+  9db6dd41-911c-4ddd-8bb8-80a011a4690b:
+    name: 9db6dd41-911c-4ddd-8bb8-80a011a4690b
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-opal>"}],"text":""}'
+        custom-model-data: 8712392
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.002
+    block: REDSTONE_ORE
+    overwrite_drops: false
+  9169c3c9-21a6-4b38-9dfd-b4c2741ab140:
+    name: 9169c3c9-21a6-4b38-9dfd-b4c2741ab140
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-sapphire>"}],"text":""}'
+        custom-model-data: 8712394
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: DEEPSLATE_EMERALD_ORE
+    overwrite_drops: false
+  ff3f900c-67a3-4f07-b7ff-75a6ccda427b:
+    name: ff3f900c-67a3-4f07-b7ff-75a6ccda427b
+    drop:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: QUARTZ
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"white","text":"<lang.material-ruby>"}],"text":""}'
+        custom-model-data: 8712390
+    biome_filter: []
+    region_filter: !!set {}
+    drop_chance: 0.003
+    block: LAPIS_ORE
+    overwrite_drops: false

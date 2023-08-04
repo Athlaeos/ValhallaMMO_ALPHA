@@ -1,0 +1,4681 @@
+cooking:
+  campfire_heat_stone_sword:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_sword:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_sword:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_sword:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_sword:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_stone_sword:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_sword:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_sword:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_sword:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_sword:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_stone_sword:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_sword:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_sword:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SWORD
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_sword:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SWORD
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_sword:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SWORD
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_chainmail_leggings:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_pickaxe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_hoe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_axe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_chainmail_chestplate:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_chainmail_chestplate:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_hoe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_shears:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_shovel:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_stone_hoe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_chainmail_leggings:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_pickaxe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_shovel:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_stone_axe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_boots:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_chestplate:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_pickaxe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_shovel:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_stone_axe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_axe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_leggings:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_trident:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_pickaxe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_leggings:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_axe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_trident:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_leggings:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_hoe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_hoe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_shovel:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_shovel:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_axe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_shovel:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_chainmail_boots:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_shovel:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_boots:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_helmet:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_chestplate:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_chestplate:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_leggings:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_stone_pickaxe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_shears:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_hoe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HOE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_chainmail_chestplate:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_chainmail_boots:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_chainmail_helmet:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_helmet:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_pickaxe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_chainmail_helmet:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_chestplate:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_boots:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_leggings:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_trident:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: TRIDENT
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_boots:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_helmet:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_leggings:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_boots:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_hoe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_helmet:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_chestplate:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_shovel:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_boots:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_leggings:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_LEGGINGS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_stone_axe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_axe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_hoe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_helmet:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_pickaxe:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_helmet:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_axe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_hoe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HOE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_chestplate:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_pickaxe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_axe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_helmet:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_pickaxe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_stone_pickaxe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_leggings:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_leggings:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_stone_pickaxe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_PICKAXE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_chestplate:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_boots:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_leggings:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_pickaxe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_shovel:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_stone_shovel:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_axe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_chestplate:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_shovel:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_iron_pickaxe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_diamond_shovel:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_SHOVEL
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_gold_boots:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_helmet:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_iron_axe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_hoe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_leggings:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_chestplate:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_CHESTPLATE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_axe:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_helmet:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_shovel:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_SHOVEL
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_pickaxe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_chainmail_boots:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_boots:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_diamond_boots:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_BOOTS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_axe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_hoe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_HOE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_stone_shovel:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_axe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_AXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_boots:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_BOOTS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_iron_helmet:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_HELMET
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_chainmail_leggings:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_LEGGINGS
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_chestplate:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_stone_shovel:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_SHOVEL
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_stone_hoe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_chainmail_helmet:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: CHAINMAIL_HELMET
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_hoe:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_chestplate:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_CHESTPLATE
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_gold_pickaxe:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_PICKAXE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  blasting_heat_netherite_helmet:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_gold_boots:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLDEN_BOOTS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_netherite_helmet:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HELMET
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_hoe:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_HOE
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_stone_hoe:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: STONE_HOE
+    modifiers:
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_diamond_leggings:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: DIAMOND_LEGGINGS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_heat_netherite_chestplate:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_CHESTPLATE
+    modifiers:
+      treatment_add_super_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true
+  campfire_craft_heated_netherite_ingot:
+    campfire_mode: 2
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: NEUTRAL
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  blasting_craft_heated_iron_ingot:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: SOONEST
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  furnace_craft_heated_iron_ingot:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: SOONEST
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  furnace_craft_heated_gold_ingot:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: SOONEST
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  campfire_craft_heated_iron_ingot:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: IRON_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-iron-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: SOONEST
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  blasting_craft_heated_gold_ingot:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: SOONEST
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  blasting_craft_heated_netherite_ingot:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: NETHERITE_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"aqua","text":"<lang.material-hot-netherite-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: NEUTRAL
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  campfire_craft_heated_gold_ingot:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: GOLD_INGOT
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-hot-gold-ingot>"}],"text":""}'
+    modifiers:
+      custom_model_data_add:
+        strength: 9827320.0
+        priority: SOONEST
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  campfire_craft_melted_wax:
+    campfire_mode: 0
+    type: campfire
+    time: 600
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
+        custom-model-data: 9827320
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  furnace_craft_melted_wax:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
+        custom-model-data: 9827320
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  blasting_craft_melted_wax:
+    type: blasting
+    time: 100
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: HONEYCOMB
+      meta:
+        ==: ItemMeta
+        meta-type: UNSPECIFIC
+        display-name: '{"extra":[{"italic":false,"color":"gold","text":"<lang.material-melted-wax>"}],"text":""}'
+        custom-model-data: 9827320
+    tinker_mode: false
+    exact_meta: true
+    require_custom_tool: true
+  furnace_heat_shears:
+    type: furnace
+    time: 200
+    exp: 0.0
+    unlocked_for_everyone: true
+    required:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    result:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2586
+      type: SHEARS
+    modifiers:
+      treatment_add_heating:
+        strength: 100.0
+        priority: SOONEST
+      treatment_cancel_if_tempering:
+        strength: 0.0
+        priority: SOONEST
+      dynamic_durability:
+        strength2: 0.0
+        strength: 20.0
+        priority: NEUTRAL
+      dynamic_attack_speed:
+        strength2: 0.0
+        strength: 60.0
+        priority: LATER
+      treatment_remove_leather_binding:
+        strength: 0.0
+        priority: LATER
+    tinker_mode: true
+    exact_meta: true
+    require_custom_tool: true

@@ -152,6 +152,10 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
 
     @Override
     public void addEXP(Player p, double amount, boolean silent, PlayerSkillExperienceGainEvent.ExperienceGainReason reason) {
+        if (reason != PlayerSkillExperienceGainEvent.ExperienceGainReason.SKILL_ACTION){
+            super.addEXP(p, amount, silent, reason);
+            return;
+        }
         double multiplier = ((AccumulativeStatManager.getInstance().getStats("MINING_EXP_GAIN_GENERAL", p, true) / 100D));
         double finalAmount = amount * multiplier;
         super.addEXP(p, finalAmount, silent, reason);
@@ -273,7 +277,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
-                                        event.getPlayer().breakBlock(block); //rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
+                                        Utils.breakBlock(event.getPlayer(), block);
                                         if (cosmetic_outline) {
                                             Color color = Utils.hexToRgb(outline_color);
                                             ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());
@@ -295,7 +299,7 @@ public class MiningSkill extends Skill implements GatheringSkill, ExplosionSkill
                                     block -> blockBrokenType == block.getType() && blockDropEXPReward.containsKey(block.getType()),
                                     EquipmentClass.PICKAXE,
                                     block -> {
-                                        event.getPlayer().breakBlock(block); //rewardDropsExperience(event.getPlayer(), Utils.breakBlock(event.getPlayer(), block, veinMineInstantPickup));
+                                        Utils.breakBlock(event.getPlayer(), block);
                                         if (cosmetic_outline) {
                                             Color color = Utils.hexToRgb(outline_color);
                                             ShapeUtils.outlineBlock(block, 4, 0.5f, color.getRed(), color.getGreen(), color.getBlue());

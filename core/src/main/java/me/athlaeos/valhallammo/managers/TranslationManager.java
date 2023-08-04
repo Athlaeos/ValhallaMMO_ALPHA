@@ -32,6 +32,10 @@ public class TranslationManager {
     private final String language;
     private File config;
 
+    public File getConfig() {
+        return config;
+    }
+
     public TranslationManager(){
         translationMap = new HashMap<>();
         listTranslationMap = new HashMap<>();
@@ -167,13 +171,13 @@ public class TranslationManager {
      * @param i the item to translate
      */
     public ItemStack translateItemStack(ItemStack i){
-        if (i == null) return null;
+        if (Utils.isItemEmptyOrNull(i)) return null;
         boolean translated = false;
         ItemMeta iMeta = i.getItemMeta();
         if (iMeta == null) return null;
         if (iMeta.hasDisplayName()){
             if (iMeta.getDisplayName().contains("<lang.")){
-                iMeta.setDisplayName(Utils.chat(translatePlaceholders(Utils.chat(iMeta.getDisplayName()))));
+                iMeta.setDisplayName(Utils.chat(translatePlaceholders(iMeta.getDisplayName())));
                 translated = true;
             }
         }
@@ -199,9 +203,6 @@ public class TranslationManager {
         if (i == null) return null;
         ItemMeta iMeta = i.getItemMeta();
         if (iMeta == null) return null;
-//        if (iMeta.hasDisplayName()){
-//            iMeta.setDisplayName(Utils.chat(iMeta.getDisplayName()));
-//        }
         if (iMeta.hasLore() && iMeta.getLore() != null){
             List<String> newLore = new ArrayList<>();
             for (String s : iMeta.getLore()){

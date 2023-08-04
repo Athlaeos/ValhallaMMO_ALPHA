@@ -277,7 +277,6 @@ public class CookingListener implements Listener {
                 }
             } else if (e.getBlock().getState() instanceof Furnace){
                 Furnace furnace = (Furnace) e.getBlock().getState();
-
                 DynamicCookingRecipe<?> recipe = this.activeFurnaceRecipes.get(furnace.getBlock());
                 if (recipe != null){
                     ItemStack result = recipe.isTinkerInput() ? furnace.getInventory().getItem(0) : recipe.getResult();

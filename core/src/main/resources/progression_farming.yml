@@ -28,9 +28,9 @@ experience: # Everything about leveling and experience progression for Smithing
     BEETROOTS: 28
     BEETROOT: 14
     COCOA: 40
-    COCOA_BEANS: 10
+    COCOA_BEANS: 4
     MELON: 40
-    MELON_SLICE: 8
+    MELON_SLICE: 4
     PUMPKIN: 40
     NETHER_WART: 10
     BROWN_MUSHROOM: 40
@@ -39,7 +39,7 @@ experience: # Everything about leveling and experience progression for Smithing
     WARPED_FUNGUS: 48
     CRIMSON_FUNGUS: 48
     SWEET_BERRY_BUSH: 30
-    SWEET_BERRIES: 10
+    SWEET_BERRIES: 5
     CAVE_VINES: 40
     DANDELION: 20
     POPPY: 20
@@ -59,18 +59,18 @@ experience: # Everything about leveling and experience progression for Smithing
     NETHER_SPROUTS: 10
     WEEPING_VINES: 10
     TWISTING_VINES: 10
-    KELP: 10
+    KELP: 2
     HANGING_ROOTS: 20
     BIG_DRIPLEAF: 40
     SMALL_DRIPLEAF: 40
-    BAMBOO: 20
+    BAMBOO: 4
     AZALEA: 40
     FLOWERING_AZALEA: 40
     MANGROVE_PROPAGULE: 60
     LILY_PAD: 20
     VINE: 10
-    SCULK_VEIN: 10
-    SCULK: 10
+    SCULK_VEIN: 4
+    SCULK: 4
     SCULK_CATALYST: 50
     SCULK_SHRIEKER: 50
     LILAC: 20

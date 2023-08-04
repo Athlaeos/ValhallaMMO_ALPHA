@@ -33,7 +33,7 @@ experience: # Everything about leveling and experience progression for Smithing
       PRISMARINE: 500
       MEMBRANE: 1000
     type_multiplier: # The multiplier applied to the base material amount. For example, crafting a diamond chestplate
-      # would grant the player 400 * 8.0 = 3200 experience. A netherite pickaxe would grant the player 1000 * 3.5 = 3500 experience.
+      # would grant the player 1600 * 8.0 = 12800 experience. A diamond pickaxe would grant the player 1600 * 3.5 = 4800 experience.
       CHESTPLATE: 8.0
       LEGGINGS: 7.0
       HELMET: 5.0
