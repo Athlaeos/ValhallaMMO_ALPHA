@@ -4,6 +4,7 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.commands.valhalla_commands.RecipeRevealToggleCommand;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.recipetypes.DynamicCraftingTableRecipe;
+import me.athlaeos.valhallammo.dom.MinecraftVersion;
 import me.athlaeos.valhallammo.dom.Profile;
 import me.athlaeos.valhallammo.dom.RequirementType;
 import me.athlaeos.valhallammo.events.PlayerSkillExperienceGainEvent;
@@ -41,9 +42,6 @@ public class PlayerShapedCraftListener implements Listener {
 
     @EventHandler
     public void onPlayerCraft(CraftItemEvent e){
-        if (ValhallaMMO.isWorldBlacklisted(e.getWhoClicked().getWorld().getName())) {
-            return;
-        }
         CustomRecipeManager manager = CustomRecipeManager.getInstance();
         if (e.getWhoClicked() instanceof Player){
             if (e.getRecipe() instanceof ShapedRecipe || e.getRecipe() instanceof ShapelessRecipe){
@@ -52,6 +50,11 @@ public class PlayerShapedCraftListener implements Listener {
 //                }
                 DynamicCraftingTableRecipe recipe = manager.getDynamicShapedRecipe(((Keyed) e.getRecipe()).getKey());
                 if (recipe != null){
+                    if (ValhallaMMO.isWorldBlacklisted(e.getWhoClicked().getWorld().getName())) {
+                        e.getInventory().setResult(null);
+                        e.setCancelled(true);
+                        return;
+                    }
                     if (!e.getWhoClicked().hasPermission("valhalla.allrecipes")){
                         if (!recipe.isUnlockedForEveryone()){
                             Profile profile = ProfileManager.getManager().getProfile((Player) e.getWhoClicked(), "ACCOUNT");
@@ -65,6 +68,7 @@ public class PlayerShapedCraftListener implements Listener {
                             }
                         }
                     }
+
                     if (e.getClick().isKeyboardClick() || (e.getClick() == ClickType.SWAP_OFFHAND && !Utils.isItemEmptyOrNull(e.getWhoClicked().getInventory().getItemInMainHand()))) {
                         e.setCancelled(true);
                         return;
@@ -149,7 +153,9 @@ public class PlayerShapedCraftListener implements Listener {
                 if (ValhallaMMO.isWorldBlacklisted(e.getInventory().getLocation().getWorld().getName())) return;
             }
         }
-        if (e.isRepair()){
+        boolean isRepair = e.isRepair() || (MinecraftVersionManager.getInstance().currentVersionOlderThan(MinecraftVersion.MINECRAFT_1_16) &&
+                Arrays.stream(e.getInventory().getMatrix()).filter(i -> !Utils.isItemEmptyOrNull(i) && i.getType().getMaxDurability() > 0).count() >= 2);
+        if (isRepair){
             for (ItemStack i : e.getInventory().getMatrix()){
                 if (Utils.isItemEmptyOrNull(i)) continue;
                 if (SmithingItemTreatmentManager.getInstance().isItemCustom(i)) {

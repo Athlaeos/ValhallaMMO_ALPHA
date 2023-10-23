@@ -44,7 +44,7 @@ public class ItemDictionaryManager {
     }
 
     public void loadItemsAsync(){
-        ValhallaMMO.getPlugin().getServer().getScheduler().runTaskAsynchronously(ValhallaMMO.getPlugin(), this::loadItemDictionary);
+        loadItemDictionary();
     }
 
     public Map<Integer, ItemStack> getItemDictionary() {

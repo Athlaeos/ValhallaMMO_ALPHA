@@ -212,7 +212,7 @@ public class TranslationManager {
             iMeta.setLore(newLore);
         }
         if (iMeta.hasDisplayName()){
-            iMeta.setDisplayName(iMeta.getDisplayName());
+            iMeta.setDisplayName(Utils.chat(iMeta.getDisplayName()));
         }
         i.setItemMeta(iMeta);
         return i;

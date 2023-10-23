@@ -4,6 +4,7 @@ import me.athlaeos.valhallammo.ValhallaMMO;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DuoArgDynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier;
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
+import me.athlaeos.valhallammo.loottables.LootManager;
 import me.athlaeos.valhallammo.loottables.TieredLootEntry;
 import me.athlaeos.valhallammo.loottables.TieredLootTable;
 import me.athlaeos.valhallammo.utility.Utils;
@@ -212,6 +213,7 @@ public class ManageTieredLootTablesMenu extends Menu {
                             currentLootTable.registerEntry(newEntry);
                             view = View.VIEW_ENTRIES;
                             playerMenuUtility.getOwner().sendMessage(Utils.chat("&aSaved Changes!"));
+                            LootManager.setShouldSave();
                         }
                     } else {
                         view = View.VIEW_ENTRIES;
@@ -220,6 +222,7 @@ public class ManageTieredLootTablesMenu extends Menu {
                 } else if (clickedItem.equals(deleteButton)) {
                     if (currentLootEntry != null){
                         currentLootTable.unRegisterEntry(currentLootEntry.getName());
+                        LootManager.setShouldSave();
                         playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has been deleted"));
                     } else {
                         playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has already been deleted."));

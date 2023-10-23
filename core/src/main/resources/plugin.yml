@@ -1,5 +1,5 @@
 name: "ValhallaMMO"
-version: "ALPHA_1.8.3"
+version: "ALPHA_1.8.4"
 main: "me.athlaeos.valhallammo.ValhallaMMO"
 api-version: "1.16"
 authors: [ "Athlaeos" ]

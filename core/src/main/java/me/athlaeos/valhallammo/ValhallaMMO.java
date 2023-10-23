@@ -256,7 +256,11 @@ public final class ValhallaMMO extends JavaPlugin {
         } else {
             ValhallaMMO.getPlugin().getServer().getLogger().info("No recipe adjustments detected, not saving recipes!");
         }
-        LootManager.getInstance().saveLootTables();
+        if (LootManager.shouldSave()){
+            LootManager.getInstance().saveLootTables();
+        } else {
+            ValhallaMMO.getPlugin().getServer().getLogger().info("No loot table adjustments detected, not saving loot tables!");
+        }
         GlobalEffectManager.getInstance().saveActiveGlobalEffects();
 
         ProfileManager.getManager().savePlayerProfiles();

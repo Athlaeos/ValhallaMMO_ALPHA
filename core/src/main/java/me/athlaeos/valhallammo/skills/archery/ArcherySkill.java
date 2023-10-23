@@ -381,7 +381,7 @@ public class ArcherySkill extends Skill implements OffensiveSkill, InteractSkill
                 inaccuracy = Math.max(0, inaccuracy);
                 aV.setX(aV.getX() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
                 aV.setY(aV.getY() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
-                aV.setY(aV.getY() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
+                aV.setZ(aV.getZ() + Utils.getRandom().nextGaussian() * inaccuracy_value * inaccuracy);
 
                 arrow.setVelocity(aV);
             }

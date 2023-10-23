@@ -395,21 +395,21 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
 
     private final Collection<Material> logs = ItemUtils.getMaterialList(Arrays.asList(
             "OAK_LOG", "SPRUCE_LOG", "JUNGLE_LOG", "BIRCH_LOG",
-            "DARK_OAK_LOG", "ACACIA_LOG", "CRIMSON_STEM", "WARPED_STEM",
+            "DARK_OAK_LOG", "ACACIA_LOG", "MANGROVE_LOG", "CHERRY_LOG", "CRIMSON_STEM", "WARPED_STEM",
             "OAK_WOOD", "SPRUCE_WOOD", "JUNGLE_WOOD", "BIRCH_WOOD",
-            "DARK_OAK_WOOD", "ACACIA_WOOD", "CRIMSON_HYPHAE", "WARPED_HYPHAE"
+            "DARK_OAK_WOOD", "ACACIA_WOOD", "MANGROVE_WOOD", "CHERRY_WOOD", "CRIMSON_HYPHAE", "WARPED_HYPHAE"
     ));
 
     private final Collection<Material> leaves = ItemUtils.getMaterialList(Arrays.asList(
             "OAK_LEAVES", "SPRUCE_LEAVES", "JUNGLE_LEAVES", "BIRCH_LEAVES",
-            "DARK_OAK_LEAVES", "ACACIA_LEAVES", "NETHER_WART_BLOCK", "WARPED_WART_BLOCK"
+            "DARK_OAK_LEAVES", "ACACIA_LEAVES", "MANGROVE_LEAVES", "CHERRY_LEAVES", "NETHER_WART_BLOCK", "WARPED_WART_BLOCK"
     ));
 
     private final Collection<Material> strippedLogs = ItemUtils.getMaterialList(Arrays.asList(
             "STRIPPED_OAK_LOG", "STRIPPED_SPRUCE_LOG", "STRIPPED_JUNGLE_LOG", "STRIPPED_BIRCH_LOG",
-            "STRIPPED_DARK_OAK_LOG", "STRIPPED_ACACIA_LOG", "STRIPPED_CRIMSON_STEM", "STRIPPED_WARPED_STEM",
+            "STRIPPED_DARK_OAK_LOG", "STRIPPED_ACACIA_LOG", "STRIPPED_MANGROVE_LOG", "STRIPPED_CHERRY_LOG", "STRIPPED_CRIMSON_STEM", "STRIPPED_WARPED_STEM",
             "STRIPPED_OAK_WOOD", "STRIPPED_SPRUCE_WOOD", "STRIPPED_JUNGLE_WOOD", "STRIPPED_BIRCH_WOOD",
-            "STRIPPED_DARK_OAK_WOOD", "STRIPPED_ACACIA_WOOD", "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE"
+            "STRIPPED_DARK_OAK_WOOD", "STRIPPED_ACACIA_WOOD", "STRIPPED_MANGROVE_WOOD", "STRIPPED_CHERRY_WOOD", "STRIPPED_CRIMSON_HYPHAE", "STRIPPED_WARPED_HYPHAE"
     ));
 
     private final Map<Material, Collection<Material>> saplings = correlateSaplings();
@@ -428,6 +428,8 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
         if (acacia != null) saplings.put(acacia.getKey(), acacia.getValue());
         Map.Entry<Material, Collection<Material>> dark_oak = getFromStrings("DARK_OAK_SAPLING", "DARK_OAK_LOG", "DARK_OAK_WOOD");
         if (dark_oak != null) saplings.put(dark_oak.getKey(), dark_oak.getValue());
+        Map.Entry<Material, Collection<Material>> cherry = getFromStrings("CHERRY_SAPLING", "CHERRY_LOG", "CHERRY_WOOD");
+        if (cherry != null) saplings.put(cherry.getKey(), cherry.getValue());
 
         Map.Entry<Material, Collection<Material>> warped = getFromStrings("WARPED_FUNGUS", "WARPED_STEM", "WARPED_HYPHAE");
         if (warped != null) saplings.put(warped.getKey(), warped.getValue());
@@ -453,7 +455,11 @@ public class LandscapingSkill extends Skill implements GatheringSkill, InteractS
             return new Map.Entry<Material, Collection<Material>>() {
                 @Override
                 public Material getKey() {
-                    return Material.valueOf(key);
+                    try {
+                        return Material.valueOf(key);
+                    } catch (IllegalArgumentException ignored){
+                        return null;
+                    }
                 }
 
                 @Override

@@ -17,6 +17,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlockListener implements Listener {
     private GlobalChancedBlockLootTable lootTable = null;
@@ -70,8 +72,11 @@ public class BlockListener implements Listener {
                 return;
             }
 
-            for (Block b : e.getBlocks()){
-                BlockStore.setPlaced(b, true);
+            if (e.getBlock().getBlockData() instanceof Directional){
+                Directional d = (Directional) e.getBlock().getBlockData();
+                for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing())).collect(Collectors.toSet())){
+                    BlockStore.setPlaced(b, true);
+                }
             }
         }
     }
@@ -79,8 +84,9 @@ public class BlockListener implements Listener {
     @EventHandler(priority =EventPriority.HIGHEST)
     public void onPistonRetract(BlockPistonRetractEvent e){
         if (ValhallaMMO.isWorldBlacklisted(e.getBlock().getWorld().getName())) return;
-        if (!e.isCancelled()){
-            for (Block b : e.getBlocks()){
+        if (!e.isCancelled() && e.getBlock().getBlockData() instanceof Directional){
+            Directional d = (Directional) e.getBlock().getBlockData();
+            for (Block b : e.getBlocks().stream().map(b -> b.getRelative(d.getFacing().getOppositeFace())).collect(Collectors.toSet())){
                 BlockStore.setPlaced(b, true);
             }
         }

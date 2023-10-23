@@ -21,17 +21,24 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class LootManager {
     private static LootManager manager = null;
+    private static boolean shouldSave = false;
 
     private final Map<String, TieredLootTable> tieredLootTables = new HashMap<>();
     private final Map<String, ChancedBlockLootTable> chancedBlockLootTables = new HashMap<>();
     private final Map<String, ChancedEntityLootTable> chancedEntityLootTables = new HashMap<>();
+
+    public static boolean shouldSave() {
+        return shouldSave;
+    }
+    public static void setShouldSave(){
+        shouldSave = true;
+    }
 
     public LootManager(){
         registerLootTable(new TieredFishingLootTable());
@@ -69,20 +76,15 @@ public class LootManager {
     }
 
     public void loadLootTables(){
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                for (TieredLootTable table : tieredLootTables.values()){
-                    loadLootTable(table, "loot_tables/" + table.getName() + ".yml");
-                }
-                for (ChancedBlockLootTable table : chancedBlockLootTables.values()){
-                    loadLootTable(table, "loot_tables/" + table.getName() + ".yml");
-                }
-                for (ChancedEntityLootTable table : chancedEntityLootTables.values()){
-                    loadLootTable(table, "loot_tables/" + table.getName() + ".yml");
-                }
-            }
-        }.runTaskAsynchronously(ValhallaMMO.getPlugin());
+        for (TieredLootTable table : tieredLootTables.values()){
+            loadLootTable(table, "loot_tables/" + table.getName() + ".yml");
+        }
+        for (ChancedBlockLootTable table : chancedBlockLootTables.values()){
+            loadLootTable(table, "loot_tables/" + table.getName() + ".yml");
+        }
+        for (ChancedEntityLootTable table : chancedEntityLootTables.values()){
+            loadLootTable(table, "loot_tables/" + table.getName() + ".yml");
+        }
     }
 
     public void saveLootTables(){

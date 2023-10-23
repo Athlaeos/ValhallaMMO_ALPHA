@@ -8,6 +8,7 @@ import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.DynamicItemModifier
 import me.athlaeos.valhallammo.crafting.dynamicitemmodifiers.TripleArgDynamicItemModifier;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootTable;
 import me.athlaeos.valhallammo.loottables.ChancedBlockLootEntry;
+import me.athlaeos.valhallammo.loottables.LootManager;
 import me.athlaeos.valhallammo.utility.Utils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -244,6 +245,7 @@ public class ManageChancedBlockLootTablesMenu extends Menu {
                             currentLootTable.registerEntry(newEntry);
                             view = View.VIEW_ENTRIES;
                             playerMenuUtility.getOwner().sendMessage(Utils.chat("&aSaved Changes!"));
+                            LootManager.setShouldSave();
                         }
                     } else {
                         view = View.VIEW_ENTRIES;
@@ -252,6 +254,7 @@ public class ManageChancedBlockLootTablesMenu extends Menu {
                 } else if (clickedItem.equals(deleteButton)) {
                     if (currentLootEntry != null){
                         currentLootTable.unRegisterEntry(currentLootEntry.getName());
+                        LootManager.setShouldSave();
                         playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has been deleted"));
                     } else {
                         playerMenuUtility.getOwner().sendMessage(Utils.chat("&cEntry has already been deleted."));

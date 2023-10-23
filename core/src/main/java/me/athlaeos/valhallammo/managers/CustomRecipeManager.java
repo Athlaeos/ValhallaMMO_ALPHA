@@ -744,21 +744,16 @@ public class CustomRecipeManager {
         ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom smithing table recipes");
         loadDynamicCookingRecipes();
         ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom cooking recipes");
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                loadDynamicBrewingRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom brewing recipes");
-                loadItemCraftingRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom crafting recipes");
-                loadItemImprovementRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item improvement recipes");
-                loadItemClassImprovementRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item class improvement recipes");
-                loadCauldronRecipes();
-                ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom cauldron recipes");
-            }
-        }.runTaskAsynchronously(ValhallaMMO.getPlugin());
+        loadDynamicBrewingRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom brewing recipes");
+        loadItemCraftingRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom crafting recipes");
+        loadItemImprovementRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item improvement recipes");
+        loadItemClassImprovementRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom item class improvement recipes");
+        loadCauldronRecipes();
+        ValhallaMMO.getPlugin().getLogger().info("Successfully loaded custom cauldron recipes");
     }
 
     public DynamicCraftingTableRecipe getDynamicShapedRecipe(String name){
