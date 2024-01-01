@@ -1,5 +1,7 @@
 # ValhallaMMO
-Source code for ValhallaMMO, a very large configurable skills/leveling plugin for minecraft 
+Alpha source code for ValhallaMMO, a very large configurable skills/leveling plugin for minecraft 
+
+ALPHA IS OUTDATED! The plugin is unstable and unbalanced, and will no longer be maintained. Please use the Beta versions of ValhallaMMO going forward. 
 
 ## Getting started
 1. Download the jar off of spigot: https://www.spigotmc.org/resources/valhallammo-early-alpha-the-most-advanced-free-skills-leveling-plugin.94921/
